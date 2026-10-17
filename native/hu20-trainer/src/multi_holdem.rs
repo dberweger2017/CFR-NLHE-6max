@@ -185,6 +185,7 @@ pub struct CashGame {
     pub config: Config,
     pub tables: &'static EquityTables,
 }
+#[derive(Clone)]
 pub struct CashState {
     pub hand: Hand,
     tables: Option<&'static EquityTables>,

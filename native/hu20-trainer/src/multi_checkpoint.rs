@@ -1,6 +1,6 @@
 //! Versioned N-player checkpoint. Legacy HU readers/writers remain untouched.
 use crate::gz::Gzip;
-use crate::multi_cfr::{Counts, Entry, Table, Trainer};
+use crate::multi_cfr::{Counts, Entry, Sampling, Table, Trainer, PATH_SAMPLING};
 use flate2::read::MultiGzDecoder as GzDecoder;
 use serde_json::{json, Value};
 use std::io::{BufRead, BufReader};
@@ -14,11 +14,15 @@ pub fn counts_json(c: &Counts) -> Value {
         "traverser":c.traverser,"discarded_keys":c.discarded_keys,"discarded_visits":c.discarded_visits})
 }
 pub fn save(trainer: &Trainer, path: &Path, gzip: Gzip) -> Result<(), String> {
-    let header = json!({"format":"nplayer-cfr-v1","game":trainer.identity,"players":trainer.players,
+    let mut header = json!({"format":"nplayer-cfr-v1","game":trainer.identity,"players":trainer.players,
         "seed":trainer.seed,"iteration":trainer.iteration,"last_average_street":trainer.last_average_street,
         "average_rule":"opponent-sampled","max_entries":trainer.max_entries,
         "freeze_at_cap":trainer.freeze_at_cap,"frozen_at":trainer.frozen_at,"entries":trainer.table.len(),
         "counts":counts_json(&trainer.counts)});
+    if trainer.sampling == Sampling::Path {
+        header["sampling"] = json!(PATH_SAMPLING);
+        header["roots_per_seat"] = json!(trainer.roots_per_seat);
+    }
     write_atomic(path, |file| {
         trainer.table.write_sorted(file, gzip, format!("{header}\n").as_bytes(), |key, e, out| {
             serde_json::to_writer(&mut *out, &(key_hex(&key), e.actor, e.street, e.code, e.visits, e.regrets, e.average)).unwrap();
@@ -78,6 +82,16 @@ pub fn load(path: &Path) -> Result<Trainer, String> {
     if h["format"] != "nplayer-cfr-v1" || h["average_rule"] != "opponent-sampled" {
         return Err("unsupported checkpoint identity".into());
     }
+    let sampling = match h.get("sampling") {
+        None => Sampling::Stream,
+        Some(s) if s == PATH_SAMPLING => Sampling::Path,
+        Some(_) => return Err("unsupported sampling".into()),
+    };
+    let roots_per_seat = match (sampling, h.get("roots_per_seat")) {
+        (Sampling::Stream, None) => 1,
+        (Sampling::Path, Some(r)) => usize::try_from(integer(r)?).ok().filter(|&r| (1..=1024).contains(&r)).ok_or("invalid roots per seat")?,
+        _ => return Err("roots per seat belongs to fast mode".into()),
+    };
     let players = integer(&h["players"])? as usize;
     let last_average_street = integer(&h["last_average_street"])? as usize;
     let max_entries = usize::try_from(integer(&h["max_entries"])?).map_err(|e| e.to_string())?;
@@ -192,5 +206,7 @@ pub fn load(path: &Path) -> Result<Trainer, String> {
         frozen_at,
         table,
         counts,
+        sampling,
+        roots_per_seat,
     })
 }
