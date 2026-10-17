@@ -1,5 +1,7 @@
 //! N-player external sampling. The legacy HU traversal is intentionally separate.
 use crate::cfr::{fsum, regret_match, Key, KeyHasher, MAX_ACTIONS};
+use crate::gz::Gzip;
+use crate::store::{Allocation, Store, View};
 use rand::{Rng, SeedableRng};
 use std::collections::HashMap;
 use std::hash::BuildHasherDefault;
@@ -62,6 +64,104 @@ impl Entry {
             visits: 0,
         }
     }
+    pub fn stored(&self) -> Stored<'_> {
+        Stored {
+            actor: self.actor,
+            street: self.street,
+            code: self.code,
+            visits: self.visits,
+            regrets: &self.regrets,
+            average: self.average.as_deref(),
+        }
+    }
+    pub fn check(&self, d: Decision) {
+        self.stored().check(d)
+    }
+}
+
+/// One iteration's update of an entry, stored inline so building deltas allocates nothing per
+/// entry.
+#[derive(Clone, Copy, Debug)]
+pub struct Delta {
+    pub actor: u8,
+    pub street: u8,
+    pub code: u16,
+    len: u8,
+    averaged: bool,
+    regrets: [f64; MAX_ACTIONS],
+    average: [f64; MAX_ACTIONS],
+    pub visits: u64,
+}
+impl Delta {
+    pub fn new(d: Decision, last_average_street: usize) -> Self {
+        assert!((1..=MAX_ACTIONS).contains(&d.len()) && d.street < 4 && d.actor < 6 && d.owner < 6);
+        Self {
+            actor: d.owner as u8,
+            street: d.street as u8,
+            code: d.code,
+            len: d.len() as u8,
+            averaged: d.street <= last_average_street,
+            regrets: [0.; MAX_ACTIONS],
+            average: [0.; MAX_ACTIONS],
+            visits: 0,
+        }
+    }
+    pub fn regrets(&self) -> &[f64] {
+        &self.regrets[..self.len as usize]
+    }
+    pub fn regrets_mut(&mut self) -> &mut [f64] {
+        &mut self.regrets[..self.len as usize]
+    }
+    /// None for streets outside the averaging scope.
+    pub fn average(&self) -> Option<&[f64]> {
+        self.averaged.then(|| &self.average[..self.len as usize])
+    }
+    pub fn average_mut(&mut self) -> Option<&mut [f64]> {
+        self.averaged.then(|| &mut self.average[..self.len as usize])
+    }
+    fn stored(&self) -> Stored<'_> {
+        Stored {
+            actor: self.actor,
+            street: self.street,
+            code: self.code,
+            visits: self.visits,
+            regrets: self.regrets(),
+            average: self.average(),
+        }
+    }
+    pub fn check(&self, d: Decision) {
+        self.stored().check(d)
+    }
+}
+
+/// An entry as the table holds it.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Stored<'a> {
+    pub actor: u8,
+    pub street: u8,
+    pub code: u16,
+    pub visits: u64,
+    pub regrets: &'a [f64],
+    pub average: Option<&'a [f64]>,
+}
+impl<'a> Stored<'a> {
+    /// The store's `meta`: owner in the low byte, street in the next.
+    fn meta(&self) -> u32 {
+        self.actor as u32 | (self.street as u32) << 8
+    }
+    fn view(&self) -> View<'a> {
+        View { code: self.code, meta: self.meta(), visits: self.visits, regrets: self.regrets, average: self.average }
+    }
+    fn of(v: View<'a>) -> Self {
+        Stored {
+            actor: v.meta as u8,
+            street: (v.meta >> 8) as u8,
+            code: v.code,
+            visits: v.visits,
+            regrets: v.regrets,
+            average: v.average,
+        }
+    }
     pub fn check(&self, d: Decision) {
         assert_eq!(
             (
@@ -76,20 +176,132 @@ impl Entry {
     }
     pub fn policy(&self, average: bool) -> [f64; MAX_ACTIONS] {
         if average {
-            let a = self
-                .average
-                .as_ref()
-                .expect("average not stored for this street");
-            regret_match(a)
+            regret_match(self.average.expect("average not stored for this street"))
         } else {
-            regret_match(&self.regrets)
+            regret_match(self.regrets)
         }
     }
 }
-pub type Table = HashMap<Key, Entry, BuildHasherDefault<KeyHasher>>;
+
+/// One iteration's updates, in deterministic DFS order per key.
+pub type Deltas = HashMap<Key, Delta, BuildHasherDefault<KeyHasher>>;
+
+/// The training table: the HU trainer's compact sharded store.
+#[derive(Clone, Default)]
+pub struct Table(Store);
+impl Table {
+    pub fn len(&self) -> usize {
+        self.0.len()
+    }
+    pub fn is_empty(&self) -> bool {
+        self.len() == 0
+    }
+    pub fn get(&self, key: &Key) -> Option<Stored<'_>> {
+        self.0.view(key).map(Stored::of)
+    }
+    pub fn contains_key(&self, key: &Key) -> bool {
+        self.0.contains(key)
+    }
+    /// Adds a new key's entry; false if the key is already stored.
+    pub fn insert(&mut self, key: Key, entry: Entry) -> bool {
+        self.0.insert_view(key, entry.stored().view())
+    }
+    /// Merges `tasks` shard by shard, each key's deltas summed in task order; returns the
+    /// (keys, visits) discarded when `frozen`.
+    pub fn merge_all(&mut self, tasks: Vec<Deltas>, frozen: bool, parallel: bool) -> (u64, u64) {
+        use rayon::prelude::*;
+        let shards = self.0 .0.len();
+        let split = |deltas: Deltas| {
+            let mut parts: Vec<Vec<(Key, Delta)>> = (0..shards).map(|_| Vec::new()).collect();
+            for (key, delta) in deltas {
+                parts[Store::shard(&key)].push((key, delta));
+            }
+            parts
+        };
+        let split: Vec<Vec<Vec<(Key, Delta)>>> = if parallel { tasks.into_par_iter().map(split).collect() } else { tasks.into_iter().map(split).collect() };
+        let mut by_shard: Vec<Vec<Vec<(Key, Delta)>>> = (0..shards).map(|_| Vec::with_capacity(split.len())).collect();
+        for task in split {
+            for (s, part) in task.into_iter().enumerate() {
+                by_shard[s].push(part);
+            }
+        }
+        let merge = |(shard, parts): (&mut crate::store::Shard, Vec<Vec<(Key, Delta)>>)| {
+            let part: Vec<(Key, Delta)> = if parts.len() == 1 {
+                parts.into_iter().next().unwrap()
+            } else {
+                let mut combined = Deltas::default();
+                for (key, delta) in parts.into_iter().flatten() {
+                    absorb(&mut combined, key, delta);
+                }
+                combined.into_iter().collect()
+            };
+            let mut discarded = (0, 0);
+            for (key, delta) in part {
+                if frozen && !shard.contains(&key) {
+                    discarded = (discarded.0 + 1, discarded.1 + delta.visits);
+                } else {
+                    shard.merge(key, delta.stored().view());
+                }
+            }
+            discarded
+        };
+        let sum = |a: (u64, u64), b: (u64, u64)| (a.0 + b.0, a.1 + b.1);
+        if parallel {
+            self.0 .0.par_iter_mut().zip(by_shard).map(merge).reduce(|| (0, 0), sum)
+        } else {
+            self.0 .0.iter_mut().zip(by_shard).map(merge).fold((0, 0), sum)
+        }
+    }
+    /// Every entry, in no particular order.
+    pub fn iter(&self) -> impl Iterator<Item = (Key, Stored<'_>)> + '_ {
+        self.0.views().map(|(k, v)| (k, Stored::of(v)))
+    }
+    /// Every entry in key order.
+    pub fn sorted(&self) -> impl Iterator<Item = (Key, Stored<'_>)> + '_ {
+        self.0.sorted_views().map(|(k, v)| (k, Stored::of(v)))
+    }
+    pub fn keys(&self) -> impl Iterator<Item = Key> + '_ {
+        self.iter().map(|(k, _)| k)
+    }
+    pub fn values(&self) -> impl Iterator<Item = Stored<'_>> + '_ {
+        self.iter().map(|(_, v)| v)
+    }
+    pub fn allocation(&self) -> Allocation {
+        self.0.allocation()
+    }
+    /// Bytes of stored regrets and stored averages.
+    pub fn payload_bytes(&self) -> (usize, usize) {
+        self.0.payload_bytes()
+    }
+    pub fn index_capacity(&self) -> usize {
+        self.0.index_capacity()
+    }
+    /// `head`, then one `row` per entry in key order, formatted in parallel.
+    pub fn write_sorted(&self, file: std::fs::File, gzip: Gzip, head: &[u8],
+                        row: impl Fn(Key, Stored, &mut Vec<u8>) + Sync) -> std::io::Result<std::fs::File> {
+        self.0.write_sorted(file, gzip, head, |shard, i, out| {
+            let (key, v) = shard.row_view(i);
+            row(key, Stored::of(v), out)
+        })
+    }
+}
+impl PartialEq for Table {
+    fn eq(&self, other: &Self) -> bool {
+        self.len() == other.len() && self.sorted().eq(other.sorted())
+    }
+}
+impl std::fmt::Debug for Table {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_map().entries(self.sorted()).finish()
+    }
+}
 
 fn sample_policy<R: Rng>(rng: &mut R, policy: &[f64]) -> usize {
-    let draw: f64 = rng.gen();
+    pick(rng.gen(), policy)
+}
+
+/// The action whose cumulative probability first exceeds `draw` in [0, 1).
+fn pick(draw: f64, policy: &[f64]) -> usize {
     let mut cumulative = 0.;
     for (i, &p) in policy.iter().enumerate() {
         cumulative += p;
@@ -105,6 +317,71 @@ fn sample_policy<R: Rng>(rng: &mut R, policy: &[f64]) -> usize {
         .expect("empty policy support")
 }
 
+fn splitmix(mut x: u64) -> u64 {
+    x = x.wrapping_add(0x9E37_79B9_7F4A_7C15);
+    x = (x ^ (x >> 30)).wrapping_mul(0xBF58_476D_1CE4_E5B9);
+    x = (x ^ (x >> 27)).wrapping_mul(0x94D0_49BB_1331_11EB);
+    x ^ (x >> 31)
+}
+
+/// A node's identity within its traversal: the root is 0, each child hashes its parent and action.
+pub fn child_path(path: u64, action: usize) -> u64 {
+    splitmix(path ^ splitmix(action as u64 + 1))
+}
+
+/// How a traversal draws opponent actions, and whether it forks traverser subtrees.
+pub trait Sampler<S: State>: Sized {
+    fn sample(&mut self, policy: &[f64], path: u64) -> usize;
+    /// Every child's value, deltas and counts, visited in parallel; None visits in order.
+    fn fork(_t: &Traversal<'_, Self>, _state: &S, _n: usize, _path: u64, _depth: u8) -> Option<Vec<(f64, Deltas, Counts)>> {
+        None
+    }
+}
+
+/// The production recipe: one random stream per root, consumed in DFS order.
+pub struct Stream<'a, R: Rng>(pub &'a mut R);
+impl<R: Rng, S: State> Sampler<S> for Stream<'_, R> {
+    fn sample(&mut self, policy: &[f64], _path: u64) -> usize {
+        sample_policy(self.0, policy)
+    }
+}
+
+/// Fast mode: each draw depends only on the root's seed and the node's path, so subtrees are
+/// independent and can run in parallel.
+#[derive(Clone, Copy, Debug)]
+pub struct PathSampler(pub u64);
+impl<S: State + Clone + Send + Sync> Sampler<S> for PathSampler {
+    fn sample(&mut self, policy: &[f64], path: u64) -> usize {
+        pick((splitmix(self.0 ^ path) >> 11) as f64 * (1.0 / (1u64 << 53) as f64), policy)
+    }
+    fn fork(t: &Traversal<'_, Self>, state: &S, n: usize, path: u64, depth: u8) -> Option<Vec<(f64, Deltas, Counts)>> {
+        use rayon::prelude::*;
+        (depth < t.fork_depth).then(|| {
+            (0..n).into_par_iter().map(|a| {
+                let (mut deltas, mut counts) = (Deltas::default(), Counts::default());
+                let mut child = state.clone();
+                child.apply(a);
+                let value = Traversal { table: t.table, deltas: &mut deltas, sampler: t.sampler, traverser: t.traverser,
+                    weight: t.weight, last_average_street: t.last_average_street, counts: &mut counts, fork_depth: t.fork_depth }
+                    .visit(&mut child, child_path(path, a), depth + 1);
+                (value, deltas, counts)
+            }).collect()
+        })
+    }
+}
+
+/// Traverser depths that fork in fast mode; changes only the summation order.
+pub const FORK_DEPTH: u8 = 1;
+/// Checkpoint `sampling` of fast mode; absent for the production stream.
+pub const PATH_SAMPLING: &str = "path-v1";
+
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub enum Sampling {
+    #[default]
+    Stream,
+    Path,
+}
+
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
 pub struct Counts {
     pub nodes: u64,
@@ -115,20 +392,68 @@ pub struct Counts {
     pub discarded_keys: u64,
     pub discarded_visits: u64,
 }
+impl Counts {
+    fn add(&mut self, other: &Counts) {
+        self.nodes += other.nodes;
+        self.terminals += other.terminals;
+        for i in 0..4 {
+            self.decisions[i] += other.decisions[i];
+            self.missing[i] += other.missing[i];
+        }
+        for i in 0..6 {
+            self.traverser[i] += other.traverser[i];
+        }
+        self.discarded_keys += other.discarded_keys;
+        self.discarded_visits += other.discarded_visits;
+    }
+}
+
+/// Adds `delta` to `key`'s entry in `deltas`, or stores it as a new entry.
+fn absorb(deltas: &mut Deltas, key: Key, delta: Delta) {
+    match deltas.entry(key) {
+        std::collections::hash_map::Entry::Vacant(slot) => {
+            slot.insert(delta);
+        }
+        std::collections::hash_map::Entry::Occupied(mut slot) => {
+            let e = slot.get_mut();
+            assert_eq!((e.actor, e.street, e.code, e.len, e.averaged), (delta.actor, delta.street, delta.code, delta.len, delta.averaged));
+            for (sum, inc) in e.regrets_mut().iter_mut().zip(delta.regrets()) {
+                *sum += inc;
+            }
+            if let (Some(sum), Some(inc)) = (e.average_mut(), delta.average()) {
+                for (s, i) in sum.iter_mut().zip(inc) {
+                    *s += i;
+                }
+            }
+            e.visits += delta.visits;
+        }
+    }
+}
 
 /// Immutable snapshot until *all* traversers finish: no branch or seat observes
-/// an earlier branch's update. Deltas are accumulated in deterministic DFS order.
-pub struct Traversal<'a, R: Rng> {
+/// an earlier branch's update. Deltas are accumulated in deterministic DFS order;
+/// forked subtrees are added in action order.
+pub struct Traversal<'a, P> {
     pub table: &'a Table,
-    pub deltas: &'a mut Table,
-    pub rng: &'a mut R,
+    pub deltas: &'a mut Deltas,
+    pub sampler: P,
     pub traverser: usize,
     pub weight: f64,
     pub last_average_street: usize,
     pub counts: &'a mut Counts,
+    pub fork_depth: u8,
 }
-impl<R: Rng> Traversal<'_, R> {
-    pub fn run<S: State>(&mut self, state: &mut S) -> f64 {
+impl<P> Traversal<'_, P> {
+    pub fn run<S: State>(&mut self, state: &mut S) -> f64
+    where
+        P: Sampler<S>,
+    {
+        self.visit(state, 0, 0)
+    }
+    fn visit<S: State>(&mut self, state: &mut S, path: u64, depth: u8) -> f64
+    where
+        P: Sampler<S>,
+    {
         self.counts.nodes += 1;
         let Some(d) = state.decision() else {
             self.counts.terminals += 1;
@@ -153,34 +478,44 @@ impl<R: Rng> Traversal<'_, R> {
                 let delta = self
                     .deltas
                     .entry(d.key)
-                    .or_insert_with(|| Entry::new(d, self.last_average_street));
+                    .or_insert_with(|| Delta::new(d, self.last_average_street));
                 delta.check(d);
-                for (sum, p) in delta.average.as_mut().unwrap().iter_mut().zip(policy) {
+                for (sum, p) in delta.average_mut().unwrap().iter_mut().zip(policy) {
                     *sum += self.weight * p;
                 }
             }
-            let action = sample_policy(self.rng, &policy[..n]);
+            let action = self.sampler.sample(&policy[..n], path);
             let saved = state.save();
             state.apply(action);
-            let value = self.run(state);
+            let value = self.visit(state, child_path(path, action), depth);
             state.restore(saved);
             return value;
         }
         self.counts.traverser[d.actor] += 1;
         let mut values = [0.; MAX_ACTIONS];
-        for (a, value) in values[..n].iter_mut().enumerate() {
-            let saved = state.save();
-            state.apply(a);
-            *value = self.run(state);
-            state.restore(saved);
+        if let Some(children) = P::fork(self, state, n, path, depth) {
+            for (a, (value, deltas, counts)) in children.into_iter().enumerate() {
+                values[a] = value;
+                self.counts.add(&counts);
+                for (key, delta) in deltas {
+                    absorb(self.deltas, key, delta);
+                }
+            }
+        } else {
+            for (a, value) in values[..n].iter_mut().enumerate() {
+                let saved = state.save();
+                state.apply(a);
+                *value = self.visit(state, child_path(path, a), depth + 1);
+                state.restore(saved);
+            }
         }
         let value = fsum((0..n).map(|a| policy[a] * values[a]));
         let delta = self
             .deltas
             .entry(d.key)
-            .or_insert_with(|| Entry::new(d, self.last_average_street));
+            .or_insert_with(|| Delta::new(d, self.last_average_street));
         delta.check(d);
-        for (a, r) in delta.regrets.iter_mut().enumerate() {
+        for (a, r) in delta.regrets_mut().iter_mut().enumerate() {
             *r += self.weight * (values[a] - value);
         }
         delta.visits += 1;
@@ -211,6 +546,9 @@ pub struct Trainer {
     pub frozen_at: Option<u64>,
     pub table: Table,
     pub counts: Counts,
+    pub sampling: Sampling,
+    /// Fast mode: traversals per seat and iteration.
+    pub roots_per_seat: usize,
 }
 impl Trainer {
     pub fn new<G: Game>(
@@ -232,9 +570,15 @@ impl Trainer {
             frozen_at: None,
             table: Table::default(),
             counts: Counts::default(),
+            sampling: Sampling::Stream,
+            roots_per_seat: 1,
         }
     }
-    pub fn step<G: Game>(&mut self, game: &G) {
+    /// Starts the next iteration; its linear weight.
+    fn begin<G: Game>(&mut self, game: &G, sampling: Sampling) -> f64 {
+        assert_eq!(self.sampling, sampling, "training continues with the checkpoint's sampling");
+        assert!(match sampling { Sampling::Stream => self.roots_per_seat == 1, Sampling::Path => (1..=1024).contains(&self.roots_per_seat) },
+            "roots per seat: 1 in production, 1 to 1024 in fast mode");
         assert_eq!(game.identity(), self.identity);
         assert_eq!(game.players(), self.players);
         assert!(
@@ -247,56 +591,97 @@ impl Trainer {
             self.iteration <= 1 << 53,
             "linear weight no longer exactly representable"
         );
-        let mut deltas = Table::default();
+        self.iteration as f64
+    }
+    /// Domain-separated deterministic root streams need no opaque RNG state
+    /// in checkpoints and do not depend on thread scheduling or hash order.
+    pub(crate) fn root(&self, player: usize, domain: &[u8]) -> rand::rngs::StdRng {
+        use sha2::{Digest, Sha256};
+        let mut hash = Sha256::new();
+        hash.update(domain);
+        hash.update(self.seed.to_le_bytes());
+        hash.update(self.iteration.to_le_bytes());
+        hash.update((player as u64).to_le_bytes());
+        rand::rngs::StdRng::from_seed(hash.finalize().into())
+    }
+    /// One iteration of the production recipe: seats in order, draws from each root's stream.
+    pub fn step<G: Game>(&mut self, game: &G) {
+        let weight = self.begin(game, Sampling::Stream);
+        let mut deltas = Deltas::default();
+        let mut counts = std::mem::take(&mut self.counts);
         for player in 0..self.players {
-            // Domain-separated deterministic root streams need no opaque RNG state
-            // in checkpoints and do not depend on thread scheduling or hash order.
-            use sha2::{Digest, Sha256};
-            let mut hash = Sha256::new();
-            hash.update(b"nplayer-external-sampling-v1");
-            hash.update(self.seed.to_le_bytes());
-            hash.update(self.iteration.to_le_bytes());
-            hash.update((player as u64).to_le_bytes());
-            let mut rng = rand::rngs::StdRng::from_seed(hash.finalize().into());
+            let mut rng = self.root(player, b"nplayer-external-sampling-v1");
             let mut state = game.sample(&mut rng);
             assert_eq!(state.players(), self.players);
             Traversal {
                 table: &self.table,
                 deltas: &mut deltas,
-                rng: &mut rng,
+                sampler: Stream(&mut rng),
                 traverser: player,
-                weight: self.iteration as f64,
+                weight,
                 last_average_street: self.last_average_street,
-                counts: &mut self.counts,
+                counts: &mut counts,
+                fork_depth: 0,
             }
             .run(&mut state);
         }
-        for (key, delta) in deltas {
-            if self.frozen_at.is_some() && !self.table.contains_key(&key) {
-                self.counts.discarded_keys += 1;
-                self.counts.discarded_visits += delta.visits;
-                continue;
+        self.counts = counts;
+        self.apply(vec![deltas]);
+    }
+    /// One iteration of fast mode (docs/nplayer-fast-mode.md); identical for any thread count.
+    pub fn step_fast<G: Game + Sync>(&mut self, game: &G)
+    where
+        G::State: Clone + Send + Sync,
+    {
+        use rayon::prelude::*;
+        let weight = self.begin(game, Sampling::Path);
+        let roots: Vec<(usize, usize)> = (0..self.players).flat_map(|p| (0..self.roots_per_seat).map(move |r| (p, r))).collect();
+        let tasks: Vec<(Deltas, Counts)> = roots.into_par_iter().map(|(player, r)| {
+            let (mut rng, seed) = self.fast_root(player, r);
+            let mut state = game.sample(&mut rng);
+            assert_eq!(state.players(), self.players);
+            let (mut deltas, mut counts) = (Deltas::default(), Counts::default());
+            Traversal {
+                table: &self.table,
+                deltas: &mut deltas,
+                sampler: PathSampler(seed),
+                traverser: player,
+                weight,
+                last_average_street: self.last_average_street,
+                counts: &mut counts,
+                fork_depth: FORK_DEPTH,
             }
-            if let Some(entry) = self.table.get_mut(&key) {
-                assert_eq!(
-                    (entry.actor, entry.street, entry.code),
-                    (delta.actor, delta.street, delta.code)
-                );
-                for (v, inc) in entry.regrets.iter_mut().zip(&delta.regrets) {
-                    *v += inc;
-                    assert!(v.is_finite());
-                }
-                if let (Some(a), Some(b)) = (&mut entry.average, delta.average) {
-                    for (v, inc) in a.iter_mut().zip(b) {
-                        *v += inc;
-                        assert!(v.is_finite());
-                    }
-                }
-                entry.visits += delta.visits;
-            } else {
-                self.table.insert(key, delta);
-            }
+            .run(&mut state);
+            (deltas, counts)
+        }).collect();
+        let mut all = Vec::with_capacity(tasks.len());
+        for (deltas, counts) in tasks {
+            self.counts.add(&counts);
+            all.push(deltas);
         }
+        self.apply(all);
+    }
+    /// A fast root's deal stream and path seed: root 0 deals the production deal.
+    pub(crate) fn fast_root(&self, player: usize, root: usize) -> (rand::rngs::StdRng, u64) {
+        let deal = if root == 0 { self.root(player, b"nplayer-external-sampling-v1") } else { self.extra_root(player, root, b"nplayer-fast-root-v1") };
+        (deal, rand::RngCore::next_u64(&mut self.extra_root(player, root, b"nplayer-path-sampling-v1")))
+    }
+    fn extra_root(&self, player: usize, root: usize, domain: &[u8]) -> rand::rngs::StdRng {
+        use sha2::{Digest, Sha256};
+        let mut hash = Sha256::new();
+        hash.update(domain);
+        hash.update(self.seed.to_le_bytes());
+        hash.update(self.iteration.to_le_bytes());
+        hash.update((player as u64).to_le_bytes());
+        hash.update((root as u64).to_le_bytes());
+        rand::rngs::StdRng::from_seed(hash.finalize().into())
+    }
+    /// Production merges on its own thread, fast mode in parallel.
+    fn apply(&mut self, tasks: Vec<Deltas>) {
+        let parallel = self.sampling == Sampling::Path;
+        let (keys, visits) = self.table.merge_all(tasks, self.frozen_at.is_some(), parallel);
+        self.counts.discarded_keys += keys;
+        self.counts.discarded_visits += visits;
         if self.freeze_at_cap && self.frozen_at.is_none() && self.table.len() >= self.max_entries {
             self.frozen_at = Some(self.iteration);
         }
