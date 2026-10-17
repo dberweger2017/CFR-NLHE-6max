@@ -40,8 +40,10 @@ The [research history](research-history.md) indexes completed experiments.
   and `--out`; optional `--stack-bb`, `--stacks`, blinds, `--last-average-street`
   (0=preflop through 3=river), `--freeze-at-cap`, `--telemetry` and `--stop-file`
   control a bounded run; `--fast-gzip` writes the checkpoint as one gzip member per
-  formatted piece (same content, faster, different `.gz` bytes). Resume requires `--resume` plus `--resume-sha256` and
-  identical game/seed/averaging/cap settings. This version supports only the exact
+  formatted piece (same content, faster, different `.gz` bytes); `--fast` selects the
+  [fast-mode recipe](nplayer-fast-mode.md) (all cores, identical for any thread count) and
+  `--threads N` its worker count. Resume requires `--resume` plus `--resume-sha256` and
+  identical game/seed/averaging/cap/sampling settings. This version supports only the exact
   HU v1 sizing convention, including its conditional jam and duplicate removal.
   N-player checkpoints use a distinct N-tagged format; legacy HU commands and
   checkpoints remain supported through their unchanged entry point.
