@@ -1,8 +1,8 @@
-## Overnight three-player20BB campaign (active; owner thermal amendment)
+## Overnight three-player20BB campaign (terminal thermal stop; originals retained)
 
 [Proposal345](https://github.com/dberweger2017/CFR-NLHE-6max/issues/345); [frozen protocol](docs/nplayer-overnight-blueprint.md). The existing PR340~3B raw checkpoints/averages are read-only inputs. New owned tmpfs workspace `/tmp/nplayer-overnight-20261018` has retained, hash-verified copies in a new per-PR2TB cache root; exact [pins/root/launch receipts](docs/reports/nplayer-overnight/launch.md) record frozen source4cd199a5 and supervisor358105. Preserve all failures and partials. No originals deleted; cloud archival/acceptance pending.
 
-October18 owner amendment: Thermistor15 stop100°C after the next completed20B checkpoint, CPU90°C and the original deadline retained. Separate one-shot handoff code and `thermal-handoff-{armed,started,interruption,active,failure}.json` receipts live in the same owned run root; the interrupted stage and existing10B/20B checkpoints remain intact. The original frozen source/native binary are unchanged. `armed` is pending, not proof of activation; consult `active` and continuation measurements. No failed-science retry or recurring schedule.
+October18 owner amendment requested Thermistor15 stop100°C after the next completed20B checkpoint, CPU90°C and the original deadline retained. **Terminal20:46:30UTC: old95°C guard stopped before20B, so100°C never activated. Last periodic progress17.47B;10B checkpoint retained, no further seed/final evaluation or automatic restart.** [Terminal receipt](docs/reports/nplayer-overnight/terminal-stop.md). Separate one-shot handoff code and `thermal-handoff-{armed,started,interruption,active,failure}.json` receipts live in the same owned run root; the interrupted stage and existing10B/20B checkpoints remain intact. The original frozen source/native binary are unchanged. `armed` is pending, not proof of activation; consult `active` and continuation measurements. No failed-science retry or recurring schedule.
 
 ## PR340 — PR335 strength study (complete; archival pending)
 

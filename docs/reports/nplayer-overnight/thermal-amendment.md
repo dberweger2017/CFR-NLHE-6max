@@ -1,5 +1,7 @@
 # Owner-authorized checkpoint thermal handoff
 
+**Terminal update,20:46:30UTC:** the original95°C guard stopped the first seed before20B. The100°C handoff never started or activated. Both supervisors exited; no automatic restart. The10B checkpoint, raw logs and failure receipts remain in the original root and owned cache. See [terminal stop](terminal-stop.md). The arming record below is historical.
+
 October18,2026: the owner requested Thermistor15 stop100°C instead of95°C and explicitly approved applying it “on the next completed checkpoint.” CPU90°C and all other campaign settings remain. No MSI-approved continuous temperature rating is claimed.
 
 The next boundary is seed2026101541 at20B nodes. The first10B save already completed before this authorization. The one-shot helper was launched at20:39:30UTC and confirmed armed at20:40:03UTC, while training was at15.65B nodes. Activation is **pending**: the old95°C supervisor remains active until the20B checkpoint has closed and emitted its SHA256 event. A failure before then aborts the handoff without retry.
