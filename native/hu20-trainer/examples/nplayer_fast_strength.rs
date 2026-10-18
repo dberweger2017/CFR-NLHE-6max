@@ -46,6 +46,7 @@ fn run() -> Result<(), String> {
     let game = CashGame {
         config: Config::new(&[2000; 3], 50, 100)?,
         tables: EquityTables::load(Path::new(&a[1]), false)?,
+        key_schema: Default::default(),
     };
     let mut trainer = Trainer::new(&game, seed, 3, 150_000_000, false);
     if fast {

@@ -52,7 +52,12 @@ fn run() -> Result<(), String> {
                 if table.config() != config {
                     return Err("arena requires three-player 20 BB 50/100 identity".into());
                 }
-                if identity.as_ref().is_some_and(|i| i != &table.identity) {
+                if identity.as_ref().is_some_and(|i: &Value| {
+                    let mut a = i.clone(); let mut b = table.identity.clone();
+                    a.as_object_mut().unwrap().remove("schema");
+                    b.as_object_mut().unwrap().remove("schema");
+                    a != b
+                }) {
                     return Err("mixed game identities".into());
                 }
                 identity = Some(table.identity.clone());
@@ -69,9 +74,18 @@ fn run() -> Result<(), String> {
     } else {
         Some(EquityTables::load(Path::new(&a[1]), false)?)
     };
-    let identity = identity.unwrap_or_else(
+    let mut identity = identity.unwrap_or_else(
         || json!({"players":3,"stacks":[2000,2000,2000],"small_blind":50,"big_blind":100}),
     );
+    // Key formats may differ while all game/card/menu information stays identical.
+    // Preserve historical v1-only headers exactly; otherwise record each format
+    // on its own policy and leave the common game identity schema-independent.
+    if cache.values().any(|t| t.identity["schema"] != hu20_trainer::multi_holdem::SCHEMA) {
+        identity.as_object_mut().unwrap().remove("schema");
+        for (i, spec) in [&a[5], &a[6], &a[6]].into_iter().enumerate() {
+            if let Some(table) = cache.get(spec) { pins[i]["schema"] = table.identity["schema"].clone(); }
+        }
+    }
     let load_seconds = started.elapsed().as_secs_f64();
     let mut out = std::io::BufWriter::new(
         std::fs::OpenOptions::new()

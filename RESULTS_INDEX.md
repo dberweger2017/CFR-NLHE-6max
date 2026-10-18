@@ -1,3 +1,20 @@
+## PR344 pilot closeout — October18
+
+[Measured pilot and preserved budget stop](docs/reports/nplayer-compact-keys/pilot.md). All42 stages return0; full100M logical rows match. The forecast refuses the1B/3B comparison before launch. Raw originals remain at `bb128:/mnt/data2tb/nplayer-key-benchmark-20261018`; cloud acceptance pending, no deletion.
+
+## PR344 — compact-key pilot complete; larger comparison refused
+
+[PR344](https://github.com/dberweger2017/CFR-NLHE-6max/pull/344),
+[proposal343](https://github.com/dberweger2017/CFR-NLHE-6max/issues/343),
+[protocol and overnight rationale](docs/nplayer-compact-key-benchmark.md).
+Owner authorized the three-variant bb128 comparison, quoted1–2 compute hours;
+this does not launch the later overnight20BB campaign. New owned root will be
+`bb128:/mnt/data2tb/nplayer-key-benchmark-20261018`. No old research roots or
+models are copied or changed. Shared pinned K50 tables and qualified PR340
+binaries/venv are read-only dependencies. Preserve all raw checkpoints, mappings,
+source, timing/resource logs and failures there; cloud archival/acceptance pending.
+Compact results and full launch/source pins will be added after verified readout.
+
 ## PR340 — PR335 strength study (complete; archival pending)
 
 [PR340](https://github.com/dberweger2017/CFR-NLHE-6max/pull/340),

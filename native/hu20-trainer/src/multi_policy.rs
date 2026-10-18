@@ -1,11 +1,13 @@
 //! Minimal N-player research export/loader. Policy inputs cannot reach a Hand.
+#[cfg(test)]
+use crate::multi_holdem::SCHEMA;
 use crate::{
     cards::{EquityTables, EQUITY_K50_SHA256},
     cfr::{Key, KeyHasher},
     gz::Gzip,
     multi_cfr::Trainer,
     multi_checkpoint,
-    multi_holdem::{self, MENU, SCHEMA},
+    multi_holdem::{self, KeySchema, MENU},
     nplayer::{Action, Config, Observation},
 };
 use flate2::read::MultiGzDecoder as GzDecoder;
@@ -63,12 +65,13 @@ pub struct PolicyTable {
     pub mode: Mode,
     pub source_checkpoint_sha256: String,
     config: Config,
+    key_schema: KeySchema,
     pub rows: HashMap<Key, Row, BuildHasherDefault<KeyHasher>>,
 }
 fn cash_config(identity: &Value) -> Result<Config, String> {
     let n = identity["players"].as_u64().ok_or("missing N")?;
     if !(2..=6).contains(&n)
-        || identity["schema"] != SCHEMA
+        || KeySchema::from_name(identity["schema"].as_str().unwrap_or("")).is_err()
         || identity["game"] != "nlhe-cash"
         || identity["menu"] != MENU
         || identity["utility_unit"] != "big-blind"
@@ -145,6 +148,7 @@ impl PolicyTable {
             return Err("unsupported policy".into());
         }
         let config = cash_config(&h["identity"])?;
+        let key_schema = KeySchema::from_name(h["identity"]["schema"].as_str().ok_or("missing schema")?)?;
         let players = h["players"].as_u64().ok_or("invalid N")?;
         let scope = h["last_average_street"].as_u64().ok_or("invalid scope")?;
         let mode = Mode::parse(h["strategy"].as_str().ok_or("missing strategy")?)?;
@@ -220,6 +224,7 @@ impl PolicyTable {
             mode,
             source_checkpoint_sha256: source.to_owned(),
             config,
+            key_schema,
             rows,
         })
     }
@@ -244,7 +249,7 @@ impl PolicyTable {
         if observation.actor != Some(observation.seat) || observation.legal.is_none() {
             return Err("policy requires its acting-seat observation".into());
         }
-        let d = multi_holdem::observation_decision(observation, tables);
+        let d = multi_holdem::observation_decision_schema(observation, tables, self.key_schema);
         if let Some(row) = self.rows.get(&d.key) {
             if (row.owner as usize, row.street as usize, row.code) != (d.owner, d.street, d.code) {
                 return Err("policy key/action identity mismatch".into());
@@ -321,6 +326,27 @@ mod tests {
         }
         t
     }
+    #[test]
+    fn versioned_key_identities_roundtrip_and_unknown_aliases_are_refused() {
+        let dir = std::env::temp_dir().join(format!("nplayer-key-policy-{}", std::process::id()));
+        std::fs::create_dir(&dir).unwrap();
+        for schema in KeySchema::ALL {
+            let mut t = fixture(3, 3);
+            t.identity["schema"] = json!(schema.name());
+            let path = dir.join(format!("{}.gz", schema.option()));
+            write(&t, &"a".repeat(64), Mode::Average, &path, Gzip::Compatible).unwrap();
+            let loaded = PolicyTable::read(&path).unwrap();
+            assert_eq!(loaded.key_schema, schema);
+            assert_eq!(loaded.identity, t.identity);
+        }
+        for name in ["v1", "unknown", "nplayer-button-history-equity-k50-compact-xxh3-v99"] {
+            let mut t = fixture(3, 3);
+            t.identity["schema"] = json!(name);
+            assert!(cash_config(&t.identity).is_err());
+        }
+        std::fs::remove_dir_all(dir).unwrap();
+    }
+
     #[test]
     fn strategy_scope_is_explicit_and_export_is_deterministic_for_all_n() {
         let dir = std::env::temp_dir().join(format!("nplayer-export-{}", std::process::id()));

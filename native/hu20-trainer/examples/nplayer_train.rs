@@ -60,6 +60,7 @@ fn train() -> Result<(), String> {
             "--stop-file",
             "--threads",
             "--roots-per-seat",
+            "--key-schema",
         ]
         .contains(&key.as_str())
         {
@@ -149,7 +150,8 @@ fn train() -> Result<(), String> {
         Some(r) => r.parse::<usize>().ok().filter(|r| (1..=1024).contains(r)).ok_or("invalid --roots-per-seat")?,
     };
     let tables = EquityTables::load(Path::new(required("--card-buckets")?), false)?;
-    let game = CashGame { config, tables };
+    let key_schema = hu20_trainer::multi_holdem::KeySchema::parse(options.get("--key-schema").map(String::as_str).unwrap_or("v1"))?;
+    let game = CashGame { config, tables, key_schema };
     let mut trainer = if let Some(path) = options.get("--resume") {
         let path = Path::new(path);
         let expected = required("--resume-sha256")?;
