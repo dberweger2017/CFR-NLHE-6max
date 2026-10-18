@@ -64,18 +64,22 @@ def tree_bytes(root):
     return total
 
 
-def group_rss(pgid):
-    total = 0
+def group_metrics(pgid):
+    totals = dict(rss_bytes=0, read_bytes=0, write_bytes=0, rchar=0, wchar=0)
     for p in Path('/proc').glob('[0-9]*'):
         try:
             fields = (p / 'stat').read_text().rsplit(')', 1)[1].split()
             if int(fields[2]) == pgid:
                 status = (p / 'status').read_text().splitlines()
-                total += next((int(s.split()[1]) * 1024 for s in status
-                               if s.startswith('VmRSS:')), 0)
+                totals['rss_bytes'] += next((int(s.split()[1]) * 1024 for s in status
+                                             if s.startswith('VmRSS:')), 0)
+                for line in (p/'io').read_text().splitlines():
+                    key, value = line.split(':')
+                    if key in totals:
+                        totals[key] += int(value)
         except (OSError, ValueError):
             continue
-    return total
+    return totals
 
 
 def enforce(row, remaining, elapsed):
@@ -115,7 +119,7 @@ class Supervisor:
                    swap_growth_bytes=m['SwapTotal'] - m['SwapFree'] - self.swap,
                    free_disk_bytes=disk.f_bavail * disk.f_frsize,
                    remaining_output_reservation_bytes=self.remaining,
-                   rss_bytes=group_rss(process.pid) if process else 0)
+                   **(group_metrics(process.pid) if process else dict(rss_bytes=0)))
         enforce(row, self.remaining, time.monotonic() - self.started)
         return row
 
