@@ -4583,3 +4583,10 @@ Estimated release11:00–11:50Madrid, not confirmed; archival I/O/Drive closeout
 Verify owned workers/supervisor exit and free machine mutex before release.
 Archive local planning/compute-availability-{return,live,cost}-20261018.json and
 publish_compute_availability_20261018.py plus PR-readback/handoff.
+
+PR301 October18,10:38Madrid:
+[all983040primary/replay complete, final reproduction active, mutex held](docs/reports/hu200-capacity-cygnus-artifacts/single-seed-status-20261018-1038.json).
+No final outcomes/global barrier/release yet. Raw final hand/decision files and closed
+stage receipts remain required archive evidence; preserve activeNVMe files/source.
+Archive planning/status-latest-{return,live}-20261018.json,
+publish_status_single_20261018_1038.py and PR readback/handoff.

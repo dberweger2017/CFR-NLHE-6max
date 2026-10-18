@@ -7,6 +7,21 @@
 [Protocol](../hu200-capacity-cygnus-protocol.md) fixes three paired seeds,
 301,153,954-entry capacity, guards and final sample sizes. Owner decides merge.
 
+## Status — October18,10:38Madrid
+
+All983040selected final hands have been played and independently replayed.
+The last5B exact-reproduction pass is active; its raw verification and the global
+selected barrier/readout remain. No final outcomes read and no compute release:
+the machine mutex is held and supervisor187170 is active. No failure or stop.
+[Live stage/mutex receipt](hu200-capacity-cygnus-artifacts/single-seed-status-20261018-1038.json).
+
+CPU53°C/VRM61°C, familyRSS17.580GB, freeNVMe77.041GB.5Breplay passes1508.317s;
+5Bplay passes1281.755s, cache1541.355s. Expected compute release remainsaround
+11:00Madrid,11:50conservative buffer, after verified supervisor/workers exit and
+free mutex. All original guards/deadline remain unchanged. Archive/report/Drive
+closeout is separate; retain all three trained models and deferred-seed proposal.
+Coordinator return2026-10-18T08:38:11.701959+00:00; handback declared2026-10-18T08:38:58.485388+00:00; same queue continues.
+
 ## Compute availability — October18,10:12Madrid
 
 The5B final match passes in1281.755s. All selected primary play is finished;
