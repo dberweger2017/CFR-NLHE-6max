@@ -1,4 +1,8 @@
-## PR344 — compact-key engineering benchmark (in preparation)
+## PR344 pilot closeout — October18
+
+[Measured pilot and preserved budget stop](docs/reports/nplayer-compact-keys/pilot.md). All42 stages return0; full100M logical rows match. The forecast refuses the1B/3B comparison before launch. Raw originals remain at `bb128:/mnt/data2tb/nplayer-key-benchmark-20261018`; cloud acceptance pending, no deletion.
+
+## PR344 — compact-key pilot complete; larger comparison refused
 
 [PR344](https://github.com/dberweger2017/CFR-NLHE-6max/pull/344),
 [proposal343](https://github.com/dberweger2017/CFR-NLHE-6max/issues/343),
