@@ -101,6 +101,8 @@ Open tasks for contributors, grouped by the compute they need. Comment on or ope
 
 One short entry per active line of work; details live in the linked reports. Storage and cleanup receipts belong in [docs/artifacts](docs/artifacts/) and [RESULTS_INDEX.md](RESULTS_INDEX.md), not here.
 
+- **N-player storage and saving adopted (October 18):** owner-authorized #331 and #333 are merged. The matched three-player 1B→1.3B test in #339 preserves every checkpoint byte; the combined changes reduce peak RSS from 9.89 to 4.07 GiB and wall time from 31.17 to 11.20 minutes with saves every100M nodes. Training throughput is 10.8% lower in this single fixed-order pass. [Full comparison and limits](docs/reports/nplayer-storage-merge-benchmark.md). Research-Cloud archival remains pending; originals are retained.
+
 - **Frozen HU200 blend ([#306](https://github.com/dberweger2017/CFR-NLHE-6max/pull/306)) complete:** all fixed evaluations and 2,162,688 stored-hand replay/reproduction checks finish on the 16 GiB M4, at 12.75 GB peak family RSS. No direct gain is established; the blend still loses to 1.5× pot pressure, −29.39 [−55.24,−3.53] BB/100, retained as failed adverse evidence without retry or tuning. Drive evidence and unpacked 2 TB copies are verified. [Full results, coverage, failures and retrieval](docs/reports/hu200-v055-blend-run.md). Owner decides merge and any Slumbot use.
 
 - **Open PRs:** [#301](https://github.com/dberweger2017/CFR-NLHE-6max/pull/301) tests whether a larger HU200 table gives a stronger 20B player.
