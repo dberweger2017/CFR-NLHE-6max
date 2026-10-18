@@ -1,60 +1,74 @@
-## PR340 — PR335 strength study (owner-authorized second attempt active)
+## PR340 — PR335 strength study (complete; archival pending)
 
 [PR340](https://github.com/dberweger2017/CFR-NLHE-6max/pull/340),
-[protocol](docs/nplayer-fast-strength-study.md),
-[qualification/scaling](docs/reports/nplayer-fast-strength/qualification.json),
-[terminal report and evidence](docs/reports/nplayer-fast-strength/terminal.md),
-[launch, resource admission and preserved setup failures](docs/reports/nplayer-fast-strength/launch.json).
-Owner authorized compute through all16 threads and the three-seed equal-node/
-equal-training-time study. PR335 remains unmerged; PR336/pruning is excluded.
+[completed report](docs/reports/nplayer-fast-strength/results.md),
+[compact verification/cost receipt](docs/reports/nplayer-fast-strength/completion.json),
+[frozen protocol](docs/nplayer-fast-strength-study.md).
+Owner authorized all16 threads, three fixed seeds and the one fresh v5 attempt
+at immediate CPU90C/Thermistor15 95C stops. PR335 remains open at tested
+`b9923248cb97bc52c7db34491d9ff70e2845b4ec`; PR336/pruning is excluded.
+No merge, default or release adoption is performed here.
 
-- **Qualification:** `bb128:/home/dberweger/nplayer-fast-strength-20261018/`,
-  source `0c394c98`, supervisor273254 complete. Both release builds,50 native
-  library tests, real-K50 production parity, five-thread-count fast identity,
-  exact cross-thread resume, and all ten100M→120M continuation hashes pass.
-  Selected16 threads: median3.972s versus22.695s with one fast-mode thread.
-  [All scaling rows](docs/reports/nplayer-fast-strength/scaling.csv).
-- **Terminal main:** `bb128:/home/dberweger/nplayer-fast-strength-20261018-main-v4/`,
-  frozen source `2ff320d483b0219165518d75d2d92389f48d182a`, supervisor294450,
-  launched11:59:06UTC October18. All720 source/config file hashes verified;
-  all47 shared native files match qualification. The instrumented3M endpoint
-  matches the qualified CLI, both export audits pass,120s thermal soak passes,
-  and144 smoke hands replay/reproduce before the first final seed starts.
-  Thermal guard stopped the first final seed at12:05:39UTC. Last progress:
-  420,956,111 nodes/87.498 training seconds; last accepted CPU/VRM68/84.5C,
-  familyRSS3.006GiB and zero swap growth. The crossing sample was not written;
-  exact triggering sensor/temperature is unavailable. No final evaluation or
-  strength gate ran. Controller exited; no automatic retry or limit change
-  occurred. The owner later explicitly authorized the fresh v5 attempt below. [Compact snapshot](docs/reports/nplayer-fast-strength/terminal.json).
-- **Owner-authorized second attempt:** `bb128:/home/dberweger/nplayer-fast-strength-20261018-main-v5/`,
-  frozen source `8f6fb76dade872b6ab282f1a0a4f6f3abee7dbfa`, supervisor306072,
-  launched13:00:26UTC October18. New hard stops CPU90C/Thermistor15 95C;
-  exact crossing samples are now recorded. All720 source/config hashes verify
-  and all48 native source files match v4. Fifteen focused Python tests pass.
-  Both locks acquired, no legacy holder; admission/build/environment pass.
-  Prerequisite smoke checks are running; no final strength readout exists.
-  Original18:31:32UTC deadline,16 threads,32GB growth/50GB floor,80GiB RSS
-  and scientific counts/roots remain unchanged. Original driver and BIOS fan
-  control remain active. [Launch/admission snapshot](docs/reports/nplayer-fast-strength/retry-launch.json).
-  The same study timer monitors only this new attempt; no new timer is created.
-- **Failures retained:** the `-main`, `-main-v2`, and `-main-v3` siblings retain
-  disk-admission refusal, Python-runtime installation failure and JSONL audit
-  parsing failure. No final seed or final evaluation ran in those roots.
-  No file was removed and the original seven-hour ceiling was not reset.
-- **Protected inputs:** mergedPR292's three1B average files and K50 tables
-  under `bb128:/home/dberweger/nplayer-blueprint-phase2-20261015/` remain live
-  dependencies throughout this study. [Exact input paths/member hashes](docs/nplayer-fast-strength-inputs.json);
-  accepted Drive restoration provenance remains in the PR292 entry and
-  [member index](docs/reports/nplayer-blueprint-phase2-artifacts/archive-model-members.json).
-  Managed CPython3.11.17 is used; a new owned environment is installed in the
-  active root. No other campaign/environment is changed.
-- **Retrieval/preservation:** raw checkpoints, exports, all hand traces,
-  resource samples, binaries, sources and setup failures stay on bb128.
-  Retrieve compact metadata only into a fresh ignored directory, e.g.
-  `scp bb128:/home/dberweger/nplayer-fast-strength-20261018-main-v5/status.json FRESH_DESTINATION/`.
-  The intended Research-Cloud closeout folder is
-  `PR-340-nplayer-fast-strength-study`; upload/archive acceptance is pending.
-  All roots and shared inputs remain protected; no cleanup is authorized here.
+- **Completed v5:** `bb128:/home/dberweger/nplayer-fast-strength-20261018-main-v5/`,
+  frozen source `8f6fb76dade872b6ab282f1a0a4f6f3abee7dbfa`, PID306072 exited
+  normally. October18 13:00:26–14:42:31UTC:102.08min wall/9.16 child CPU-hours.
+  All19 measured stages return0, no failure;12 cases verify,589824 final hands
+  replay and589824 reproduction hands match exactly before settled readout.
+  All9 new exports pass every-row audits across294564707 rows.
+- **Strength:** equal1B-node contrasts for seeds1541/42/43 are
+  −0.20[−3.70,+3.29],+1.42[−2.04,+4.87],−0.48[−4.07,+3.10]BB/100:
+  all lower bounds clear−5. Equal600s contrasts are
+  +9.18[+5.63,+12.73],+9.73[+6.21,+13.26],+8.86[+5.13,+12.59]:
+  all lower bounds clear0. Statistic=(fast-singleton−production-singleton)/2,
+  not pooled individual-player return. Both declared gates pass.
+  [Strength CSV](docs/reports/nplayer-fast-strength/strength.csv);
+  [all role/seat/position intervals](docs/reports/nplayer-fast-strength/seats-and-positions.csv).
+- **Compute:** fast600s processes2.910–3.004B nodes versus0.610–0.621B production,
+  4.75–4.91×. Peak fast train/saveRSS5.14GiB, evaluation family59.86GiB;
+  CPU74C/Thermistor94C maxima,6.25MiB maximum swap growth during evaluation.
+  Training clock excludes load/save/hash. Production writerpool1 versusfast16;
+  six versus three checkpoints confound end-to-end saving comparisons.
+  [Nine checkpoints, exact hashes/paths/counts](docs/reports/nplayer-fast-strength/checkpoints.csv),
+  [training costs](docs/reports/nplayer-fast-strength/training-costs.csv),
+  [all stage costs](docs/reports/nplayer-fast-strength/stage-costs.csv),
+  [case/identity/street coverage](docs/reports/nplayer-fast-strength/coverage.csv).
+- **Qualification retained:** `bb128:/home/dberweger/nplayer-fast-strength-20261018/`,
+  source0c394c98;50 native tests, default parity,fast1/2/4/8/16 identity,
+  cross-thread resume and ten identical100M→120M endpoints pass.16 selected:
+  median3.972s versus22.695s one fast thread,9.8% throughput over8.
+  [Receipt](docs/reports/nplayer-fast-strength/qualification.json),
+  [scaling rows](docs/reports/nplayer-fast-strength/scaling.csv).
+- **Failures retained:** `-main` disk refusal,`-main-v2` Python3.13 install,
+  `-main-v3` pretty-JSON parser stop; none started final seeds. The v4 root
+  `bb128:/home/dberweger/nplayer-fast-strength-20261018-main-v4/`, frozen2ff320d4,
+  remains terminal at12:05:39UTC during first fast seed:420956111nodes/87.498s,
+  precedingCPU68/Thermistor84.5C; exact crossing sample unavailable.
+  No v4 final evaluation. Owner later explicitly authorized v5; native science,
+  roots/counts and original18:31:32UTC deadline stayed fixed.
+  [Failure report](docs/reports/nplayer-fast-strength/terminal.md),
+  [setup/launch provenance](docs/reports/nplayer-fast-strength/launch.json),
+  [v5 admission](docs/reports/nplayer-fast-strength/retry-launch.json).
+- **Inputs protected:** PR292 raw/average inputs and K50 tables under
+  `bb128:/home/dberweger/nplayer-blueprint-phase2-20261015/` remain read-only
+  dependencies. [Exact input pins](docs/nplayer-fast-strength-inputs.json),
+  [accepted PR292 archive members/restoration](docs/reports/nplayer-blueprint-phase2-artifacts/archive-model-members.json).
+- **Retrieval:** compact verified metadata only retrieved into ignored
+  `/tmp/cfr-nplayer-fast-strength/results/pr340-complete-20261018T1450/`.
+  Raw root `results.json` SHA256
+  `fea5f71b0f39c912e9019fd49749eeb093a8fa09543f589a7239112e4c1eb942`;
+  evaluation manifestSHA256
+  `2ba4a487b3b15be835340c030d0a01d21e006ac2a6cb45c6e84f3256f93c4d45`.
+  Example:`scp bb128:/home/dberweger/nplayer-fast-strength-20261018-main-v5/results.json FRESH_DESTINATION/results.json`.
+  New model checkpoint/export SHA256 and exact root/member paths are in the
+  nine-row CSV. Verify before any retrieval use; no model payload enters Git.
+- **Archival pending:** intended cache/Drive folder
+  `PR-340-nplayer-fast-strength-study`; no ZIP/manifest/Drive ID or acceptance
+  receipt exists yet, so no Drive restoration is claimed. PR335/340 were both
+  OPEN at closeout inspection. Their roots, all failures/traces/checkpoints,
+  sources/binaries and shared dependencies remain intact; no archive copy,
+  cleanup or deletion. Temporary Mac checkout was missing at final wake and
+  restored from retained7db86b11 branch/index; bb128 scientific data unchanged.
+  Study timer disabled on verified completion; no new science scheduled.
 
 ## PR339 — N-player storage and parallel-save comparison (complete; archive pending)
 

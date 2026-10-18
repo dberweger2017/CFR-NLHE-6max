@@ -178,3 +178,27 @@ could not load under Secure Boot and was rolled back; no boot change/reboot.
 The supervisor now records the exact failing resource sample and names each
 thermal sensor that crosses its limit. Generic storage/qualification defaults
 remain80/85C; only the explicitly configured new main attempt uses90/95C.
+
+## Completed second attempt, October 18
+
+The frozen v5 attempt completed at14:42:31UTC/16:42:31Madrid, with all19
+measured stage return codes0 and no failure. All12 final cases pass,
+589824 final hands independently replay and589824 reproduction hands match
+exactly before the settled readout. Both predeclared gates pass across all
+three seeds: equal-node lower bounds exceed−5BB/100 and equal600s lower
+bounds exceed0. See the [full result and limits](reports/nplayer-fast-strength/results.md),
+[compact receipt](reports/nplayer-fast-strength/completion.json) and CSV tables.
+
+Total v5 wall102.08min/childCPU9.16h. Fast600s produces2.910–3.004B nodes
+versus0.610–0.621B production. MaxCPU74C/Thermistor94C, maximum familyRSS
+59.86GiB during evaluation,6.25MiB maximum swap growth; all revised guards
+and the original deadline pass. CPU/node efficiency and end-to-end saving
+are separate questions: production writerpool1 versusfast16 and six versus
+three checkpoint writes affect costs. No held-out roots/counts/endpoints were
+changed; all setup failures and v4 thermal stop remain preserved above.
+
+Recommendation: merge #335 as opt-in, retaining production default until the
+owner decides adoption. No merge/default/release change is performed here.
+Study monitoring is disabled on verified completion. PR335/340 remain open;
+Research-Cloud archival is pending, all raw roots/shared inputs retained,
+with no archive upload/acceptance or cleanup claimed.
