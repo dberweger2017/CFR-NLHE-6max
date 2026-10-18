@@ -76,6 +76,35 @@ logs, receipts, helpers and manifests remain unpacked under the PR317 cache's
 Calibration-copy qualification evidence remains alongside it. New final and
 preparation ZIP/Drive closeout is pending.
 
+**October18 disk interruption and recorded-state continuation:** the unchanged
+16GiB disk guard stopped the original attempt at05:09:16Madrid, with26,842
+blocks retired. This was a plumbing stop, with no scientific failure receipt.
+One additional closed block awaited transfer; the following block contained
+one verified rotation and an interrupted rotation with seven persisted actions.
+Before continuation those seven actions and player RNG state matched exactly,
+and independently regenerated ranges, tree, menu, locks and iterations matched
+the stored pending scientific request. Validation performed zero native solves.
+Only that unfinished request was executed; the already completed ancestor solve
+was not repeated. All original hand files remained byte-identical; the continued
+hand passed independent replay and fresh-player reproduction with zero native
+reproduction solves. Its interrupted primary timing is unknown; the saved
+decision time measures the continuation portion and excludes the interruption.
+This limitation must accompany the final timing readout.
+
+Owner-authorized early offload retired410 singly-linked, inactive pilot files
+only after every file matched current source and bb128 size/SHA256 checks,
+freeing9,695,325,845bytes. Uncompressed files and their accepted cost-gate ZIP
+remain on bb128/Drive. The existing detached launcher resumed with `--resume`
+at05:17:59Madrid, preserving its original locks, frozen source, counts, roots,
+guards and October22 at21:52:03Madrid deadline. At05:19:39Madrid,26,879blocks
+are retired, all three workers are alive,25.94GB is free, and the new attempt
+has no guard breach. Conditional M4 release remains October21 late evening–22
+evening; final review October22–23, including range diagnostics and closeout.
+No interim effects were inspected. The
+[compact recovery receipt](hu200-river-search-artifacts/disk-recovery-receipt.json)
+indexes original stop evidence, exact preservation, continuation and offload
+receipts. New administrative files remain in progress with Drive closeout pending.
+
 ## Finding
 
 River-only search on #306's audited HU200 K50 blend completes all **24 fixed

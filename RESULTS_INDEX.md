@@ -1,5 +1,31 @@
 ## PR317 — HU200 river search, fixed final running
 
+**October18 recorded-state recovery:** the16GiB disk guard stopped the original
+attempt at05:09:16Madrid after26,842 retired blocks. The interrupted hand was
+preserved and its seven persisted actions and pending scientific request
+validated exactly before continuation; no completed ancestor solve or hand was
+repeated. Independent replay and fresh-player reproduction pass. The original
+launcher resumed at05:17:59Madrid with unchanged source/counts/roots/guards and
+October22 21:52:03Madrid deadline. One interrupted primary timing is unknown;
+final latency reporting must identify its continuation-only decision measurement.
+[Recovery, preservation and offload receipt](docs/reports/hu200-river-search-artifacts/disk-recovery-receipt.json).
+Owner-authorized early offload removed only410 verified inactive pilot files
+under `~/Local/hu200-river-search/results/hu200-river-search/pilot-02/`,
+freeing9,695,325,845bytes. Restore with
+`rsync -a bb128-lan:/research/PR-317-HU200-river-search/research/pilot-02/ FRESH_RESTORE_ROOT/`;
+the410-file size/SHA256 manifest and durable receipts are under the cache's
+`in-progress-offload-20261018/`. The existing accepted cost-gate ZIP/Drive ID
+`15Qv-9-hp-DH3P3Yr5cGBb6TYWe5hPkEq` remains the fallback.
+The original interrupted-hand bytes are separately retained under
+`bb128:/research/PR-317-HU200-river-search/recovery-20261018/preserved-hand/`;
+the28-file administration package, including the recovery helper, stopped guard
+and consistent SQLite backup, passes every-file size/SHA256 verification under
+`recovery-20261018/current-administration/`, manifest SHA256
+`1e2751455ec17b4516dfc7fb08a5c80f5419bad97e979a05d6a2dc1d3f475f1b`.
+These new files are **IN_PROGRESS**, with final ZIP/Drive coverage pending.
+No active input, live SQLite copy, other PR or synced folder was removed.
+End-of-PR cleanup remains unchanged; final research and diagnostics are pending.
+
 Latest: evidence-retention source `5b6b2f6c` passes the same24 parity and amended
 10 s gate at p95 **9.834 s**, with two/three-worker parity/memory measurements.
 The owner-approved fixed calibration, source `d0849fca`, completes **352 blocks /
