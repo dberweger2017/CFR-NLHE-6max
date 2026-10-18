@@ -1,0 +1,4499 @@
+{
+  "root": "/home/dberweger/nplayer-fast-strength-20261018-main-v5",
+  "retrieved_at": "2026-10-18T14:47:03.958233+00:00",
+  "files": {
+    "results.json": {
+      "bytes": 27015,
+      "sha256": "fea5f71b0f39c912e9019fd49749eeb093a8fa09543f589a7239112e4c1eb942"
+    },
+    "status.json": {
+      "bytes": 153,
+      "sha256": "576f1d52b76caa9d338f811a0da7bc99104a5fbcc232b253a647db520b45fe6c"
+    },
+    "launch.json": {
+      "bytes": 669,
+      "sha256": "2d0e28dfb379d68c8ce3eb68912029f24f9aa45d7ffe84654720d79198f3d12a"
+    },
+    "admission.json": {
+      "bytes": 3780,
+      "sha256": "b3adeecda821d743df7e66587cbaed5fa038f7ceec4c492280ecdd5c13bb8030"
+    },
+    "pretraining-freeze.json": {
+      "bytes": 4673,
+      "sha256": "9664316be911b95a871ccda4b953ec08e8c854c2d8dcb424b93ea4dfbdc31c9c"
+    },
+    "evaluation-verified.json": {
+      "bytes": 158,
+      "sha256": "a044873c78bb9624525f32170079fd9aaae9a6051de44af3ab001262d7f7c0af"
+    },
+    "evaluation-manifest.json": {
+      "bytes": 9648,
+      "sha256": "2ba4a487b3b15be835340c030d0a01d21e006ac2a6cb45c6e84f3256f93c4d45"
+    },
+    "models-audited.json": {
+      "bytes": 5065,
+      "sha256": "cf5e0f567995515347496fe54971f88a69d435886b5016ce82ccc75db7ecf087"
+    },
+    "binary-receipts.json": {
+      "bytes": 273,
+      "sha256": "6fc4a9fd8bca79ac27b3da599e365dc27a2ad34242bb030432664f2db8d09a0e"
+    },
+    "config.json": {
+      "bytes": 907,
+      "sha256": "890af7411d5e0948a9935b60b3de7323cc4b911170c5523dd9e3725dfe5f29e0"
+    },
+    "export-plan.json": {
+      "bytes": 3517,
+      "sha256": "7db0caeb6369385492495c46ca538ea952a4cce6d5a5de04a265bac714709434"
+    }
+  },
+  "metadata": {
+    "results": {
+      "status": "settled",
+      "rows": [
+        {
+          "seed": 2026101541,
+          "scope": "nodes",
+          "blocks": 8192,
+          "advantage": {
+            "mean_bb100": -0.20345052083333304,
+            "standard_error_bb100": 1.782692091676946,
+            "lower95_bb100": -3.6979791929849535,
+            "upper95_bb100": 3.2910781513182874
+          },
+          "fast_singleton": {
+            "mean_bb100": -3.461201985677083,
+            "standard_error_bb100": 2.603208435629835,
+            "lower95_bb100": -8.564150812548275,
+            "upper95_bb100": 1.6417468411941094
+          },
+          "production_singleton": {
+            "mean_bb100": -3.054300944010417,
+            "standard_error_bb100": 2.5437620481335843,
+            "lower95_bb100": -8.040719773059008,
+            "upper95_bb100": 1.9321178850381742
+          },
+          "fast_by_seat": [
+            {
+              "mean_bb100": 3.84674072265625,
+              "standard_error_bb100": 7.057395396220171,
+              "lower95_bb100": -9.987544333044472,
+              "upper95_bb100": 17.68102577835697
+            },
+            {
+              "mean_bb100": -4.72869873046875,
+              "standard_error_bb100": 7.115698575091093,
+              "lower95_bb100": -18.677272805116296,
+              "upper95_bb100": 9.219875344178796
+            },
+            {
+              "mean_bb100": -9.50164794921875,
+              "standard_error_bb100": 7.101493823300731,
+              "lower95_bb100": -23.422377107380733,
+              "upper95_bb100": 4.4190812089432345
+            }
+          ],
+          "production_by_seat": [
+            {
+              "mean_bb100": 3.38287353515625,
+              "standard_error_bb100": 7.134341359210505,
+              "lower95_bb100": -10.602245125030313,
+              "upper95_bb100": 17.367992195342815
+            },
+            {
+              "mean_bb100": -6.219482421875,
+              "standard_error_bb100": 6.967487094280591,
+              "lower95_bb100": -19.877524400905774,
+              "upper95_bb100": 7.438559557155774
+            },
+            {
+              "mean_bb100": -6.3262939453125,
+              "standard_error_bb100": 7.061869838863554,
+              "lower95_bb100": -20.169350043518094,
+              "upper95_bb100": 7.5167621528930955
+            }
+          ],
+          "fast_by_position": [
+            {
+              "mean_bb100": 28.9215087890625,
+              "standard_error_bb100": 6.385195448701444,
+              "lower95_bb100": 16.404906131230792,
+              "upper95_bb100": 41.43811144689421
+            },
+            {
+              "mean_bb100": -21.2432861328125,
+              "standard_error_bb100": 7.220399233868578,
+              "lower95_bb100": -35.39710005555233,
+              "upper95_bb100": -7.089472210072675
+            },
+            {
+              "mean_bb100": -18.06182861328125,
+              "standard_error_bb100": 7.601634181921996,
+              "lower95_bb100": -32.9629597328712,
+              "upper95_bb100": -3.1606974936912984
+            }
+          ],
+          "production_by_position": [
+            {
+              "mean_bb100": 27.4810791015625,
+              "standard_error_bb100": 6.047031423438864,
+              "lower95_bb100": 15.627363707149717,
+              "upper95_bb100": 39.33479449597528
+            },
+            {
+              "mean_bb100": -21.65374755859375,
+              "standard_error_bb100": 7.255074852290911,
+              "lower95_bb100": -35.87553448876833,
+              "upper95_bb100": -7.431960628419171
+            },
+            {
+              "mean_bb100": -14.990234375,
+              "standard_error_bb100": 7.742489067860671,
+              "lower95_bb100": -30.167476798288124,
+              "upper95_bb100": 0.18700804828812423
+            }
+          ]
+        },
+        {
+          "seed": 2026101541,
+          "scope": "clock",
+          "blocks": 8192,
+          "advantage": {
+            "mean_bb100": 9.178415934244791,
+            "standard_error_bb100": 1.8125804804214833,
+            "lower95_bb100": 5.625298439087876,
+            "upper95_bb100": 12.731533429401706
+          },
+          "fast_singleton": {
+            "mean_bb100": 6.351725260416667,
+            "standard_error_bb100": 2.5205423208780458,
+            "lower95_bb100": 1.4108229863765693,
+            "upper95_bb100": 11.292627534456765
+          },
+          "production_singleton": {
+            "mean_bb100": -12.005106608072916,
+            "standard_error_bb100": 2.545793060250128,
+            "lower95_bb100": -16.995506736027743,
+            "upper95_bb100": -7.014706480118089
+          },
+          "fast_by_seat": [
+            {
+              "mean_bb100": 11.22894287109375,
+              "standard_error_bb100": 6.878432081575996,
+              "lower95_bb100": -2.2545286946009284,
+              "upper95_bb100": 24.71241443678843
+            },
+            {
+              "mean_bb100": 9.033203125,
+              "standard_error_bb100": 6.865336855862411,
+              "lower95_bb100": -4.424598476746294,
+              "upper95_bb100": 22.491004726746294
+            },
+            {
+              "mean_bb100": -1.20697021484375,
+              "standard_error_bb100": 7.0820671156577095,
+              "lower95_bb100": -15.089618098521488,
+              "upper95_bb100": 12.675677668833988
+            }
+          ],
+          "production_by_seat": [
+            {
+              "mean_bb100": -11.82861328125,
+              "standard_error_bb100": 6.7713727100297,
+              "lower95_bb100": -25.102221323547806,
+              "upper95_bb100": 1.4449947610478056
+            },
+            {
+              "mean_bb100": -9.0728759765625,
+              "standard_error_bb100": 6.918965289508191,
+              "lower95_bb100": -22.63580291088458,
+              "upper95_bb100": 4.490050957759577
+            },
+            {
+              "mean_bb100": -15.11383056640625,
+              "standard_error_bb100": 6.788346432758702,
+              "lower95_bb100": -28.420711410567364,
+              "upper95_bb100": -1.8069497222451378
+            }
+          ],
+          "fast_by_position": [
+            {
+              "mean_bb100": 33.81195068359375,
+              "standard_error_bb100": 6.015562948853512,
+              "lower95_bb100": 22.019921481216485,
+              "upper95_bb100": 45.603979885971015
+            },
+            {
+              "mean_bb100": -0.08697509765625,
+              "standard_error_bb100": 7.116604981998083,
+              "lower95_bb100": -14.037325959747854,
+              "upper95_bb100": 13.863375764435354
+            },
+            {
+              "mean_bb100": -14.6697998046875,
+              "standard_error_bb100": 7.591309134706865,
+              "lower95_bb100": -29.550691212830337,
+              "upper95_bb100": 0.21109160345533695
+            }
+          ],
+          "production_by_position": [
+            {
+              "mean_bb100": 20.63446044921875,
+              "standard_error_bb100": 5.987808110989247,
+              "lower95_bb100": 8.896837768955105,
+              "upper95_bb100": 32.37208312948239
+            },
+            {
+              "mean_bb100": -17.1783447265625,
+              "standard_error_bb100": 7.161362672909996,
+              "lower95_bb100": -31.216432015444358,
+              "upper95_bb100": -3.140257437680642
+            },
+            {
+              "mean_bb100": -39.471435546875,
+              "standard_error_bb100": 7.241757912887575,
+              "lower95_bb100": -53.66711789803252,
+              "upper95_bb100": -25.275753195717478
+            }
+          ]
+        },
+        {
+          "seed": 2026101542,
+          "scope": "nodes",
+          "blocks": 8192,
+          "advantage": {
+            "mean_bb100": 1.4165242513020835,
+            "standard_error_bb100": 1.761591784808251,
+            "lower95_bb100": -2.036642467381459,
+            "upper95_bb100": 4.869690969985626
+          },
+          "fast_singleton": {
+            "mean_bb100": -1.2741088867187502,
+            "standard_error_bb100": 2.561191077931485,
+            "lower95_bb100": -6.29469303497244,
+            "upper95_bb100": 3.7464752615349397
+          },
+          "production_singleton": {
+            "mean_bb100": -4.107157389322917,
+            "standard_error_bb100": 2.6260187941822886,
+            "lower95_bb100": -9.254820304709881,
+            "upper95_bb100": 1.040505526064047
+          },
+          "fast_by_seat": [
+            {
+              "mean_bb100": -3.55987548828125,
+              "standard_error_bb100": 7.05008773023577,
+              "lower95_bb100": -17.37983566509334,
+              "upper95_bb100": 10.260084688530839
+            },
+            {
+              "mean_bb100": -1.28021240234375,
+              "standard_error_bb100": 6.98547653827049,
+              "lower95_bb100": -14.973518254542679,
+              "upper95_bb100": 12.413093449855179
+            },
+            {
+              "mean_bb100": 1.01776123046875,
+              "standard_error_bb100": 6.938328710523984,
+              "lower95_bb100": -12.583122920495814,
+              "upper95_bb100": 14.618645381433314
+            }
+          ],
+          "production_by_seat": [
+            {
+              "mean_bb100": -3.1585693359375,
+              "standard_error_bb100": 7.209293227378553,
+              "lower95_bb100": -17.290612668964336,
+              "upper95_bb100": 10.973473997089334
+            },
+            {
+              "mean_bb100": -5.09796142578125,
+              "standard_error_bb100": 6.987760152413413,
+              "lower95_bb100": -18.795743740929577,
+              "upper95_bb100": 8.599820889367077
+            },
+            {
+              "mean_bb100": -4.06494140625,
+              "standard_error_bb100": 6.925503332584076,
+              "lower95_bb100": -17.640684563348355,
+              "upper95_bb100": 9.510801750848355
+            }
+          ],
+          "fast_by_position": [
+            {
+              "mean_bb100": 27.1514892578125,
+              "standard_error_bb100": 6.098988864880141,
+              "lower95_bb100": 15.19592409938501,
+              "upper95_bb100": 39.10705441623999
+            },
+            {
+              "mean_bb100": -15.1519775390625,
+              "standard_error_bb100": 7.2430174832170895,
+              "lower95_bb100": -29.350128967550667,
+              "upper95_bb100": -0.9538261105743331
+            },
+            {
+              "mean_bb100": -15.82183837890625,
+              "standard_error_bb100": 7.538921615115508,
+              "lower95_bb100": -30.600036960772684,
+              "upper95_bb100": -1.043639797039818
+            }
+          ],
+          "production_by_position": [
+            {
+              "mean_bb100": 24.37896728515625,
+              "standard_error_bb100": 6.132864149369149,
+              "lower95_bb100": 12.356997976804713,
+              "upper95_bb100": 36.40093659350779
+            },
+            {
+              "mean_bb100": -24.3804931640625,
+              "standard_error_bb100": 7.103538686698705,
+              "lower95_bb100": -38.30523077315564,
+              "upper95_bb100": -10.455755554969356
+            },
+            {
+              "mean_bb100": -12.3199462890625,
+              "standard_error_bb100": 7.780473168969764,
+              "lower95_bb100": -27.571647185034358,
+              "upper95_bb100": 2.9317546069093563
+            }
+          ]
+        },
+        {
+          "seed": 2026101542,
+          "scope": "clock",
+          "blocks": 8192,
+          "advantage": {
+            "mean_bb100": 9.734090169270834,
+            "standard_error_bb100": 1.7978090255006307,
+            "lower95_bb100": 6.209928472477144,
+            "upper95_bb100": 13.258251866064523
+          },
+          "fast_singleton": {
+            "mean_bb100": 9.075419108072916,
+            "standard_error_bb100": 2.434309251035353,
+            "lower95_bb100": 4.303555523585469,
+            "upper95_bb100": 13.847282692560363
+          },
+          "production_singleton": {
+            "mean_bb100": -10.39276123046875,
+            "standard_error_bb100": 2.566766115517469,
+            "lower95_bb100": -15.42427386647616,
+            "upper95_bb100": -5.36124859446134
+          },
+          "fast_by_seat": [
+            {
+              "mean_bb100": 9.4635009765625,
+              "standard_error_bb100": 6.8187187267457405,
+              "lower95_bb100": -3.9029172676197685,
+              "upper95_bb100": 22.82991922074477
+            },
+            {
+              "mean_bb100": 7.54241943359375,
+              "standard_error_bb100": 6.857178194157393,
+              "lower95_bb100": -5.89938912179996,
+              "upper95_bb100": 20.98422798898746
+            },
+            {
+              "mean_bb100": 10.2203369140625,
+              "standard_error_bb100": 6.87525372781751,
+              "lower95_bb100": -3.2569042720892813,
+              "upper95_bb100": 23.69757810021428
+            }
+          ],
+          "production_by_seat": [
+            {
+              "mean_bb100": -10.3118896484375,
+              "standard_error_bb100": 6.920537610015437,
+              "lower95_bb100": -23.87789872976636,
+              "upper95_bb100": 3.254119432891361
+            },
+            {
+              "mean_bb100": -14.5843505859375,
+              "standard_error_bb100": 6.9884085720022195,
+              "lower95_bb100": -28.28340396794883,
+              "upper95_bb100": -0.8852972039261697
+            },
+            {
+              "mean_bb100": -6.28204345703125,
+              "standard_error_bb100": 6.855861757275349,
+              "lower95_bb100": -19.721271462227392,
+              "upper95_bb100": 7.157184548164892
+            }
+          ],
+          "fast_by_position": [
+            {
+              "mean_bb100": 30.17425537109375,
+              "standard_error_bb100": 5.8753184401582494,
+              "lower95_bb100": 18.657140978197916,
+              "upper95_bb100": 41.691369763989584
+            },
+            {
+              "mean_bb100": -4.12139892578125,
+              "standard_error_bb100": 7.115702794466348,
+              "lower95_bb100": -18.06998127147452,
+              "upper95_bb100": 9.827183419912021
+            },
+            {
+              "mean_bb100": 1.17340087890625,
+              "standard_error_bb100": 7.453158479013814,
+              "lower95_bb100": -13.436680202736635,
+              "upper95_bb100": 15.783481960549135
+            }
+          ],
+          "production_by_position": [
+            {
+              "mean_bb100": 14.5263671875,
+              "standard_error_bb100": 5.9011639058269445,
+              "lower95_bb100": 2.958589126298211,
+              "upper95_bb100": 26.09414524870179
+            },
+            {
+              "mean_bb100": -18.1182861328125,
+              "standard_error_bb100": 7.331274289811179,
+              "lower95_bb100": -32.4894432881985,
+              "upper95_bb100": -3.7471289774265024
+            },
+            {
+              "mean_bb100": -27.58636474609375,
+              "standard_error_bb100": 7.419450012687607,
+              "lower95_bb100": -42.13036868372441,
+              "upper95_bb100": -13.042360808463087
+            }
+          ]
+        },
+        {
+          "seed": 2026101543,
+          "scope": "nodes",
+          "blocks": 8192,
+          "advantage": {
+            "mean_bb100": -0.4842122395833331,
+            "standard_error_bb100": 1.829709447188501,
+            "lower95_bb100": -4.070906854295072,
+            "upper95_bb100": 3.102482375128406
+          },
+          "fast_singleton": {
+            "mean_bb100": 0.21311442057291682,
+            "standard_error_bb100": 2.6065905302162444,
+            "lower95_bb100": -4.896464169541921,
+            "upper95_bb100": 5.322693010687755
+          },
+          "production_singleton": {
+            "mean_bb100": 1.1815388997395833,
+            "standard_error_bb100": 2.631547448143585,
+            "lower95_bb100": -3.9769615797316984,
+            "upper95_bb100": 6.3400393792108645
+          },
+          "fast_by_seat": [
+            {
+              "mean_bb100": -3.44085693359375,
+              "standard_error_bb100": 6.9117522614274325,
+              "lower95_bb100": -16.989644503322843,
+              "upper95_bb100": 10.107930636135345
+            },
+            {
+              "mean_bb100": 0.22430419921875,
+              "standard_error_bb100": 7.253317450835794,
+              "lower95_bb100": -13.994037778346199,
+              "upper95_bb100": 14.442646176783699
+            },
+            {
+              "mean_bb100": 3.85589599609375,
+              "standard_error_bb100": 7.0396981422762455,
+              "lower95_bb100": -9.943697953041719,
+              "upper95_bb100": 17.65548994522922
+            }
+          ],
+          "production_by_seat": [
+            {
+              "mean_bb100": -2.63519287109375,
+              "standard_error_bb100": 7.024860162939541,
+              "lower95_bb100": -16.405700617137285,
+              "upper95_bb100": 11.135314874949783
+            },
+            {
+              "mean_bb100": -1.1505126953125,
+              "standard_error_bb100": 7.134551485136354,
+              "lower95_bb100": -15.136043255611298,
+              "upper95_bb100": 12.835017864986298
+            },
+            {
+              "mean_bb100": 7.330322265625,
+              "standard_error_bb100": 7.0572722611433125,
+              "lower95_bb100": -6.503721414092377,
+              "upper95_bb100": 21.164365945342375
+            }
+          ],
+          "fast_by_position": [
+            {
+              "mean_bb100": 29.4677734375,
+              "standard_error_bb100": 6.450269126167306,
+              "lower95_bb100": 16.82360986616646,
+              "upper95_bb100": 42.111937008833536
+            },
+            {
+              "mean_bb100": -18.46160888671875,
+              "standard_error_bb100": 7.130242761111445,
+              "lower95_bb100": -32.43869325503873,
+              "upper95_bb100": -4.484524518398775
+            },
+            {
+              "mean_bb100": -10.3668212890625,
+              "standard_error_bb100": 7.572085095361225,
+              "lower95_bb100": -25.210028703989934,
+              "upper95_bb100": 4.4763861258649325
+            }
+          ],
+          "production_by_position": [
+            {
+              "mean_bb100": 31.9183349609375,
+              "standard_error_bb100": 6.3556881544200134,
+              "lower95_bb100": 19.459574084300364,
+              "upper95_bb100": 44.377095837574636
+            },
+            {
+              "mean_bb100": -14.19219970703125,
+              "standard_error_bb100": 7.331048104551347,
+              "lower95_bb100": -28.562913481937024,
+              "upper95_bb100": 0.17851406787452362
+            },
+            {
+              "mean_bb100": -14.1815185546875,
+              "standard_error_bb100": 7.466631554875879,
+              "lower95_bb100": -28.81801028240992,
+              "upper95_bb100": 0.4549731730349187
+            }
+          ]
+        },
+        {
+          "seed": 2026101543,
+          "scope": "clock",
+          "blocks": 8192,
+          "advantage": {
+            "mean_bb100": 8.861287434895834,
+            "standard_error_bb100": 1.9014856076946631,
+            "lower95_bb100": 5.133893339866216,
+            "upper95_bb100": 12.588681529925452
+          },
+          "fast_singleton": {
+            "mean_bb100": 7.329305013020833,
+            "standard_error_bb100": 2.551571504108681,
+            "lower95_bb100": 2.327577669424892,
+            "upper95_bb100": 12.331032356616774
+          },
+          "production_singleton": {
+            "mean_bb100": -10.393269856770834,
+            "standard_error_bb100": 2.684063796170138,
+            "lower95_bb100": -15.654715698928303,
+            "upper95_bb100": -5.131824014613365
+          },
+          "fast_by_seat": [
+            {
+              "mean_bb100": 6.640625,
+              "standard_error_bb100": 6.885399279022578,
+              "lower95_bb100": -6.856504039890751,
+              "upper95_bb100": 20.13775403989075
+            },
+            {
+              "mean_bb100": 5.46417236328125,
+              "standard_error_bb100": 6.9331679103112025,
+              "lower95_bb100": -8.126595310250666,
+              "upper95_bb100": 19.054940036813164
+            },
+            {
+              "mean_bb100": 9.88311767578125,
+              "standard_error_bb100": 7.04216408336677,
+              "lower95_bb100": -3.921310143367391,
+              "upper95_bb100": 23.687545494929893
+            }
+          ],
+          "production_by_seat": [
+            {
+              "mean_bb100": -11.32659912109375,
+              "standard_error_bb100": 6.874641901247254,
+              "lower95_bb100": -24.80264097198055,
+              "upper95_bb100": 2.149442729793053
+            },
+            {
+              "mean_bb100": -15.7928466796875,
+              "standard_error_bb100": 6.866837168237716,
+              "lower95_bb100": -29.25358927423741,
+              "upper95_bb100": -2.3321040851375905
+            },
+            {
+              "mean_bb100": -4.06036376953125,
+              "standard_error_bb100": 7.084362433343615,
+              "lower95_bb100": -17.947511058071186,
+              "upper95_bb100": 9.826783519008686
+            }
+          ],
+          "fast_by_position": [
+            {
+              "mean_bb100": 34.29412841796875,
+              "standard_error_bb100": 6.1263104875725505,
+              "lower95_bb100": 22.285005949047715,
+              "upper95_bb100": 46.303250886889785
+            },
+            {
+              "mean_bb100": -11.13739013671875,
+              "standard_error_bb100": 7.18548165465214,
+              "lower95_bb100": -25.222756747495026,
+              "upper95_bb100": 2.9479764740575245
+            },
+            {
+              "mean_bb100": -1.1688232421875,
+              "standard_error_bb100": 7.467854378710336,
+              "lower95_bb100": -15.807712014789654,
+              "upper95_bb100": 13.470065530414654
+            }
+          ],
+          "production_by_position": [
+            {
+              "mean_bb100": 25.35247802734375,
+              "standard_error_bb100": 6.1139437836962935,
+              "lower95_bb100": 13.36759743478339,
+              "upper95_bb100": 37.33735861990411
+            },
+            {
+              "mean_bb100": -26.702880859375,
+              "standard_error_bb100": 7.155429856243595,
+              "lower95_bb100": -40.72933832275634,
+              "upper95_bb100": -12.67642339599366
+            },
+            {
+              "mean_bb100": -29.82940673828125,
+              "standard_error_bb100": 7.469660789532523,
+              "lower95_bb100": -44.47183653428351,
+              "upper95_bb100": -15.186976942278987
+            }
+          ]
+        }
+      ],
+      "final_hands": 589824,
+      "reproduction_hands": 589824,
+      "equal_node_noninferiority_passed": true,
+      "equal_time_consistent_gain_passed": true,
+      "manifest_sha256": "2ba4a487b3b15be835340c030d0a01d21e006ac2a6cb45c6e84f3256f93c4d45",
+      "models": {
+        "fast-2026101541-nodes": {
+          "id": "fast-2026101541-nodes",
+          "path": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101541/nodes-average.gz",
+          "sha256": "13f82263fa96c70eed82cf9f228363086eda683095a3d272b8c44f529dcc1353",
+          "strategy": "average",
+          "scope": 3,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101541/nodes.gz",
+          "checkpoint_sha256": "560a164ef0402e2696f47374428bb8d29e6e48e134da60783a5dddf13a912324",
+          "rows": 29512484
+        },
+        "fast-2026101541-clock": {
+          "id": "fast-2026101541-clock",
+          "path": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101541/clock-average.gz",
+          "sha256": "85a3352071612577ac6548a9f51f78aa5ac28c419e860ce0ee4c669ca75d432b",
+          "strategy": "average",
+          "scope": 3,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101541/clock.gz",
+          "checkpoint_sha256": "ef2381873d5685761de27ae664d69a30646b4f4e07aee7210b67413170a168d0",
+          "rows": 44661934
+        },
+        "production-2026101541-clock": {
+          "id": "production-2026101541-clock",
+          "path": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/production-2026101541/clock-average.gz",
+          "sha256": "5ad615eade10b9aef0b7f9f48dfcd40f6fddb9256fc12a61f908eb178f19c309",
+          "strategy": "average",
+          "scope": 3,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/production-2026101541/clock.gz",
+          "checkpoint_sha256": "b3c987027dc860fbb9bd194ecb6302bff91b8dec24a1c28900605141599c832c",
+          "rows": 24137943
+        },
+        "fast-2026101542-nodes": {
+          "id": "fast-2026101542-nodes",
+          "path": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101542/nodes-average.gz",
+          "sha256": "7f0e2e5c842e33265a71964a6c6cca32f04ba2b97a48616c5c64abd97904873c",
+          "strategy": "average",
+          "scope": 3,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101542/nodes.gz",
+          "checkpoint_sha256": "89c9562cbdb33af6d787f8a2e48f81119bd0d45b58fa638551cb92936ecdb6d5",
+          "rows": 29305912
+        },
+        "fast-2026101542-clock": {
+          "id": "fast-2026101542-clock",
+          "path": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101542/clock-average.gz",
+          "sha256": "b11fc256485a0200a318cb304d0b7b6f45820741484641c8d04de68df29bf7f1",
+          "strategy": "average",
+          "scope": 3,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101542/clock.gz",
+          "checkpoint_sha256": "f85612be3c6c67649a91dfc5c272b825f0bc14e00f81a007403a71134f8ebdff",
+          "rows": 44216070
+        },
+        "production-2026101542-clock": {
+          "id": "production-2026101542-clock",
+          "path": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/production-2026101542/clock-average.gz",
+          "sha256": "bb6c9aaefea129f5b720fad409e5f8c2067636b8a012ecf0e346b8c8596b219b",
+          "strategy": "average",
+          "scope": 3,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/production-2026101542/clock.gz",
+          "checkpoint_sha256": "acbe05c0466b7ebe40b690d980b119918879582d6a2598d11bdecf6e2e853431",
+          "rows": 24432927
+        },
+        "fast-2026101543-nodes": {
+          "id": "fast-2026101543-nodes",
+          "path": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101543/nodes-average.gz",
+          "sha256": "81d9550f53da2b596acec576a479f464c601fb6c4ab4305b8a9bbc052c81b67d",
+          "strategy": "average",
+          "scope": 3,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101543/nodes.gz",
+          "checkpoint_sha256": "0c57805a68e1c060fdb52e23f84b804e773f5066b55f7705854158a055ead011",
+          "rows": 29465179
+        },
+        "fast-2026101543-clock": {
+          "id": "fast-2026101543-clock",
+          "path": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101543/clock-average.gz",
+          "sha256": "c5c8177f96a0a4248972ff3d7d37d41c65da937607f6d68855d86b87823f7c75",
+          "strategy": "average",
+          "scope": 3,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101543/clock.gz",
+          "checkpoint_sha256": "da221a98ed9e4136808bb7dfe24aaac6f38b242a2aea5e7fbee780d77bca7062",
+          "rows": 44406527
+        },
+        "production-2026101543-clock": {
+          "id": "production-2026101543-clock",
+          "path": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/production-2026101543/clock-average.gz",
+          "sha256": "d822a3baf86ee99d57874266d06297b7b3207996ddabaf239f91a1d770f60914",
+          "strategy": "average",
+          "scope": 3,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/production-2026101543/clock.gz",
+          "checkpoint_sha256": "58aa295ff91dfa2b91b8dd5665569c27eb2f89bc01c8a8f26d53eb32d3f8c6b2",
+          "rows": 24425731
+        },
+        "production-2026101541-1b": {
+          "path": "/home/dberweger/nplayer-blueprint-phase2-20261015/training/2026101541/1000m-average.gz",
+          "sha256": "990246065bfc1f8a13c5ca3456090689b5ab52105c860d4bca1531b3f5e3db70",
+          "bytes": 705933433,
+          "source_mtime_ns": 1792070418689699712,
+          "strategy": "average",
+          "scope": 3,
+          "owner_pr": 292,
+          "archive_member": "training/2026101541/1000m-average.gz"
+        },
+        "production-2026101542-1b": {
+          "path": "/home/dberweger/nplayer-blueprint-phase2-20261015/training/2026101542/1000m-average.gz",
+          "sha256": "34ab3e9262ebf37ddf13f9f4e127c8eb7e2bb35e1f84d807af06815de6ba0077",
+          "bytes": 713944774,
+          "source_mtime_ns": 1792074133182909821,
+          "strategy": "average",
+          "scope": 3,
+          "owner_pr": 292,
+          "archive_member": "training/2026101542/1000m-average.gz"
+        },
+        "production-2026101543-1b": {
+          "path": "/home/dberweger/nplayer-blueprint-phase2-20261015/training/2026101543/1000m-average.gz",
+          "sha256": "558efcc9f2a54b74202acc658aa018343123ff11f4fd8522b3dd8aefe25aad91",
+          "bytes": 720740809,
+          "source_mtime_ns": 1792077858212005800,
+          "strategy": "average",
+          "scope": 3,
+          "owner_pr": 292,
+          "archive_member": "training/2026101543/1000m-average.gz"
+        }
+      }
+    },
+    "status": {
+      "status": "complete",
+      "final_hands": 589824,
+      "source_commit": "8f6fb76dade872b6ab282f1a0a4f6f3abee7dbfa",
+      "completed_at": 1792334551.1792893
+    },
+    "launch": {
+      "pid": 306072,
+      "utc": "2026-10-18T13:00:26.209388+00:00",
+      "command": [
+        "python3",
+        "-m",
+        "scripts.run_nplayer_fast_study",
+        "/home/dberweger/nplayer-fast-strength-20261018-main-v5"
+      ],
+      "source_commit": "8f6fb76dade872b6ab282f1a0a4f6f3abee7dbfa",
+      "bundle_sha256": "894e28cc17071a72036696a1193400263d964aa1b9c952d157471059c6103f53",
+      "verified_source_files": 720,
+      "native_source_files_identical_to_v4": 48,
+      "selected_threads": 16,
+      "thermal_limits_c": {
+        "Package id 0": 90,
+        "Thermistor 15": 95
+      },
+      "original_deadline_epoch": 1792348292.676534,
+      "prior_attempt_root": "/home/dberweger/nplayer-fast-strength-20261018-main-v4"
+    },
+    "admission": {
+      "pid": 306072,
+      "initial_sample": {
+        "at": 1792328426.252749,
+        "phase": "admission",
+        "target": 0,
+        "temperatures_c": {
+          "Thermistor 15": 33.5,
+          "Package id 0": 45.0
+        },
+        "available_ram_bytes": 131543695360,
+        "fan1_rpm": 496,
+        "swap_growth_bytes": 0,
+        "free_disk_bytes": 82454982656,
+        "remaining_output_reservation_bytes": 32000000000,
+        "rss_bytes": 0
+      },
+      "threads": 16,
+      "qualification_sha256": "a587a9ec0987f35e24998f290c4b861b5b2be0461a94b2b00efc84e8f8e9e407",
+      "legacy_holder": null,
+      "original_deadline_epoch": 1792348292.676534,
+      "projected_seconds": 7200,
+      "source_commit": "8f6fb76dade872b6ab282f1a0a4f6f3abee7dbfa",
+      "thermal_limits_c": {
+        "Package id 0": 90,
+        "Thermistor 15": 95
+      },
+      "prior_attempt_root": "/home/dberweger/nplayer-fast-strength-20261018-main-v4",
+      "cases": [
+        {
+          "name": "2026101541-nodes-forward",
+          "seed": 2026101541,
+          "scope": "nodes",
+          "root": 20261018335101,
+          "blocks": 8192,
+          "singleton": "fast-2026101541-nodes",
+          "pair": "production-2026101541-1b"
+        },
+        {
+          "name": "2026101541-nodes-reverse",
+          "seed": 2026101541,
+          "scope": "nodes",
+          "root": 20261018335101,
+          "blocks": 8192,
+          "singleton": "production-2026101541-1b",
+          "pair": "fast-2026101541-nodes"
+        },
+        {
+          "name": "2026101541-clock-forward",
+          "seed": 2026101541,
+          "scope": "clock",
+          "root": 20261018335102,
+          "blocks": 8192,
+          "singleton": "fast-2026101541-clock",
+          "pair": "production-2026101541-clock"
+        },
+        {
+          "name": "2026101541-clock-reverse",
+          "seed": 2026101541,
+          "scope": "clock",
+          "root": 20261018335102,
+          "blocks": 8192,
+          "singleton": "production-2026101541-clock",
+          "pair": "fast-2026101541-clock"
+        },
+        {
+          "name": "2026101542-nodes-forward",
+          "seed": 2026101542,
+          "scope": "nodes",
+          "root": 20261018335103,
+          "blocks": 8192,
+          "singleton": "fast-2026101542-nodes",
+          "pair": "production-2026101542-1b"
+        },
+        {
+          "name": "2026101542-nodes-reverse",
+          "seed": 2026101542,
+          "scope": "nodes",
+          "root": 20261018335103,
+          "blocks": 8192,
+          "singleton": "production-2026101542-1b",
+          "pair": "fast-2026101542-nodes"
+        },
+        {
+          "name": "2026101542-clock-forward",
+          "seed": 2026101542,
+          "scope": "clock",
+          "root": 20261018335104,
+          "blocks": 8192,
+          "singleton": "fast-2026101542-clock",
+          "pair": "production-2026101542-clock"
+        },
+        {
+          "name": "2026101542-clock-reverse",
+          "seed": 2026101542,
+          "scope": "clock",
+          "root": 20261018335104,
+          "blocks": 8192,
+          "singleton": "production-2026101542-clock",
+          "pair": "fast-2026101542-clock"
+        },
+        {
+          "name": "2026101543-nodes-forward",
+          "seed": 2026101543,
+          "scope": "nodes",
+          "root": 20261018335105,
+          "blocks": 8192,
+          "singleton": "fast-2026101543-nodes",
+          "pair": "production-2026101543-1b"
+        },
+        {
+          "name": "2026101543-nodes-reverse",
+          "seed": 2026101543,
+          "scope": "nodes",
+          "root": 20261018335105,
+          "blocks": 8192,
+          "singleton": "production-2026101543-1b",
+          "pair": "fast-2026101543-nodes"
+        },
+        {
+          "name": "2026101543-clock-forward",
+          "seed": 2026101543,
+          "scope": "clock",
+          "root": 20261018335106,
+          "blocks": 8192,
+          "singleton": "fast-2026101543-clock",
+          "pair": "production-2026101543-clock"
+        },
+        {
+          "name": "2026101543-clock-reverse",
+          "seed": 2026101543,
+          "scope": "clock",
+          "root": 20261018335106,
+          "blocks": 8192,
+          "singleton": "production-2026101543-clock",
+          "pair": "fast-2026101543-clock"
+        }
+      ]
+    },
+    "pretraining-freeze": {
+      "status": "qualified",
+      "cases": [
+        {
+          "name": "2026101541-nodes-forward",
+          "seed": 2026101541,
+          "scope": "nodes",
+          "root": 20261018335101,
+          "blocks": 8192,
+          "singleton": "fast-2026101541-nodes",
+          "pair": "production-2026101541-1b"
+        },
+        {
+          "name": "2026101541-nodes-reverse",
+          "seed": 2026101541,
+          "scope": "nodes",
+          "root": 20261018335101,
+          "blocks": 8192,
+          "singleton": "production-2026101541-1b",
+          "pair": "fast-2026101541-nodes"
+        },
+        {
+          "name": "2026101541-clock-forward",
+          "seed": 2026101541,
+          "scope": "clock",
+          "root": 20261018335102,
+          "blocks": 8192,
+          "singleton": "fast-2026101541-clock",
+          "pair": "production-2026101541-clock"
+        },
+        {
+          "name": "2026101541-clock-reverse",
+          "seed": 2026101541,
+          "scope": "clock",
+          "root": 20261018335102,
+          "blocks": 8192,
+          "singleton": "production-2026101541-clock",
+          "pair": "fast-2026101541-clock"
+        },
+        {
+          "name": "2026101542-nodes-forward",
+          "seed": 2026101542,
+          "scope": "nodes",
+          "root": 20261018335103,
+          "blocks": 8192,
+          "singleton": "fast-2026101542-nodes",
+          "pair": "production-2026101542-1b"
+        },
+        {
+          "name": "2026101542-nodes-reverse",
+          "seed": 2026101542,
+          "scope": "nodes",
+          "root": 20261018335103,
+          "blocks": 8192,
+          "singleton": "production-2026101542-1b",
+          "pair": "fast-2026101542-nodes"
+        },
+        {
+          "name": "2026101542-clock-forward",
+          "seed": 2026101542,
+          "scope": "clock",
+          "root": 20261018335104,
+          "blocks": 8192,
+          "singleton": "fast-2026101542-clock",
+          "pair": "production-2026101542-clock"
+        },
+        {
+          "name": "2026101542-clock-reverse",
+          "seed": 2026101542,
+          "scope": "clock",
+          "root": 20261018335104,
+          "blocks": 8192,
+          "singleton": "production-2026101542-clock",
+          "pair": "fast-2026101542-clock"
+        },
+        {
+          "name": "2026101543-nodes-forward",
+          "seed": 2026101543,
+          "scope": "nodes",
+          "root": 20261018335105,
+          "blocks": 8192,
+          "singleton": "fast-2026101543-nodes",
+          "pair": "production-2026101543-1b"
+        },
+        {
+          "name": "2026101543-nodes-reverse",
+          "seed": 2026101543,
+          "scope": "nodes",
+          "root": 20261018335105,
+          "blocks": 8192,
+          "singleton": "production-2026101543-1b",
+          "pair": "fast-2026101543-nodes"
+        },
+        {
+          "name": "2026101543-clock-forward",
+          "seed": 2026101543,
+          "scope": "clock",
+          "root": 20261018335106,
+          "blocks": 8192,
+          "singleton": "fast-2026101543-clock",
+          "pair": "production-2026101543-clock"
+        },
+        {
+          "name": "2026101543-clock-reverse",
+          "seed": 2026101543,
+          "scope": "clock",
+          "root": 20261018335106,
+          "blocks": 8192,
+          "singleton": "production-2026101543-clock",
+          "pair": "fast-2026101543-clock"
+        }
+      ],
+      "seed_order": [
+        2026101541,
+        2026101542,
+        2026101543
+      ],
+      "threads": 16,
+      "roots_per_seat": 8,
+      "training_seconds": 600,
+      "node_target": 1000000000,
+      "inputs": {
+        "production-2026101541-1b": {
+          "path": "/home/dberweger/nplayer-blueprint-phase2-20261015/training/2026101541/1000m-average.gz",
+          "sha256": "990246065bfc1f8a13c5ca3456090689b5ab52105c860d4bca1531b3f5e3db70",
+          "bytes": 705933433,
+          "source_mtime_ns": 1792070418689699712,
+          "strategy": "average",
+          "scope": 3,
+          "owner_pr": 292,
+          "archive_member": "training/2026101541/1000m-average.gz"
+        },
+        "production-2026101542-1b": {
+          "path": "/home/dberweger/nplayer-blueprint-phase2-20261015/training/2026101542/1000m-average.gz",
+          "sha256": "34ab3e9262ebf37ddf13f9f4e127c8eb7e2bb35e1f84d807af06815de6ba0077",
+          "bytes": 713944774,
+          "source_mtime_ns": 1792074133182909821,
+          "strategy": "average",
+          "scope": 3,
+          "owner_pr": 292,
+          "archive_member": "training/2026101542/1000m-average.gz"
+        },
+        "production-2026101543-1b": {
+          "path": "/home/dberweger/nplayer-blueprint-phase2-20261015/training/2026101543/1000m-average.gz",
+          "sha256": "558efcc9f2a54b74202acc658aa018343123ff11f4fd8522b3dd8aefe25aad91",
+          "bytes": 720740809,
+          "source_mtime_ns": 1792077858212005800,
+          "strategy": "average",
+          "scope": 3,
+          "owner_pr": 292,
+          "archive_member": "training/2026101543/1000m-average.gz"
+        }
+      },
+      "source_commit": "8f6fb76dade872b6ab282f1a0a4f6f3abee7dbfa",
+      "instrumented_cli_identity": "passed",
+      "thermal_limits_c": {
+        "Package id 0": 90,
+        "Thermistor 15": 95
+      },
+      "deadline_epoch": 1792348292.676534
+    },
+    "evaluation-verified": {
+      "status": "passed",
+      "contrasts": 12,
+      "final_hands": 589824,
+      "manifest_sha256": "2ba4a487b3b15be835340c030d0a01d21e006ac2a6cb45c6e84f3256f93c4d45"
+    },
+    "evaluation-manifest": {
+      "format": "nplayer-fast-strength-evaluation-v1",
+      "cases": [
+        {
+          "name": "2026101541-nodes-forward",
+          "seed": 2026101541,
+          "scope": "nodes",
+          "root": 20261018335101,
+          "blocks": 8192,
+          "singleton": "fast-2026101541-nodes",
+          "pair": "production-2026101541-1b"
+        },
+        {
+          "name": "2026101541-nodes-reverse",
+          "seed": 2026101541,
+          "scope": "nodes",
+          "root": 20261018335101,
+          "blocks": 8192,
+          "singleton": "production-2026101541-1b",
+          "pair": "fast-2026101541-nodes"
+        },
+        {
+          "name": "2026101541-clock-forward",
+          "seed": 2026101541,
+          "scope": "clock",
+          "root": 20261018335102,
+          "blocks": 8192,
+          "singleton": "fast-2026101541-clock",
+          "pair": "production-2026101541-clock"
+        },
+        {
+          "name": "2026101541-clock-reverse",
+          "seed": 2026101541,
+          "scope": "clock",
+          "root": 20261018335102,
+          "blocks": 8192,
+          "singleton": "production-2026101541-clock",
+          "pair": "fast-2026101541-clock"
+        },
+        {
+          "name": "2026101542-nodes-forward",
+          "seed": 2026101542,
+          "scope": "nodes",
+          "root": 20261018335103,
+          "blocks": 8192,
+          "singleton": "fast-2026101542-nodes",
+          "pair": "production-2026101542-1b"
+        },
+        {
+          "name": "2026101542-nodes-reverse",
+          "seed": 2026101542,
+          "scope": "nodes",
+          "root": 20261018335103,
+          "blocks": 8192,
+          "singleton": "production-2026101542-1b",
+          "pair": "fast-2026101542-nodes"
+        },
+        {
+          "name": "2026101542-clock-forward",
+          "seed": 2026101542,
+          "scope": "clock",
+          "root": 20261018335104,
+          "blocks": 8192,
+          "singleton": "fast-2026101542-clock",
+          "pair": "production-2026101542-clock"
+        },
+        {
+          "name": "2026101542-clock-reverse",
+          "seed": 2026101542,
+          "scope": "clock",
+          "root": 20261018335104,
+          "blocks": 8192,
+          "singleton": "production-2026101542-clock",
+          "pair": "fast-2026101542-clock"
+        },
+        {
+          "name": "2026101543-nodes-forward",
+          "seed": 2026101543,
+          "scope": "nodes",
+          "root": 20261018335105,
+          "blocks": 8192,
+          "singleton": "fast-2026101543-nodes",
+          "pair": "production-2026101543-1b"
+        },
+        {
+          "name": "2026101543-nodes-reverse",
+          "seed": 2026101543,
+          "scope": "nodes",
+          "root": 20261018335105,
+          "blocks": 8192,
+          "singleton": "production-2026101543-1b",
+          "pair": "fast-2026101543-nodes"
+        },
+        {
+          "name": "2026101543-clock-forward",
+          "seed": 2026101543,
+          "scope": "clock",
+          "root": 20261018335106,
+          "blocks": 8192,
+          "singleton": "fast-2026101543-clock",
+          "pair": "production-2026101543-clock"
+        },
+        {
+          "name": "2026101543-clock-reverse",
+          "seed": 2026101543,
+          "scope": "clock",
+          "root": 20261018335106,
+          "blocks": 8192,
+          "singleton": "production-2026101543-clock",
+          "pair": "fast-2026101543-clock"
+        }
+      ],
+      "models": {
+        "fast-2026101541-nodes": {
+          "id": "fast-2026101541-nodes",
+          "path": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101541/nodes-average.gz",
+          "sha256": "13f82263fa96c70eed82cf9f228363086eda683095a3d272b8c44f529dcc1353",
+          "strategy": "average",
+          "scope": 3,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101541/nodes.gz",
+          "checkpoint_sha256": "560a164ef0402e2696f47374428bb8d29e6e48e134da60783a5dddf13a912324",
+          "rows": 29512484
+        },
+        "fast-2026101541-clock": {
+          "id": "fast-2026101541-clock",
+          "path": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101541/clock-average.gz",
+          "sha256": "85a3352071612577ac6548a9f51f78aa5ac28c419e860ce0ee4c669ca75d432b",
+          "strategy": "average",
+          "scope": 3,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101541/clock.gz",
+          "checkpoint_sha256": "ef2381873d5685761de27ae664d69a30646b4f4e07aee7210b67413170a168d0",
+          "rows": 44661934
+        },
+        "production-2026101541-clock": {
+          "id": "production-2026101541-clock",
+          "path": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/production-2026101541/clock-average.gz",
+          "sha256": "5ad615eade10b9aef0b7f9f48dfcd40f6fddb9256fc12a61f908eb178f19c309",
+          "strategy": "average",
+          "scope": 3,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/production-2026101541/clock.gz",
+          "checkpoint_sha256": "b3c987027dc860fbb9bd194ecb6302bff91b8dec24a1c28900605141599c832c",
+          "rows": 24137943
+        },
+        "fast-2026101542-nodes": {
+          "id": "fast-2026101542-nodes",
+          "path": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101542/nodes-average.gz",
+          "sha256": "7f0e2e5c842e33265a71964a6c6cca32f04ba2b97a48616c5c64abd97904873c",
+          "strategy": "average",
+          "scope": 3,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101542/nodes.gz",
+          "checkpoint_sha256": "89c9562cbdb33af6d787f8a2e48f81119bd0d45b58fa638551cb92936ecdb6d5",
+          "rows": 29305912
+        },
+        "fast-2026101542-clock": {
+          "id": "fast-2026101542-clock",
+          "path": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101542/clock-average.gz",
+          "sha256": "b11fc256485a0200a318cb304d0b7b6f45820741484641c8d04de68df29bf7f1",
+          "strategy": "average",
+          "scope": 3,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101542/clock.gz",
+          "checkpoint_sha256": "f85612be3c6c67649a91dfc5c272b825f0bc14e00f81a007403a71134f8ebdff",
+          "rows": 44216070
+        },
+        "production-2026101542-clock": {
+          "id": "production-2026101542-clock",
+          "path": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/production-2026101542/clock-average.gz",
+          "sha256": "bb6c9aaefea129f5b720fad409e5f8c2067636b8a012ecf0e346b8c8596b219b",
+          "strategy": "average",
+          "scope": 3,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/production-2026101542/clock.gz",
+          "checkpoint_sha256": "acbe05c0466b7ebe40b690d980b119918879582d6a2598d11bdecf6e2e853431",
+          "rows": 24432927
+        },
+        "fast-2026101543-nodes": {
+          "id": "fast-2026101543-nodes",
+          "path": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101543/nodes-average.gz",
+          "sha256": "81d9550f53da2b596acec576a479f464c601fb6c4ab4305b8a9bbc052c81b67d",
+          "strategy": "average",
+          "scope": 3,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101543/nodes.gz",
+          "checkpoint_sha256": "0c57805a68e1c060fdb52e23f84b804e773f5066b55f7705854158a055ead011",
+          "rows": 29465179
+        },
+        "fast-2026101543-clock": {
+          "id": "fast-2026101543-clock",
+          "path": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101543/clock-average.gz",
+          "sha256": "c5c8177f96a0a4248972ff3d7d37d41c65da937607f6d68855d86b87823f7c75",
+          "strategy": "average",
+          "scope": 3,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101543/clock.gz",
+          "checkpoint_sha256": "da221a98ed9e4136808bb7dfe24aaac6f38b242a2aea5e7fbee780d77bca7062",
+          "rows": 44406527
+        },
+        "production-2026101543-clock": {
+          "id": "production-2026101543-clock",
+          "path": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/production-2026101543/clock-average.gz",
+          "sha256": "d822a3baf86ee99d57874266d06297b7b3207996ddabaf239f91a1d770f60914",
+          "strategy": "average",
+          "scope": 3,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/production-2026101543/clock.gz",
+          "checkpoint_sha256": "58aa295ff91dfa2b91b8dd5665569c27eb2f89bc01c8a8f26d53eb32d3f8c6b2",
+          "rows": 24425731
+        },
+        "production-2026101541-1b": {
+          "path": "/home/dberweger/nplayer-blueprint-phase2-20261015/training/2026101541/1000m-average.gz",
+          "sha256": "990246065bfc1f8a13c5ca3456090689b5ab52105c860d4bca1531b3f5e3db70",
+          "bytes": 705933433,
+          "source_mtime_ns": 1792070418689699712,
+          "strategy": "average",
+          "scope": 3,
+          "owner_pr": 292,
+          "archive_member": "training/2026101541/1000m-average.gz"
+        },
+        "production-2026101542-1b": {
+          "path": "/home/dberweger/nplayer-blueprint-phase2-20261015/training/2026101542/1000m-average.gz",
+          "sha256": "34ab3e9262ebf37ddf13f9f4e127c8eb7e2bb35e1f84d807af06815de6ba0077",
+          "bytes": 713944774,
+          "source_mtime_ns": 1792074133182909821,
+          "strategy": "average",
+          "scope": 3,
+          "owner_pr": 292,
+          "archive_member": "training/2026101542/1000m-average.gz"
+        },
+        "production-2026101543-1b": {
+          "path": "/home/dberweger/nplayer-blueprint-phase2-20261015/training/2026101543/1000m-average.gz",
+          "sha256": "558efcc9f2a54b74202acc658aa018343123ff11f4fd8522b3dd8aefe25aad91",
+          "bytes": 720740809,
+          "source_mtime_ns": 1792077858212005800,
+          "strategy": "average",
+          "scope": 3,
+          "owner_pr": 292,
+          "archive_member": "training/2026101543/1000m-average.gz"
+        }
+      },
+      "tables": "/home/dberweger/nplayer-blueprint-phase2-20261015/tables",
+      "arena": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/binaries/nplayer_arena",
+      "arena_sha256": "10b3be2d756317b4ec6ac44f6673788be57675c46202e78c6c2532d96e5d4937",
+      "source_commit": "8f6fb76dade872b6ab282f1a0a4f6f3abee7dbfa"
+    },
+    "models-audited": {
+      "status": "passed",
+      "models": {
+        "fast-2026101541-nodes": {
+          "id": "fast-2026101541-nodes",
+          "path": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101541/nodes-average.gz",
+          "sha256": "13f82263fa96c70eed82cf9f228363086eda683095a3d272b8c44f529dcc1353",
+          "strategy": "average",
+          "scope": 3,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101541/nodes.gz",
+          "checkpoint_sha256": "560a164ef0402e2696f47374428bb8d29e6e48e134da60783a5dddf13a912324",
+          "rows": 29512484
+        },
+        "fast-2026101541-clock": {
+          "id": "fast-2026101541-clock",
+          "path": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101541/clock-average.gz",
+          "sha256": "85a3352071612577ac6548a9f51f78aa5ac28c419e860ce0ee4c669ca75d432b",
+          "strategy": "average",
+          "scope": 3,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101541/clock.gz",
+          "checkpoint_sha256": "ef2381873d5685761de27ae664d69a30646b4f4e07aee7210b67413170a168d0",
+          "rows": 44661934
+        },
+        "production-2026101541-clock": {
+          "id": "production-2026101541-clock",
+          "path": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/production-2026101541/clock-average.gz",
+          "sha256": "5ad615eade10b9aef0b7f9f48dfcd40f6fddb9256fc12a61f908eb178f19c309",
+          "strategy": "average",
+          "scope": 3,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/production-2026101541/clock.gz",
+          "checkpoint_sha256": "b3c987027dc860fbb9bd194ecb6302bff91b8dec24a1c28900605141599c832c",
+          "rows": 24137943
+        },
+        "fast-2026101542-nodes": {
+          "id": "fast-2026101542-nodes",
+          "path": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101542/nodes-average.gz",
+          "sha256": "7f0e2e5c842e33265a71964a6c6cca32f04ba2b97a48616c5c64abd97904873c",
+          "strategy": "average",
+          "scope": 3,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101542/nodes.gz",
+          "checkpoint_sha256": "89c9562cbdb33af6d787f8a2e48f81119bd0d45b58fa638551cb92936ecdb6d5",
+          "rows": 29305912
+        },
+        "fast-2026101542-clock": {
+          "id": "fast-2026101542-clock",
+          "path": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101542/clock-average.gz",
+          "sha256": "b11fc256485a0200a318cb304d0b7b6f45820741484641c8d04de68df29bf7f1",
+          "strategy": "average",
+          "scope": 3,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101542/clock.gz",
+          "checkpoint_sha256": "f85612be3c6c67649a91dfc5c272b825f0bc14e00f81a007403a71134f8ebdff",
+          "rows": 44216070
+        },
+        "production-2026101542-clock": {
+          "id": "production-2026101542-clock",
+          "path": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/production-2026101542/clock-average.gz",
+          "sha256": "bb6c9aaefea129f5b720fad409e5f8c2067636b8a012ecf0e346b8c8596b219b",
+          "strategy": "average",
+          "scope": 3,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/production-2026101542/clock.gz",
+          "checkpoint_sha256": "acbe05c0466b7ebe40b690d980b119918879582d6a2598d11bdecf6e2e853431",
+          "rows": 24432927
+        },
+        "fast-2026101543-nodes": {
+          "id": "fast-2026101543-nodes",
+          "path": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101543/nodes-average.gz",
+          "sha256": "81d9550f53da2b596acec576a479f464c601fb6c4ab4305b8a9bbc052c81b67d",
+          "strategy": "average",
+          "scope": 3,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101543/nodes.gz",
+          "checkpoint_sha256": "0c57805a68e1c060fdb52e23f84b804e773f5066b55f7705854158a055ead011",
+          "rows": 29465179
+        },
+        "fast-2026101543-clock": {
+          "id": "fast-2026101543-clock",
+          "path": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101543/clock-average.gz",
+          "sha256": "c5c8177f96a0a4248972ff3d7d37d41c65da937607f6d68855d86b87823f7c75",
+          "strategy": "average",
+          "scope": 3,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101543/clock.gz",
+          "checkpoint_sha256": "da221a98ed9e4136808bb7dfe24aaac6f38b242a2aea5e7fbee780d77bca7062",
+          "rows": 44406527
+        },
+        "production-2026101543-clock": {
+          "id": "production-2026101543-clock",
+          "path": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/production-2026101543/clock-average.gz",
+          "sha256": "d822a3baf86ee99d57874266d06297b7b3207996ddabaf239f91a1d770f60914",
+          "strategy": "average",
+          "scope": 3,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/production-2026101543/clock.gz",
+          "checkpoint_sha256": "58aa295ff91dfa2b91b8dd5665569c27eb2f89bc01c8a8f26d53eb32d3f8c6b2",
+          "rows": 24425731
+        }
+      }
+    },
+    "binary-receipts": {
+      "nplayer_arena": "10b3be2d756317b4ec6ac44f6673788be57675c46202e78c6c2532d96e5d4937",
+      "nplayer_policy": "fdccd98759d547c6f37a85500bf3124fa36277f27ffa84d7c322b208b13a0408",
+      "nplayer_fast_strength": "45d8a22eede8879c31541aa2833cbe0ed21f37967f884d09e15d367a668e8bfb"
+    },
+    "config": {
+      "source_commit": "8f6fb76dade872b6ab282f1a0a4f6f3abee7dbfa",
+      "qualification_root": "/home/dberweger/nplayer-fast-strength-20261018",
+      "tables": "/home/dberweger/nplayer-blueprint-phase2-20261015/tables",
+      "runtime_python": "/home/dberweger/.local/share/uv/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+      "owner_authorized_all16": true,
+      "previous_setup_roots": [
+        "/home/dberweger/nplayer-fast-strength-20261018-main",
+        "/home/dberweger/nplayer-fast-strength-20261018-main-v2",
+        "/home/dberweger/nplayer-fast-strength-20261018-main-v3"
+      ],
+      "owned_growth_budget_bytes": 32000000000,
+      "thermal_limits_c": {
+        "Package id 0": 90,
+        "Thermistor 15": 95
+      },
+      "prior_attempt_root": "/home/dberweger/nplayer-fast-strength-20261018-main-v4",
+      "owner_retry_authorization": "October18: lets try to run again with those limits",
+      "original_deadline_epoch": 1792348292.676534
+    },
+    "export-plan": {
+      "policy": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/binaries/nplayer_policy",
+      "models": [
+        {
+          "id": "fast-2026101541-nodes",
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101541/nodes.gz",
+          "checkpoint_sha256": "560a164ef0402e2696f47374428bb8d29e6e48e134da60783a5dddf13a912324",
+          "export": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101541/nodes-average.gz"
+        },
+        {
+          "id": "fast-2026101541-clock",
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101541/clock.gz",
+          "checkpoint_sha256": "ef2381873d5685761de27ae664d69a30646b4f4e07aee7210b67413170a168d0",
+          "export": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101541/clock-average.gz"
+        },
+        {
+          "id": "production-2026101541-clock",
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/production-2026101541/clock.gz",
+          "checkpoint_sha256": "b3c987027dc860fbb9bd194ecb6302bff91b8dec24a1c28900605141599c832c",
+          "export": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/production-2026101541/clock-average.gz"
+        },
+        {
+          "id": "fast-2026101542-nodes",
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101542/nodes.gz",
+          "checkpoint_sha256": "89c9562cbdb33af6d787f8a2e48f81119bd0d45b58fa638551cb92936ecdb6d5",
+          "export": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101542/nodes-average.gz"
+        },
+        {
+          "id": "fast-2026101542-clock",
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101542/clock.gz",
+          "checkpoint_sha256": "f85612be3c6c67649a91dfc5c272b825f0bc14e00f81a007403a71134f8ebdff",
+          "export": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101542/clock-average.gz"
+        },
+        {
+          "id": "production-2026101542-clock",
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/production-2026101542/clock.gz",
+          "checkpoint_sha256": "acbe05c0466b7ebe40b690d980b119918879582d6a2598d11bdecf6e2e853431",
+          "export": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/production-2026101542/clock-average.gz"
+        },
+        {
+          "id": "fast-2026101543-nodes",
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101543/nodes.gz",
+          "checkpoint_sha256": "0c57805a68e1c060fdb52e23f84b804e773f5066b55f7705854158a055ead011",
+          "export": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101543/nodes-average.gz"
+        },
+        {
+          "id": "fast-2026101543-clock",
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101543/clock.gz",
+          "checkpoint_sha256": "da221a98ed9e4136808bb7dfe24aaac6f38b242a2aea5e7fbee780d77bca7062",
+          "export": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101543/clock-average.gz"
+        },
+        {
+          "id": "production-2026101543-clock",
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/production-2026101543/clock.gz",
+          "checkpoint_sha256": "58aa295ff91dfa2b91b8dd5665569c27eb2f89bc01c8a8f26d53eb32d3f8c6b2",
+          "export": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/production-2026101543/clock-average.gz"
+        }
+      ]
+    }
+  },
+  "stages": {
+    "build": {
+      "returncode": 0,
+      "wall_seconds": 14.911655183008406,
+      "cpu_seconds": 41.18034,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 1114091520
+      },
+      "events": [],
+      "resources": {
+        "samples": 29,
+        "peak_cpu_c": 54.0,
+        "peak_thermistor15_c": 42.0,
+        "peak_rss_bytes": 1114091520,
+        "max_swap_growth_bytes": 0,
+        "min_available_ram_bytes": 131320102912,
+        "min_free_disk_bytes": 82328428544,
+        "min_disk_reservation_headroom_bytes": 342924288,
+        "max_fan1_rpm": 710
+      }
+    },
+    "environment-create": {
+      "returncode": 0,
+      "wall_seconds": 2.1998989029962104,
+      "cpu_seconds": 2.188207999999995,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 101625856
+      },
+      "events": [],
+      "resources": {
+        "samples": 5,
+        "peak_cpu_c": 54.0,
+        "peak_thermistor15_c": 43.0,
+        "peak_rss_bytes": 101625856,
+        "max_swap_growth_bytes": 0,
+        "min_available_ram_bytes": 131797860352,
+        "min_free_disk_bytes": 82307645440,
+        "min_disk_reservation_headroom_bytes": 424958101,
+        "max_fan1_rpm": 713
+      }
+    },
+    "environment-install": {
+      "returncode": 0,
+      "wall_seconds": 4.66576441100915,
+      "cpu_seconds": 4.442776,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 102506496
+      },
+      "events": [],
+      "resources": {
+        "samples": 9,
+        "peak_cpu_c": 52.0,
+        "peak_thermistor15_c": 43.5,
+        "peak_rss_bytes": 102506496,
+        "max_swap_growth_bytes": 0,
+        "min_available_ram_bytes": 131770839040,
+        "min_free_disk_bytes": 82077573120,
+        "min_disk_reservation_headroom_bytes": 221579413,
+        "max_fan1_rpm": 700
+      }
+    },
+    "final-evaluation": {
+      "returncode": 0,
+      "wall_seconds": 331.3533647969889,
+      "cpu_seconds": 1947.1361759999977,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 64269086720
+      },
+      "events": [
+        {
+          "event": "complete",
+          "status": "passed",
+          "contrasts": 12,
+          "final_hands": 589824,
+          "manifest_sha256": "2ba4a487b3b15be835340c030d0a01d21e006ac2a6cb45c6e84f3256f93c4d45"
+        }
+      ],
+      "resources": {
+        "samples": 637,
+        "peak_cpu_c": 74.0,
+        "peak_thermistor15_c": 87.5,
+        "peak_rss_bytes": 64269086720,
+        "max_swap_growth_bytes": 6553600,
+        "min_available_ram_bytes": 67694014464,
+        "min_free_disk_bytes": 58701258752,
+        "min_disk_reservation_headroom_bytes": 26051287,
+        "max_fan1_rpm": 1135
+      }
+    },
+    "harness-smoke": {
+      "returncode": 0,
+      "wall_seconds": 10.72541779698804,
+      "cpu_seconds": 20.226037999999985,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 4087808,
+        "load/0": 468004864,
+        "save/0": 1573363712,
+        "train/0": 1469865984
+      },
+      "events": [
+        {
+          "event": "loaded",
+          "fast": true,
+          "seconds": 5.057843261,
+          "seed": 2026101833500,
+          "threads": 16
+        },
+        {
+          "entries": 552809,
+          "event": "endpoint",
+          "iteration": 258,
+          "label": "clock",
+          "nodes": 1128812,
+          "training_seconds": 0.200472413
+        },
+        {
+          "bytes": 17223602,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/harness-smoke/clock.gz",
+          "entries": 552809,
+          "event": "checkpoint",
+          "iteration": 258,
+          "label": "clock",
+          "nodes": 1128812,
+          "save_seconds": 1.477117394,
+          "sha256": "80cbb9170d934a6ee52abf097cafb66117247ce894d1a60dd5eb2cdd16fc21af",
+          "training_seconds": 0.200472413
+        },
+        {
+          "entries": 1259372,
+          "event": "endpoint",
+          "iteration": 691,
+          "label": "nodes",
+          "nodes": 3005177,
+          "training_seconds": 0.537356009
+        },
+        {
+          "bytes": 40434169,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/harness-smoke/nodes.gz",
+          "entries": 1259372,
+          "event": "checkpoint",
+          "iteration": 691,
+          "label": "nodes",
+          "nodes": 3005177,
+          "save_seconds": 3.416539817,
+          "sha256": "6481e3b5721ae7e35426f91f97d0fa8cdfb6b9165d35765259587839a7699971",
+          "training_seconds": 0.537356009
+        },
+        {
+          "event": "complete",
+          "training_seconds": 0.537356009
+        }
+      ],
+      "resources": {
+        "samples": 21,
+        "peak_cpu_c": 55.0,
+        "peak_thermistor15_c": 45.5,
+        "peak_rss_bytes": 1573363712,
+        "max_swap_growth_bytes": 0,
+        "min_available_ram_bytes": 130594545664,
+        "min_free_disk_bytes": 82016092160,
+        "min_disk_reservation_headroom_bytes": 454464318,
+        "max_fan1_rpm": 682
+      }
+    },
+    "prepare-models": {
+      "returncode": 0,
+      "wall_seconds": 697.8480119869928,
+      "cpu_seconds": 3399.631283000001,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 9083731968
+      },
+      "events": [
+        {
+          "event": "complete",
+          "models": 9
+        }
+      ],
+      "resources": {
+        "samples": 1344,
+        "peak_cpu_c": 73.0,
+        "peak_thermistor15_c": 91.5,
+        "peak_rss_bytes": 9083731968,
+        "max_swap_growth_bytes": 0,
+        "min_available_ram_bytes": 123149664256,
+        "min_free_disk_bytes": 61684002816,
+        "min_disk_reservation_headroom_bytes": 112598209,
+        "max_fan1_rpm": 1156
+      }
+    },
+    "smoke-audit-clock": {
+      "returncode": 0,
+      "wall_seconds": 3.4669383549771737,
+      "cpu_seconds": 3.4646269999999992,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 19464192
+      },
+      "events": [],
+      "resources": {
+        "samples": 7,
+        "peak_cpu_c": 58.0,
+        "peak_thermistor15_c": 46.0,
+        "peak_rss_bytes": 19464192,
+        "max_swap_growth_bytes": 0,
+        "min_available_ram_bytes": 132095447040,
+        "min_free_disk_bytes": 82003718144,
+        "min_disk_reservation_headroom_bytes": 442090302,
+        "max_fan1_rpm": 758
+      }
+    },
+    "smoke-audit-nodes": {
+      "returncode": 0,
+      "wall_seconds": 8.010417167999549,
+      "cpu_seconds": 8.009367,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 19275776
+      },
+      "events": [],
+      "resources": {
+        "samples": 16,
+        "peak_cpu_c": 58.0,
+        "peak_thermistor15_c": 47.0,
+        "peak_rss_bytes": 19275776,
+        "max_swap_growth_bytes": 0,
+        "min_available_ram_bytes": 132133142528,
+        "min_free_disk_bytes": 81976508416,
+        "min_disk_reservation_headroom_bytes": 484442324,
+        "max_fan1_rpm": 783
+      }
+    },
+    "smoke-evaluation": {
+      "returncode": 0,
+      "wall_seconds": 28.237004539987538,
+      "cpu_seconds": 169.9984410000001,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 12474687488
+      },
+      "events": [
+        {
+          "event": "complete",
+          "status": "passed",
+          "contrasts": 12,
+          "final_hands": 144,
+          "manifest_sha256": "00b626c82e5d1ed085bb7ac7ddba2a617253ed05b2fb5bb15d80915169fdf308"
+        }
+      ],
+      "resources": {
+        "samples": 55,
+        "peak_cpu_c": 67.0,
+        "peak_thermistor15_c": 74.0,
+        "peak_rss_bytes": 12474687488,
+        "max_swap_growth_bytes": 0,
+        "min_available_ram_bytes": 119625363456,
+        "min_free_disk_bytes": 80959082496,
+        "min_disk_reservation_headroom_bytes": 470630426,
+        "max_fan1_rpm": 956
+      }
+    },
+    "smoke-export-clock": {
+      "returncode": 0,
+      "wall_seconds": 1.4290508450067136,
+      "cpu_seconds": 2.4088960000000066,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 75948032
+      },
+      "events": [
+        {
+          "bytes": 11887103,
+          "mode": "average",
+          "sha256": "9bd6c988fffe8f4265592895446e16478feba41cd2b25078e9c2083831f76426"
+        }
+      ],
+      "resources": {
+        "samples": 3,
+        "peak_cpu_c": 52.0,
+        "peak_thermistor15_c": 45.5,
+        "peak_rss_bytes": 75948032,
+        "max_swap_growth_bytes": 0,
+        "min_available_ram_bytes": 132046139392,
+        "min_free_disk_bytes": 82009182208,
+        "min_disk_reservation_headroom_bytes": 447554366,
+        "max_fan1_rpm": 643
+      }
+    },
+    "smoke-export-nodes": {
+      "returncode": 0,
+      "wall_seconds": 3.170840325008612,
+      "cpu_seconds": 5.435463000000008,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 166207488
+      },
+      "events": [
+        {
+          "bytes": 27159116,
+          "mode": "average",
+          "sha256": "e6bb331088dfdc1a25cd94a66cc42610d5bba744e7a2baa583ed45be9d5380d2"
+        }
+      ],
+      "resources": {
+        "samples": 7,
+        "peak_cpu_c": 58.0,
+        "peak_thermistor15_c": 46.5,
+        "peak_rss_bytes": 166207488,
+        "max_swap_growth_bytes": 0,
+        "min_available_ram_bytes": 131995582464,
+        "min_free_disk_bytes": 81976537088,
+        "min_disk_reservation_headroom_bytes": 484466900,
+        "max_fan1_rpm": 762
+      }
+    },
+    "thermal-soak": {
+      "returncode": 0,
+      "wall_seconds": 212.6734311390028,
+      "cpu_seconds": 1645.995248,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 4091904,
+        "load/0": 187166720,
+        "train/0": 3435102208,
+        "save/0": 3685081088,
+        "verify/0": 3458007040
+      },
+      "events": [
+        {
+          "event": "loaded",
+          "fast": true,
+          "seconds": 5.068029086,
+          "seed": 2026101833500,
+          "threads": 16
+        },
+        {
+          "entries": 1259372,
+          "event": "endpoint",
+          "iteration": 691,
+          "label": "nodes",
+          "nodes": 3005177,
+          "training_seconds": 0.560130147
+        },
+        {
+          "bytes": 40434169,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/thermal-soak/nodes.gz",
+          "entries": 1259372,
+          "event": "checkpoint",
+          "iteration": 691,
+          "label": "nodes",
+          "nodes": 3005177,
+          "save_seconds": 3.446296141,
+          "sha256": "6481e3b5721ae7e35426f91f97d0fa8cdfb6b9165d35765259587839a7699971",
+          "training_seconds": 0.560130147
+        },
+        {
+          "entries": 24558294,
+          "event": "endpoint",
+          "iteration": 129778,
+          "label": "clock",
+          "nodes": 620114978,
+          "training_seconds": 120.000374373
+        },
+        {
+          "bytes": 975622765,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/thermal-soak/clock.gz",
+          "entries": 24558294,
+          "event": "checkpoint",
+          "iteration": 129778,
+          "label": "clock",
+          "nodes": 620114978,
+          "save_seconds": 80.49304996,
+          "sha256": "69473e96a57c7e4e9c272f95e851e35eade05ac349ea8eafe03346bde8bc6308",
+          "training_seconds": 120.000374373
+        },
+        {
+          "event": "complete",
+          "training_seconds": 120.000374373
+        }
+      ],
+      "resources": {
+        "samples": 409,
+        "peak_cpu_c": 69.0,
+        "peak_thermistor15_c": 80.5,
+        "peak_rss_bytes": 3685081088,
+        "max_swap_growth_bytes": 0,
+        "min_available_ram_bytes": 128216244224,
+        "min_free_disk_bytes": 80960233472,
+        "min_disk_reservation_headroom_bytes": 387898939,
+        "max_fan1_rpm": 1043
+      }
+    },
+    "train-fast-2026101541": {
+      "returncode": 0,
+      "wall_seconds": 886.6523277529923,
+      "cpu_seconds": 7820.725468999999,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 4034560,
+        "load/0": 593956864,
+        "train/0": 5175136256,
+        "save/0": 5517258752,
+        "verify/0": 5180026880,
+        "release/0": 0
+      },
+      "events": [
+        {
+          "event": "loaded",
+          "fast": true,
+          "seconds": 4.84922826,
+          "seed": 2026101541,
+          "threads": 16
+        },
+        {
+          "entries": 29512484,
+          "event": "endpoint",
+          "iteration": 201886,
+          "label": "nodes",
+          "nodes": 1000004051,
+          "training_seconds": 203.4767661
+        },
+        {
+          "bytes": 1192972392,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101541/nodes.gz",
+          "entries": 29512484,
+          "event": "checkpoint",
+          "iteration": 201886,
+          "label": "nodes",
+          "nodes": 1000004051,
+          "save_seconds": 106.530755673,
+          "sha256": "560a164ef0402e2696f47374428bb8d29e6e48e134da60783a5dddf13a912324",
+          "training_seconds": 203.4767661
+        },
+        {
+          "entries": 44661934,
+          "event": "endpoint",
+          "iteration": 562488,
+          "label": "clock",
+          "nodes": 2949726632,
+          "training_seconds": 600.0006816
+        },
+        {
+          "bytes": 1859652787,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101541/clock.gz",
+          "entries": 44661934,
+          "event": "checkpoint",
+          "iteration": 562488,
+          "label": "clock",
+          "nodes": 2949726632,
+          "save_seconds": 165.088892197,
+          "sha256": "ef2381873d5685761de27ae664d69a30646b4f4e07aee7210b67413170a168d0",
+          "training_seconds": 600.0006816
+        },
+        {
+          "event": "complete",
+          "training_seconds": 600.0006816
+        }
+      ],
+      "resources": {
+        "samples": 1705,
+        "peak_cpu_c": 71.0,
+        "peak_thermistor15_c": 93.0,
+        "peak_rss_bytes": 5517258752,
+        "max_swap_growth_bytes": 0,
+        "min_available_ram_bytes": 126384431104,
+        "min_free_disk_bytes": 77905666048,
+        "min_disk_reservation_headroom_bytes": 396131799,
+        "max_fan1_rpm": 1076
+      }
+    },
+    "train-fast-2026101542": {
+      "returncode": 0,
+      "wall_seconds": 862.295192169986,
+      "cpu_seconds": 7862.797254000001,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 3919872,
+        "load/0": 283471872,
+        "train/0": 5139656704,
+        "save/0": 5479329792,
+        "verify/0": 5152063488,
+        "release/0": 0
+      },
+      "events": [
+        {
+          "event": "loaded",
+          "fast": true,
+          "seconds": 4.911249806,
+          "seed": 2026101542,
+          "threads": 16
+        },
+        {
+          "entries": 29305912,
+          "event": "endpoint",
+          "iteration": 201918,
+          "label": "nodes",
+          "nodes": 1000002364,
+          "training_seconds": 196.812667685
+        },
+        {
+          "bytes": 1184220501,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101542/nodes.gz",
+          "entries": 29305912,
+          "event": "checkpoint",
+          "iteration": 201918,
+          "label": "nodes",
+          "nodes": 1000002364,
+          "save_seconds": 96.34928478,
+          "sha256": "89c9562cbdb33af6d787f8a2e48f81119bd0d45b58fa638551cb92936ecdb6d5",
+          "training_seconds": 196.812667685
+        },
+        {
+          "entries": 44216070,
+          "event": "endpoint",
+          "iteration": 577172,
+          "label": "clock",
+          "nodes": 3003671483,
+          "training_seconds": 600.0004971000001
+        },
+        {
+          "bytes": 1841184762,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101542/clock.gz",
+          "entries": 44216070,
+          "event": "checkpoint",
+          "iteration": 577172,
+          "label": "clock",
+          "nodes": 3003671483,
+          "save_seconds": 150.893211861,
+          "sha256": "f85612be3c6c67649a91dfc5c272b825f0bc14e00f81a007403a71134f8ebdff",
+          "training_seconds": 600.0004971000001
+        },
+        {
+          "event": "complete",
+          "training_seconds": 600.0004971000001
+        }
+      ],
+      "resources": {
+        "samples": 1656,
+        "peak_cpu_c": 72.0,
+        "peak_thermistor15_c": 94.0,
+        "peak_rss_bytes": 5479329792,
+        "max_swap_growth_bytes": 0,
+        "min_available_ram_bytes": 126439735296,
+        "min_free_disk_bytes": 73895247872,
+        "min_disk_reservation_headroom_bytes": 387302689,
+        "max_fan1_rpm": 1083
+      }
+    },
+    "train-fast-2026101543": {
+      "returncode": 0,
+      "wall_seconds": 880.5535608160135,
+      "cpu_seconds": 7868.882935000002,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 16896000,
+        "load/0": 157487104,
+        "train/0": 5148123136,
+        "save/0": 5482041344,
+        "verify/0": 5149478912
+      },
+      "events": [
+        {
+          "event": "loaded",
+          "fast": true,
+          "seconds": 5.182470951,
+          "seed": 2026101543,
+          "threads": 16
+        },
+        {
+          "entries": 29465179,
+          "event": "endpoint",
+          "iteration": 200237,
+          "label": "nodes",
+          "nodes": 1000004699,
+          "training_seconds": 205.885119988
+        },
+        {
+          "bytes": 1190630147,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101543/nodes.gz",
+          "entries": 29465179,
+          "event": "checkpoint",
+          "iteration": 200237,
+          "label": "nodes",
+          "nodes": 1000004699,
+          "save_seconds": 104.509479013,
+          "sha256": "0c57805a68e1c060fdb52e23f84b804e773f5066b55f7705854158a055ead011",
+          "training_seconds": 205.885119988
+        },
+        {
+          "entries": 44406527,
+          "event": "endpoint",
+          "iteration": 556892,
+          "label": "clock",
+          "nodes": 2910499919,
+          "training_seconds": 600.000964762
+        },
+        {
+          "bytes": 1848363235,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/fast-2026101543/clock.gz",
+          "entries": 44406527,
+          "event": "checkpoint",
+          "iteration": 556892,
+          "label": "clock",
+          "nodes": 2910499919,
+          "save_seconds": 160.528661899,
+          "sha256": "da221a98ed9e4136808bb7dfe24aaac6f38b242a2aea5e7fbee780d77bca7062",
+          "training_seconds": 600.000964762
+        },
+        {
+          "event": "complete",
+          "training_seconds": 600.000964762
+        }
+      ],
+      "resources": {
+        "samples": 1691,
+        "peak_cpu_c": 71.0,
+        "peak_thermistor15_c": 94.0,
+        "peak_rss_bytes": 5482041344,
+        "max_swap_growth_bytes": 0,
+        "min_available_ram_bytes": 126632386560,
+        "min_free_disk_bytes": 69862006784,
+        "min_disk_reservation_headroom_bytes": 394375290,
+        "max_fan1_rpm": 1081
+      }
+    },
+    "train-production-2026101541": {
+      "returncode": 0,
+      "wall_seconds": 713.6807315160113,
+      "cpu_seconds": 713.2595809999997,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 3653632,
+        "load/0": 1013673984,
+        "train/0": 3403759616,
+        "save/0": 3514073088,
+        "verify/0": 3417780224
+      },
+      "events": [
+        {
+          "event": "loaded",
+          "fast": false,
+          "seconds": 4.837237752,
+          "seed": 2026101541,
+          "threads": 1
+        },
+        {
+          "entries": 24137943,
+          "event": "endpoint",
+          "iteration": 1025648,
+          "label": "clock",
+          "nodes": 620967410,
+          "training_seconds": 600.000277101
+        },
+        {
+          "bytes": 983519487,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/production-2026101541/clock.gz",
+          "entries": 24137943,
+          "event": "checkpoint",
+          "iteration": 1025648,
+          "label": "clock",
+          "nodes": 620967410,
+          "save_seconds": 105.588210809,
+          "sha256": "b3c987027dc860fbb9bd194ecb6302bff91b8dec24a1c28900605141599c832c",
+          "training_seconds": 600.000277101
+        },
+        {
+          "event": "complete",
+          "training_seconds": 600.000277101
+        }
+      ],
+      "resources": {
+        "samples": 1378,
+        "peak_cpu_c": 61.0,
+        "peak_thermistor15_c": 68.0,
+        "peak_rss_bytes": 3514073088,
+        "max_swap_growth_bytes": 0,
+        "min_available_ram_bytes": 128386551808,
+        "min_free_disk_bytes": 76921479168,
+        "min_disk_reservation_headroom_bytes": 416469135,
+        "max_fan1_rpm": 805
+      }
+    },
+    "train-production-2026101542": {
+      "returncode": 0,
+      "wall_seconds": 713.4772929549799,
+      "cpu_seconds": 713.0312310000013,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 3719168,
+        "load/0": 491556864,
+        "train/0": 3426578432,
+        "save/0": 3536809984,
+        "verify/0": 3434713088
+      },
+      "events": [
+        {
+          "event": "loaded",
+          "fast": false,
+          "seconds": 4.892347004,
+          "seed": 2026101542,
+          "threads": 1
+        },
+        {
+          "entries": 24432927,
+          "event": "endpoint",
+          "iteration": 1022010,
+          "label": "clock",
+          "nodes": 611844588,
+          "training_seconds": 600.000073169
+        },
+        {
+          "bytes": 992834401,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/production-2026101542/clock.gz",
+          "entries": 24432927,
+          "event": "checkpoint",
+          "iteration": 1022010,
+          "label": "clock",
+          "nodes": 611844588,
+          "save_seconds": 105.080925705,
+          "sha256": "acbe05c0466b7ebe40b690d980b119918879582d6a2598d11bdecf6e2e853431",
+          "training_seconds": 600.000073169
+        },
+        {
+          "event": "complete",
+          "training_seconds": 600.000073169
+        }
+      ],
+      "resources": {
+        "samples": 1376,
+        "peak_cpu_c": 59.0,
+        "peak_thermistor15_c": 68.5,
+        "peak_rss_bytes": 3536809984,
+        "max_swap_growth_bytes": 0,
+        "min_available_ram_bytes": 128358113280,
+        "min_free_disk_bytes": 72901783552,
+        "min_disk_reservation_headroom_bytes": 413161167,
+        "max_fan1_rpm": 779
+      }
+    },
+    "train-production-2026101543": {
+      "returncode": 0,
+      "wall_seconds": 714.1108346809924,
+      "cpu_seconds": 713.6706019999965,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 3706880,
+        "load/0": 472653824,
+        "train/0": 3427299328,
+        "save/0": 3537936384,
+        "verify/0": 3435409408
+      },
+      "events": [
+        {
+          "event": "loaded",
+          "fast": false,
+          "seconds": 4.872028146,
+          "seed": 2026101543,
+          "threads": 1
+        },
+        {
+          "entries": 24425731,
+          "event": "endpoint",
+          "iteration": 1007663,
+          "label": "clock",
+          "nodes": 609703125,
+          "training_seconds": 600.001137733
+        },
+        {
+          "bytes": 993033607,
+          "checkpoint": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/training/production-2026101543/clock.gz",
+          "entries": 24425731,
+          "event": "checkpoint",
+          "iteration": 1007663,
+          "label": "clock",
+          "nodes": 609703125,
+          "save_seconds": 105.765293994,
+          "sha256": "58aa295ff91dfa2b91b8dd5665569c27eb2f89bc01c8a8f26d53eb32d3f8c6b2",
+          "training_seconds": 600.001137733
+        },
+        {
+          "event": "complete",
+          "training_seconds": 600.001137733
+        }
+      ],
+      "resources": {
+        "samples": 1378,
+        "peak_cpu_c": 60.0,
+        "peak_thermistor15_c": 69.0,
+        "peak_rss_bytes": 3537936384,
+        "max_swap_growth_bytes": 0,
+        "min_available_ram_bytes": 128594436096,
+        "min_free_disk_bytes": 68868341760,
+        "min_disk_reservation_headroom_bytes": 413484124,
+        "max_fan1_rpm": 794
+      }
+    },
+    "verified-readout": {
+      "returncode": 0,
+      "wall_seconds": 30.48598376699374,
+      "cpu_seconds": 30.30082700000321,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 120799232
+      },
+      "events": [
+        {
+          "status": "settled",
+          "final_hands": 589824,
+          "reproduction_hands": 589824,
+          "equal_node_noninferiority_passed": true,
+          "equal_time_consistent_gain_passed": true,
+          "manifest_sha256": "2ba4a487b3b15be835340c030d0a01d21e006ac2a6cb45c6e84f3256f93c4d45"
+        }
+      ],
+      "resources": {
+        "samples": 60,
+        "peak_cpu_c": 64.0,
+        "peak_thermistor15_c": 72.5,
+        "peak_rss_bytes": 120799232,
+        "max_swap_growth_bytes": 6553600,
+        "min_available_ram_bytes": 130868813824,
+        "min_free_disk_bytes": 58701160448,
+        "min_disk_reservation_headroom_bytes": 509987184,
+        "max_fan1_rpm": 865
+      }
+    }
+  },
+  "audits": {
+    "fast-2026101541-nodes": {
+      "by_street": [
+        {
+          "entries": 597148,
+          "visits": 13047465,
+          "zero_visit_entries": 202965,
+          "decisions": 55474555,
+          "missing_decisions": 597415,
+          "missing_decision_share": 0.010769171559825942,
+          "visits_per_key": 21.849633591672415
+        },
+        {
+          "entries": 1999697,
+          "visits": 28826814,
+          "zero_visit_entries": 914738,
+          "decisions": 93945166,
+          "missing_decisions": 1999988,
+          "missing_decision_share": 0.02128888675336419,
+          "visits_per_key": 14.415590962030748
+        },
+        {
+          "entries": 6638836,
+          "visits": 57290399,
+          "zero_visit_entries": 2994911,
+          "decisions": 170723502,
+          "missing_decisions": 6639162,
+          "missing_decision_share": 0.0388883892505907,
+          "visits_per_key": 8.629584915186939
+        },
+        {
+          "entries": 20276803,
+          "visits": 95407621,
+          "zero_visit_entries": 8787263,
+          "decisions": 271112645,
+          "missing_decisions": 20277293,
+          "missing_decision_share": 0.07479287069033612,
+          "visits_per_key": 4.705259552011232
+        }
+      ],
+      "status": "passed",
+      "checkpoint_sha256": "560a164ef0402e2696f47374428bb8d29e6e48e134da60783a5dddf13a912324",
+      "policy_sha256": "13f82263fa96c70eed82cf9f228363086eda683095a3d272b8c44f529dcc1353",
+      "strategy": "average",
+      "last_average_street": 3,
+      "rows": 29512484,
+      "average_rows": 29512484,
+      "current_rows": 0,
+      "zero_mass_rows": 8758812
+    },
+    "fast-2026101541-clock": {
+      "by_street": [
+        {
+          "entries": 715964,
+          "visits": 33067713,
+          "zero_visit_entries": 225946,
+          "decisions": 144326939,
+          "missing_decisions": 716231,
+          "missing_decision_share": 0.004962559345902846,
+          "visits_per_key": 46.186278919051794
+        },
+        {
+          "entries": 2663947,
+          "visits": 77914896,
+          "zero_visit_entries": 1177846,
+          "decisions": 258750372,
+          "missing_decisions": 2664241,
+          "missing_decision_share": 0.010296568771696298,
+          "visits_per_key": 29.24791521753248
+        },
+        {
+          "entries": 9609132,
+          "visits": 165564785,
+          "zero_visit_entries": 4162741,
+          "decisions": 507003821,
+          "missing_decisions": 9609462,
+          "missing_decision_share": 0.018953431122168997,
+          "visits_per_key": 17.229941788706824
+        },
+        {
+          "entries": 31672891,
+          "visits": 293383592,
+          "zero_visit_entries": 12920309,
+          "decisions": 837999067,
+          "missing_decisions": 31673406,
+          "missing_decision_share": 0.037796469288909125,
+          "visits_per_key": 9.262924309624909
+        }
+      ],
+      "status": "passed",
+      "checkpoint_sha256": "ef2381873d5685761de27ae664d69a30646b4f4e07aee7210b67413170a168d0",
+      "policy_sha256": "85a3352071612577ac6548a9f51f78aa5ac28c419e860ce0ee4c669ca75d432b",
+      "strategy": "average",
+      "last_average_street": 3,
+      "rows": 44661934,
+      "average_rows": 44661934,
+      "current_rows": 0,
+      "zero_mass_rows": 13428139
+    },
+    "production-2026101541-clock": {
+      "by_street": [
+        {
+          "entries": 543083,
+          "visits": 8786335,
+          "zero_visit_entries": 190388,
+          "decisions": 36809940,
+          "missing_decisions": 543102,
+          "missing_decision_share": 0.014754221278274292,
+          "visits_per_key": 16.178622788781826
+        },
+        {
+          "entries": 1739368,
+          "visits": 18790475,
+          "zero_visit_entries": 809057,
+          "decisions": 60563506,
+          "missing_decisions": 1739380,
+          "missing_decision_share": 0.028719935731593874,
+          "visits_per_key": 10.803047428721237
+        },
+        {
+          "entries": 5558411,
+          "visits": 35725905,
+          "zero_visit_entries": 2553780,
+          "decisions": 105474612,
+          "missing_decisions": 5558449,
+          "missing_decision_share": 0.05269940220306286,
+          "visits_per_key": 6.427359365833149
+        },
+        {
+          "entries": 16297081,
+          "visits": 58038129,
+          "zero_visit_entries": 7279632,
+          "decisions": 164225275,
+          "missing_decisions": 16297134,
+          "missing_decision_share": 0.09923645431557353,
+          "visits_per_key": 3.561259160459471
+        }
+      ],
+      "status": "passed",
+      "checkpoint_sha256": "b3c987027dc860fbb9bd194ecb6302bff91b8dec24a1c28900605141599c832c",
+      "policy_sha256": "5ad615eade10b9aef0b7f9f48dfcd40f6fddb9256fc12a61f908eb178f19c309",
+      "strategy": "average",
+      "last_average_street": 3,
+      "rows": 24137943,
+      "average_rows": 24137943,
+      "current_rows": 0,
+      "zero_mass_rows": 7110464
+    },
+    "fast-2026101542-nodes": {
+      "by_street": [
+        {
+          "entries": 592444,
+          "visits": 13007996,
+          "zero_visit_entries": 200475,
+          "decisions": 55352993,
+          "missing_decisions": 592732,
+          "missing_decision_share": 0.010708219517596818,
+          "visits_per_key": 21.956498842084653
+        },
+        {
+          "entries": 1992032,
+          "visits": 28825504,
+          "zero_visit_entries": 912036,
+          "decisions": 94007606,
+          "missing_decisions": 1992305,
+          "missing_decision_share": 0.021193019211658257,
+          "visits_per_key": 14.470402081894267
+        },
+        {
+          "entries": 6613591,
+          "visits": 57310575,
+          "zero_visit_entries": 2992586,
+          "decisions": 170762764,
+          "missing_decisions": 6613945,
+          "missing_decision_share": 0.03873177527156916,
+          "visits_per_key": 8.665575932953821
+        },
+        {
+          "entries": 20107845,
+          "visits": 95388311,
+          "zero_visit_entries": 8725927,
+          "decisions": 271164251,
+          "missing_decisions": 20108446,
+          "missing_decision_share": 0.07415596239491024,
+          "visits_per_key": 4.743835602472568
+        }
+      ],
+      "status": "passed",
+      "checkpoint_sha256": "89c9562cbdb33af6d787f8a2e48f81119bd0d45b58fa638551cb92936ecdb6d5",
+      "policy_sha256": "7f0e2e5c842e33265a71964a6c6cca32f04ba2b97a48616c5c64abd97904873c",
+      "strategy": "average",
+      "last_average_street": 3,
+      "rows": 29305912,
+      "average_rows": 29305912,
+      "current_rows": 0,
+      "zero_mass_rows": 8681254
+    },
+    "fast-2026101542-clock": {
+      "by_street": [
+        {
+          "entries": 720498,
+          "visits": 33572676,
+          "zero_visit_entries": 227232,
+          "decisions": 146780732,
+          "missing_decisions": 720786,
+          "missing_decision_share": 0.004910630913054719,
+          "visits_per_key": 46.59648742952791
+        },
+        {
+          "entries": 2670730,
+          "visits": 79444778,
+          "zero_visit_entries": 1187919,
+          "decisions": 263143168,
+          "missing_decisions": 2671003,
+          "missing_decision_share": 0.010150379431473592,
+          "visits_per_key": 29.746465573083015
+        },
+        {
+          "entries": 9572384,
+          "visits": 168933878,
+          "zero_visit_entries": 4186388,
+          "decisions": 516650280,
+          "missing_decisions": 9572748,
+          "missing_decision_share": 0.01852848700672339,
+          "visits_per_key": 17.648046505447336
+        },
+        {
+          "entries": 31252458,
+          "visits": 298827759,
+          "zero_visit_entries": 12767088,
+          "decisions": 853145290,
+          "missing_decisions": 31253083,
+          "missing_decision_share": 0.03663277916004201,
+          "visits_per_key": 9.561736200077446
+        }
+      ],
+      "status": "passed",
+      "checkpoint_sha256": "f85612be3c6c67649a91dfc5c272b825f0bc14e00f81a007403a71134f8ebdff",
+      "policy_sha256": "b11fc256485a0200a318cb304d0b7b6f45820741484641c8d04de68df29bf7f1",
+      "strategy": "average",
+      "last_average_street": 3,
+      "rows": 44216070,
+      "average_rows": 44216070,
+      "current_rows": 0,
+      "zero_mass_rows": 13232874
+    },
+    "production-2026101542-clock": {
+      "by_street": [
+        {
+          "entries": 541566,
+          "visits": 8740905,
+          "zero_visit_entries": 190282,
+          "decisions": 36704501,
+          "missing_decisions": 541581,
+          "missing_decision_share": 0.01475516585826899,
+          "visits_per_key": 16.140054951751033
+        },
+        {
+          "entries": 1761660,
+          "visits": 18464199,
+          "zero_visit_entries": 820060,
+          "decisions": 59788122,
+          "missing_decisions": 1761693,
+          "missing_decision_share": 0.029465601879918556,
+          "visits_per_key": 10.481136541670924
+        },
+        {
+          "entries": 5643989,
+          "visits": 35335500,
+          "zero_visit_entries": 2608783,
+          "decisions": 104074103,
+          "missing_decisions": 5644031,
+          "missing_decision_share": 0.05423088777426215,
+          "visits_per_key": 6.2607315499729
+        },
+        {
+          "entries": 16485712,
+          "visits": 57007514,
+          "zero_visit_entries": 7419598,
+          "decisions": 161297697,
+          "missing_decisions": 16485796,
+          "missing_decision_share": 0.10220726214088476,
+          "visits_per_key": 3.457995262806969
+        }
+      ],
+      "status": "passed",
+      "checkpoint_sha256": "acbe05c0466b7ebe40b690d980b119918879582d6a2598d11bdecf6e2e853431",
+      "policy_sha256": "bb6c9aaefea129f5b720fad409e5f8c2067636b8a012ecf0e346b8c8596b219b",
+      "strategy": "average",
+      "last_average_street": 3,
+      "rows": 24432927,
+      "average_rows": 24432927,
+      "current_rows": 0,
+      "zero_mass_rows": 7213537
+    },
+    "fast-2026101543-nodes": {
+      "by_street": [
+        {
+          "entries": 582616,
+          "visits": 12976265,
+          "zero_visit_entries": 195693,
+          "decisions": 55081671,
+          "missing_decisions": 582894,
+          "missing_decision_share": 0.01058235869423787,
+          "visits_per_key": 22.272414420475922
+        },
+        {
+          "entries": 1977148,
+          "visits": 28757029,
+          "zero_visit_entries": 905579,
+          "decisions": 93772561,
+          "missing_decisions": 1977398,
+          "missing_decision_share": 0.021087170691648276,
+          "visits_per_key": 14.544702268115488
+        },
+        {
+          "entries": 6619387,
+          "visits": 57191571,
+          "zero_visit_entries": 2992253,
+          "decisions": 170673660,
+          "missing_decisions": 6619707,
+          "missing_decision_share": 0.03878575639615392,
+          "visits_per_key": 8.640010170126025
+        },
+        {
+          "entries": 20286028,
+          "visits": 95564327,
+          "zero_visit_entries": 8803818,
+          "decisions": 271770389,
+          "missing_decisions": 20286488,
+          "missing_decision_share": 0.07464568923290608,
+          "visits_per_key": 4.71084467595135
+        }
+      ],
+      "status": "passed",
+      "checkpoint_sha256": "0c57805a68e1c060fdb52e23f84b804e773f5066b55f7705854158a055ead011",
+      "policy_sha256": "81d9550f53da2b596acec576a479f464c601fb6c4ab4305b8a9bbc052c81b67d",
+      "strategy": "average",
+      "last_average_street": 3,
+      "rows": 29465179,
+      "average_rows": 29465179,
+      "current_rows": 0,
+      "zero_mass_rows": 8738081
+    },
+    "fast-2026101543-clock": {
+      "by_street": [
+        {
+          "entries": 712153,
+          "visits": 32771308,
+          "zero_visit_entries": 223982,
+          "decisions": 143004115,
+          "missing_decisions": 712433,
+          "missing_decision_share": 0.004981905590618844,
+          "visits_per_key": 46.01722944367292
+        },
+        {
+          "entries": 2660571,
+          "visits": 77278023,
+          "zero_visit_entries": 1185469,
+          "decisions": 255848128,
+          "missing_decisions": 2660831,
+          "missing_decision_share": 0.010400040918024617,
+          "visits_per_key": 29.04565335786942
+        },
+        {
+          "entries": 9575466,
+          "visits": 163600854,
+          "zero_visit_entries": 4177066,
+          "decisions": 500177606,
+          "missing_decisions": 9575795,
+          "missing_decision_share": 0.019144789541017556,
+          "visits_per_key": 17.085419550338333
+        },
+        {
+          "entries": 31458337,
+          "visits": 289030504,
+          "zero_visit_entries": 12842480,
+          "decisions": 825708123,
+          "missing_decisions": 31458828,
+          "missing_decision_share": 0.03809921099686214,
+          "visits_per_key": 9.187723559576591
+        }
+      ],
+      "status": "passed",
+      "checkpoint_sha256": "da221a98ed9e4136808bb7dfe24aaac6f38b242a2aea5e7fbee780d77bca7062",
+      "policy_sha256": "c5c8177f96a0a4248972ff3d7d37d41c65da937607f6d68855d86b87823f7c75",
+      "strategy": "average",
+      "last_average_street": 3,
+      "rows": 44406527,
+      "average_rows": 44406527,
+      "current_rows": 0,
+      "zero_mass_rows": 13320469
+    },
+    "production-2026101543-clock": {
+      "by_street": [
+        {
+          "entries": 540875,
+          "visits": 8643432,
+          "zero_visit_entries": 188203,
+          "decisions": 36376644,
+          "missing_decisions": 540907,
+          "missing_decision_share": 0.014869623486982472,
+          "visits_per_key": 15.980461289577073
+        },
+        {
+          "entries": 1751895,
+          "visits": 18526872,
+          "zero_visit_entries": 814779,
+          "decisions": 59815128,
+          "missing_decisions": 1751918,
+          "missing_decision_share": 0.029288878224919955,
+          "visits_per_key": 10.575332425744694
+        },
+        {
+          "entries": 5631454,
+          "visits": 35262326,
+          "zero_visit_entries": 2597572,
+          "decisions": 103766616,
+          "missing_decisions": 5631485,
+          "missing_decision_share": 0.05427068181543089,
+          "visits_per_key": 6.261673450586652
+        },
+        {
+          "entries": 16501507,
+          "visits": 56746032,
+          "zero_visit_entries": 7412738,
+          "decisions": 160566667,
+          "missing_decisions": 16501555,
+          "missing_decision_share": 0.10277073883585065,
+          "visits_per_key": 3.4388393738826397
+        }
+      ],
+      "status": "passed",
+      "checkpoint_sha256": "58aa295ff91dfa2b91b8dd5665569c27eb2f89bc01c8a8f26d53eb32d3f8c6b2",
+      "policy_sha256": "d822a3baf86ee99d57874266d06297b7b3207996ddabaf239f91a1d770f60914",
+      "strategy": "average",
+      "last_average_street": 3,
+      "rows": 24425731,
+      "average_rows": 24425731,
+      "current_rows": 0,
+      "zero_mass_rows": 7211102
+    }
+  },
+  "evaluation_cases": {
+    "2026101541-clock-forward": {
+      "result": {
+        "status": "passed",
+        "case": {
+          "name": "2026101541-clock-forward",
+          "seed": 2026101541,
+          "scope": "clock",
+          "root": 20261018335102,
+          "blocks": 8192,
+          "singleton": "fast-2026101541-clock",
+          "pair": "production-2026101541-clock"
+        },
+        "trace_sha256": "bd9beef8fc8373fa0d23f8e88df94fd8794f0c3783b06f91c42b1c805411d26e",
+        "hands": 49152,
+        "operations": [
+          {
+            "repeat": 0,
+            "seconds": 85.37614582601236,
+            "returncode": 0,
+            "coverage": {
+              "blocks": 8192,
+              "decisions_by_identity_street": [
+                [
+                  52620,
+                  23326,
+                  13967,
+                  7832
+                ],
+                [
+                  52427,
+                  23212,
+                  13750,
+                  7693
+                ],
+                [
+                  52394,
+                  23200,
+                  13801,
+                  7617
+                ]
+              ],
+              "hands": 49152,
+              "load_seconds": 71.053894324,
+              "misses_by_identity_street": [
+                [
+                  1,
+                  0,
+                  3,
+                  0
+                ],
+                [
+                  2,
+                  0,
+                  10,
+                  11
+                ],
+                [
+                  0,
+                  0,
+                  8,
+                  11
+                ]
+              ],
+              "play_seconds": 3.349250966,
+              "status": "passed",
+              "trace_sha256": "bd9beef8fc8373fa0d23f8e88df94fd8794f0c3783b06f91c42b1c805411d26e"
+            }
+          },
+          {
+            "repeat": 1,
+            "seconds": 80.37227859502309,
+            "returncode": 0,
+            "coverage": {
+              "blocks": 8192,
+              "decisions_by_identity_street": [
+                [
+                  52620,
+                  23326,
+                  13967,
+                  7832
+                ],
+                [
+                  52427,
+                  23212,
+                  13750,
+                  7693
+                ],
+                [
+                  52394,
+                  23200,
+                  13801,
+                  7617
+                ]
+              ],
+              "hands": 49152,
+              "load_seconds": 66.536825873,
+              "misses_by_identity_street": [
+                [
+                  1,
+                  0,
+                  3,
+                  0
+                ],
+                [
+                  2,
+                  0,
+                  10,
+                  11
+                ],
+                [
+                  0,
+                  0,
+                  8,
+                  11
+                ]
+              ],
+              "play_seconds": 3.118180425,
+              "status": "passed",
+              "trace_sha256": "bd9beef8fc8373fa0d23f8e88df94fd8794f0c3783b06f91c42b1c805411d26e"
+            }
+          }
+        ],
+        "replay_seconds": 9.948555985989515
+      },
+      "replay": {
+        "status": "passed",
+        "engine": {
+          "url": "https://github.com/dberweger2017/pokers.git",
+          "vcs_info": {
+            "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "vcs": "git"
+          }
+        },
+        "hands": 49152,
+        "decisions": 291839,
+        "players": 3,
+        "trace_sha256": "bd9beef8fc8373fa0d23f8e88df94fd8794f0c3783b06f91c42b1c805411d26e"
+      }
+    },
+    "2026101541-clock-reverse": {
+      "result": {
+        "status": "passed",
+        "case": {
+          "name": "2026101541-clock-reverse",
+          "seed": 2026101541,
+          "scope": "clock",
+          "root": 20261018335102,
+          "blocks": 8192,
+          "singleton": "production-2026101541-clock",
+          "pair": "fast-2026101541-clock"
+        },
+        "trace_sha256": "4d4b2c2ddafdb4b4b9cebfddb953902896b5451df98839356664bc408c5a88c4",
+        "hands": 49152,
+        "operations": [
+          {
+            "repeat": 0,
+            "seconds": 85.74784300901229,
+            "returncode": 0,
+            "coverage": {
+              "blocks": 8192,
+              "decisions_by_identity_street": [
+                [
+                  51765,
+                  23149,
+                  13582,
+                  7623
+                ],
+                [
+                  52019,
+                  23380,
+                  13891,
+                  7937
+                ],
+                [
+                  52038,
+                  23210,
+                  13774,
+                  7929
+                ]
+              ],
+              "hands": 49152,
+              "load_seconds": 71.653040582,
+              "misses_by_identity_street": [
+                [
+                  2,
+                  3,
+                  13,
+                  14
+                ],
+                [
+                  0,
+                  0,
+                  3,
+                  1
+                ],
+                [
+                  0,
+                  0,
+                  1,
+                  2
+                ]
+              ],
+              "play_seconds": 3.262430146,
+              "status": "passed",
+              "trace_sha256": "4d4b2c2ddafdb4b4b9cebfddb953902896b5451df98839356664bc408c5a88c4"
+            }
+          },
+          {
+            "repeat": 1,
+            "seconds": 81.88282033399446,
+            "returncode": 0,
+            "coverage": {
+              "blocks": 8192,
+              "decisions_by_identity_street": [
+                [
+                  51765,
+                  23149,
+                  13582,
+                  7623
+                ],
+                [
+                  52019,
+                  23380,
+                  13891,
+                  7937
+                ],
+                [
+                  52038,
+                  23210,
+                  13774,
+                  7929
+                ]
+              ],
+              "hands": 49152,
+              "load_seconds": 68.201590391,
+              "misses_by_identity_street": [
+                [
+                  2,
+                  3,
+                  13,
+                  14
+                ],
+                [
+                  0,
+                  0,
+                  3,
+                  1
+                ],
+                [
+                  0,
+                  0,
+                  1,
+                  2
+                ]
+              ],
+              "play_seconds": 3.100871143,
+              "status": "passed",
+              "trace_sha256": "4d4b2c2ddafdb4b4b9cebfddb953902896b5451df98839356664bc408c5a88c4"
+            }
+          }
+        ],
+        "replay_seconds": 9.968196327012265
+      },
+      "replay": {
+        "status": "passed",
+        "engine": {
+          "url": "https://github.com/dberweger2017/pokers.git",
+          "vcs_info": {
+            "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "vcs": "git"
+          }
+        },
+        "hands": 49152,
+        "decisions": 290297,
+        "players": 3,
+        "trace_sha256": "4d4b2c2ddafdb4b4b9cebfddb953902896b5451df98839356664bc408c5a88c4"
+      }
+    },
+    "2026101541-nodes-forward": {
+      "result": {
+        "status": "passed",
+        "case": {
+          "name": "2026101541-nodes-forward",
+          "seed": 2026101541,
+          "scope": "nodes",
+          "root": 20261018335101,
+          "blocks": 8192,
+          "singleton": "fast-2026101541-nodes",
+          "pair": "production-2026101541-1b"
+        },
+        "trace_sha256": "736436df7093eb57d8d97c7acf151d3ce85c7b683b8ece7db43ce07cd6351b81",
+        "hands": 49152,
+        "operations": [
+          {
+            "repeat": 0,
+            "seconds": 75.04788363401894,
+            "returncode": 0,
+            "coverage": {
+              "blocks": 8192,
+              "decisions_by_identity_street": [
+                [
+                  52354,
+                  22793,
+                  13919,
+                  7907
+                ],
+                [
+                  52217,
+                  23072,
+                  14041,
+                  7889
+                ],
+                [
+                  52329,
+                  23156,
+                  14039,
+                  7930
+                ]
+              ],
+              "hands": 49152,
+              "load_seconds": 62.177282086,
+              "misses_by_identity_street": [
+                [
+                  1,
+                  1,
+                  2,
+                  5
+                ],
+                [
+                  0,
+                  4,
+                  3,
+                  4
+                ],
+                [
+                  1,
+                  5,
+                  2,
+                  4
+                ]
+              ],
+              "play_seconds": 3.215417601,
+              "status": "passed",
+              "trace_sha256": "736436df7093eb57d8d97c7acf151d3ce85c7b683b8ece7db43ce07cd6351b81"
+            }
+          },
+          {
+            "repeat": 1,
+            "seconds": 70.75835092700436,
+            "returncode": 0,
+            "coverage": {
+              "blocks": 8192,
+              "decisions_by_identity_street": [
+                [
+                  52354,
+                  22793,
+                  13919,
+                  7907
+                ],
+                [
+                  52217,
+                  23072,
+                  14041,
+                  7889
+                ],
+                [
+                  52329,
+                  23156,
+                  14039,
+                  7930
+                ]
+              ],
+              "hands": 49152,
+              "load_seconds": 59.174070097,
+              "misses_by_identity_street": [
+                [
+                  1,
+                  1,
+                  2,
+                  5
+                ],
+                [
+                  0,
+                  4,
+                  3,
+                  4
+                ],
+                [
+                  1,
+                  5,
+                  2,
+                  4
+                ]
+              ],
+              "play_seconds": 3.229939773,
+              "status": "passed",
+              "trace_sha256": "736436df7093eb57d8d97c7acf151d3ce85c7b683b8ece7db43ce07cd6351b81"
+            }
+          }
+        ],
+        "replay_seconds": 9.832572541985428
+      },
+      "replay": {
+        "status": "passed",
+        "engine": {
+          "url": "https://github.com/dberweger2017/pokers.git",
+          "vcs_info": {
+            "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "vcs": "git"
+          }
+        },
+        "hands": 49152,
+        "decisions": 291646,
+        "players": 3,
+        "trace_sha256": "736436df7093eb57d8d97c7acf151d3ce85c7b683b8ece7db43ce07cd6351b81"
+      }
+    },
+    "2026101541-nodes-reverse": {
+      "result": {
+        "status": "passed",
+        "case": {
+          "name": "2026101541-nodes-reverse",
+          "seed": 2026101541,
+          "scope": "nodes",
+          "root": 20261018335101,
+          "blocks": 8192,
+          "singleton": "production-2026101541-1b",
+          "pair": "fast-2026101541-nodes"
+        },
+        "trace_sha256": "b3dab4b380ba0316130993e055950b95bf3aa6eb066406bbf04c92cba605629d",
+        "hands": 49152,
+        "operations": [
+          {
+            "repeat": 0,
+            "seconds": 74.42753580599674,
+            "returncode": 0,
+            "coverage": {
+              "blocks": 8192,
+              "decisions_by_identity_street": [
+                [
+                  52278,
+                  22714,
+                  13865,
+                  7886
+                ],
+                [
+                  52259,
+                  22762,
+                  13848,
+                  7784
+                ],
+                [
+                  52243,
+                  22661,
+                  13674,
+                  7860
+                ]
+              ],
+              "hands": 49152,
+              "load_seconds": 61.203567715,
+              "misses_by_identity_street": [
+                [
+                  0,
+                  0,
+                  5,
+                  6
+                ],
+                [
+                  0,
+                  1,
+                  6,
+                  5
+                ],
+                [
+                  1,
+                  3,
+                  6,
+                  4
+                ]
+              ],
+              "play_seconds": 3.587134645,
+              "status": "passed",
+              "trace_sha256": "b3dab4b380ba0316130993e055950b95bf3aa6eb066406bbf04c92cba605629d"
+            }
+          },
+          {
+            "repeat": 1,
+            "seconds": 68.72209348899196,
+            "returncode": 0,
+            "coverage": {
+              "blocks": 8192,
+              "decisions_by_identity_street": [
+                [
+                  52278,
+                  22714,
+                  13865,
+                  7886
+                ],
+                [
+                  52259,
+                  22762,
+                  13848,
+                  7784
+                ],
+                [
+                  52243,
+                  22661,
+                  13674,
+                  7860
+                ]
+              ],
+              "hands": 49152,
+              "load_seconds": 56.74106309,
+              "misses_by_identity_street": [
+                [
+                  0,
+                  0,
+                  5,
+                  6
+                ],
+                [
+                  0,
+                  1,
+                  6,
+                  5
+                ],
+                [
+                  1,
+                  3,
+                  6,
+                  4
+                ]
+              ],
+              "play_seconds": 3.14115001,
+              "status": "passed",
+              "trace_sha256": "b3dab4b380ba0316130993e055950b95bf3aa6eb066406bbf04c92cba605629d"
+            }
+          }
+        ],
+        "replay_seconds": 9.761693527980242
+      },
+      "replay": {
+        "status": "passed",
+        "engine": {
+          "url": "https://github.com/dberweger2017/pokers.git",
+          "vcs_info": {
+            "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "vcs": "git"
+          }
+        },
+        "hands": 49152,
+        "decisions": 289834,
+        "players": 3,
+        "trace_sha256": "b3dab4b380ba0316130993e055950b95bf3aa6eb066406bbf04c92cba605629d"
+      }
+    },
+    "2026101542-clock-forward": {
+      "result": {
+        "status": "passed",
+        "case": {
+          "name": "2026101542-clock-forward",
+          "seed": 2026101542,
+          "scope": "clock",
+          "root": 20261018335104,
+          "blocks": 8192,
+          "singleton": "fast-2026101542-clock",
+          "pair": "production-2026101542-clock"
+        },
+        "trace_sha256": "e4926dcc4e9b51b8a563430d270a3828d2dd4522264c92c02c318d45f0842fa1",
+        "hands": 49152,
+        "operations": [
+          {
+            "repeat": 0,
+            "seconds": 86.85565544900601,
+            "returncode": 0,
+            "coverage": {
+              "blocks": 8192,
+              "decisions_by_identity_street": [
+                [
+                  52403,
+                  22387,
+                  13568,
+                  7854
+                ],
+                [
+                  52280,
+                  22490,
+                  13423,
+                  7718
+                ],
+                [
+                  52272,
+                  22639,
+                  13524,
+                  7759
+                ]
+              ],
+              "hands": 49152,
+              "load_seconds": 72.492958886,
+              "misses_by_identity_street": [
+                [
+                  0,
+                  0,
+                  3,
+                  1
+                ],
+                [
+                  2,
+                  5,
+                  11,
+                  8
+                ],
+                [
+                  0,
+                  3,
+                  11,
+                  13
+                ]
+              ],
+              "play_seconds": 3.326452468,
+              "status": "passed",
+              "trace_sha256": "e4926dcc4e9b51b8a563430d270a3828d2dd4522264c92c02c318d45f0842fa1"
+            }
+          },
+          {
+            "repeat": 1,
+            "seconds": 81.00720392502262,
+            "returncode": 0,
+            "coverage": {
+              "blocks": 8192,
+              "decisions_by_identity_street": [
+                [
+                  52403,
+                  22387,
+                  13568,
+                  7854
+                ],
+                [
+                  52280,
+                  22490,
+                  13423,
+                  7718
+                ],
+                [
+                  52272,
+                  22639,
+                  13524,
+                  7759
+                ]
+              ],
+              "hands": 49152,
+              "load_seconds": 67.130833911,
+              "misses_by_identity_street": [
+                [
+                  0,
+                  0,
+                  3,
+                  1
+                ],
+                [
+                  2,
+                  5,
+                  11,
+                  8
+                ],
+                [
+                  0,
+                  3,
+                  11,
+                  13
+                ]
+              ],
+              "play_seconds": 3.1760609730000002,
+              "status": "passed",
+              "trace_sha256": "e4926dcc4e9b51b8a563430d270a3828d2dd4522264c92c02c318d45f0842fa1"
+            }
+          }
+        ],
+        "replay_seconds": 9.869832918018801
+      },
+      "replay": {
+        "status": "passed",
+        "engine": {
+          "url": "https://github.com/dberweger2017/pokers.git",
+          "vcs_info": {
+            "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "vcs": "git"
+          }
+        },
+        "hands": 49152,
+        "decisions": 288317,
+        "players": 3,
+        "trace_sha256": "e4926dcc4e9b51b8a563430d270a3828d2dd4522264c92c02c318d45f0842fa1"
+      }
+    },
+    "2026101542-clock-reverse": {
+      "result": {
+        "status": "passed",
+        "case": {
+          "name": "2026101542-clock-reverse",
+          "seed": 2026101542,
+          "scope": "clock",
+          "root": 20261018335104,
+          "blocks": 8192,
+          "singleton": "production-2026101542-clock",
+          "pair": "fast-2026101542-clock"
+        },
+        "trace_sha256": "66e1c6a23ffc25a33f6dab18227eda95f5d3548790a9855592b4be32f057914d",
+        "hands": 49152,
+        "operations": [
+          {
+            "repeat": 0,
+            "seconds": 85.61634689499624,
+            "returncode": 0,
+            "coverage": {
+              "blocks": 8192,
+              "decisions_by_identity_street": [
+                [
+                  51656,
+                  22666,
+                  13428,
+                  7736
+                ],
+                [
+                  51707,
+                  22706,
+                  13517,
+                  7909
+                ],
+                [
+                  51779,
+                  22578,
+                  13620,
+                  7933
+                ]
+              ],
+              "hands": 49152,
+              "load_seconds": 71.464564013,
+              "misses_by_identity_street": [
+                [
+                  2,
+                  1,
+                  6,
+                  11
+                ],
+                [
+                  1,
+                  1,
+                  1,
+                  1
+                ],
+                [
+                  0,
+                  0,
+                  2,
+                  2
+                ]
+              ],
+              "play_seconds": 3.2494374759999998,
+              "status": "passed",
+              "trace_sha256": "66e1c6a23ffc25a33f6dab18227eda95f5d3548790a9855592b4be32f057914d"
+            }
+          },
+          {
+            "repeat": 1,
+            "seconds": 81.3163872990117,
+            "returncode": 0,
+            "coverage": {
+              "blocks": 8192,
+              "decisions_by_identity_street": [
+                [
+                  51656,
+                  22666,
+                  13428,
+                  7736
+                ],
+                [
+                  51707,
+                  22706,
+                  13517,
+                  7909
+                ],
+                [
+                  51779,
+                  22578,
+                  13620,
+                  7933
+                ]
+              ],
+              "hands": 49152,
+              "load_seconds": 67.725288949,
+              "misses_by_identity_street": [
+                [
+                  2,
+                  1,
+                  6,
+                  11
+                ],
+                [
+                  1,
+                  1,
+                  1,
+                  1
+                ],
+                [
+                  0,
+                  0,
+                  2,
+                  2
+                ]
+              ],
+              "play_seconds": 3.075953776,
+              "status": "passed",
+              "trace_sha256": "66e1c6a23ffc25a33f6dab18227eda95f5d3548790a9855592b4be32f057914d"
+            }
+          }
+        ],
+        "replay_seconds": 9.843448302999604
+      },
+      "replay": {
+        "status": "passed",
+        "engine": {
+          "url": "https://github.com/dberweger2017/pokers.git",
+          "vcs_info": {
+            "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "vcs": "git"
+          }
+        },
+        "hands": 49152,
+        "decisions": 287235,
+        "players": 3,
+        "trace_sha256": "66e1c6a23ffc25a33f6dab18227eda95f5d3548790a9855592b4be32f057914d"
+      }
+    },
+    "2026101542-nodes-forward": {
+      "result": {
+        "status": "passed",
+        "case": {
+          "name": "2026101542-nodes-forward",
+          "seed": 2026101542,
+          "scope": "nodes",
+          "root": 20261018335103,
+          "blocks": 8192,
+          "singleton": "fast-2026101542-nodes",
+          "pair": "production-2026101542-1b"
+        },
+        "trace_sha256": "4e3943900a49cef8ce9a6c387c287179dce53d73f5cd6216a0e1d3b54aeb7003",
+        "hands": 49152,
+        "operations": [
+          {
+            "repeat": 0,
+            "seconds": 74.01688628300326,
+            "returncode": 0,
+            "coverage": {
+              "blocks": 8192,
+              "decisions_by_identity_street": [
+                [
+                  52144,
+                  22669,
+                  13634,
+                  7566
+                ],
+                [
+                  52167,
+                  22685,
+                  13697,
+                  7601
+                ],
+                [
+                  52178,
+                  22809,
+                  13848,
+                  7630
+                ]
+              ],
+              "hands": 49152,
+              "load_seconds": 61.152758747,
+              "misses_by_identity_street": [
+                [
+                  1,
+                  4,
+                  6,
+                  5
+                ],
+                [
+                  0,
+                  0,
+                  4,
+                  4
+                ],
+                [
+                  0,
+                  1,
+                  5,
+                  8
+                ]
+              ],
+              "play_seconds": 3.2239748759999998,
+              "status": "passed",
+              "trace_sha256": "4e3943900a49cef8ce9a6c387c287179dce53d73f5cd6216a0e1d3b54aeb7003"
+            }
+          },
+          {
+            "repeat": 1,
+            "seconds": 68.75828817399452,
+            "returncode": 0,
+            "coverage": {
+              "blocks": 8192,
+              "decisions_by_identity_street": [
+                [
+                  52144,
+                  22669,
+                  13634,
+                  7566
+                ],
+                [
+                  52167,
+                  22685,
+                  13697,
+                  7601
+                ],
+                [
+                  52178,
+                  22809,
+                  13848,
+                  7630
+                ]
+              ],
+              "hands": 49152,
+              "load_seconds": 56.715732473,
+              "misses_by_identity_street": [
+                [
+                  1,
+                  4,
+                  6,
+                  5
+                ],
+                [
+                  0,
+                  0,
+                  4,
+                  4
+                ],
+                [
+                  0,
+                  1,
+                  5,
+                  8
+                ]
+              ],
+              "play_seconds": 3.118815762,
+              "status": "passed",
+              "trace_sha256": "4e3943900a49cef8ce9a6c387c287179dce53d73f5cd6216a0e1d3b54aeb7003"
+            }
+          }
+        ],
+        "replay_seconds": 9.787315721012419
+      },
+      "replay": {
+        "status": "passed",
+        "engine": {
+          "url": "https://github.com/dberweger2017/pokers.git",
+          "vcs_info": {
+            "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "vcs": "git"
+          }
+        },
+        "hands": 49152,
+        "decisions": 288628,
+        "players": 3,
+        "trace_sha256": "4e3943900a49cef8ce9a6c387c287179dce53d73f5cd6216a0e1d3b54aeb7003"
+      }
+    },
+    "2026101542-nodes-reverse": {
+      "result": {
+        "status": "passed",
+        "case": {
+          "name": "2026101542-nodes-reverse",
+          "seed": 2026101542,
+          "scope": "nodes",
+          "root": 20261018335103,
+          "blocks": 8192,
+          "singleton": "production-2026101542-1b",
+          "pair": "fast-2026101542-nodes"
+        },
+        "trace_sha256": "401ab9ae088dc8b868f9ab1b268e528e2c6b29d0a414d979f2ef61fb072e7201",
+        "hands": 49152,
+        "operations": [
+          {
+            "repeat": 0,
+            "seconds": 74.36653968098108,
+            "returncode": 0,
+            "coverage": {
+              "blocks": 8192,
+              "decisions_by_identity_street": [
+                [
+                  52176,
+                  22865,
+                  13711,
+                  7715
+                ],
+                [
+                  52237,
+                  22690,
+                  13600,
+                  7686
+                ],
+                [
+                  52272,
+                  22825,
+                  13730,
+                  7763
+                ]
+              ],
+              "hands": 49152,
+              "load_seconds": 61.330278372,
+              "misses_by_identity_street": [
+                [
+                  0,
+                  0,
+                  2,
+                  4
+                ],
+                [
+                  0,
+                  1,
+                  3,
+                  4
+                ],
+                [
+                  0,
+                  3,
+                  4,
+                  6
+                ]
+              ],
+              "play_seconds": 3.274110424,
+              "status": "passed",
+              "trace_sha256": "401ab9ae088dc8b868f9ab1b268e528e2c6b29d0a414d979f2ef61fb072e7201"
+            }
+          },
+          {
+            "repeat": 1,
+            "seconds": 69.47721203500987,
+            "returncode": 0,
+            "coverage": {
+              "blocks": 8192,
+              "decisions_by_identity_street": [
+                [
+                  52176,
+                  22865,
+                  13711,
+                  7715
+                ],
+                [
+                  52237,
+                  22690,
+                  13600,
+                  7686
+                ],
+                [
+                  52272,
+                  22825,
+                  13730,
+                  7763
+                ]
+              ],
+              "hands": 49152,
+              "load_seconds": 57.338260199,
+              "misses_by_identity_street": [
+                [
+                  0,
+                  0,
+                  2,
+                  4
+                ],
+                [
+                  0,
+                  1,
+                  3,
+                  4
+                ],
+                [
+                  0,
+                  3,
+                  4,
+                  6
+                ]
+              ],
+              "play_seconds": 3.091224316,
+              "status": "passed",
+              "trace_sha256": "401ab9ae088dc8b868f9ab1b268e528e2c6b29d0a414d979f2ef61fb072e7201"
+            }
+          }
+        ],
+        "replay_seconds": 9.701837324013468
+      },
+      "replay": {
+        "status": "passed",
+        "engine": {
+          "url": "https://github.com/dberweger2017/pokers.git",
+          "vcs_info": {
+            "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "vcs": "git"
+          }
+        },
+        "hands": 49152,
+        "decisions": 289270,
+        "players": 3,
+        "trace_sha256": "401ab9ae088dc8b868f9ab1b268e528e2c6b29d0a414d979f2ef61fb072e7201"
+      }
+    },
+    "2026101543-clock-forward": {
+      "result": {
+        "status": "passed",
+        "case": {
+          "name": "2026101543-clock-forward",
+          "seed": 2026101543,
+          "scope": "clock",
+          "root": 20261018335106,
+          "blocks": 8192,
+          "singleton": "fast-2026101543-clock",
+          "pair": "production-2026101543-clock"
+        },
+        "trace_sha256": "0444cb20477990a75a742a008e015c60d2064aa262f8da68e63ab574366cc9b6",
+        "hands": 49152,
+        "operations": [
+          {
+            "repeat": 0,
+            "seconds": 75.96543968399055,
+            "returncode": 0,
+            "coverage": {
+              "blocks": 8192,
+              "decisions_by_identity_street": [
+                [
+                  53052,
+                  23223,
+                  13897,
+                  7984
+                ],
+                [
+                  52890,
+                  23155,
+                  13643,
+                  7753
+                ],
+                [
+                  52769,
+                  23258,
+                  13796,
+                  7825
+                ]
+              ],
+              "hands": 49152,
+              "load_seconds": 64.237064267,
+              "misses_by_identity_street": [
+                [
+                  0,
+                  0,
+                  4,
+                  6
+                ],
+                [
+                  1,
+                  2,
+                  9,
+                  10
+                ],
+                [
+                  0,
+                  3,
+                  6,
+                  21
+                ]
+              ],
+              "play_seconds": 3.057864442,
+              "status": "passed",
+              "trace_sha256": "0444cb20477990a75a742a008e015c60d2064aa262f8da68e63ab574366cc9b6"
+            }
+          },
+          {
+            "repeat": 1,
+            "seconds": 74.85251309501473,
+            "returncode": 0,
+            "coverage": {
+              "blocks": 8192,
+              "decisions_by_identity_street": [
+                [
+                  53052,
+                  23223,
+                  13897,
+                  7984
+                ],
+                [
+                  52890,
+                  23155,
+                  13643,
+                  7753
+                ],
+                [
+                  52769,
+                  23258,
+                  13796,
+                  7825
+                ]
+              ],
+              "hands": 49152,
+              "load_seconds": 63.643029334,
+              "misses_by_identity_street": [
+                [
+                  0,
+                  0,
+                  4,
+                  6
+                ],
+                [
+                  1,
+                  2,
+                  9,
+                  10
+                ],
+                [
+                  0,
+                  3,
+                  6,
+                  21
+                ]
+              ],
+              "play_seconds": 3.069595763,
+              "status": "passed",
+              "trace_sha256": "0444cb20477990a75a742a008e015c60d2064aa262f8da68e63ab574366cc9b6"
+            }
+          }
+        ],
+        "replay_seconds": 9.296713493007701
+      },
+      "replay": {
+        "status": "passed",
+        "engine": {
+          "url": "https://github.com/dberweger2017/pokers.git",
+          "vcs_info": {
+            "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "vcs": "git"
+          }
+        },
+        "hands": 49152,
+        "decisions": 293245,
+        "players": 3,
+        "trace_sha256": "0444cb20477990a75a742a008e015c60d2064aa262f8da68e63ab574366cc9b6"
+      }
+    },
+    "2026101543-clock-reverse": {
+      "result": {
+        "status": "passed",
+        "case": {
+          "name": "2026101543-clock-reverse",
+          "seed": 2026101543,
+          "scope": "clock",
+          "root": 20261018335106,
+          "blocks": 8192,
+          "singleton": "production-2026101543-clock",
+          "pair": "fast-2026101543-clock"
+        },
+        "trace_sha256": "7e86d2397e2b1ee16131b1a99913774888bf8ad474eedca71a91a6bca8736c91",
+        "hands": 49152,
+        "operations": [
+          {
+            "repeat": 0,
+            "seconds": 76.23043445302756,
+            "returncode": 0,
+            "coverage": {
+              "blocks": 8192,
+              "decisions_by_identity_street": [
+                [
+                  52117,
+                  23453,
+                  13674,
+                  7974
+                ],
+                [
+                  52303,
+                  23380,
+                  13971,
+                  8066
+                ],
+                [
+                  52253,
+                  23309,
+                  13990,
+                  8091
+                ]
+              ],
+              "hands": 49152,
+              "load_seconds": 64.504546201,
+              "misses_by_identity_street": [
+                [
+                  0,
+                  3,
+                  14,
+                  16
+                ],
+                [
+                  1,
+                  0,
+                  3,
+                  5
+                ],
+                [
+                  0,
+                  1,
+                  0,
+                  5
+                ]
+              ],
+              "play_seconds": 3.076184139,
+              "status": "passed",
+              "trace_sha256": "7e86d2397e2b1ee16131b1a99913774888bf8ad474eedca71a91a6bca8736c91"
+            }
+          },
+          {
+            "repeat": 1,
+            "seconds": 74.12088847099221,
+            "returncode": 0,
+            "coverage": {
+              "blocks": 8192,
+              "decisions_by_identity_street": [
+                [
+                  52117,
+                  23453,
+                  13674,
+                  7974
+                ],
+                [
+                  52303,
+                  23380,
+                  13971,
+                  8066
+                ],
+                [
+                  52253,
+                  23309,
+                  13990,
+                  8091
+                ]
+              ],
+              "hands": 49152,
+              "load_seconds": 63.32641924,
+              "misses_by_identity_street": [
+                [
+                  0,
+                  3,
+                  14,
+                  16
+                ],
+                [
+                  1,
+                  0,
+                  3,
+                  5
+                ],
+                [
+                  0,
+                  1,
+                  0,
+                  5
+                ]
+              ],
+              "play_seconds": 2.99826388,
+              "status": "passed",
+              "trace_sha256": "7e86d2397e2b1ee16131b1a99913774888bf8ad474eedca71a91a6bca8736c91"
+            }
+          }
+        ],
+        "replay_seconds": 9.22006772601162
+      },
+      "replay": {
+        "status": "passed",
+        "engine": {
+          "url": "https://github.com/dberweger2017/pokers.git",
+          "vcs_info": {
+            "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "vcs": "git"
+          }
+        },
+        "hands": 49152,
+        "decisions": 292581,
+        "players": 3,
+        "trace_sha256": "7e86d2397e2b1ee16131b1a99913774888bf8ad474eedca71a91a6bca8736c91"
+      }
+    },
+    "2026101543-nodes-forward": {
+      "result": {
+        "status": "passed",
+        "case": {
+          "name": "2026101543-nodes-forward",
+          "seed": 2026101543,
+          "scope": "nodes",
+          "root": 20261018335105,
+          "blocks": 8192,
+          "singleton": "fast-2026101543-nodes",
+          "pair": "production-2026101543-1b"
+        },
+        "trace_sha256": "315a93aaac24ba1f1b4b2138c92edcfba0d56a7ee6994c8d3a69bb089069715b",
+        "hands": 49152,
+        "operations": [
+          {
+            "repeat": 0,
+            "seconds": 67.17991655902006,
+            "returncode": 0,
+            "coverage": {
+              "blocks": 8192,
+              "decisions_by_identity_street": [
+                [
+                  52530,
+                  23577,
+                  13887,
+                  8092
+                ],
+                [
+                  52564,
+                  23514,
+                  14093,
+                  8141
+                ],
+                [
+                  52505,
+                  23644,
+                  14138,
+                  8318
+                ]
+              ],
+              "hands": 49152,
+              "load_seconds": 56.923914528,
+              "misses_by_identity_street": [
+                [
+                  1,
+                  1,
+                  6,
+                  11
+                ],
+                [
+                  2,
+                  0,
+                  9,
+                  5
+                ],
+                [
+                  1,
+                  2,
+                  6,
+                  7
+                ]
+              ],
+              "play_seconds": 3.069215569,
+              "status": "passed",
+              "trace_sha256": "315a93aaac24ba1f1b4b2138c92edcfba0d56a7ee6994c8d3a69bb089069715b"
+            }
+          },
+          {
+            "repeat": 1,
+            "seconds": 65.67040673000156,
+            "returncode": 0,
+            "coverage": {
+              "blocks": 8192,
+              "decisions_by_identity_street": [
+                [
+                  52530,
+                  23577,
+                  13887,
+                  8092
+                ],
+                [
+                  52564,
+                  23514,
+                  14093,
+                  8141
+                ],
+                [
+                  52505,
+                  23644,
+                  14138,
+                  8318
+                ]
+              ],
+              "hands": 49152,
+              "load_seconds": 55.700309399,
+              "misses_by_identity_street": [
+                [
+                  1,
+                  1,
+                  6,
+                  11
+                ],
+                [
+                  2,
+                  0,
+                  9,
+                  5
+                ],
+                [
+                  1,
+                  2,
+                  6,
+                  7
+                ]
+              ],
+              "play_seconds": 3.06967164,
+              "status": "passed",
+              "trace_sha256": "315a93aaac24ba1f1b4b2138c92edcfba0d56a7ee6994c8d3a69bb089069715b"
+            }
+          }
+        ],
+        "replay_seconds": 9.515345137013355
+      },
+      "replay": {
+        "status": "passed",
+        "engine": {
+          "url": "https://github.com/dberweger2017/pokers.git",
+          "vcs_info": {
+            "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "vcs": "git"
+          }
+        },
+        "hands": 49152,
+        "decisions": 295003,
+        "players": 3,
+        "trace_sha256": "315a93aaac24ba1f1b4b2138c92edcfba0d56a7ee6994c8d3a69bb089069715b"
+      }
+    },
+    "2026101543-nodes-reverse": {
+      "result": {
+        "status": "passed",
+        "case": {
+          "name": "2026101543-nodes-reverse",
+          "seed": 2026101543,
+          "scope": "nodes",
+          "root": 20261018335105,
+          "blocks": 8192,
+          "singleton": "production-2026101543-1b",
+          "pair": "fast-2026101543-nodes"
+        },
+        "trace_sha256": "77655b1e1b5f5f2d6fcaee473cffc4017f334b3f0778e2b2c360b60baf38428c",
+        "hands": 49152,
+        "operations": [
+          {
+            "repeat": 0,
+            "seconds": 67.36640867698588,
+            "returncode": 0,
+            "coverage": {
+              "blocks": 8192,
+              "decisions_by_identity_street": [
+                [
+                  52510,
+                  23529,
+                  14166,
+                  8017
+                ],
+                [
+                  52512,
+                  23647,
+                  14103,
+                  7978
+                ],
+                [
+                  52421,
+                  23440,
+                  14118,
+                  7983
+                ]
+              ],
+              "hands": 49152,
+              "load_seconds": 57.111814384,
+              "misses_by_identity_street": [
+                [
+                  0,
+                  1,
+                  6,
+                  14
+                ],
+                [
+                  1,
+                  3,
+                  6,
+                  4
+                ],
+                [
+                  0,
+                  3,
+                  9,
+                  7
+                ]
+              ],
+              "play_seconds": 3.025213438,
+              "status": "passed",
+              "trace_sha256": "77655b1e1b5f5f2d6fcaee473cffc4017f334b3f0778e2b2c360b60baf38428c"
+            }
+          },
+          {
+            "repeat": 1,
+            "seconds": 65.68675261398312,
+            "returncode": 0,
+            "coverage": {
+              "blocks": 8192,
+              "decisions_by_identity_street": [
+                [
+                  52510,
+                  23529,
+                  14166,
+                  8017
+                ],
+                [
+                  52512,
+                  23647,
+                  14103,
+                  7978
+                ],
+                [
+                  52421,
+                  23440,
+                  14118,
+                  7983
+                ]
+              ],
+              "hands": 49152,
+              "load_seconds": 55.730542873,
+              "misses_by_identity_street": [
+                [
+                  0,
+                  1,
+                  6,
+                  14
+                ],
+                [
+                  1,
+                  3,
+                  6,
+                  4
+                ],
+                [
+                  0,
+                  3,
+                  9,
+                  7
+                ]
+              ],
+              "play_seconds": 3.051767806,
+              "status": "passed",
+              "trace_sha256": "77655b1e1b5f5f2d6fcaee473cffc4017f334b3f0778e2b2c360b60baf38428c"
+            }
+          }
+        ],
+        "replay_seconds": 9.555826330994023
+      },
+      "replay": {
+        "status": "passed",
+        "engine": {
+          "url": "https://github.com/dberweger2017/pokers.git",
+          "vcs_info": {
+            "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "vcs": "git"
+          }
+        },
+        "hands": 49152,
+        "decisions": 294424,
+        "players": 3,
+        "trace_sha256": "77655b1e1b5f5f2d6fcaee473cffc4017f334b3f0778e2b2c360b60baf38428c"
+      }
+    }
+  },
+  "provenance": {
+    "source_metadata_sha256": "f53c11cb90d31adb7d5eff99e7c1e6e094ed4d594b49097b540182182a1beaa4",
+    "source_metadata_file": "results/pr340-complete-20261018T1450/verified-metadata.json",
+    "retrieval": "ssh bb128 python3 - (read compact JSON metadata; aggregate resource traces; no models/hand traces transferred)",
+    "owning_pr_status_checked": "PR335 and PR340 OPEN at readback on October 18, 2026",
+    "raw_archive_status": "pending; open PR roots and shared inputs retained untouched",
+    "local_recovery": "Missing temporary checkout restored from retained branch/index at 7db86b11; bb128 source/science unchanged."
+  }
+}

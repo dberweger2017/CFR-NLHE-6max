@@ -29,6 +29,17 @@ def write(path, value):
     Path(path).write_text(json.dumps(value, indent=2) + '\n')
 
 
+def json_event(line):
+    # Other CLI commands may pretty-print JSON; only complete objects are JSONL events.
+    if not line.startswith('{'):
+        return None
+    try:
+        value = json.loads(line)
+    except json.JSONDecodeError:
+        return None
+    return value if isinstance(value, dict) else None
+
+
 def memory():
     return {s.split(':')[0]: int(s.split()[1]) * 1024
             for s in Path('/proc/meminfo').read_text().splitlines()}
@@ -82,24 +93,35 @@ def group_metrics(pgid):
     return totals
 
 
-def enforce(row, remaining, elapsed):
+def enforce(row, remaining, elapsed, max_seconds=4 * 3600, rss_limit=24 * GIB,
+            cpu_limit=80, thermistor_limit=85):
     t = row['temperatures_c']
-    if t['Package id 0'] >= 80 or t['Thermistor 15'] >= 85:
-        raise RuntimeError('thermal stop')
-    if row['available_ram_bytes'] < 8 * GIB or row['rss_bytes'] > 24 * GIB:
+    exceeded = {name: dict(reading_c=t[name], limit_c=limit)
+                for name, limit in [('Package id 0', cpu_limit),
+                                    ('Thermistor 15', thermistor_limit)]
+                if t[name] >= limit}
+    if exceeded:
+        raise RuntimeError('thermal stop: ' + json.dumps(exceeded, sort_keys=True))
+    if row['available_ram_bytes'] < 8 * GIB or row['rss_bytes'] > rss_limit:
         raise RuntimeError('memory stop')
     if row['swap_growth_bytes'] > 256 * 1024**2:
         raise RuntimeError('swap growth stop')
     if remaining < 0 or row['free_disk_bytes'] < FLOOR + remaining:
         raise RuntimeError('disk reservation stop')
-    if elapsed >= 4 * 3600:
-        raise RuntimeError('four-hour malfunction fail-safe')
+    if elapsed >= max_seconds:
+        raise RuntimeError('campaign malfunction fail-safe')
 
 
 class Supervisor:
-    def __init__(self, root, lock_fd):
+    def __init__(self, root, lock_fd, cpus=None, max_seconds=4 * 3600, rss_limit=24 * GIB,
+                 cpu_limit=80, thermistor_limit=85):
         self.root = root
         self.lock_fd = lock_fd
+        self.cpus = set(cpus) if cpus is not None else {0, 1, 2, 3}
+        self.max_seconds = max_seconds
+        self.rss_limit = rss_limit
+        self.cpu_limit = cpu_limit
+        self.thermistor_limit = thermistor_limit
         self.started = time.monotonic()
         m = memory()
         self.swap = m['SwapTotal'] - m['SwapFree']
@@ -120,7 +142,13 @@ class Supervisor:
                    free_disk_bytes=disk.f_bavail * disk.f_frsize,
                    remaining_output_reservation_bytes=self.remaining,
                    **(group_metrics(process.pid) if process else dict(rss_bytes=0)))
-        enforce(row, self.remaining, time.monotonic() - self.started)
+        try:
+            enforce(row, self.remaining, time.monotonic() - self.started,
+                    self.max_seconds, self.rss_limit, self.cpu_limit, self.thermistor_limit)
+        except RuntimeError as error:
+            # Preserve the exact crossing sample even though it fails enforcement.
+            error.resource_sample = row
+            raise
         return row
 
     def execute(self, label, command, cwd, env, reference=None):
@@ -132,7 +160,7 @@ class Supervisor:
             import ctypes
             if ctypes.CDLL(None).prctl(1, signal.SIGTERM) != 0:
                 raise RuntimeError('cannot set parent-death signal')
-            os.sched_setaffinity(0, {0, 1, 2, 3})
+            os.sched_setaffinity(0, self.cpus)
             os.nice(10)
             resource.setrlimit(resource.RLIMIT_AS, (48 * GIB,) * 2)
         child = None
@@ -169,8 +197,8 @@ class Supervisor:
                             raw, pending = pending.split(b'\n', 1)
                             line = raw.decode(errors='replace')
                             out.write(line + '\n'); out.flush()
-                            if line.startswith('{'):
-                                event = json.loads(line)
+                            event = json_event(line)
+                            if event is not None:
                                 events.append(event)
                                 if event.get('event') == 'phase':
                                     phase, target = event['phase'], event['target']
@@ -197,8 +225,10 @@ class Supervisor:
                     child.wait(timeout=10)
                 except subprocess.TimeoutExpired:
                     os.killpg(child.pid, signal.SIGKILL); child.wait()
-            write(folder / 'failure.json', dict(error=repr(error), phase=phase,
-                                               target=target))
+            failure = dict(error=repr(error), phase=phase, target=target)
+            if hasattr(error, 'resource_sample'):
+                failure['resource_sample'] = error.resource_sample
+            write(folder / 'failure.json', failure)
             raise
 
 
