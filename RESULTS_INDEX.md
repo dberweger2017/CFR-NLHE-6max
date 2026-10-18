@@ -4537,3 +4537,16 @@ owner-authorized HDD relocation needs full manifests/readback before NVMe remova
 Notification HTTPError and7.94h idle disclosed; no clock credit/retry.
 Local planning/status-*-20261018.json and collect_cost_pilot_complete_20261018.py,
 publish_status_20261018.py plus PR readbacks require final archival.
+
+PR301 owner one-seed amendmentOctober18: [approval/procedure](docs/hu200-capacity-single-seed-amendment.md),
+[20Bconfig](docs/reports/hu200-capacity-cygnus-artifacts/single-seed-config-20B-20261018.json),
+[5Bconfig](docs/reports/hu200-capacity-cygnus-artifacts/single-seed-config-5B-20261018.json),
+[fresh roots](docs/reports/hu200-capacity-cygnus-artifacts/single-seed-final-roots-20261018.json).
+Owned repo-evaluation-single-seed-20261018 source42acb483, original source dependencies
+read-only/preserved; new checkout alternates flattened only after nesting failure.
+All setup failures indexed; archive planning/*single_seed* helpers/bundle/logs/PRreadbacks,
+raw guards/single-seed-{checks,preflight}-20261018 and later evaluation-single-seed-20261018.
+Only1302 final evaluation; others retained with later proposal, no new experiment.
+Inactive20Bcache/average will move with manifests/fsync/fullreadback/journal to
+/mnt/data2tb/research/PR-301-hu200-capacity-cygnus/evaluation-single-seed-20261018/
+mirroring original relative paths; active twin and5B computation remainsNVMe.

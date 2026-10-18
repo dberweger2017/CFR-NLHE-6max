@@ -7,6 +7,42 @@
 [Protocol](../hu200-capacity-cygnus-protocol.md) fixes three paired seeds,
 301,153,954-entry capacity, guards and final sample sizes. Owner decides merge.
 
+## Owner-selected seed1302 final evaluation — October18
+
+The owner reduced the current final evaluation to seed2026101302 and requested
+an unstarted follow-up proposal for1421/1422 at closeout. All three training
+models/audits remain retained for archives. All original1302 per-match counts
+remain:983040primary final hands, both20B and5B groups globally verified before
+any outcome read. No between-training-seed variation claim is possible now.
+[Amendment](../hu200-capacity-single-seed-amendment.md),
+[exact approval](hu200-capacity-cygnus-artifacts/single-seed-scope-approval-20261018.json).
+
+Source42acb483 adds the explicit approval-bound two-group barrier, single-seed
+sample-deviation reporting and serial orchestration. The original default
+six-group barrier remains. Scientific cache/play/replay/reproduction/verification/
+cost functions are AST-identical to2d2ec4a1; all native/inference/direct-match
+source bytes are unchanged. Existing first pilot/caches are adopted, never rerun.
+Fresh roots303/304/305 scan passes against live main and all six other openPRs.
+[20B configuration](hu200-capacity-cygnus-artifacts/single-seed-config-20B-20261018.json),
+[5B configuration](hu200-capacity-cygnus-artifacts/single-seed-config-5B-20261018.json),
+[roots](hu200-capacity-cygnus-artifacts/single-seed-final-roots-20261018.json).
+
+The full measured one-seed quote is10738.933s including1.5× play/replay/reproduction
+margin, plus2368s conservative5Bcache,900s verified transfers and600s gates:
+**14607s (~4h04m)**. Deadline remainsOctober18 22:22:34Madrid, no clock credit.
+After fresh guarded hashes/resources and exactPRreadback, run original20B
+play/replay/reproduction/verify, move its now-inactive cache/average to verifiedHDD
+storage, restore/build5B once, readmit its original direct hands, then verify both
+groups at the global selected barrier before readout. Twin remainsNVMe throughout.
+Reserve all prospective outputs under the original50GB floor/258.4GB budget.
+No new experiment, future execution permission, trainer change or retry.
+
+Two inactive checkout setup failures are retained; a direct existing-alternate
+list in the new checkout resolves nesting without touching source dependencies.
+[Engineering record](hu200-capacity-cygnus-artifacts/single-seed-setup-failures-20261018.json).
+Final archives/readback/index/unpackedHDD retention remain required, including
+all three trained lineages and prior failures. Follow-up proposal only at closeout.
+
 ## Status — October18,07:30Madrid
 
 All training and final full-row audits remain complete. The first seed1302 cost
