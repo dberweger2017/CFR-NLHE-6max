@@ -66,7 +66,7 @@ def run(root):
         for name in ['nplayer_fast_strength','nplayer_policy','nplayer_arena']:shutil.copy2(root/'target/release/examples'/name,binaries/name)
         guard.write(root/'binary-receipts.json',{p.name:guard.sha(p) for p in binaries.iterdir()})
         python=str(root/'venv/bin/python')
-        supervisor.execute('environment-create',['python3','-m','venv',str(root/'venv')],root,env)
+        supervisor.execute('environment-create',[c['runtime_python'],'-m','venv',str(root/'venv')],root,env)
         supervisor.execute('environment-install',[python,'-m','pip','install','--disable-pip-version-check','numpy==1.26.4','scipy>=1.11,<2',
             'pokers @ git+https://github.com/dberweger2017/pokers.git@5db20e3d5d6862b32a7402035c1340b622d3b005'],root,env)
         inputs=json.loads((root/'input-manifest.json').read_text())

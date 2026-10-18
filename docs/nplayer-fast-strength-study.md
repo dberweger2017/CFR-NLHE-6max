@@ -119,3 +119,11 @@ A conservative planning projection of up to3.6B fast nodes per600s, roughly
 is about28GB; the32GB cap retains headroom and is enforced continuously.
 This is a fit estimate, not a guarantee; unexpected growth stops the study.
 No scientific job was retried and no files were removed.
+
+The next setup passed disk admission and built every native executable, but
+its new environment used the host's Python3.13 with NumPy1.26.4. Installation
+failed before any smoke/final training. Preserve that root too. The fresh
+setup uses the existing managed CPython3.11.17 executable (the repository's
+supported runtime), creates its own environment, and changes no experiment,
+resource ceiling, evaluation count or original deadline. No other environment
+is copied or modified.
