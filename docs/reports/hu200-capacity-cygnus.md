@@ -22,8 +22,9 @@ completion and this return. This was notification failure, not scientific failur
 No scientific attempt will be repeated. The24h clock kept running and gets no
 credit: evaluation deadline remains **tonightOctober18,22:22:34Madrid**.
 The prior statement that the hook would wake the thread was not fulfilled.
-Retry only terminal-event delivery using the previously successful observer
-transport headers, deduplicated against the closed receipt, not scientific work.
+Terminal-event delivery recovery with the previously successful observer headers
+was acceptedHTTP202 at05:33:29UTC; no scientific work repeated.
+[Delivery receipt](hu200-capacity-cygnus-artifacts/event-delivery-recovery-20261018.json).
 
 The pilot took71m23s, including39m28s large-cache and12m02s twin-cache stages.
 Actual cache arrays are17.899GB and5.116GB. Full original nine-case work for this
