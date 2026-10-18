@@ -1,8 +1,9 @@
-## PR340 — PR335 fast-mode qualification and strength study (active)
+## PR340 — PR335 strength study (terminal thermal stop; archive pending)
 
 [PR340](https://github.com/dberweger2017/CFR-NLHE-6max/pull/340),
 [protocol](docs/nplayer-fast-strength-study.md),
 [qualification/scaling](docs/reports/nplayer-fast-strength/qualification.json),
+[terminal report and evidence](docs/reports/nplayer-fast-strength/terminal.md),
 [launch, resource admission and preserved setup failures](docs/reports/nplayer-fast-strength/launch.json).
 Owner authorized compute through all16 threads and the three-seed equal-node/
 equal-training-time study. PR335 remains unmerged; PR336/pruning is excluded.
@@ -13,14 +14,18 @@ equal-training-time study. PR335 remains unmerged; PR336/pruning is excluded.
   exact cross-thread resume, and all ten100M→120M continuation hashes pass.
   Selected16 threads: median3.972s versus22.695s with one fast-mode thread.
   [All scaling rows](docs/reports/nplayer-fast-strength/scaling.csv).
-- **Active main:** `bb128:/home/dberweger/nplayer-fast-strength-20261018-main-v4/`,
+- **Terminal main:** `bb128:/home/dberweger/nplayer-fast-strength-20261018-main-v4/`,
   frozen source `2ff320d483b0219165518d75d2d92389f48d182a`, supervisor294450,
   launched11:59:06UTC October18. All720 source/config file hashes verified;
   all47 shared native files match qualification. The instrumented3M endpoint
   matches the qualified CLI, both export audits pass,120s thermal soak passes,
   and144 smoke hands replay/reproduce before the first final seed starts.
-  Three final seeds at1B and600 training seconds;12 lineups/589824 final hands
-  plus reproduction. No strength result is available until the global barrier.
+  Thermal guard stopped the first final seed at12:05:39UTC. Last progress:
+  420,956,111 nodes/87.498 training seconds; last accepted CPU/VRM68/84.5C,
+  familyRSS3.006GiB and zero swap growth. The crossing sample was not written;
+  exact triggering sensor/temperature is unavailable. No final evaluation or
+  strength gate ran. Controller exited; no retry or limit change. Only this
+  study's timer is disabled. [Compact snapshot](docs/reports/nplayer-fast-strength/terminal.json).
 - **Failures retained:** the `-main`, `-main-v2`, and `-main-v3` siblings retain
   disk-admission refusal, Python-runtime installation failure and JSONL audit
   parsing failure. No final seed or final evaluation ran in those roots.

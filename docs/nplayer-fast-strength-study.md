@@ -135,3 +135,14 @@ for a complete JSONL event. The failed setup is retained before any final seed.
 The corrected parser accepts only complete JSON objects as events and keeps
 all other CLI output in the log. Required completion/identity gates remain.
 A focused regression test covers that distinction; no scientific job is retried.
+
+## Terminal outcome, October 18
+
+The admitted v4 main run hit its thermal stop during the first final fast seed
+at12:05:39UTC. Last progress was420,956,111 nodes/87.498 training seconds;
+the last accepted resource sample showedCPU68C/VRM84.5C. The crossing sample
+was not persisted, so its exact sensor and reading are unavailable. No final
+strength evaluation ran. The study is terminal, with no automatic retry,
+resource change or default adoption. Its timer is disabled; all roots and
+shared inputs remain retained, with archival pending. See the
+[terminal report](reports/nplayer-fast-strength/terminal.md) and compact receipt.
