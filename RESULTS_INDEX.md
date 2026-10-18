@@ -1,15 +1,35 @@
-## Three-player blueprint promotion — new evaluation, archival pending
+## PR342 — three-player blueprint promotion (complete; archival pending)
 
-Owner authorized the [proposal #341](https://github.com/dberweger2017/CFR-NLHE-6max/issues/341)
-and [frozen protocol](docs/nplayer-blueprint-promotion.md) on October18.
-The six existing average policies and native arena are read-only dependencies;
-[exact paths, hashes and source provenance](docs/nplayer-blueprint-promotion-inputs.json).
-Protect PR292 and PR340 model roots while this evaluation depends on them.
-New owned bb128 root: `/home/dberweger/nplayer-blueprint-promotion-20261018`.
-No model copies, retraining, cleanup or raw payloads in Git. Final/reproduction
-traces, excluded smoke and every failure stay there; cloud archival and acceptance
-are pending. Planned results: 589824 final plus 589824 reproduction hands.
-Source/launch receipts will record the frozen revision before final play.
+[PR342](https://github.com/dberweger2017/CFR-NLHE-6max/pull/342),
+[proposal341](https://github.com/dberweger2017/CFR-NLHE-6max/issues/341),
+[frozen protocol](docs/nplayer-blueprint-promotion.md),
+[verified report](docs/reports/nplayer-blueprint-promotion/results.md),
+[compact receipt](docs/reports/nplayer-blueprint-promotion/completion.json).
+
+- Owner accepted15–30min bb128 compute with existing models. Frozen source
+  `d6cb8ebdb9384142b78d8ee93fa609b9dbe6b133`; later commits are evidence only.
+  `bb128:/home/dberweger/nplayer-blueprint-promotion-20261018`, PID336533,
+  October18 16:38:01–16:50:09UTC, complete/no failure. All3 stages return0,
+  all12 cases independently replay and exactly reproduce before settled readout:
+  589824 final plus589824 reproduction hands; excluded smoke144+144.
+- Same-seed contrasts1541/42/43: +5.92[+2.55,+9.30], +5.38[+1.96,+8.80],
+  +4.35[+0.87,+7.83]BB/100. Cross-seed1541vs42/42vs43/43vs41:
+  +3.02[−0.42,+6.45], +5.18[+1.71,+8.65], +5.58[+2.22,+8.94].
+  Primary improvement and cross-seed−5 noninferiority gates both pass.
+  These are oriented singleton contrasts, not pooled player return.
+- Total12.13min wall/1.142 child CPU-hours,56.22GiB sampled family RSS;
+  CPU69C/Thermistor15 81.5C max,2.75MiB swap growth,55.70GB minimum free NVMe.
+  Six workers across affinity0–15. No training, new models or environment changes.
+- [Six model/binary pins](docs/nplayer-blueprint-promotion-inputs.json) depend
+  read-only on PR292 production1B and PR340 fast600s full averages. Preserve
+  those roots and the shared tables/arena/venv; do not clean dependencies while
+  needed by this open PR. PR292 Drive restoration is indexed below; PR340 raw
+  archival remains pending. Never infer cloud acceptance for either new root.
+- All raw traces, logs, excluded smoke, frozen source and launch hashes remain
+  in the owned root. Compact metadata retrieved by SSH into ignored
+  `/tmp/cfr-nplayer-blueprint-promotion/results/promotion-completion.json`;
+  no models/raw traces copied locally. Reanalysis command and exact provenance
+  are in the report. Cloud archival/upload acceptance is pending, no deletion.
 
 ## PR340 — PR335 strength study (complete; archival pending)
 
