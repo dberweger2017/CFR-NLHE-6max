@@ -5,9 +5,12 @@
 [compact verification/cost receipt](docs/reports/nplayer-fast-strength/completion.json),
 [frozen protocol](docs/nplayer-fast-strength-study.md).
 Owner authorized all16 threads, three fixed seeds and the one fresh v5 attempt
-at immediate CPU90C/Thermistor15 95C stops. PR335 remains open at tested
-`b9923248cb97bc52c7db34491d9ff70e2845b4ec`; PR336/pruning is excluded.
-No merge, default or release adoption is performed here.
+at immediate CPU90C/Thermistor15 95C stops, then explicitly requested merging
+PR335 and PR340. Tested PR335 head `b9923248cb97bc52c7db34491d9ff70e2845b4ec`
+merged at15:15:57UTC as `a846300ed94f297f5d62d0aecd4fc28963ce167f`.
+Fast mode remains opt-in; production default and PR336/pruning are unchanged.
+[Results posted on PR335](https://github.com/dberweger2017/CFR-NLHE-6max/pull/335#issuecomment-6251556909).
+PR340 awaits final CI and its owner-authorized merge.
 
 - **Completed v5:** `bb128:/home/dberweger/nplayer-fast-strength-20261018-main-v5/`,
   frozen source `8f6fb76dade872b6ab282f1a0a4f6f3abee7dbfa`, PID306072 exited

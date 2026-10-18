@@ -202,3 +202,13 @@ owner decides adoption. No merge/default/release change is performed here.
 Study monitoring is disabled on verified completion. PR335/340 remain open;
 Research-Cloud archival is pending, all raw roots/shared inputs retained,
 with no archive upload/acceptance or cleanup claimed.
+
+## Owner-authorized merge, October 18
+
+After reviewing the settled results, the owner requested merging #335 and
+#340 and posting the results on #335. PR335 merged at15:15:57UTC as
+`a846300ed94f297f5d62d0aecd4fc28963ce167f`; `--fast` remains opt-in and
+production remains the default. The study branch is aligned with that merged
+trainer before #340's final CI. Scientific source, results and checkpoints
+remain frozen; no compute or new experiment is launched by this closeout.
+[Results comment on #335](https://github.com/dberweger2017/CFR-NLHE-6max/pull/335#issuecomment-6251556909).
