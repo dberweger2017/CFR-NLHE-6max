@@ -60,6 +60,38 @@ class ContinuedScalars(Scalars):
         super().add(tag,value+self.offsets.get(tag,0),step)
 
 
+class ContinuationSupervisor(campaign.Supervisor):
+    def __init__(self, *args, origin=None, expected_probe=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.origin=origin
+        self.expected_probe=expected_probe
+        self.external_refresh=0
+
+    def sample(self, process, phase, target):
+        if self.origin is not None and time.monotonic()-self.external_refresh>=10:
+            # Both attempts share the original allowances, including retained failures.
+            self.initial_bytes=-campaign.guard.tree_bytes(self.origin)
+            old_cache=Path(campaign.load(self.origin/'config.json')['cache'])
+            self.initial_cache_bytes=-(campaign.guard.tree_bytes(old_cache)-campaign.guard.tree_bytes(self.cache))
+            self.external_refresh=time.monotonic()
+        row=super().sample(process,phase,target)
+        row.update(cpu_stop_c=self.cpu_limit,thermistor15_stop_c=self.thermistor_limit)
+        return row
+
+    def event(self, line):
+        event=campaign.guard.json_event_original(line)
+        if (self.seed==SEED and self.expected_probe is not None and event is not None and
+                event.get('event')=='probe' and event['nodes']==self.expected_probe['nodes']):
+            for key in ('nodes','iteration','blocks','results'):
+                if event[key]!=self.expected_probe[key]:
+                    raise ValueError('resumed15B monitoring differs from retained trajectory')
+            campaign.guard.write(self.root/'resume15b-verified.json',dict(
+                status='passed',nodes=event['nodes'],iteration=event['iteration'],
+                note='Repeated only to verify resume identity; duplicate TensorBoard point suppressed.'))
+            return event
+        return super().event(line)
+
+
 def identity(pid):
     directory = Path('/proc') / str(pid)
     return dict(pid=pid, start_ticks=directory.joinpath('stat').read_text().rsplit(')',1)[1].split()[19],
@@ -116,7 +148,7 @@ def stop_at_checkpoint(root, old, child, events):
     return plan
 
 
-def continue_campaign(root, plan):
+def continue_campaign(root, plan, origin=None):
     c=campaign.load(root/'config.json');cache=Path(c['cache']);launch=campaign.load(root/'launch.json')
     deadline=launch['epoch']+campaign.MAX_SECONDS
     with Path('/tmp/cfr-nplayer-overnight.lock').open('a') as own,Path('/tmp/cfr-cygnus-exclusive.lock').open('a') as legacy:
@@ -125,15 +157,19 @@ def continue_campaign(root, plan):
         if (root/'failure.json').exists() or time.time()>=deadline:
             raise RuntimeError('failed/expired study; no continuation')
         logs=ContinuedScalars(root/'tensorboard',plan['trained'])
-        s=campaign.Supervisor(root,cache,own.fileno(),deadline-time.time(),logs)
+        s=ContinuationSupervisor(root,cache,own.fileno(),deadline-time.time(),logs,
+                                 origin=origin,expected_probe=plan.get('expected_probe'))
         s.thermistor_limit=100
         # Charge all existing owned bytes; no resource budget is reset by restart.
         s.initial_bytes=0;s.initial_cache_bytes=0
-        memory=campaign.guard.memory()
-        if memory['SwapTotal']-memory['SwapFree'] != 0:
-            raise RuntimeError('cannot establish original zero-swap baseline')
+        # The old trace recorded growth, not absolute usage. Charging all current
+        # swap against256MiB is conservative and never resets the old allowance.
         s.swap=0
-        s.sample(None,'owner-checkpoint-handoff',BOUNDARY)
+        boundary=plan['checkpoint']['target']
+        admission=s.sample(None,'owner-checkpoint-handoff',boundary)
+        if origin is not None and (admission['temperatures_c']['Package id 0']>=70 or
+                                   admission['temperatures_c']['Thermistor 15']>=80):
+            raise RuntimeError('resume thermal admission')
         campaign.guard.json_event_original=campaign.guard.json_event
         campaign.guard.json_event=s.event
         for name,digest in c['source_files'].items():
@@ -143,7 +179,8 @@ def continue_campaign(root, plan):
         if campaign.guard.sha(native)!=native_info['sha256']:
             raise ValueError('frozen trainer binary changed')
         cp=plan['checkpoint'];cp_path=Path(cp['path'])
-        if cp_path!=root/f'training-{SEED}'/f'{BOUNDARY}.gz' or campaign.guard.sha(cp_path)!=cp['sha256']:
+        expected_root=origin if origin is not None else root
+        if cp_path!=expected_root/f'training-{SEED}'/f'{boundary}.gz' or campaign.guard.sha(cp_path)!=cp['sha256']:
             raise ValueError('checkpoint identity mismatch')
         for key in ('policy','arena'):
             if campaign.guard.sha(c[key])!=c[key+'_sha256']:
@@ -152,15 +189,18 @@ def continue_campaign(root, plan):
             for name,hashkey in [('checkpoint','checkpoint_sha256'),('path','sha256')]:
                 if campaign.guard.sha(model[name])!=model[hashkey]:
                     raise ValueError('anchor changed')
-        s.sample(None,'owner-checkpoint-verified',BOUNDARY)
+        s.sample(None,'owner-checkpoint-verified',boundary)
         campaign.guard.write(root/'thermal-handoff-active.json',dict(
             status='active',at=time.time(),supervisor_pid=os.getpid(),cpu_stop_c=s.cpu_limit,
             thermistor15_stop_c=s.thermistor_limit,original_deadline=deadline,
             checkpoint=cp,source_commit=c['source_commit'],amendment_sha256=campaign.guard.sha(__file__),
-            budgets='Existing owned bytes charged in full; original zero-swap baseline retained.'))
+            budgets='Existing owned bytes and absolute swap usage charged in full against unchanged ceilings.'))
         campaign.guard.write(root/'status.json',dict(status='owner-checkpoint-handoff',at=time.time(),seed=SEED))
-        campaign.preserve(root,cache,[f'training-{SEED}',f'measurements/training-{SEED}',
-                                    'thermal-handoff-interruption.json','thermal-handoff-active.json'])
+        if origin is None:
+            campaign.preserve(root,cache,[f'training-{SEED}',f'measurements/training-{SEED}',
+                                        'thermal-handoff-interruption.json','thermal-handoff-active.json'])
+        else:
+            campaign.preserve(root,cache,['owner-resume-authorization.json','thermal-handoff-active.json'])
         src=root/'source';env=dict(os.environ,RAYON_NUM_THREADS='16',CARGO_BUILD_JOBS='4',OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',CARGO_TARGET_DIR=str(root/'target'))
         env['PATH']='/home/dberweger/.cargo/bin:'+env['PATH']
         def stage(name,command,keep_status=False):
@@ -182,6 +222,8 @@ def continue_campaign(root, plan):
                         probe_blocks=128,probe_root=20261018348001+campaign.SEEDS.index(seed)*10,stop_file=str(root/'STOP'))
             path=root/(label+'-config.json');campaign.guard.write(path,config)
             result=stage(label,[native,path]);campaign.preserve(root,cache,[label,path.name])
+            if resumed and plan.get('expected_probe') and not (root/'resume15b-verified.json').exists():
+                raise ValueError('missing resumed15B identity verification')
             final=[e for e in result['events'] if e.get('event')=='checkpoint'][-1]
             if final['target']!=campaign.TARGETS[-1]:
                 raise ValueError('missing final checkpoint')
