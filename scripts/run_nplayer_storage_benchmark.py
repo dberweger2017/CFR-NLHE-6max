@@ -29,6 +29,17 @@ def write(path, value):
     Path(path).write_text(json.dumps(value, indent=2) + '\n')
 
 
+def json_event(line):
+    # Other CLI commands may pretty-print JSON; only complete objects are JSONL events.
+    if not line.startswith('{'):
+        return None
+    try:
+        value = json.loads(line)
+    except json.JSONDecodeError:
+        return None
+    return value if isinstance(value, dict) else None
+
+
 def memory():
     return {s.split(':')[0]: int(s.split()[1]) * 1024
             for s in Path('/proc/meminfo').read_text().splitlines()}
@@ -172,8 +183,8 @@ class Supervisor:
                             raw, pending = pending.split(b'\n', 1)
                             line = raw.decode(errors='replace')
                             out.write(line + '\n'); out.flush()
-                            if line.startswith('{'):
-                                event = json.loads(line)
+                            event = json_event(line)
+                            if event is not None:
                                 events.append(event)
                                 if event.get('event') == 'phase':
                                     phase, target = event['phase'], event['target']

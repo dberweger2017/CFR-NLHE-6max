@@ -6,10 +6,15 @@ import unittest
 from scripts.analyze_nplayer_arena import PERMUTATIONS
 from scripts.read_nplayer_fast_study import global_gate, paired_blocks
 from scripts.run_nplayer_fast_study import cases
-from scripts.run_nplayer_storage_benchmark import enforce,GIB
+from scripts.run_nplayer_storage_benchmark import enforce,GIB,json_event
 
 
 class StudyTests(unittest.TestCase):
+    def test_pretty_cli_output_is_logged_without_becoming_a_progress_event(self):
+        for line in ['{','  "status": "passed"','}','ordinary compiler output']:
+            self.assertIsNone(json_event(line))
+        self.assertEqual(json_event('{"event":"complete"}'),{'event':'complete'})
+
     def fixture(self,root):
         for role in ['fast','production']:
             with (root/(role+'.jsonl')).open('w') as f:

@@ -127,3 +127,11 @@ setup uses the existing managed CPython3.11.17 executable (the repository's
 supported runtime), creates its own environment, and changes no experiment,
 resource ceiling, evaluation count or original deadline. No other environment
 is copied or modified.
+
+The Python3.11 setup built and installed successfully, and its instrumented
+3M endpoint matched qualification exactly. Export and the first independent
+audit ran, but the supervisor mistook the audit's pretty-printed opening brace
+for a complete JSONL event. The failed setup is retained before any final seed.
+The corrected parser accepts only complete JSON objects as events and keeps
+all other CLI output in the log. Required completion/identity gates remain.
+A focused regression test covers that distinction; no scientific job is retried.
