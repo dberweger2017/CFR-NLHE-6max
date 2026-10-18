@@ -36,7 +36,7 @@ def run(root):
     deadline=datetime.fromisoformat(first).timestamp()+7*3600
     remaining=deadline-time.time()
     if remaining<3*3600:raise RuntimeError('insufficient original campaign time remaining')
-    guard.BUDGET=35_000_000_000
+    guard.BUDGET=32_000_000_000
     with Path('/tmp/cfr-pr335-compute.lock').open('a') as own,Path('/tmp/cfr-cygnus-exclusive.lock').open('a') as legacy:
         fcntl.flock(own,fcntl.LOCK_EX|fcntl.LOCK_NB)
         try:fcntl.flock(legacy,fcntl.LOCK_EX|fcntl.LOCK_NB);background=None

@@ -82,7 +82,7 @@ main training pool size. Parent control uses negligible CPU. No OS/firmware
 or cooling changes. AdmissionCPU<70C/VRM<80C; immediate own-group stopCPU>=80C
 orVRM>=85C, missing sensors, ownRSS>24GiB in qualification or80GiB in the full main worker family, availableRAM<8GiB, hostswapgrowth
 >256MiB, or freeNVMe<50GB plus the remaining owned output reservation.
-Qualification reserves10GB, maximum90min. Main execution reserves35GB and
+Qualification reserves10GB, maximum90min. Main execution reserves32GB and
 has a seven-hour malfunction ceiling including qualification; this is a fixed
 workload estimate, not work to fill. Measured fit can refuse main admission.
 A resource/numerical/accounting/identity failure preserves all evidence and
@@ -105,3 +105,17 @@ supervised process group owns the batch and enforces80GiB aggregate RSS,
 including every native child and Python replay worker. This uses the machine's
 RAM and cores during evaluation without changing the statistical sample count.
 Qualification retains its24GiB limit. No concurrency with other study training.
+
+## Disk-admission refinement before main work
+
+The first main setup refused its initial disk admission at84.72GB free:
+35GB planned growth plus the50GB floor required85GB. No admission receipt,
+measurement directory, build child or final training existed. That source/root
+and its failure are retained. The fresh setup reduces maximum owned growth to
+32GB, keeping the50GB floor and original seven-hour deadline unchanged.
+Measured pilot checkpoints are434.63MB at11.82M entries and475.16MB at12.81M.
+A conservative planning projection of up to3.6B fast nodes per600s, roughly
+58M entries,9 final checkpoint/export pairs,3GB traces and setup/soak files
+is about28GB; the32GB cap retains headroom and is enforced continuously.
+This is a fit estimate, not a guarantee; unexpected growth stops the study.
+No scientific job was retried and no files were removed.
