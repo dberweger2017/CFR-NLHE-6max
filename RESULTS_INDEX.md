@@ -8,7 +8,8 @@ checkpoint under baseline, PR331, and PR331+PR333 to 1.1B/1.2B/1.3B.
 [Completed comparison](docs/reports/nplayer-storage-merge-benchmark.md):
 all nine checkpoints match exactly; combined storage+saving takes11.20min
 versus31.17min, with4.99× faster saves and58.9% less peak RSS. Recommend
-#331+#333 together subject to review/CI; no merge or playing-strength claim.
+#331+#333 together; the owner authorized and merged both on October18
+(merge commits `ad3082433e` and `05f837c152`). No playing-strength claim.
 
 - **Retained completed root:** `bb128:/home/dberweger/nplayer-storage-benchmark-20261018-v2/`;
   supervisor PID213705 admitted October18 at09:10:07UTC. Sources, patches,

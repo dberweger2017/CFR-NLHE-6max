@@ -1,4 +1,4 @@
-"""Prepare pinned sources; adapt only PR333's explicit compatible-gzip argument."""
+"""Prepare pinned sources, adapting the save API for the two historical arms."""
 import argparse
 import hashlib
 import io
@@ -40,15 +40,15 @@ def main():
         target = dest/'native/hu20-trainer/examples/nplayer_storage_bench.rs'
         shutil.copy2(common, target)
         adapter = None
-        if arm == 'parallel':
+        if arm != 'parallel':
             text = target.read_text()
-            before = 'multi_checkpoint::save(&trainer, &checkpoint)?;'
-            after = 'multi_checkpoint::save(&trainer, &checkpoint, hu20_trainer::gz::Gzip::Compatible)?;'
+            before = 'multi_checkpoint::save(&trainer, &checkpoint, hu20_trainer::gz::Gzip::Compatible)?;'
+            after = 'multi_checkpoint::save(&trainer, &checkpoint)?;'
             if text.count(before) != 1:
                 raise ValueError('unexpected common harness save call')
             target.write_text(text.replace(before, after))
             adapter = dict(before=before, after=after,
-                           reason='PR333 requires an explicit gzip-mode argument; default-compatible only')
+                           reason='Before PR333 the save API uses default-compatible gzip implicitly')
         receipts.append(dict(arm=arm, baseline_commit=BASE, patches=applied,
             common_harness_sha256=hashlib.sha256(common.read_bytes()).hexdigest(),
             api_adapter=adapter, files={str(p.relative_to(dest)):hashlib.sha256(p.read_bytes()).hexdigest()

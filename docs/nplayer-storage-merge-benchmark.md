@@ -120,3 +120,16 @@ The summarizer requires successful completion of all arms, all nine endpoint
 hashes/counts, and nonzero training/saving memory samples. Keep full raw traces
 and source bundles on bb128 for the subsequent research-cache archive. A partial
 run may be diagnosed but cannot be reported as the completed comparison.
+
+## Integration after adoption
+
+The owner authorized merging #331, #333 and this benchmark PR after readout.
+#331 merged at `ad3082433e883cbe7275ed533d1091a812999922`, followed by #333
+at `05f837c15261a4f39531035f18a07e62527c872b` on October18. The committed
+example now calls the current save API with explicit `Gzip::Compatible`.
+For reproduction, source preparation removes that argument only for the pinned
+baseline and compact arms. All141 generated source-file hashes still match
+the measured run exactly; neither the experiment nor its results were rerun.
+The original launch manifests retain their original adapter direction.
+Cloud archival remains pending with all raw originals retained; the owner
+explicitly authorized the merges after receiving that preservation status.

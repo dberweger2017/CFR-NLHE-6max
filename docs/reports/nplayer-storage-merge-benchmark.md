@@ -3,7 +3,8 @@
 The fixed comparison completes successfully. **Recommend adopting #331 and #333
 as a pair**, subject to their normal review and CI: compact storage cuts peak
 RAM, and the parallel writer more than offsets its training cost for this
-checkpoint-heavy workload. No PR was merged.
+checkpoint-heavy workload. The owner subsequently authorized merging the tested
+changes: #331 and #333 merged on October18 at `ad3082433e` and `05f837c152`.
 
 Main + #331 + #333 takes **11.20 minutes versus 31.17 minutes** for main:
 **2.78× end-to-end speed, 64.1% less wall time**, and **4.99× faster saving**.
@@ -112,3 +113,12 @@ all nine matching endpoint identities, successful completion and nonzero phase
 memory samples. Keep the independent source/input pins and preserved failures
 with any subsequent archive. Final policy/model export and gameplay evaluation
 are outside this engineering comparison.
+
+## Adoption integration
+
+After owner approval, #331 merged before #333, both at their tested PR heads.
+The benchmark example now uses the merged explicit compatible-gzip API. Its
+source preparer adapts the two older API copies; all141 generated native file
+hashes remain identical to the measured run. Eight focused tests still pass.
+No experiment was rerun. The owner authorized merging #339 on green CI with
+raw originals retained and cloud archival still pending.

@@ -84,7 +84,7 @@ fn run() -> Result<(), String> {
         }
         phase("save", target);
         let started = Instant::now();
-        multi_checkpoint::save(&trainer, &checkpoint)?;
+        multi_checkpoint::save(&trainer, &checkpoint, hu20_trainer::gz::Gzip::Compatible)?;
         let save_seconds = started.elapsed().as_secs_f64();
         let bytes = std::fs::metadata(&checkpoint)
             .map_err(|e| e.to_string())?
