@@ -1,3 +1,16 @@
+## Three-player blueprint promotion — new evaluation, archival pending
+
+Owner authorized the [proposal #341](https://github.com/dberweger2017/CFR-NLHE-6max/issues/341)
+and [frozen protocol](docs/nplayer-blueprint-promotion.md) on October18.
+The six existing average policies and native arena are read-only dependencies;
+[exact paths, hashes and source provenance](docs/nplayer-blueprint-promotion-inputs.json).
+Protect PR292 and PR340 model roots while this evaluation depends on them.
+New owned bb128 root: `/home/dberweger/nplayer-blueprint-promotion-20261018`.
+No model copies, retraining, cleanup or raw payloads in Git. Final/reproduction
+traces, excluded smoke and every failure stay there; cloud archival and acceptance
+are pending. Planned results: 589824 final plus 589824 reproduction hands.
+Source/launch receipts will record the frozen revision before final play.
+
 ## PR340 — PR335 strength study (complete; archival pending)
 
 [PR340](https://github.com/dberweger2017/CFR-NLHE-6max/pull/340),
