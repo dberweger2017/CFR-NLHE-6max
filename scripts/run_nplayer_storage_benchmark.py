@@ -93,10 +93,15 @@ def group_metrics(pgid):
     return totals
 
 
-def enforce(row, remaining, elapsed, max_seconds=4 * 3600, rss_limit=24 * GIB):
+def enforce(row, remaining, elapsed, max_seconds=4 * 3600, rss_limit=24 * GIB,
+            cpu_limit=80, thermistor_limit=85):
     t = row['temperatures_c']
-    if t['Package id 0'] >= 80 or t['Thermistor 15'] >= 85:
-        raise RuntimeError('thermal stop')
+    exceeded = {name: dict(reading_c=t[name], limit_c=limit)
+                for name, limit in [('Package id 0', cpu_limit),
+                                    ('Thermistor 15', thermistor_limit)]
+                if t[name] >= limit}
+    if exceeded:
+        raise RuntimeError('thermal stop: ' + json.dumps(exceeded, sort_keys=True))
     if row['available_ram_bytes'] < 8 * GIB or row['rss_bytes'] > rss_limit:
         raise RuntimeError('memory stop')
     if row['swap_growth_bytes'] > 256 * 1024**2:
@@ -108,12 +113,15 @@ def enforce(row, remaining, elapsed, max_seconds=4 * 3600, rss_limit=24 * GIB):
 
 
 class Supervisor:
-    def __init__(self, root, lock_fd, cpus=None, max_seconds=4 * 3600, rss_limit=24 * GIB):
+    def __init__(self, root, lock_fd, cpus=None, max_seconds=4 * 3600, rss_limit=24 * GIB,
+                 cpu_limit=80, thermistor_limit=85):
         self.root = root
         self.lock_fd = lock_fd
         self.cpus = set(cpus) if cpus is not None else {0, 1, 2, 3}
         self.max_seconds = max_seconds
         self.rss_limit = rss_limit
+        self.cpu_limit = cpu_limit
+        self.thermistor_limit = thermistor_limit
         self.started = time.monotonic()
         m = memory()
         self.swap = m['SwapTotal'] - m['SwapFree']
@@ -134,7 +142,13 @@ class Supervisor:
                    free_disk_bytes=disk.f_bavail * disk.f_frsize,
                    remaining_output_reservation_bytes=self.remaining,
                    **(group_metrics(process.pid) if process else dict(rss_bytes=0)))
-        enforce(row, self.remaining, time.monotonic() - self.started, self.max_seconds, self.rss_limit)
+        try:
+            enforce(row, self.remaining, time.monotonic() - self.started,
+                    self.max_seconds, self.rss_limit, self.cpu_limit, self.thermistor_limit)
+        except RuntimeError as error:
+            # Preserve the exact crossing sample even though it fails enforcement.
+            error.resource_sample = row
+            raise
         return row
 
     def execute(self, label, command, cwd, env, reference=None):
@@ -211,8 +225,10 @@ class Supervisor:
                     child.wait(timeout=10)
                 except subprocess.TimeoutExpired:
                     os.killpg(child.pid, signal.SIGKILL); child.wait()
-            write(folder / 'failure.json', dict(error=repr(error), phase=phase,
-                                               target=target))
+            failure = dict(error=repr(error), phase=phase, target=target)
+            if hasattr(error, 'resource_sample'):
+                failure['resource_sample'] = error.resource_sample
+            write(folder / 'failure.json', failure)
             raise
 
 

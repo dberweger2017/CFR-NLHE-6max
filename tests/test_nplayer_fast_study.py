@@ -2,14 +2,41 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from scripts.analyze_nplayer_arena import PERMUTATIONS
 from scripts.read_nplayer_fast_study import global_gate, paired_blocks
 from scripts.run_nplayer_fast_study import cases
-from scripts.run_nplayer_storage_benchmark import enforce,GIB,json_event
+from scripts.run_nplayer_storage_benchmark import enforce,GIB,json_event,Supervisor
 
 
 class StudyTests(unittest.TestCase):
+    def test_retry_thermal_boundaries_and_original_defaults(self):
+        row=dict(temperatures_c={'Package id 0':89.5,'Thermistor 15':94.5},
+            available_ram_bytes=20*GIB,rss_bytes=3*GIB,swap_growth_bytes=0,
+            free_disk_bytes=90_000_000_000)
+        with self.assertRaisesRegex(RuntimeError,'thermal stop'):
+            enforce(row,32_000_000_000,0)
+        enforce(row,32_000_000_000,0,cpu_limit=90,thermistor_limit=95)
+        for name,limit in [('Package id 0',90),('Thermistor 15',95)]:
+            sample=dict(row,temperatures_c=dict(row['temperatures_c'],**{name:limit}))
+            with self.subTest(sensor=name),self.assertRaisesRegex(RuntimeError,name):
+                enforce(sample,32_000_000_000,0,cpu_limit=90,thermistor_limit=95)
+        with self.assertRaisesRegex(RuntimeError,'memory stop'):
+            enforce(dict(row,available_ram_bytes=7*GIB),32_000_000_000,0,cpu_limit=90,thermistor_limit=95)
+
+    def test_crossing_resource_sample_survives_guard_exception(self):
+        from scripts import run_nplayer_storage_benchmark as guard
+        with tempfile.TemporaryDirectory() as d, \
+                patch.object(guard,'memory',return_value={'SwapTotal':0,'SwapFree':0,'MemAvailable':20*GIB}), \
+                patch.object(guard,'sensors',return_value={'Package id 0':61,'Thermistor 15':95}), \
+                patch.object(guard,'fan_rpm',return_value=900):
+            supervisor=Supervisor(Path(d),0,cpu_limit=90,thermistor_limit=95)
+            with self.assertRaisesRegex(RuntimeError,'Thermistor 15') as caught:
+                supervisor.sample(None,'train',0)
+            self.assertEqual(caught.exception.resource_sample['temperatures_c']['Thermistor 15'],95)
+            self.assertEqual(caught.exception.resource_sample['fan1_rpm'],900)
+
     def test_pretty_cli_output_is_logged_without_becoming_a_progress_event(self):
         for line in ['{','  "status": "passed"','}','ordinary compiler output']:
             self.assertIsNone(json_event(line))

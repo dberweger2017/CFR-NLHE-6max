@@ -146,3 +146,35 @@ strength evaluation ran. The study is terminal, with no automatic retry,
 resource change or default adoption. Its timer is disabled; all roots and
 shared inputs remain retained, with archival pending. See the
 [terminal report](reports/nplayer-fast-strength/terminal.md) and compact receipt.
+
+## Owner-authorized second attempt, October 18
+
+After reviewing the thermal evidence and the unavailable manual fan control,
+the owner explicitly requested a new run with the recommended limits:
+**CPU package stop90C; Thermistor15 stop95C**, both immediate hard stops.
+This supersedes the no-retry instruction for this one fresh attempt only.
+The v4 failure and all setup siblings remain terminal and preserved.
+
+The new root is `bb128:/home/dberweger/nplayer-fast-strength-20261018-main-v5/`.
+Retain the original qualification and selected16 threads; all native training,
+seeds, node/time endpoints, gzip mode, model inputs, evaluation roots/counts,
+verification barriers and statistical decisions stay unchanged. No final
+evaluation ran in v4, so the reserved held-out roots have not been evaluated.
+Restart the first seed from scratch; do not use its failed partial state.
+
+The original18:31:32UTC deadline,32GB growth/50GB free floor,80GiB familyRSS,
+8GiB availableRAM and256MiB swap-growth limits remain. Admission temperatures
+remain below70C CPU/80C Thermistor15. Repeat the declared prerequisite smoke,
+audits and120-training-second soak under the revised hard stops. No new
+qualification scaling or additional experimental arms. A new failure stops
+this attempt without automatic retry or further limit increases.
+
+These are owner-selected operating limits, not verified MSI continuous thermal
+ratings. Thermistor15 is strongly associated with the VRM/MOS channel; its
+exact placement/calibration on MS-7C99 remains unverified. The original sensor
+driver and BIOS fan control are unchanged. The unsigned alternative driver
+could not load under Secure Boot and was rolled back; no boot change/reboot.
+
+The supervisor now records the exact failing resource sample and names each
+thermal sensor that crosses its limit. Generic storage/qualification defaults
+remain80/85C; only the explicitly configured new main attempt uses90/95C.

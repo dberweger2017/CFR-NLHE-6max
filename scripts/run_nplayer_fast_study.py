@@ -28,6 +28,10 @@ def cases():
 
 def run(root):
     c=json.loads((root/'config.json').read_text());q=Path(c['qualification_root'])
+    thermal=c.get('thermal_limits_c',{'Package id 0':80,'Thermistor 15':85})
+    if thermal not in [{'Package id 0':80,'Thermistor 15':85},
+                       {'Package id 0':90,'Thermistor 15':95}]:
+        raise ValueError('thermal limits differ from the original or owner-authorized retry')
     if (q/'failure.json').exists():raise ValueError('qualification failed')
     passed=json.loads((q/'qualification-passed.json').read_text())
     if passed['status']!='passed':raise ValueError('qualification incomplete')
@@ -44,7 +48,8 @@ def run(root):
             background=legacy_holder()
             if background is None or '/home/dberweger/hu200-capacity-20261015/planning/archive_terminal_closeout_20261018.py run' not in background['command']:
                 raise RuntimeError('unknown legacy holder; admission refused')
-        supervisor=guard.Supervisor(root,own.fileno(),cpus=range(16),max_seconds=remaining,rss_limit=80*guard.GIB)
+        supervisor=guard.Supervisor(root,own.fileno(),cpus=range(16),max_seconds=remaining,rss_limit=80*guard.GIB,
+            cpu_limit=thermal['Package id 0'],thermistor_limit=thermal['Thermistor 15'])
         row=supervisor.sample(None,'admission',0)
         if row['temperatures_c']['Package id 0']>=70 or row['temperatures_c']['Thermistor 15']>=80:raise RuntimeError('temperature admission refused')
         med=passed['median_training_seconds'][str(threads)]
@@ -54,7 +59,8 @@ def run(root):
         if quote>remaining:raise RuntimeError('measured workload does not fit original deadline')
         guard.write(root/'admission.json',dict(pid=os.getpid(),initial_sample=row,threads=threads,
             qualification_sha256=guard.sha(q/'qualification-passed.json'),legacy_holder=background,
-            original_deadline_epoch=deadline,projected_seconds=quote,source_commit=c['source_commit'],cases=cases()))
+            original_deadline_epoch=deadline,projected_seconds=quote,source_commit=c['source_commit'],
+            thermal_limits_c=thermal,prior_attempt_root=c.get('prior_attempt_root'),cases=cases()))
         env=dict(os.environ,RAYON_NUM_THREADS=str(threads),CARGO_BUILD_JOBS='4',OMP_NUM_THREADS='1',
             OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',NPLAYER_K50_TABLES=c['tables'],CARGO_TARGET_DIR=str(root/'target'))
         env['PATH']='/home/dberweger/.cargo/bin:'+env['PATH']
@@ -97,7 +103,8 @@ def run(root):
         if json.loads((smoke_root/'evaluation-verified.json').read_text())['final_hands']!=144:raise ValueError('harness qualification count mismatch')
         guard.write(root/'pretraining-freeze.json',dict(status='qualified',cases=cases(),seed_order=SEEDS,
             threads=threads,roots_per_seat=8,training_seconds=600,node_target=1000000000,
-            inputs=inputs,source_commit=c['source_commit'],instrumented_cli_identity='passed',deadline_epoch=deadline))
+            inputs=inputs,source_commit=c['source_commit'],instrumented_cli_identity='passed',
+            thermal_limits_c=thermal,deadline_epoch=deadline))
         outputs=root/'training';outputs.mkdir()
         export_plan=[]
         for seed in SEEDS:
@@ -131,7 +138,11 @@ def run(root):
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('root',type=Path);root=p.parse_args().root.resolve()
     try:run(root)
-    except BaseException as error:guard.write(root/'failure.json',dict(error=repr(error),at=time.time()));raise
+    except BaseException as error:
+        failure=dict(error=repr(error),at=time.time())
+        if hasattr(error,'resource_sample'):failure['resource_sample']=error.resource_sample
+        guard.write(root/'failure.json',failure)
+        raise
 
 
 if __name__=='__main__':main()
