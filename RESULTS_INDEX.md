@@ -4590,3 +4590,12 @@ No final outcomes/global barrier/release yet. Raw final hand/decision files and 
 stage receipts remain required archive evidence; preserve activeNVMe files/source.
 Archive planning/status-latest-{return,live}-20261018.json,
 publish_status_single_20261018_1038.py and PR readback/handoff.
+
+PR301 TERMINAL owner-stopped evaluation failureOctober18:
+[owner no-retry/config diagnosis/corrected counts/compute release](docs/reports/hu200-capacity-cygnus-artifacts/terminal-owner-closeout-20261018.json),
+[closed artifacts/pins](docs/reports/hu200-capacity-cygnus-artifacts/terminal-evaluation-failure-20261018.json).
+Wrong5Bkind20B caused wrong menu/reused roots; globalbarrier refused; no outcomes.
+Actual1441792primaryhands, not983040; all raw failuredata remain required evidence.
+All3training models valid/retained. Compute released08:55:43UTC17worker identities
+absent/supervisor absent/mutexfree. Source42acb483/oldshareddependencies retained.
+Cleanup/archive/readback/Drive/unpackedHDD/index receipts pending; no scientificretry.

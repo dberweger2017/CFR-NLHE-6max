@@ -1,3 +1,20 @@
+# Proposed new PR after PR301's terminal evaluation failure
+
+The owner ordered no retry inPR301. Any future execution needs a **different PR**
+and explicit owner-approved scope/budget. PR301's5Bconfiguration mistakenly kept
+`kind:20B`, ran the wrong menu on reused roots, and caused global-barrier refusal.
+No outcomes were read. Fix and test real configuration semantics **before any
+new hands**: model identity, kind, exact cases/counts, unique roots and intended
+seed/model groups. The corrected1302descriptive5Bdirect is never-started;
+its failed wrong-menu data must remain excluded. Retain the valid1302training,
+20Braw matches and all1421/1422training for any approved reuse. A new protocol
+must explicitly decide whether unchanged1302 20B evidence can be adopted;
+otherwise evaluate it on new roots. No pre-barrier results should be used to
+select or extend that future experiment. Fresh clock/quote is a new campaign,
+not extra credit for this failed attempt. No work or schedule is started here.
+
+The previously proposed remaining-seed plan below is retained as a proposal only.
+
 # Proposed follow-up: evaluate the two retained capacity seeds
 
 This is the owner-requested proposal for afterPR301. It authorizes no experiment,

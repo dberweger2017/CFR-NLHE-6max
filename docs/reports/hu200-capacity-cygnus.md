@@ -1,11 +1,56 @@
 # HU200 capacity experiment on cygnus-x1
 
-**All three training lineages and full audits complete. Owner-selected seed1302 final evaluation is running; seeds1421/1422 evaluation deferred.** No final playing outcomes read.
+**Training complete; final evaluation failed its global barrier. Owner ordered no retry.**
+PR301 stays open. No strength outcomes read. Compute released; archival cleanup in progress.
 
-**ETA:** selected evaluation/readout aboutOctober18,11:50Madrid; full report/archive Monday19evening, Tuesday20upload contingency. Original evaluation deadline remainsOctober18,22:22:34Madrid.
+[Protocol](../hu200-capacity-cygnus-protocol.md), [selected-scope amendment](../hu200-capacity-single-seed-amendment.md).
 
-[Protocol](../hu200-capacity-cygnus-protocol.md) fixes three paired seeds,
-301,153,954-entry capacity, guards and final sample sizes. Owner decides merge.
+## Terminal evaluation failure; owner ordered no retry — October18
+
+**Scientific work stopped. PR301 remains open and draft.** All three large20B
+training lineages and every-save/full final audits remain valid and retained.
+No final playing outcome has been read or accepted; the global barrier refused
+this attempt. The owner explicitly instructed no retry, cleanup and a proposal
+to try again in a different PR.
+[Failure/config diagnosis/owner stop/compute release](hu200-capacity-cygnus-artifacts/terminal-owner-closeout-20261018.json),
+[closed traces/receipts](hu200-capacity-cygnus-artifacts/terminal-evaluation-failure-20261018.json).
+
+I made an evaluation configuration-generation error. The setup loop copied the
+20Bconfiguration into both groups, updated the model and output path for5B,
+but omitted assigning `cfg['kind'] = kind`. Its5Bgroup therefore retained
+`kind:20B`: it ran131072direct blocks **and seven16384-block panels**, on
+roots202610160303/305 reused from the20Bgroup. The intended5B-only direct on
+root202610160304 did not run. Both actual groups individually replayed,
+reproduced and hash-verified, but the global selected barrier correctly rejected
+two20B-tagged groups instead of one20B and one5B.
+
+The actual attempt generated **1441792primary hands**, versus983040declared:
+**458752unplanned extra panel hands**. Earlier status counts inferred from the
+intended scope were wrong and are superseded here. Individual consistency is
+not protocol acceptance. The20Bgroup's720896hands match its planned cases;
+the5Bgroup is invalid for the declared descriptive comparison. Neither group's
+playing outcomes may be read under the unpassed global barrier. There is no
+claim about stronger play. The tests exercised the solver guards and a toy
+scope barrier, but failed to validate the generated real5Bcase list before hands.
+
+Failure08:51:55.356821UTC/10:51:55Madrid, SHA256
+`f6288457562e77cd9af20c208de686d754bcbc072f53c18b57f18cb7a6430813`.
+No thermal/RAM/swap/disk stop:4179samples, maximumCPU60°C/VRM61.5°C,
+RSS21.066GB, minimumfree68.206GB, zero stop samples, max samplegap2.818s.
+No trainer/binary/cards change, automatic retry, added credit or result readout.
+The prior finish ETA is withdrawn; scientific work is terminal.
+
+**PR301 compute is released.** At08:55:43UTC all17recorded worker identities
+were absent, supervisor187170 was absent and the machine mutex was free.
+NVMe free76.909GB. The next agent can perform its own resource admission;
+archival/cleanupI/O remains separate and must respect that agent's compute slot.
+
+Cleanup preserves all three valid trained models, original inputs/provenance,
+raw actual primary/reproduction traces, replay/verification receipts, this failure
+and earlier failures. Archive/readback/Drive acceptance and the matching unpacked
+HDD copy remain in progress; no model deletion is claimed. Open PR/source and
+shared dependencies remain. No release/tag/default change or merge.
+[Unstarted new-PR recommendation](../hu200-capacity-deferred-seeds-follow-up.md).
 
 ## Status — October18,10:38Madrid
 
