@@ -1,5 +1,5 @@
 {
-  "status": "coordinator-active;owner-stopped-science;cleanup-only",
+  "status": "coordinator-handback-declared;owner-stopped-science;bounded-archive-only-tail",
   "timezone": "UTC;Madrid=UTC+02:00 on these dates",
   "historical_precision": "Older coordinator handbacks are evidenced by completion/readback timestamps, not invented exact idle boundaries.",
   "owner_requirement": "Mark each coordinator stop and return in the PR, with reason and background scientific/storage job state; do not silently reset clocks.",
@@ -223,6 +223,12 @@
       "utc": "2026-10-18T08:52:15.209647+00:00",
       "coordinator": "Returned/PR marked for evaluation_failed event; diagnosed wrong5Bkind; owner ordered no retry and cleanup",
       "jobs": "Scientific terminal;17owned identities/supervisor absent/mutex free; archive cleanup only",
+      "clock_credit": false
+    },
+    {
+      "utc": "2026-10-18T09:18:45.514291+00:00",
+      "coordinator": "Handback declared after owner no-retry stop, verified NVMe cleanup and partial terminal-summary Drive acceptance",
+      "jobs": "Only bounded archive-controller214207 remains; waiting for another agent compute slot. No scientific work or result readout. Existing task scope cleanup-only.",
       "clock_credit": false
     }
   ]

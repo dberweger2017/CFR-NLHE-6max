@@ -5,6 +5,47 @@ PR301 stays open. No strength outcomes read. Compute released; archival cleanup 
 
 [Protocol](../hu200-capacity-cygnus-protocol.md), [selected-scope amendment](../hu200-capacity-single-seed-amendment.md).
 
+## Cleanup handback — October18
+
+PR301 remains open/draft, no scientific retry or outcome readout. NVMe cleanup
+reclaims25.679GB and preserves all unique model/evidence bytes; compute is released.
+The [partial terminal summary ZIP](https://drive.google.com/file/d/1DAuNxA3noGm93Lk0lkH3zKzPTbEjt8UR/view)
+(87136bytes,63members) passes full local ZIP/member readback, native upload and
+independent Drive ID/name/size/parent acceptance. Its matching unpackedHDD copy
+also passes every member size/SHA. Remote archive bytes were not downloaded;
+metadata does not expose MD5. [Separate acceptance/retention receipt](hu200-capacity-cygnus-artifacts/terminal-summary-archive-acceptance-20261018.json).
+This is **not** the bulk model/raw-evidence archive acceptance.
+
+Only the bounded cleanup archive controller remains, waiting for the next agent's
+compute mutex and never invoking scientific steps. It will create the planned
+model/evidence archives plus unpackedHDD copy under original guards; the existing
+cleanup-only event then permits upload/index/receipt completion. No new schedule.
+Bulk cloud acceptance and final event-task removal remain pending. Coordinator
+handback declared2026-10-18T09:18:45.514291+00:00; no new scientific attempt or budget credit.
+
+## Owner-requested cleanup — October18
+
+No scientific retry or result readout. PR301 remains open/draft with the terminal
+configuration error and a recommendation for a different PR. Compute was released
+and another agent has priority over the machine mutex.
+
+The guarded cleanup passes100.263s:16997031325bytes of inactive derived caches
+and8681639415bytes of verified NVMe replicas retire: **25678670740bytes reclaimed**.
+Original inputs remainHDD with independently matching full SHA256; no unique
+model/evidence bytes deleted. FreeNVMe102.584GB. Exact removed paths, retained
+paths/hashes and cache regeneration commands are in the
+[cleanup receipt](hu200-capacity-cygnus-artifacts/cleanup-terminal-nvme-20261018.json).
+
+All three valid large5B/20B averages/latest20B checkpoints remainHDD. The cleanup-only
+queue archives86.242GB of these models,10.920GB interrupted partials and full actual
+hand/failure/source evidence, with every-member readback, ordered64MiB transport
+manifests and matching unpackedHDD members. It waits for other compute and invokes
+no scientific step. No new bulk-cloud acceptance/final unpacked-copy completion
+is claimed yet. [Source/member plan](hu200-capacity-cygnus-artifacts/closeout-archive-plan-20261018.json),
+[bounded queue](hu200-capacity-cygnus-artifacts/cleanup-only-archive-queue-20261018.json).
+Existing task scope is cleanup only, removed at complete closeout; no new schedule.
+Open source/dependencies and other PR roots/uploads remain untouched.
+
 ## Terminal evaluation failure; owner ordered no retry — October18
 
 **Scientific work stopped. PR301 remains open and draft.** All three large20B

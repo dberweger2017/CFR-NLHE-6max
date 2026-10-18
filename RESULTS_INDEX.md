@@ -4599,3 +4599,27 @@ Actual1441792primaryhands, not983040; all raw failuredata remain required eviden
 All3training models valid/retained. Compute released08:55:43UTC17worker identities
 absent/supervisor absent/mutexfree. Source42acb483/oldshareddependencies retained.
 Cleanup/archive/readback/Drive/unpackedHDD/index receipts pending; no scientificretry.
+
+PR301 owner cleanupOctober18:
+[25678670740B reclaimed /removed paths, retainedHDD input hashes, regeneration](docs/reports/hu200-capacity-cygnus-artifacts/cleanup-terminal-nvme-20261018.json).
+No unique model/evidence bytes deleted; freeNVMe102.584GB; source/dependencies retained.
+[Archive source/member plan](docs/reports/hu200-capacity-cygnus-artifacts/closeout-archive-plan-20261018.json),
+[bounded cleanup-only queue](docs/reports/hu200-capacity-cygnus-artifacts/cleanup-only-archive-queue-20261018.json).
+New ZIPsHDD/final-archives-20261018; matching unpackedHDD/final-research-20261018.
+Model members86.242GB +raw interrupted partials10.920GB +all actual hands/guards/source/failures.
+Cloud acceptance/final retention pending; ordered64MiB partSHA/MD5/local readback planned.
+Old cold intermediate recoveries/current/gates/memory/twins retained unchanged. External twins
+and#163cards retain their already indexed accepted Drive dependencies. No scientific retry.
+
+PR301 partial terminal summary/cleanup archive acceptedOctober18:
+[receipt](docs/reports/hu200-capacity-cygnus-artifacts/terminal-summary-archive-acceptance-20261018.json),
+Drive file1DAuNxA3noGm93Lk0lkH3zKzPTbEjt8UR in159JoTfd8HUyblui5QgSMc6w1JNz-z7px,
+PR301-terminal-summary-and-cleanup-20261018.zip,87136bytes,
+SHA2562589bd1521b1796de8bf5df84fc4dd74b03df3101eb8470c3a54f41c8c261387,
+manifest MANIFEST.json SHAe97ddf1d3287a395d175f2c34ce29e6cd95ec5ccab4a0934cfded43788b816c1.
+Full local whole/member readback passes63members; native upload success plus separate
+ID/name/size/parent acceptance. Cloud bytes not downloaded; MD5 not exposed by metadata.
+Matching unpackedHDD copy underfinal-research-20261018/terminal-summary passes member hashes.
+Retrieval: download indexed Drive file to ignored path; verify archiveSHA, extractMANIFEST.json
+and named members, verify each size/SHA. This partial ZIP contains no bulk model/raw bytes;
+bulk archive acceptance and final event-task removal are still pending, not claimed complete.
