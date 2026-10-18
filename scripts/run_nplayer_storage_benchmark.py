@@ -97,9 +97,10 @@ def enforce(row, remaining, elapsed):
 
 
 class Supervisor:
-    def __init__(self, root, lock_fd):
+    def __init__(self, root, lock_fd, cpus=None):
         self.root = root
         self.lock_fd = lock_fd
+        self.cpus = set(cpus) if cpus is not None else {0, 1, 2, 3}
         self.started = time.monotonic()
         m = memory()
         self.swap = m['SwapTotal'] - m['SwapFree']
@@ -132,7 +133,7 @@ class Supervisor:
             import ctypes
             if ctypes.CDLL(None).prctl(1, signal.SIGTERM) != 0:
                 raise RuntimeError('cannot set parent-death signal')
-            os.sched_setaffinity(0, {0, 1, 2, 3})
+            os.sched_setaffinity(0, self.cpus)
             os.nice(10)
             resource.setrlimit(resource.RLIMIT_AS, (48 * GIB,) * 2)
         child = None
