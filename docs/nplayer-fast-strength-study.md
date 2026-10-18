@@ -20,7 +20,9 @@ For a more representative scaling measurement, train one fresh fast100M pilot
 at1/2/4/8/16 threads in forward then reverse order. Compare all ten endpoint
 hashes; choose the thread count with the lowest median training time. Ties
 within3% choose fewer threads. Pilot results select only runtime configuration,
-never a strategy, seed, evaluation count or outcome. Record actual nodes,
+never a strategy, seed, evaluation count or outcome. After selection, run a
+fixed120-second fast-mode thermal soak on the excluded qualification seed
+before any final training, under the same guards. Record actual nodes,
 iterations, training/save/load/CPU/wall times, process RSS, thermals, fans,
 swap, free disk and background archive activity. No final playing results
 are inspected during cost qualification.

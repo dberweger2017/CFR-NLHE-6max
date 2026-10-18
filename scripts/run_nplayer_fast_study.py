@@ -83,6 +83,9 @@ def run(root):
             exported=root/('smoke-'+label+'-average.gz')
             supervisor.execute('smoke-export-'+label,[str(binaries/'nplayer_policy'),'export',str(fixture),guard.sha(fixture),'average',str(exported)],root,env)
             supervisor.execute('smoke-audit-'+label,[python,'-m','scripts.audit_nplayer_policy',str(fixture),str(exported)],root,env)
+        # A short fully occupied continuation checks sustained thermals before final seeds.
+        supervisor.execute('thermal-soak',[str(binaries/'nplayer_fast_strength'),c['tables'],str(root/'thermal-soak'),
+            '2026101833500','fast',str(threads),'3000000','120'],root,env)
         smoke_root=root/'smoke-evaluation';smoke_root.mkdir()
         smoke_model=dict(path=str(root/'smoke-nodes-average.gz'),sha256=guard.sha(root/'smoke-nodes-average.gz'),strategy='average',scope=3)
         smoke_cases=[dict(case,blocks=2,root=20261018335001+i) for i,case in enumerate(cases())]
