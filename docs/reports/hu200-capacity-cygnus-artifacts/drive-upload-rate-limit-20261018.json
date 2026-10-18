@@ -1,0 +1,69 @@
+{
+  "status": "single-bounded-upload-succeeded-after-backoff",
+  "utc": "2026-10-18T14:08:30.227222+00:00",
+  "provider_error": {
+    "http_status": 403,
+    "reason": "userRateLimitExceeded",
+    "message": "User rate limit exceeded."
+  },
+  "accepted_parts": 391,
+  "total_parts": 1468,
+  "scientific_work_terminal": true,
+  "outcomes_read": false,
+  "scientific_retry": false,
+  "originals_retained": true,
+  "failed_transport_rows": [
+    {
+      "bundle": "seed-2026101302",
+      "part": {
+        "bytes": 67108864,
+        "index": 371,
+        "md5": "491421d9e54301ab13d842188a7ebc92",
+        "offset": 24897388544,
+        "sha256": "01bce5b659b6eb6767b73c2b169e4211f7d18eff13601d27bbf249a9c681d266"
+      },
+      "name": "PR301-seed-2026101302-20261018.zip.part000371",
+      "local_path": "/Users/dberweger/Local/hu200-capacity-cygnus-20261015/planning/transport-spool/PR301-seed-2026101302-20261018.zip.part000371",
+      "archive_sha256": "c06fd34c7f98530cacdb8c320407674abb20caa186f901e10f0830a5fa60c1c1"
+    }
+  ],
+  "scope": "Only bounded archival upload/backoff and metadata/receipt work authorized; no new schedule or budget credit",
+  "administrative_runner_reload_error": "In-memory runner source was absent after the earlier execution-cell cancellation: TypeError before any upload. Exact owned disk source reloaded; no scientific operation ran.",
+  "bounded_attempt": {
+    "upload": {
+      "accepted_input": "file_uri",
+      "success": true,
+      "id": "1taJV1Vcq4KhUB3L9YCb-UOgfFhwpA_6d",
+      "title": "PR301-seed-2026101302-20261018.zip.part000371",
+      "file_name": "PR301-seed-2026101302-20261018.zip.part000371",
+      "mime_type": "application/octet-stream",
+      "url": "https://drive.google.com/file/d/1taJV1Vcq4KhUB3L9YCb-UOgfFhwpA_6d/view?usp=drivesdk",
+      "parent_id": "159JoTfd8HUyblui5QgSMc6w1JNz-z7px"
+    },
+    "metadata": {
+      "id": "1taJV1Vcq4KhUB3L9YCb-UOgfFhwpA_6d",
+      "title": "PR301-seed-2026101302-20261018.zip.part000371",
+      "mime_type": null,
+      "size": "67108864",
+      "url": "https://drive.google.com/file/d/1taJV1Vcq4KhUB3L9YCb-UOgfFhwpA_6d/view?usp=drivesdk",
+      "display_url": "https://drive.google.com/file/d/1taJV1Vcq4KhUB3L9YCb-UOgfFhwpA_6d/view?usp=drivesdk",
+      "file_or_folder": null,
+      "created_time": null,
+      "modified_time": null,
+      "parent_ids": [
+        "159JoTfd8HUyblui5QgSMc6w1JNz-z7px"
+      ],
+      "drive_id": null,
+      "current_user_can_share": null,
+      "has_augmented_permissions": null,
+      "shared": null,
+      "permissions": null,
+      "source_visibility_status": "access_not_verified"
+    },
+    "accepted_utc": "2026-10-18T14:09:55.116674+00:00",
+    "same_part": "PR301-seed-2026101302-20261018.zip.part000371"
+  },
+  "current_accepted_parts": 392,
+  "response_does_not_establish_daily_or_project_quota_cause": true,
+  "official_error_guidance": "https://developers.google.com/workspace/drive/api/guides/handle-errors#userratelimitexceeded"
+}

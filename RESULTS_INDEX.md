@@ -4636,3 +4636,26 @@ work is owner-stopped, no retry. PR301 holds no compute lock after archiver exit
 As of12:03UTC,44parts/2.944GB accepted through native upload+independent metadata;
 all19evidence parts accepted, full reconstruction/index receipts pending.
 Remote bytes not downloaded; no remote hash-verification claim. Original files retained.
+
+
+PR301 first complete model archive acceptedOctober18,14:31UTC:
+Seed2026101302:429parts,28,766,826,829bytes, wholeSHA256
+`c06fd34c7f98530cacdb8c320407674abb20caa186f901e10f0830a5fa60c1c1`.
+Reconstruction manifest DriveID`1sGO5HlDCENvqavDDl1TNPApqGMxZzGFH`,
+251003bytes/SHA256`f224333b46f9d5acc22d4bfdff0134b5b502044d5a51004fbac65bbe84400ea0`.
+All part IDs/offsets/sizes/hashes/native confirmations and three model member pins:
+`docs/reports/hu200-capacity-cygnus-artifacts/drive-seed-2026101302-archive-acceptance-20261018.json`.
+Evidence archive19parts/1,266,666,621bytes likewise accepted:
+`docs/reports/hu200-capacity-cygnus-artifacts/drive-evidence-archive-acceptance-20261018.json`;
+reconstruction DriveID`13oulY17sB06P9prye55WKMlRtajJJGgh`,12255bytes,
+SHA256`70b948b4658b14c6dc43c415f01737c24339100525e999f54f506ab16b60cfb3`.
+Download the exact listed part IDs into a fresh ignored folder preserving names;
+concatenate zero-padded part numbers in order, verify wholeSHA256, extract embedded
+manifest and verify its pinnedSHA256, then verify each named model/member size/SHA256.
+Native uploads plus separate cloud ID/name/size/parent acceptance pass; remote bytes
+were not downloaded and no remote content-hash verification is claimed.
+All source models/unpackedHDD members remain retained. Two unselected interrupted
+cloud transport copies are retained and excluded from canonical reconstruction;
+exactIDs/status in`transfer-scheduling-20261018.json`. The transient403 and bounded
+successful same-part upload after backoff are in`drive-upload-rate-limit-20261018.json`.
+Other model archives, final metadata/unpacked-copy receipts and task retirement pending.

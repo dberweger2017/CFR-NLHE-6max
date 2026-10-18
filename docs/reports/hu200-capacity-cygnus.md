@@ -5,6 +5,56 @@ PR301 stays open. No strength outcomes read. Compute released; archival cleanup 
 
 [Protocol](../hu200-capacity-cygnus-protocol.md), [selected-scope amendment](../hu200-capacity-single-seed-amendment.md).
 
+## First model archive accepted — October18,14:31UTC
+
+The seed1302archive's429parts and its251003-byte reconstruction manifest now
+have native upload plus independent cloud metadata acceptance. The archive is
+28,766,826,829bytes, SHA256`c06fd34c7f98530cacdb8c320407674abb20caa186f901e10f0830a5fa60c1c1`.
+[Model/member/part acceptance](hu200-capacity-cygnus-artifacts/drive-seed-2026101302-archive-acceptance-20261018.json),
+[Drive reconstruction manifest](https://drive.google.com/file/d/1sGO5HlDCENvqavDDl1TNPApqGMxZzGFH/view).
+Both required averages and latest20Bcheckpoint remain valid/retained; no playing
+outcomes were read. Overall452of1468parts/30.301GB accepted; other two seeds and
+interrupted attempts are still transferring.
+
+All five closed archival guards pass: peakCPU65°C/VRM68°C, fan1range477–937RPM,
+zero stop samples. [Summary and raw-trace provenance](hu200-capacity-cygnus-artifacts/archive-guard-summary-20261018.json).
+Local source/member readback finished11:48UTC within the original archival cap;
+upload ETA is separate. Serial native uploads avoid bursts after the transient403.
+The60-part serial-fetch sample took1190.989s; subsequent transport batches fetch
+up to four parts together, then upload each serially, retaining the256MiB spool
+ceiling and every hash/acceptance check. No scientific change, retry or clock credit.
+Allow roughly19:15–20:15UTC/21:15–22:15Madrid for bulk acceptance, then about30min
+for final receipts; this remains conditional on provider availability.
+
+## Transient Drive rate limit — October18,14:10UTC
+
+Native Drive upload returned403`userRateLimitExceeded` during a four-part batch.
+Three parts in that batch succeeded; their separate acceptance receipts were
+saved. The one failed part succeeded after bounded backoff and independent
+metadata confirmation, bringing acceptance to392of1468parts/26.298GB.
+[Exact failure and bounded recovery](hu200-capacity-cygnus-artifacts/drive-upload-rate-limit-20261018.json).
+The provider response does not identify a daily or project quota cause. Following
+[Google's documented backoff guidance](https://developers.google.com/workspace/drive/api/guides/handle-errors#userratelimitexceeded),
+subsequent native uploads are serial. This is archival byte transport only;
+no scientific retry, credentials/quota changes or new schedule.
+
+## Transfer scheduling check — October18,12:43UTC
+
+152of1468parts/10.192GB are accepted. The19-part raw-evidence archive now has
+an independently accepted [reconstruction manifest](https://drive.google.com/file/d/13oulY17sB06P9prye55WKMlRtajJJGgh/view).
+[Whole archive/part acceptance receipt](hu200-capacity-cygnus-artifacts/drive-evidence-archive-acceptance-20261018.json).
+Bulk model acceptance remains pending; no scientific work or outcome readout.
+
+A40-part overlap check took785.943s (78.594s per four parts), slower than the
+63.273s batch sample. Four-part batches resume within the same256MiB spool.
+Stopping the earlier orchestration cell allowed two in-flight uploads to finish
+without returning their receipts. The search adapter returned empty even for
+known accepted binary parts; exact folder listing exposed both unselected copies.
+They are retained, separately indexed and excluded from canonical reconstruction;
+no uncertain cloud bytes were deleted. A reported BB LAN address was unreachable
+(3sconnect timeout before authentication); the existing BB route stays unchanged.
+No shared SSH config/credentials were changed. [Exact scheduling/failure/duplicate receipt](hu200-capacity-cygnus-artifacts/transfer-scheduling-20261018.json).
+
 ## Archive verification and transfer — October18,12:03UTC
 
 All five local archives completed by11:48:50UTC and pass full every-member readback,
