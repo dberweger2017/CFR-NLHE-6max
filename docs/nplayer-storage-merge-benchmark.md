@@ -42,7 +42,8 @@ and input-load duration. Retain wall time, CPU seconds, read/write counters,
 temperature/fan/resource traces, output hashes, failures and any partials.
 Save time includes the existing writer's flush/fsync and atomic rename; hash
 verification is separate. Saving MB/s refers to compressed bytes, not raw rows.
-Memory is sampled every0.5s with boundary samples and can miss transient peaks.
+Memory is sampled every0.5s, attributed using flushed phase markers, and can
+miss transient peaks.
 
 Compare checkpoint SHA256 at every milestone. Mismatch, changed inputs,
 incorrect counts, invalid training, resource stop or nonzero exit stops the
@@ -84,3 +85,32 @@ bundles/results under ignored working roots. Record input stat/hash pins and
 restoration commands in RESULTS_INDEX. Archive through bb128's research cache
 under the designated Drive root with manifests and upload receipts at closeout;
 no local original is removed or uploaded acceptance claimed prematurely.
+
+## Launch status
+
+The corrected setup admitted at09:10:07UTC October18 under PID213705 in
+`bb128:/home/dberweger/nplayer-storage-benchmark-20261018-v2/`, source
+`ce6a3b5a`. [Compact launch receipt](reports/nplayer-storage-benchmark/launch.json)
+records toolchain, input stat pin, admission and the preserved initial failure.
+All three builds and native library suites (42/44/44 tests) passed. Fresh
+200K checkpoints and all300K/400K/500K continuation checkpoints match exactly
+across arms. The baseline1B input load started by09:13:15UTC. Raw evidence
+stays in that active root; cloud archival is pending.
+
+## Readout commands
+
+After `status.json` says `complete-identical` and no `failure.json` exists,
+retrieve only the compact per-arm result files into a fresh ignored local root:
+
+```sh
+mkdir -p results/storage-merge/measurements/arm-{baseline,compact,parallel}
+scp bb128:/home/dberweger/nplayer-storage-benchmark-20261018-v2/measurements/arm-baseline/result.json results/storage-merge/measurements/arm-baseline/
+scp bb128:/home/dberweger/nplayer-storage-benchmark-20261018-v2/measurements/arm-compact/result.json results/storage-merge/measurements/arm-compact/
+scp bb128:/home/dberweger/nplayer-storage-benchmark-20261018-v2/measurements/arm-parallel/result.json results/storage-merge/measurements/arm-parallel/
+python -m scripts.summarize_nplayer_storage_benchmark results/storage-merge --out results/storage-merge-summary
+```
+
+The summarizer requires successful completion of all arms, all nine endpoint
+hashes/counts, and nonzero training/saving memory samples. Keep full raw traces
+and source bundles on bb128 for the subsequent research-cache archive. A partial
+run may be diagnosed but cannot be reported as the completed comparison.

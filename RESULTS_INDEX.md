@@ -1,3 +1,37 @@
+## PR339 — N-player storage and parallel-save comparison (active)
+
+[PR339](https://github.com/dberweger2017/CFR-NLHE-6max/pull/339),
+[fixed protocol](docs/nplayer-storage-merge-benchmark.md),
+[launch, source/toolchain/admission and setup failures](docs/reports/nplayer-storage-benchmark/launch.json).
+The authorized comparison independently resumes the same PR292 three-player
+checkpoint under baseline, PR331, and PR331+PR333 to 1.1B/1.2B/1.3B.
+No merge or playing-strength conclusion is available yet.
+
+- **Active root:** `bb128:/home/dberweger/nplayer-storage-benchmark-20261018-v2/`;
+  supervisor PID213705 admitted October18 at09:10:07UTC. Sources, patches,
+  source manifest (141 file hashes), binaries, configuration, raw logs/resource
+  traces and checkpoints remain there. All three builds, 42/44/44 native library tests, and fresh/resume
+  identity fixtures passed. The baseline large-checkpoint arm started loading
+  by09:13:15UTC. Source freeze `ce6a3b5a`.
+- **Preserved setup:** `bb128:/home/dberweger/nplayer-storage-benchmark-20261018/`.
+  Initial lock refusal launched no workload. Later baseline/compact library
+  checks passed, but the PR333 harness failed to compile because its save API
+  requires a gzip argument. No 1B continuation ran. The fresh corrected setup
+  selects `Gzip::Compatible`; the adapter is recorded in its source manifest.
+- **Read-only input:** retained PR292 member `training/2026101541/1000m.gz`,
+  1,199,517,402 bytes, SHA256
+  `262334b77373c7f418078861ea57fbce181d126c5dda032aa2ff22758a876f21`.
+  Its original source mtime matches the recorded member. Native loading verifies
+  SHA256 before every arm. PR292 is merged; its root is not modified.
+  [Accepted archive/member provenance](docs/reports/nplayer-blueprint-phase2-artifacts/archive-model-members.json)
+  and the PR292 entry below provide Drive restoration links and commands.
+- **Retrieve current evidence:** copy only the needed files from the active
+  root into a fresh ignored directory with
+  `scp -r bb128:/home/dberweger/nplayer-storage-benchmark-20261018-v2/measurements FRESH_DESTINATION/`.
+  Input retrieval remains through PR292's accepted archive; verify the pinned
+  SHA256 after retrieval. Own run archival to Research-Cloud is pending;
+  no upload acceptance or deletion is claimed. Preserve both roots.
+
 ## PR330 — v0.5.5 confirmation: card luck and public-action diagnosis
 
 [PR330](https://github.com/dberweger2017/CFR-NLHE-6max/pull/330); [report](docs/reports/v055-confirmation-diagnostics.md), [reproduction commands](docs/reports/v055-confirmation-diagnostics/REPRODUCE.md), [complete storage/input/member receipt](docs/reports/v055-confirmation-diagnostics/storage.json). Calculation/result freeze `fc19783d390c9850130b3d664667695ee7489fb6`: 30,000 new card-only per-hand corrections and public-action diagnosis over 70,000 distinct completed hands. No play, training, model computation or own-action correction. Protocol v2's raw qualification stands.
