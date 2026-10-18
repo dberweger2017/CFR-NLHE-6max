@@ -86,7 +86,7 @@ restoration commands in RESULTS_INDEX. Archive through bb128's research cache
 under the designated Drive root with manifests and upload receipts at closeout;
 no local original is removed or uploaded acceptance claimed prematurely.
 
-## Launch status
+## Launch and completion
 
 The corrected setup admitted at09:10:07UTC October18 under PID213705 in
 `bb128:/home/dberweger/nplayer-storage-benchmark-20261018-v2/`, source
@@ -95,7 +95,13 @@ records toolchain, input stat pin, admission and the preserved initial failure.
 All three builds and native library suites (42/44/44 tests) passed. Fresh
 200K checkpoints and all300K/400K/500K continuation checkpoints match exactly
 across arms. The baseline1B input load started by09:13:15UTC. Raw evidence
-stays in that active root; cloud archival is pending.
+stays in that retained root; cloud archival is pending.
+
+All three measured arms completed at10:29:11UTC October18, with identical
+checkpoints at all nine endpoints. The complete supervised task took79.06min.
+[Results and recommendation](reports/nplayer-storage-merge-benchmark.md),
+[completion receipt](reports/nplayer-storage-benchmark/completion.json).
+The benchmark released its mutex; another holder had it at final validation.
 
 ## Readout commands
 

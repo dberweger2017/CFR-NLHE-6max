@@ -1,18 +1,24 @@
-## PR339 — N-player storage and parallel-save comparison (active)
+## PR339 — N-player storage and parallel-save comparison (complete; archive pending)
 
 [PR339](https://github.com/dberweger2017/CFR-NLHE-6max/pull/339),
 [fixed protocol](docs/nplayer-storage-merge-benchmark.md),
 [launch, source/toolchain/admission and setup failures](docs/reports/nplayer-storage-benchmark/launch.json).
 The authorized comparison independently resumes the same PR292 three-player
 checkpoint under baseline, PR331, and PR331+PR333 to 1.1B/1.2B/1.3B.
-No merge or playing-strength conclusion is available yet.
+[Completed comparison](docs/reports/nplayer-storage-merge-benchmark.md):
+all nine checkpoints match exactly; combined storage+saving takes11.20min
+versus31.17min, with4.99× faster saves and58.9% less peak RSS. Recommend
+#331+#333 together subject to review/CI; no merge or playing-strength claim.
 
-- **Active root:** `bb128:/home/dberweger/nplayer-storage-benchmark-20261018-v2/`;
+- **Retained completed root:** `bb128:/home/dberweger/nplayer-storage-benchmark-20261018-v2/`;
   supervisor PID213705 admitted October18 at09:10:07UTC. Sources, patches,
   source manifest (141 file hashes), binaries, configuration, raw logs/resource
   traces and checkpoints remain there. All three builds, 42/44/44 native library tests, and fresh/resume
   identity fixtures passed. The baseline large-checkpoint arm started loading
-  by09:13:15UTC. Source freeze `ce6a3b5a`.
+  by09:13:15UTC. Source freeze `ce6a3b5a`. All three main arms exited0;
+  `complete-identical` after79.06min, finishing10:29:11UTC October18.
+  [Exact rows/totals](docs/reports/nplayer-storage-benchmark/summary.json),
+  [completion/source/resource receipt](docs/reports/nplayer-storage-benchmark/completion.json).
 - **Preserved setup:** `bb128:/home/dberweger/nplayer-storage-benchmark-20261018/`.
   Initial lock refusal launched no workload. Later baseline/compact library
   checks passed, but the PR333 harness failed to compile because its save API
@@ -25,12 +31,15 @@ No merge or playing-strength conclusion is available yet.
   SHA256 before every arm. PR292 is merged; its root is not modified.
   [Accepted archive/member provenance](docs/reports/nplayer-blueprint-phase2-artifacts/archive-model-members.json)
   and the PR292 entry below provide Drive restoration links and commands.
-- **Retrieve current evidence:** copy only the needed files from the active
+- **Retrieve retained evidence:** copy only the needed files from the retained
   root into a fresh ignored directory with
   `scp -r bb128:/home/dberweger/nplayer-storage-benchmark-20261018-v2/measurements FRESH_DESTINATION/`.
   Input retrieval remains through PR292's accepted archive; verify the pinned
   SHA256 after retrieval. Own run archival to Research-Cloud is pending;
-  no upload acceptance or deletion is claimed. Preserve both roots.
+  PR339 remains open and its roots are protected. The benchmark released
+  its mutex; another holder had acquired it at final validation. No large
+  archive/copy/upload was started, and no upload acceptance or deletion is
+  claimed. Preserve both roots.
 
 ## PR330 — v0.5.5 confirmation: card luck and public-action diagnosis
 
