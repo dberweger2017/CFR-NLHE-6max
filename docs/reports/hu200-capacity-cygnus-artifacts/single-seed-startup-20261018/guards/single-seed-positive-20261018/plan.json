@@ -1,0 +1,21 @@
+{
+  "aggregate_rss_gib": 8,
+  "clean_save_grace_seconds": 120,
+  "jobs": [
+    {
+      "command": [
+        "/home/dberweger/hu200-capacity-20261015/repo-evaluation-single-seed-20261018/.venv/bin/python",
+        "/home/dberweger/hu200-capacity-20261015/planning/check_single_seed_barrier_positive_20261018.py"
+      ],
+      "cpus": [
+        6,
+        7
+      ],
+      "name": "positive",
+      "rss_gib": 4,
+      "stop_file": "/home/dberweger/hu200-capacity-20261015/evaluation-single-seed-20261018/positive.stop"
+    }
+  ],
+  "max_seconds": 120,
+  "swap_baseline_bytes": 1048576
+}

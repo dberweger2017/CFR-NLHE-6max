@@ -1,5 +1,5 @@
 {
-  "status": "first-cost-pilot-passed;notification-recovery;full-admission-pending",
+  "status": "coordinator-handback-declared;selected1302final-evaluation-running",
   "timezone": "UTC;Madrid=UTC+02:00 on these dates",
   "historical_precision": "Older coordinator handbacks are evidenced by completion/readback timestamps, not invented exact idle boundaries.",
   "owner_requirement": "Mark each coordinator stop and return in the PR, with reason and background scientific/storage job state; do not silently reset clocks.",
@@ -169,6 +169,18 @@
       "utc": "2026-10-18T05:32:59.010284+00:00",
       "coordinator": "Handback declared after publishing completed pilot cost and notification failure; existing terminal event delivery recovery only",
       "jobs": "No scientific restart; final admission pending",
+      "clock_credit": false
+    },
+    {
+      "utc": "2026-10-18T05:34:26.618456+00:00",
+      "coordinator": "Returned/PR marked for recovered first-pilot event; verified/deduplicated committed33pins and exact cost receipt; incorporated owner one-seed scope",
+      "jobs": "No repeated pilot; final preflight/new source only",
+      "clock_credit": false
+    },
+    {
+      "utc": "2026-10-18T05:48:22.951616+00:00",
+      "coordinator": "Handback declared after verified selected final queue launch and publication; original clock unchanged",
+      "jobs": "Supervisor187170/42acb483 runs20B final play, remaining guarded stages and selected global barrier/readout; existing task notification",
       "clock_credit": false
     }
   ]

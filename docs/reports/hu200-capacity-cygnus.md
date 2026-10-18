@@ -1,11 +1,42 @@
 # HU200 capacity experiment on cygnus-x1
 
-**Training, exports and full-row audits complete, October17,22:11:35Madrid.** Evaluation preparation is active. No final hands or playing outcomes.
+**All three training lineages and full audits complete. Owner-selected seed1302 final evaluation is running; seeds1421/1422 evaluation deferred.** No final playing outcomes read.
 
-**ETA:** full report/archive Monday19evening, Tuesday20upload contingency, conditional on the measured fixed evaluation quote; its unchanged24h clock endsOctober18,22:22:34Madrid.
+**ETA:** selected evaluation/readout aboutOctober18,11:50Madrid; full report/archive Monday19evening, Tuesday20upload contingency. Original evaluation deadline remainsOctober18,22:22:34Madrid.
 
 [Protocol](../hu200-capacity-cygnus-protocol.md) fixes three paired seeds,
 301,153,954-entry capacity, guards and final sample sizes. Owner decides merge.
+
+## Selected final evaluation launched — October18,07:45:48Madrid
+
+Supervisor187170 runs clean immutable source42acb483. The original20B final
+play is active onCPUs0–1 with the declared two-thread environment/38GiB family
+cap; the global queue retains every original guard. At05:46:10UTC CPU51°C,
+VRM41.5°C, freeNVMe68.832GB, no failure or stop. No final outcome has been read.
+[Startup/admission/source/guards](hu200-capacity-cygnus-artifacts/single-seed-startup-20261018.json).
+
+**18 checks pass** in0.83s (outer2.030s). A separate positive synthetic test
+passes both selected groups through actual toy play/replay/reproduction/global
+barrier/readout, verifying one-seed dispersion safely (outer1.021s); it contains
+no experimental outcomes. Full guarded preflight passes90.865s, independently
+reverifying33closed pilot pins, both active model hashes/all cache array hashes,
+5Bcold source, qualified binary and#163cards. The six scientific execution
+functions are AST-identical; native/inference/direct-match source bytes unchanged.
+Exact PR description/model/config/root declaration readback precedes final hands.
+
+Launch05:45:48.571862UTC plus14607s quote gives **about11:50Madrid today**
+for evaluation/readout. Forecast timestamp2026-10-18T09:49:15.571861+00:00; original hard deadline remains
+20:22:34.560486UTC/22:22:34Madrid. No reset or idle credit. Archive/report target
+Monday19evening, Tuesday20upload contingency remains separate and conditional.
+Failures stop/report; no automatic scientific retry. The updated existing event
+task covers only this selected seed and complete archival closeout, no new schedule.
+Metadata deliveries use the verified observer header and bounded transport retries.
+
+Coordinator returned2026-10-18T05:34:26.618456+00:00, handback declared2026-10-18T05:48:22.951616+00:00; queue continues selected final
+work, storage/5B readmission and both-group global barrier before readout. The
+other two trained models remain retained for archives. [Owner-requested unstarted
+follow-up proposal](../hu200-capacity-deferred-seeds-follow-up.md) finishes only
+their deferred evaluation after future owner approval, no new work authorized.
 
 ## Owner-selected seed1302 final evaluation — October18
 

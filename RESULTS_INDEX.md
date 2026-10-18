@@ -4550,3 +4550,17 @@ Only1302 final evaluation; others retained with later proposal, no new experimen
 Inactive20Bcache/average will move with manifests/fsync/fullreadback/journal to
 /mnt/data2tb/research/PR-301-hu200-capacity-cygnus/evaluation-single-seed-20261018/
 mirroring original relative paths; active twin and5B computation remainsNVMe.
+
+PR301 selected final evaluation launchedOctober18 05:45:48.571862UTC.
+[Startup/admission/closed checks/preflight/source identity](docs/reports/hu200-capacity-cygnus-artifacts/single-seed-startup-20261018.json),
+[exact receipts](docs/reports/hu200-capacity-cygnus-artifacts/single-seed-startup-20261018/),
+[bounded existing event scope](docs/reports/hu200-capacity-cygnus-artifacts/single-seed-event-scope-20261018.json).
+18checks+positive two-group synthetic barrier/readout pass; all33oldpilot pins,
+actual selected model/cache/5Bcold/binary/cards hashes fresh under guard.
+Active source42acb483 immutable, supervisor187170; all live guard/resource/utilization,
+controller, selected match hand/decision files and final receipts must archive at closeout.
+Do not move active models/caches. Owner-authorized inactive20B relocation is recorded
+by evaluation-single-seed-20261018/offload-20B.json and offload-journal.jsonl only after success.
+[Deferred two-seed proposal](docs/hu200-capacity-deferred-seeds-follow-up.md) is unstarted;
+retain all three trained lineages/old failed artifacts. No future schedule/execution.
+Original evaluation deadline unchanged; selected forecast2026-10-18T09:49:15.571861+00:00.
