@@ -1,0 +1,103 @@
+{
+  "observed_at": 1792328455.4437535,
+  "root": "/home/dberweger/nplayer-fast-strength-20261018-main-v5",
+  "launch": {
+    "pid": 306072,
+    "utc": "2026-10-18T13:00:26.209388+00:00",
+    "command": [
+      "python3",
+      "-m",
+      "scripts.run_nplayer_fast_study",
+      "/home/dberweger/nplayer-fast-strength-20261018-main-v5"
+    ],
+    "source_commit": "8f6fb76dade872b6ab282f1a0a4f6f3abee7dbfa",
+    "bundle_sha256": "894e28cc17071a72036696a1193400263d964aa1b9c952d157471059c6103f53",
+    "verified_source_files": 720,
+    "native_source_files_identical_to_v4": 48,
+    "selected_threads": 16,
+    "thermal_limits_c": {
+      "Package id 0": 90,
+      "Thermistor 15": 95
+    },
+    "original_deadline_epoch": 1792348292.676534,
+    "prior_attempt_root": "/home/dberweger/nplayer-fast-strength-20261018-main-v4"
+  },
+  "stages": [
+    {
+      "name": "build",
+      "returncode": 0,
+      "wall_seconds": 14.911655183008406
+    },
+    {
+      "name": "environment-create",
+      "returncode": 0,
+      "wall_seconds": 2.1998989029962104
+    },
+    {
+      "name": "environment-install",
+      "returncode": 0,
+      "wall_seconds": 4.66576441100915
+    },
+    {
+      "name": "harness-smoke",
+      "progress": {
+        "event": "phase",
+        "phase": "load",
+        "target": 0
+      },
+      "last_resource": {
+        "at": 1792328455.415177,
+        "phase": "load",
+        "target": 0,
+        "temperatures_c": {
+          "Thermistor 15": 44,
+          "Package id 0": 52
+        },
+        "available_ram_bytes": 132093083648,
+        "fan1_rpm": 645,
+        "swap_growth_bytes": 0,
+        "free_disk_bytes": 82073313280,
+        "remaining_output_reservation_bytes": 31581410923,
+        "rss_bytes": 157634560,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "rchar": 917343753,
+        "wchar": 44
+      },
+      "failure": null
+    }
+  ],
+  "admission": {
+    "pid": 306072,
+    "initial_sample": {
+      "at": 1792328426.252749,
+      "phase": "admission",
+      "target": 0,
+      "temperatures_c": {
+        "Thermistor 15": 33.5,
+        "Package id 0": 45
+      },
+      "available_ram_bytes": 131543695360,
+      "fan1_rpm": 496,
+      "swap_growth_bytes": 0,
+      "free_disk_bytes": 82454982656,
+      "remaining_output_reservation_bytes": 32000000000,
+      "rss_bytes": 0
+    },
+    "threads": 16,
+    "qualification_sha256": "a587a9ec0987f35e24998f290c4b861b5b2be0461a94b2b00efc84e8f8e9e407",
+    "legacy_holder": null,
+    "original_deadline_epoch": 1792348292.676534,
+    "projected_seconds": 7200,
+    "source_commit": "8f6fb76dade872b6ab282f1a0a4f6f3abee7dbfa",
+    "thermal_limits_c": {
+      "Package id 0": 90,
+      "Thermistor 15": 95
+    },
+    "prior_attempt_root": "/home/dberweger/nplayer-fast-strength-20261018-main-v4"
+  },
+  "supervisor": {
+    "alive": true,
+    "command": "python3 -m scripts.run_nplayer_fast_study /home/dberweger/nplayer-fast-strength-20261018-main-v5"
+  }
+}

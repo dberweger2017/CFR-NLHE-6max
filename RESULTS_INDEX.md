@@ -1,4 +1,4 @@
-## PR340 — PR335 strength study (terminal thermal stop; archive pending)
+## PR340 — PR335 strength study (owner-authorized second attempt active)
 
 [PR340](https://github.com/dberweger2017/CFR-NLHE-6max/pull/340),
 [protocol](docs/nplayer-fast-strength-study.md),
@@ -24,8 +24,19 @@ equal-training-time study. PR335 remains unmerged; PR336/pruning is excluded.
   420,956,111 nodes/87.498 training seconds; last accepted CPU/VRM68/84.5C,
   familyRSS3.006GiB and zero swap growth. The crossing sample was not written;
   exact triggering sensor/temperature is unavailable. No final evaluation or
-  strength gate ran. Controller exited; no retry or limit change. Only this
-  study's timer is disabled. [Compact snapshot](docs/reports/nplayer-fast-strength/terminal.json).
+  strength gate ran. Controller exited; no automatic retry or limit change
+  occurred. The owner later explicitly authorized the fresh v5 attempt below. [Compact snapshot](docs/reports/nplayer-fast-strength/terminal.json).
+- **Owner-authorized second attempt:** `bb128:/home/dberweger/nplayer-fast-strength-20261018-main-v5/`,
+  frozen source `8f6fb76dade872b6ab282f1a0a4f6f3abee7dbfa`, supervisor306072,
+  launched13:00:26UTC October18. New hard stops CPU90C/Thermistor15 95C;
+  exact crossing samples are now recorded. All720 source/config hashes verify
+  and all48 native source files match v4. Fifteen focused Python tests pass.
+  Both locks acquired, no legacy holder; admission/build/environment pass.
+  Prerequisite smoke checks are running; no final strength readout exists.
+  Original18:31:32UTC deadline,16 threads,32GB growth/50GB floor,80GiB RSS
+  and scientific counts/roots remain unchanged. Original driver and BIOS fan
+  control remain active. [Launch/admission snapshot](docs/reports/nplayer-fast-strength/retry-launch.json).
+  The same study timer monitors only this new attempt; no new timer is created.
 - **Failures retained:** the `-main`, `-main-v2`, and `-main-v3` siblings retain
   disk-admission refusal, Python-runtime installation failure and JSONL audit
   parsing failure. No final seed or final evaluation ran in those roots.
@@ -40,7 +51,7 @@ equal-training-time study. PR335 remains unmerged; PR336/pruning is excluded.
 - **Retrieval/preservation:** raw checkpoints, exports, all hand traces,
   resource samples, binaries, sources and setup failures stay on bb128.
   Retrieve compact metadata only into a fresh ignored directory, e.g.
-  `scp bb128:/home/dberweger/nplayer-fast-strength-20261018-main-v4/status.json FRESH_DESTINATION/`.
+  `scp bb128:/home/dberweger/nplayer-fast-strength-20261018-main-v5/status.json FRESH_DESTINATION/`.
   The intended Research-Cloud closeout folder is
   `PR-340-nplayer-fast-strength-study`; upload/archive acceptance is pending.
   All roots and shared inputs remain protected; no cleanup is authorized here.
