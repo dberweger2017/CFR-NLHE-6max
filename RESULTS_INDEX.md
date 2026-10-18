@@ -63,6 +63,7 @@ All originals remain; no cleanup or complete-folder coverage is claimed.
 | All authenticated readbacks | [hu200-v055-auth-all-ef0e3a41-20261018.zip](https://drive.google.com/file/d/1uVzFtVRbAdzTjCvmZtHYGfF6LQwX91gd/view) | 664,326 | `9163300c246e53868463e311776fb7723d80c4886929b2b786b08d7906b7643a` | `9e5f4f9fe7b298e17364a026120d0cae` | 354 |
 | Publication metadata and closed prior guard | [hu200-v055-published-metadata-ef0e3a41-20261018.zip](https://drive.google.com/file/d/15BNfbUdrJ3VDg9A77-q2N93oZLKsm36P/view) | 9,392,573 | `6e7226e0caf5745abb56f423b8bf0835c4d74cf2001221a60eee67e272ae24f5` | `254f3e2fc429b8f648ad30477d367d5b` | 120 |
 | Owner-cancelled public verification | [hu200-v055-owner-cancelled-verification-20261018.zip](https://drive.google.com/file/d/1o3sCsrcRHI8baKdxicLlQk4WFBfs_3Eq/view) | 3,693,778 | `7bb863c0e09e8924a965a40bc9bb4000f09004bfe4e7ab346cecf3d83be61f4f` | `1985254f14cc7670945cab0fa0de520e` | 91 |
+| Documentation PR handoff | [hu200-v055-publication-record-handoff-20261018.zip](https://drive.google.com/file/d/1rivX8D1nCQeskv77zpZxSkUOfOP9ZpVY/view) | 77,591 | `4419e771a88696bf458f7d7231747d77a4ac94b06d83a9aac5173fa8edc048d9` | `dc69c9a5c604604986c88429a1a8608c` | 6 |
 
 Embedded manifests, with local SHA256 readback:
 
@@ -71,6 +72,8 @@ Embedded manifests, with local SHA256 readback:
 - **All authenticated readbacks:** `publication-ef0e3a41/AUTH-ALL-ARCHIVE-MANIFEST.json`, SHA256 `89b5b018644212a6ec060cc2e13ce04617b4c09a2d08321a3a3104795acef73e`.
 - **Publication metadata and closed prior guard:** `publication-ef0e3a41/PUBLISHED-METADATA-ARCHIVE-MANIFEST.json`, SHA256 `6174d65f6d43b0b5b66a45e9aeb157c44b88ec30e8fd1dbc9981e2946777ec4b`.
 - **Owner-cancelled public verification:** `publication-ef0e3a41/OWNER-CANCELLATION-ARCHIVE-MANIFEST.json`, SHA256 `614cc3e16af0f6cbdb0941bf4111355f708bd3f268d8ab48843be20a7eb5248f`.
+
+- **Documentation PR handoff:** `publication-ef0e3a41/publication-record-handoff/ARCHIVE-MANIFEST.json`, SHA256 `cff3edd50aa3832446e7d1a5896cc97d5da551ec9832f3f7dd757b8f2301a9bb`.
 
 Every member was read back locally by size/SHA256. The unchanged deployed cache
 tool accepted Drive object size/MD5 and the corresponding uncompressed local
