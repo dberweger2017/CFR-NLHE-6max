@@ -41,7 +41,7 @@ def paired_blocks(left,right,expected_root):
 def global_gate(root):
     if (root/'failure.json').exists():raise ValueError('campaign failed; no settled readout')
     status=json.loads((root/'status.json').read_text())
-    if status['status']!='all-science-verified-readout-ready':raise ValueError('campaign has not passed its global barrier')
+    if status['status'] not in ['all-science-verified-readout-ready','complete']:raise ValueError('campaign has not passed its global barrier')
     manifest=json.loads((root/'evaluation-manifest.json').read_text())
     verified=json.loads((root/'evaluation-verified.json').read_text())
     if manifest['cases']!=cases() or verified['status']!='passed' or verified['final_hands']!=589824 or verified['manifest_sha256']!=sha(root/'evaluation-manifest.json'):raise ValueError('global matrix mismatch')

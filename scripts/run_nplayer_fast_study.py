@@ -121,6 +121,8 @@ def run(root):
         verified=json.loads((root/'evaluation-verified.json').read_text())
         if verified['status']!='passed':raise ValueError('global evaluation barrier failed')
         guard.write(root/'status.json',dict(status='all-science-verified-readout-ready',final_hands=verified['final_hands'],source_commit=c['source_commit'],completed_at=time.time()))
+        supervisor.execute('verified-readout',[python,'-m','scripts.read_nplayer_fast_study',str(root),'--out',str(root/'results.json')],root,env)
+        guard.write(root/'status.json',dict(status='complete',final_hands=verified['final_hands'],source_commit=c['source_commit'],completed_at=time.time()))
 
 
 def main():
