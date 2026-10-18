@@ -167,7 +167,17 @@ def cost_quote(config):
                 outcomes_inspected=False, pooled_with_final=False)
 
 
-def global_barrier(config_paths, destination):
+SINGLE_SEED_APPROVAL_SHA = '30f365617a911b1e87b29584a1012054b5e1b2ed2be5f95c1ab18afb12a37030'
+
+
+def single_seed_scope():
+    approval = Path("docs/reports/hu200-capacity-cygnus-artifacts/single-seed-scope-approval-20261018.json")
+    if file_hash(approval) != SINGLE_SEED_APPROVAL_SHA:
+        raise ValueError("Owner single-seed approval changed")
+    return dict(seed=2026101302, approval_sha256=SINGLE_SEED_APPROVAL_SHA, primary_hands=983040)
+
+
+def global_barrier(config_paths, destination, *, owner_single_seed=False):
     groups = []
     for path in config_paths:
         config = checked_config(path)
@@ -191,19 +201,27 @@ def global_barrier(config_paths, destination):
                 if current['bytes'] != old['bytes'] or current['sha256'] != old['sha256']:
                     raise ValueError('Global final bytes changed')
         groups.append(dict(config=str(path), config_sha256=file_hash(path), receipt=checked))
+    selected = (2026101302,) if owner_single_seed else SEEDS
+    scope = single_seed_scope() if owner_single_seed else None
     if sorted((g['receipt']['seed'], g['receipt']['kind']) for g in groups) != sorted(
-            (seed, kind) for seed in SEEDS for kind in ('5B', '20B')):
-        raise ValueError('All six seed/model groups must verify before outcomes are read')
-    put(destination, dict(status='verified', groups=groups, primary_hands=2949120,
-        independently_replayed=True, exactly_reproduced=True, outcomes_inspected=False))
+            (seed, kind) for seed in selected for kind in ('5B', '20B')):
+        raise ValueError('All selected seed/model groups must verify' if owner_single_seed else
+                         'All six seed/model groups must verify before outcomes are read')
+    put(destination, dict(status='verified', groups=groups, primary_hands=983040 if owner_single_seed else 2949120,
+        owner_single_seed_scope=scope, independently_replayed=True, exactly_reproduced=True, outcomes_inspected=False))
 
 
 def readout(barrier, destination):
     sealed = read(barrier)
-    if sealed['status'] != 'verified' or len(sealed['groups']) != 6 or not sealed['exactly_reproduced']:
+    selected = SEEDS
+    if sealed.get('owner_single_seed_scope') is not None:
+        if sealed['owner_single_seed_scope'] != single_seed_scope() or sealed['primary_hands'] != 983040:
+            raise ValueError('Foreign single-seed barrier')
+        selected = (2026101302,)
+    if sealed['status'] != 'verified' or len(sealed['groups']) != 2*len(selected) or not sealed['exactly_reproduced']:
         raise ValueError('Missing global final barrier')
     if sorted((g['receipt']['seed'], g['receipt']['kind']) for g in sealed['groups']) != sorted(
-            (seed, kind) for seed in SEEDS for kind in ('5B', '20B')):
+            (seed, kind) for seed in selected for kind in ('5B', '20B')):
         raise ValueError('Missing seed/model group at readout')
     results = []
     # Validate every retained raw file again before computing any mean.
@@ -249,8 +267,8 @@ def readout(barrier, destination):
     for kind in ('5B', '20B'):
         points = [r['scores']['candidate']['bb_per_100'] for r in results
                   if r['kind'] == kind and r['case']['opponent'] is None]
-        dispersion[kind] = dict(seed_points=points, mean=mean(points), sample_sd=stdev(points),
-                                range=[min(points), max(points)], training_seeds=3)
+        dispersion[kind] = dict(seed_points=points, mean=mean(points), sample_sd=stdev(points) if len(points)>1 else None,
+                                range=[min(points), max(points)], training_seeds=len(points))
     put(destination, dict(status='readout', results=results, direct_seed_dispersion=dispersion,
         interval_scope='Conditional paired Student-t95% over independent duplicate blocks; no strength gate',
         global_barrier_sha256=file_hash(barrier)))
@@ -258,7 +276,7 @@ def readout(barrier, destination):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('phase', choices=('cache', 'play', 'replay', 'reproduce', 'verify', 'quote', 'barrier', 'readout'))
+    parser.add_argument('phase', choices=('cache', 'play', 'replay', 'reproduce', 'verify', 'quote', 'barrier', 'barrier-single-seed-1302', 'readout'))
     parser.add_argument('--config', type=Path)
     parser.add_argument('--configs', nargs='+', type=Path)
     parser.add_argument('--index', type=int, choices=(0, 1))
@@ -266,8 +284,8 @@ def main():
     parser.add_argument('--out', type=Path)
     parser.add_argument('--barrier', type=Path)
     args = parser.parse_args()
-    if args.phase == 'barrier':
-        global_barrier(args.configs, args.out)
+    if args.phase in ('barrier', 'barrier-single-seed-1302'):
+        global_barrier(args.configs, args.out, owner_single_seed=args.phase == 'barrier-single-seed-1302')
     elif args.phase == 'readout':
         readout(args.barrier, args.out)
     else:

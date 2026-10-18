@@ -49,7 +49,8 @@ def test_changed_raw_cannot_cross_verification_barrier(tmp_path):
     assert not (Path(cfg['output']) / 'final/verified.json').exists()
 
 
-def test_one_complete_seed_group_cannot_release_outcomes(tmp_path, monkeypatch):
+@pytest.mark.parametrize('single_seed', [False, True])
+def test_one_complete_seed_group_cannot_release_outcomes(tmp_path, monkeypatch, single_seed):
     cfg = config(tmp_path)
     trusted_replay_fixture(cfg)
     capacity.verify_group(cfg)
@@ -60,8 +61,8 @@ def test_one_complete_seed_group_cannot_release_outcomes(tmp_path, monkeypatch):
     receipt['config_sha256'] = capacity.file_hash(path)
     put(checked, receipt)
     monkeypatch.setattr(capacity, 'checked_config', lambda path: json.loads(path.read_text()))
-    with pytest.raises(ValueError, match='All six'):
-        capacity.global_barrier([path], tmp_path / 'barrier.json')
+    with pytest.raises(ValueError, match='All selected' if single_seed else 'All six'):
+        capacity.global_barrier([path], tmp_path / 'barrier.json', owner_single_seed=single_seed)
     assert not (tmp_path / 'barrier.json').exists()
 
 
@@ -113,3 +114,18 @@ def test_cache_once_and_reused_match_phases_replay_every_fixture_hand(tmp_path, 
         replay = json.loads((Path(cfg['output']) / 'pilot' / case['name'] / 'replay.json').read_text())
         assert replay['hands_replayed'] == blocks * (4 if case['opponent'] else 2)
         assert 'bb_per_100' not in replay
+
+
+def test_single_seed_readout_still_refuses_missing_five_B_group(tmp_path):
+    barrier=tmp_path/'single.json'
+    put(barrier,dict(status='verified',groups=[],exactly_reproduced=True,
+        primary_hands=983040,owner_single_seed_scope=capacity.single_seed_scope()))
+    with pytest.raises(ValueError,match='global final barrier'):
+        capacity.readout(barrier,tmp_path/'scores.json')
+    assert not (tmp_path/'scores.json').exists()
+
+
+def test_single_seed_scope_is_bound_to_exact_owner_approval(monkeypatch):
+    monkeypatch.setattr(capacity,'SINGLE_SEED_APPROVAL_SHA','0'*64)
+    with pytest.raises(ValueError,match='approval changed'):
+        capacity.single_seed_scope()
