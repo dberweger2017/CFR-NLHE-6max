@@ -10,7 +10,10 @@ Three sequential arms: main `3f9bfbdcb54b17ca530419b0e84e663fcf0d8b47`,
 main plus PR331's two commits (`8303aa77`, `7bcbce9d`), then that combination
 plus PR333's `16dbe015`. Store complete patch/source hashes and binary receipts.
 The common harness adds only phase timing/reporting around the existing library
-load, training step and save functions. Same Rust toolchain, locked dependencies,
+load, training step and save functions. PR333 changes the save function signature;
+its harness copy passes the explicit `Gzip::Compatible` argument, recorded in
+the source manifest. This is the sole version adapter and selects default
+compression. Same Rust toolchain, locked dependencies,
 release settings and path remapping for all arms. No fast training, pruning or
 fast gzip. Native code in main differs from PR331's original base only in an
 unbuilt HU200 blend example before these patches.
@@ -45,6 +48,13 @@ Compare checkpoint SHA256 at every milestone. Mismatch, changed inputs,
 incorrect counts, invalid training, resource stop or nonzero exit stops the
 campaign, retains evidence and forbids automatic retry. A non-nodes cap stop
 is not a completed endpoint. No automatic merge follows these numbers.
+
+Setup qualification is separate from the measured attempt: a lock refusal
+starts no workload, and a compilation/fixture failure starts no large-checkpoint
+continuation. Preserve those failures before correcting setup in a fresh root.
+The first setup failed to compile PR333 because the harness omitted its new
+gzip argument; baseline/compact native library tests had passed. No full input
+was loaded or trained. The corrected setup supplies compatible compression.
 
 Report all nine rows plus arm totals and ratios versus baseline. Report shared
 host load and fixed run order baseline→331→333. Inputs are read/verified before
