@@ -18,9 +18,12 @@ refusal and restart checks. Two full prepared-part reconstructions reproduce
 all three seed averages and the exact `59a6dd35…` raw / `ce3ecc2c…` average blend.
 Scientific source/model remains #306's audited blend. Tested runtime source
 `db0102c1`, integrated reconstruction `df9269c4`, fresh 49-asset review bundles
-`ea5301bb`; later changes only record evidence. This is packaging evidence,
-not a release publication record. Owner review/merge and all publication gates,
-including reconstruction from actual public downloads, remain required.
+`ea5301bb`; later changes only record evidence. Released October 18 from merge
+`ef0e3a41aee720a220520c10bb248740ae7a7154`: all 49 authenticated asset readbacks
+and all 15 stable public-URL hashes pass. The owner cancelled the remaining
+post-publication checks and reconstruction from public seed parts.
+[Publication record, asset IDs and verification scope](docs/releases/v0.5.5/PUBLICATION.md).
+The original packaging evidence below remains unchanged.
 
 Archives in `gdrive:PR-319-HU200-v055-release-package/`:
 
@@ -43,6 +46,52 @@ Immutable local-verification receipts are also uploaded:
 (549 bytes, MD5 `a9b5dc24b9cdebd3295eb7b17df19a61`).
 Their pre-upload local status remains unchanged; separate cloud-acceptance records
 and `.drive-receipt.json` record accepted uploads.
+
+### October 18 publication and cancellation evidence
+
+The following additional archives are accepted in the same Drive/cache root.
+The owner cancelled the remaining public checks after the stable release's 15
+asset hashes passed; the incomplete public standalone run, closed guard,
+completed results and cancellation receipt are retained. The public seed rebuild
+never started. Downloaded release binaries remain separate from research ZIPs.
+All originals remain; no cleanup or complete-folder coverage is claimed.
+
+| Evidence | Archive / Drive ID | Bytes | Local ZIP SHA256 | Accepted Drive MD5 | Members |
+|---|---|---:|---|---|---:|
+| Approved publication build | [hu200-v055-publication-build-ef0e3a41-20261018.zip](https://drive.google.com/file/d/1seQyq3rT7xQE4M95E7nj31aA3hKtubzy/view) | 1,417,571 | `17bbbc534b6c3366f62e7d53e6ba0f14c8c3fcd52438b8b506fb45946f8259b6` | `6db917369f3aa685b31cfab30f0c2e42` | 33 |
+| Stable authenticated readbacks | [hu200-v055-auth-stable-ef0e3a41-20261018.zip](https://drive.google.com/file/d/1n953cWOZJp4xA_ZmdGKDnhQ9L5oBwCN9/view) | 63,296 | `8334ce29482671451db67878710cd9d0a019bec99a687e8bef734e2bd0d75532` | `f5eec69ac54605ccc9b3c721fbad22bb` | 18 |
+| All authenticated readbacks | [hu200-v055-auth-all-ef0e3a41-20261018.zip](https://drive.google.com/file/d/1uVzFtVRbAdzTjCvmZtHYGfF6LQwX91gd/view) | 664,326 | `9163300c246e53868463e311776fb7723d80c4886929b2b786b08d7906b7643a` | `9e5f4f9fe7b298e17364a026120d0cae` | 354 |
+| Publication metadata and closed prior guard | [hu200-v055-published-metadata-ef0e3a41-20261018.zip](https://drive.google.com/file/d/15BNfbUdrJ3VDg9A77-q2N93oZLKsm36P/view) | 9,392,573 | `6e7226e0caf5745abb56f423b8bf0835c4d74cf2001221a60eee67e272ae24f5` | `254f3e2fc429b8f648ad30477d367d5b` | 120 |
+| Owner-cancelled public verification | [hu200-v055-owner-cancelled-verification-20261018.zip](https://drive.google.com/file/d/1o3sCsrcRHI8baKdxicLlQk4WFBfs_3Eq/view) | 3,693,778 | `7bb863c0e09e8924a965a40bc9bb4000f09004bfe4e7ab346cecf3d83be61f4f` | `1985254f14cc7670945cab0fa0de520e` | 91 |
+| Documentation PR handoff | [hu200-v055-publication-record-handoff-20261018.zip](https://drive.google.com/file/d/1rivX8D1nCQeskv77zpZxSkUOfOP9ZpVY/view) | 77,591 | `4419e771a88696bf458f7d7231747d77a4ac94b06d83a9aac5173fa8edc048d9` | `dc69c9a5c604604986c88429a1a8608c` | 6 |
+
+Embedded manifests, with local SHA256 readback:
+
+- **Approved publication build:** `publication-ef0e3a41/BUILD-STAGE-ARCHIVE-MANIFEST.json`, SHA256 `a80b2b8fddc35deafc049c3f43086483aaa1649f564b4d188669a9c41a6e1b27`.
+- **Stable authenticated readbacks:** `publication-ef0e3a41/AUTH-STABLE-ARCHIVE-MANIFEST.json`, SHA256 `a5853f7bed45e90caee4be27185b70d26aed9f24dfe1255172e2bca86049d4b8`.
+- **All authenticated readbacks:** `publication-ef0e3a41/AUTH-ALL-ARCHIVE-MANIFEST.json`, SHA256 `89b5b018644212a6ec060cc2e13ce04617b4c09a2d08321a3a3104795acef73e`.
+- **Publication metadata and closed prior guard:** `publication-ef0e3a41/PUBLISHED-METADATA-ARCHIVE-MANIFEST.json`, SHA256 `6174d65f6d43b0b5b66a45e9aeb157c44b88ec30e8fd1dbc9981e2946777ec4b`.
+- **Owner-cancelled public verification:** `publication-ef0e3a41/OWNER-CANCELLATION-ARCHIVE-MANIFEST.json`, SHA256 `614cc3e16af0f6cbdb0941bf4111355f708bd3f268d8ab48843be20a7eb5248f`.
+
+- **Documentation PR handoff:** `publication-ef0e3a41/publication-record-handoff/ARCHIVE-MANIFEST.json`, SHA256 `cff3edd50aa3832446e7d1a5896cc97d5da551ec9832f3f7dd757b8f2301a9bb`.
+
+Every member was read back locally by size/SHA256. The unchanged deployed cache
+tool accepted Drive object size/MD5 and the corresponding uncompressed local
+member CRC coverage; this is not a remote SHA256/member audit. The manifests,
+ZIPs and selected members remain immutable. The publication metadata includes
+exact-source CI, tag/Latest/release metadata, all asset IDs and worker sources.
+The cancellation archive includes `publication-ef0e3a41/owner-verification-cancelled.json`,
+`publication-ef0e3a41/public-readbacks/`, the closed public download logs and the
+closed v3 guard log. An empty public standalone output is retained as unfinished;
+it is not a pass. Details specific to machines and operations stay in PR #319
+and the evidence.
+
+**Retrieve:** copy the named uncompressed members from
+`/research/PR-319-HU200-v055-release-package/` to a fresh ignored destination.
+Drive fallback: `rclone copy gdrive:PR-319-HU200-v055-release-package/ FRESH_DESTINATION/`;
+verify the selected ZIP and embedded manifest SHA256s above, extract into that
+fresh destination and check required member hashes. No Drive access is required
+to reconstruct the frozen blend from the separate public GitHub seed pre-release.
 
 All uncompressed evidence remains at
 `/research/PR-319-HU200-v055-release-package/`, with `KEEP` and all originals retained.

@@ -1,5 +1,7 @@
 # v0.5.5 packaging checks
 
+**Published October 18.** The [publication record](PUBLICATION.md) records completed checks and the owner's later cancellation of the remaining public verification. The requirements below describe the original packaging/publication plan.
+
 The owner approved publishing #306's exact HU200 three-seed blend after review
 and merge of the packaging change. Publication follows the verified draft and
 public-download procedure in [v0.5.3's publication record](../v0.5.3/PUBLICATION.md).
