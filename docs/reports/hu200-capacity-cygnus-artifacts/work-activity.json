@@ -1,5 +1,5 @@
 {
-  "status": "coordinator-handback-declared;selected1302final-evaluation-running",
+  "status": "coordinator-handback-declared;20B-verified;5B-cache-building",
   "timezone": "UTC;Madrid=UTC+02:00 on these dates",
   "historical_precision": "Older coordinator handbacks are evidenced by completion/readback timestamps, not invented exact idle boundaries.",
   "owner_requirement": "Mark each coordinator stop and return in the PR, with reason and background scientific/storage job state; do not silently reset clocks.",
@@ -181,6 +181,18 @@
       "utc": "2026-10-18T05:48:22.951616+00:00",
       "coordinator": "Handback declared after verified selected final queue launch and publication; original clock unchanged",
       "jobs": "Supervisor187170/42acb483 runs20B final play, remaining guarded stages and selected global barrier/readout; existing task notification",
+      "clock_credit": false
+    },
+    {
+      "utc": "2026-10-18T07:38:49.928886+00:00",
+      "coordinator": "Returned/PR marked for owner status request; checked closed20B/raw verification and active5B cache",
+      "jobs": "Selected queue active, no failure/global barrier/outcome read",
+      "clock_credit": false
+    },
+    {
+      "utc": "2026-10-18T07:40:10.777041+00:00",
+      "coordinator": "Handback declared after status/relocation/restoration receipts publication",
+      "jobs": "Supervisor187170 continues5B cache and remaining fixed steps; no change/retry",
       "clock_credit": false
     }
   ]

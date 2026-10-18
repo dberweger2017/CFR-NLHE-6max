@@ -7,6 +7,29 @@
 [Protocol](../hu200-capacity-cygnus-protocol.md) fixes three paired seeds,
 301,153,954-entry capacity, guards and final sample sizes. Owner decides merge.
 
+## Live progress — October18,09:38Madrid
+
+The20B direct match and all seven scripted panels finish with **720896final
+hands independently replayed and exactly reproduced**, including full raw-byte
+verification. Its inactive cache/average relocation toHDD passes full independent
+readback/journal-before-unlink, and the5B average restoration passes with theHDD
+source retained. The5B cache now builds once;262144direct final hands plus their
+replay/reproduction remain. The global selected barrier is not reached, and no
+final playing outcomes have been read.
+[Closed20B/relocation/restoration receipts and live guard status](hu200-capacity-cygnus-artifacts/single-seed-progress-20261018-0938.json).
+
+Latest07:38:51UTC CPU53°C/VRM60°C, active familyRSS12.122GB, freeNVMe77.538GB,
+no failure or stop. Verified completed stage times:20Bplay1381.330s,
+replay1693.464s, reproduction1617.998s, raw verification4.239s; inactive
+HDD relocation494.682s,5B restore47.279s. The previously active20B average/cache
+NVMe paths are now absent by verified relocation; retain indexedHDD originals.
+Active twin/5B files stayNVMe. Exact locations/hashes are in the new receipts.
+
+ETA remains **around11:50Madrid for selected evaluation/readout**; original
+22:22:34Madrid deadline and all guards unchanged. Archives/report/upload follow
+separately. Coordinator return2026-10-18T07:38:49.928886+00:00, handback declared2026-10-18T07:40:10.777041+00:00; supervisor187170
+continues5B cache, admission, final verification and global barrier/readout.
+
 ## Selected final evaluation launched — October18,07:45:48Madrid
 
 Supervisor187170 runs clean immutable source42acb483. The original20B final

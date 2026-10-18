@@ -4564,3 +4564,15 @@ by evaluation-single-seed-20261018/offload-20B.json and offload-journal.jsonl on
 [Deferred two-seed proposal](docs/hu200-capacity-deferred-seeds-follow-up.md) is unstarted;
 retain all three trained lineages/old failed artifacts. No future schedule/execution.
 Original evaluation deadline unchanged; selected forecast2026-10-18T09:49:15.571861+00:00.
+
+PR301 selected progressOctober18,09:38Madrid:
+[closed20B/full raw verification/inactive relocation/5B restoration + live guards](docs/reports/hu200-capacity-cygnus-artifacts/single-seed-progress-20261018-0938.json),
+[exact receipts](docs/reports/hu200-capacity-cygnus-artifacts/single-seed-progress-20261018-0938/).
+720896final20B direct/panel hands replay/reproduce;5Bcache building, no globalbarrier or outcomes.
+The17.899GB20Bcache plus8.835GBaverage now verifiedHDD under
+/mnt/data2tb/research/PR-301-hu200-capacity-cygnus/evaluation-single-seed-20261018/<original-relative-path>.
+OriginalNVMe20Bcache/average paths now absent; source/query metadata remains.
+5Baverage restoredNVMe with full SHA, retained originalHDD source; active twin/cache/5B stayNVMe.
+Do not move active sources. No new cloud acceptance/cleanup; all raw traces/finals need finalarchive.
+Local planning/status-return-single-20261018.json,status-single-live-20261018.json,
+publish_progress_single_20261018_0938.py and PR-readback/handoff must archive.
