@@ -50,8 +50,9 @@ fixed domain-separated action streams; policies see only legal observations.
 12 contrasts total:589824 final hands plus589824 reproduction hands.
 Replay every final hand in the pinned engine and exactly reproduce every trace
 before any result readout. Independently audit every exported probability row.
-Reserve and commit evaluation roots and exact model/input/source manifests
-before final training; cost qualification must supply a frozen execution quote.
+Reserve and commit evaluation roots and input/source manifests before final
+training; pin new output model hashes after audits and before evaluation.
+Cost qualification must supply a frozen execution quote.
 
 For each seed/comparison, form the paired block statistic
 (fast-singleton BB/100 minus production-singleton BB/100)/2. Report the mean
@@ -77,7 +78,7 @@ refuses admission. No other research job may be started by this study.
 All16 logical CPUs may be used (eight physical cores); scaling determines the
 main training pool size. Parent control uses negligible CPU. No OS/firmware
 or cooling changes. AdmissionCPU<70C/VRM<80C; immediate own-group stopCPU>=80C
-orVRM>=85C, missing sensors, ownRSS>24GiB, availableRAM<8GiB, hostswapgrowth
+orVRM>=85C, missing sensors, ownRSS>24GiB in qualification or80GiB in the full main worker family, availableRAM<8GiB, hostswapgrowth
 >256MiB, or freeNVMe<50GB plus the remaining owned output reservation.
 Qualification reserves10GB, maximum90min. Main execution reserves35GB and
 has a seven-hour malfunction ceiling including qualification; this is a fixed
@@ -86,3 +87,19 @@ A resource/numerical/accounting/identity failure preserves all evidence and
 stops dependent stages without automatic retry. No heavy work on M1/M4.
 Research bundles/checkpoints/traces remain ignored and are eventually archived
 through the research-cache policy. Retain every original/failure; no cleanup.
+
+## Evaluation root reservation and parallel evaluation
+
+Repository search on October18 found no use of20261018335101–106 before this
+reservation. Seed1541 uses roots101/102 for equal-nodes/equal-time; seed1542
+uses103/104; seed1543 uses105/106 (full prefix20261018335). Each paired lineup
+shares its comparison root. Primary blocks remain8192 per lineup.
+
+Training arms run sequentially to give each recipe its declared host allocation.
+After every model audit passes, up to eight independent evaluation cases may
+run concurrently. They use separate traces/processes and identical fixed RNG
+streams; no outcome is read before the whole matrix is verified. A single
+supervised process group owns the batch and enforces80GiB aggregate RSS,
+including every native child and Python replay worker. This uses the machine's
+RAM and cores during evaluation without changing the statistical sample count.
+Qualification retains its24GiB limit. No concurrency with other study training.

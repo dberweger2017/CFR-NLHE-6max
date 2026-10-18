@@ -82,25 +82,27 @@ def group_metrics(pgid):
     return totals
 
 
-def enforce(row, remaining, elapsed):
+def enforce(row, remaining, elapsed, max_seconds=4 * 3600, rss_limit=24 * GIB):
     t = row['temperatures_c']
     if t['Package id 0'] >= 80 or t['Thermistor 15'] >= 85:
         raise RuntimeError('thermal stop')
-    if row['available_ram_bytes'] < 8 * GIB or row['rss_bytes'] > 24 * GIB:
+    if row['available_ram_bytes'] < 8 * GIB or row['rss_bytes'] > rss_limit:
         raise RuntimeError('memory stop')
     if row['swap_growth_bytes'] > 256 * 1024**2:
         raise RuntimeError('swap growth stop')
     if remaining < 0 or row['free_disk_bytes'] < FLOOR + remaining:
         raise RuntimeError('disk reservation stop')
-    if elapsed >= 4 * 3600:
-        raise RuntimeError('four-hour malfunction fail-safe')
+    if elapsed >= max_seconds:
+        raise RuntimeError('campaign malfunction fail-safe')
 
 
 class Supervisor:
-    def __init__(self, root, lock_fd, cpus=None):
+    def __init__(self, root, lock_fd, cpus=None, max_seconds=4 * 3600, rss_limit=24 * GIB):
         self.root = root
         self.lock_fd = lock_fd
         self.cpus = set(cpus) if cpus is not None else {0, 1, 2, 3}
+        self.max_seconds = max_seconds
+        self.rss_limit = rss_limit
         self.started = time.monotonic()
         m = memory()
         self.swap = m['SwapTotal'] - m['SwapFree']
@@ -121,7 +123,7 @@ class Supervisor:
                    free_disk_bytes=disk.f_bavail * disk.f_frsize,
                    remaining_output_reservation_bytes=self.remaining,
                    **(group_metrics(process.pid) if process else dict(rss_bytes=0)))
-        enforce(row, self.remaining, time.monotonic() - self.started)
+        enforce(row, self.remaining, time.monotonic() - self.started, self.max_seconds, self.rss_limit)
         return row
 
     def execute(self, label, command, cwd, env, reference=None):
