@@ -5,6 +5,26 @@ PR301 stays open. No strength outcomes read. Compute released; archival cleanup 
 
 [Protocol](../hu200-capacity-cygnus-protocol.md), [selected-scope amendment](../hu200-capacity-single-seed-amendment.md).
 
+## Archive verification and transfer — October18,12:03UTC
+
+All five local archives completed by11:48:50UTC and pass full every-member readback,
+with matching verified unpacked HDD members. They total98,428,284,869bytes:
+three seed bundles containing nine valid models, actual raw evidence/source/failures,
+and interrupted-model evidence. All closed archival guards pass. The archive
+controller has exited; PR301 holds no compute lock. Scientific work stays stopped,
+with no retry or outcome readout. [Verification and model/member pins](hu200-capacity-cygnus-artifacts/archive-local-verification-20261018.json).
+
+Native Drive upload plus separate ID/name/size/parent acceptance has reached44of1468
+ordered64MiB parts (2.944GB), including all19raw-evidence parts. This is not yet
+whole-campaign cloud acceptance. A256MiB bounded Mac spool performs I/O only; parts
+are removed after durable acceptance receipts. Remote archive bytes are not
+downloaded and no remote content-hash verification is claimed. Ten measured batches
+average63.27seconds per four parts: about6.3hours remain. Bulk acceptance target
+18:30UTC/20:30Madrid; final index/cleanup receipts around19:00UTC/21:00Madrid,
+conditional on transfer service availability. No scientific deadline/budget credit.
+Model originals remain retained. Existing event-task retirement follows full closeout.
+The earlier sections below are dated progress snapshots.
+
 ## Cleanup handback — October18
 
 PR301 remains open/draft, no scientific retry or outcome readout. NVMe cleanup

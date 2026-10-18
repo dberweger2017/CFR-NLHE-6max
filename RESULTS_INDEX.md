@@ -4623,3 +4623,16 @@ Matching unpackedHDD copy underfinal-research-20261018/terminal-summary passes m
 Retrieval: download indexed Drive file to ignored path; verify archiveSHA, extractMANIFEST.json
 and named members, verify each size/SHA. This partial ZIP contains no bulk model/raw bytes;
 bulk archive acceptance and final event-task removal are still pending, not claimed complete.
+
+
+PR301 local archive verificationOctober18,11:48UTC (bulk cloud acceptance pending):
+Five archives,98,428,284,869bytes/1468ordered64MiB transport parts, full every-member
+local readback and matching unpackedHDD members pass; all five archival guards pass.
+Source42acb48339b9347e19eab3754a5c26f145d7291b. Exact whole archive hashes,
+manifest hashes, nine model member paths/sizes/hashes and local destinations:
+`docs/reports/hu200-capacity-cygnus-artifacts/archive-local-verification-20261018.json`.
+Raw outcome bytes are preserved without reading final playing outcomes; scientific
+work is owner-stopped, no retry. PR301 holds no compute lock after archiver exit.
+As of12:03UTC,44parts/2.944GB accepted through native upload+independent metadata;
+all19evidence parts accepted, full reconstruction/index receipts pending.
+Remote bytes not downloaded; no remote hash-verification claim. Original files retained.
