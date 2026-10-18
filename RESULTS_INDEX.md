@@ -4525,3 +4525,15 @@ Cache and output are activeNVMe; do not move them or edit immutable2d2ec4a1 sour
 Archive closed raw tests/restore guards and active evaluation guard after completion,
 all local planning/*first_pilot* helpers/configs/readbacks/bundle/handoff. Clock cannot reset.
 No final hand admission/outcomes. Coordinator return/handback is in the activity ledger.
+
+PR301 October18 status: first cost pilot complete23:33:58Madrid October17,
+all3840pilot hands replay/reproduce; no final hands.
+[Closed metadata](docs/reports/hu200-capacity-cygnus-artifacts/evaluation-first-pilot-complete-20261018/),
+[33 closed hashes/pins](docs/reports/hu200-capacity-cygnus-artifacts/evaluation-first-pilot-complete-pins-20261018.json),
+[status/cost/missed callback](docs/reports/hu200-capacity-cygnus-artifacts/status-20261018-0730.json).
+Raw completed guard and all pilot raw hand/decision traces remain ownedNVMe and
+require final archives/readback. Pilot caches are inactive, build-once and retained;
+owner-authorized HDD relocation needs full manifests/readback before NVMe removal.
+Notification HTTPError and7.94h idle disclosed; no clock credit/retry.
+Local planning/status-*-20261018.json and collect_cost_pilot_complete_20261018.py,
+publish_status_20261018.py plus PR readbacks require final archival.

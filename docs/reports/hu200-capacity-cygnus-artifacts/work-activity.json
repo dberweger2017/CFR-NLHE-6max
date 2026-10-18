@@ -1,5 +1,5 @@
 {
-  "status": "coordinator-handback-declared;first-cost-pilot-running",
+  "status": "first-cost-pilot-passed;notification-recovery;full-admission-pending",
   "timezone": "UTC;Madrid=UTC+02:00 on these dates",
   "historical_precision": "Older coordinator handbacks are evidenced by completion/readback timestamps, not invented exact idle boundaries.",
   "owner_requirement": "Mark each coordinator stop and return in the PR, with reason and background scientific/storage job state; do not silently reset clocks.",
@@ -158,6 +158,18 @@
       "jobs": "Immutable2d2ec4a1 cache supervisor and first large cache continue; terminal callback uses existing event task",
       "clock_credit": false,
       "time_basis": "Current declaration; final publication/push/readback follows"
+    },
+    {
+      "utc": "2026-10-18T05:30:23.606296+00:00",
+      "coordinator": "Returned and marked PR301 for owner status request; found completed cost pilot and missed HTTPError callback",
+      "jobs": "No evaluation workers active; no final matches",
+      "clock_credit": false
+    },
+    {
+      "utc": "2026-10-18T05:32:59.010284+00:00",
+      "coordinator": "Handback declared after publishing completed pilot cost and notification failure; existing terminal event delivery recovery only",
+      "jobs": "No scientific restart; final admission pending",
+      "clock_credit": false
     }
   ]
 }

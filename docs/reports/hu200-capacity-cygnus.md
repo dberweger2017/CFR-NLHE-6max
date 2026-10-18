@@ -7,6 +7,46 @@
 [Protocol](../hu200-capacity-cygnus-protocol.md) fixes three paired seeds,
 301,153,954-entry capacity, guards and final sample sizes. Owner decides merge.
 
+## Status — October18,07:30Madrid
+
+All training and final full-row audits remain complete. The first seed1302 cost
+pilot passed at**October17,23:33:58Madrid**: all3,840pilot hands independently
+replayed and exactly reproduced, raw verification passed. No final matches have
+started; no final playing outcomes have been read.
+[Closed pilot receipts/pins](hu200-capacity-cygnus-artifacts/evaluation-first-pilot-complete-pins-20261018.json),
+[current status/cost/notification evidence](hu200-capacity-cygnus-artifacts/status-20261018-0730.json).
+
+The completion callback logged **HTTPError**, wrote no delivery receipt and did
+not wake the coordinator. Work has been idle **7.940h** between pilot
+completion and this return. This was notification failure, not scientific failure.
+No scientific attempt will be repeated. The24h clock kept running and gets no
+credit: evaluation deadline remains **tonightOctober18,22:22:34Madrid**.
+The prior statement that the hook would wake the thread was not fulfilled.
+Retry only terminal-event delivery using the previously successful observer
+transport headers, deduplicated against the closed receipt, not scientific work.
+
+The pilot took71m23s, including39m28s large-cache and12m02s twin-cache stages.
+Actual cache arrays are17.899GB and5.116GB. Full original nine-case work for this
+seed quotes**2h59m** including play, independent replay and exact reproduction,
+with1.5× time margin and1.278GB traces at1.25× byte margin. Applying that cost to
+all three seeds is a provisional**8h57m**; other seeds' pilots, remaining cache
+construction/restoration and admission time are additional and unmeasured.
+This is not a full-budget admission. No counts or original ceiling change.
+
+Closed guard maxCPU71°C/VRM82°C, RSS18.080GB, no stop; latest freeNVMe69.115GB.
+No evaluation worker is active now. Two seed pairs would exceed the physical
+50GB floor at this occupancy; inactive model/cache storage on the authorizedHDD
+and fresh prospective admissions are necessary. Every policy cache must still be
+built once; active computation staysNVMe. Hard two-seed scheduling wording must
+be reconciled explicitly with actual disk admission before final work.
+
+**ETA:** no reliable final completion time yet. The unchanged evaluation deadline
+is tonight22:22:34Madrid; whether all fixed work fits now requires the full fresh
+cost/storage admission. Monday19evening report/archive and Tuesday20 upload
+remain conditional targets, not a promise. No final-hand or outcome admission.
+Coordinator return2026-10-18T05:30:23.606296+00:00; handback declared2026-10-18T05:32:59.010284+00:00, following publication and exact
+PR readback. Existing terminal-event delivery recovery only; no new schedule.
+
 ## Evaluation clock started — October17,22:22:34Madrid
 
 The first large cache is running from clean immutable source2d2ec4a1. The clock
