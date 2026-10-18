@@ -1,0 +1,329 @@
+{
+  "launch": {
+    "pid": 294450,
+    "utc": "2026-10-18T11:59:06.114575+00:00",
+    "command": [
+      "python3",
+      "-m",
+      "scripts.run_nplayer_fast_study",
+      "/home/dberweger/nplayer-fast-strength-20261018-main-v4"
+    ],
+    "source_commit": "2ff320d483b0219165518d75d2d92389f48d182a",
+    "bundle_sha256": "525a6291fc1757be00119906bf9cdb185cab6c84cf6bf8c92cab99995f89ec81",
+    "verified_source_files": 720,
+    "native_files_identical_to_qualification": 47,
+    "selected_threads": 16
+  },
+  "admission": {
+    "pid": 294450,
+    "initial_sample": {
+      "at": 1792324746.1559904,
+      "phase": "admission",
+      "target": 0,
+      "temperatures_c": {
+        "Thermistor 15": 37.0,
+        "Package id 0": 39.0
+      },
+      "available_ram_bytes": 131962732544,
+      "fan1_rpm": 496,
+      "swap_growth_bytes": 0,
+      "free_disk_bytes": 84066648064,
+      "remaining_output_reservation_bytes": 32000000000,
+      "rss_bytes": 0
+    },
+    "threads": 16,
+    "qualification_sha256": "a587a9ec0987f35e24998f290c4b861b5b2be0461a94b2b00efc84e8f8e9e407",
+    "legacy_holder": null,
+    "original_deadline_epoch": 1792348292.676534,
+    "projected_seconds": 7200,
+    "source_commit": "2ff320d483b0219165518d75d2d92389f48d182a",
+    "cases": [
+      {
+        "name": "2026101541-nodes-forward",
+        "seed": 2026101541,
+        "scope": "nodes",
+        "root": 20261018335101,
+        "blocks": 8192,
+        "singleton": "fast-2026101541-nodes",
+        "pair": "production-2026101541-1b"
+      },
+      {
+        "name": "2026101541-nodes-reverse",
+        "seed": 2026101541,
+        "scope": "nodes",
+        "root": 20261018335101,
+        "blocks": 8192,
+        "singleton": "production-2026101541-1b",
+        "pair": "fast-2026101541-nodes"
+      },
+      {
+        "name": "2026101541-clock-forward",
+        "seed": 2026101541,
+        "scope": "clock",
+        "root": 20261018335102,
+        "blocks": 8192,
+        "singleton": "fast-2026101541-clock",
+        "pair": "production-2026101541-clock"
+      },
+      {
+        "name": "2026101541-clock-reverse",
+        "seed": 2026101541,
+        "scope": "clock",
+        "root": 20261018335102,
+        "blocks": 8192,
+        "singleton": "production-2026101541-clock",
+        "pair": "fast-2026101541-clock"
+      },
+      {
+        "name": "2026101542-nodes-forward",
+        "seed": 2026101542,
+        "scope": "nodes",
+        "root": 20261018335103,
+        "blocks": 8192,
+        "singleton": "fast-2026101542-nodes",
+        "pair": "production-2026101542-1b"
+      },
+      {
+        "name": "2026101542-nodes-reverse",
+        "seed": 2026101542,
+        "scope": "nodes",
+        "root": 20261018335103,
+        "blocks": 8192,
+        "singleton": "production-2026101542-1b",
+        "pair": "fast-2026101542-nodes"
+      },
+      {
+        "name": "2026101542-clock-forward",
+        "seed": 2026101542,
+        "scope": "clock",
+        "root": 20261018335104,
+        "blocks": 8192,
+        "singleton": "fast-2026101542-clock",
+        "pair": "production-2026101542-clock"
+      },
+      {
+        "name": "2026101542-clock-reverse",
+        "seed": 2026101542,
+        "scope": "clock",
+        "root": 20261018335104,
+        "blocks": 8192,
+        "singleton": "production-2026101542-clock",
+        "pair": "fast-2026101542-clock"
+      },
+      {
+        "name": "2026101543-nodes-forward",
+        "seed": 2026101543,
+        "scope": "nodes",
+        "root": 20261018335105,
+        "blocks": 8192,
+        "singleton": "fast-2026101543-nodes",
+        "pair": "production-2026101543-1b"
+      },
+      {
+        "name": "2026101543-nodes-reverse",
+        "seed": 2026101543,
+        "scope": "nodes",
+        "root": 20261018335105,
+        "blocks": 8192,
+        "singleton": "production-2026101543-1b",
+        "pair": "fast-2026101543-nodes"
+      },
+      {
+        "name": "2026101543-clock-forward",
+        "seed": 2026101543,
+        "scope": "clock",
+        "root": 20261018335106,
+        "blocks": 8192,
+        "singleton": "fast-2026101543-clock",
+        "pair": "production-2026101543-clock"
+      },
+      {
+        "name": "2026101543-clock-reverse",
+        "seed": 2026101543,
+        "scope": "clock",
+        "root": 20261018335106,
+        "blocks": 8192,
+        "singleton": "production-2026101543-clock",
+        "pair": "fast-2026101543-clock"
+      }
+    ]
+  },
+  "pretraining_freeze": {
+    "status": "qualified",
+    "cases": [
+      {
+        "name": "2026101541-nodes-forward",
+        "seed": 2026101541,
+        "scope": "nodes",
+        "root": 20261018335101,
+        "blocks": 8192,
+        "singleton": "fast-2026101541-nodes",
+        "pair": "production-2026101541-1b"
+      },
+      {
+        "name": "2026101541-nodes-reverse",
+        "seed": 2026101541,
+        "scope": "nodes",
+        "root": 20261018335101,
+        "blocks": 8192,
+        "singleton": "production-2026101541-1b",
+        "pair": "fast-2026101541-nodes"
+      },
+      {
+        "name": "2026101541-clock-forward",
+        "seed": 2026101541,
+        "scope": "clock",
+        "root": 20261018335102,
+        "blocks": 8192,
+        "singleton": "fast-2026101541-clock",
+        "pair": "production-2026101541-clock"
+      },
+      {
+        "name": "2026101541-clock-reverse",
+        "seed": 2026101541,
+        "scope": "clock",
+        "root": 20261018335102,
+        "blocks": 8192,
+        "singleton": "production-2026101541-clock",
+        "pair": "fast-2026101541-clock"
+      },
+      {
+        "name": "2026101542-nodes-forward",
+        "seed": 2026101542,
+        "scope": "nodes",
+        "root": 20261018335103,
+        "blocks": 8192,
+        "singleton": "fast-2026101542-nodes",
+        "pair": "production-2026101542-1b"
+      },
+      {
+        "name": "2026101542-nodes-reverse",
+        "seed": 2026101542,
+        "scope": "nodes",
+        "root": 20261018335103,
+        "blocks": 8192,
+        "singleton": "production-2026101542-1b",
+        "pair": "fast-2026101542-nodes"
+      },
+      {
+        "name": "2026101542-clock-forward",
+        "seed": 2026101542,
+        "scope": "clock",
+        "root": 20261018335104,
+        "blocks": 8192,
+        "singleton": "fast-2026101542-clock",
+        "pair": "production-2026101542-clock"
+      },
+      {
+        "name": "2026101542-clock-reverse",
+        "seed": 2026101542,
+        "scope": "clock",
+        "root": 20261018335104,
+        "blocks": 8192,
+        "singleton": "production-2026101542-clock",
+        "pair": "fast-2026101542-clock"
+      },
+      {
+        "name": "2026101543-nodes-forward",
+        "seed": 2026101543,
+        "scope": "nodes",
+        "root": 20261018335105,
+        "blocks": 8192,
+        "singleton": "fast-2026101543-nodes",
+        "pair": "production-2026101543-1b"
+      },
+      {
+        "name": "2026101543-nodes-reverse",
+        "seed": 2026101543,
+        "scope": "nodes",
+        "root": 20261018335105,
+        "blocks": 8192,
+        "singleton": "production-2026101543-1b",
+        "pair": "fast-2026101543-nodes"
+      },
+      {
+        "name": "2026101543-clock-forward",
+        "seed": 2026101543,
+        "scope": "clock",
+        "root": 20261018335106,
+        "blocks": 8192,
+        "singleton": "fast-2026101543-clock",
+        "pair": "production-2026101543-clock"
+      },
+      {
+        "name": "2026101543-clock-reverse",
+        "seed": 2026101543,
+        "scope": "clock",
+        "root": 20261018335106,
+        "blocks": 8192,
+        "singleton": "production-2026101543-clock",
+        "pair": "fast-2026101543-clock"
+      }
+    ],
+    "seed_order": [
+      2026101541,
+      2026101542,
+      2026101543
+    ],
+    "threads": 16,
+    "roots_per_seat": 8,
+    "training_seconds": 600,
+    "node_target": 1000000000,
+    "inputs": {
+      "production-2026101541-1b": {
+        "path": "/home/dberweger/nplayer-blueprint-phase2-20261015/training/2026101541/1000m-average.gz",
+        "sha256": "990246065bfc1f8a13c5ca3456090689b5ab52105c860d4bca1531b3f5e3db70",
+        "bytes": 705933433,
+        "source_mtime_ns": 1792070418689699712,
+        "strategy": "average",
+        "scope": 3,
+        "owner_pr": 292,
+        "archive_member": "training/2026101541/1000m-average.gz"
+      },
+      "production-2026101542-1b": {
+        "path": "/home/dberweger/nplayer-blueprint-phase2-20261015/training/2026101542/1000m-average.gz",
+        "sha256": "34ab3e9262ebf37ddf13f9f4e127c8eb7e2bb35e1f84d807af06815de6ba0077",
+        "bytes": 713944774,
+        "source_mtime_ns": 1792074133182909821,
+        "strategy": "average",
+        "scope": 3,
+        "owner_pr": 292,
+        "archive_member": "training/2026101542/1000m-average.gz"
+      },
+      "production-2026101543-1b": {
+        "path": "/home/dberweger/nplayer-blueprint-phase2-20261015/training/2026101543/1000m-average.gz",
+        "sha256": "558efcc9f2a54b74202acc658aa018343123ff11f4fd8522b3dd8aefe25aad91",
+        "bytes": 720740809,
+        "source_mtime_ns": 1792077858212005800,
+        "strategy": "average",
+        "scope": 3,
+        "owner_pr": 292,
+        "archive_member": "training/2026101543/1000m-average.gz"
+      }
+    },
+    "source_commit": "2ff320d483b0219165518d75d2d92389f48d182a",
+    "instrumented_cli_identity": "passed",
+    "deadline_epoch": 1792348292.676534
+  },
+  "harness_smoke": {
+    "status": "passed",
+    "contrasts": 12,
+    "final_hands": 144,
+    "manifest_sha256": "bbba82f090f5afe7af10cba0d00006cf34af4cc11db3755e71e7f0d8281378f6"
+  },
+  "preserved_setup_failures": [
+    {
+      "root": "/home/dberweger/nplayer-fast-strength-20261018-main",
+      "reason": "Disk reservation admission refused; no child started."
+    },
+    {
+      "root": "/home/dberweger/nplayer-fast-strength-20261018-main-v2",
+      "reason": "Python3.13/NumPy1.26 environment mismatch before any final seed."
+    },
+    {
+      "root": "/home/dberweger/nplayer-fast-strength-20261018-main-v3",
+      "reason": "Supervisor JSONL parser rejected pretty audit output before any final seed."
+    }
+  ],
+  "archival_status": "pending; all originals retained"
+}
