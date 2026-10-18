@@ -7,6 +7,26 @@
 [Protocol](../hu200-capacity-cygnus-protocol.md) fixes three paired seeds,
 301,153,954-entry capacity, guards and final sample sizes. Owner decides merge.
 
+## Compute availability — October18,10:12Madrid
+
+The5B final match passes in1281.755s. All selected primary play is finished;
+5B independent replay is active, followed by fresh-process exact reproduction,
+raw verification and the selected global barrier/readout. No final result has
+been read. Supervisor187170 still exists and the machine's exclusive compute
+mutex is **held**; compute has not been released.
+[Availability/mutex/stage receipt](hu200-capacity-cygnus-artifacts/compute-availability-20261018.json).
+
+Plan next-agent compute for **around11:00Madrid**, with**11:50** as a
+conservative buffer, conditional on the remaining original guarded steps.
+Confirm supervisor/owned-worker exit and free mutex before marking release.
+Archival disk I/O may continue afterward; this is compute availability,
+not full PR closeout. Owner's next test need not await Drive/archive closeout,
+and later archival work must respect the shared mutex/resource limits.
+
+At08:12:43UTC CPU52°C/VRM61°C, RSS286MB during replay, freeNVMe77.224GB,
+no failure. Original deadline/guards unchanged. Coordinator return2026-10-18T08:12:42.049544+00:00,
+handback declared2026-10-18T08:14:33.685745+00:00; queue continues, no new compute or retries.
+
 ## Live progress — October18,09:38Madrid
 
 The20B direct match and all seven scripted panels finish with **720896final

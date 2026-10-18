@@ -4576,3 +4576,10 @@ OriginalNVMe20Bcache/average paths now absent; source/query metadata remains.
 Do not move active sources. No new cloud acceptance/cleanup; all raw traces/finals need finalarchive.
 Local planning/status-return-single-20261018.json,status-single-live-20261018.json,
 publish_progress_single_20261018_0938.py and PR-readback/handoff must archive.
+
+PR301 owner next-agent compute planningOctober18:
+[held mutex, completed5B play and current replay/timing receipt](docs/reports/hu200-capacity-cygnus-artifacts/compute-availability-20261018.json).
+Estimated release11:00–11:50Madrid, not confirmed; archival I/O/Drive closeout separate.
+Verify owned workers/supervisor exit and free machine mutex before release.
+Archive local planning/compute-availability-{return,live,cost}-20261018.json and
+publish_compute_availability_20261018.py plus PR-readback/handoff.

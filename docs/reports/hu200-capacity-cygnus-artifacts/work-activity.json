@@ -1,5 +1,5 @@
 {
-  "status": "coordinator-handback-declared;20B-verified;5B-cache-building",
+  "status": "coordinator-handback-declared;compute-lock-held;5B-replay",
   "timezone": "UTC;Madrid=UTC+02:00 on these dates",
   "historical_precision": "Older coordinator handbacks are evidenced by completion/readback timestamps, not invented exact idle boundaries.",
   "owner_requirement": "Mark each coordinator stop and return in the PR, with reason and background scientific/storage job state; do not silently reset clocks.",
@@ -193,6 +193,18 @@
       "utc": "2026-10-18T07:40:10.777041+00:00",
       "coordinator": "Handback declared after status/relocation/restoration receipts publication",
       "jobs": "Supervisor187170 continues5B cache and remaining fixed steps; no change/retry",
+      "clock_credit": false
+    },
+    {
+      "utc": "2026-10-18T08:12:42.049544+00:00",
+      "coordinator": "Returned/PR marked for owner compute-availability question",
+      "jobs": "5B final play passed; independent replay active; mutex held",
+      "clock_credit": false
+    },
+    {
+      "utc": "2026-10-18T08:14:33.685745+00:00",
+      "coordinator": "Handback declared after checking live mutex/supervisor and stage timings; no compute release claimed",
+      "jobs": "Supervisor187170 continues replay/reproduction/global verification; archive availability separate",
       "clock_credit": false
     }
   ]
