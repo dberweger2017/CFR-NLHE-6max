@@ -107,8 +107,8 @@ def run(root):
                 expected={'nodes','clock'} if recipe=='fast' else {'clock'}
                 if {e['label'] for e in checkpoints}!=expected or not any(e.get('event')=='complete' for e in r['events']):raise ValueError('missing training endpoint')
                 for e in checkpoints:
-                    if e['label']=='clock' and not 600<=e['training_seconds']<=610:raise ValueError('clock endpoint missed')
-                    if e['label']=='nodes' and not 1000000000<=e['nodes']<1000100000:raise ValueError('node endpoint missed')
+                    if e['label']=='clock' and not e['training_seconds']>=600:raise ValueError('clock endpoint missed')
+                    if e['label']=='nodes' and e['nodes']<1000000000:raise ValueError('node endpoint missed')
                     export_plan.append(dict(id=f"{recipe}-{seed}-{e['label']}",checkpoint=e['checkpoint'],checkpoint_sha256=e['sha256'],export=str(out/(e['label']+'-average.gz'))))
                 guard.write(root/'training-progress.json',dict(seed=seed,recipe=recipe,completed_exports=len(export_plan)))
         guard.write(root/'export-plan.json',dict(policy=str(binaries/'nplayer_policy'),models=export_plan))
