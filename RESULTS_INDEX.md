@@ -1,4 +1,4 @@
-## PR350 — three-player 100 BB (pilot complete; bounded qualification stopped)
+## PR350 — three-player 100 BB (reviewed corrected qualification active)
 
 [PR350](https://github.com/dberweger2017/CFR-NLHE-6max/pull/350),
 [proposal349](https://github.com/dberweger2017/CFR-NLHE-6max/issues/349),
@@ -6,6 +6,22 @@
 [compact receipt](docs/reports/nplayer-bb100/receipt.json) and
 [exact checkpoint paths/hashes/counts](docs/reports/nplayer-bb100/costs.csv).
 
+- **Reviewed corrected qualification launched October19** after explicit owner
+  request for a review subagent before resuming. [Independent review and fixes](docs/reports/nplayer-bb100/review-before-resume.md),
+  [23Linux/process tests + native rebuild/reuse proof](docs/reports/nplayer-bb100/review-engineering-tests.json),
+  [exact new launch](docs/reports/nplayer-bb100/reviewed-launch.json).
+  Source`c4b04bf826688be546d68c76d14db711d0c788d6`,1045files verified,
+  bundleSHA256`755685cf87023c8cd15c6798a47a01b02cb5e952b798ac9aa060151a0aa294ec`;
+  configSHA256`588379a7b3159528cf5085bf56de43da85979ad34c821a43509511fa088a2042`.
+  Output`bb128:/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v2/`,
+  supervisor483894, control`/home/dberweger/nplayer-bb100-bounded-20261019/`;
+  source-v4/binaries-v4 match the independently reviewed and engineering-tested
+  source-review-v1 bytes. Failed source-v3/root retained. Original qualification
+  cutoff1792416758.7111406 (13:32:38UTC) remains; main8h starts only if admitted.
+  No new final seed or outcomes claimed. Collector command adds
+  `--root /mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v2`
+  and writes to a fresh ignored destination. Own TensorBoard6007/local8607 is
+  switched to this new attempt; old20BB6006 remains untouched.
 - **Terminal October19 11:39:11UTC/13:39:11Madrid:** bounded full-matrix smoke
   crossed80GiB familyRSS (80.105GiB);CPU53/Thermistor58,23.22GiB available RAM.
   New batch wrapper repeatedly loaded process-lifetime fixed K50 tables.

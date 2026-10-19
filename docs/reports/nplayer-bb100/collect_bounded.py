@@ -39,10 +39,12 @@ print(json.dumps(value,indent=2))
 if __name__ == '__main__':
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('destination', type=Path)
+    p.add_argument('--root', default='/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019')
     args = p.parse_args()
+    remote = REMOTE.replace("r=Path('/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019')", 'r=Path('+repr(args.root)+')')
     args.destination.mkdir(parents=True, exist_ok=False)
     result = subprocess.run(['ssh', '-o', 'BatchMode=yes', '-o', 'ConnectTimeout=10', 'bb128', 'python3 -'],
-                            input=REMOTE, text=True, capture_output=True, check=True)
+                            input=remote, text=True, capture_output=True, check=True)
     value = json.loads(result.stdout)
     (args.destination/'snapshot.json').write_text(result.stdout)
     compact = {k:v for k,v in value.items() if k not in ('launch','source-receipt','admission','last_resource','failure_log_tail')}
