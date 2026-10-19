@@ -71,6 +71,104 @@ physical-seat/button-relative-position result are retained in
 The mixed trained opponent is this same seed's fixed 3B model, not an independent
 training population. No external-opponent/generalization claim follows.
 
+## Why do returns fall against random and check-call?
+
+The 10B model still earns **+332.01 BB/100 against two random opponents** and
+**+232.88 against two check-call opponents**, versus +365.44 and +261.24 for 3B.
+Those absolute profits coexist with the primary trained-policy improvement.
+The random decline has a negative pointwise interval; the check-call decline
+does not. Neither clears zero after the eight-panel adjustment. A change in
+opponent-specific performance is a useful diagnostic, even when its magnitude
+remains uncertain; it does not by itself explain the primary gain.
+
+### Measured behavior in the complete script traces
+
+At the owner's request, a post-hoc audit streamed all four original pure-script
+traces: 49,152 hands per model/opponent, **196,608 existing hands in total**.
+It counts only the blueprint identity's actions after mapping identities to
+physical seats. Script actions and exact reproductions are excluded. The trace
+SHA256s match the original replay proofs, and the rewards reconcile to the
+verified absolute means. No new hands were played or selected. The other model's
+quoted sample counts have no reproducible selector; the complete counts below
+replace them. Rates are descriptive, with no new significance test.
+
+| Blueprint behavior | Random: 3B→10B | Check-call: 3B→10B |
+|---|---:|---:|
+| Checks / legal check opportunities | 56.44%→61.57% | 57.77%→65.71% |
+| Bets or raises / legal raise opportunities | 30.18%→27.34% | 36.45%→31.73% |
+| Turn checks / legal check opportunities | 50.31%→56.26% | 54.74%→62.40% |
+| River checks / legal check opportunities | 47.82%→52.87% | 45.86%→55.94% |
+| Blueprint all-in bets/raises, count | 3,085→2,222 | 946→672 |
+| Mean gross pot award, conditional on positive net hand (BB) | 77.83→70.49 | 43.57→33.26 |
+
+The observed shift is toward more checking, fewer bets/raises and smaller
+conditional winning awards, particularly against check-call. Raw checks rise
+9,582→10,788 against random and 57,364→68,326 against check-call; bets/raises
+fall 27,524→25,327 and 48,130→43,398 respectively. Decision totals also change
+(93,789→94,708 and 132,062→136,756), so raw counts alone would confound action
+choice with how many decisions the policies reach. Opportunity denominators
+help, but still compare different reached states and hand distributions.
+
+Bet sizing changes less than betting frequency. Mean raise increment divided
+by the pot after calling falls 0.578→0.572 against random and 0.575→0.534 against
+check-call; medians stay 0.40 and one-third respectively. Here `raise` includes
+bets, and the increment is raise-to minus the outstanding wager. The gross
+award is net reward plus contributions minus refunds, measured only on hands
+with positive net reward; it is not the full table pot or an unconditional
+measure of value extraction. Positive-net hand counts fall 9,424→8,756 against
+random but rise 10,320→10,922 against check-call. A lower conditional award does
+not alone establish missed value bets.
+
+**The proposed explanation that 10B folds more to random preflop jams is not
+supported by these traces.** When another live opponent was already all-in
+and a preflop call was required, observed fold frequency falls from
+374/1,154 (32.41%) to 236/849 (27.80%). Overall folding when facing a bet against
+random rises slightly, 49.40%→50.47%; those different denominators cannot be
+substituted for the preflop all-in comparison. Neither comparison controls for
+the changed cards and histories reaching it, or measures whether a fold is good.
+
+### Interpretation and remaining uncertainty
+
+The native check-call script checks whenever legal and otherwise calls; it
+never initiates a bet or raise. Random samples the fixed legal-action menu.
+Less betting into check-call is therefore a plausible contributor to lower
+returns, consistent with the smaller winning awards and existing pot-band
+analysis. We have not measured hand strength, equity, missed value, bluff quality
+or counterfactual action values. Betting every hand into a calling station is
+not an appropriate remedy: a bluff with no fold equity can simply lose more.
+
+A self-play recipe does not directly optimize exploitation of these scripts.
+An opponent-specific tradeoff is plausible, but **Nash convergence, optimal pot
+control and increased unexploitable strength are not established**. CFR's usual
+average-policy Nash convergence guarantee applies to two-player zero-sum games;
+it does not generally extend to this three-player setting. No exploitability
+certificate was measured here. [Brown and Sandholm, 2019](https://noambrown.github.io/papers/19-Science-Superhuman.pdf).
+
+The earlier [20 BB 30B study](../nplayer-overnight/results.md) also has negative
+point changes against random on all three seeds (−21.46, −23.53, −27.77 BB/100)
+and check-call (−12.65, −17.81, −6.65). All random declines clear that study's
+family intervals; only one check-call decline does. The repeated direction is
+interesting across depths and recipes, but it is not an exact replication or
+proof of a shared mechanism. Here the defensible strength claim remains the
+predeclared single-seed primary gain and the adjusted trained/pressure result,
+alongside the adverse and inconclusive panels, rather than universal superiority.
+
+These results also **do not prove that search will recover the script losses**.
+Local subgame refinement and exploiting a known opponent are different tasks;
+search does not automatically adapt to a calling station. Pluribus itself used
+a fixed strategy without adapting to observed opponent tendencies, despite its
+search component. [Original paper](https://noambrown.github.io/papers/19-Science-Superhuman.pdf).
+No search arm or complete-decision latency was tested here; a sub-15 ms target
+remains unverified. Retain the script panels in any prospective paired search
+evaluation. Separately testing missed value bets would require legal-information
+counterfactuals on fresh held-out states, not a claim inferred from action counts.
+
+Full per-street counts, opportunity denominators, award definitions and trace
+pins are in [script-behavior.json](script-behavior.json), generated by
+[script_behavior.py](script_behavior.py). This descriptive audit took 13.81 s
+on one pinned core after the main study completed; its cost is additional to
+the campaign timings below. It changes no frozen result or decision rule.
+
 ## What the lookup measurements explain
 
 Both raw checkpoints bind their sidecars to exact policy/checkpoint hashes and
@@ -198,6 +296,23 @@ hashes before using them. Never relaunch the existing root. The summarizer
 rechecks hashes, barriers, all eighteen case identities/counts, exact-reproduction
 attestations, diagnostic totals, membership, and path/pot return reconciliation.
 It does not repeat independent engine play or reread remote model bytes.
+
+The owner-requested descriptive script audit is retained separately at
+`bb128:/home/dberweger/nplayer-bb100-10b-20261019/posthoc-script-behavior-v1/script-behavior.json`.
+Its SHA256 is `4b18f51bd4a68704df415ae8a1fbdfee40d59f7b60f72945d44251a118f69807`;
+the committed copy has identical bytes. It records the four exact source trace
+paths, sizes, modification times and SHA256s. Retrieve that compact file with
+`scp bb128:EXACT_REMOTE_FILE FRESH_IGNORED_DIRECTORY/` and verify the hash.
+To reproduce on bb128 with the existing raw traces and both compute locks free,
+run the committed helper with the completed main root and a fresh sibling output:
+
+```sh
+python3.11 script_behavior.py /home/dberweger/nplayer-bb100-10b-20261019/main-v1 FRESH_POSTHOC_OUTPUT
+```
+
+This streams existing hands and verifies their original trace/replay hashes and
+absolute means. It acquires both mutexes nonblocking, pins itself to one core,
+and refuses an existing output directory. Do not retry an active main campaign.
 
 Native logs, checkpoints/averages, mass sidecars, all 6.31GBof raw hand traces,
 source/builds, initial Cargo/PATH setup failure and qualification fixtures remain

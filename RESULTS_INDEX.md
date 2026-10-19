@@ -47,6 +47,20 @@ Archive namespace`PR-355-nplayer-bb100-10b`; HDD/Drive archive/acceptance pendin
 No new scientific evidence is copied to the HDD, uploaded or deleted by this
 closeout. No new timer, another seed or other campaign is started.
 
+The owner-requested post-hoc script-behavior audit reads all196,608 existing
+initial random/check-call hands (blueprint identity only), with no new games.
+[Counts and exact trace pins](docs/reports/nplayer-bb100-10b/script-behavior.json),
+[reproducer](docs/reports/nplayer-bb100-10b/script_behavior.py),
+[interpretation in final report](docs/reports/nplayer-bb100-10b/results.md#why-do-returns-fall-against-random-and-check-call).
+Remote compact result:
+`bb128:/home/dberweger/nplayer-bb100-10b-20261019/posthoc-script-behavior-v1/script-behavior.json`,
+SHA256`4b18f51bd4a68704df415ae8a1fbdfee40d59f7b60f72945d44251a118f69807`.
+Retrieve only that file via`scp bb128:EXACT_REMOTE_FILE FRESH_IGNORED_DIRECTORY/`
+and verify SHA256. Local identical compact copy is in ignored
+`results/pr355-final-20261019T2125/script-behavior.json`.
+One-core wall13.81s is additional descriptive-analysis cost. Original roots,
+trace bytes and all predeclared strength results stay unchanged; archival pending.
+
 ## bb128 NVMe evidence relocation — October19,2026
 
 The owner explicitly requested moving previous rounds' evidence to the2TB
