@@ -1,0 +1,140 @@
+{
+  "status": "passed",
+  "at": 1792431760.8524203,
+  "tests_run": 21,
+  "tests_skipped": 0,
+  "parent_eligible": true,
+  "parent_proof": {
+    "root": "/home/dberweger/nplayer-pruning-strength-20261019/study-v1",
+    "files": {
+      "config.json": "29828c1e260c871bfa7b6729d35a1b45486104203fcce488a753ec3a0ee4b9f2",
+      "launch.json": "99741004117743d0117736f887000dc6dfe6de88e7eaa9c791e4fa58ed63b8c0",
+      "failure.json": "4a4f0de5e20a45bb8c4138dc415c83cf90e8ca1e34558f756389fd6b92c7a23f",
+      "endpoints.json": "e24ccb6205ca86f6eba11f1202ac7c5dbe8b737f379ce4ddafdde3e2a2a7d202",
+      "measurements/train-nodes/result.json": "ee15bb1809e036b962fd6a4291a825665b7a50ae48277e2772e9a090bea2303f",
+      "measurements/verify-baseline/result.json": "10fc310765c4ba6573bf2db9386b69fa7d74a630384e8a9b254afa71c99c5da2",
+      "measurements/verify-nodes/result.json": "b789d0f9a25f9af942e37022a652faceecc0a5e87d51dc993240a7c65d379e80",
+      "measurements/audit-nodes/result.json": "86c1427550c45a7a93c721f6131f158cf0a6c063916f69077d14ba4488d2469d",
+      "measurements/audit-nodes/stdout.log": "d5b833ee4944f7258e81d5e80519db32edc3548369d758a10ee82615d68d789f",
+      "measurements/evaluate-nodes/result.json": "edf9edf7179d719bb4460e0f0df09c804181ab5b27b0c2757ebb0b1743853556",
+      "measurements/evaluate-nodes/stdout.log": "d3c295494d06b8470bb8003e341489da1fd72a5735695d8573ac8d72fb6bf8c3",
+      "comparison-nodes/failure.json": "0e2d597a1ae8cdb67de6f65412f366988c77fd470c18c41cd5c3d40af362e88d"
+    },
+    "endpoints": {
+      "clock": {
+        "active_seconds": 630.7424571240145,
+        "clock_path": "/home/dberweger/nplayer-pruning-strength-20261019/study-v1/candidate-nodes/clock-clock.json",
+        "clock_sha256": "c852e485e1be06ef03d46e7eb2ef6a1b98d14973b9a62208c151e285d413e4cb",
+        "event": "endpoint",
+        "iteration": 212096,
+        "label": "clock",
+        "last_iteration_seconds": 0.003026321,
+        "nodes": 2994344973,
+        "pruned_actions": 32496,
+        "segment_active_seconds": 630.7424571240145,
+        "model": {
+          "path": "/home/dberweger/nplayer-pruning-strength-20261019/study-v1/candidate-nodes/clock-average.gz",
+          "sha256": "8535a0d1e20b5f7818a82850e166f2a4bb9d972ad27093c9cf1dcd0e37bbb174",
+          "checkpoint": "/home/dberweger/nplayer-pruning-strength-20261019/study-v1/candidate-nodes/clock.gz",
+          "checkpoint_sha256": "89e5fceedec1f3f7c937d6859cf0d703f17b4dd2f646c1ffd2cfc4b099fc8e8e",
+          "strategy": "average",
+          "scope": 3
+        }
+      },
+      "nodes": {
+        "active_seconds": 631.8955200200134,
+        "clock_path": "/home/dberweger/nplayer-pruning-strength-20261019/study-v1/candidate-nodes/nodes-clock.json",
+        "clock_sha256": "21caf2f6f44a4b843ff328f0cbd7d1f7f153e3dd82c6c25f48c07f299e7b7706",
+        "event": "endpoint",
+        "iteration": 212514,
+        "label": "nodes",
+        "last_iteration_seconds": 0.004071748,
+        "nodes": 3000010865,
+        "pruned_actions": 32499,
+        "segment_active_seconds": 631.8955200200134,
+        "model": {
+          "path": "/home/dberweger/nplayer-pruning-strength-20261019/study-v1/candidate-nodes/nodes-average.gz",
+          "sha256": "d29f1d4a69557425b2a9a816d1ecd87f5056eacb465412387c0b8ca2033b05ef",
+          "checkpoint": "/home/dberweger/nplayer-pruning-strength-20261019/study-v1/candidate-nodes/nodes.gz",
+          "checkpoint_sha256": "19b572881073c93d05ed6f50db8c25b482489bedc1eebeaa7fff33c20f2d95a7",
+          "strategy": "average",
+          "scope": 3
+        }
+      }
+    },
+    "audit": {
+      "by_street": [
+        {
+          "entries": 3380418,
+          "visits": 18946120,
+          "zero_visit_entries": 1533128,
+          "decisions": 78147062,
+          "missing_decisions": 3882623,
+          "missing_decision_share": 0.04968354408512504,
+          "visits_per_key": 5.604667825103286
+        },
+        {
+          "entries": 13534780,
+          "visits": 56014827,
+          "zero_visit_entries": 7029042,
+          "decisions": 181792420,
+          "missing_decisions": 15769498,
+          "missing_decision_share": 0.08674452983243196,
+          "visits_per_key": 4.138584225233066
+        },
+        {
+          "entries": 50433918,
+          "visits": 149668690,
+          "zero_visit_entries": 24692019,
+          "decisions": 444882419,
+          "missing_decisions": 60786073,
+          "missing_decision_share": 0.13663401924633034,
+          "visits_per_key": 2.9676197276602623
+        },
+        {
+          "entries": 182651003,
+          "visits": 338568676,
+          "zero_visit_entries": 89079920,
+          "decisions": 1007050436,
+          "missing_decisions": 228227453,
+          "missing_decision_share": 0.22662961540091126,
+          "visits_per_key": 1.853637102666225
+        }
+      ],
+      "status": "passed",
+      "checkpoint_sha256": "19b572881073c93d05ed6f50db8c25b482489bedc1eebeaa7fff33c20f2d95a7",
+      "policy_sha256": "d29f1d4a69557425b2a9a816d1ecd87f5056eacb465412387c0b8ca2033b05ef",
+      "strategy": "average",
+      "last_average_street": 3,
+      "rows": 250000119,
+      "average_rows": 250000119,
+      "current_rows": 0,
+      "zero_mass_rows": 79715556
+    },
+    "arena_sha256": "a43a84a7d5a490cecce967982e835e9af31fbe06c76e43139a1eb7afee5aa1e1",
+    "train_sha256": "23b3a5605e470fd4398cf62dfb025aa8f69244f640704a6f4b9bb7e356b24537"
+  },
+  "python_environment": {
+    "executable": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/venv/bin/python",
+    "prefix": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/venv",
+    "version": [
+      3,
+      11,
+      17
+    ],
+    "scipy": "1.17.1",
+    "engine": {
+      "url": "https://github.com/dberweger2017/pokers.git",
+      "vcs_info": {
+        "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+        "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+        "vcs": "git"
+      }
+    }
+  },
+  "source_files": {
+    "tests/test_nplayer_pruning_strength.py": "f6848b3bc0d3de477f7902be4ba31a1083bc5200ca7e0f188f9818c5fd6bac06",
+    "scripts/nplayer_pruning_strength.py": "1a44626eddb91c437be4d2e01e1b52b83f608bb22ef97476e5e419dc619afb2f"
+  },
+  "no_science_launched": true
+}

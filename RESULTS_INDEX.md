@@ -1,3 +1,83 @@
+## PR352 — verified final pruning comparison; original failure preserved
+
+**Final completion October19,18:13:14UTC:** recovery supervisor525334 exited,
+all eight stages returned0, status complete/results settled. Both matrices
+passed10-case proofs:983,040initial hands plus983,040exact reproductions,
+all independently replayed. [Final report](docs/reports/nplayer-pruning-strength/results.md),
+[precomputed results/model hashes](docs/reports/nplayer-pruning-strength/results.json),
+[completion/manifests/audits/cost receipt](docs/reports/nplayer-pruning-strength/metadata.json),
+[ten contrasts](docs/reports/nplayer-pruning-strength/results.csv),
+[singleton coverage](docs/reports/nplayer-pruning-strength/coverage.csv).
+No measured active-training saving; direct strength differences inconclusive.
+Compact final results were retrieved into ignored
+`results/pr352-final-20261019/`; remote results SHA256
+`6a14ad28314f98770db9bf6665b4513cef09a336e0ad0fd8c95d88a524eb7a9a`
+was verified locally. Raw checkpoints/averages/traces/logs/failures remain
+on bb128 in the exact original and recovery roots below. PR352 is open;
+no raw copying/archiving/cleanup was performed. Research-Cloud archival and
+Drive acceptance remain pending; no archive restoration link exists yet.
+
+
+[PR352](https://github.com/dberweger2017/CFR-NLHE-6max/pull/352),
+[protocol](docs/nplayer-pruning-strength-study.md),
+[proposal351](https://github.com/dberweger2017/CFR-NLHE-6max/issues/351).
+The owner authorized qualification and launch on October19 after reviewing the
+implementation. Frozen controller/harness source`66150f3b5089edc4c4dabf66c2a3a439d565953f`,
+native library/arena`b9882e7e728847a58691995e64eabd4563ea0991`.
+Isolated active NVMe control/build/qualification root:
+`bb128:/home/dberweger/nplayer-pruning-strength-20261019/`.
+Per-PR archival namespace`PR-352-nplayer-pruning-strength`; no Drive upload or
+cleanup is claimed. Source bundle/partial Git object scope and hashes are in
+`deployment.json` under the control root; no research model payloads were copied
+into the deployed source. The existing K50 tables and managed Python are read-only
+shared inputs. Real-model qualification passed: exact resumed/uninterrupted checkpoint bytes,
+clock carry-over, early snapshot, two-model cache, both audit/replay/readout paths.
+16 focused Linux Python tests and4 release native example tests passed.
+Main configuration is frozen at
+`bb128:/home/dberweger/nplayer-pruning-strength-20261019/study-v1/config.json`;
+source66150f3b remains unchanged. [Compact qualification/pins](docs/reports/nplayer-pruning-strength/qualification.json).
+Main launched2026-10-19 16:41:35UTC, supervisorPID517163, after the owner explicitly
+authorized reviewing CI after launch. CI is not a compute-start gate.
+[Launch command/authorization/config receipt](docs/reports/nplayer-pruning-strength/launch.json).
+The supervisor exited17:22:33UTC when evaluation startup could not import
+`pokers`. Training and both full-average exports completed;3B hash/recipe
+verification and the250,000,119-row independent audit passed. Zero evaluation
+hands ran. The failed root/config/source/logs and both snapshots remain unchanged.
+[Failure and validated training evidence](docs/reports/nplayer-pruning-strength/startup-failure.json),
+[diagnosis and tested interpreter fix](docs/reports/nplayer-pruning-strength/startup-failure.md).
+After the owner explicitly requested resumption, an evaluation-only recovery
+launched17:44:02UTC asPID525334 at
+`bb128:/home/dberweger/nplayer-pruning-strength-20261019/evaluation-recovery-v1`.
+[Recovery launch/config/environment receipt](docs/reports/nplayer-pruning-strength/evaluation-recovery-launch.json),
+[21-test Linux and actual-parent qualification](docs/reports/nplayer-pruning-strength/evaluation-recovery-qualification.json).
+Frozen recovery controller`5ce973c98c152ebb08a5a717cc76d4dbfe0bbd08` uses the
+original unchanged native binaries and model bytes. It verified model hashes,
+inherited the completed3B audit, then ran the original nodes and clock matrices
+with their replay/reproduction/readout barriers. No training is repeated.
+Original source/root/failures remain unchanged; raw models are read in place.
+The same temperature-only resource policy applies; disk/swap checks remain manual. All480 development/reproduction hands are fixture evidence
+only, with disjoint roots and no final-outcome inference.
+Manual prelaunch sample:132.17GB available RAM,55.03GB free NVMe,1.083TB free
+HDD,227.9MB swap used; CPU37°C/Thermistor1531°C. No resource thresholds added.
+
+The two-stage comparison remains fresh pruned3B, then only the remaining time
+up to the unpruned630.740595090997s active traversal. Temperature-only automatic
+resource stops: CPU90°C/Thermistor15100°C, including missing required readings.
+Disk/swap inspection is manual; no runtime/RAM/address-space cap. Preflight
+manual sample16:31UTC:111.1GB available RAM,55.2GB free NVMe,1.083TB free HDD;
+swap26.406GB used of26.406GB. These are observations, not admission thresholds.
+All fixtures, logs, failed attempts and raw outputs remain preserved.
+
+The read-only dependency is PR350's
+`bb128:/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3/calibration-continuation/`:
+`3000000000.gz` SHA256`ea0c7dca97ae627b08a39d4196cdd824d6e0767d85ca64c829eae5dcceb2da6b`,
+`3000000000-average.gz` SHA256`c602c3727df28160a9807716d3c9211d988e420c33ed7b0c04c2fd899afef06b`.
+[Existing timing/verification receipt](docs/reports/nplayer-bb100/continuation-admission-stop.json).
+These remain protected dependencies for this open study even after PR350 merges.
+Do not copy/move/archive/clean its original roots or parent inputs through this
+implementation. Future research retrieval/archival requires the owning PR status,
+SHA256 verification and the [storage policy](docs/artifact-storage.md).
+
 ## PR347 — contiguous storage, M1 validation and owner-authorized merge
 
 [PR347](https://github.com/dberweger2017/CFR-NLHE-6max/pull/347) merged October19
@@ -21,6 +101,13 @@ existing PR163 input archive as coverage for newly generated PR347 evidence.
 No bb128 job, source snapshot, setting or checkpoint was changed.
 
 ## PR350 — three-player 100 BB (3B qualified; main cost admission refused)
+
+**Owner-authorized merge October19 16:19:23UTC:** all five checks pass on
+`7661d70c`; merge`b8978231cb3e1e846433adccc762069187b6ef69`. The owner cancelled
+the unlaunched12h/100GiB readmission and requested closeout as the3B result.
+PR352 now targets main and still depends on the immutable3B checkpoint/average;
+all original roots, sources, failures and parent inputs remain protected. No
+archival/copy/cleanup or Drive acceptance is claimed through this merge.
 
 [PR350](https://github.com/dberweger2017/CFR-NLHE-6max/pull/350),
 [proposal349](https://github.com/dberweger2017/CFR-NLHE-6max/issues/349),

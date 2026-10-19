@@ -102,11 +102,11 @@ def check_case(task):
     return result
 
 
-def batch(root):
+def batch(root, *, matrix=None, expected_loads=12):
     from scripts.check_nplayer_parity import engine_identity
     engine_identity()
     m = load(root/'evaluation-manifest.json')
-    if m['cases'] != cases(m['smoke'], m.get('calibration', False)):
+    if m['cases'] != (cases(m['smoke'], m.get('calibration', False)) if matrix is None else matrix):
         raise ValueError('changed frozen matrix')
     def verify_inputs():
         started = time.monotonic()
@@ -122,7 +122,7 @@ def batch(root):
     verification_seconds = verify_inputs()
     (root/'evaluation').mkdir(exist_ok=False)
     native = dict(tables=m['tables'], threads=16, stack_bb=100, cases=[])
-    for c in execution_order(m['cases']):
+    for c in (execution_order(m['cases']) if matrix is None else matrix):
         folder = root/'evaluation'/c['name']
         folder.mkdir(exist_ok=False)
         for repeat in (0, 1):
@@ -136,7 +136,7 @@ def batch(root):
     native_wall = time.monotonic()-native_started
     verification_seconds += verify_inputs()
     summaries = [load(Path(row['summary'])) for row in native['cases']]
-    if (sum(row['new_weight_tables'] for row in summaries) != 12
+    if (sum(row['new_weight_tables'] for row in summaries) != expected_loads
             or any(row['resident_weight_tables'] > 2 or row['resident_card_table_sets'] != 1 for row in summaries)):
         raise ValueError('persistent cache transition/load-count proof failed')
     replay_started = time.monotonic()
