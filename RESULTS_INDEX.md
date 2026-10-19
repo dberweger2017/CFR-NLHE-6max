@@ -1,3 +1,25 @@
+## Unpruned100BB3B diagnosis — existing-trace readout
+
+[Report](docs/reports/nplayer-bb100-diagnosis/results.md),
+[compact results/input trace hashes/analyzer identity](docs/reports/nplayer-bb100-diagnosis/analysis.json),
+[all path/pot strata and example references](docs/reports/nplayer-bb100-diagnosis/paths.csv),
+[absolute and position intervals](docs/reports/nplayer-bb100-diagnosis/returns.csv),
+[read-only analyzer](docs/reports/nplayer-bb100-diagnosis/analyze.py).
+Owner authorized this short diagnosis October19; it reads eight preexisting
+`comparison-{nodes,clock}/evaluation/*-baseline/play-0.jsonl` files under
+`bb128:/home/dberweger/nplayer-pruning-strength-20261019/evaluation-recovery-v1/`.
+393,216 initial hands, two disjoint cohorts of the same fixed unpruned PR3503B
+policy. Reproductions are proofs, not extra statistical samples. Existing
+SHA256/proof receipts were checked and decision counters reconciled; no new
+training, play, model loading or engine replay. Parent PR352 status was open
+when inspected; source roots, protected PR350 inputs and all failures remain
+untouched. Only compact output returned to ignored
+`results/bb100-diagnosis-20261019/analysis.json`; it is split into readable JSON
+and complete strata CSV for Git. No raw traces were copied. Archival/Drive
+acceptance for the new diagnosis remains pending; no cleanup or upload claimed.
+The report gives the read-only recomputation/retrieval path and preserves the
+baseline checkpoint/policy pins. No archive restoration link exists yet.
+
 ## PR352 — verified final pruning comparison; original failure preserved
 
 **Final completion October19,18:13:14UTC:** recovery supervisor525334 exited,

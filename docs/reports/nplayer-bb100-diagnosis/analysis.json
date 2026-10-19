@@ -1,0 +1,1203 @@
+{
+  "status": "complete",
+  "scope": "post-hoc fixed unpruned PR350 3B; existing PR352 scripted hands only",
+  "baseline_policy_sha256": "c602c3727df28160a9807716d3c9211d988e420c33ed7b0c04c2fd899afef06b",
+  "parent_results_sha256": "6a14ad28314f98770db9bf6665b4513cef09a336e0ad0fd8c95d88a524eb7a9a",
+  "statistical_unit": "six-hand deal block; cohorts pooled equally; exploratory family of four scripts",
+  "provenance": [
+    {
+      "phase": "nodes",
+      "case": "random-baseline",
+      "path": "/home/dberweger/nplayer-pruning-strength-20261019/evaluation-recovery-v1/comparison-nodes/evaluation/random-baseline/play-0.jsonl",
+      "sha256": "44c22d2e4fc7ed4c76e7415a7801b17d6d23e428f838cd0b1cca2a28c4982461",
+      "hands": 49152,
+      "off_menu_actions": 0
+    },
+    {
+      "phase": "clock",
+      "case": "random-baseline",
+      "path": "/home/dberweger/nplayer-pruning-strength-20261019/evaluation-recovery-v1/comparison-clock/evaluation/random-baseline/play-0.jsonl",
+      "sha256": "bce200d11fd7bb88fe652c35743333b04f42abd2c91b026e0aff0fd793177d6d",
+      "hands": 49152,
+      "off_menu_actions": 0
+    },
+    {
+      "phase": "nodes",
+      "case": "check-call-baseline",
+      "path": "/home/dberweger/nplayer-pruning-strength-20261019/evaluation-recovery-v1/comparison-nodes/evaluation/check-call-baseline/play-0.jsonl",
+      "sha256": "647703bab9045c94f033b9efd5847c46d44a70ce34d565149db258f58074bf11",
+      "hands": 49152,
+      "off_menu_actions": 0
+    },
+    {
+      "phase": "clock",
+      "case": "check-call-baseline",
+      "path": "/home/dberweger/nplayer-pruning-strength-20261019/evaluation-recovery-v1/comparison-clock/evaluation/check-call-baseline/play-0.jsonl",
+      "sha256": "88b135bbf1affe41d3c08d1419b7d62e4b588415ef1b1b7bd23354f31cf9ea44",
+      "hands": 49152,
+      "off_menu_actions": 0
+    },
+    {
+      "phase": "nodes",
+      "case": "tight-aggressive-baseline",
+      "path": "/home/dberweger/nplayer-pruning-strength-20261019/evaluation-recovery-v1/comparison-nodes/evaluation/tight-aggressive-baseline/play-0.jsonl",
+      "sha256": "6ed41ee2fb5e4574f9cc1094c90d3c0a4d648e7e57e1d0223a079cb8412f7497",
+      "hands": 49152,
+      "off_menu_actions": 0
+    },
+    {
+      "phase": "clock",
+      "case": "tight-aggressive-baseline",
+      "path": "/home/dberweger/nplayer-pruning-strength-20261019/evaluation-recovery-v1/comparison-clock/evaluation/tight-aggressive-baseline/play-0.jsonl",
+      "sha256": "14b14a37882a5eb89a415fd05ec7ceed3ca2ec1a9e615322826761b2d0dcd9b4",
+      "hands": 49152,
+      "off_menu_actions": 0
+    },
+    {
+      "phase": "nodes",
+      "case": "pot-pressure-baseline",
+      "path": "/home/dberweger/nplayer-pruning-strength-20261019/evaluation-recovery-v1/comparison-nodes/evaluation/pot-pressure-baseline/play-0.jsonl",
+      "sha256": "de3bdc7a17abbcc74e43a6f56c2cb11a7f6f6697ce21336e06194a21bbdd5425",
+      "hands": 49152,
+      "off_menu_actions": 0
+    },
+    {
+      "phase": "clock",
+      "case": "pot-pressure-baseline",
+      "path": "/home/dberweger/nplayer-pruning-strength-20261019/evaluation-recovery-v1/comparison-clock/evaluation/pot-pressure-baseline/play-0.jsonl",
+      "sha256": "9437dd530811a7f66273552b5b3ed9d2198221dd3fc2515884b1b818ecc0e139",
+      "hands": 49152,
+      "off_menu_actions": 0
+    }
+  ],
+  "by_bot": {
+    "random": {
+      "hands": 98304,
+      "return95": {
+        "mean_bb100": 312.74998982747394,
+        "se_bb100": 11.383851302972795,
+        "lower": 290.43640275798583,
+        "upper": 335.06357689696205,
+        "blocks": 16384
+      },
+      "return_family95": {
+        "mean_bb100": 312.74998982747394,
+        "se_bb100": 11.383851302972795,
+        "lower": 284.3133410719674,
+        "upper": 341.1866385829805,
+        "blocks": 16384
+      },
+      "cohorts": [
+        {
+          "mean_bb100": 308.87603759765625,
+          "se_bb100": 16.09600446162447,
+          "lower": 277.32378616801327,
+          "upper": 340.42828902729923,
+          "blocks": 8192
+        },
+        {
+          "mean_bb100": 316.6239420572917,
+          "se_bb100": 16.103257449555628,
+          "lower": 285.0574729316133,
+          "upper": 348.1904111829701,
+          "blocks": 8192
+        }
+      ],
+      "by_seat": [
+        {
+          "mean_bb100": 309.25445556640625,
+          "se_bb100": 21.613397995640813,
+          "lower": 266.8898440471667,
+          "upper": 351.6190670856458,
+          "blocks": 16384
+        },
+        {
+          "mean_bb100": 308.0436706542969,
+          "se_bb100": 21.78123496314295,
+          "lower": 265.35008041878933,
+          "upper": 350.7372608898044,
+          "blocks": 16384
+        },
+        {
+          "mean_bb100": 320.95184326171875,
+          "se_bb100": 21.328029107394123,
+          "lower": 279.14658581039055,
+          "upper": 362.75710071304695,
+          "blocks": 16384
+        }
+      ],
+      "by_position": [
+        {
+          "mean_bb100": 318.83392333984375,
+          "se_bb100": 22.677735141014356,
+          "lower": 274.3830952202186,
+          "upper": 363.2847514594689,
+          "blocks": 16384
+        },
+        {
+          "mean_bb100": 367.6063537597656,
+          "se_bb100": 21.139668697880072,
+          "lower": 326.1703032039139,
+          "upper": 409.0424043156174,
+          "blocks": 16384
+        },
+        {
+          "mean_bb100": 251.8096923828125,
+          "se_bb100": 20.85364033180393,
+          "lower": 210.93428854316625,
+          "upper": 292.68509622245875,
+          "blocks": 16384
+        }
+      ],
+      "coverage": [
+        {
+          "street": "preflop",
+          "decisions": 124008,
+          "misses": 172,
+          "missing_fraction": 0.0013870072898522676
+        },
+        {
+          "street": "flop",
+          "decisions": 37074,
+          "misses": 271,
+          "missing_fraction": 0.007309704914495334
+        },
+        {
+          "street": "turn",
+          "decisions": 16875,
+          "misses": 482,
+          "missing_fraction": 0.028562962962962964
+        },
+        {
+          "street": "river",
+          "decisions": 8360,
+          "misses": 411,
+          "missing_fraction": 0.04916267942583732
+        }
+      ],
+      "river": {
+        "hands": 6053,
+        "two_live_hands": 5970,
+        "decisions": 8360,
+        "two_live_decisions": 8218
+      },
+      "pot_bands": {
+        "5-20BB": {
+          "hands": 26241,
+          "sum_bb100": -1605725.0,
+          "examples": [
+            {
+              "root": 20261019351102,
+              "block": 0,
+              "permutation": 0,
+              "hand": 0
+            },
+            {
+              "root": 20261019351202,
+              "block": 0,
+              "permutation": 0,
+              "hand": 0
+            }
+          ],
+          "frequency": 0.266937255859375,
+          "conditional_bb100": -61.19145611828817,
+          "contribution_bb100": -16.334279378255207
+        },
+        "<5BB": {
+          "hands": 32626,
+          "sum_bb100": -918450.0,
+          "examples": [
+            {
+              "root": 20261019351102,
+              "block": 0,
+              "permutation": 1,
+              "hand": 1
+            },
+            {
+              "root": 20261019351202,
+              "block": 2,
+              "permutation": 0,
+              "hand": 12
+            }
+          ],
+          "frequency": 0.3318888346354167,
+          "conditional_bb100": -28.15086127628272,
+          "contribution_bb100": -9.34295654296875
+        },
+        ">=50BB": {
+          "hands": 27493,
+          "sum_bb100": 33377350.0,
+          "examples": [
+            {
+              "root": 20261019351102,
+              "block": 0,
+              "permutation": 2,
+              "hand": 2
+            },
+            {
+              "root": 20261019351202,
+              "block": 0,
+              "permutation": 4,
+              "hand": 4
+            }
+          ],
+          "frequency": 0.2796732584635417,
+          "conditional_bb100": 1214.030844214891,
+          "contribution_bb100": 339.53196207682294
+        },
+        "20-50BB": {
+          "hands": 11944,
+          "sum_bb100": -108600.0,
+          "examples": [
+            {
+              "root": 20261019351102,
+              "block": 1,
+              "permutation": 3,
+              "hand": 9
+            },
+            {
+              "root": 20261019351202,
+              "block": 0,
+              "permutation": 1,
+              "hand": 1
+            }
+          ],
+          "frequency": 0.12150065104166667,
+          "conditional_bb100": -9.092431346282652,
+          "contribution_bb100": -1.104736328125
+        }
+      },
+      "recurring_costly_paths": [
+        {
+          "path": "BB: call -> fold-flop",
+          "hands": 1750,
+          "sum_bb100": -862450.0,
+          "examples": [
+            {
+              "root": 20261019351102,
+              "block": 0,
+              "permutation": 3,
+              "hand": 3
+            },
+            {
+              "root": 20261019351202,
+              "block": 0,
+              "permutation": 5,
+              "hand": 5
+            }
+          ],
+          "frequency": 0.017801920572916668,
+          "conditional_bb100": -492.8285714285714,
+          "contribution_bb100": -8.773295084635416
+        },
+        {
+          "path": "BB: call -> fold-turn",
+          "hands": 619,
+          "sum_bb100": -602250.0,
+          "examples": [
+            {
+              "root": 20261019351102,
+              "block": 23,
+              "permutation": 4,
+              "hand": 142
+            },
+            {
+              "root": 20261019351202,
+              "block": 8,
+              "permutation": 2,
+              "hand": 50
+            }
+          ],
+          "frequency": 0.006296793619791667,
+          "conditional_bb100": -972.9402261712439,
+          "contribution_bb100": -6.12640380859375
+        },
+        {
+          "path": "BTN: raise/call -> fold-flop",
+          "hands": 437,
+          "sum_bb100": -423300.0,
+          "examples": [
+            {
+              "root": 20261019351102,
+              "block": 96,
+              "permutation": 0,
+              "hand": 576
+            },
+            {
+              "root": 20261019351202,
+              "block": 32,
+              "permutation": 3,
+              "hand": 195
+            }
+          ],
+          "frequency": 0.004445393880208333,
+          "conditional_bb100": -968.649885583524,
+          "contribution_bb100": -4.3060302734375
+        },
+        {
+          "path": "BB: call -> fold-river",
+          "hands": 318,
+          "sum_bb100": -418150.0,
+          "examples": [
+            {
+              "root": 20261019351102,
+              "block": 43,
+              "permutation": 0,
+              "hand": 258
+            },
+            {
+              "root": 20261019351202,
+              "block": 149,
+              "permutation": 4,
+              "hand": 898
+            }
+          ],
+          "frequency": 0.00323486328125,
+          "conditional_bb100": -1314.937106918239,
+          "contribution_bb100": -4.253641764322917
+        },
+        {
+          "path": "BB: check -> fold-flop",
+          "hands": 2337,
+          "sum_bb100": -368800.0,
+          "examples": [
+            {
+              "root": 20261019351102,
+              "block": 1,
+              "permutation": 0,
+              "hand": 6
+            },
+            {
+              "root": 20261019351202,
+              "block": 2,
+              "permutation": 4,
+              "hand": 16
+            }
+          ],
+          "frequency": 0.023773193359375,
+          "conditional_bb100": -157.80915703893882,
+          "contribution_bb100": -3.7516276041666665
+        }
+      ]
+    },
+    "check-call": {
+      "hands": 98304,
+      "return95": {
+        "mean_bb100": 252.5970458984375,
+        "se_bb100": 10.759680291046259,
+        "lower": 231.50690191953476,
+        "upper": 273.68718987734024,
+        "blocks": 16384
+      },
+      "return_family95": {
+        "mean_bb100": 252.5970458984375,
+        "se_bb100": 10.759680291046259,
+        "lower": 225.7195647178701,
+        "upper": 279.4745270790049,
+        "blocks": 16384
+      },
+      "cohorts": [
+        {
+          "mean_bb100": 241.6778564453125,
+          "se_bb100": 15.244019329561256,
+          "lower": 211.7957119770131,
+          "upper": 271.5600009136119,
+          "blocks": 8192
+        },
+        {
+          "mean_bb100": 263.5162353515625,
+          "se_bb100": 15.188874553633541,
+          "lower": 233.7421886313254,
+          "upper": 293.2902820717996,
+          "blocks": 8192
+        }
+      ],
+      "by_seat": [
+        {
+          "mean_bb100": 293.03436279296875,
+          "se_bb100": 22.38194596784522,
+          "lower": 249.1633136333866,
+          "upper": 336.90541195255093,
+          "blocks": 16384
+        },
+        {
+          "mean_bb100": 260.46600341796875,
+          "se_bb100": 21.587370294052672,
+          "lower": 218.15240902554763,
+          "upper": 302.7795978103899,
+          "blocks": 16384
+        },
+        {
+          "mean_bb100": 204.290771484375,
+          "se_bb100": 20.997084811296947,
+          "lower": 163.13420085875984,
+          "upper": 245.44734210999016,
+          "blocks": 16384
+        }
+      ],
+      "by_position": [
+        {
+          "mean_bb100": 230.6243896484375,
+          "se_bb100": 16.58900605220339,
+          "lower": 198.10813297127572,
+          "upper": 263.1406463255993,
+          "blocks": 16384
+        },
+        {
+          "mean_bb100": 200.4150390625,
+          "se_bb100": 20.077710797273795,
+          "lower": 161.06054152843808,
+          "upper": 239.76953659656192,
+          "blocks": 16384
+        },
+        {
+          "mean_bb100": 326.751708984375,
+          "se_bb100": 27.004605881225512,
+          "lower": 273.8197434684006,
+          "upper": 379.6836745003494,
+          "blocks": 16384
+        }
+      ],
+      "coverage": [
+        {
+          "street": "preflop",
+          "decisions": 98304,
+          "misses": 0,
+          "missing_fraction": 0.0
+        },
+        {
+          "street": "flop",
+          "decisions": 54796,
+          "misses": 0,
+          "missing_fraction": 0.0
+        },
+        {
+          "street": "turn",
+          "decisions": 54796,
+          "misses": 46,
+          "missing_fraction": 0.000839477334111979
+        },
+        {
+          "street": "river",
+          "decisions": 54372,
+          "misses": 4794,
+          "missing_fraction": 0.08817038181416906
+        }
+      ],
+      "river": {
+        "hands": 54372,
+        "two_live_hands": 0,
+        "decisions": 54372,
+        "two_live_decisions": 0
+      },
+      "pot_bands": {
+        "<5BB": {
+          "hands": 56400,
+          "sum_bb100": -1694100.0,
+          "examples": [
+            {
+              "root": 20261019351103,
+              "block": 0,
+              "permutation": 0,
+              "hand": 0
+            },
+            {
+              "root": 20261019351203,
+              "block": 0,
+              "permutation": 0,
+              "hand": 0
+            }
+          ],
+          "frequency": 0.57373046875,
+          "conditional_bb100": -30.03723404255319,
+          "contribution_bb100": -17.2332763671875
+        },
+        ">=50BB": {
+          "hands": 8130,
+          "sum_bb100": 19690000.0,
+          "examples": [
+            {
+              "root": 20261019351103,
+              "block": 0,
+              "permutation": 2,
+              "hand": 2
+            },
+            {
+              "root": 20261019351203,
+              "block": 3,
+              "permutation": 2,
+              "hand": 20
+            }
+          ],
+          "frequency": 0.08270263671875,
+          "conditional_bb100": 2421.8942189421896,
+          "contribution_bb100": 200.29703776041666
+        },
+        "20-50BB": {
+          "hands": 11966,
+          "sum_bb100": 5635900.0,
+          "examples": [
+            {
+              "root": 20261019351103,
+              "block": 0,
+              "permutation": 3,
+              "hand": 3
+            },
+            {
+              "root": 20261019351203,
+              "block": 2,
+              "permutation": 2,
+              "hand": 14
+            }
+          ],
+          "frequency": 0.12172444661458333,
+          "conditional_bb100": 470.9928129700819,
+          "contribution_bb100": 57.331339518229164
+        },
+        "5-20BB": {
+          "hands": 21808,
+          "sum_bb100": 1199500.0,
+          "examples": [
+            {
+              "root": 20261019351103,
+              "block": 1,
+              "permutation": 0,
+              "hand": 6
+            },
+            {
+              "root": 20261019351203,
+              "block": 0,
+              "permutation": 3,
+              "hand": 3
+            }
+          ],
+          "frequency": 0.22184244791666666,
+          "conditional_bb100": 55.002751283932504,
+          "contribution_bb100": 12.201944986979166
+        }
+      },
+      "recurring_costly_paths": []
+    },
+    "tight-aggressive": {
+      "hands": 98304,
+      "return95": {
+        "mean_bb100": 46.897379557291664,
+        "se_bb100": 3.76805056163567,
+        "lower": 39.511590508260895,
+        "upper": 54.283168606322434,
+        "blocks": 16384
+      },
+      "return_family95": {
+        "mean_bb100": 46.897379557291664,
+        "se_bb100": 3.76805056163567,
+        "lower": 37.484859359822,
+        "upper": 56.309899754761325,
+        "blocks": 16384
+      },
+      "cohorts": [
+        {
+          "mean_bb100": 52.38494873046875,
+          "se_bb100": 5.513032903004759,
+          "lower": 41.5780058826196,
+          "upper": 63.1918915783179,
+          "blocks": 8192
+        },
+        {
+          "mean_bb100": 41.409810384114586,
+          "se_bb100": 5.137645601516068,
+          "lower": 31.33872186261737,
+          "upper": 51.4808989056118,
+          "blocks": 8192
+        }
+      ],
+      "by_seat": [
+        {
+          "mean_bb100": 43.976593017578125,
+          "se_bb100": 6.889058149054564,
+          "lower": 30.473289544565162,
+          "upper": 57.47989649059109,
+          "blocks": 16384
+        },
+        {
+          "mean_bb100": 50.53558349609375,
+          "se_bb100": 7.00299744125546,
+          "lower": 36.80894661424606,
+          "upper": 64.26222037794145,
+          "blocks": 16384
+        },
+        {
+          "mean_bb100": 46.179962158203125,
+          "se_bb100": 7.2240908647437685,
+          "lower": 32.01995811227369,
+          "upper": 60.33996620413256,
+          "blocks": 16384
+        }
+      ],
+      "by_position": [
+        {
+          "mean_bb100": 40.058135986328125,
+          "se_bb100": 6.799059152419777,
+          "lower": 26.731240338235757,
+          "upper": 53.38503163442049,
+          "blocks": 16384
+        },
+        {
+          "mean_bb100": 53.2501220703125,
+          "se_bb100": 7.78036990287469,
+          "lower": 37.999750588801405,
+          "upper": 68.5004935518236,
+          "blocks": 16384
+        },
+        {
+          "mean_bb100": 47.383880615234375,
+          "se_bb100": 6.474816610539059,
+          "lower": 34.69253562546782,
+          "upper": 60.07522560500093,
+          "blocks": 16384
+        }
+      ],
+      "coverage": [
+        {
+          "street": "preflop",
+          "decisions": 74422,
+          "misses": 1,
+          "missing_fraction": 1.343688694203327e-05
+        },
+        {
+          "street": "flop",
+          "decisions": 19968,
+          "misses": 0,
+          "missing_fraction": 0.0
+        },
+        {
+          "street": "turn",
+          "decisions": 10267,
+          "misses": 0,
+          "missing_fraction": 0.0
+        },
+        {
+          "street": "river",
+          "decisions": 5559,
+          "misses": 2,
+          "missing_fraction": 0.0003597769382982551
+        }
+      ],
+      "river": {
+        "hands": 4496,
+        "two_live_hands": 4434,
+        "decisions": 5559,
+        "two_live_decisions": 5479
+      },
+      "pot_bands": {
+        "<5BB": {
+          "hands": 91569,
+          "sum_bb100": 3922900.0,
+          "examples": [
+            {
+              "root": 20261019351104,
+              "block": 0,
+              "permutation": 0,
+              "hand": 0
+            },
+            {
+              "root": 20261019351204,
+              "block": 0,
+              "permutation": 0,
+              "hand": 0
+            }
+          ],
+          "frequency": 0.931488037109375,
+          "conditional_bb100": 42.840917777850585,
+          "contribution_bb100": 39.905802408854164
+        },
+        "5-20BB": {
+          "hands": 4463,
+          "sum_bb100": -21050.0,
+          "examples": [
+            {
+              "root": 20261019351104,
+              "block": 0,
+              "permutation": 1,
+              "hand": 1
+            },
+            {
+              "root": 20261019351204,
+              "block": 0,
+              "permutation": 3,
+              "hand": 3
+            }
+          ],
+          "frequency": 0.045399983723958336,
+          "conditional_bb100": -4.716558368810217,
+          "contribution_bb100": -0.21413167317708334
+        },
+        ">=50BB": {
+          "hands": 1499,
+          "sum_bb100": 1087425.0,
+          "examples": [
+            {
+              "root": 20261019351104,
+              "block": 35,
+              "permutation": 0,
+              "hand": 210
+            },
+            {
+              "root": 20261019351204,
+              "block": 9,
+              "permutation": 0,
+              "hand": 54
+            }
+          ],
+          "frequency": 0.015248616536458334,
+          "conditional_bb100": 725.4336224149433,
+          "contribution_bb100": 11.061859130859375
+        },
+        "20-50BB": {
+          "hands": 773,
+          "sum_bb100": -379075.0,
+          "examples": [
+            {
+              "root": 20261019351104,
+              "block": 59,
+              "permutation": 0,
+              "hand": 354
+            },
+            {
+              "root": 20261019351204,
+              "block": 18,
+              "permutation": 0,
+              "hand": 108
+            }
+          ],
+          "frequency": 0.007863362630208334,
+          "conditional_bb100": -490.3945666235446,
+          "contribution_bb100": -3.8561503092447915
+        }
+      },
+      "recurring_costly_paths": [
+        {
+          "path": "SB: call -> fold-river",
+          "hands": 395,
+          "sum_bb100": -180500.0,
+          "examples": [
+            {
+              "root": 20261019351104,
+              "block": 58,
+              "permutation": 3,
+              "hand": 351
+            },
+            {
+              "root": 20261019351204,
+              "block": 164,
+              "permutation": 0,
+              "hand": 984
+            }
+          ],
+          "frequency": 0.004018147786458333,
+          "conditional_bb100": -456.9620253164557,
+          "contribution_bb100": -1.8361409505208333
+        },
+        {
+          "path": "SB: call -> fold-turn",
+          "hands": 456,
+          "sum_bb100": -139350.0,
+          "examples": [
+            {
+              "root": 20261019351104,
+              "block": 8,
+              "permutation": 0,
+              "hand": 48
+            },
+            {
+              "root": 20261019351204,
+              "block": 77,
+              "permutation": 0,
+              "hand": 462
+            }
+          ],
+          "frequency": 0.004638671875,
+          "conditional_bb100": -305.5921052631579,
+          "contribution_bb100": -1.41754150390625
+        },
+        {
+          "path": "SB: call -> fold-flop",
+          "hands": 454,
+          "sum_bb100": -101550.0,
+          "examples": [
+            {
+              "root": 20261019351104,
+              "block": 13,
+              "permutation": 3,
+              "hand": 81
+            },
+            {
+              "root": 20261019351204,
+              "block": 85,
+              "permutation": 3,
+              "hand": 513
+            }
+          ],
+          "frequency": 0.004618326822916667,
+          "conditional_bb100": -223.6784140969163,
+          "contribution_bb100": -1.03302001953125
+        },
+        {
+          "path": "BB: call -> fold-flop",
+          "hands": 135,
+          "sum_bb100": -58800.0,
+          "examples": [
+            {
+              "root": 20261019351104,
+              "block": 216,
+              "permutation": 3,
+              "hand": 1299
+            },
+            {
+              "root": 20261019351204,
+              "block": 130,
+              "permutation": 0,
+              "hand": 780
+            }
+          ],
+          "frequency": 0.001373291015625,
+          "conditional_bb100": -435.55555555555554,
+          "contribution_bb100": -0.59814453125
+        },
+        {
+          "path": "BTN: call -> fold-turn",
+          "hands": 192,
+          "sum_bb100": -57550.0,
+          "examples": [
+            {
+              "root": 20261019351104,
+              "block": 160,
+              "permutation": 2,
+              "hand": 962
+            },
+            {
+              "root": 20261019351204,
+              "block": 85,
+              "permutation": 2,
+              "hand": 512
+            }
+          ],
+          "frequency": 0.001953125,
+          "conditional_bb100": -299.7395833333333,
+          "contribution_bb100": -0.5854288736979166
+        }
+      ]
+    },
+    "pot-pressure": {
+      "hands": 98304,
+      "return95": {
+        "mean_bb100": 30.77545166015625,
+        "se_bb100": 5.312011725082114,
+        "lower": 20.36333075421922,
+        "upper": 41.18757256609328,
+        "blocks": 16384
+      },
+      "return_family95": {
+        "mean_bb100": 30.77545166015625,
+        "se_bb100": 5.312011725082114,
+        "lower": 17.506145202169964,
+        "upper": 44.04475811814254,
+        "blocks": 16384
+      },
+      "cohorts": [
+        {
+          "mean_bb100": 31.3385009765625,
+          "se_bb100": 7.350855274238852,
+          "lower": 16.928960125062673,
+          "upper": 45.74804182806233,
+          "blocks": 8192
+        },
+        {
+          "mean_bb100": 30.21240234375,
+          "se_bb100": 7.6708287342553945,
+          "lower": 15.175632350675006,
+          "upper": 45.249172336825,
+          "blocks": 8192
+        }
+      ],
+      "by_seat": [
+        {
+          "mean_bb100": 37.7685546875,
+          "se_bb100": 10.844649567434075,
+          "lower": 16.51186168257335,
+          "upper": 59.025247692426646,
+          "blocks": 16384
+        },
+        {
+          "mean_bb100": 22.66998291015625,
+          "se_bb100": 10.686423375230929,
+          "lower": 1.7234304562992122,
+          "upper": 43.61653536401329,
+          "blocks": 16384
+        },
+        {
+          "mean_bb100": 31.8878173828125,
+          "se_bb100": 10.86143192946072,
+          "lower": 10.59822912246246,
+          "upper": 53.177405643162544,
+          "blocks": 16384
+        }
+      ],
+      "by_position": [
+        {
+          "mean_bb100": 31.291961669921875,
+          "se_bb100": 11.007861061927835,
+          "lower": 9.715356379055866,
+          "upper": 52.86856696078789,
+          "blocks": 16384
+        },
+        {
+          "mean_bb100": 39.22271728515625,
+          "se_bb100": 11.671833798922217,
+          "lower": 16.3446531923098,
+          "upper": 62.1007813780027,
+          "blocks": 16384
+        },
+        {
+          "mean_bb100": 21.811676025390625,
+          "se_bb100": 9.61092386060663,
+          "lower": 2.9732196300699947,
+          "upper": 40.65013242071126,
+          "blocks": 16384
+        }
+      ],
+      "coverage": [
+        {
+          "street": "preflop",
+          "decisions": 85263,
+          "misses": 2,
+          "missing_fraction": 2.345683356203746e-05
+        },
+        {
+          "street": "flop",
+          "decisions": 23908,
+          "misses": 1,
+          "missing_fraction": 4.1827003513468296e-05
+        },
+        {
+          "street": "turn",
+          "decisions": 13120,
+          "misses": 13,
+          "missing_fraction": 0.0009908536585365854
+        },
+        {
+          "street": "river",
+          "decisions": 7250,
+          "misses": 23,
+          "missing_fraction": 0.003172413793103448
+        }
+      ],
+      "river": {
+        "hands": 5679,
+        "two_live_hands": 5587,
+        "decisions": 7250,
+        "two_live_decisions": 7124
+      },
+      "pot_bands": {
+        "<5BB": {
+          "hands": 83351,
+          "sum_bb100": 2368200.0,
+          "examples": [
+            {
+              "root": 20261019351105,
+              "block": 0,
+              "permutation": 0,
+              "hand": 0
+            },
+            {
+              "root": 20261019351205,
+              "block": 0,
+              "permutation": 0,
+              "hand": 0
+            }
+          ],
+          "frequency": 0.8478902180989584,
+          "conditional_bb100": 28.41237657616585,
+          "contribution_bb100": 24.090576171875
+        },
+        "20-50BB": {
+          "hands": 1742,
+          "sum_bb100": -234325.0,
+          "examples": [
+            {
+              "root": 20261019351105,
+              "block": 2,
+              "permutation": 2,
+              "hand": 14
+            },
+            {
+              "root": 20261019351205,
+              "block": 1,
+              "permutation": 3,
+              "hand": 9
+            }
+          ],
+          "frequency": 0.017720540364583332,
+          "conditional_bb100": -134.51492537313433,
+          "contribution_bb100": -2.3836771647135415
+        },
+        "5-20BB": {
+          "hands": 9736,
+          "sum_bb100": -307250.0,
+          "examples": [
+            {
+              "root": 20261019351105,
+              "block": 3,
+              "permutation": 0,
+              "hand": 18
+            },
+            {
+              "root": 20261019351205,
+              "block": 0,
+              "permutation": 2,
+              "hand": 2
+            }
+          ],
+          "frequency": 0.09903971354166667,
+          "conditional_bb100": -31.55813475760066,
+          "contribution_bb100": -3.1255086263020835
+        },
+        ">=50BB": {
+          "hands": 3475,
+          "sum_bb100": 1198725.0,
+          "examples": [
+            {
+              "root": 20261019351105,
+              "block": 11,
+              "permutation": 3,
+              "hand": 69
+            },
+            {
+              "root": 20261019351205,
+              "block": 3,
+              "permutation": 3,
+              "hand": 21
+            }
+          ],
+          "frequency": 0.035349527994791664,
+          "conditional_bb100": 344.9568345323741,
+          "contribution_bb100": 12.194061279296875
+        }
+      },
+      "recurring_costly_paths": [
+        {
+          "path": "BB: call -> fold-turn",
+          "hands": 244,
+          "sum_bb100": -201600.0,
+          "examples": [
+            {
+              "root": 20261019351105,
+              "block": 101,
+              "permutation": 2,
+              "hand": 608
+            },
+            {
+              "root": 20261019351205,
+              "block": 29,
+              "permutation": 4,
+              "hand": 178
+            }
+          ],
+          "frequency": 0.0024820963541666665,
+          "conditional_bb100": -826.2295081967213,
+          "contribution_bb100": -2.05078125
+        },
+        {
+          "path": "SB: raise/call -> showdown",
+          "hands": 158,
+          "sum_bb100": -179900.0,
+          "examples": [
+            {
+              "root": 20261019351105,
+              "block": 528,
+              "permutation": 2,
+              "hand": 3170
+            },
+            {
+              "root": 20261019351205,
+              "block": 251,
+              "permutation": 0,
+              "hand": 1506
+            }
+          ],
+          "frequency": 0.0016072591145833333,
+          "conditional_bb100": -1138.607594936709,
+          "contribution_bb100": -1.8300374348958333
+        },
+        {
+          "path": "BB: call -> fold-flop",
+          "hands": 333,
+          "sum_bb100": -155150.0,
+          "examples": [
+            {
+              "root": 20261019351105,
+              "block": 13,
+              "permutation": 0,
+              "hand": 78
+            },
+            {
+              "root": 20261019351205,
+              "block": 29,
+              "permutation": 2,
+              "hand": 176
+            }
+          ],
+          "frequency": 0.003387451171875,
+          "conditional_bb100": -465.9159159159159,
+          "contribution_bb100": -1.5782674153645833
+        },
+        {
+          "path": "SB: call -> fold-turn",
+          "hands": 480,
+          "sum_bb100": -144800.0,
+          "examples": [
+            {
+              "root": 20261019351105,
+              "block": 110,
+              "permutation": 1,
+              "hand": 661
+            },
+            {
+              "root": 20261019351205,
+              "block": 138,
+              "permutation": 2,
+              "hand": 830
+            }
+          ],
+          "frequency": 0.0048828125,
+          "conditional_bb100": -301.6666666666667,
+          "contribution_bb100": -1.4729817708333333
+        },
+        {
+          "path": "SB: call -> fold-river",
+          "hands": 349,
+          "sum_bb100": -143100.0,
+          "examples": [
+            {
+              "root": 20261019351105,
+              "block": 40,
+              "permutation": 3,
+              "hand": 243
+            },
+            {
+              "root": 20261019351205,
+              "block": 8,
+              "permutation": 0,
+              "hand": 48
+            }
+          ],
+          "frequency": 0.0035502115885416665,
+          "conditional_bb100": -410.02865329512895,
+          "contribution_bb100": -1.4556884765625
+        }
+      ]
+    }
+  },
+  "analyzer_sha256": "c0546475fea47d8a3c74b90f564afb1082877c38714c4c8d307fa610c3bd8aa7",
+  "parent_receipt": "docs/reports/nplayer-pruning-strength/metadata.json",
+  "selection": "all path/pot groups in paths.csv; displayed paths have >=100 hands, negative realized contribution, exclude immediate preflop folds, top five per opponent by negative contribution; post-hoc descriptive"
+}
