@@ -1,0 +1,1240 @@
+{
+  "status": {
+    "status": "complete",
+    "at": 1792433594.5199997
+  },
+  "launch": {
+    "epoch": 1792431843.404022,
+    "deadline_epoch": null,
+    "resource_policy": {
+      "cpu_stop_c": 90,
+      "thermistor15_stop_c": 100,
+      "runtime_limit_seconds": null,
+      "rss_limit_bytes": null,
+      "address_limit_bytes": null,
+      "disk_check_enabled": false,
+      "swap_check_enabled": false
+    },
+    "pid": 525334,
+    "source_commit": "5ce973c98c152ebb08a5a717cc76d4dbfe0bbd08",
+    "config_sha256": "a2c00c6bb71e38bda8a5a63e9901f218c53b8ed1e5cc2ef01ec15d6046b8748c"
+  },
+  "source_config_sha256": "a2c00c6bb71e38bda8a5a63e9901f218c53b8ed1e5cc2ef01ec15d6046b8748c",
+  "results_sha256": "6a14ad28314f98770db9bf6665b4513cef09a336e0ad0fd8c95d88a524eb7a9a",
+  "stages": {
+    "verify-baseline": {
+      "returncode": 0,
+      "wall_seconds": 24.982573343993863,
+      "cpu_seconds": 24.979649000000002,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 49344512
+      }
+    },
+    "evaluate-clock": {
+      "returncode": 0,
+      "wall_seconds": 663.8559363459935,
+      "cpu_seconds": 823.9532550000002,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 70902759424
+      }
+    },
+    "read-clock": {
+      "returncode": 0,
+      "wall_seconds": 26.1656519859971,
+      "cpu_seconds": 26.162285999999668,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 140111872
+      }
+    },
+    "evaluate-nodes": {
+      "returncode": 0,
+      "wall_seconds": 571.2176181369869,
+      "cpu_seconds": 755.63148,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 70901592064
+      }
+    },
+    "verify-clock": {
+      "returncode": 0,
+      "wall_seconds": 30.743120900006033,
+      "cpu_seconds": 26.464647999999976,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 47796224
+      }
+    },
+    "verify-nodes": {
+      "returncode": 0,
+      "wall_seconds": 24.592940541013377,
+      "cpu_seconds": 24.588468000000002,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 49946624
+      }
+    },
+    "read-nodes": {
+      "returncode": 0,
+      "wall_seconds": 26.389761168014957,
+      "cpu_seconds": 26.29772599999992,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 140726272
+      }
+    },
+    "audit-clock": {
+      "returncode": 0,
+      "wall_seconds": 383.1506225920166,
+      "cpu_seconds": 2654.243978,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 394010624
+      }
+    }
+  },
+  "phases": {
+    "nodes": {
+      "proof": {
+        "status": "passed",
+        "manifest_sha256": "881bd5fb63d14d6b7b999baa1e0d63e764b3cccafc9464df68b869ad3ac97214",
+        "cases": 10,
+        "hands": 491520
+      },
+      "cost": {
+        "native_wall_seconds": 518.0565133620112,
+        "replay_wall_seconds": 16.64991754500079,
+        "json_scan_seconds": 0,
+        "input_verification_seconds": 36.42027906401199,
+        "native_load_seconds": 424.8198313900001,
+        "native_play_seconds": 9.164777686,
+        "trace_bytes": 2647055524,
+        "policy_loads": 2,
+        "cases": 10,
+        "blocks": 8192
+      },
+      "summaries": {
+        "direct-0": {
+          "hands": 49152,
+          "load_seconds": 424.819742544,
+          "play_seconds": 0.477318062,
+          "decisions_by_identity_street": [
+            [
+              53073,
+              24585,
+              15691,
+              10224
+            ],
+            [
+              53160,
+              24572,
+              15728,
+              10194
+            ],
+            [
+              53147,
+              24569,
+              15782,
+              10229
+            ]
+          ],
+          "misses_by_identity_street": [
+            [
+              12,
+              28,
+              37,
+              46
+            ],
+            [
+              11,
+              29,
+              32,
+              41
+            ],
+            [
+              13,
+              22,
+              40,
+              51
+            ]
+          ],
+          "trace_sha256": "5aacb9cb37dff7920a9829a492a7fbe7f389c6d6ab12acb4d7df24f26e250e44",
+          "new_weight_tables": 2,
+          "resident_weight_tables": 2,
+          "resident_card_table_sets": 1
+        },
+        "direct-1": {
+          "hands": 49152,
+          "load_seconds": 7.222e-06,
+          "play_seconds": 0.475526238,
+          "decisions_by_identity_street": [
+            [
+              53105,
+              24688,
+              15721,
+              10304
+            ],
+            [
+              53020,
+              24718,
+              15742,
+              10417
+            ],
+            [
+              53129,
+              24682,
+              15633,
+              10355
+            ]
+          ],
+          "misses_by_identity_street": [
+            [
+              23,
+              24,
+              37,
+              46
+            ],
+            [
+              14,
+              21,
+              40,
+              55
+            ],
+            [
+              20,
+              19,
+              35,
+              42
+            ]
+          ],
+          "trace_sha256": "5641e394d863f9ac37110918043f895a7a12fc96a36ec4aa65676eebba467045",
+          "new_weight_tables": 0,
+          "resident_weight_tables": 2,
+          "resident_card_table_sets": 1
+        },
+        "random-candidate": {
+          "hands": 49152,
+          "load_seconds": 3.311e-06,
+          "play_seconds": 0.473381841,
+          "decisions_by_identity_street": [
+            [
+              61888,
+              18385,
+              8338,
+              4088
+            ],
+            [
+              71535,
+              31161,
+              14401,
+              6178
+            ],
+            [
+              71434,
+              30970,
+              14436,
+              6273
+            ]
+          ],
+          "misses_by_identity_street": [
+            [
+              70,
+              165,
+              229,
+              218
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "trace_sha256": "fe3ab2b8566ae79db3eaf3288792aec338018f888ba97a1f696df6b6c8aa992c",
+          "new_weight_tables": 0,
+          "resident_weight_tables": 2,
+          "resident_card_table_sets": 1
+        },
+        "random-baseline": {
+          "hands": 49152,
+          "load_seconds": 6.422e-06,
+          "play_seconds": 0.478099801,
+          "decisions_by_identity_street": [
+            [
+              61805,
+              18282,
+              8224,
+              4158
+            ],
+            [
+              71550,
+              31224,
+              14310,
+              6218
+            ],
+            [
+              71356,
+              30719,
+              14287,
+              6318
+            ]
+          ],
+          "misses_by_identity_street": [
+            [
+              79,
+              130,
+              212,
+              213
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "trace_sha256": "44c22d2e4fc7ed4c76e7415a7801b17d6d23e428f838cd0b1cca2a28c4982461",
+          "new_weight_tables": 0,
+          "resident_weight_tables": 2,
+          "resident_card_table_sets": 1
+        },
+        "check-call-candidate": {
+          "hands": 49152,
+          "load_seconds": 3.171e-06,
+          "play_seconds": 0.742099191,
+          "decisions_by_identity_street": [
+            [
+              49152,
+              27400,
+              27400,
+              27196
+            ],
+            [
+              54309,
+              53818,
+              55317,
+              56050
+            ],
+            [
+              54309,
+              53818,
+              55317,
+              56050
+            ]
+          ],
+          "misses_by_identity_street": [
+            [
+              0,
+              0,
+              18,
+              2348
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "trace_sha256": "011506ba35895b6a5cbd87a79dcbcb5aab0666727fc20fb79a6e40a0b1305f17",
+          "new_weight_tables": 0,
+          "resident_weight_tables": 2,
+          "resident_card_table_sets": 1
+        },
+        "check-call-baseline": {
+          "hands": 49152,
+          "load_seconds": 4.744e-06,
+          "play_seconds": 0.698527117,
+          "decisions_by_identity_street": [
+            [
+              49152,
+              27420,
+              27420,
+              27224
+            ],
+            [
+              54685,
+              54122,
+              55489,
+              56357
+            ],
+            [
+              54685,
+              54122,
+              55489,
+              56357
+            ]
+          ],
+          "misses_by_identity_street": [
+            [
+              0,
+              0,
+              28,
+              2480
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "trace_sha256": "647703bab9045c94f033b9efd5847c46d44a70ce34d565149db258f58074bf11",
+          "new_weight_tables": 0,
+          "resident_weight_tables": 2,
+          "resident_card_table_sets": 1
+        },
+        "tight-aggressive-candidate": {
+          "hands": 49152,
+          "load_seconds": 4.204e-06,
+          "play_seconds": 0.286807192,
+          "decisions_by_identity_street": [
+            [
+              37222,
+              9964,
+              4992,
+              2784
+            ],
+            [
+              43281,
+              6436,
+              3369,
+              1898
+            ],
+            [
+              43275,
+              6488,
+              3370,
+              1929
+            ]
+          ],
+          "misses_by_identity_street": [
+            [
+              0,
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "trace_sha256": "830be5d1a234303dad618d54a89d663328b65789116994c403269530acb1cb68",
+          "new_weight_tables": 0,
+          "resident_weight_tables": 2,
+          "resident_card_table_sets": 1
+        },
+        "tight-aggressive-baseline": {
+          "hands": 49152,
+          "load_seconds": 3.586e-06,
+          "play_seconds": 0.283164697,
+          "decisions_by_identity_street": [
+            [
+              37293,
+              9987,
+              5146,
+              2794
+            ],
+            [
+              43313,
+              6487,
+              3410,
+              1885
+            ],
+            [
+              43318,
+              6481,
+              3387,
+              1891
+            ]
+          ],
+          "misses_by_identity_street": [
+            [
+              1,
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "trace_sha256": "6ed41ee2fb5e4574f9cc1094c90d3c0a4d648e7e57e1d0223a079cb8412f7497",
+          "new_weight_tables": 0,
+          "resident_weight_tables": 2,
+          "resident_card_table_sets": 1
+        },
+        "pot-pressure-candidate": {
+          "hands": 49152,
+          "load_seconds": 4.264e-06,
+          "play_seconds": 0.31509053,
+          "decisions_by_identity_street": [
+            [
+              42504,
+              12039,
+              6569,
+              3719
+            ],
+            [
+              45320,
+              8643,
+              4651,
+              2479
+            ],
+            [
+              45299,
+              8626,
+              4617,
+              2408
+            ]
+          ],
+          "misses_by_identity_street": [
+            [
+              2,
+              2,
+              12,
+              10
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "trace_sha256": "e65679830b613bb1bbec05984f434da21321354371c41d006a4d8a55e4d07bbb",
+          "new_weight_tables": 0,
+          "resident_weight_tables": 2,
+          "resident_card_table_sets": 1
+        },
+        "pot-pressure-baseline": {
+          "hands": 49152,
+          "load_seconds": 4.345e-06,
+          "play_seconds": 0.321740879,
+          "decisions_by_identity_street": [
+            [
+              42499,
+              12004,
+              6674,
+              3762
+            ],
+            [
+              45325,
+              8602,
+              4701,
+              2445
+            ],
+            [
+              45315,
+              8608,
+              4688,
+              2406
+            ]
+          ],
+          "misses_by_identity_street": [
+            [
+              1,
+              1,
+              5,
+              9
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "trace_sha256": "de3bdc7a17abbcc74e43a6f56c2cb11a7f6f6697ce21336e06194a21bbdd5425",
+          "new_weight_tables": 0,
+          "resident_weight_tables": 2,
+          "resident_card_table_sets": 1
+        }
+      },
+      "readout_sha256": "0724ff4f172386b335bbafe2550fbd2ece02d9af474adcb56388a8cb8729bf7e"
+    },
+    "clock": {
+      "proof": {
+        "status": "passed",
+        "manifest_sha256": "ada4ec82de4dbd8b6296652b6459786ee14ad6860396347b55fdf2ed51d78a3c",
+        "cases": 10,
+        "hands": 491520
+      },
+      "cost": {
+        "native_wall_seconds": 581.9934474070033,
+        "replay_wall_seconds": 16.471049739979208,
+        "json_scan_seconds": 0,
+        "input_verification_seconds": 65.29649494102341,
+        "native_load_seconds": 423.72269579899995,
+        "native_play_seconds": 9.076141058000001,
+        "trace_bytes": 2643032978,
+        "policy_loads": 2,
+        "cases": 10,
+        "blocks": 8192
+      },
+      "summaries": {
+        "direct-0": {
+          "hands": 49152,
+          "load_seconds": 423.722578469,
+          "play_seconds": 0.480673719,
+          "decisions_by_identity_street": [
+            [
+              53125,
+              24754,
+              15678,
+              9888
+            ],
+            [
+              53044,
+              24796,
+              15787,
+              10103
+            ],
+            [
+              53084,
+              24632,
+              15658,
+              10010
+            ]
+          ],
+          "misses_by_identity_street": [
+            [
+              9,
+              31,
+              40,
+              50
+            ],
+            [
+              5,
+              13,
+              42,
+              41
+            ],
+            [
+              13,
+              20,
+              36,
+              39
+            ]
+          ],
+          "trace_sha256": "a5cc8d72226993b8ba641202ab06f94c367eac85c87151467356c39ea5188679",
+          "new_weight_tables": 2,
+          "resident_weight_tables": 2,
+          "resident_card_table_sets": 1
+        },
+        "direct-1": {
+          "hands": 49152,
+          "load_seconds": 7.581e-06,
+          "play_seconds": 0.474571884,
+          "decisions_by_identity_street": [
+            [
+              53128,
+              24655,
+              15660,
+              10150
+            ],
+            [
+              53097,
+              24462,
+              15703,
+              10020
+            ],
+            [
+              53176,
+              24448,
+              15578,
+              10066
+            ]
+          ],
+          "misses_by_identity_street": [
+            [
+              16,
+              20,
+              38,
+              43
+            ],
+            [
+              9,
+              18,
+              42,
+              67
+            ],
+            [
+              17,
+              22,
+              29,
+              50
+            ]
+          ],
+          "trace_sha256": "3a269dc2d8545501ac59c9fe0eb31f0279c94b6f8429f73f58b64c935b81398c",
+          "new_weight_tables": 0,
+          "resident_weight_tables": 2,
+          "resident_card_table_sets": 1
+        },
+        "random-candidate": {
+          "hands": 49152,
+          "load_seconds": 4.007e-06,
+          "play_seconds": 0.471923621,
+          "decisions_by_identity_street": [
+            [
+              62149,
+              18842,
+              8406,
+              4057
+            ],
+            [
+              71341,
+              31179,
+              14213,
+              6166
+            ],
+            [
+              71252,
+              30847,
+              14342,
+              6091
+            ]
+          ],
+          "misses_by_identity_street": [
+            [
+              78,
+              162,
+              233,
+              214
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "trace_sha256": "a2a0c837e9d94cd6803686b516a274e29544d1838127d4741a933d9cd4d1209f",
+          "new_weight_tables": 0,
+          "resident_weight_tables": 2,
+          "resident_card_table_sets": 1
+        },
+        "random-baseline": {
+          "hands": 49152,
+          "load_seconds": 3.759e-06,
+          "play_seconds": 0.505745228,
+          "decisions_by_identity_street": [
+            [
+              62203,
+              18792,
+              8651,
+              4202
+            ],
+            [
+              71370,
+              31045,
+              14481,
+              6208
+            ],
+            [
+              71245,
+              30893,
+              14510,
+              6122
+            ]
+          ],
+          "misses_by_identity_street": [
+            [
+              93,
+              141,
+              270,
+              198
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "trace_sha256": "bce200d11fd7bb88fe652c35743333b04f42abd2c91b026e0aff0fd793177d6d",
+          "new_weight_tables": 0,
+          "resident_weight_tables": 2,
+          "resident_card_table_sets": 1
+        },
+        "check-call-candidate": {
+          "hands": 49152,
+          "load_seconds": 3.467e-06,
+          "play_seconds": 0.712603458,
+          "decisions_by_identity_street": [
+            [
+              49152,
+              27244,
+              27244,
+              27030
+            ],
+            [
+              54326,
+              53678,
+              55263,
+              55938
+            ],
+            [
+              54326,
+              53678,
+              55263,
+              55938
+            ]
+          ],
+          "misses_by_identity_street": [
+            [
+              0,
+              0,
+              24,
+              2306
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "trace_sha256": "1947a18a4a0e3c084dc6554acf30ce19ebfc253b555f8543ab0068722db042a5",
+          "new_weight_tables": 0,
+          "resident_weight_tables": 2,
+          "resident_card_table_sets": 1
+        },
+        "check-call-baseline": {
+          "hands": 49152,
+          "load_seconds": 4.376e-06,
+          "play_seconds": 0.721678252,
+          "decisions_by_identity_street": [
+            [
+              49152,
+              27376,
+              27376,
+              27148
+            ],
+            [
+              54773,
+              53935,
+              55355,
+              56174
+            ],
+            [
+              54773,
+              53935,
+              55355,
+              56174
+            ]
+          ],
+          "misses_by_identity_street": [
+            [
+              0,
+              0,
+              18,
+              2314
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "trace_sha256": "88b135bbf1affe41d3c08d1419b7d62e4b588415ef1b1b7bd23354f31cf9ea44",
+          "new_weight_tables": 0,
+          "resident_weight_tables": 2,
+          "resident_card_table_sets": 1
+        },
+        "tight-aggressive-candidate": {
+          "hands": 49152,
+          "load_seconds": 4.374e-06,
+          "play_seconds": 0.288304558,
+          "decisions_by_identity_street": [
+            [
+              37151,
+              9754,
+              4989,
+              2723
+            ],
+            [
+              43251,
+              6376,
+              3366,
+              1889
+            ],
+            [
+              43250,
+              6404,
+              3367,
+              1888
+            ]
+          ],
+          "misses_by_identity_street": [
+            [
+              0,
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "trace_sha256": "37456b7a8cb7e0d061990bdaad7e9dbc7028ffb766693c6db630ca2d283138cc",
+          "new_weight_tables": 0,
+          "resident_weight_tables": 2,
+          "resident_card_table_sets": 1
+        },
+        "tight-aggressive-baseline": {
+          "hands": 49152,
+          "load_seconds": 3.775e-06,
+          "play_seconds": 0.28085057,
+          "decisions_by_identity_street": [
+            [
+              37129,
+              9981,
+              5121,
+              2765
+            ],
+            [
+              43268,
+              6500,
+              3455,
+              1920
+            ],
+            [
+              43271,
+              6518,
+              3442,
+              1912
+            ]
+          ],
+          "misses_by_identity_street": [
+            [
+              0,
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "trace_sha256": "14b14a37882a5eb89a415fd05ec7ceed3ca2ec1a9e615322826761b2d0dcd9b4",
+          "new_weight_tables": 0,
+          "resident_weight_tables": 2,
+          "resident_card_table_sets": 1
+        },
+        "pot-pressure-candidate": {
+          "hands": 49152,
+          "load_seconds": 3.219e-06,
+          "play_seconds": 0.323725587,
+          "decisions_by_identity_street": [
+            [
+              42625,
+              11896,
+              6434,
+              3405
+            ],
+            [
+              45374,
+              8395,
+              4502,
+              2180
+            ],
+            [
+              45388,
+              8343,
+              4478,
+              2184
+            ]
+          ],
+          "misses_by_identity_street": [
+            [
+              0,
+              1,
+              12,
+              22
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "trace_sha256": "c0c717747c0ff66c77a5a4338fea779cf4e363d0bf9bbf24710cfebb575977ba",
+          "new_weight_tables": 0,
+          "resident_weight_tables": 2,
+          "resident_card_table_sets": 1
+        },
+        "pot-pressure-baseline": {
+          "hands": 49152,
+          "load_seconds": 3.718e-06,
+          "play_seconds": 0.3151646,
+          "decisions_by_identity_street": [
+            [
+              42764,
+              11904,
+              6446,
+              3488
+            ],
+            [
+              45438,
+              8350,
+              4545,
+              2207
+            ],
+            [
+              45460,
+              8371,
+              4540,
+              2183
+            ]
+          ],
+          "misses_by_identity_street": [
+            [
+              1,
+              0,
+              8,
+              14
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "trace_sha256": "9437dd530811a7f66273552b5b3ed9d2198221dd3fc2515884b1b818ecc0e139",
+          "new_weight_tables": 0,
+          "resident_weight_tables": 2,
+          "resident_card_table_sets": 1
+        }
+      },
+      "readout_sha256": "2ecf21fb2aaf03ecdb395745f292b4a64cee6ee72719a323a61d6b0504896fde"
+    }
+  },
+  "audits": {
+    "nodes": {
+      "by_street": [
+        {
+          "entries": 3380418,
+          "visits": 18946120,
+          "zero_visit_entries": 1533128,
+          "decisions": 78147062,
+          "missing_decisions": 3882623,
+          "missing_decision_share": 0.04968354408512504,
+          "visits_per_key": 5.604667825103286
+        },
+        {
+          "entries": 13534780,
+          "visits": 56014827,
+          "zero_visit_entries": 7029042,
+          "decisions": 181792420,
+          "missing_decisions": 15769498,
+          "missing_decision_share": 0.08674452983243196,
+          "visits_per_key": 4.138584225233066
+        },
+        {
+          "entries": 50433918,
+          "visits": 149668690,
+          "zero_visit_entries": 24692019,
+          "decisions": 444882419,
+          "missing_decisions": 60786073,
+          "missing_decision_share": 0.13663401924633034,
+          "visits_per_key": 2.9676197276602623
+        },
+        {
+          "entries": 182651003,
+          "visits": 338568676,
+          "zero_visit_entries": 89079920,
+          "decisions": 1007050436,
+          "missing_decisions": 228227453,
+          "missing_decision_share": 0.22662961540091126,
+          "visits_per_key": 1.853637102666225
+        }
+      ],
+      "status": "passed",
+      "checkpoint_sha256": "19b572881073c93d05ed6f50db8c25b482489bedc1eebeaa7fff33c20f2d95a7",
+      "policy_sha256": "d29f1d4a69557425b2a9a816d1ecd87f5056eacb465412387c0b8ca2033b05ef",
+      "strategy": "average",
+      "last_average_street": 3,
+      "rows": 250000119,
+      "average_rows": 250000119,
+      "current_rows": 0,
+      "zero_mass_rows": 79715556
+    },
+    "clock": {
+      "by_street": [
+        {
+          "entries": 3380418,
+          "visits": 18917622,
+          "zero_visit_entries": 1533488,
+          "decisions": 78019775,
+          "missing_decisions": 3879361,
+          "missing_decision_share": 0.04972279143332572,
+          "visits_per_key": 5.596237506722542
+        },
+        {
+          "entries": 13534780,
+          "visits": 55922254,
+          "zero_visit_entries": 7030594,
+          "decisions": 181475254,
+          "missing_decisions": 15754621,
+          "missing_decision_share": 0.08681415593996082,
+          "visits_per_key": 4.13174458690869
+        },
+        {
+          "entries": 50433918,
+          "visits": 149411538,
+          "zero_visit_entries": 24697976,
+          "decisions": 444045991,
+          "missing_decisions": 60716570,
+          "missing_decision_share": 0.1367348680781131,
+          "visits_per_key": 2.9625209368028873
+        },
+        {
+          "entries": 182651003,
+          "visits": 338007704,
+          "zero_visit_entries": 89105471,
+          "decisions": 1005092477,
+          "missing_decisions": 227915144,
+          "missing_decision_share": 0.22676037202097177,
+          "visits_per_key": 1.8505658247055998
+        }
+      ],
+      "status": "passed",
+      "checkpoint_sha256": "89e5fceedec1f3f7c937d6859cf0d703f17b4dd2f646c1ffd2cfc4b099fc8e8e",
+      "policy_sha256": "8535a0d1e20b5f7818a82850e166f2a4bb9d972ad27093c9cf1dcd0e37bbb174",
+      "strategy": "average",
+      "last_average_street": 3,
+      "rows": 250000119,
+      "average_rows": 250000119,
+      "current_rows": 0,
+      "zero_mass_rows": 79734186
+    }
+  },
+  "original_launch": {
+    "epoch": 1792428095.127937,
+    "deadline_epoch": null,
+    "resource_policy": {
+      "cpu_stop_c": 90,
+      "thermistor15_stop_c": 100,
+      "runtime_limit_seconds": null,
+      "rss_limit_bytes": null,
+      "address_limit_bytes": null,
+      "disk_check_enabled": false,
+      "swap_check_enabled": false
+    },
+    "pid": 517163,
+    "source_commit": "66150f3b5089edc4c4dabf66c2a3a439d565953f",
+    "config_sha256": "29828c1e260c871bfa7b6729d35a1b45486104203fcce488a753ec3a0ee4b9f2"
+  },
+  "original_failure": {
+    "error": "RuntimeError('evaluate-nodes failed with exit 1')",
+    "at": 1792430553.111579
+  },
+  "observed_epoch": 1792433643.3246415,
+  "supervisor_alive": false
+}

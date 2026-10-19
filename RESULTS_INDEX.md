@@ -1,4 +1,22 @@
-## PR352 — evaluation-only recovery running; original failure preserved
+## PR352 — verified final pruning comparison; original failure preserved
+
+**Final completion October19,18:13:14UTC:** recovery supervisor525334 exited,
+all eight stages returned0, status complete/results settled. Both matrices
+passed10-case proofs:983,040initial hands plus983,040exact reproductions,
+all independently replayed. [Final report](docs/reports/nplayer-pruning-strength/results.md),
+[precomputed results/model hashes](docs/reports/nplayer-pruning-strength/results.json),
+[completion/manifests/audits/cost receipt](docs/reports/nplayer-pruning-strength/metadata.json),
+[ten contrasts](docs/reports/nplayer-pruning-strength/results.csv),
+[singleton coverage](docs/reports/nplayer-pruning-strength/coverage.csv).
+No measured active-training saving; direct strength differences inconclusive.
+Compact final results were retrieved into ignored
+`results/pr352-final-20261019/`; remote results SHA256
+`6a14ad28314f98770db9bf6665b4513cef09a336e0ad0fd8c95d88a524eb7a9a`
+was verified locally. Raw checkpoints/averages/traces/logs/failures remain
+on bb128 in the exact original and recovery roots below. PR352 is open;
+no raw copying/archiving/cleanup was performed. Research-Cloud archival and
+Drive acceptance remain pending; no archive restoration link exists yet.
+
 
 [PR352](https://github.com/dberweger2017/CFR-NLHE-6max/pull/352),
 [protocol](docs/nplayer-pruning-strength-study.md),
@@ -33,8 +51,8 @@ launched17:44:02UTC asPID525334 at
 [Recovery launch/config/environment receipt](docs/reports/nplayer-pruning-strength/evaluation-recovery-launch.json),
 [21-test Linux and actual-parent qualification](docs/reports/nplayer-pruning-strength/evaluation-recovery-qualification.json).
 Frozen recovery controller`5ce973c98c152ebb08a5a717cc76d4dbfe0bbd08` uses the
-original unchanged native binaries and model bytes. It verifies model hashes,
-inherits the completed3B audit, then runs the original nodes and clock matrices
+original unchanged native binaries and model bytes. It verified model hashes,
+inherited the completed3B audit, then ran the original nodes and clock matrices
 with their replay/reproduction/readout barriers. No training is repeated.
 Original source/root/failures remain unchanged; raw models are read in place.
 The same temperature-only resource policy applies; disk/swap checks remain manual. All480 development/reproduction hands are fixture evidence

@@ -1,5 +1,7 @@
 # Three-player pruning: training-time savings versus strength cost
 
+**Completed October19:** [verified final results and compute costs](reports/nplayer-pruning-strength/results.md). No measured speed saving; direct strength differences remain inconclusive. The frozen protocol below is retained as the predeclared design.
+
 [Proposal351](https://github.com/dberweger2017/CFR-NLHE-6max/issues/351).
 **Owner authorized qualification and launch on October19 after the implementation
 was returned for review: “Perfect do those things and start the run.”**
