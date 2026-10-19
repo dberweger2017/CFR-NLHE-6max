@@ -1,0 +1,80 @@
+{
+  "status": "qualified-awaiting-ci",
+  "at": 1792427743.4094183,
+  "control_root": "/home/dberweger/nplayer-pruning-strength-20261019",
+  "study_root": "/home/dberweger/nplayer-pruning-strength-20261019/study-v1",
+  "source_commit": "66150f3b5089edc4c4dabf66c2a3a439d565953f",
+  "library_commit": "b9882e7e728847a58691995e64eabd4563ea0991",
+  "config_sha256": "29828c1e260c871bfa7b6729d35a1b45486104203fcce488a753ec3a0ee4b9f2",
+  "source_files": 683,
+  "train_sha256": "23b3a5605e470fd4398cf62dfb025aa8f69244f640704a6f4b9bb7e356b24537",
+  "arena_sha256": "a43a84a7d5a490cecce967982e835e9af31fbe06c76e43139a1eb7afee5aa1e1",
+  "qualification": {
+    "status": "passed",
+    "source_commit": "66150f3b5089edc4c4dabf66c2a3a439d565953f",
+    "library_commit": "b9882e7e728847a58691995e64eabd4563ea0991",
+    "fixture_only": true,
+    "node_active_seconds": 0.7568038950000002,
+    "clock_active_seconds": 5.003465017999998,
+    "continuation_active_seconds": 4.246661122999998,
+    "pruned_actions": 344,
+    "resumed_checkpoint_sha256": "f2b6bc5284639d8cdf64debe57fbee56349aae94d44d0bf0126d072c2d3f580a",
+    "uninterrupted_checkpoint_sha256": "f2b6bc5284639d8cdf64debe57fbee56349aae94d44d0bf0126d072c2d3f580a",
+    "final_fixture_hands": 240,
+    "reproduction_fixture_hands": 240,
+    "early_clock_one_iteration_overshoot": true,
+    "at": 1792427704.657461
+  },
+  "temperature_max_c": {
+    "Thermistor 15": 52.0,
+    "Package id 0": 60.0
+  },
+  "qualification_sampled_peak_rss_bytes": 1456754688,
+  "resource_policy": {
+    "cpu_stop_c": 90,
+    "thermistor15_stop_c": 100,
+    "runtime_limit_seconds": null,
+    "rss_limit_bytes": null,
+    "address_limit_bytes": null,
+    "disk_check_enabled": false,
+    "swap_check_enabled": false
+  },
+  "baseline_files": [
+    {
+      "path": "/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3/calibration-continuation/3000000000.gz",
+      "bytes": 9712092292,
+      "mtime_ns": 1792417231879962662,
+      "header_identity": {
+        "format": "nplayer-cfr-v1",
+        "players": 3,
+        "seed": 2026101935003,
+        "iteration": 212132,
+        "entries": 250000475,
+        "last_average_street": 3,
+        "sampling": "path-v1",
+        "roots_per_seat": 8,
+        "max_entries": 250000000,
+        "freeze_at_cap": true,
+        "nodes": 3000011203
+      }
+    },
+    {
+      "path": "/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3/calibration-continuation/3000000000-average.gz",
+      "bytes": 5600275976,
+      "mtime_ns": 1792417573979414113,
+      "header_identity": {
+        "format": "nplayer-policy-v1",
+        "players": 3,
+        "entries": 250000475,
+        "last_average_street": 3,
+        "source_checkpoint_sha256": "ea0c7dca97ae627b08a39d4196cdd824d6e0767d85ca64c829eae5dcceb2da6b"
+      }
+    }
+  ],
+  "qualification_files": {
+    "qualify.py": "f8aced29cdbfbbf79cff11deb7a68af3f0d28d82bb4de0b640617a7fb752320a",
+    "qualify_child.py": "afa9a5b0689795ccfec92ccdafbc0625c1abf72cd139a0ba2a2dd9e8f923d61f",
+    "deployment.json": "887bd59868943d184549deb3494e83e7a5052d6e469bc873529b4a565797dd3c",
+    "qualification/qualification-passed.json": "078aac60a53728c5290602934bf7180b14209e1de9c99c331626110079708620"
+  }
+}

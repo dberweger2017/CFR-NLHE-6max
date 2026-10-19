@@ -1,16 +1,33 @@
-## PR352 — pruning cost/strength study, implementation review only
+## PR352 — pruning cost/strength study, authorized qualification
 
 [PR352](https://github.com/dberweger2017/CFR-NLHE-6max/pull/352),
 [protocol](docs/nplayer-pruning-strength-study.md),
 [proposal351](https://github.com/dberweger2017/CFR-NLHE-6max/issues/351).
-The future per-PR namespace is`PR-352-nplayer-pruning-strength`; no folder has
-been created. The owner requested a fresh pruned3B comparison, then only the remaining time
-up to the historical unpruned630.740595090997s traversal and a second comparison.
-Code is prepared; **no benchmark, cost pilot, study release build, deployment or
-study training has started**. Only local correctness tests ran. No new raw model,
-trace, source bundle, per-PR run root or Drive upload/cleanup receipt exists.
-The owner explicitly requested returning before launch. Temperature-only resource
-stops; disk and swap inspection is manual, no runtime/RAM/address-space cap.
+The owner authorized qualification and launch on October19 after reviewing the
+implementation. Frozen controller/harness source`66150f3b5089edc4c4dabf66c2a3a439d565953f`,
+native library/arena`b9882e7e728847a58691995e64eabd4563ea0991`.
+Isolated active NVMe control/build/qualification root:
+`bb128:/home/dberweger/nplayer-pruning-strength-20261019/`.
+Per-PR archival namespace`PR-352-nplayer-pruning-strength`; no Drive upload or
+cleanup is claimed. Source bundle/partial Git object scope and hashes are in
+`deployment.json` under the control root; no research model payloads were copied
+into the deployed source. The existing K50 tables and managed Python are read-only
+shared inputs. Real-model qualification passed: exact resumed/uninterrupted checkpoint bytes,
+clock carry-over, early snapshot, two-model cache, both audit/replay/readout paths.
+16 focused Linux Python tests and4 release native example tests passed.
+Main configuration is frozen at
+`bb128:/home/dberweger/nplayer-pruning-strength-20261019/study-v1/config.json`;
+source66150f3b remains unchanged. [Compact qualification/pins](docs/reports/nplayer-pruning-strength/qualification.json).
+CI is queued; no main launch exists. All480 development/reproduction hands are
+fixture evidence only, with disjoint roots and no final-outcome inference.
+
+The two-stage comparison remains fresh pruned3B, then only the remaining time
+up to the unpruned630.740595090997s active traversal. Temperature-only automatic
+resource stops: CPU90°C/Thermistor15100°C, including missing required readings.
+Disk/swap inspection is manual; no runtime/RAM/address-space cap. Preflight
+manual sample16:31UTC:111.1GB available RAM,55.2GB free NVMe,1.083TB free HDD;
+swap26.406GB used of26.406GB. These are observations, not admission thresholds.
+All fixtures, logs, failed attempts and raw outputs remain preserved.
 
 The read-only dependency is PR350's
 `bb128:/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3/calibration-continuation/`:

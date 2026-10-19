@@ -1,8 +1,11 @@
 # Three-player pruning: training-time savings versus strength cost
 
 [Proposal351](https://github.com/dberweger2017/CFR-NLHE-6max/issues/351).
-**Implementation and review only. The owner explicitly requested returning
-before any benchmark, cost pilot or study training starts. Nothing is launched.**
+**Owner authorized qualification and launch on October19 after the implementation
+was returned for review: “Perfect do those things and start the run.”**
+The release build and small K50 qualification precede the full study. The frozen
+source is`66150f3b5089edc4c4dabf66c2a3a439d565953f`; later evidence commits do
+not change its settings. Main-run launch status is recorded in RESULTS_INDEX.
 PR350's cancelled10B campaign remains cancelled; this is a separate experiment.
 
 ## Question
@@ -170,20 +173,22 @@ Estimates are informational and never create a kill threshold. No arbitrary
 admission forecast gates or additional global deadline are introduced.
 No fan/OS/other-job changes, M1/M4 science, schedules or automatic retries.
 
-After owner approval, freeze source/config/cost and record the launch and temperature-only policy
-in a new per-PR root and RESULTS_INDEX before science. Current code is not
-configured or deployed on bb128. The cancelled12h/100GiB PR350readmission patch
+Freeze source/config/cost and record the launch and temperature-only policy
+in a new per-PR root and RESULTS_INDEX before science. The owner-authorized
+build and qualification use the isolated bb128 control root
+`/home/dberweger/nplayer-pruning-strength-20261019`; the main configuration
+is created only after qualification. No PR350 root is modified. The cancelled12h/100GiB PR350readmission patch
 is separate, retained and undeployed. All old failures/checkpoints stay intact.
 New raw models/traces belong in the indexed Research-Cloud per-PR root and eventual
 Drive archive; only compact reports/receipts enter Git. No cleanup or upload
 acceptance is claimed by this implementation PR.
 
-## Explicit commands (do not run before owner approval)
+## Explicit commands (owner approval recorded October19)
 
 ```sh
 python3.11 -m scripts.nplayer_pruning_strength build /ABS/OWNED/build
 python3.11 -m scripts.nplayer_pruning_strength configure /ABS/OWNED/study \
   --build-root /ABS/OWNED/build --tables /ABS/PINNED/K50 --python /ABS/MANAGED/python
-# Stop for the owner's launch decision; configure never runs training.
+# Qualification and CI precede the authorized launch; configure never runs training.
 python3.11 -m scripts.nplayer_pruning_strength run /ABS/OWNED/study
 ```
