@@ -179,7 +179,7 @@ fn run() -> Result<(),String> {
             if last_progress.elapsed().as_secs_f64()>=30. {
                 emit(json!({"event":"progress","nodes":t.counts.nodes,"iteration":t.iteration,"entries":t.table.len(),
                     "active_seconds":active,"monitor_seconds":monitor,"nodes_per_second":(t.counts.nodes-initial)as f64/active,
-                    "frozen_at":t.frozen_at,"allocation_bytes":{"index":t.table.allocation().index,"entries":t.table.allocation().entries,"values":t.table.allocation().values},"counts":multi_checkpoint::counts_json(&t.counts)}));
+                    "frozen_at":t.frozen_at,"allocation_bytes":{"index":t.table.allocation().index,"data":t.table.allocation().total()-t.table.allocation().index},"counts":multi_checkpoint::counts_json(&t.counts)}));
                 last_progress=Instant::now();
             }
         }

@@ -1,3 +1,25 @@
+## PR347 — contiguous storage, M1 validation and owner-authorized merge
+
+[PR347](https://github.com/dberweger2017/CFR-NLHE-6max/pull/347) merged October19
+14:48:06UTC as`950611b68840fa9b4c01a1e0b9e73c319b434930` after the owner-authorized
+fixed M1 check passed. [Results](docs/reports/pr347-m1/results.md),
+[compact source/protocol/identity/cost receipt](docs/reports/pr347-m1/receipt.json).
+Baseline`e0472485d1a09822889edd2bb1fa92b638dc7334`; tested PRhead`4b92f066cf974c5ab0e7d4c1811cf59976af428b`.
+All59 native integration tests and all identity/resource/performance gates pass.
+Fresh80M training/save/wall essentially unchanged; peak RSS2.201→2.127GiB.
+This is4threads/10Mkeys/one seed/two repeats per arm, not bb12816thread/250M evidence.
+
+Raw working root`/Users/dberweger/Local/cfr-nplayer-bb100-20261019/results/pr347-m1-20261019/`
+retains both pinned sources/binaries, original full protocol/runner, commands,
+resource/background-load samples, every checkpoint/export, results and input tables.
+It is protected and has not been archived or cleaned. Original K50 inputs are from
+mergedPR163: whole archive/member verification, Drive ID/member paths/pins and
+restore provenance are in[the existing receipt](docs/reports/cygnus-x1-artifacts/input-restoration.json).
+Research-Cloud destination remains`PR-347-store-entry-records`; upload acceptance,
+archive/member receipt and model retrieval IDs are pending. Do not treat the
+existing PR163 input archive as coverage for newly generated PR347 evidence.
+No bb128 job, source snapshot, setting or checkpoint was changed.
+
 ## PR350 — three-player 100 BB (authorized3B continuation active)
 
 [PR350](https://github.com/dberweger2017/CFR-NLHE-6max/pull/350),
