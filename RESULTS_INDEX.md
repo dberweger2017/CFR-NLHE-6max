@@ -10,7 +10,17 @@ instrumentation-on/off trajectories. The large PR350/352/353 input roots remain
 read-only protected dependencies; no copies, archival or cleanup through this
 PR. New metadata belongs to the new study root, bound to checkpoint/policy hashes.
 Archive namespace`PR-355-nplayer-bb100-10b`; Research-Cloud/Drive acceptance pending.
-Qualification root/proofs and retrieval provenance will be recorded when created.
+Qualification passed under source`ecb08ada`. Fresh owned bb128 root:
+`/home/dberweger/nplayer-bb100-10b-20261019/` contains source-v1, failedbuild-v1,
+successfulbuild-v2 and qualification-v1. Main-v1/config.json is prepared but no
+main launch exists. [Qualification report](docs/reports/nplayer-bb100-10b/qualification.md),
+[compact source/native/proof/config/temperature receipt](docs/reports/nplayer-bb100-10b/qualification.json),
+[informational75–94minute forecast](docs/reports/nplayer-bb100-10b/forecast.json).
+Compact metadata was retrieved into ignored`results/pr355-qualification/`;
+raw models/traces/mass metadata stay on bb128. The report gives retrieval and
+qualificationSHA256 verification. ManualNVMe18.50GB free is below the25.11GB
+predicted output before temporary/headroom needs; resolve space before launch.
+No resource guard beyond the owner's temperature policy was introduced.
 
 ## PR352 — verified final pruning comparison; original failure preserved
 
