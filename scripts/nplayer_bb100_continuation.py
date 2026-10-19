@@ -7,10 +7,13 @@ from concurrent.futures import ProcessPoolExecutor, as_completed
 import fcntl
 import gzip
 import io
+import mmap
+from contextlib import ExitStack
 import json
 import os
 from pathlib import Path
 import signal
+import shutil
 import statistics
 import subprocess
 import tarfile
@@ -61,7 +64,8 @@ def build(destination):
         archive.extractall(source, filter='data')
     base = source/'native/hu20-trainer/examples'
     (base/'nplayer_reference_bounded.rs').write_bytes((base/'nplayer_bounded.rs').read_bytes())
-    overlays = ('native/hu20-trainer/examples/nplayer_bounded.rs',
+    overlays = ('native/hu20-trainer/src/multi_policy.rs',
+                'native/hu20-trainer/examples/nplayer_bounded.rs',
                 'native/hu20-trainer/examples/support/nplayer_checkpoint_io.rs',
                 'native/hu20-trainer/examples/nplayer_continuation_arena.rs',
                 'native/hu20-trainer/examples/support/nplayer_mass_metadata.rs')
@@ -70,7 +74,7 @@ def build(destination):
         p.parent.mkdir(parents=True, exist_ok=True)
         p.write_bytes((SOURCE/name).read_bytes())
     files = {str(p.relative_to(source)):guard.sha(p) for p in source.rglob('*') if p.is_file()}
-    command = ['cargo', 'build', '--release', '--locked', '--manifest-path', str(source/'native/hu20-trainer/Cargo.toml')]
+    command = [shutil.which('cargo') or str(Path.home()/'.cargo/bin/cargo'), 'build', '--release', '--locked', '--manifest-path', str(source/'native/hu20-trainer/Cargo.toml')]
     for name in BINARY_NAMES.values():
         command += ['--example', name]
     subprocess.run(command, env=dict(os.environ, CARGO_BUILD_JOBS='2', CARGO_TARGET_DIR=str(destination/'target')), check=True)
@@ -235,6 +239,8 @@ def execute(c, root, stage):
         trained=bounded.events(result, 'trained')[-1], complete=bounded.events(result, 'complete')[-1]))
     stage('candidate-audit', audit_model(c['python'], candidate, root/'candidate-mass'))
     candidate = mass_model(candidate, root/'candidate-mass', KEYSET)
+    if load(root/'candidate-mass/receipt.json')['zero_mass_rows']>load(root/'baseline-mass/receipt.json')['zero_mass_rows']:
+        raise ValueError('zero-mass row count increased under unchanged cumulative averaging')
     folder = root/'comparison'
     folder.mkdir(exist_ok=False)
     guard.write(folder/'evaluation-manifest.json', dict(smoke=False, models=dict(baseline=baseline, candidate=candidate),
@@ -276,12 +282,32 @@ def native_manifest(root, m, diagnostics=True):
     return native
 
 
-def lookup_check(path, case, summary, m):
+class ZeroIndex:
+    """Read-only sorted16-byte keys; share file pages across replay workers."""
+    def __init__(self,path,stack):
+        f=stack.enter_context(Path(path).open('rb'))
+        size=Path(path).stat().st_size
+        if size%16:raise ValueError('invalid zero-key byte count')
+        self.count=size//16
+        self.data=stack.enter_context(mmap.mmap(f.fileno(),0,access=mmap.ACCESS_READ)) if size else b''
+    def __contains__(self,key):
+        raw=bytes.fromhex(key);low,high=0,self.count
+        while low<high:
+            middle=(low+high)//2
+            value=self.data[middle*16:(middle+1)*16]
+            if value<raw:low=middle+1
+            else:high=middle
+        return low<self.count and self.data[low*16:(low+1)*16]==raw
+
+
+def lookup_check(path,case,summary,m):
+    with ExitStack() as stack:
+        zero={a:ZeroIndex(Path(m['models'][a]['mass'])/'zero-keys.bin',stack) for a in ALIASES}
+        return _lookup_check(path,case,summary,m,zero)
+
+
+def _lookup_check(path, case, summary, m, zero):
     """Check diagnostic alignment and reconcile native counters without outcomes."""
-    zero = {}
-    for alias in ALIASES:
-        data = (Path(m['models'][alias]['mass'])/'zero-keys.bin').read_bytes()
-        zero[alias] = {data[i:i+16].hex() for i in range(0,len(data),16)}
     counts = [[[[0]*3 for _ in ALIASES] for _ in range(4)] for _ in range(3)]
     decisions = [[0]*4 for _ in range(3)]
     misses = [[0]*4 for _ in range(3)]
@@ -434,6 +460,7 @@ def read(root):
                          [('candidate','fast_by_position'),('baseline','production_by_position')]}))
     diagnostic=diagnostic_readout(root,m)
     guard.write(root/'results.json',dict(status='settled',rows=rows,models=m['models'],diagnostics=diagnostic,
+        mass_audits={a:load(Path(m['models'][a]['mass'])/'receipt.json') for a in ALIASES},
         direct_statistic='mean oriented singleton contrast, not pooled individual-player return',
         final_hands=proof['hands'],reproduction_hands=proof['hands'],
         improvement_evidence=rows[0]['score']['lower95_bb100']>0,no_automatic_adoption=True))

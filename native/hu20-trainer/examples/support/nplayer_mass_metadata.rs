@@ -1,11 +1,13 @@
 //! Checkpoint-audited original-average mass, independent of normalized policy rows.
-use hu20_trainer::{export::sha256_file, multi_policy::PolicyTable};
+use hu20_trainer::{
+    export::sha256_file,
+    multi_policy::{PolicyTable, Row},
+};
 use serde_json::Value;
 use std::path::Path;
 
 pub const LABELS: [&str; 3] = ["positive_mass", "zero_mass", "missing"];
 pub struct MassMetadata {
-    zero: Vec<[u8; 16]>,
     pub receipt_sha256: String,
     pub keyset_sha256: String,
 }
@@ -14,7 +16,7 @@ impl MassMetadata {
         directory: &Path,
         expected: &str,
         policy_sha: &str,
-        table: &PolicyTable,
+        table: &mut PolicyTable,
     ) -> Result<Self, String> {
         let receipt = directory.join("receipt.json");
         let data = directory.join("zero-keys.bin");
@@ -45,19 +47,30 @@ impl MassMetadata {
         {
             return Err("mass metadata lineage/counts differ".into());
         }
-        let bytes = std::fs::read(&data).map_err(|e| e.to_string())?;
-        if bytes.len() % 16 != 0 || bytes.len() as u64 / 16 != zeros {
+        if std::fs::metadata(&data).map_err(|e| e.to_string())?.len()
+            != zeros.checked_mul(16).ok_or("zero byte overflow")?
+        {
             return Err("mass metadata byte/count mismatch".into());
         }
-        let mut zero: Vec<[u8; 16]> = Vec::new();
-        for key in bytes.chunks_exact(16) {
-            let key: [u8; 16] = key.try_into().unwrap();
-            if zero.last().is_some_and(|old| old >= &key) {
+        // Row already has alignment padding. Tag it once while loading rather
+        // than retain tens of millions of zero-key hashes for every decision.
+        for row in table.rows.values_mut() {
+            row.original_average_mass = Some(true);
+        }
+        use std::io::Read;
+        let mut input =
+            std::io::BufReader::new(std::fs::File::open(&data).map_err(|e| e.to_string())?);
+        let mut previous = None;
+        for _ in 0..zeros {
+            let mut key = [0u8; 16];
+            input.read_exact(&mut key).map_err(|e| e.to_string())?;
+            if previous.is_some_and(|old| old >= key) {
                 return Err("zero mass keys not strictly sorted".into());
             }
+            previous = Some(key);
             let row = table
                 .rows
-                .get(&key)
+                .get_mut(&key)
                 .ok_or("zero mass key absent from policy")?;
             let uniform = 1. / row.probabilities.len() as f64;
             if row
@@ -67,21 +80,25 @@ impl MassMetadata {
             {
                 return Err("zero mass row does not use uniform fallback".into());
             }
-            zero.push(key);
+            row.original_average_mass = Some(false);
         }
         Ok(Self {
-            zero,
             receipt_sha256: expected.into(),
             keyset_sha256: keyset.into(),
         })
     }
-    pub fn classify(&self, key: &[u8; 16], found: bool) -> usize {
-        if !found {
-            2
-        } else if self.zero.binary_search(key).is_ok() {
-            1
-        } else {
-            0
+    #[cfg(test)]
+    pub fn classify(table: &PolicyTable, key: &[u8; 16]) -> Result<usize, String> {
+        Self::classify_row(table.rows.get(key))
+    }
+    pub fn classify_row(row: Option<&Row>) -> Result<usize, String> {
+        match row {
+            None => Ok(2),
+            Some(row) => match row.original_average_mass {
+                Some(true) => Ok(0),
+                Some(false) => Ok(1),
+                None => Err("original mass metadata not attached".into()),
+            },
         }
     }
 }
@@ -90,15 +107,17 @@ impl MassMetadata {
 mod tests {
     use super::*;
     #[test]
-    fn uniform_positive_mass_is_not_zero_mass_and_missing_is_distinct() {
-        let m = MassMetadata {
-            zero: vec![[2; 16]],
-            receipt_sha256: String::new(),
-            keyset_sha256: String::new(),
-        };
-        assert_eq!(LABELS[m.classify(&[1; 16], true)], "positive_mass");
-        assert_eq!(LABELS[m.classify(&[2; 16], true)], "zero_mass");
-        assert_eq!(LABELS[m.classify(&[3; 16], false)], "missing");
+    fn diagnostic_mass_tag_uses_existing_row_padding() {
+        struct LegacyRow {
+            _owner: u8,
+            _street: u8,
+            _code: u16,
+            _probabilities: Box<[f64]>,
+        }
+        assert_eq!(
+            std::mem::size_of::<hu20_trainer::multi_policy::Row>(),
+            std::mem::size_of::<LegacyRow>()
+        );
     }
     fn fixture() -> (std::path::PathBuf, PolicyTable, String) {
         use flate2::{write::GzEncoder, Compression};
@@ -148,26 +167,27 @@ mod tests {
     }
     #[test]
     fn audited_metadata_loads_and_wrong_model_binding_refuses() {
-        let (path, table, digest) = fixture();
+        let (path, mut table, digest) = fixture();
         let receipt = sha256_file(&path.join("receipt.json"));
-        let m = MassMetadata::load(&path, &receipt, &digest, &table).unwrap();
-        assert_eq!(m.classify(&[1; 16], true), 0);
-        assert_eq!(m.classify(&[2; 16], true), 1);
-        assert!(MassMetadata::load(&path, &receipt, &"c".repeat(64), &table).is_err());
+        let _m = MassMetadata::load(&path, &receipt, &digest, &mut table).unwrap();
+        assert_eq!(MassMetadata::classify(&table, &[1; 16]).unwrap(), 0);
+        assert_eq!(MassMetadata::classify(&table, &[2; 16]).unwrap(), 1);
+        assert_eq!(MassMetadata::classify(&table, &[3; 16]).unwrap(), 2);
+        assert!(MassMetadata::load(&path, &receipt, &"c".repeat(64), &mut table).is_err());
         std::fs::write(path.join("zero-keys.bin"), [3u8; 16]).unwrap();
-        assert!(MassMetadata::load(&path, &receipt, &digest, &table).is_err());
+        assert!(MassMetadata::load(&path, &receipt, &digest, &mut table).is_err());
         std::fs::remove_dir_all(path).unwrap();
     }
     #[test]
     fn incomplete_receipt_and_forged_counts_refuse() {
-        let (path, table, digest) = fixture();
+        let (path, mut table, digest) = fixture();
         let file = path.join("receipt.json");
         let mut r: Value = serde_json::from_slice(&std::fs::read(&file).unwrap()).unwrap();
         r["positive_mass_rows"] = serde_json::json!(2);
         std::fs::write(&file, r.to_string()).unwrap();
-        assert!(MassMetadata::load(&path, &sha256_file(&file), &digest, &table).is_err());
+        assert!(MassMetadata::load(&path, &sha256_file(&file), &digest, &mut table).is_err());
         std::fs::remove_file(&file).unwrap();
-        assert!(MassMetadata::load(&path, &"a".repeat(64), &digest, &table).is_err());
+        assert!(MassMetadata::load(&path, &"a".repeat(64), &digest, &mut table).is_err());
         std::fs::remove_dir_all(path).unwrap();
     }
 }

@@ -114,8 +114,12 @@ including the zero-hand failed startup. Recovery stages:1,751.098seconds wall,
 RSS is sampled and can miss brief peaks; CPU is child-process accounting, not
 an isolated active-traversal counter.
 
-Both audits checked every250,000,119row: all exports are averages, with seven
-zero-mass rows at3B and79 at equal time. At3B, represented keys by street are
+Both audits checked every250,000,119row: all exports are averages, with79,715,556
+zero-mass rows at3B and79,734,186 at equal time. The earlier prose said seven
+and79 because a truncated preview was misread; the committed audit JSON always
+contained the full counts. This correction changes neither strength nor timing
+results. Zero-mass rows are retained table entries, not a decision-frequency
+measurement. At3B, represented keys by street are
 3.38M/13.53M/50.43M/182.65M; visits per key are5.60/4.14/2.97/1.85.
 Training's cumulative missing-decision shares are4.97%/8.67%/13.66%/22.66%.
 These training diagnostics are different from evaluation coverage.

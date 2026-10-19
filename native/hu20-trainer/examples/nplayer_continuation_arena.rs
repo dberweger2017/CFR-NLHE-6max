@@ -11,7 +11,7 @@ use hu20_trainer::{
 use rand::{seq::SliceRandom, SeedableRng};
 use rayon::prelude::*;
 use serde_json::{json, Value};
-use std::{collections::HashMap, io::Write, path::Path, sync::Arc, time::Instant};
+use std::{io::Write, path::Path, sync::Arc, time::Instant};
 #[path = "support/nplayer_mass_metadata.rs"]
 mod mass;
 struct Model {
@@ -91,28 +91,27 @@ fn block(
                     misses[id][street] += policy.misses - old;
                     let lookup = if diagnostics {
                         let d = multi_holdem::observation_decision(&o, tables);
-                        let found = [
-                            models[0].table.rows.contains_key(&d.key),
-                            models[1].table.rows.contains_key(&d.key),
+                        let rows = [
+                            models[0].table.rows.get(&d.key),
+                            models[1].table.rows.get(&d.key),
                         ];
-                        for other in models {
-                            if let Some(row) = other.table.rows.get(&d.key) {
-                                if (row.owner as usize, row.street as usize, row.code)
-                                    != (d.owner, d.street, d.code)
-                                {
-                                    return Err(
-                                        "counterfactual lookup action identity mismatch".into()
-                                    );
-                                }
-                            }
-                        }
-                        if found[0] != found[1] {
+                        if rows[0].is_some() != rows[1].is_some() {
                             return Err("frozen membership differs on matched observation".into());
                         }
+                        for row in rows.iter().flatten() {
+                            if (row.owner as usize, row.street as usize, row.code)
+                                != (d.owner, d.street, d.code)
+                            {
+                                return Err("counterfactual lookup action identity mismatch".into());
+                            }
+                        }
                         let labels = [
-                            models[0].mass.classify(&d.key, found[0]),
-                            models[1].mass.classify(&d.key, found[1]),
+                            mass::MassMetadata::classify_row(rows[0])?,
+                            mass::MassMetadata::classify_row(rows[1])?,
                         ];
+                        if labels[0] == 0 && labels[1] == 1 {
+                            return Err("nonnegative cumulative average mass became zero".into());
+                        }
                         for i in 0..2 {
                             counts[id][street][i][labels[i]] += 1;
                         }
@@ -186,27 +185,19 @@ fn run() -> Result<(), String> {
         .as_bool()
         .ok_or("explicit diagnostics flag required")?;
     let loading = Instant::now();
-    let mut cache = HashMap::new();
     let mut list = Vec::new();
     for alias in ["baseline", "candidate"] {
         let p = &m["models"][alias];
         let digest = p["sha256"].as_str().ok_or("policy hash")?;
-        if !cache.contains_key(digest) {
-            cache.insert(
-                digest.to_string(),
-                Arc::new(PolicyTable::load(
-                    Path::new(p["path"].as_str().ok_or("policy path")?),
-                    digest,
-                )?),
-            );
-        }
-        let table = cache[digest].clone();
+        let mut table =
+            PolicyTable::load(Path::new(p["path"].as_str().ok_or("policy path")?), digest)?;
         let mass = mass::MassMetadata::load(
             Path::new(p["mass"].as_str().ok_or("mass path")?),
             p["mass_sha256"].as_str().ok_or("mass hash")?,
             digest,
-            &table,
+            &mut table,
         )?;
+        let table = Arc::new(table);
         if let Some(expected) = m["keyset_sha256"].as_str() {
             if mass.keyset_sha256 != expected {
                 return Err("wrong frozen keyset".into());
@@ -227,7 +218,7 @@ fn run() -> Result<(), String> {
     }
     let tables = EquityTables::load(Path::new(m["tables"].as_str().ok_or("tables")?), false)?;
     let mut load_seconds = loading.elapsed().as_secs_f64();
-    let mut new_tables = cache.len();
+    let mut new_tables = 2;
     for c in m["cases"].as_array().ok_or("cases")? {
         let root = c["root"].as_u64().ok_or("root")?;
         let blocks = c["blocks"].as_u64().ok_or("blocks")?;
@@ -265,7 +256,7 @@ fn run() -> Result<(), String> {
                 .map_err(|e| e.to_string())?,
         );
         let mut header = json!({"format":"nplayer-privileged-policy-replay-v1","harness":"nplayer-duplicate-v1","identity":models[0].table.identity,
-            "blocks":blocks,"hands":blocks*6,"seed":root,"policies":pins,"distinct_policy_instances":3,"loaded_weight_tables":cache.len(),
+            "blocks":blocks,"hands":blocks*6,"seed":root,"policies":pins,"distinct_policy_instances":3,"loaded_weight_tables":2,
             "seat_semantics":"fixed physical seats; button=block%3; permutation maps seat to identity; identity0 singleton"});
         if diagnostics {
             header["lookup_metadata"] = json!({"models":["baseline","candidate"],"statuses":mass::LABELS,
@@ -301,7 +292,7 @@ fn run() -> Result<(), String> {
             }
         }
         out.flush().map_err(|e| e.to_string())?;
-        let result = json!({"status":"passed","blocks":blocks,"hands":blocks*6,"new_weight_tables":new_tables,"resident_weight_tables":cache.len(),
+        let result = json!({"status":"passed","blocks":blocks,"hands":blocks*6,"new_weight_tables":new_tables,"resident_weight_tables":2,
             "resident_card_table_sets":1,"load_seconds":load_seconds,"play_seconds":tick.elapsed().as_secs_f64(),
             "decisions_by_identity_street":decisions,"misses_by_identity_street":misses,"lookup_counts":counts,"trace_sha256":sha256_file(trace)});
         let mut summary = std::fs::OpenOptions::new()

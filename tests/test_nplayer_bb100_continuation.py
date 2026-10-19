@@ -114,3 +114,19 @@ class MassAuditTests(unittest.TestCase):
 
 
 if __name__=='__main__':unittest.main()
+
+
+class ZeroIndexTests(unittest.TestCase):
+    def test_binary_membership_handles_empty_edges_and_gaps(self):
+        from contextlib import ExitStack
+        with tempfile.TemporaryDirectory() as d:
+            path=Path(d)/'zeros';path.write_bytes(bytes.fromhex('01'*16+'03'*16+'ff'*16))
+            with ExitStack() as stack:
+                index=s.ZeroIndex(path,stack)
+                for key in ['01','03','ff']:self.assertIn(key*16,index)
+                for key in ['00','02','fe']:self.assertNotIn(key*16,index)
+            path.write_bytes(b'')
+            with ExitStack() as stack:self.assertNotIn('01'*16,s.ZeroIndex(path,stack))
+            path.write_bytes(b'broken')
+            with ExitStack() as stack:
+                with self.assertRaises(ValueError):s.ZeroIndex(path,stack)

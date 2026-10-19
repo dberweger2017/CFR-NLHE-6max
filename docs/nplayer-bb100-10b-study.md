@@ -52,8 +52,10 @@ native build, qualification/configuration boundaries, temperature-only process
 supervision, exact continuation, audits, persistent mixed evaluation and global
 readout. `scripts.qualify_nplayer_bb100_continuation` runs only the small fixtures.
 The native training library is archived from PR350 source`b9882e7e`; no current
-storage/key changes enter the model. Native example overlays change only shared
-checkpoint I/O and the new mixed diagnostic evaluator. A separate historical
+storage/key changes enter the model. Overlays add shared
+checkpoint I/O, the mixed diagnostic evaluator and an optional original-mass
+tag in the inference Row’s existing alignment padding; native training, export
+bytes and sampling logic stay unchanged. A separate historical
 host is compiled unchanged for the checkpoint/trajectory qualification.
 
 The optional `--lookup-out NEW_DIRECTORY` flag of
@@ -97,3 +99,30 @@ absolute/seat/position returns, matched lookup transitions, coverage, descriptiv
 paths with replay references, pot bands and actionable river counts. Reproduction
 hands add no statistical samples. All source/native/config/metadata hashes and
 training/save/load/audit/play/replay costs remain separate in the receipts.
+
+
+## Large-table diagnostic storage
+
+The historical PR350 full audit reports79,729,265zero-average-mass rows out of
+250,000,475entries (31.89%). This is not the encountered lookup rate. Its compact
+receipt is at the retained PR350 root's
+`measurements/calibration-final-audit/stdout.log`, SHA256
+`4f9bfdb3b12c25acaec69c9bff230fc53fc3a8e0584f90264a2f59428f5f81b0`.
+The sorted zero-key file would occupy1,275,668,240bytes at that count. The
+native loader streams it once, attaching optional mass tags inside the existing
+inference-row padding; it retains no extra key set or per-decision search tree.
+The ordinary normalized loader leaves these tags unknown. A native size test
+checks that adding the tag does not increase Row size. Verification workers use
+read-only memory-mapped binary search, sharing file pages instead of allocating
+large Python sets independently in eight processes.
+
+The first remote build attempt used an SSH PATH without Cargo and stopped
+before compilation/fixture science; its root and log are preserved. The build
+entry point now resolves the installed Cargo executable explicitly.
+
+
+The retained table has the same keys before/after, and the selected averaging
+rule only adds nonnegative mass. The evaluator refuses a positive→zero mass
+transition on a matched key. The controller also checks that the global zero-row
+count does not increase. A zero→positive transition is evidence that a previously
+zero-mass row received average updates, not evidence that its decision is optimal.

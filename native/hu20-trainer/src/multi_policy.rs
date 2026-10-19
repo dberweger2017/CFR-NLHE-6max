@@ -55,6 +55,8 @@ pub struct Row {
     pub street: u8,
     pub code: u16,
     pub probabilities: Box<[f64]>,
+    /// Diagnostic checkpoint mass; ordinary normalized exports do not identify it.
+    pub original_average_mass: Option<bool>,
 }
 pub struct PolicyTable {
     pub identity: Value,
@@ -212,6 +214,7 @@ impl PolicyTable {
                     street: street as u8,
                     code: code as u16,
                     probabilities: p.into_boxed_slice(),
+                    original_average_mass: None,
                 },
             );
         }
