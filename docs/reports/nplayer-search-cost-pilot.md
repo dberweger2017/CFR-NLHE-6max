@@ -111,3 +111,20 @@ The qualified binary, tables and model remain under
 `bb128:/home/dberweger/nplayer-blueprint-phase2-20261015/` with archive retrieval
 provenance in PR292's index. No model, raw trace or selected observation payload
 is committed to Git.
+
+## Merge review, October 19, 2026
+
+The pre-merge information-boundary review checked the extractor against the
+native trace snapshot definition. Player rows contain only stack, street bet,
+contribution and folded status; hole cards are selected only for the acting
+seat. Public actions stop before the current decision. Deck, seed, rewards,
+future states and opponent cards are excluded. Source-hand metadata remains
+evaluator-only and must not be passed to a future search policy. The six focused
+regression tests pass again, including the private-card/future-action/payoff
+invariance checks. This reviews the existing artifact extractor; it does not
+qualify a future runtime search adapter or change the frozen measurement.
+
+Main-branch integration preserves both sides of the ROADMAP and RESULTS_INDEX
+additions. The measured baseline and extraction code are unchanged. The search
+implementation plan remains future work; merging this completed groundwork
+starts no new experiment and changes no running campaign.

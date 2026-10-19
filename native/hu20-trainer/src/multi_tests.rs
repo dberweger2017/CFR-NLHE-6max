@@ -82,8 +82,11 @@ fn hidden_private_and_future_public_cards_never_enter_small_keys() {
 #[test]
 fn resume_matches_complete_bytes_and_frozen_membership() {
     let game = SmallGame::new(Kind::Leduc, 3);
-    for freeze in [false, true] {
-        for street in [0, 3] {
+    use crate::gz::Gzip;
+    for (freeze, street, gzip) in [false, true].into_iter()
+        .flat_map(|f| [0, 3].into_iter().flat_map(move |s| [Gzip::Compatible, Gzip::Parallel].map(|g| (f, s, g))))
+    {
+        {
             let cap = if freeze { 30 } else { usize::MAX };
             let mut fresh = Trainer::new(&game, 71, street, cap, freeze);
             let mut prefix = fresh.clone();
@@ -91,10 +94,11 @@ fn resume_matches_complete_bytes_and_frozen_membership() {
                 prefix.step(&game);
             }
             let path = std::env::temp_dir()
-                .join(format!("multi-{}-{freeze}-{street}.gz", std::process::id()));
-            crate::multi_checkpoint::save(&prefix, &path).unwrap();
+                .join(format!("multi-{}-{freeze}-{street}-{gzip:?}.gz", std::process::id()));
+            // A resume from a gzip-member checkpoint equals one from a single stream.
+            crate::multi_checkpoint::save(&prefix, &path, gzip).unwrap();
             let mut resumed = crate::multi_checkpoint::load(&path).unwrap();
-            let frozen_keys: std::collections::HashSet<_> = resumed.table.keys().copied().collect();
+            let frozen_keys: std::collections::HashSet<_> = resumed.table.keys().collect();
             for _ in 0..40 {
                 fresh.step(&game);
             }
@@ -103,14 +107,14 @@ fn resume_matches_complete_bytes_and_frozen_membership() {
             }
             assert_eq!(fresh.table, resumed.table);
             assert_eq!(fresh.counts, resumed.counts);
-            crate::multi_checkpoint::save(&fresh, &path).unwrap();
+            crate::multi_checkpoint::save(&fresh, &path, Gzip::Compatible).unwrap();
             let bytes = std::fs::read(&path).unwrap();
-            crate::multi_checkpoint::save(&resumed, &path).unwrap();
+            crate::multi_checkpoint::save(&resumed, &path, Gzip::Compatible).unwrap();
             assert_eq!(bytes, std::fs::read(&path).unwrap());
             std::fs::remove_file(&path).unwrap();
             assert!(fresh.counts.traverser[..3].iter().all(|&n| n > 0));
             if freeze {
-                assert_eq!(frozen_keys, fresh.table.keys().copied().collect());
+                assert_eq!(frozen_keys, fresh.table.keys().collect());
                 assert!(fresh.counts.discarded_keys > 0 && fresh.counts.discarded_visits > 0);
             }
             for e in fresh.table.values() {
@@ -152,7 +156,7 @@ fn exhaustive_sample_expectation_equals_full_tree_counterfactual_updates() {
         hand: crate::small_games::Hand,
         player: usize,
         reach: f64,
-        expected: &mut Table,
+        expected: &mut Deltas,
     ) -> f64 {
         let Some(d) = hand.decision() else {
             return hand.payoff(player);
@@ -169,13 +173,13 @@ fn exhaustive_sample_expectation_equals_full_tree_counterfactual_updates() {
             ));
         }
         let v = values.iter().sum::<f64>() / 2.;
-        let e = expected.entry(d.key).or_insert_with(|| Entry::new(d, 3));
+        let e = expected.entry(d.key).or_insert_with(|| Delta::new(d, 3));
         if d.actor == player {
-            for (r, value) in e.regrets.iter_mut().zip(values) {
+            for (r, value) in e.regrets_mut().iter_mut().zip(values) {
                 *r += 3. * reach * (value - v);
             }
         } else {
-            for a in e.average.as_mut().unwrap().iter_mut() {
+            for a in e.average_mut().unwrap().iter_mut() {
                 *a += 3. * reach * 0.5;
             }
         }
@@ -183,31 +187,32 @@ fn exhaustive_sample_expectation_equals_full_tree_counterfactual_updates() {
     }
     let game = SmallGame::new(Kind::Kuhn, 3);
     for player in 0..3 {
-        let mut expected = Table::default();
+        let mut expected = Deltas::default();
         let mut actual: HashMap<[u8; 16], ([f64; 2], [f64; 2])> = HashMap::new();
         for (hand, p) in game.deals() {
             full(hand, player, p, &mut expected);
             for bits in 0..256 {
                 let mut state = hand;
-                let mut deltas = Table::default();
+                let mut deltas = Deltas::default();
                 let mut counts = Counts::default();
                 let mut rng = Tape { bits, used: 0 };
                 Traversal {
                     table: &Table::default(),
                     deltas: &mut deltas,
-                    rng: &mut rng,
+                    sampler: Stream(&mut rng),
                     traverser: player,
                     weight: 3.,
                     last_average_street: 3,
                     counts: &mut counts,
+                    fork_depth: 0,
                 }
                 .run(&mut state);
                 assert_eq!(state, hand);
                 for (key, e) in deltas {
                     let a = actual.entry(key).or_insert(([0.; 2], [0.; 2]));
                     for i in 0..2 {
-                        a.0[i] += p * e.regrets[i] / 256.;
-                        a.1[i] += p * e.average.as_ref().unwrap()[i] / 256.;
+                        a.0[i] += p * e.regrets()[i] / 256.;
+                        a.1[i] += p * e.average().unwrap()[i] / 256.;
                     }
                 }
             }
@@ -215,8 +220,8 @@ fn exhaustive_sample_expectation_equals_full_tree_counterfactual_updates() {
         for (key, e) in expected {
             let (regrets, average) = actual[&key];
             for i in 0..2 {
-                assert!((regrets[i] - e.regrets[i]).abs() < 1e-11);
-                assert!((average[i] - e.average.as_ref().unwrap()[i]).abs() < 1e-11);
+                assert!((regrets[i] - e.regrets()[i]).abs() < 1e-11);
+                assert!((average[i] - e.average().unwrap()[i]).abs() < 1e-11);
             }
         }
     }
@@ -232,7 +237,7 @@ fn corrupt_checkpoint_metadata_and_accumulators_are_rejected() {
         trainer.step(&game);
     }
     let path = std::env::temp_dir().join(format!("multi-invalid-{}.gz", std::process::id()));
-    crate::multi_checkpoint::save(&trainer, &path).unwrap();
+    crate::multi_checkpoint::save(&trainer, &path, crate::gz::Gzip::Compatible).unwrap();
     let mut plain = String::new();
     flate2::read::MultiGzDecoder::new(std::fs::File::open(&path).unwrap())
         .read_to_string(&mut plain)
@@ -268,4 +273,170 @@ fn corrupt_checkpoint_metadata_and_accumulators_are_rejected() {
         );
     }
     std::fs::remove_file(path).unwrap();
+}
+
+fn checkpoint_bytes(trainer: &Trainer, name: &str) -> Vec<u8> {
+    let path = std::env::temp_dir().join(format!("multi-fast-{}-{name}.gz", std::process::id()));
+    crate::multi_checkpoint::save(trainer, &path, crate::gz::Gzip::Compatible).unwrap();
+    let bytes = std::fs::read(&path).unwrap();
+    std::fs::remove_file(path).unwrap();
+    bytes
+}
+
+fn fast_trainer(game: &SmallGame, steps: usize, threads: usize) -> Trainer {
+    fast_roots(game, steps, threads, 1)
+}
+
+fn fast_roots(game: &SmallGame, steps: usize, threads: usize, roots_per_seat: usize) -> Trainer {
+    fast_seeded(game, 31, steps, threads, roots_per_seat)
+}
+
+fn fast_seeded(game: &SmallGame, seed: u64, steps: usize, threads: usize, roots_per_seat: usize) -> Trainer {
+    let mut t = Trainer { sampling: Sampling::Path, roots_per_seat, ..Trainer::new(game, seed, 3, usize::MAX, false) };
+    let pool = rayon::ThreadPoolBuilder::new().num_threads(threads).build().unwrap();
+    pool.install(|| (0..steps).for_each(|_| t.step_fast(game)));
+    t
+}
+
+#[test]
+fn fast_mode_is_identical_for_every_thread_count() {
+    for (kind, n, roots) in [(Kind::Kuhn, 3, 1), (Kind::Leduc, 3, 1), (Kind::Leduc, 4, 1), (Kind::Leduc, 3, 5)] {
+        let game = SmallGame::new(kind, n);
+        let one = fast_roots(&game, 40, 1, roots);
+        let bytes = checkpoint_bytes(&one, "one");
+        for threads in [2, 4, 8, 16] {
+            let many = fast_roots(&game, 40, threads, roots);
+            assert_eq!(one.counts, many.counts, "{kind:?} {n} roots {roots} threads {threads}");
+            assert!(bytes == checkpoint_bytes(&many, "many"), "{kind:?} {n} roots {roots} threads {threads}");
+        }
+    }
+}
+
+#[test]
+fn fast_roots_have_their_own_deals_and_draws() {
+    use rand::RngCore;
+    let game = SmallGame::new(Kind::Leduc, 3);
+    let mut t = fast_roots(&game, 3, 1, 4);
+    t.iteration += 1;
+    for player in 0..3 {
+        // Root 0 deals the production deal of the same seat and iteration.
+        let (mut first, _) = t.fast_root(player, 0);
+        assert_eq!(first.next_u64(), t.root(player, b"nplayer-external-sampling-v1").next_u64());
+        let roots: Vec<(u64, u64)> = (0..4).map(|r| { let (mut deal, seed) = t.fast_root(player, r); (deal.next_u64(), seed) }).collect();
+        for a in 0..4 {
+            for b in a + 1..4 {
+                assert!(roots[a].0 != roots[b].0 && roots[a].1 != roots[b].1, "player {player} roots {a} {b}");
+            }
+        }
+        let other = t.fast_root((player + 1) % 3, 1);
+        assert!(roots[1].1 != other.1, "seats do not share draws");
+    }
+}
+
+#[test]
+fn fast_resume_is_exact_and_keeps_its_sampling() {
+    let game = SmallGame::new(Kind::Leduc, 3);
+    let mut prefix = fast_roots(&game, 20, 4, 3);
+    let path = std::env::temp_dir().join(format!("multi-fast-resume-{}.gz", std::process::id()));
+    crate::multi_checkpoint::save(&prefix, &path, crate::gz::Gzip::Parallel).unwrap();
+    let mut resumed = crate::multi_checkpoint::load(&path).unwrap();
+    assert_eq!((resumed.sampling, resumed.roots_per_seat), (Sampling::Path, 3));
+    for _ in 0..20 {
+        resumed.step_fast(&game);
+        prefix.step_fast(&game);
+    }
+    assert!(checkpoint_bytes(&prefix, "a") == checkpoint_bytes(&resumed, "b"));
+    assert!(checkpoint_bytes(&fast_roots(&game, 40, 2, 3), "c") == checkpoint_bytes(&resumed, "b"));
+    // Roots per seat belong to fast checkpoints only.
+    let text = std::io::read_to_string(flate2::read::MultiGzDecoder::new(std::fs::File::open(&path).unwrap())).unwrap();
+    for (from, to) in [(r#""sampling":"path-v1","#, ""), (r#""roots_per_seat":3"#, r#""roots_per_seat":0"#)] {
+        assert!(text.contains(from), "{from}");
+        let bad = std::env::temp_dir().join(format!("multi-fast-bad-{}.gz", std::process::id()));
+        let mut out = flate2::write::GzEncoder::new(std::fs::File::create(&bad).unwrap(), flate2::Compression::default());
+        std::io::Write::write_all(&mut out, text.replacen(from, to, 1).as_bytes()).unwrap();
+        out.finish().unwrap();
+        assert!(crate::multi_checkpoint::load(&bad).is_err(), "{from} -> {to}");
+        std::fs::remove_file(bad).unwrap();
+    }
+    std::fs::remove_file(&path).unwrap();
+    let production = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| resumed.clone().step(&game)));
+    assert!(production.is_err(), "a fast checkpoint cannot continue with the production recipe");
+    for (sampling, roots) in [(Sampling::Path, 0), (Sampling::Path, 1025), (Sampling::Stream, 2)] {
+        let mut bad = Trainer { sampling, roots_per_seat: roots, ..Trainer::new(&game, 31, 3, usize::MAX, false) };
+        let step = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| match sampling {
+            Sampling::Path => bad.step_fast(&game),
+            Sampling::Stream => bad.step(&game),
+        }));
+        assert!(step.is_err(), "{sampling:?} with {roots} roots per seat");
+    }
+}
+
+#[test]
+fn forks_change_only_the_order_deltas_are_summed() {
+    let game = SmallGame::new(Kind::Leduc, 3);
+    let trained = fast_trainer(&game, 30, 4);
+    for seed in 0..40u64 {
+        use rand::SeedableRng;
+        let deal = game.sample(&mut rand::rngs::StdRng::seed_from_u64(seed));
+        let run = |fork_depth| {
+            let (mut deltas, mut counts) = (Deltas::default(), Counts::default());
+            let mut state = deal;
+            let value = Traversal { table: &trained.table, deltas: &mut deltas, sampler: PathSampler(seed), traverser: (seed % 3) as usize,
+                weight: 31., last_average_street: 3, counts: &mut counts, fork_depth }.run(&mut state);
+            (value, deltas, counts)
+        };
+        let (v0, d0, c0) = run(0);
+        let (v2, d2, c2) = run(FORK_DEPTH + 2);
+        assert_eq!(c0, c2, "same nodes: the same draws");
+        assert!((v0 - v2).abs() <= 1e-12 * v0.abs().max(1.));
+        assert_eq!(d0.len(), d2.len());
+        for (key, a) in &d0 {
+            let b = &d2[key];
+            assert_eq!((a.visits, a.code), (b.visits, b.code));
+            let close = |x: &f64, y: &f64| (x - y).abs() <= 1e-9 * x.abs().max(1.);
+            assert!(a.regrets().iter().zip(b.regrets()).all(|(x, y)| close(x, y)));
+            assert!(a.average().into_iter().flatten().zip(b.average().into_iter().flatten()).all(|(x, y)| close(x, y)));
+        }
+    }
+}
+
+#[test]
+fn path_draws_follow_the_policy() {
+    let policy = [0.5, 0.0, 0.2, 0.3];
+    let mut counts = [0usize; 4];
+    let draws = 200_000;
+    for i in 0..draws {
+        let mut sampler = PathSampler(i as u64 / 64);
+        let action = <PathSampler as Sampler<crate::small_games::Hand>>::sample(&mut sampler, &policy, child_path(0, i % 64));
+        counts[action] += 1;
+    }
+    assert_eq!(counts[1], 0, "zero probability is never drawn");
+    for (c, p) in counts.iter().zip(policy) {
+        let expected = p * draws as f64;
+        // Six binomial standard deviations.
+        assert!((*c as f64 - expected).abs() <= 6. * (expected * (1. - p)).sqrt() + 1., "{counts:?}");
+    }
+}
+
+#[test]
+fn fast_mode_converges_like_the_production_recipe() {
+    // One seed is too noisy to compare recipes; compare means over eight.
+    const SEEDS: u64 = 8;
+    for (kind, iterations) in [(Kind::Kuhn, 20_000), (Kind::Leduc, 2_000)] {
+        let game = SmallGame::new(kind, 3);
+        let tree = Tree::new(game, 10_000_000);
+        let gain = |t: &Trainer| tree.evaluate(&tree.profile(&t.table, true)).gains.iter().fold(0f64, |m, g| m.max(*g));
+        let (mut p, mut f, mut r) = (0., 0., 0.);
+        for seed in 1..=SEEDS {
+            let mut production = Trainer::new(&game, seed, 3, usize::MAX, false);
+            (0..iterations).for_each(|_| production.step(&game));
+            p += gain(&production) / SEEDS as f64;
+            f += gain(&fast_seeded(&game, seed, iterations, 8, 1)) / SEEDS as f64;
+            // Four roots per seat at equal nodes: a quarter of the iterations.
+            r += gain(&fast_seeded(&game, seed, iterations / 4, 8, 4)) / SEEDS as f64;
+        }
+        eprintln!("{kind:?} 3 players, {iterations} iterations, mean largest best-response gain over {SEEDS} seeds: production {p:.5}, fast {f:.5}, fast 4 roots {r:.5}");
+        assert!(f < 1.25 * p, "{kind:?}: fast {f} against production {p}");
+        assert!(r < 1.25 * p, "{kind:?}: fast with 4 roots {r} against production {p}");
+    }
 }

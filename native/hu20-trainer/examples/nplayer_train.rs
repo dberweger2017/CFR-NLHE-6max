@@ -1,7 +1,7 @@
 //! Explicit experimental entry point; legacy HU commands/formats are unchanged.
 use hu20_trainer::{
     cards::EquityTables,
-    multi_cfr::{Game, Trainer},
+    multi_cfr::{Game, Sampling, Trainer},
     multi_checkpoint,
     multi_holdem::CashGame,
     nplayer::Config,
@@ -17,12 +17,27 @@ fn train() -> Result<(), String> {
     let mut options = BTreeMap::new();
     let mut args = std::env::args().skip(1);
     let mut freeze = false;
+    let mut gzip = None;
+    let mut fast = false;
     while let Some(key) = args.next() {
+        if key == "--fast" {
+            if fast {
+                return Err("duplicate --fast".into());
+            }
+            fast = true;
+            continue;
+        }
         if key == "--freeze-at-cap" {
             if freeze {
                 return Err("duplicate --freeze-at-cap".into());
             }
             freeze = true;
+            continue;
+        }
+        if key == "--fast-gzip" {
+            if gzip.replace(hu20_trainer::gz::Gzip::Parallel).is_some() {
+                return Err("duplicate --fast-gzip".into());
+            }
             continue;
         }
         if ![
@@ -43,6 +58,8 @@ fn train() -> Result<(), String> {
             "--resume-sha256",
             "--telemetry",
             "--stop-file",
+            "--threads",
+            "--roots-per-seat",
         ]
         .contains(&key.as_str())
         {
@@ -120,6 +137,17 @@ fn train() -> Result<(), String> {
     if options.contains_key("--resume") != options.contains_key("--resume-sha256") {
         return Err("resume needs both --resume and --resume-sha256".into());
     }
+    if let Some(threads) = options.get("--threads") {
+        let threads = threads.parse::<usize>().ok().filter(|&n| n > 0).ok_or("invalid --threads")?;
+        rayon::ThreadPoolBuilder::new().num_threads(threads).build_global().map_err(|e| e.to_string())?;
+    }
+    let sampling = if fast { Sampling::Path } else { Sampling::Stream };
+    let roots_per_seat = match options.get("--roots-per-seat") {
+        None if fast => 8,
+        None => 1,
+        Some(_) if !fast => return Err("--roots-per-seat needs --fast".into()),
+        Some(r) => r.parse::<usize>().ok().filter(|r| (1..=1024).contains(r)).ok_or("invalid --roots-per-seat")?,
+    };
     let tables = EquityTables::load(Path::new(required("--card-buckets")?), false)?;
     let game = CashGame { config, tables };
     let mut trainer = if let Some(path) = options.get("--resume") {
@@ -135,12 +163,14 @@ fn train() -> Result<(), String> {
             || t.last_average_street != scope
             || t.max_entries != max_entries
             || t.freeze_at_cap != freeze
+            || t.sampling != sampling
+            || t.roots_per_seat != roots_per_seat
         {
             return Err("resume configuration mismatch".into());
         }
         t
     } else {
-        Trainer::new(&game, seed, scope, max_entries, freeze)
+        Trainer { sampling, roots_per_seat, ..Trainer::new(&game, seed, scope, max_entries, freeze) }
     };
     if let Some(parent) = out.parent() {
         if !parent.as_os_str().is_empty() {
@@ -175,7 +205,11 @@ fn train() -> Result<(), String> {
         {
             break "stop-file";
         }
-        trainer.step(&game);
+        if fast {
+            trainer.step_fast(&game);
+        } else {
+            trainer.step(&game);
+        }
         if trainer.iteration % 100 == 0 {
             if let Some(file) = telemetry.as_mut() {
                 writeln!(file,"{}",json!({"iteration":trainer.iteration,"entries":trainer.table.len(),
@@ -183,8 +217,10 @@ fn train() -> Result<(), String> {
             }
         }
     };
-    multi_checkpoint::save(&trainer, &out)?;
+    let save_start = std::time::Instant::now();
+    multi_checkpoint::save(&trainer, &out, gzip.unwrap_or_default())?;
     let report = json!({"identity":game.identity(),"stop_reason":reason,"iteration":trainer.iteration,
+        "save_seconds":save_start.elapsed().as_secs_f64(),
         "entries":trainer.table.len(),"frozen_at":trainer.frozen_at,"counts":multi_checkpoint::counts_json(&trainer.counts),
         "elapsed_seconds":start.elapsed().as_secs_f64(),"checkpoint":out,
         "sha256":hu20_trainer::export::sha256_file(&out)});

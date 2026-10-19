@@ -1,4 +1,4 @@
-## PR334 — three-player search cost calibration: retained active evidence
+## PR334 — three-player search cost calibration: completed groundwork; archival pending
 
 [PR334](https://github.com/dberweger2017/CFR-NLHE-6max/pull/334), [protocol](docs/nplayer-search-cost-pilot.md), [report and retrieval commands](docs/reports/nplayer-search-cost-pilot.md).
 October 17, 2026: fixed 1,000-hand three-player blueprint baseline, seed
@@ -15,6 +15,158 @@ and restoration links remain in the PR292 entry. Inputs were read in place.
 Drive archival of this new run is pending; no upload acceptance or cleanup is
 claimed. Preserve these active originals until closeout and dependency review.
 
+## PR342 — three-player blueprint promotion (complete; archival pending)
+
+[PR342](https://github.com/dberweger2017/CFR-NLHE-6max/pull/342),
+[proposal341](https://github.com/dberweger2017/CFR-NLHE-6max/issues/341),
+[frozen protocol](docs/nplayer-blueprint-promotion.md),
+[verified report](docs/reports/nplayer-blueprint-promotion/results.md),
+[compact receipt](docs/reports/nplayer-blueprint-promotion/completion.json).
+
+- Owner accepted15–30min bb128 compute with existing models. Frozen source
+  `d6cb8ebdb9384142b78d8ee93fa609b9dbe6b133`; later commits are evidence only.
+  `bb128:/home/dberweger/nplayer-blueprint-promotion-20261018`, PID336533,
+  October18 16:38:01–16:50:09UTC, complete/no failure. All3 stages return0,
+  all12 cases independently replay and exactly reproduce before settled readout:
+  589824 final plus589824 reproduction hands; excluded smoke144+144.
+- Same-seed contrasts1541/42/43: +5.92[+2.55,+9.30], +5.38[+1.96,+8.80],
+  +4.35[+0.87,+7.83]BB/100. Cross-seed1541vs42/42vs43/43vs41:
+  +3.02[−0.42,+6.45], +5.18[+1.71,+8.65], +5.58[+2.22,+8.94].
+  Primary improvement and cross-seed−5 noninferiority gates both pass.
+  These are oriented singleton contrasts, not pooled player return.
+- Total12.13min wall/1.142 child CPU-hours,56.22GiB sampled family RSS;
+  CPU69C/Thermistor15 81.5C max,2.75MiB swap growth,55.70GB minimum free NVMe.
+  Six workers across affinity0–15. No training, new models or environment changes.
+- [Six model/binary pins](docs/nplayer-blueprint-promotion-inputs.json) depend
+  read-only on PR292 production1B and PR340 fast600s full averages. Preserve
+  those roots and the shared tables/arena/venv; do not clean dependencies while
+  needed by this open PR. PR292 Drive restoration is indexed below; PR340 raw
+  archival remains pending. Never infer cloud acceptance for either new root.
+- All raw traces, logs, excluded smoke, frozen source and launch hashes remain
+  in the owned root. Compact metadata retrieved by SSH into ignored
+  `/tmp/cfr-nplayer-blueprint-promotion/results/promotion-completion.json`;
+  no models/raw traces copied locally. Reanalysis command and exact provenance
+  are in the report. Cloud archival/upload acceptance is pending, no deletion.
+
+## PR340 — PR335 strength study (complete; archival pending)
+
+[PR340](https://github.com/dberweger2017/CFR-NLHE-6max/pull/340),
+[completed report](docs/reports/nplayer-fast-strength/results.md),
+[compact verification/cost receipt](docs/reports/nplayer-fast-strength/completion.json),
+[frozen protocol](docs/nplayer-fast-strength-study.md).
+Owner authorized all16 threads, three fixed seeds and the one fresh v5 attempt
+at immediate CPU90C/Thermistor15 95C stops, then explicitly requested merging
+PR335 and PR340. Tested PR335 head `b9923248cb97bc52c7db34491d9ff70e2845b4ec`
+merged at15:15:57UTC as `a846300ed94f297f5d62d0aecd4fc28963ce167f`.
+Fast mode remains opt-in; production default and PR336/pruning are unchanged.
+[Results posted on PR335](https://github.com/dberweger2017/CFR-NLHE-6max/pull/335#issuecomment-6251556909).
+PR340 awaits final CI and its owner-authorized merge.
+
+- **Completed v5:** `bb128:/home/dberweger/nplayer-fast-strength-20261018-main-v5/`,
+  frozen source `8f6fb76dade872b6ab282f1a0a4f6f3abee7dbfa`, PID306072 exited
+  normally. October18 13:00:26–14:42:31UTC:102.08min wall/9.16 child CPU-hours.
+  All19 measured stages return0, no failure;12 cases verify,589824 final hands
+  replay and589824 reproduction hands match exactly before settled readout.
+  All9 new exports pass every-row audits across294564707 rows.
+- **Strength:** equal1B-node contrasts for seeds1541/42/43 are
+  −0.20[−3.70,+3.29],+1.42[−2.04,+4.87],−0.48[−4.07,+3.10]BB/100:
+  all lower bounds clear−5. Equal600s contrasts are
+  +9.18[+5.63,+12.73],+9.73[+6.21,+13.26],+8.86[+5.13,+12.59]:
+  all lower bounds clear0. Statistic=(fast-singleton−production-singleton)/2,
+  not pooled individual-player return. Both declared gates pass.
+  [Strength CSV](docs/reports/nplayer-fast-strength/strength.csv);
+  [all role/seat/position intervals](docs/reports/nplayer-fast-strength/seats-and-positions.csv).
+- **Compute:** fast600s processes2.910–3.004B nodes versus0.610–0.621B production,
+  4.75–4.91×. Peak fast train/saveRSS5.14GiB, evaluation family59.86GiB;
+  CPU74C/Thermistor94C maxima,6.25MiB maximum swap growth during evaluation.
+  Training clock excludes load/save/hash. Production writerpool1 versusfast16;
+  six versus three checkpoints confound end-to-end saving comparisons.
+  [Nine checkpoints, exact hashes/paths/counts](docs/reports/nplayer-fast-strength/checkpoints.csv),
+  [training costs](docs/reports/nplayer-fast-strength/training-costs.csv),
+  [all stage costs](docs/reports/nplayer-fast-strength/stage-costs.csv),
+  [case/identity/street coverage](docs/reports/nplayer-fast-strength/coverage.csv).
+- **Qualification retained:** `bb128:/home/dberweger/nplayer-fast-strength-20261018/`,
+  source0c394c98;50 native tests, default parity,fast1/2/4/8/16 identity,
+  cross-thread resume and ten identical100M→120M endpoints pass.16 selected:
+  median3.972s versus22.695s one fast thread,9.8% throughput over8.
+  [Receipt](docs/reports/nplayer-fast-strength/qualification.json),
+  [scaling rows](docs/reports/nplayer-fast-strength/scaling.csv).
+- **Failures retained:** `-main` disk refusal,`-main-v2` Python3.13 install,
+  `-main-v3` pretty-JSON parser stop; none started final seeds. The v4 root
+  `bb128:/home/dberweger/nplayer-fast-strength-20261018-main-v4/`, frozen2ff320d4,
+  remains terminal at12:05:39UTC during first fast seed:420956111nodes/87.498s,
+  precedingCPU68/Thermistor84.5C; exact crossing sample unavailable.
+  No v4 final evaluation. Owner later explicitly authorized v5; native science,
+  roots/counts and original18:31:32UTC deadline stayed fixed.
+  [Failure report](docs/reports/nplayer-fast-strength/terminal.md),
+  [setup/launch provenance](docs/reports/nplayer-fast-strength/launch.json),
+  [v5 admission](docs/reports/nplayer-fast-strength/retry-launch.json).
+- **Inputs protected:** PR292 raw/average inputs and K50 tables under
+  `bb128:/home/dberweger/nplayer-blueprint-phase2-20261015/` remain read-only
+  dependencies. [Exact input pins](docs/nplayer-fast-strength-inputs.json),
+  [accepted PR292 archive members/restoration](docs/reports/nplayer-blueprint-phase2-artifacts/archive-model-members.json).
+- **Retrieval:** compact verified metadata only retrieved into ignored
+  `/tmp/cfr-nplayer-fast-strength/results/pr340-complete-20261018T1450/`.
+  Raw root `results.json` SHA256
+  `fea5f71b0f39c912e9019fd49749eeb093a8fa09543f589a7239112e4c1eb942`;
+  evaluation manifestSHA256
+  `2ba4a487b3b15be835340c030d0a01d21e006ac2a6cb45c6e84f3256f93c4d45`.
+  Example:`scp bb128:/home/dberweger/nplayer-fast-strength-20261018-main-v5/results.json FRESH_DESTINATION/results.json`.
+  New model checkpoint/export SHA256 and exact root/member paths are in the
+  nine-row CSV. Verify before any retrieval use; no model payload enters Git.
+- **Archival pending:** intended cache/Drive folder
+  `PR-340-nplayer-fast-strength-study`; no ZIP/manifest/Drive ID or acceptance
+  receipt exists yet, so no Drive restoration is claimed. PR335/340 were both
+  OPEN at closeout inspection. Their roots, all failures/traces/checkpoints,
+  sources/binaries and shared dependencies remain intact; no archive copy,
+  cleanup or deletion. Temporary Mac checkout was missing at final wake and
+  restored from retained7db86b11 branch/index; bb128 scientific data unchanged.
+  Study timer disabled on verified completion; no new science scheduled.
+
+## PR339 — N-player storage and parallel-save comparison (complete; archive pending)
+
+[PR339](https://github.com/dberweger2017/CFR-NLHE-6max/pull/339),
+[fixed protocol](docs/nplayer-storage-merge-benchmark.md),
+[launch, source/toolchain/admission and setup failures](docs/reports/nplayer-storage-benchmark/launch.json).
+The authorized comparison independently resumes the same PR292 three-player
+checkpoint under baseline, PR331, and PR331+PR333 to 1.1B/1.2B/1.3B.
+[Completed comparison](docs/reports/nplayer-storage-merge-benchmark.md):
+all nine checkpoints match exactly; combined storage+saving takes11.20min
+versus31.17min, with4.99× faster saves and58.9% less peak RSS. Recommend
+#331+#333 together; the owner authorized and merged both on October18
+(merge commits `ad3082433e` and `05f837c152`). No playing-strength claim.
+
+- **Retained completed root:** `bb128:/home/dberweger/nplayer-storage-benchmark-20261018-v2/`;
+  supervisor PID213705 admitted October18 at09:10:07UTC. Sources, patches,
+  source manifest (141 file hashes), binaries, configuration, raw logs/resource
+  traces and checkpoints remain there. All three builds, 42/44/44 native library tests, and fresh/resume
+  identity fixtures passed. The baseline large-checkpoint arm started loading
+  by09:13:15UTC. Source freeze `ce6a3b5a`. All three main arms exited0;
+  `complete-identical` after79.06min, finishing10:29:11UTC October18.
+  [Exact rows/totals](docs/reports/nplayer-storage-benchmark/summary.json),
+  [completion/source/resource receipt](docs/reports/nplayer-storage-benchmark/completion.json).
+- **Preserved setup:** `bb128:/home/dberweger/nplayer-storage-benchmark-20261018/`.
+  Initial lock refusal launched no workload. Later baseline/compact library
+  checks passed, but the PR333 harness failed to compile because its save API
+  requires a gzip argument. No 1B continuation ran. The fresh corrected setup
+  selects `Gzip::Compatible`; the adapter is recorded in its source manifest.
+- **Read-only input:** retained PR292 member `training/2026101541/1000m.gz`,
+  1,199,517,402 bytes, SHA256
+  `262334b77373c7f418078861ea57fbce181d126c5dda032aa2ff22758a876f21`.
+  Its original source mtime matches the recorded member. Native loading verifies
+  SHA256 before every arm. PR292 is merged; its root is not modified.
+  [Accepted archive/member provenance](docs/reports/nplayer-blueprint-phase2-artifacts/archive-model-members.json)
+  and the PR292 entry below provide Drive restoration links and commands.
+- **Retrieve retained evidence:** copy only the needed files from the retained
+  root into a fresh ignored directory with
+  `scp -r bb128:/home/dberweger/nplayer-storage-benchmark-20261018-v2/measurements FRESH_DESTINATION/`.
+  Input retrieval remains through PR292's accepted archive; verify the pinned
+  SHA256 after retrieval. Own run archival to Research-Cloud is pending;
+  PR339 remains open and its roots are protected. The benchmark released
+  its mutex; another holder had acquired it at final validation. No large
+  archive/copy/upload was started, and no upload acceptance or deletion is
+  claimed. Preserve both roots.
+
 ## PR330 — v0.5.5 confirmation: card luck and public-action diagnosis
 
 [PR330](https://github.com/dberweger2017/CFR-NLHE-6max/pull/330); [report](docs/reports/v055-confirmation-diagnostics.md), [reproduction commands](docs/reports/v055-confirmation-diagnostics/REPRODUCE.md), [complete storage/input/member receipt](docs/reports/v055-confirmation-diagnostics/storage.json). Calculation/result freeze `fc19783d390c9850130b3d664667695ee7489fb6`: 30,000 new card-only per-hand corrections and public-action diagnosis over 70,000 distinct completed hands. No play, training, model computation or own-action correction. Protocol v2's raw qualification stands.
@@ -25,6 +177,115 @@ claimed. Preserve these active originals until closeout and dependency review.
 - **Acceptance:** both uploaded from the cache with deployed `research_cache.py upload`, using the resolved ZIP path after the deployed symlink-path receipt error. `.drive-receipt.json` covers **414/414 files**, zero uncovered/changed. Independent Drive metadata matches each ZIP's MD5/size and file ID; this is not a remote SHA256/member audit or redownload. Failures, recovered startup/transfer problems, input-prefix provenance and the final folder-ID metadata correction are retained in the linked receipt and archive logs.
 - **Required inputs:** the three original source ZIPs at `inputs/` retain #318/#304/#316's indexed whole SHA256s, with uncompressed `inputs/pr318/`, `inputs/pr304/`, `inputs/pr316/`. The two exploratory journals are `inputs/exploratory/prefix/journal.jsonl` and `inputs/exploratory/part2/journal.jsonl`. Exact archive/member/journal pins are in the linked receipt; all eleven chains verified before use. New data: `outputs/m1/perhand-confirmation-{a,b,c,pooled}.jsonl`; historical data: `inputs/pr316/perhand-*.jsonl`. No model is a restoration dependency.
 - **Restore:** copy the uncompressed cache into a fresh destination with `scp -r bb128:/research/PR-330-v055-confirmation-diagnostics/ FRESH_DESTINATION/`. Drive fallback: `rclone copy gdrive:PR-330-v055-confirmation-diagnostics/ FRESH_DESTINATION/`; verify both whole ZIP SHA256s and manifests, then extract the main ZIP followed by the closeout ZIP with `unzip -n` in that fresh destination. This preserves the main root manifest and restores the separate closeout manifest. Follow `source/final/docs/reports/v055-confirmation-diagnostics/REPRODUCE.md`; verify required members before use. Never overwrite active inputs.
+
+## PR319 — HU200 v0.5.5 release packaging verification
+
+[Packaging PR](https://github.com/dberweger2017/CFR-NLHE-6max/pull/319),
+[readiness and compact receipts](docs/releases/v0.5.5/READINESS.md).
+Verified-cache runtime: 30 independently replayed hands, first/reused startup,
+refusal and restart checks. Two full prepared-part reconstructions reproduce
+all three seed averages and the exact `59a6dd35…` raw / `ce3ecc2c…` average blend.
+Scientific source/model remains #306's audited blend. Tested runtime source
+`db0102c1`, integrated reconstruction `df9269c4`, fresh 49-asset review bundles
+`ea5301bb`; later changes only record evidence. Released October 18 from merge
+`ef0e3a41aee720a220520c10bb248740ae7a7154`: all 49 authenticated asset readbacks
+and all 15 stable public-URL hashes pass. The owner cancelled the remaining
+post-publication checks and reconstruction from public seed parts.
+[Publication record, asset IDs and verification scope](docs/releases/v0.5.5/PUBLICATION.md).
+The original packaging evidence below remains unchanged.
+
+Archives in `gdrive:PR-319-HU200-v055-release-package/`:
+
+| Archive | Bytes | Local ZIP SHA256 | Accepted Drive MD5 |
+|---|---:|---|---|
+| [hu200-v055-release-evidence-20261017.zip](https://drive.google.com/file/d/1bjhMpDlFOWDKWW_5-PjmgHLXUenNHHii/view) | 3,736,393,894 | `dc3e1a20d998a25848a49b681a0f4e60fc8118636e8b053d151f228ac5dc246e` | `165689dfb51c4a5204d94239581e6838` |
+| [hu200-v055-release-supplement-20261017.zip](https://drive.google.com/file/d/1JatAzvdHLNJo1gT32V2g5hSLCwJhpF1p/view) | 11,649,759 | `d5703208a622f900f29b6a591dc69fdc0d283cd2cd46785715a6410fbe91e16e` | `beb2c4c21279fd3a5297cc094c0a3664` |
+
+Main embedded `ARCHIVE-MANIFEST.json`: SHA256
+`2eec44706d11fc75ffdd1f88cbd88918c2ef8c12703b115f9235a73c001c792d`.
+Supplement embedded `postseal-20261017-2131/SUPPLEMENT-MANIFEST.json`: SHA256
+`94b32e3f02633b78034bb8e7353478a63c76936888794223050e17c5688fafeb`.
+Every member's bytes/SHA256 read back locally; the unchanged deployed cache tool
+accepts Drive size/MD5 and local CRC coverage for **6,874 main / 104 supplemental
+members**, including manifests. Drive MD5 acceptance is not a remote SHA256 audit.
+Immutable local-verification receipts are also uploaded:
+[main](https://drive.google.com/file/d/1iuCg85iyXVlwhQikQyLOkdrw3ErOeT9M/view)
+(588 bytes, MD5 `b3b4f8a0751c70b500be50f3b358e66d`) and
+[supplement](https://drive.google.com/file/d/1kGPpSr1aI-OFyTI6ZCCmbiGgcrrKHviP/view)
+(549 bytes, MD5 `a9b5dc24b9cdebd3295eb7b17df19a61`).
+Their pre-upload local status remains unchanged; separate cloud-acceptance records
+and `.drive-receipt.json` record accepted uploads.
+
+### October 18 publication and cancellation evidence
+
+The following additional archives are accepted in the same Drive/cache root.
+The owner cancelled the remaining public checks after the stable release's 15
+asset hashes passed; the incomplete public standalone run, closed guard,
+completed results and cancellation receipt are retained. The public seed rebuild
+never started. Downloaded release binaries remain separate from research ZIPs.
+All originals remain; no cleanup or complete-folder coverage is claimed.
+
+| Evidence | Archive / Drive ID | Bytes | Local ZIP SHA256 | Accepted Drive MD5 | Members |
+|---|---|---:|---|---|---:|
+| Approved publication build | [hu200-v055-publication-build-ef0e3a41-20261018.zip](https://drive.google.com/file/d/1seQyq3rT7xQE4M95E7nj31aA3hKtubzy/view) | 1,417,571 | `17bbbc534b6c3366f62e7d53e6ba0f14c8c3fcd52438b8b506fb45946f8259b6` | `6db917369f3aa685b31cfab30f0c2e42` | 33 |
+| Stable authenticated readbacks | [hu200-v055-auth-stable-ef0e3a41-20261018.zip](https://drive.google.com/file/d/1n953cWOZJp4xA_ZmdGKDnhQ9L5oBwCN9/view) | 63,296 | `8334ce29482671451db67878710cd9d0a019bec99a687e8bef734e2bd0d75532` | `f5eec69ac54605ccc9b3c721fbad22bb` | 18 |
+| All authenticated readbacks | [hu200-v055-auth-all-ef0e3a41-20261018.zip](https://drive.google.com/file/d/1uVzFtVRbAdzTjCvmZtHYGfF6LQwX91gd/view) | 664,326 | `9163300c246e53868463e311776fb7723d80c4886929b2b786b08d7906b7643a` | `9e5f4f9fe7b298e17364a026120d0cae` | 354 |
+| Publication metadata and closed prior guard | [hu200-v055-published-metadata-ef0e3a41-20261018.zip](https://drive.google.com/file/d/15BNfbUdrJ3VDg9A77-q2N93oZLKsm36P/view) | 9,392,573 | `6e7226e0caf5745abb56f423b8bf0835c4d74cf2001221a60eee67e272ae24f5` | `254f3e2fc429b8f648ad30477d367d5b` | 120 |
+| Owner-cancelled public verification | [hu200-v055-owner-cancelled-verification-20261018.zip](https://drive.google.com/file/d/1o3sCsrcRHI8baKdxicLlQk4WFBfs_3Eq/view) | 3,693,778 | `7bb863c0e09e8924a965a40bc9bb4000f09004bfe4e7ab346cecf3d83be61f4f` | `1985254f14cc7670945cab0fa0de520e` | 91 |
+| Documentation PR handoff | [hu200-v055-publication-record-handoff-20261018.zip](https://drive.google.com/file/d/1rivX8D1nCQeskv77zpZxSkUOfOP9ZpVY/view) | 77,591 | `4419e771a88696bf458f7d7231747d77a4ac94b06d83a9aac5173fa8edc048d9` | `dc69c9a5c604604986c88429a1a8608c` | 6 |
+
+Embedded manifests, with local SHA256 readback:
+
+- **Approved publication build:** `publication-ef0e3a41/BUILD-STAGE-ARCHIVE-MANIFEST.json`, SHA256 `a80b2b8fddc35deafc049c3f43086483aaa1649f564b4d188669a9c41a6e1b27`.
+- **Stable authenticated readbacks:** `publication-ef0e3a41/AUTH-STABLE-ARCHIVE-MANIFEST.json`, SHA256 `a5853f7bed45e90caee4be27185b70d26aed9f24dfe1255172e2bca86049d4b8`.
+- **All authenticated readbacks:** `publication-ef0e3a41/AUTH-ALL-ARCHIVE-MANIFEST.json`, SHA256 `89b5b018644212a6ec060cc2e13ce04617b4c09a2d08321a3a3104795acef73e`.
+- **Publication metadata and closed prior guard:** `publication-ef0e3a41/PUBLISHED-METADATA-ARCHIVE-MANIFEST.json`, SHA256 `6174d65f6d43b0b5b66a45e9aeb157c44b88ec30e8fd1dbc9981e2946777ec4b`.
+- **Owner-cancelled public verification:** `publication-ef0e3a41/OWNER-CANCELLATION-ARCHIVE-MANIFEST.json`, SHA256 `614cc3e16af0f6cbdb0941bf4111355f708bd3f268d8ab48843be20a7eb5248f`.
+
+- **Documentation PR handoff:** `publication-ef0e3a41/publication-record-handoff/ARCHIVE-MANIFEST.json`, SHA256 `cff3edd50aa3832446e7d1a5896cc97d5da551ec9832f3f7dd757b8f2301a9bb`.
+
+Every member was read back locally by size/SHA256. The unchanged deployed cache
+tool accepted Drive object size/MD5 and the corresponding uncompressed local
+member CRC coverage; this is not a remote SHA256/member audit. The manifests,
+ZIPs and selected members remain immutable. The publication metadata includes
+exact-source CI, tag/Latest/release metadata, all asset IDs and worker sources.
+The cancellation archive includes `publication-ef0e3a41/owner-verification-cancelled.json`,
+`publication-ef0e3a41/public-readbacks/`, the closed public download logs and the
+closed v3 guard log. An empty public standalone output is retained as unfinished;
+it is not a pass. Details specific to machines and operations stay in PR #319
+and the evidence.
+
+**Retrieve:** copy the named uncompressed members from
+`/research/PR-319-HU200-v055-release-package/` to a fresh ignored destination.
+Drive fallback: `rclone copy gdrive:PR-319-HU200-v055-release-package/ FRESH_DESTINATION/`;
+verify the selected ZIP and embedded manifest SHA256s above, extract into that
+fresh destination and check required member hashes. No Drive access is required
+to reconstruct the frozen blend from the separate public GitHub seed pre-release.
+
+All uncompressed evidence remains at
+`/research/PR-319-HU200-v055-release-package/`, with `KEEP` and all originals retained.
+Main members include journals, independent audits, refusal/failure evidence,
+source/tool snapshots, input/retrieval provenance and unique partials. The
+supplement adds fresh review-bundle proof, byte-identical shipped-doc snapshots,
+later administrative notes, closed guard/upload logs and the retained receipt-path
+failure plus its receipt-only repair. No deployed tool or archive bytes changed.
+The 22 identical model copies were freshly SHA256-checked before exclusion; their
+accepted canonical archives, member paths, bytes/hashes and commands are in main
+member `canonical-model-restoration.json` and `indexed-model-exclusions.json`.
+These include average `ce3ecc2c…` / raw `59a6dd35…` blend pins and all six seed pins.
+Derived play/native build caches have inventories and regeneration provenance;
+local app tokens are excluded. Release assets are separate. This is intentionally
+not complete-folder coverage or permission to evict/delete.
+
+**Retrieve from cache:** copy named uncompressed members from that cache root to
+a fresh ignored working directory and verify their indexed SHA256 before use.
+**Drive fallback:** `rclone copy gdrive:PR-319-HU200-v055-release-package/ DEST`,
+verify the ZIP/manifest pins above, then extract into a fresh directory and verify
+required member hashes. For an excluded model, use its exact canonical archive
+and member from `canonical-model-restoration.json` (also indexed under #306 and
+its input proofs), verify those archive/manifest pins, extract and check the model
+SHA256. Never overwrite active inputs. Full failures, guards and plumbing notes
+remain in the PR and archived evidence.
 
 ## PR318 — v0.5.5 confirmation (protocol version 2): the blend qualifies
 

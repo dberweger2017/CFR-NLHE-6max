@@ -2,9 +2,17 @@
 
 This bot plays heads-up (HU, one-on-one) no-limit Texas hold'em. Each model learns from billions of simulated self-play decisions with counterfactual regret minimization (CFR), the family of methods behind Libratus and Pluribus, on a simplified game: similar hands share card buckets and bets come from a fixed menu of sizes. You can play against it, or watch two versions play each other, in a local web app. The repository name is historical: the project began as a six-player Deep CFR experiment, and six players remain a later roadmap goal (v0.8).
 
-There are two release lines, HU20 and HU100, for 20 and 100 big-blind stacks, with no rake or ante and fresh stacks each hand. Both play tabular, linearly weighted, opponent-sampled CFR averages.
+There are three release lines, HU20, HU100 and HU200, for 20, 100 and 200 big-blind stacks, with no rake or ante and fresh stacks each hand. They play tabular, linearly weighted, opponent-sampled CFR averages.
 
-**v0.5.3, heads-up 100 BB (newest).**
+**[v0.5.5, heads-up 200 BB — Latest](https://github.com/dberweger2017/CFR-NLHE-6max/releases/tag/v0.5.5).**
+
+- **The model:** the audited average blend of three frozen 20B-node seeds, with pinned K50 cards and translation for off-menu wagers; human play and spectator support at 200 BB.
+- **Slumbot:** qualifies under protocol v2 at **−19.67 [−38.57, −0.76] BB/100 over 30,000 fresh hands**. It loses to Slumbot by a small, detectable margin. Flop folds and the big blind are the main observed weaknesses.
+- **Requirements:** 7.67 GB download, 16 GB RAM and about 25 GB free disk including the assembled model and verified binary play cache. Measured first start: 20m15s; later start: 81s. [Install and play](docs/releases/v0.5.5/INSTALL.md) · [model card](docs/releases/v0.5.5/MODEL_CARD.md)
+- **Publication:** all 49 authenticated asset readbacks and all 15 stable public-URL hashes passed. The owner cancelled the remaining research public readbacks and public-parts rebuild. [Publication record](docs/releases/v0.5.5/PUBLICATION.md)
+- **Research models:** the separate [frozen-seed pre-release](https://github.com/dberweger2017/CFR-NLHE-6max/releases/tag/hu200-frozen-20b-seeds) contains all three averages and raw checkpoints, plus the blend recipe and verifier. The original recipe did not qualify under protocol v1; [public rebuild instructions](docs/releases/hu200-frozen-20b-seeds/INSTALL.md) need no Drive access.
+
+**v0.5.3, heads-up 100 BB.**
 - **The model:** a 5B-node average (seed 2026100601) trained on a larger betting menu (min, half pot, pot, 1.5× pot, 2× pot and all-in) with finer postflop card buckets, plus translation for off-menu bet sizes.
 - **Head to head:** it beats v0.5.2 by **+37.10 [30.16, 44.04] BB/100**, with translation on for both. All three training seeds beat v0.5.2: +47.0, +41.0 and +45.4 (#296).
 - **Scripted opponents**, BB/100: check/call +269, random +107, tight-aggressive +37, loose-aggressive +35, pot-size pressure +27, matched-pot pressure +20, half-pot pressure +16. Pot-size pressure, which beat v0.5.2, is now beaten.
@@ -23,7 +31,7 @@ There are two release lines, HU20 and HU100, for 20 and 100 big-blind stacks, wi
 
 ## Research archive
 
-The [public research archive on Google Drive](https://drive.google.com/drive/folders/188bEt6i0RHqegCCdvpf3wPzUiRw78N2s?usp=sharing) contains archived training checkpoints, policy exports, raw evaluation evidence, logs and campaign provenance, organized mainly by pull request. Anyone with the link can view and download the files.
+The [research archive on Google Drive](https://drive.google.com/drive/folders/188bEt6i0RHqegCCdvpf3wPzUiRw78N2s?usp=sharing) contains archived training checkpoints, policy exports, raw evaluation evidence, logs and campaign provenance, organized mainly by pull request. Access to the Drive archives may require permission. Released HU200 seed rebuild inputs are available directly from GitHub.
 
 Start with the repository's [research results index](RESULTS_INDEX.md) for current campaign records, exact archive and member locations, SHA256 hashes and restoration instructions. The archive includes experimental, partial and failed runs; read each campaign's linked report for its results and limits. Published models and their installation instructions remain available through [GitHub Releases](https://github.com/dberweger2017/CFR-NLHE-6max/releases).
 
@@ -79,7 +87,7 @@ Each release uses fresh roots, predeclared paired gates, a direct incumbent matc
 | **v0.5.1** | Heads-up 100 BB 2B-node average with translation; beats v0.5.0 head to head by +29.5 BB/100; [release and verified assets](https://github.com/dberweger2017/CFR-NLHE-6max/releases/tag/v0.5.1) |
 | **v0.5.2** | Heads-up 100 BB 4B-node average with translation; beats v0.5.1 head to head by +17.9 BB/100, repeated on two other seeds; [release and verified assets](https://github.com/dberweger2017/CFR-NLHE-6max/releases/tag/v0.5.2) |
 | **v0.5.3** | Heads-up 100 BB 5B-node average on the larger menu with translation; beats v0.5.2 head to head by +37.1 BB/100, all three seeds beat v0.5.2; [release and verified assets](https://github.com/dberweger2017/CFR-NLHE-6max/releases/tag/v0.5.3) |
-| **v0.5.5** | Heads-up 200 BB, trained at that depth and benchmarked against Slumbot; results and uncertainty published |
+| **v0.5.5** | Released, Latest: heads-up 200 BB three-seed blend; protocol-v2 Slumbot result −19.67 [−38.57, −0.76] BB/100 over 30,000 hands; [publication record](docs/releases/v0.5.5/PUBLICATION.md) |
 | **v0.6 / v0.7** | Three players / four and five players |
 | **v0.8** | Six players, 100 BB; confirmed profit against the scripted pool |
 | **v0.9 / v1.0** | Changing lineups/stacks and full-table play / lower-end professional benchmark |
@@ -100,4 +108,4 @@ and [maintenance audit](docs/reports/necessary-cleaning.md).
 The play-only installation excludes neural research dependencies. For the full
 research and test environment, install `requirements-dev.txt`, then run `python -m pytest -q`. [CI](.github/workflows/tests.yml) also checks observations, sessions, arenas, solvers and recovery. Read the [rules](docs/rules.md) and the [observation contract](docs/observations.md) before changing behavior.
 
-Repository code is [MIT](LICENSE.txt). The pinned `pokers` upstream has no verified license grant in its repository/package metadata; the owner licenses their changes to that fork under MIT, while the original authors' terms remain unresolved. [License audit](docs/releases/v0.4.0/LICENSE_AUDIT.md). Release assets contain inference only, no engine binary or private journal; reports and referenced papers retain their own rights.
+Repository code is [MIT](LICENSE.txt). The pinned `pokers` upstream has no verified license grant in its repository/package metadata; the owner licenses their changes to that fork under MIT, while the original authors' terms remain unresolved. [License audit](docs/releases/v0.4.0/LICENSE_AUDIT.md). Playable releases contain inference artifacts; the separate frozen-seed research pre-release also contains raw checkpoints. No engine binary or private journal is included; reports and referenced papers retain their own rights.
