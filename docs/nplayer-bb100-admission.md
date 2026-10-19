@@ -101,3 +101,27 @@ the measured forecast with25% allowance to fit the full remaining allocation.
 A credible model-growth envelope and a successful evaluation-memory qualification
 are required; a fast traversal measurement alone cannot admit10B. The pilot's
 150M-entry ceiling is not permission to freeze the table or raise limits in place.
+
+The existing overnight native example and duplicate arena explicitly fix20BB.
+They must not be reused unchanged for100BB: the campaign host must support fresh
+initialization and a100BB game in both training and probes, and the arena must
+verify matching100BB policy identity. Their qualification must compare exact
+states/checkpoints against this pinned100BB CLI, exercise thread/resume identity,
+and independently replay100BB hands. Model exports, every-row audits and the
+planned simultaneous policy loads need their own measured memory admission.
+
+## Completed pilot and remaining admission
+
+The October19 pilot finishes successfully in16.16minutes:500,008,669nodes,
+112,968,920entries,10.53GiB sampled peak and5.21Mnodes/s on the last interval.
+The final save takes389.17s. All seven stages and exact thread/resume checks pass;
+CPU maximum64C/Thermistor15 74.5C, with zero swap growth. No main seed or poker
+outcome was generated. [Full measured report and reproduction](reports/nplayer-bb100/results.md).
+
+The last-interval linear scenario gives150M entries near0.719B,1.718B entries
+at10B and131.8GiB peak process RAM. Those are one early trajectory's scenarios,
+not bounds or proof that10B cannot fit. They do not admit the unchanged campaign.
+No in-place cap, deadline, guard, recipe or compression change was made.
+A larger-capacity growth/evaluation-memory qualification is the proposed next
+owner decision; it has not started. The preliminary4–8h main-run estimate is
+not a measured or admitted ETA. The200BB campaign stays separate.

@@ -95,6 +95,8 @@ Open tasks for contributors, grouped by the compute they need. Comment on or ope
 
 ## Current position
 
+- **Three-player 100 BB admission pilot complete (October 19):** [#350](https://github.com/dberweger2017/CFR-NLHE-6max/pull/350) reaches500M with113M entries,10.53GiB peak and exact thread/resume fixtures. Traversal is5.21M nodes/s; the final save takes389s. The local growth scenarios do not admit the proposed three-seed10B campaign under the current table/memory envelope. No main seed or strength evaluation ran;200BB is separate. [Measurements, limits and next qualification](docs/reports/nplayer-bb100/results.md).
+
 - **Three-player overnight30B study complete (October19):** [#346](https://github.com/dberweger2017/CFR-NLHE-6max/pull/346) finishes all three seeds and verified36-lineup comparison. Two same-seed gains clear zero; seed1541 is inconclusive, so the declared all-three improvement gate fails. All cyclic safeguards pass, but random-opponent return regresses on all seeds. Retain30B as research evidence; no stronger-family/default/release adoption. [Full results and retained failure/cost history](docs/reports/nplayer-overnight/results.md).
 
 - **N-player pruning merged as an experimental opt-in (October 19):** owner-authorized [#336](https://github.com/dberweger2017/CFR-NLHE-6max/pull/336) passes independent source review and all57 native library tests on current-main integration. It requires explicit fast-mode pruning flags; production and unpruned fast defaults stay unchanged. Matched-compute NLHE strength evidence is still required before campaign adoption or benefit claims. The running overnight campaign retains its frozen unpruned binary. [Behavior and limits](docs/nplayer-pruning.md).

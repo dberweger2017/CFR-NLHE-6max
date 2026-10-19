@@ -58,8 +58,16 @@ def summarize(receipt):
     if any(abs(scenarios[str(target)] - result[key]) > 1e-5 for target, key in
            [(3_000_000_000, 'linear_entries_at_3b'), (10_000_000_000, 'linear_entries_at_10b')]):
         raise ValueError('local scenario does not reproduce')
+    previous = records[-2]
+    marginal_rss = ((last['sampled_peak_rss_bytes'] - previous['sampled_peak_rss_bytes'])
+                    / (last['entries'] - previous['entries']))
+    peak_at_10b = (last['sampled_peak_rss_bytes']
+                   + marginal_rss * (scenarios['10000000000'] - last['entries']))
     return dict(rows=records, linear_entries=scenarios,
         linear_150m_crossing_nodes=last['nodes'] + (150_000_000 - last['entries']) / last['keys_per_node'],
+        local_marginal_peak_rss_bytes_per_entry=marginal_rss,
+        linear_peak_rss_bytes_at_10b=peak_at_10b,
+        three_seed_training_seconds_at_last_interval_rate=30_000_000_000 / last['nodes_per_second'],
         pilot_elapsed_seconds=result['elapsed_seconds'],
         active_training_seconds=sum(r['training_seconds'] for r in records),
         save_seconds=sum(r['save_seconds'] for r in records),
