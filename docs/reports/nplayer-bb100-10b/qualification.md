@@ -1,10 +1,12 @@
-# Fixed 100 BB 3B→10B study: implementation qualified, main unstarted
+# Fixed 100 BB 3B→10B study: qualification and authorized launch
 
 [PR355](https://github.com/dberweger2017/CFR-NLHE-6max/pull/355) implements
 [proposal354](https://github.com/dberweger2017/CFR-NLHE-6max/issues/354).
 The release build and realK50 engineering qualification passed on bb128.
-**No main10B continuation or final evaluation has started.** The fresh main
-configuration is prepared, but NVMe output space must be resolved before launch.
+**The owner-authorized main campaign launched October19 at20:08:19UTC, PID544891.**
+Owner-requested completed-evidence relocation resolved the NVMe output-space
+shortfall. The campaign uses its unchanged prepared configuration.
+[Launch receipt](launch.json).
 
 [Compact qualification/source/native/config receipt](qualification.json),
 [informational full-job forecast](forecast.json),
@@ -91,8 +93,10 @@ scale the small qualification, while model sizes use the current3B artifacts;
 10B serialization may grow even with fixed membership. Temporary space and
 working headroom are additional. The manual snapshot shows only **18.50GB free
 on NVMe**. This is a physical space shortfall, not a code-imposed budget refusal.
-Resolve output space before launching; do not delete/move open PR roots or
-protected model inputs to make the command fit.
+That qualification-time shortfall was resolved by the owner-requested
+[completed-evidence relocation](../../artifacts/nvme-relocation-20261019.md):
+verified free NVMe is now64.36GB. All open PR roots and protected model inputs
+remain in place. The original18.50GB snapshot is retained as dated evidence.
 
 ## Retained roots and reproduction
 
@@ -107,8 +111,9 @@ All paths below belong to this PR under
   complete build receipt. Cargo's installed absolute path resolves the setup.
 - `qualification-v1/`: fixture checkpoints/exports/mass metadata, traces,
   failed/success receipts, exact replay proofs, resource logs and qualification.
-- `main-v1/config.json`: prepared frozen configuration. No launch/failure/results
-  exist for this main root at the recorded observation.
+- `main-v1/config.json`: unchanged frozen configuration. The owner-authorized
+  launch is recorded in[launch.json](launch.json); source/runtime pins remain
+  the qualified values.
 
 To retrieve a compact proof into a fresh ignored directory:
 

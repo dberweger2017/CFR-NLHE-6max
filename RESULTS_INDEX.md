@@ -1,9 +1,46 @@
-## PR355 — fixed100BB3B→10B implementation and fixture qualification
+## bb128 NVMe evidence relocation — October19,2026
+
+The owner explicitly requested moving previous rounds' evidence to the2TB
+drive. Current GitHub checks show PR339/340/342 merged. **46.265GB /19,893files**
+are SHA256-verified at both source and HDD destination before releasing only
+the matching NVMe copies. NVMe free space is now**64.360GB**
+(observed gain46.270GB). [Report](docs/artifacts/nvme-relocation-20261019.md),
+[compact exact-path/manifests/runtime receipt](docs/artifacts/nvme-relocation-20261019.json),
+receiptSHA256`feab7991d204381caa9cfea4bb490934b247ac66a9c33d57ceb70d364df47b5b`.
+
+Destinations under`bb128:/mnt/data2tb/research-cloud/` are
+`PR-339-nplayer-storage-benchmark/roots/`,
+`PR-340-nplayer-fast-strength-study/roots/` and
+`PR-342-nplayer-blueprint-promotion/roots/`, retaining original root names.
+The receipt maps all13root/subdirectory relocations. Original NVMe paths now
+resolve through compatibility symlinks. Full file inventories, copier, checked
+PR statuses and initial process-inspection preflight failure remain in
+`.storage-receipts/nvme-relocation-20261019T195815Z/`. Each destination hasKEEP.
+PR340 main-v5's small controls also have a verified HDD copy; original controls
+and the shared runtime stay on NVMe. No PR350/352/353/355 root/input, shared
+Git/K50 table, other process, schedule or machine setting was moved or changed.
+
+Restore selected evidence with`rsync -a bb128:EXACT_HDD_DESTINATION/ FRESH_IGNORED_DIRECTORY/`
+and verify the relevant indexed manifest/memberSHA256s before use. These
+locations supersede earlier local-retention notes below; historical original
+paths keep working. **Drive archival/upload acceptance remains pending** for
+these relocated roots; no Drive restoration link, upload or purge is claimed.
+This specific owner-authorized local relocation does not expand the standing
+original-deletion policy. The HDD copy must be retained. The owner separately authorized PR355 launch
+during final disk sync; it started20:08:19UTC asPID544891, with its original
+configuration hash and working runtime confirmed.
+[Launch receipt](docs/reports/nplayer-bb100-10b/launch.json).
+
+## PR355 — fixed100BB3B→10B qualified and launched
 
 [PR355](https://github.com/dberweger2017/CFR-NLHE-6max/pull/355),
 [proposal354](https://github.com/dberweger2017/CFR-NLHE-6max/issues/354),
 [protocol](docs/nplayer-bb100-10b-study.md).
-Implementation only; no main10B continuation or final evaluation launched.
+The owner-authorized main campaign launchedOctober19,20:08:19UTC asPID544891,
+using the unchanged qualified source/configuration. Input verification and full
+baseline audit precede the3B→10B continuation; no outcome read at startup.
+[Launch/status/environment receipt](docs/reports/nplayer-bb100-10b/launch.json),
+[launch scope and ETA](docs/reports/nplayer-bb100-10b/launch.md).
 Qualification uses fresh owned small100BB/K50 fixtures and checks historical
 native versus resumed checkpoint/export bytes, mixed-opponent replay and
 instrumentation-on/off trajectories. The large PR350/352/353 input roots remain
@@ -12,14 +49,16 @@ PR. New metadata belongs to the new study root, bound to checkpoint/policy hashe
 Archive namespace`PR-355-nplayer-bb100-10b`; Research-Cloud/Drive acceptance pending.
 Qualification passed under source`ecb08ada`. Fresh owned bb128 root:
 `/home/dberweger/nplayer-bb100-10b-20261019/` contains source-v1, failedbuild-v1,
-successfulbuild-v2 and qualification-v1. Main-v1/config.json is prepared but no
-main launch exists. [Qualification report](docs/reports/nplayer-bb100-10b/qualification.md),
+successfulbuild-v2 and qualification-v1. Main-v1/config.json remains frozen;
+its owner-authorized main launch is recorded above. [Qualification report](docs/reports/nplayer-bb100-10b/qualification.md),
 [compact source/native/proof/config/temperature receipt](docs/reports/nplayer-bb100-10b/qualification.json),
 [informational75–94minute forecast](docs/reports/nplayer-bb100-10b/forecast.json).
 Compact metadata was retrieved into ignored`results/pr355-qualification/`;
 raw models/traces/mass metadata stay on bb128. The report gives retrieval and
-qualificationSHA256 verification. ManualNVMe18.50GB free is below the25.11GB
-predicted output before temporary/headroom needs; resolve space before launch.
+qualificationSHA256 verification. The historical18.50GB free NVMe snapshot
+was below25.11GB predicted output; the owner-requested completed-evidence
+relocation above raises free space to64.36GB before launch. Compact launch
+metadata is retained in ignored`planning/nvme-relocation-20261019/`.
 No resource guard beyond the owner's temperature policy was introduced.
 
 ## PR352 — verified final pruning comparison; original failure preserved
