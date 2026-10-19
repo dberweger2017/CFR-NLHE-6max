@@ -1,5 +1,7 @@
 # Owner-authorized10B recovery at100°C
 
+**Terminal update, October19:** two seeds completed30B and passed export/audit; third stopped at last reported12.20B after the conservative absolute-swap guard crossed256MiB. No final held-out evaluation ran. See [recovery terminal report](recovery-terminal.md). Launch/activation evidence below remains historical.
+
 The original attempt's95°C thermal failure remains [recorded](terminal-stop.md). The owner subsequently authorized “Okay let’s continue from10B with the new thermal limit.” One explicit recovery resumes the saved10B state and keeps the original October19 05:19:08UTC/07:19Madrid deadline,16threads, CPU90°C and all remaining seeds/targets/evaluation roots.
 
 ## Launch and pins
