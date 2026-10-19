@@ -125,3 +125,25 @@ No in-place cap, deadline, guard, recipe or compression change was made.
 A larger-capacity growth/evaluation-memory qualification is the proposed next
 owner decision; it has not started. The preliminary4–8h main-run estimate is
 not a measured or admitted ETA. The200BB campaign stays separate.
+
+The proposed [overnight implementation plan](nplayer-bb100-overnight-implementation.md)
+orders compression, mature growth, training storage, shared policy evaluation and
+100 BB harness work. It proposes new profiles explicitly; no additional run is
+launched or historical setting changed by that plan.
+
+## Historical-precedent option for owner decision
+
+The [implementation plan](nplayer-bb100-overnight-implementation.md) now identifies
+PR262/265/268's successful HU200 fixed-table continuation as the closest prior
+solution. It proposes a separately declared capped-table100 BB recipe: grow to
+an affordable entry ceiling, save the freeze-boundary anchor and continue
+learning within that table to10B. A250M-entry ceiling is a quotation candidate,
+not an admitted setting. The N-player library already supports freezing; the
+existing overnight wrapper needs explicit integration and qualification.
+
+This changes the earlier unrestricted-growth proposal. If selected, the primary
+anchor is the actual freeze boundary rather than a nominal1B checkpoint, with
+the same fresh paired comparison and regression requirements. Unknown states
+retain the declared uniform fallback; full regret allocation and export/evaluation
+memory still require measured admission. No new experiment starts, and no old
+pilot source, recipe, limit or failure policy changes through this document.
