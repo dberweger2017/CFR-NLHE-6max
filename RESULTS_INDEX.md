@@ -46,6 +46,13 @@ No bb128 job, source snapshot, setting or checkpoint was changed.
 
 ## PR350 — three-player 100 BB (3B qualified; main cost admission refused)
 
+**Owner-authorized merge October19 16:19:23UTC:** all five checks pass on
+`7661d70c`; merge`b8978231cb3e1e846433adccc762069187b6ef69`. The owner cancelled
+the unlaunched12h/100GiB readmission and requested closeout as the3B result.
+PR352 now targets main and still depends on the immutable3B checkpoint/average;
+all original roots, sources, failures and parent inputs remain protected. No
+archival/copy/cleanup or Drive acceptance is claimed through this merge.
+
 [PR350](https://github.com/dberweger2017/CFR-NLHE-6max/pull/350),
 [proposal349](https://github.com/dberweger2017/CFR-NLHE-6max/issues/349),
 [protocol](docs/nplayer-bb100-admission.md), [results](docs/reports/nplayer-bb100/results.md),
