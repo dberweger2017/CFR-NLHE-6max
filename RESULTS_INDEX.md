@@ -1,5 +1,6 @@
-## Unpruned100BB3B diagnosis — existing-trace readout
+## PR353 — unpruned100BB3B existing-trace diagnosis
 
+[PR353](https://github.com/dberweger2017/CFR-NLHE-6max/pull/353),
 [Report](docs/reports/nplayer-bb100-diagnosis/results.md),
 [compact results/input trace hashes/analyzer identity](docs/reports/nplayer-bb100-diagnosis/analysis.json),
 [all path/pot strata and example references](docs/reports/nplayer-bb100-diagnosis/paths.csv),
