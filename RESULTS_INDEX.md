@@ -20,7 +20,7 @@ archive/member receipt and model retrieval IDs are pending. Do not treat the
 existing PR163 input archive as coverage for newly generated PR347 evidence.
 No bb128 job, source snapshot, setting or checkpoint was changed.
 
-## PR350 — three-player 100 BB (authorized3B continuation active)
+## PR350 — three-player 100 BB (3B qualified; main cost admission refused)
 
 [PR350](https://github.com/dberweger2017/CFR-NLHE-6max/pull/350),
 [proposal349](https://github.com/dberweger2017/CFR-NLHE-6max/issues/349),
@@ -28,8 +28,21 @@ No bb128 job, source snapshot, setting or checkpoint was changed.
 [compact receipt](docs/reports/nplayer-bb100/receipt.json) and
 [exact checkpoint paths/hashes/counts](docs/reports/nplayer-bb100/costs.csv).
 
-- **Owner-authorized continuation active October19 13:21:12UTC/15:21:12Madrid:**
-  [Launch and current phase](docs/reports/nplayer-bb100/continuation-launch.md),
+- **Terminal main admission refusal October19 15:02:02UTC/17:02:02Madrid:**
+  [Full cost/proof report](docs/reports/nplayer-bb100/continuation-admission-stop.md),
+  [compact source/events/hashes/stage accounting](docs/reports/nplayer-bb100/continuation-admission-stop.json).
+  V3 reaches3,000,011,203nodes; membership freezes at2,088,867,258nodes with
+  250,000,475entries and unchanged anchor/final keyset. Both every-row audits,
+  checkpoint readbacks and36x128 calibration cases pass27648 replay+27648
+  reproduction hands. Full main quote10.106h>8h and82.538GiB with25%reserve>80GiB;
+  actual sampled mature evaluation peak66.030GiB. No thermal/runtime RSS stop,
+  final10Bseed, main budget, final strength outcome or automatic retry.
+  Supervisor492733 exited; both compute locks free at compact check. Only owned
+  TensorBoard492788 remains. All raw paths below and v2parent dependencies
+  retained unchanged; no root copy/archive/cleanup, Drive acceptance pending.
+  Compact diagnostic retrieval: ignored`results/pr350-terminal-admission-20261019/`.
+- **Historical owner-authorized continuation launched October19 13:21:12UTC/15:21:12Madrid:**
+  [Historical launch and first phase](docs/reports/nplayer-bb100/continuation-launch.md),
   [compact source/config/PID/deadline receipt](docs/reports/nplayer-bb100/continuation-launch.json),
   [independent review and26Linux tests](docs/reports/nplayer-bb100/continuation-review.md),
   [read-only parent pins](docs/reports/nplayer-bb100/continuation-parent-pins.json).
@@ -39,7 +52,7 @@ No bb128 job, source snapshot, setting or checkpoint was changed.
   Existing`binaries-v4` unchanged. Fixed2B→3B qualification deadline
   `1792423272.9440205`=15:21:12UTC/17:21:12Madrid; main starts automatically only
   if all unchanged mature qualification/resource/full8h cost gates pass.
-  First snapshot validates parent files, healthy; no final10B seed or ETA yet.
+  First snapshot validated parent files; the terminal receipt above supersedes it.
   Raw receipts/resources stay in owned root; small snapshot retrieved only to
   ignored`results/continuation-launch-20261019-v3/`. Retrieve once into a fresh
   ignored directory with `python3.11 docs/reports/nplayer-bb100/collect_bounded.py DEST --root /mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3`.
