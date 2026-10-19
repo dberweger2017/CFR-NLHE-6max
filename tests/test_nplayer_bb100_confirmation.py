@@ -74,6 +74,27 @@ class ConfirmationTests(unittest.TestCase):
             self.assertEqual((cache/'data').read_text(),'evidence')
             self.assertFalse((root/'relocations.jsonl').exists())
 
+    def test_supervised_readout_phase_requires_complete_proof(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            c=dict(smoke=True,matrices=[study.matrix(0,True),study.matrix(1,True)],cross=study.cross_cases(True))
+            guard.write(root/'config.json',c)
+            guard.write(root/'status.json',dict(status='global-readout'))
+            manifests={}
+            for seed in study.SEEDS:
+                path=root/f'lineage-{seed}'/'comparison'/'evaluation-manifest.json'
+                path.parent.mkdir(parents=True);guard.write(path,{})
+                manifests[str(path.relative_to(root))]=guard.sha(path)
+            cross=root/'cross'/'evaluation-manifest.json';cross.parent.mkdir();guard.write(cross,{})
+            guard.write(root/'evaluation-verified.json',dict(status='passed',initial_hands=504,reproduction_hands=504,
+                manifests=manifests,cross_manifest_sha256=guard.sha(cross)))
+            with patch.object(study,'validate_config'),patch.object(study.old,'read',side_effect=RuntimeError('barrier passed')) as reader:
+                with self.assertRaisesRegex(RuntimeError,'barrier passed'):study.read(root)
+                self.assertEqual(reader.call_count,1)
+                guard.write(root/'failure.json',dict(error='failed'))
+                with self.assertRaisesRegex(ValueError,'global confirmation barrier'):study.read(root)
+                self.assertEqual(reader.call_count,1)
+
     def test_changed_science_rejected_before_build_access(self):
         c=dict(smoke=False,seeds=list(study.SEEDS),targets=list(study.TARGETS),cap=250000000,
             matrices=[study.matrix(0),study.matrix(1)],cross=study.cross_cases(),

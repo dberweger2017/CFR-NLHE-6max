@@ -270,7 +270,9 @@ def read(root):
     validate_config(c)
     proof = load(root/'evaluation-verified.json')
     expected = sum(x['blocks']*6 for rows in c['matrices']+[c['cross']] for x in rows)
-    if ((root/'failure.json').exists() or load(root/'status.json')['status'] != 'all-science-verified-readout-ready'
+    # The supervisor labels the child stage before invoking this reader. The
+    # verified manifests remain mandatory in either phase.
+    if ((root/'failure.json').exists() or load(root/'status.json')['status'] not in ('all-science-verified-readout-ready','global-readout')
             or proof['status'] != 'passed' or proof['initial_hands'] != expected or proof['reproduction_hands'] != expected
             or proof['cross_manifest_sha256'] != guard.sha(root/'cross/evaluation-manifest.json')
             or len(proof['manifests']) != 2 or any(guard.sha(root/p) != digest for p,digest in proof['manifests'].items())):
