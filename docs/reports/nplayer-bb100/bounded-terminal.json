@@ -1,0 +1,121 @@
+{
+  "root": "/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019",
+  "launch": {
+    "epoch": 1792409558.7111406,
+    "supervisor_pid": 478791,
+    "qualification_deadline_epoch": 1792416758.7111406,
+    "main_maximum_seconds": 28800,
+    "seeds": [
+      202610193501,
+      202610193502,
+      202610193503
+    ],
+    "targets": [
+      1000000000,
+      3000000000,
+      10000000000
+    ],
+    "cap": 250000000,
+    "output_reservation_bytes": 600000000000,
+    "rss_limit_bytes": 85899345920,
+    "address_limit_bytes": 103079215104,
+    "cpu_stop_c": 90,
+    "thermistor15_stop_c": 100,
+    "swap_guard_enabled": false,
+    "source_commit": "24157c92b52998e9eca06fd715ee53f7386dd2db",
+    "source_manifest_sha256": "d7cdfb5c0f8d3d4bc485fe633c37bee961f693498cb7aab9c5b3278face9cdbf"
+  },
+  "source-receipt": {
+    "source_commit": "24157c92b52998e9eca06fd715ee53f7386dd2db",
+    "bundle_sha256": "51c60d7f56224809431230b1cfe9d0832445bfcfe5a37267ac7b19798f7d0f08",
+    "source_path": "/home/dberweger/nplayer-bb100-bounded-20261019/source-v3",
+    "config_sha256": "d7cdfb5c0f8d3d4bc485fe633c37bee961f693498cb7aab9c5b3278face9cdbf"
+  },
+  "status": {
+    "status": "matrix-smoke",
+    "at": 1792409639.5076432,
+    "seed": 2026101935004
+  },
+  "failure": {
+    "error": "RuntimeError('memory stop')",
+    "at": 1792409951.222345,
+    "resource_sample": {
+      "at": 1792409951.2113006,
+      "phase": "startup",
+      "target": 0,
+      "temperatures_c": {
+        "Thermistor 15": 58.0,
+        "Package id 0": 53.0
+      },
+      "available_ram_bytes": 24933158912,
+      "fan1_rpm": 696,
+      "swap_used_bytes": 26406285312,
+      "swap_growth_bytes": 1868513280,
+      "free_disk_bytes": 1141892153344,
+      "remaining_output_reservation_bytes": 599931004228,
+      "rss_bytes": 86011838464,
+      "read_bytes": 64327680,
+      "write_bytes": 2670592,
+      "rchar": 171998795607,
+      "wchar": 2344952
+    }
+  },
+  "supervisor_command": null,
+  "stage_progress": {
+    "completed": "cross-202610193501-0-1",
+    "event": "progress",
+    "resident_weight_tables": 1
+  },
+  "stage_failure": {
+    "error": "RuntimeError('memory stop')",
+    "phase": "startup",
+    "target": 0,
+    "resource_sample": {
+      "at": 1792409951.2113006,
+      "phase": "startup",
+      "target": 0,
+      "temperatures_c": {
+        "Thermistor 15": 58.0,
+        "Package id 0": 53.0
+      },
+      "available_ram_bytes": 24933158912,
+      "fan1_rpm": 696,
+      "swap_used_bytes": 26406285312,
+      "swap_growth_bytes": 1868513280,
+      "free_disk_bytes": 1141892153344,
+      "remaining_output_reservation_bytes": 599931004228,
+      "rss_bytes": 86011838464,
+      "read_bytes": 64327680,
+      "write_bytes": 2670592,
+      "rchar": 171998795607,
+      "wchar": 2344952
+    }
+  },
+  "last_resource": {
+    "at": 1792409950.7026758,
+    "phase": "startup",
+    "target": 0,
+    "temperatures_c": {
+      "Thermistor 15": 58.0,
+      "Package id 0": 49.0
+    },
+    "available_ram_bytes": 25074982912,
+    "fan1_rpm": 690,
+    "swap_used_bytes": 26406285312,
+    "swap_growth_bytes": 1868513280,
+    "free_disk_bytes": 1141892153344,
+    "remaining_output_reservation_bytes": 599931004228,
+    "rss_bytes": 85872234496,
+    "read_bytes": 64327680,
+    "write_bytes": 2670592,
+    "rchar": 171720643135,
+    "wchar": 2344952,
+    "nvme_free_bytes": 55292583936,
+    "cpu_stop_c": 90,
+    "thermistor15_stop_c": 100,
+    "swap_guard_enabled": false
+  },
+  "classification": "terminal qualification resource stop; no calibration or final seed started",
+  "diagnosis": "Persistent native batch calls EquityTables::load for each lineup; load intentionally returns process-lifetime Box::leak storage. Thus every case retains another full fixed K50 set.",
+  "failed_source_unchanged": true
+}

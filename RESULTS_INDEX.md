@@ -1,3 +1,156 @@
+## PR347 — contiguous storage, M1 validation and owner-authorized merge
+
+[PR347](https://github.com/dberweger2017/CFR-NLHE-6max/pull/347) merged October19
+14:48:06UTC as`950611b68840fa9b4c01a1e0b9e73c319b434930` after the owner-authorized
+fixed M1 check passed. [Results](docs/reports/pr347-m1/results.md),
+[compact source/protocol/identity/cost receipt](docs/reports/pr347-m1/receipt.json).
+Baseline`e0472485d1a09822889edd2bb1fa92b638dc7334`; tested PRhead`4b92f066cf974c5ab0e7d4c1811cf59976af428b`.
+All59 native integration tests and all identity/resource/performance gates pass.
+Fresh80M training/save/wall essentially unchanged; peak RSS2.201→2.127GiB.
+This is4threads/10Mkeys/one seed/two repeats per arm, not bb12816thread/250M evidence.
+
+Raw working root`/Users/dberweger/Local/cfr-nplayer-bb100-20261019/results/pr347-m1-20261019/`
+retains both pinned sources/binaries, original full protocol/runner, commands,
+resource/background-load samples, every checkpoint/export, results and input tables.
+It is protected and has not been archived or cleaned. Original K50 inputs are from
+mergedPR163: whole archive/member verification, Drive ID/member paths/pins and
+restore provenance are in[the existing receipt](docs/reports/cygnus-x1-artifacts/input-restoration.json).
+Research-Cloud destination remains`PR-347-store-entry-records`; upload acceptance,
+archive/member receipt and model retrieval IDs are pending. Do not treat the
+existing PR163 input archive as coverage for newly generated PR347 evidence.
+No bb128 job, source snapshot, setting or checkpoint was changed.
+
+## PR350 — three-player 100 BB (3B qualified; main cost admission refused)
+
+[PR350](https://github.com/dberweger2017/CFR-NLHE-6max/pull/350),
+[proposal349](https://github.com/dberweger2017/CFR-NLHE-6max/issues/349),
+[protocol](docs/nplayer-bb100-admission.md), [results](docs/reports/nplayer-bb100/results.md),
+[compact receipt](docs/reports/nplayer-bb100/receipt.json) and
+[exact checkpoint paths/hashes/counts](docs/reports/nplayer-bb100/costs.csv).
+
+- **Terminal main admission refusal October19 15:02:02UTC/17:02:02Madrid:**
+  [Full cost/proof report](docs/reports/nplayer-bb100/continuation-admission-stop.md),
+  [compact source/events/hashes/stage accounting](docs/reports/nplayer-bb100/continuation-admission-stop.json).
+  V3 reaches3,000,011,203nodes; membership freezes at2,088,867,258nodes with
+  250,000,475entries and unchanged anchor/final keyset. Both every-row audits,
+  checkpoint readbacks and36x128 calibration cases pass27648 replay+27648
+  reproduction hands. Full main quote10.106h>8h and82.538GiB with25%reserve>80GiB;
+  actual sampled mature evaluation peak66.030GiB. No thermal/runtime RSS stop,
+  final10Bseed, main budget, final strength outcome or automatic retry.
+  Supervisor492733 exited; both compute locks free at compact check. Only owned
+  TensorBoard492788 remains. All raw paths below and v2parent dependencies
+  retained unchanged; no root copy/archive/cleanup, Drive acceptance pending.
+  Compact diagnostic retrieval: ignored`results/pr350-terminal-admission-20261019/`.
+- **Historical owner-authorized continuation launched October19 13:21:12UTC/15:21:12Madrid:**
+  [Historical launch and first phase](docs/reports/nplayer-bb100/continuation-launch.md),
+  [compact source/config/PID/deadline receipt](docs/reports/nplayer-bb100/continuation-launch.json),
+  [independent review and26Linux tests](docs/reports/nplayer-bb100/continuation-review.md),
+  [read-only parent pins](docs/reports/nplayer-bb100/continuation-parent-pins.json).
+  Output`bb128:/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3/`;
+  supervisor492733, controller source`b9882e7e728847a58691995e64eabd4563ea0991`,
+  control`/home/dberweger/nplayer-bb100-bounded-20261019/source-continuation-v1`.
+  Existing`binaries-v4` unchanged. Fixed2B→3B qualification deadline
+  `1792423272.9440205`=15:21:12UTC/17:21:12Madrid; main starts automatically only
+  if all unchanged mature qualification/resource/full8h cost gates pass.
+  First snapshot validated parent files; the terminal receipt above supersedes it.
+  Raw receipts/resources stay in owned root; small snapshot retrieved only to
+  ignored`results/continuation-launch-20261019-v3/`. Retrieve once into a fresh
+  ignored directory with `python3.11 docs/reports/nplayer-bb100/collect_bounded.py DEST --root /mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3`.
+  Own TensorBoardPID492788/port6007/local8607 now reads v3; old20BB6006 untouched.
+  PR350 open: all roots and v2parent/input dependencies protected; no archival,
+  cleanup or Drive acceptance claimed. No further automatic retry/extension.
+- **Corrected attempt terminal October19 12:31:49UTC/14:31:49Madrid:**
+  native calibration returns0 at2,000,003,197nodes/244,485,627entries. The250Mcap
+  never triggered, so validation refuses the predeclared2B endpoint. No
+  pretraining-freeze, cost quote, finalseed, mature audit/eval or strength result.
+  [Full diagnosis/costs/next prospective step](docs/reports/nplayer-bb100/calibration-cap-stop.md),
+  [compact native/checkpoint/small-matrix metadata](docs/reports/nplayer-bb100/calibration-cap-stop.json).
+  Native423.45active seconds,1485.09wall,9087.44CPU seconds,22.23GiB peak.
+  Retain both1B/2B checkpoints and2Baverage in the preserved v2root below;
+  2BcheckpointSHA256`43320d93b5dda9981d4f99e1d8b4898b924e38acfe8f809f6693ff79cdc41566`,
+  averageSHA256`4637b9911b89a241be9dd4d3b03e0d80f483669516bd56009c8ada6e5ccb3bb7`.
+  Complete small matrix passes432replay+432reproduction hands/12policy loads.
+  Supervisor483894 exited. No retry/cap/endpoint/deadline change or model copy
+  toMac. The subsequently authorized continuation above uses this immutable parent.
+- **Reviewed corrected qualification launched October19** after explicit owner
+  request for a review subagent before resuming. [Independent review and fixes](docs/reports/nplayer-bb100/review-before-resume.md),
+  [23Linux/process tests + native rebuild/reuse proof](docs/reports/nplayer-bb100/review-engineering-tests.json),
+  [exact new launch](docs/reports/nplayer-bb100/reviewed-launch.json).
+  Source`c4b04bf826688be546d68c76d14db711d0c788d6`,1045files verified,
+  bundleSHA256`755685cf87023c8cd15c6798a47a01b02cb5e952b798ac9aa060151a0aa294ec`;
+  configSHA256`588379a7b3159528cf5085bf56de43da85979ad34c821a43509511fa088a2042`.
+  Output`bb128:/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v2/`,
+  supervisor483894, control`/home/dberweger/nplayer-bb100-bounded-20261019/`;
+  source-v4/binaries-v4 match the independently reviewed and engineering-tested
+  source-review-v1 bytes. Failed source-v3/root retained. Original qualification
+  cutoff1792416758.7111406 (13:32:38UTC) remains; main8h starts only if admitted.
+  No new final seed or outcomes claimed. Collector command adds
+  `--root /mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v2`
+  and writes to a fresh ignored destination. Own TensorBoard6007/local8607 is
+  switched to this new attempt; old20BB6006 remains untouched.
+- **Terminal October19 11:39:11UTC/13:39:11Madrid:** bounded full-matrix smoke
+  crossed80GiB familyRSS (80.105GiB);CPU53/Thermistor58,23.22GiB available RAM.
+  New batch wrapper repeatedly loaded process-lifetime fixed K50 tables.
+  No mature calibration, final10B seed, complete matrix or strength result.
+  [Diagnosis](docs/reports/nplayer-bb100/bounded-terminal.md),
+  [exact receipt](docs/reports/nplayer-bb100/bounded-terminal.json).
+  Supervisor478791 exited; root/source-v3/binaries-v3/config/deadline/partials
+  retained unchanged. Prospective wrapper fix and its engineering cache test are
+  separate; [72-case card-table reuse engineering test](docs/reports/nplayer-bb100/card-table-cache-test.json)
+  passes at1.13GiB whole-command sampled peak,13.48s including build. Test-only
+  source`source-cache-fix` and receipt`cache-fix-build` remain in control. No
+  scientific retry or deadline reset. Snapshot retrieved to
+  ignored`results/bounded-eta-20261019-check1` with the collector below.
+- **Owner-authorized capped-table qualification launched October19**, frozen
+  source`24157c92b52998e9eca06fd715ee53f7386dd2db`,1043 deployed source/config
+  files, bundleSHA256`51c60d7f56224809431230b1cfe9d0832445bfcfe5a37267ac7b19798f7d0f08`.
+  [Prospective protocol](docs/nplayer-bb100-bounded-protocol.md):250M-key cap,
+  freeze-boundary anchors, three fresh10B seeds,16threads,CPU90/Thermistor100,
+  swap telemetry only. Final seeds start automatically only after correctness,
+  mature-memory and full-cost admission; no current strength result.
+  Separate two-hour qualification and eight-hour main deadlines. Supervisor478791;
+  control`bb128:/home/dberweger/nplayer-bb100-bounded-20261019/` contains
+  `source-v3`, pinned`binaries-v3`, and all bootstrap/failed engineering build
+  receipts. `bootstrap-v3` passes57native+20focused Python tests.
+  New owned output`bb128:/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019/`
+  retains source/config/binary receipts, checkpoints, raw traces and partials.
+  ConfigSHA256`d7cdfb5c0f8d3d4bc485fe633c37bee961f693498cb7aab9c5b3278face9cdbf`.
+  Lightweight status retrieval: `python3.11 docs/reports/nplayer-bb100/collect_bounded.py FRESH_IGNORED_DESTINATION`.
+  TensorBoard owns port6007 onbb128, local tunnel8607, logdir in the new output
+  root; the old20BB dashboard/process is unchanged. No model/trace copying toMac,
+  no cleanup, cloud acceptance or main-strength claim.
+- Owner authorized 100 BB only, targeting 10B per seed after cost admission;
+  200 BB is a separate future run. One calibration seed2026101935001 completes
+  100M/200M/500M with saves, all seven native stages return0, no failure,
+  exact one-vs-sixteen-thread and fresh/resume fixture hashes match. No final
+  strength seeds, poker outcomes, release/default change or long run.
+- October19 10:15:31–10:31:40UTC, 16.16min wall /0.656child CPU-hours.
+  500M has112,968,920entries /10.53GiB sampled peak; traversal5.21Mnodes/s
+  on the last interval, final save389.17s /3,989,512,255bytes.
+  CPU64C/Thermistor15 74.5C maximum; zero swap growth, existing22.85GiB
+  host swap remains telemetry only. No OS/fan/cache/other-job changes.
+- Frozen source0b8d16c9e0a7299b164a543200f535a48d216a05;
+  qualified CLI SHA256fc37a562f8d3753d920b07b5d35c6deabe75fc846196b176f749187a3b3ac790.
+  Controller/source/config originals remain at
+  `bb128:/home/dberweger/nplayer-bb100-pilot-20261019/`:
+  `source-v2`/`config-v2.json` are launched, initial `source`/`config.json`
+  are retained prelaunch provenance. Supervisor466186 exited normally.
+- All raw checkpoints, commands, resources, summaries and source/config evidence
+  remain at `bb128:/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/pilot-20261019/`.
+  Original results.json SHA256`76b4e7ca27bc5587a0282c45e4c35ff68016da536cac57f6fbca7131f0cbdf3e`.
+  Compact retrieval: `/Users/dberweger/Local/cfr-nplayer-bb100-20261019/results/bb100-pilot-20261019T103150Z`;
+  no model or trace copied to the Mac. Reproduce with the report's SSH
+  `collect.py` command into a fresh ignored path, then `summarize.py`.
+  Read-only PR340 CLI/venv and PR292 K50 tables remain protected dependencies.
+- Last-interval linear scenarios give150M entries near0.719B and1.718B
+  entries /131.8GiB peak RSS at10B. These are not bounds or proof of saturation;
+  they do not admit the unchanged150M-entry full campaign. Larger-capacity
+  growth and evaluation-memory qualification was attempted under the separate
+  capped protocol above, and stopped before the mature trajectory.
+- PR350 is open. Raw originals remain protected; Drive ZIP/file IDs,
+  matching upload acceptance and cloud restoration are pending. No archival,
+  cleanup, eviction or deletion claim.
+
 ## PR346 — overnight three-player20BB campaign (complete; mixed results; archival pending)
 
 **Verified complete October19 08:44:04UTC /10:44:04Madrid.** All three30B models pass export/every-row audits (328,640,906rows). All36 final lineups replay/reproduce before settled readout:1,769,472 final+1,769,472 reproduction hands. [Final report](docs/reports/nplayer-overnight/results.md), [compact receipt](docs/reports/nplayer-overnight/completion.json), [exact settled result](docs/reports/nplayer-overnight/source-results.json), [model/checkpoint pins and training costs](docs/reports/nplayer-overnight/models-and-training.csv).
@@ -6,7 +159,7 @@ Same-seed oriented contrasts1541/42/43:+1.66[−1.54,+4.86],+5.89[+2.88,+8.91],+
 
 Final continuation2h32m19s wall/18.36 child CPU-hours; training9.91GiB/save10.49GiB peak, evaluation63.99GiB peak with33.74GiB minimum available RAM. Evaluation host swap peaks23.09GiB (telemetry only); it cannot be attributed to particular pages from these receipts. Overall campaign13h24m56s includes pauses and retained failures; exact whole-campaign CPU unknown, successful-stage receipts total54.75CPU-hours. All failures and partials remain indexed below.
 
-Raw result SHA256`e47b9e07bae8a6ad1f898a8c4175ffb070807dc1f1dac716e713566ab912a695`; evaluation manifestSHA256`99364b06c47aa6077e27da64166274f3886355bc637737c1517a7f4010cf6cde`. Compact metadata retrieved to ignored`results/overnight-complete-20261019T094456Z/`; no model/hand trace retrieval. Read-only exact-result command:`ssh bb128 cat /tmp/nplayer-overnight-20261019-finish-noswap/results.json > FRESH_DESTINATION/source-results.json`, then verify the SHA256. Original/cache paths remain as below, exact final/anchor checkpoint/export paths and hashes in the model CSV/completion receipt. PR346 remains open; no new ZIP/Drive receipt exists, so archive/upload acceptance is pending. No deletion or cleanup.
+Raw result SHA256`e47b9e07bae8a6ad1f898a8c4175ffb070807dc1f1dac716e713566ab912a695`; evaluation manifestSHA256`99364b06c47aa6077e27da64166274f3886355bc637737c1517a7f4010cf6cde`. Compact metadata retrieved to ignored`results/overnight-complete-20261019T094456Z/`; no model/hand trace retrieval. Read-only exact-result command:`ssh bb128 cat /tmp/nplayer-overnight-20261019-finish-noswap/results.json > FRESH_DESTINATION/source-results.json`, then verify the SHA256. Original/cache paths remain as below, exact final/anchor checkpoint/export paths and hashes in the model CSV/completion receipt. PR346 merged October19; no new ZIP/Drive receipt exists, so archive/upload acceptance is pending. No deletion or cleanup.
 
 [Proposal345](https://github.com/dberweger2017/CFR-NLHE-6max/issues/345); [frozen protocol](docs/nplayer-overnight-blueprint.md). The existing PR340~3B raw checkpoints/averages are read-only inputs. New owned tmpfs workspace `/tmp/nplayer-overnight-20261018` has retained, hash-verified copies in a new per-PR2TB cache root; exact [pins/root/launch receipts](docs/reports/nplayer-overnight/launch.md) record frozen source4cd199a5 and supervisor358105. Preserve all failures and partials. No originals deleted; cloud archival/acceptance pending.
 

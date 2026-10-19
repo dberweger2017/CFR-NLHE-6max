@@ -1,0 +1,192 @@
+{
+  "status": "passed",
+  "baseline_commit": "e0472485d1a09822889edd2bb1fa92b638dc7334",
+  "pr347_head": "4b92f066cf974c5ab0e7d4c1811cf59976af428b",
+  "protocol_sha256": "53410a555ab7eba7be5fd540437c2ee307e760b8b652ff9e0de5652a9c7a2edf",
+  "runner_sha256": "7af844d0907949f34e8ad90e81cadf333cbd736460d3ecffe74829019c920cb8",
+  "host": "M1 16GiB",
+  "threads": 4,
+  "seed": 2026101934701,
+  "players": 3,
+  "stack_bb": 100,
+  "cap": 10000000,
+  "compression": "compatible default gzip for both versions; four Rayon threads",
+  "order": [
+    "baseline",
+    "candidate",
+    "candidate",
+    "baseline"
+  ],
+  "repetitions_per_arm": 2,
+  "resource_limits": {
+    "rss_stop_bytes": 6442450944,
+    "available_ram_floor_bytes": 2147483648,
+    "disk_free_floor_bytes": 8589934592,
+    "owned_growth_stop_bytes": 8589934592,
+    "deadline_seconds": 1800,
+    "per_command_seconds": 420
+  },
+  "gates": {
+    "exact_checkpoints": true,
+    "exact_exports": true,
+    "thread_and_cross_resume_parity": true,
+    "unchanged_frozen_membership": true,
+    "all_guards_passed": true,
+    "training_no_5pct_regression": true,
+    "memory_no_5pct_regression": true,
+    "save_no_10pct_regression": true,
+    "wall_no_10pct_regression": true
+  },
+  "summary": {
+    "baseline": {
+      "training_seconds": 29.1113601455,
+      "save_seconds": 25.1632744795,
+      "wall_seconds": 60.040372014045715,
+      "cpu_seconds": 151.9181095,
+      "peak_rss_bytes": 2363703296,
+      "nodes_per_second": 2748706.6667130226
+    },
+    "candidate": {
+      "training_seconds": 29.029471417000003,
+      "save_seconds": 25.217789103999998,
+      "wall_seconds": 60.18284845352173,
+      "cpu_seconds": 150.60436950000002,
+      "peak_rss_bytes": 2284011520,
+      "nodes_per_second": 2757766.1368692387
+    }
+  },
+  "ratios_candidate_over_baseline": {
+    "training_seconds": 0.9971870524739925,
+    "save_seconds": 1.0021664360313842,
+    "wall_seconds": 1.0023730106043094,
+    "cpu_seconds": 0.9913523147153172,
+    "peak_rss_bytes": 0.9662852033354359,
+    "nodes_per_second": 1.0032959028571242
+  },
+  "checkpoint_groups": {
+    "fresh80": {
+      "sha256": "9bf29bb3cbeeba3508e3b62dba609a59a3a273b02c615b39cd8c8c65b21658b7",
+      "entries": 10008236,
+      "nodes": 80006602,
+      "frozen_at": 1113,
+      "instances": 4
+    },
+    "final100": {
+      "sha256": "acc9e988f418f919b06a58f166c2fde7468b74bd318b1f3b7f493cda440fce2a",
+      "entries": 10008236,
+      "nodes": 100015705,
+      "instances": 6
+    }
+  },
+  "frozen_membership": [
+    {
+      "entries": 10008236,
+      "keyset_sha256": "2af12b3722bd261cb49febf614822a1bbd8f4a84e082866f1480e64412a6bdcf"
+    },
+    {
+      "entries": 10008236,
+      "keyset_sha256": "2af12b3722bd261cb49febf614822a1bbd8f4a84e082866f1480e64412a6bdcf"
+    }
+  ],
+  "exports": [
+    {
+      "arm": "baseline",
+      "sha256": "da1f61ee0a5573ab42a66074fa022f784fb99acb6607ce44e095462c9cd44d16",
+      "bytes": 223082248
+    },
+    {
+      "arm": "candidate",
+      "sha256": "da1f61ee0a5573ab42a66074fa022f784fb99acb6607ce44e095462c9cd44d16",
+      "bytes": 223082248
+    }
+  ],
+  "fresh_runs": [
+    {
+      "arm": "baseline",
+      "target": 80000000,
+      "nodes": 80006602,
+      "training_seconds": 29.467676,
+      "save_seconds": 25.178774,
+      "wall_seconds": 60.281147956848145,
+      "cpu_seconds": 151.875727,
+      "peak_rss_bytes": 2315927552
+    },
+    {
+      "arm": "candidate",
+      "target": 80000000,
+      "nodes": 80006602,
+      "training_seconds": 29.754162667,
+      "save_seconds": 25.249564875,
+      "wall_seconds": 61.06245493888855,
+      "cpu_seconds": 151.296088,
+      "peak_rss_bytes": 2283651072
+    },
+    {
+      "arm": "candidate",
+      "target": 80000000,
+      "nodes": 80006602,
+      "training_seconds": 28.304780167000004,
+      "save_seconds": 25.186013333,
+      "wall_seconds": 59.30324196815491,
+      "cpu_seconds": 149.912651,
+      "peak_rss_bytes": 2284011520
+    },
+    {
+      "arm": "baseline",
+      "target": 80000000,
+      "nodes": 80006602,
+      "training_seconds": 28.755044291,
+      "save_seconds": 25.147774959,
+      "wall_seconds": 59.799596071243286,
+      "cpu_seconds": 151.96049200000002,
+      "peak_rss_bytes": 2363703296
+    }
+  ],
+  "resumed_runs": [
+    {
+      "arm": "candidate",
+      "nodes": 100015705,
+      "training_seconds": 8.567292042000002,
+      "save_seconds": 26.109178208,
+      "wall_seconds": 52.17502284049988,
+      "cpu_seconds": 86.403872,
+      "peak_rss_bytes": 2213150720
+    },
+    {
+      "arm": "baseline",
+      "nodes": 100015705,
+      "training_seconds": 7.545810500000002,
+      "save_seconds": 25.528003,
+      "wall_seconds": 50.52319598197937,
+      "cpu_seconds": 82.64119,
+      "peak_rss_bytes": 2347122688
+    },
+    {
+      "arm": "baseline",
+      "nodes": 100015705,
+      "training_seconds": 7.041358167000002,
+      "save_seconds": 25.276184208,
+      "wall_seconds": 49.35456991195679,
+      "cpu_seconds": 80.45675800000001,
+      "peak_rss_bytes": 2348007424
+    },
+    {
+      "arm": "candidate",
+      "nodes": 100015705,
+      "training_seconds": 7.191631125000001,
+      "save_seconds": 25.271659,
+      "wall_seconds": 49.41101789474487,
+      "cpu_seconds": 80.91283,
+      "peak_rss_bytes": 2267365376
+    }
+  ],
+  "source_input_provenance": "docs/reports/cygnus-x1-artifacts/input-restoration.json; PR163 confirmed merged before retrieval; whole indexed archive and all three table SHA256s verified",
+  "raw_root": "/Users/dberweger/Local/cfr-nplayer-bb100-20261019/results/pr347-m1-20261019",
+  "raw_runner": "runner.py",
+  "archive_status": "pending; originals retained; no Drive acceptance claim",
+  "limits": "One M1, one fixed seed, two fresh repeats per arm,4threads/10Mkeys; background load logged. Not a bb12816thread/250M benchmark or a playing-strength study.",
+  "finished_epoch": 1792421239.229541,
+  "merged_at": "2026-10-19T14:48:06Z",
+  "merge_commit": "950611b68840fa9b4c01a1e0b9e73c319b434930",
+  "allowance_wall_seconds": 1032.4751908779144
+}

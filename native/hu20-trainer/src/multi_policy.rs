@@ -104,9 +104,11 @@ fn verified(path: &Path, expected: &str) -> Result<(), String> {
 pub fn export(checkpoint: &Path, expected: &str, mode: Mode, out: &Path, gzip: Gzip) -> Result<(), String> {
     verified(checkpoint, expected)?;
     let trainer = multi_checkpoint::load(checkpoint)?;
-    write(&trainer, expected, mode, out, gzip)
+    write_trainer(&trainer, expected, mode, out, gzip)
 }
-fn write(trainer: &Trainer, source: &str, mode: Mode, out: &Path, gzip: Gzip) -> Result<(), String> {
+/// Export an immutable trainer immediately after saving and pinning its checkpoint.
+/// The caller owns the saved-state/source-hash association; no second trainer is loaded.
+pub fn write_trainer(trainer: &Trainer, source: &str, mode: Mode, out: &Path, gzip: Gzip) -> Result<(), String> {
     cash_config(&trainer.identity)?;
     if mode == Mode::Average && trainer.last_average_street != 3 {
         return Err("full average unavailable; explicitly choose scoped-average or current".into());
@@ -160,7 +162,10 @@ impl PolicyTable {
         {
             return Err("invalid policy metadata".into());
         }
+        let count=usize::try_from(h["entries"].as_u64().ok_or("invalid entry count")?).map_err(|e|e.to_string())?;
         let mut rows = HashMap::default();
+        // The validated export declares its size; avoid old/new index overlap while loading.
+        rows.try_reserve(count).map_err(|e|e.to_string())?;
         let mut previous = None;
         for line in lines {
             let value: Value = serde_json::from_str(&line.map_err(|e| e.to_string())?)
@@ -330,12 +335,12 @@ mod tests {
                 let t = fixture(n, if mode == Mode::Average { 3 } else { 0 });
                 let a = dir.join(format!("{n}-{mode:?}-a.gz"));
                 let b = dir.join(format!("{n}-{mode:?}-b.gz"));
-                write(&t, &"a".repeat(64), mode, &a, Gzip::Compatible).unwrap();
-                write(&t, &"a".repeat(64), mode, &b, Gzip::Compatible).unwrap();
+                write_trainer(&t, &"a".repeat(64), mode, &a, Gzip::Compatible).unwrap();
+                write_trainer(&t, &"a".repeat(64), mode, &b, Gzip::Compatible).unwrap();
                 assert_eq!(std::fs::read(&a).unwrap(), std::fs::read(&b).unwrap());
                 // Gzip members per piece: same text, read by the loader.
                 let p = dir.join(format!("{n}-{mode:?}-p.gz"));
-                write(&t, &"a".repeat(64), mode, &p, Gzip::Parallel).unwrap();
+                write_trainer(&t, &"a".repeat(64), mode, &p, Gzip::Parallel).unwrap();
                 let text = |path: &Path| std::io::read_to_string(GzDecoder::new(std::fs::File::open(path).unwrap())).unwrap();
                 assert_ne!(std::fs::read(&a).unwrap(), std::fs::read(&p).unwrap());
                 assert_eq!(text(&a), text(&p));
@@ -352,11 +357,11 @@ mod tests {
                     };
                     assert_eq!(&*table.rows[&[street as u8; 16]].probabilities, &expected);
                 }
-                assert!(write(&t, &"a".repeat(64), mode, &a, Gzip::Compatible).is_err());
+                assert!(write_trainer(&t, &"a".repeat(64), mode, &a, Gzip::Compatible).is_err());
                 assert!(PolicyTable::load(&a, &"0".repeat(64)).is_err());
             }
         }
-        assert!(write(
+        assert!(write_trainer(
             &fixture(3, 0),
             &"a".repeat(64),
             Mode::Average,
@@ -372,7 +377,7 @@ mod tests {
             std::env::temp_dir().join(format!("nplayer-invalid-policy-{}", std::process::id()));
         std::fs::create_dir(&dir).unwrap();
         let valid = dir.join("valid.gz");
-        write(&fixture(3, 0), &"a".repeat(64), Mode::ScopedAverage, &valid, Gzip::Compatible).unwrap();
+        write_trainer(&fixture(3, 0), &"a".repeat(64), Mode::ScopedAverage, &valid, Gzip::Compatible).unwrap();
         let values: Vec<Value> =
             BufReader::new(GzDecoder::new(std::fs::File::open(&valid).unwrap()))
                 .lines()

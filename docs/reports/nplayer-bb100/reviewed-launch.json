@@ -1,0 +1,87 @@
+{
+  "root": "/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v2",
+  "launch": {
+    "epoch": 1792411537.317148,
+    "supervisor_pid": 483894,
+    "qualification_deadline_epoch": 1792416758.7111406,
+    "main_maximum_seconds": 28800,
+    "seeds": [
+      202610193501,
+      202610193502,
+      202610193503
+    ],
+    "targets": [
+      1000000000,
+      3000000000,
+      10000000000
+    ],
+    "cap": 250000000,
+    "output_reservation_bytes": 600000000000,
+    "rss_limit_bytes": 85899345920,
+    "address_limit_bytes": 103079215104,
+    "cpu_stop_c": 90,
+    "thermistor15_stop_c": 100,
+    "swap_guard_enabled": false,
+    "source_commit": "c4b04bf826688be546d68c76d14db711d0c788d6",
+    "source_manifest_sha256": "588379a7b3159528cf5085bf56de43da85979ad34c821a43509511fa088a2042"
+  },
+  "source-receipt": {
+    "source_commit": "c4b04bf826688be546d68c76d14db711d0c788d6",
+    "bundle_sha256": "755685cf87023c8cd15c6798a47a01b02cb5e952b798ac9aa060151a0aa294ec",
+    "source_path": "/home/dberweger/nplayer-bb100-bounded-20261019/source-v4",
+    "config_sha256": "588379a7b3159528cf5085bf56de43da85979ad34c821a43509511fa088a2042",
+    "compiled_source": "/home/dberweger/nplayer-bb100-bounded-20261019/source-review-v1",
+    "all_native_source_files_identical": true
+  },
+  "admission": {
+    "at": 1792411537.318294,
+    "phase": "admission",
+    "target": 0,
+    "temperatures_c": {
+      "Thermistor 15": 31.5,
+      "Package id 0": 41.0
+    },
+    "available_ram_bytes": 111018901504,
+    "fan1_rpm": 495,
+    "swap_used_bytes": 26406281216,
+    "swap_growth_bytes": 0,
+    "free_disk_bytes": 1141129900032,
+    "remaining_output_reservation_bytes": 600000000000,
+    "rss_bytes": 0,
+    "nvme_free_bytes": 55233130496,
+    "cpu_stop_c": 90,
+    "thermistor15_stop_c": 100,
+    "swap_guard_enabled": false
+  },
+  "status": {
+    "status": "fixture-resume",
+    "at": 1792411558.5028417,
+    "seed": 2026101935004
+  },
+  "supervisor_command": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/venv/bin/python -m scripts.nplayer_bb100_overnight run /mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v2 ",
+  "last_resource": {
+    "at": 1792411561.5609732,
+    "phase": "startup",
+    "target": 0,
+    "temperatures_c": {
+      "Thermistor 15": 40.0,
+      "Package id 0": 48.0
+    },
+    "available_ram_bytes": 110862135296,
+    "fan1_rpm": 579,
+    "swap_used_bytes": 26406281216,
+    "swap_growth_bytes": 0,
+    "free_disk_bytes": 1141101432832,
+    "remaining_output_reservation_bytes": 599982787484,
+    "rss_bytes": 174542848,
+    "read_bytes": 0,
+    "write_bytes": 0,
+    "rchar": 1071735030,
+    "wchar": 0,
+    "nvme_free_bytes": 55233118208,
+    "cpu_stop_c": 90,
+    "thermistor15_stop_c": 100,
+    "swap_guard_enabled": false
+  },
+  "note": "Reviewed corrected qualification active; no main admission claimed."
+}
