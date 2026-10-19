@@ -202,6 +202,50 @@ def configure(root, build_root, tables, python):
         cases={p:cases(p) for p in ('nodes','clock')}))
 
 
+def recovery_parent(parent):
+    """Only the recorded import failure before any evaluation is recoverable here."""
+    c=load(parent/'config.json')
+    if (c['seed']!=SEED or c['pruning']!=PRUNING or c['node_target']!=NODE_TARGET
+            or c['active_seconds_target']!=ACTIVE_TARGET or c['baseline']!=baseline()
+            or c['resource_policy']!=RESOURCE_POLICY
+            or c['cases']!={phase:cases(phase) for phase in ('nodes','clock')}):
+        raise ValueError('parent scientific configuration differs')
+    if (load(parent/'failure.json')['error']!="RuntimeError('evaluate-nodes failed with exit 1')"
+            or load(parent/'comparison-nodes/failure.json')['error']!="ModuleNotFoundError(\"No module named 'pokers'\")"
+            or (parent/'comparison-nodes/evaluation').exists()
+            or (parent/'comparison-clock').exists()):
+        raise ValueError('parent is not an untouched pre-hand import failure')
+    result=load(parent/'measurements/train-nodes/result.json')
+    endpoints=endpoint_models(result,parent/'candidate-nodes')
+    if endpoints!=load(parent/'endpoints.json') or set(endpoints)!={'nodes','clock'}:
+        raise ValueError('parent endpoints differ or require further training')
+    for name in ('verify-baseline','verify-nodes','audit-nodes'):
+        if load(parent/'measurements'/name/'result.json')['returncode']!=0:
+            raise ValueError('parent completed proof failed')
+    audit=load(parent/'measurements/audit-nodes/stdout.log')
+    model=endpoints['nodes']['model']
+    if (audit['status']!='passed' or audit['checkpoint_sha256']!=model['checkpoint_sha256']
+            or audit['policy_sha256']!=model['sha256']):
+        raise ValueError('parent average audit differs')
+    names=('config.json','launch.json','failure.json','endpoints.json',
+           'measurements/train-nodes/result.json','measurements/verify-baseline/result.json',
+           'measurements/verify-nodes/result.json','measurements/audit-nodes/result.json',
+           'measurements/audit-nodes/stdout.log','measurements/evaluate-nodes/result.json',
+           'measurements/evaluate-nodes/stdout.log','comparison-nodes/failure.json')
+    return dict(root=str(parent),files={name:guard.sha(parent/name) for name in names},
+                endpoints=endpoints,audit=audit,arena_sha256=c['arena_sha256'],train_sha256=c['train_sha256'])
+
+
+def configure_evaluation(root,parent,build_root,tables,python):
+    proof=recovery_parent(parent)
+    receipt=load(build_root/'build-receipt.json')
+    if any(proof[k]!=receipt[k] for k in ('arena_sha256','train_sha256')):
+        raise ValueError('recovery native binaries differ')
+    configure(root,build_root,tables,python)
+    c=load(root/'config.json');c['recovery_parent']=proof
+    guard.write(root/'config.json',c)
+
+
 def enforce_temperatures(row):
     temperatures=row['temperatures_c']
     limits={'Package id 0':90,'Thermistor 15':100}
@@ -304,7 +348,10 @@ def run(root):
         def stage(name,cmd):
             s.sample(None,'stage-admission',0);guard.write(root/'status.json',dict(status=name,at=time.time()))
             return s.execute(name,list(map(str,cmd)),SOURCE,env)
-        execute_study(c,root,stage)
+        if 'recovery_parent' in c:
+            execute_evaluation_recovery(c,root,stage)
+        else:
+            execute_study(c,root,stage)
 
 
 def execute_study(c,root,stage):
@@ -312,23 +359,8 @@ def execute_study(c,root,stage):
         conf=training_config(c,root,mode,node);path=root/(mode+'-training-config.json');guard.write(path,conf)
         value=stage('train-'+mode,[c['train'],path])
         return endpoint_models(value,conf['out'])
-    def audit(name,endpoint):
-        model=endpoint['model']
-        path=root/(name+'-verify.json');guard.write(path,dict(model=model,pruning=PRUNING,endpoint=endpoint))
-        stage('verify-'+name,[c['python'],'-m','scripts.nplayer_pruning_strength','verify',path])
-        value=stage('audit-'+name,[c['python'],'-m','scripts.audit_nplayer_policy_parallel',model['checkpoint'],model['path']])
-        proof=load(root/'measurements'/('audit-'+name)/'stdout.log')
-        if (value['returncode']!=0 or proof['status']!='passed' or proof['policy_sha256']!=model['sha256']
-                or proof['checkpoint_sha256']!=model['checkpoint_sha256']):raise ValueError('average audit differs')
     def compare(phase,endpoint):
-        model=endpoint['model']
-        audit(phase,endpoint)
-        folder=root/('comparison-'+phase);folder.mkdir(exist_ok=False)
-        guard.write(folder/'evaluation-manifest.json',dict(smoke=False,phase=phase,tables=c['tables'],
-            arena=c['arena'],arena_sha256=c['arena_sha256'],models=dict(candidate=model,baseline=c['baseline']),cases=cases(phase)))
-        stage('evaluate-'+phase,[c['python'],'-m','scripts.nplayer_pruning_strength','batch',folder])
-        guard.write(folder/'status.json',dict(status='verified-readout-ready'))
-        stage('read-'+phase,[c['python'],'-m','scripts.nplayer_pruning_strength','read',folder])
+        compare_endpoint(c,root,stage,phase,endpoint)
     path=root/'baseline-verify.json';guard.write(path,dict(model=c['baseline'],pruning=None))
     stage('verify-baseline',[c['python'],'-m','scripts.nplayer_pruning_strength','verify',path])
     endpoints=train('nodes');guard.write(root/'endpoints.json',endpoints)
@@ -348,6 +380,49 @@ def execute_study(c,root,stage):
     guard.write(root/'results.json',dict(status='settled',comparisons=results,endpoints=endpoints,
         historical_baseline_active_seconds=ACTIVE_TARGET,costs=cost_summary(root,endpoints),
         scope='one fixed seed; timing comparison uses a historical reference'))
+    guard.write(root/'status.json',dict(status='complete',at=time.time()))
+
+
+def compare_endpoint(c,root,stage,phase,endpoint,inherited_audit=None):
+    model=endpoint['model']
+    path=root/(phase+'-verify.json');guard.write(path,dict(model=model,pruning=PRUNING,endpoint=endpoint))
+    stage('verify-'+phase,[c['python'],'-m','scripts.nplayer_pruning_strength','verify',path])
+    if inherited_audit is None:
+        value=stage('audit-'+phase,[c['python'],'-m','scripts.audit_nplayer_policy_parallel',model['checkpoint'],model['path']])
+        if value['returncode']!=0:raise ValueError('average audit failed')
+        proof=load(root/'measurements'/('audit-'+phase)/'stdout.log')
+    else:
+        proof=inherited_audit
+        guard.write(root/('inherited-audit-'+phase+'.json'),dict(parent=c['recovery_parent']['root'],proof=proof))
+    if (proof['status']!='passed' or proof['policy_sha256']!=model['sha256']
+            or proof['checkpoint_sha256']!=model['checkpoint_sha256']):raise ValueError('average audit differs')
+    folder=root/('comparison-'+phase);folder.mkdir(exist_ok=False)
+    guard.write(folder/'evaluation-manifest.json',dict(smoke=False,phase=phase,tables=c['tables'],
+        arena=c['arena'],arena_sha256=c['arena_sha256'],models=dict(candidate=model,baseline=c['baseline']),cases=cases(phase)))
+    stage('evaluate-'+phase,[c['python'],'-m','scripts.nplayer_pruning_strength','batch',folder])
+    guard.write(folder/'status.json',dict(status='verified-readout-ready'))
+    stage('read-'+phase,[c['python'],'-m','scripts.nplayer_pruning_strength','read',folder])
+
+
+def execute_evaluation_recovery(c,root,stage):
+    expected=c['recovery_parent'];parent=Path(expected['root'])
+    if recovery_parent(parent)!=expected:raise ValueError('recovery parent evidence changed')
+    if any(c[k]!=expected[k] for k in ('arena_sha256','train_sha256')):
+        raise ValueError('recovery native identity changed')
+    endpoints=expected['endpoints'];guard.write(root/'endpoints.json',endpoints)
+    path=root/'baseline-verify.json';guard.write(path,dict(model=c['baseline'],pruning=None))
+    stage('verify-baseline',[c['python'],'-m','scripts.nplayer_pruning_strength','verify',path])
+    compare_endpoint(c,root,stage,'nodes',endpoints['nodes'],expected['audit'])
+    compare_endpoint(c,root,stage,'clock',endpoints['clock'])
+    costs=cost_summary(parent,endpoints)
+    current=cost_summary(root,endpoints)
+    costs['original_attempt_stages']=costs.pop('stages')
+    costs['evaluation_recovery_stages']=current['stages']
+    costs['sampled_family_peak_rss_bytes']=max(costs['sampled_family_peak_rss_bytes'],current['sampled_family_peak_rss_bytes'])
+    results={phase:load(root/('comparison-'+phase)/'results.json') for phase in ('nodes','clock')}
+    guard.write(root/'results.json',dict(status='settled',comparisons=results,endpoints=endpoints,costs=costs,
+        historical_baseline_active_seconds=ACTIVE_TARGET,recovery_parent=expected,
+        scope='one fixed seed; original training retained; evaluation-only recovery after zero-hand import failure'))
     guard.write(root/'status.json',dict(status='complete',at=time.time()))
 
 
@@ -399,9 +474,14 @@ def main():
     prepare=sub.add_parser('configure');prepare.add_argument('root',type=Path)
     prepare.add_argument('--build-root',type=Path,required=True);prepare.add_argument('--tables',type=Path,required=True)
     prepare.add_argument('--python',type=Path,required=True)
+    recover=sub.add_parser('configure-evaluation');recover.add_argument('root',type=Path)
+    recover.add_argument('--parent',type=Path,required=True);recover.add_argument('--build-root',type=Path,required=True)
+    recover.add_argument('--tables',type=Path,required=True);recover.add_argument('--python',type=Path,required=True)
     a=p.parse_args()
     if a.mode=='build':build(a.root.resolve());return
     if a.mode=='configure':configure(a.root.resolve(),a.build_root.resolve(),a.tables.resolve(),a.python);return
+    if a.mode=='configure-evaluation':
+        configure_evaluation(a.root.resolve(),a.parent.resolve(),a.build_root.resolve(),a.tables.resolve(),a.python);return
     if a.mode=='verify':
         c=load(a.root);verify_model(c['model'],c['pruning'],c.get('endpoint'));return
     try:globals()[a.mode](a.root.resolve())

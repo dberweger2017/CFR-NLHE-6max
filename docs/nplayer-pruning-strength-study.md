@@ -11,7 +11,8 @@ authorized reviewing CI after launch; CI is not a compute-start gate.
 **Current status:** stopped at evaluation startup on October19; training and
 exports passed, but the configured base Python lacked`pokers`. Zero evaluation
 hands ran. [Failure, preserved inputs and tested fix](reports/nplayer-pruning-strength/startup-failure.md).
-The original failed attempt is retained; no retry has started.
+The original failed attempt is retained. The owner subsequently requested
+“Please resume it then”; the evaluation-only recovery below reuses its models.
 PR350's cancelled10B campaign remains cancelled; this is a separate experiment.
 
 ## Question
@@ -197,4 +198,40 @@ python3.11 -m scripts.nplayer_pruning_strength configure /ABS/OWNED/study \
   --build-root /ABS/OWNED/build --tables /ABS/PINNED/K50 --python /ABS/MANAGED/python
 # Qualification precedes launch; review CI separately. Configure never runs training.
 python3.11 -m scripts.nplayer_pruning_strength run /ABS/OWNED/study
+```
+
+## Owner-authorized evaluation-only recovery, October19
+
+After the zero-hand interpreter failure, the owner explicitly requested resumption.
+`configure-evaluation` prepares a fresh root from the failed attempt, preserving
+that original source/config/failure and every checkpoint/export. The recovery
+accepts only that recorded import-failure class before any evaluation directory
+or clock comparison exists. It verifies the completed native trajectory and both
+clock-bound endpoints, the successful original3B audit and the frozen scientific
+configuration. Native binaries must match the original receipt. Parent metadata
+hashes are checked again at launch; model hashes/recipe are verified before play.
+
+The new controller preserves the qualified venv path and probes the exact pinned
+engine/SciPy environment at configuration and launch. It evaluates the saved3B
+model, then the saved equal-time model, on the original matrices/roots/counts.
+It does not invoke training. The completed3B audit is inherited after model
+verification; the equal-time policy receives its independent audit before play.
+Every original play/reproduction/replay/readout barrier remains required.
+
+Original training/costs and failed-startup overhead remain separate from recovery
+stage costs in the final receipt. The same16threads,8replay/audit workers and
+CPU90°C/Thermistor15100°C/missing-sensor stops apply. No resource deadline,
+memory/address-space cap, disk/swap guard or automatic retries are introduced.
+Raw models are read in place; no model copy, cleanup or archive acceptance occurs.
+
+All21 focused tests pass on bb128, including unchanged original stage-order tests,
+zero-hand eligibility, changed-parent/recipe refusal, no-training recovery order,
+3B audit reuse and retention of original training costs. The real parent proof
+and qualified venv are checked read-only. [Qualification receipt](reports/nplayer-pruning-strength/evaluation-recovery-qualification.json).
+
+```sh
+python -m scripts.nplayer_pruning_strength configure-evaluation /ABS/FRESH_RECOVERY \
+  --parent /ABS/FAILED_STUDY --build-root /ABS/ORIGINAL_BUILD \
+  --tables /ABS/PINNED/K50 --python /ABS/QUALIFIED_VENV/bin/python
+python -m scripts.nplayer_pruning_strength run /ABS/FRESH_RECOVERY
 ```

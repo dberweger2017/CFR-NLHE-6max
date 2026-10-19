@@ -48,6 +48,80 @@ class PythonEnvironmentTests(unittest.TestCase):
             self.assertFalse(root.exists())
 
 
+class EvaluationRecoveryTests(unittest.TestCase):
+    def parent(self,root):
+        model=dict(checkpoint='model.gz',checkpoint_sha256='checkpoint',path='average.gz',sha256='average')
+        endpoints={phase:dict(model=dict(model),nodes=study.NODE_TARGET,iteration=220000,
+                             active_seconds=study.ACTIVE_TARGET,pruned_actions=1) for phase in ('nodes','clock')}
+        config=dict(seed=study.SEED,pruning=study.PRUNING,node_target=study.NODE_TARGET,
+                    active_seconds_target=study.ACTIVE_TARGET,baseline=study.baseline(),
+                    resource_policy=study.RESOURCE_POLICY,cases={p:study.cases(p) for p in ('nodes','clock')},
+                    train_sha256='train',arena_sha256='arena')
+        data={'config.json':config,'launch.json':{},'endpoints.json':endpoints,
+              'failure.json':dict(error="RuntimeError('evaluate-nodes failed with exit 1')"),
+              'comparison-nodes/failure.json':dict(error="ModuleNotFoundError(\"No module named 'pokers'\")"),
+              'measurements/audit-nodes/stdout.log':dict(status='passed',checkpoint_sha256='checkpoint',policy_sha256='average'),
+              'measurements/evaluate-nodes/stdout.log':dict(error='import failure')}
+        for stage in ('train-nodes','verify-baseline','verify-nodes','audit-nodes','evaluate-nodes'):
+            data['measurements/'+stage+'/result.json']=dict(returncode=1 if stage=='evaluate-nodes' else 0)
+        for name,value in data.items():
+            path=root/name;path.parent.mkdir(parents=True,exist_ok=True);study.guard.write(path,value)
+        return endpoints
+
+    def test_only_zero_hand_import_failure_is_eligible(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);endpoints=self.parent(root)
+            with patch.object(study,'endpoint_models',return_value=endpoints):
+                proof=study.recovery_parent(root)
+                self.assertEqual(proof['endpoints'],endpoints)
+                (root/'comparison-nodes/evaluation').mkdir()
+                with self.assertRaisesRegex(ValueError,'pre-hand'):study.recovery_parent(root)
+
+    def test_other_failures_and_changed_science_refuse(self):
+        for fault in ('failure','seed','incomplete'):
+            with self.subTest(fault=fault),tempfile.TemporaryDirectory() as directory:
+                root=Path(directory);endpoints=self.parent(root)
+                if fault=='failure':study.guard.write(root/'failure.json',dict(error='thermal stop'))
+                if fault=='seed':
+                    c=study.load(root/'config.json');c['seed']+=1;study.guard.write(root/'config.json',c)
+                if fault=='incomplete':endpoints.pop('clock')
+                with patch.object(study,'endpoint_models',return_value=endpoints):
+                    with self.assertRaises(ValueError):study.recovery_parent(root)
+
+    def test_recovery_uses_both_saved_endpoints_without_training_or_reauditing_nodes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);parent=root/'parent';endpoints=self.parent(parent)
+            output=root/'recovery';output.mkdir()
+            with patch.object(study,'endpoint_models',return_value=endpoints):proof=study.recovery_parent(parent)
+            config=dict(recovery_parent=proof,python='qualified-venv-python',baseline=study.baseline(),
+                        arena_sha256='arena',train_sha256='train')
+            calls=[]
+            def stage(name,command):calls.append(name);return dict(returncode=0)
+            def compare(c,r,s,phase,endpoint,inherited_audit=None):
+                calls.append('compare-'+phase)
+                self.assertIs(inherited_audit,proof['audit'] if phase=='nodes' else None)
+                folder=r/('comparison-'+phase);folder.mkdir()
+                study.guard.write(folder/'results.json',dict(status='settled',score=-1000))
+            parent_cost=dict(stages={'train-nodes':{}},training_stages_wall_seconds=2011.,sampled_family_peak_rss_bytes=10)
+            current_cost=dict(stages={'evaluate-nodes':{}},sampled_family_peak_rss_bytes=20)
+            with patch.object(study,'recovery_parent',return_value=proof),patch.object(study,'compare_endpoint',side_effect=compare),\
+                    patch.object(study,'cost_summary',side_effect=[parent_cost,current_cost]):
+                study.execute_evaluation_recovery(config,output,stage)
+            self.assertEqual(calls,['verify-baseline','compare-nodes','compare-clock'])
+            result=study.load(output/'results.json')
+            self.assertEqual(result['costs']['training_stages_wall_seconds'],2011.)
+            self.assertEqual(result['costs']['sampled_family_peak_rss_bytes'],20)
+            self.assertIn('original_attempt_stages',result['costs'])
+
+    def test_changed_parent_evidence_refuses_before_any_stage(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            with patch.object(study,'recovery_parent',return_value={'different':True}):
+                with self.assertRaisesRegex(ValueError,'parent evidence changed'):
+                    study.execute_evaluation_recovery(dict(recovery_parent=dict(root='parent')),root,
+                        lambda *args:self.fail('no stage may start'))
+
+
 class ProtocolTests(unittest.TestCase):
     def test_two_disjoint_paired_matrices_with_fixed_sample_counts(self):
         roots=[]
