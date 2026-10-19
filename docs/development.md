@@ -166,3 +166,11 @@ block-cluster intervals. `scripts.machine_qualification.vrm_watchdog` is the
 exclusive four-CPU on-host guard while cygnus-x1's VRM heatsink is absent; it logs
 Thermistor 15 and fan1 and supplies `NPLAYER_STOP_FILE` to its child. Campaign
 entry points consume the fixed protocol and do not authorize another run.
+
+## Proposed pruning cost/strength study
+
+`scripts.nplayer_pruning_strength` builds/configures explicitly and separately
+from `run`; no subcommand is invoked by a timer. The [protocol](nplayer-pruning-strength-study.md)
+records the historical630.741s clock, node-first comparison, exact-clock resume
+and second comparison. The owner requested reviewing this implementation before
+any benchmark or training starts. It is a campaign entry point, not a default trainer.

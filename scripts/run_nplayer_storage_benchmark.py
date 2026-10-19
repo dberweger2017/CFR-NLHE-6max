@@ -173,7 +173,8 @@ class Supervisor:
                 raise RuntimeError('guardian exited before parent-death registration')
             os.sched_setaffinity(0, self.cpus)
             os.nice(10)
-            resource.setrlimit(resource.RLIMIT_AS, (self.address_limit,) * 2)
+            if self.address_limit is not None:
+                resource.setrlimit(resource.RLIMIT_AS, (self.address_limit,) * 2)
         child = None
         events, peaks = [], {}
         phase, target = 'startup', 0

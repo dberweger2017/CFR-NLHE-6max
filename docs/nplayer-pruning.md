@@ -49,3 +49,11 @@ The header records `"pruning": {"bb", "after", "pruned_actions"}`. A checkpoint 
 - `the_pruning_schedule_waits_for_after_and_keeps_full_iterations`: no limit up to `N`; full iterations exactly where the hash says, about one in 20; the limit is `B` per root under the linear weights.
 - `pruning_is_identical_for_every_thread_count_and_resumes_exactly`, including refusal of pruning outside fast mode.
 - `pruning_converges_like_unpruned_fast_mode`: the table above; pruning at equal nodes must stay within 25% of unpruned.
+
+## Planned NLHE cost/strength comparison
+
+[The staged100BB study](nplayer-pruning-strength-study.md) compares a fresh pruned3B
+average with PR350's saved unpruned3B model, then continues the same candidate only
+for the remaining historical active-training time and compares again. It measures
+strength cost versus compute savings; stronger play is not assumed. Implementation
+is under review and the owner requested stopping before any study launch.

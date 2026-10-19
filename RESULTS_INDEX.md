@@ -1,3 +1,25 @@
+## Pruning cost/strength study — implementation review only (proposal351)
+
+[Protocol](docs/nplayer-pruning-strength-study.md),
+[proposal351](https://github.com/dberweger2017/CFR-NLHE-6max/issues/351).
+The owner requested a fresh pruned3B comparison, then only the remaining time
+up to the historical unpruned630.740595090997s traversal and a second comparison.
+Code is prepared; **no benchmark, cost pilot, study release build, deployment or
+study training has started**. Only local correctness tests ran. No new raw model,
+trace, source bundle, per-PR run root or Drive upload/cleanup receipt exists.
+The owner explicitly requested returning before launch. Temperature-only resource
+stops; disk and swap inspection is manual, no runtime/RAM/address-space cap.
+
+The read-only dependency is PR350's
+`bb128:/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3/calibration-continuation/`:
+`3000000000.gz` SHA256`ea0c7dca97ae627b08a39d4196cdd824d6e0767d85ca64c829eae5dcceb2da6b`,
+`3000000000-average.gz` SHA256`c602c3727df28160a9807716d3c9211d988e420c33ed7b0c04c2fd899afef06b`.
+[Existing timing/verification receipt](docs/reports/nplayer-bb100/continuation-admission-stop.json).
+These remain protected dependencies for this open study even after PR350 merges.
+Do not copy/move/archive/clean its original roots or parent inputs through this
+implementation. Future research retrieval/archival requires the owning PR status,
+SHA256 verification and the [storage policy](docs/artifact-storage.md).
+
 ## PR347 — contiguous storage, M1 validation and owner-authorized merge
 
 [PR347](https://github.com/dberweger2017/CFR-NLHE-6max/pull/347) merged October19

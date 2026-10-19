@@ -4,15 +4,17 @@ use hu20_trainer::{
     cards::EquityTables, gz::Gzip,
     multi_arena::{stream_seed, Bot, PERMUTATIONS},
     multi_cfr::{Game, Sampling, Trainer}, multi_checkpoint,
-    multi_holdem::{self, CashGame}, multi_policy::{self, Mode, PolicyTable},
+    multi_holdem::{self, CashGame}, multi_policy::PolicyTable,
     nplayer::{Action, Config, Hand, Observation},
 };
 use rand::{Rng, SeedableRng, seq::SliceRandom};
 use serde_json::{json, Value};
 use sha2::{Digest, Sha256};
-use std::{io::Write, path::Path, time::Instant};
+use std::{path::Path, time::Instant};
 
-fn emit(value: Value) { println!("{value}"); std::io::stdout().flush().unwrap(); }
+#[path="support/nplayer_checkpoint_io.rs"]
+mod checkpoint_io;
+use checkpoint_io::{emit, keyset, save};
 fn distribution(t: &Trainer, o: &Observation<'_>, tables: &EquityTables) -> Result<(Vec<f64>, bool), String> {
     if o.actor != Some(o.seat) || o.legal.is_none() { return Err("probe needs acting observation".into()); }
     let d = multi_holdem::observation_decision(o, tables);
@@ -78,35 +80,6 @@ fn probe(t: &Trainer, tables: &EquityTables, blocks: u64, root: u64, config: Con
     }
     Ok(json!({"event":"probe","nodes":t.counts.nodes,"iteration":t.iteration,"blocks":blocks,
               "seconds":started.elapsed().as_secs_f64(),"results":results}))
-}
-fn keyset(t: &Trainer) -> String {
-    let mut hash=Sha256::new();
-    for (key,_) in t.table.sorted() {hash.update(key);}
-    format!("{:x}",hash.finalize())
-}
-fn save(t: &Trainer, out: &Path, label: &str, target: u64, gzip: Gzip, export: bool) -> Result<String,String> {
-    emit(json!({"event":"phase","phase":"save","target":target}));
-    let path=out.join(format!("{label}.gz"));let tick=Instant::now();
-    multi_checkpoint::save(t,&path,gzip)?;
-    let seconds=tick.elapsed().as_secs_f64();
-    emit(json!({"event":"phase","phase":"hash","target":target}));
-    let digest=hu20_trainer::export::sha256_file(&path);
-    let keys=keyset(t);
-    emit(json!({"event":"checkpoint","label":label,"target":target,"nodes":t.counts.nodes,
-        "iteration":t.iteration,"entries":t.table.len(),"frozen_at":t.frozen_at,
-        "path":path,"sha256":digest,"keyset_sha256":keys,"save_seconds":seconds,
-        "bytes":std::fs::metadata(&path).map_err(|e|e.to_string())?.len(),
-        "counts":multi_checkpoint::counts_json(&t.counts)}));
-    if export {
-        emit(json!({"event":"phase","phase":"export","target":target}));
-        let output=out.join(format!("{label}-average.gz"));let tick=Instant::now();
-        multi_policy::write_trainer(t,&digest,Mode::Average,&output,gzip)?;
-        let seconds=tick.elapsed().as_secs_f64();
-        emit(json!({"event":"exported","label":label,"nodes":t.counts.nodes,"entries":t.table.len(),
-            "path":output,"sha256":hu20_trainer::export::sha256_file(&output),
-            "checkpoint":path,"checkpoint_sha256":digest,"export_seconds":seconds}));
-    }
-    Ok(keys)
 }
 fn run() -> Result<(),String> {
     let args:Vec<String> = std::env::args().collect();
