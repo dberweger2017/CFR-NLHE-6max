@@ -60,6 +60,8 @@ fn train() -> Result<(), String> {
             "--stop-file",
             "--threads",
             "--roots-per-seat",
+            "--prune-bb",
+            "--prune-after",
         ]
         .contains(&key.as_str())
         {
@@ -148,6 +150,15 @@ fn train() -> Result<(), String> {
         Some(_) if !fast => return Err("--roots-per-seat needs --fast".into()),
         Some(r) => r.parse::<usize>().ok().filter(|r| (1..=1024).contains(r)).ok_or("invalid --roots-per-seat")?,
     };
+    let prune = match (options.get("--prune-bb"), options.get("--prune-after")) {
+        (None, None) => None,
+        (Some(_), Some(_)) if !fast => return Err("pruning needs --fast".into()),
+        (Some(bb), Some(after)) => Some(hu20_trainer::multi_cfr::Prune {
+            bb: bb.parse::<f64>().ok().filter(|b| b.is_finite() && *b > 0.).ok_or("invalid --prune-bb")?,
+            after: after.parse::<u64>().map_err(|_| "invalid --prune-after")?,
+        }),
+        _ => return Err("--prune-bb and --prune-after go together".into()),
+    };
     let tables = EquityTables::load(Path::new(required("--card-buckets")?), false)?;
     let game = CashGame { config, tables };
     let mut trainer = if let Some(path) = options.get("--resume") {
@@ -165,12 +176,13 @@ fn train() -> Result<(), String> {
             || t.freeze_at_cap != freeze
             || t.sampling != sampling
             || t.roots_per_seat != roots_per_seat
+            || t.prune != prune
         {
             return Err("resume configuration mismatch".into());
         }
         t
     } else {
-        Trainer { sampling, roots_per_seat, ..Trainer::new(&game, seed, scope, max_entries, freeze) }
+        Trainer { sampling, roots_per_seat, prune, ..Trainer::new(&game, seed, scope, max_entries, freeze) }
     };
     if let Some(parent) = out.parent() {
         if !parent.as_os_str().is_empty() {

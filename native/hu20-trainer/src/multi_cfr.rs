@@ -333,7 +333,7 @@ pub fn child_path(path: u64, action: usize) -> u64 {
 pub trait Sampler<S: State>: Sized {
     fn sample(&mut self, policy: &[f64], path: u64) -> usize;
     /// Every child's value, deltas and counts, visited in parallel; None visits in order.
-    fn fork(_t: &Traversal<'_, Self>, _state: &S, _n: usize, _path: u64, _depth: u8) -> Option<Vec<(f64, Deltas, Counts)>> {
+    fn fork(_t: &Traversal<'_, Self>, _state: &S, _n: usize, _pruned: &[bool; MAX_ACTIONS], _path: u64, _depth: u8) -> Option<Vec<(f64, Deltas, Counts)>> {
         None
     }
 }
@@ -354,15 +354,19 @@ impl<S: State + Clone + Send + Sync> Sampler<S> for PathSampler {
     fn sample(&mut self, policy: &[f64], path: u64) -> usize {
         pick((splitmix(self.0 ^ path) >> 11) as f64 * (1.0 / (1u64 << 53) as f64), policy)
     }
-    fn fork(t: &Traversal<'_, Self>, state: &S, n: usize, path: u64, depth: u8) -> Option<Vec<(f64, Deltas, Counts)>> {
+    fn fork(t: &Traversal<'_, Self>, state: &S, n: usize, pruned: &[bool; MAX_ACTIONS], path: u64, depth: u8) -> Option<Vec<(f64, Deltas, Counts)>> {
         use rayon::prelude::*;
         (depth < t.fork_depth).then(|| {
             (0..n).into_par_iter().map(|a| {
                 let (mut deltas, mut counts) = (Deltas::default(), Counts::default());
+                if pruned[a] {
+                    return (0., deltas, counts);
+                }
                 let mut child = state.clone();
                 child.apply(a);
                 let value = Traversal { table: t.table, deltas: &mut deltas, sampler: t.sampler, traverser: t.traverser,
-                    weight: t.weight, last_average_street: t.last_average_street, counts: &mut counts, fork_depth: t.fork_depth }
+                    weight: t.weight, last_average_street: t.last_average_street, counts: &mut counts, fork_depth: t.fork_depth,
+                    prune_below: t.prune_below }
                     .visit(&mut child, child_path(path, a), depth + 1);
                 (value, deltas, counts)
             }).collect()
@@ -391,6 +395,8 @@ pub struct Counts {
     pub traverser: [u64; 6],
     pub discarded_keys: u64,
     pub discarded_visits: u64,
+    /// Actions skipped by pruning; recorded under the checkpoint's `pruning`, not `counts`.
+    pub pruned: u64,
 }
 impl Counts {
     fn add(&mut self, other: &Counts) {
@@ -405,6 +411,7 @@ impl Counts {
         }
         self.discarded_keys += other.discarded_keys;
         self.discarded_visits += other.discarded_visits;
+        self.pruned += other.pruned;
     }
 }
 
@@ -442,6 +449,8 @@ pub struct Traversal<'a, P> {
     pub last_average_street: usize,
     pub counts: &'a mut Counts,
     pub fork_depth: u8,
+    /// Regret-based pruning limit of this iteration; None explores every action.
+    pub prune_below: Option<f64>,
 }
 impl<P> Traversal<'_, P> {
     pub fn run<S: State>(&mut self, state: &mut S) -> f64
@@ -464,7 +473,8 @@ impl<P> Traversal<'_, P> {
         assert!(d.actor < state.players() && self.traverser < state.players());
         self.counts.decisions[d.street] += 1;
         let n = d.len();
-        let policy = if let Some(entry) = self.table.get(&d.key) {
+        let stored = self.table.get(&d.key);
+        let policy = if let Some(entry) = stored {
             entry.check(d);
             entry.policy(false)
         } else {
@@ -492,8 +502,16 @@ impl<P> Traversal<'_, P> {
             return value;
         }
         self.counts.traverser[d.actor] += 1;
+        // Pruned: zero probability and stored regret below the limit; `value` is unchanged.
+        let mut pruned = [false; MAX_ACTIONS];
+        if let (Some(limit), Some(entry)) = (self.prune_below, stored) {
+            for a in 0..n {
+                pruned[a] = policy[a] == 0. && entry.regrets[a] < limit;
+            }
+            self.counts.pruned += pruned.iter().filter(|&&p| p).count() as u64;
+        }
         let mut values = [0.; MAX_ACTIONS];
-        if let Some(children) = P::fork(self, state, n, path, depth) {
+        if let Some(children) = P::fork(self, state, n, &pruned, path, depth) {
             for (a, (value, deltas, counts)) in children.into_iter().enumerate() {
                 values[a] = value;
                 self.counts.add(&counts);
@@ -502,7 +520,7 @@ impl<P> Traversal<'_, P> {
                 }
             }
         } else {
-            for (a, value) in values[..n].iter_mut().enumerate() {
+            for (a, value) in values[..n].iter_mut().enumerate().filter(|(a, _)| !pruned[*a]) {
                 let saved = state.save();
                 state.apply(a);
                 *value = self.visit(state, child_path(path, a), depth + 1);
@@ -515,7 +533,7 @@ impl<P> Traversal<'_, P> {
             .entry(d.key)
             .or_insert_with(|| Delta::new(d, self.last_average_street));
         delta.check(d);
-        for (a, r) in delta.regrets_mut().iter_mut().enumerate() {
+        for (a, r) in delta.regrets_mut().iter_mut().enumerate().filter(|(a, _)| !pruned[*a]) {
             *r += self.weight * (values[a] - value);
         }
         delta.visits += 1;
@@ -549,6 +567,25 @@ pub struct Trainer {
     pub sampling: Sampling,
     /// Fast mode: traversals per seat and iteration.
     pub roots_per_seat: usize,
+    /// Fast mode: regret-based pruning (docs/nplayer-pruning.md).
+    pub prune: Option<Prune>,
+}
+
+/// Skip traverser actions with zero probability whose regret shows an average loss above `bb`
+/// per iteration, after iteration `after`, except in about one iteration in 20.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Prune {
+    pub bb: f64,
+    pub after: u64,
+}
+impl Prune {
+    /// This iteration's limit: `-bb` per root, times the linear weights so far; None in full
+    /// iterations.
+    pub fn limit(self, seed: u64, iteration: u64, roots_per_seat: usize) -> Option<f64> {
+        let full = child_path(seed, iteration as usize) % 20 == 0;
+        let t = iteration as f64;
+        (iteration > self.after && !full).then(|| -self.bb * roots_per_seat as f64 * t * (t + 1.) / 2.)
+    }
 }
 impl Trainer {
     pub fn new<G: Game>(
@@ -572,6 +609,7 @@ impl Trainer {
             counts: Counts::default(),
             sampling: Sampling::Stream,
             roots_per_seat: 1,
+            prune: None,
         }
     }
     /// Starts the next iteration; its linear weight.
@@ -579,6 +617,8 @@ impl Trainer {
         assert_eq!(self.sampling, sampling, "training continues with the checkpoint's sampling");
         assert!(match sampling { Sampling::Stream => self.roots_per_seat == 1, Sampling::Path => (1..=1024).contains(&self.roots_per_seat) },
             "roots per seat: 1 in production, 1 to 1024 in fast mode");
+        assert!(self.prune.map_or(true, |p| sampling == Sampling::Path && p.bb.is_finite() && p.bb > 0.),
+            "pruning: fast mode only, with a positive finite limit");
         assert_eq!(game.identity(), self.identity);
         assert_eq!(game.players(), self.players);
         assert!(
@@ -622,6 +662,7 @@ impl Trainer {
                 last_average_street: self.last_average_street,
                 counts: &mut counts,
                 fork_depth: 0,
+                prune_below: None,
             }
             .run(&mut state);
         }
@@ -635,6 +676,7 @@ impl Trainer {
     {
         use rayon::prelude::*;
         let weight = self.begin(game, Sampling::Path);
+        let prune_below = self.prune.and_then(|p| p.limit(self.seed, self.iteration, self.roots_per_seat));
         let roots: Vec<(usize, usize)> = (0..self.players).flat_map(|p| (0..self.roots_per_seat).map(move |r| (p, r))).collect();
         let tasks: Vec<(Deltas, Counts)> = roots.into_par_iter().map(|(player, r)| {
             let (mut rng, seed) = self.fast_root(player, r);
@@ -650,6 +692,7 @@ impl Trainer {
                 last_average_street: self.last_average_street,
                 counts: &mut counts,
                 fork_depth: FORK_DEPTH,
+                prune_below,
             }
             .run(&mut state);
             (deltas, counts)
