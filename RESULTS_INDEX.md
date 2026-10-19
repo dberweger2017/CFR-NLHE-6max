@@ -1,4 +1,4 @@
-## PR350 — three-player 100 BB (reviewed corrected qualification active)
+## PR350 — three-player 100 BB (2B calibration complete; cap admission stopped)
 
 [PR350](https://github.com/dberweger2017/CFR-NLHE-6max/pull/350),
 [proposal349](https://github.com/dberweger2017/CFR-NLHE-6max/issues/349),
@@ -6,6 +6,19 @@
 [compact receipt](docs/reports/nplayer-bb100/receipt.json) and
 [exact checkpoint paths/hashes/counts](docs/reports/nplayer-bb100/costs.csv).
 
+- **Corrected attempt terminal October19 12:31:49UTC/14:31:49Madrid:**
+  native calibration returns0 at2,000,003,197nodes/244,485,627entries. The250Mcap
+  never triggered, so validation refuses the predeclared2B endpoint. No
+  pretraining-freeze, cost quote, finalseed, mature audit/eval or strength result.
+  [Full diagnosis/costs/next prospective step](docs/reports/nplayer-bb100/calibration-cap-stop.md),
+  [compact native/checkpoint/small-matrix metadata](docs/reports/nplayer-bb100/calibration-cap-stop.json).
+  Native423.45active seconds,1485.09wall,9087.44CPU seconds,22.23GiB peak.
+  Retain both1B/2B checkpoints and2Baverage in active root below;
+  2BcheckpointSHA256`43320d93b5dda9981d4f99e1d8b4898b924e38acfe8f809f6693ff79cdc41566`,
+  averageSHA256`4637b9911b89a241be9dd4d3b03e0d80f483669516bd56009c8ada6e5ccb3bb7`.
+  Complete small matrix passes432replay+432reproduction hands/12policy loads.
+  Supervisor483894 exited. No retry/cap/endpoint/deadline change or model copy
+  toMac; a fixed3B calibration continuation is proposed for owner decision.
 - **Reviewed corrected qualification launched October19** after explicit owner
   request for a review subagent before resuming. [Independent review and fixes](docs/reports/nplayer-bb100/review-before-resume.md),
   [23Linux/process tests + native rebuild/reuse proof](docs/reports/nplayer-bb100/review-engineering-tests.json),

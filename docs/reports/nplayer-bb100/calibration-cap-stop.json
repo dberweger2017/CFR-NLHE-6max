@@ -1,0 +1,233 @@
+{
+  "root": "/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v2",
+  "calibration": {
+    "returncode": 0,
+    "wall_seconds": 1485.0890022410022,
+    "cpu_seconds": 9087.439455,
+    "sampled_peak_rss_by_phase": {
+      "startup/0": 174399488,
+      "train/1000000000": 15641706496,
+      "save/1000000000": 16387121152,
+      "hash/1000000000": 15678832640,
+      "train/2000000000": 23067205632,
+      "save/2000000000": 23867387904,
+      "hash/2000000000": 22837989376,
+      "export/2000000000": 23852257280
+    },
+    "events": [
+      {
+        "active_seconds": 200.61695512200023,
+        "counts": {
+          "decisions": [
+            29892341,
+            66701309,
+            150043598,
+            324403898
+          ],
+          "discarded_keys": 0,
+          "discarded_visits": 0,
+          "missing": [
+            2670418,
+            10119040,
+            35760202,
+            120673590
+          ],
+          "nodes": 1000005743,
+          "terminals": 428964597,
+          "traverser": [
+            65409248,
+            65453102,
+            65264951,
+            0,
+            0,
+            0
+          ]
+        },
+        "entries": 169218506,
+        "event": "trained",
+        "iteration": 65632,
+        "monitor_seconds": 0.020811805,
+        "nodes": 1000005743,
+        "target": 1000000000
+      },
+      {
+        "bytes": 6148015941,
+        "counts": {
+          "decisions": [
+            29892341,
+            66701309,
+            150043598,
+            324403898
+          ],
+          "discarded_keys": 0,
+          "discarded_visits": 0,
+          "missing": [
+            2670418,
+            10119040,
+            35760202,
+            120673590
+          ],
+          "nodes": 1000005743,
+          "terminals": 428964597,
+          "traverser": [
+            65409248,
+            65453102,
+            65264951,
+            0,
+            0,
+            0
+          ]
+        },
+        "entries": 169218506,
+        "event": "checkpoint",
+        "frozen_at": null,
+        "iteration": 65632,
+        "keyset_sha256": "b9f22b6ea5e5d001e71958b7a4f82027b44c6d0d7bc7ccbddf8bc28464a236b1",
+        "label": "1000000000",
+        "nodes": 1000005743,
+        "path": "/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v2/calibration/1000000000.gz",
+        "save_seconds": 196.096869149,
+        "sha256": "ff06f5396b7152e253dd4c0e93473e65ea8054cbba9054c7653d9759c0499605",
+        "target": 1000000000
+      },
+      {
+        "active_seconds": 423.4538568949966,
+        "counts": {
+          "decisions": [
+            54149563,
+            125061521,
+            297288184,
+            663882504
+          ],
+          "discarded_keys": 0,
+          "discarded_visits": 0,
+          "missing": [
+            3320597,
+            13251175,
+            49357947,
+            178561044
+          ],
+          "nodes": 2000003197,
+          "terminals": 859621425,
+          "traverser": [
+            130757229,
+            130901647,
+            130691980,
+            0,
+            0,
+            0
+          ]
+        },
+        "entries": 244485627,
+        "event": "trained",
+        "iteration": 136628,
+        "monitor_seconds": 0.04089599,
+        "nodes": 2000003197,
+        "target": 2000000000
+      },
+      {
+        "bytes": 9132902417,
+        "counts": {
+          "decisions": [
+            54149563,
+            125061521,
+            297288184,
+            663882504
+          ],
+          "discarded_keys": 0,
+          "discarded_visits": 0,
+          "missing": [
+            3320597,
+            13251175,
+            49357947,
+            178561044
+          ],
+          "nodes": 2000003197,
+          "terminals": 859621425,
+          "traverser": [
+            130757229,
+            130901647,
+            130691980,
+            0,
+            0,
+            0
+          ]
+        },
+        "entries": 244485627,
+        "event": "checkpoint",
+        "frozen_at": null,
+        "iteration": 136628,
+        "keyset_sha256": "53e999bdd7a5c8db368ab8523b25e6afd2f5eb14886403e9b921a9f6f6b381a9",
+        "label": "2000000000",
+        "nodes": 2000003197,
+        "path": "/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v2/calibration/2000000000.gz",
+        "save_seconds": 289.877214598,
+        "sha256": "43320d93b5dda9981d4f99e1d8b4898b924e38acfe8f809f6693ff79cdc41566",
+        "target": 2000000000
+      },
+      {
+        "checkpoint": "/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v2/calibration/2000000000.gz",
+        "checkpoint_sha256": "43320d93b5dda9981d4f99e1d8b4898b924e38acfe8f809f6693ff79cdc41566",
+        "entries": 244485627,
+        "event": "exported",
+        "export_seconds": 179.684507239,
+        "label": "2000000000",
+        "nodes": 2000003197,
+        "path": "/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v2/calibration/2000000000-average.gz",
+        "sha256": "4637b9911b89a241be9dd4d3b03e0d80f483669516bd56009c8ada6e5ccb3bb7"
+      },
+      {
+        "active_seconds": 423.4538568949966,
+        "event": "complete",
+        "monitor_seconds": 0.04089599,
+        "nodes": 2000003197
+      }
+    ]
+  },
+  "status": {
+    "status": "validate-calibration",
+    "at": 1792413109.1049595,
+    "seed": 2026101935003
+  },
+  "failure": {
+    "error": "RuntimeError('validate-calibration failed with exit 1')",
+    "at": 1792413109.184144
+  },
+  "small-qualification": {
+    "status": "passed",
+    "cli_checkpoint_sha256": "681bdfd072c1a9109152d981f4ebf6e87353f7d48099e1256eb8d92adcdd3fa9",
+    "resume_checkpoint_sha256": "924966eb0577a389379f67a11ed137859b29c28a3ec19d80eea515098fdcec4a",
+    "probe_hands": 3072,
+    "smoke_hands": 432
+  },
+  "source-receipt": {
+    "source_commit": "c4b04bf826688be546d68c76d14db711d0c788d6",
+    "bundle_sha256": "755685cf87023c8cd15c6798a47a01b02cb5e952b798ac9aa060151a0aa294ec",
+    "source_path": "/home/dberweger/nplayer-bb100-bounded-20261019/source-v4",
+    "config_sha256": "588379a7b3159528cf5085bf56de43da85979ad34c821a43509511fa088a2042",
+    "compiled_source": "/home/dberweger/nplayer-bb100-bounded-20261019/source-review-v1",
+    "all_native_source_files_identical": true
+  },
+  "validation_log": "Traceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/home/dberweger/nplayer-bb100-bounded-20261019/source-v4/scripts/nplayer_bb100_overnight.py\", line 556, in <module>\n    globals()[args.mode](args.root)\n  File \"/home/dberweger/nplayer-bb100-bounded-20261019/source-v4/scripts/nplayer_bb100_overnight.py\", line 502, in validate\n    row = validate_trajectory(load(m['result']), m['cap'], m['endpoint'])\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/dberweger/nplayer-bb100-bounded-20261019/source-v4/scripts/nplayer_bb100_overnight.py\", line 216, in validate_trajectory\n    raise ValueError('capacity was not reached at the fixed qualification endpoint')\nValueError: capacity was not reached at the fixed qualification endpoint\n",
+  "small_matrix": {
+    "verification": {
+      "status": "passed",
+      "manifest_sha256": "b24be12ff70d605265258ffc5ab7c115b663e46a2da85c2fd5219cc9f7ade2c6",
+      "cases": 36,
+      "hands": 432
+    },
+    "cost": {
+      "native_wall_seconds": 6.007575247989735,
+      "replay_wall_seconds": 0.04302911402191967,
+      "json_scan_seconds": 0,
+      "input_verification_seconds": 0.0128468910115771,
+      "native_load_seconds": 5.9295796979999995,
+      "native_play_seconds": 0.041299588000000005,
+      "trace_bytes": 2680240,
+      "policy_loads": 12,
+      "cases": 36,
+      "blocks": 2
+    }
+  },
+  "main_started": false
+}
