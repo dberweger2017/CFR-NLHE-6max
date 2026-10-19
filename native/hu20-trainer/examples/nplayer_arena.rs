@@ -125,6 +125,7 @@ fn run_case(a: &[String], cache: &mut HashMap<String,Arc<PolicyTable>>,
     if ![20,100].contains(&stack) || !(1..=16).contains(&threads) {return Err("arena stack/thread bounds".into());}
     let started = Instant::now();
     let mut pins = Vec::new();
+    let mut new_weight_tables=0;
     let config = Config::new(&[stack*100; 3], 50, 100)?;
     let mut identity = None;
     for spec in [&a[5], &a[6], &a[6]] {
@@ -138,6 +139,7 @@ fn run_case(a: &[String], cache: &mut HashMap<String,Arc<PolicyTable>>,
                 if cache.len()>=2 {cache.retain(|key,_|key==&a[5] || key==&a[6]);}
                 let table = Arc::new(PolicyTable::load(Path::new(path), sha)?);
                 cache.insert(spec.clone(), table);
+                new_weight_tables+=1;
             }
             let t = &cache[spec];
             if t.config() != config {
@@ -184,7 +186,8 @@ fn run_case(a: &[String], cache: &mut HashMap<String,Arc<PolicyTable>>,
     }
     out.flush().map_err(|e| e.to_string())?;
     Ok(json!({"status":"passed","blocks":blocks,"hands":blocks*6,"load_seconds":load_seconds,
-        "play_seconds":playing.elapsed().as_secs_f64(),"decisions_by_identity_street":decisions,
+        "play_seconds":playing.elapsed().as_secs_f64(),"new_weight_tables":new_weight_tables,
+        "resident_weight_tables":cache.len(),"resident_card_table_sets":usize::from(card_tables.is_some()),"decisions_by_identity_street":decisions,
         "misses_by_identity_street":misses,"trace_sha256":hu20_trainer::export::sha256_file(Path::new(&a[4]))}))
 }
 fn run()->Result<(),String>{

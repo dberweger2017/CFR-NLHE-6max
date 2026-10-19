@@ -97,3 +97,47 @@ recipe or add experiments. Calibration supplies cost/correctness only; no final
 strength outcome is inspected early. Checkpoints/traces stay onbb128, compact
 summaries may enter Git after artifact checks. Drive archival is pending until
 accepted receipts, no cleanup or acceptance claim through this launch.
+
+
+## Corrected qualification after independent review (October19)
+
+The first attempt stopped during its small matrix; no mature calibration or final
+seed began. [Failure and preserved source](reports/nplayer-bb100/bounded-terminal.md).
+The owner asked to fix the wrapper, obtain independent subagent review before
+restarting, and then resume. The corrected attempt uses a fresh owned root
+`bounded-20261019-v2`, leaving all earlier inputs/partials unchanged. It retains
+CPU90/Thermistor100,80GiB familyRSS/96GiBAS,600GB output,16threads and the
+original qualification cutoff**October19 13:32:38.711UTC** (not a fresh two-hour
+allowance). The main's separate8h allocation is still conditional on qualification.
+
+The batch shares exactly one fixed K50 set and at most two policy weight tables.
+Small fixtures use six distinct owned hardlink paths; the full smoke must prove
+12actual policy loads and one resident card-table set throughout. The mature
+cost qualification now runs the full36-case representative matrix at128blocks,
+with distinct owned model aliases, exact reproduction,8-worker independent
+replay and a cost-only JSON decoding scan. Its reserved paired roots are
+20261019355501–20261019355518, disjoint from final/smoke/probe roots. No mature
+calibration strength estimate is selected or published.
+
+The quote scales measured actual8-worker replay wall rather than assuming8x
+serial speed. It includes all opponent types, persistent eviction/RSS transients,
+post-play trace hashes, final readout hashes/JSON decoding, retained
+checkpoint/export/trace bytes and the existing25% allowance. Conservative25MB/s
+HDD read allowances cover large verification scans. Main is refused if its
+forecast exceeds8h, the full memory envelope exceeds80GiB or projected output
+exceeds the remaining600GB reservation. These remain forecasts, not guarantees.
+
+A stage-group wrapper owns both lock descriptors and kills its whole group if
+the guardian dies or interrupts it; guardian cleanup waits/escalates for all live
+group members even after its leader exits. A captured-parent check closes the
+fork/parent-death-registration race. Owner STOP and SIGTERM/SIGINT work across
+training/audit/replay, and large checkpoint readbacks run as separately guarded
+validation stages. Non-poker Linux integration tests exercise guardian death and
+a TERM-resistant descendant. These engineering tests do not resume failed science.
+
+Independent review must find no unresolved blocker and the guarded native rebuild,
+card-table reuse test and Linux ownership/Python tests must pass before launching
+this one corrected qualification. The same terminal failure policy applies to
+this new attempt; no further automatic retry, recipe change, pruning, search,
+200BB/default/release/merge. After100BB completes, the owner now prioritizes
+search on its trained blueprint (including evaluation of pruning) before200BB.

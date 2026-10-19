@@ -11,6 +11,7 @@ import hashlib
 import json
 import math
 import os
+import signal
 from pathlib import Path
 import statistics
 import subprocess
@@ -30,7 +31,11 @@ MAIN_SECONDS = 8 * 3600
 OUTPUT_BUDGET = 600_000_000_000
 
 
-def cases(smoke=False):
+def cases(smoke=False, calibration=False):
+    if smoke and calibration:
+        raise ValueError('smoke and calibration matrices are distinct')
+    first_root = 20261019355501 if calibration else (20261019355101 if smoke else 20261019355001)
+    blocks = 128 if calibration else (2 if smoke else 8192)
     rows = []
     index = 0
     for group in ('same', 'cross'):
@@ -39,15 +44,15 @@ def cases(smoke=False):
             for reverse in (False, True):
                 a, b = f'final-{seed}', f'anchor-{other}'
                 rows.append(dict(name=f'{group}-{seed}-{int(reverse)}', group=group, seed=seed,
-                    root=(20261019355101 if smoke else 20261019355001)+index,
-                    blocks=2 if smoke else 8192, singleton=b if reverse else a, pair=a if reverse else b))
+                    root=first_root+index,
+                    blocks=blocks, singleton=b if reverse else a, pair=a if reverse else b))
             index += 1
     for seed in SEEDS:
         for bot in BOTS:
             for anchor in (False, True):
                 rows.append(dict(name=f'bot-{seed}-{bot}-{int(anchor)}', group='bot', seed=seed, bot=bot,
-                    root=(20261019355101 if smoke else 20261019355001)+index,
-                    blocks=2 if smoke else 8192, singleton=f'{"anchor" if anchor else "final"}-{seed}', pair='bot='+bot))
+                    root=first_root+index,
+                    blocks=blocks, singleton=f'{"anchor" if anchor else "final"}-{seed}', pair='bot='+bot))
             index += 1
     return rows
 
@@ -77,6 +82,9 @@ def check_case(task):
               'misses_by_identity_street', 'trace_sha256')
     if any(coverage[0][k] != coverage[1][k] for k in fields):
         raise ValueError('coverage reproduction differs')
+    if any(row['trace_sha256'] != digest or row['status'] != 'passed'
+           or row['blocks'] != case['blocks'] or row['hands'] != case['blocks']*6 for row in coverage):
+        raise ValueError('coverage digest/count proof differs')
     with a.open() as stream:
         header = json.loads(next(stream))
     expected = [manifest['models'][n]['sha256'] if not n.startswith('bot=') else None
@@ -98,13 +106,20 @@ def batch(root):
     from scripts.check_nplayer_parity import engine_identity
     engine_identity()
     m = load(root/'evaluation-manifest.json')
-    if m['cases'] != cases(m['smoke']):
+    if m['cases'] != cases(m['smoke'], m.get('calibration', False)):
         raise ValueError('changed frozen matrix')
     def verify_inputs():
+        started = time.monotonic()
+        checked = {}
         for path, digest in [(m['arena'], m['arena_sha256'])]+[(v['path'], v['sha256']) for v in m['models'].values()]:
-            if guard.sha(path) != digest:
+            st = Path(path).stat()
+            identity = (st.st_dev, st.st_ino, st.st_size, st.st_mtime_ns)
+            if identity not in checked:
+                checked[identity] = guard.sha(path)
+            if checked[identity] != digest:
                 raise ValueError('evaluation input changed')
-    verify_inputs()
+        return time.monotonic()-started
+    verification_seconds = verify_inputs()
     (root/'evaluation').mkdir(exist_ok=False)
     native = dict(tables=m['tables'], threads=16, stack_bb=100, cases=[])
     for c in execution_order(m['cases']):
@@ -116,13 +131,49 @@ def batch(root):
                 singleton=spec(c['singleton'], m['models']), pair=spec(c['pair'], m['models'])))
     guard.write(root/'native-evaluation-manifest.json', native)
     # This child inherits the guarded batch process group; never starts a new PG.
+    native_started = time.monotonic()
     subprocess.run([m['arena'], 'batch', str(root/'native-evaluation-manifest.json')], check=True)
-    verify_inputs()
+    native_wall = time.monotonic()-native_started
+    verification_seconds += verify_inputs()
+    summaries = [load(Path(row['summary'])) for row in native['cases']]
+    if (sum(row['new_weight_tables'] for row in summaries) != 12
+            or any(row['resident_weight_tables'] > 2 or row['resident_card_table_sets'] != 1 for row in summaries)):
+        raise ValueError('persistent cache transition/load-count proof failed')
+    replay_started = time.monotonic()
     with ProcessPoolExecutor(max_workers=8) as pool:
         futures = [pool.submit(check_case, (c, m, str(root))) for c in m['cases']]
         for i, f in enumerate(as_completed(futures), 1):
-            f.result()
+            try:
+                f.result()
+            except BaseException:
+                # Notify the guardian before executor shutdown could wait for
+                # unrelated queued work. It terminates this entire owned group.
+                print(json.dumps(dict(event='fatal', error='independent replay failed')), flush=True)
+                raise
             print(json.dumps(dict(event='progress', replayed_cases=i, total=len(futures))), flush=True)
+    replay_wall = time.monotonic()-replay_started
+    scan_seconds = 0
+    if m.get('calibration', False):
+        # Cost-only JSON decoding benchmark; no payoff/statistical readout.
+        scan_started = time.monotonic()
+        for case in m['cases']:
+            count = 0
+            with (root/'evaluation'/case['name']/'play-0.jsonl').open() as stream:
+                next(stream)
+                for line in stream:
+                    json.loads(line)
+                    count += 1
+            if count != case['blocks']*6:
+                raise ValueError('cost scan hand count differs')
+        scan_seconds = time.monotonic()-scan_started
+    guard.write(root/'evaluation-cost.json', dict(native_wall_seconds=native_wall,
+        replay_wall_seconds=replay_wall, json_scan_seconds=scan_seconds,
+        input_verification_seconds=verification_seconds,
+        native_load_seconds=sum(r['load_seconds'] for r in summaries),
+        native_play_seconds=sum(r['play_seconds'] for r in summaries),
+        trace_bytes=sum(Path(row['trace']).stat().st_size for row in native['cases']),
+        policy_loads=sum(r['new_weight_tables'] for r in summaries),
+        cases=len(m['cases']), blocks=m['cases'][0]['blocks']))
     guard.write(root/'evaluation-verified.json', dict(status='passed',
         manifest_sha256=guard.sha(root/'evaluation-manifest.json'), cases=len(m['cases']),
         hands=sum(c['blocks']*6 for c in m['cases'])))
@@ -186,17 +237,22 @@ def validate_trajectory(result, cap, endpoint, require_frozen=True):
 
 
 class Supervisor(guard.Supervisor):
-    def __init__(self, root, lock, logs):
+    def __init__(self, root, lock, normal_lock, logs, qualification_deadline):
         guard.BUDGET = OUTPUT_BUDGET
         guard.FLOOR = 50_000_000_000
-        super().__init__(root, lock, cpus=range(16), max_seconds=QUAL_SECONDS,
+        super().__init__(root, lock, cpus=range(16), max_seconds=qualification_deadline-time.time(),
             rss_limit=80*guard.GIB, cpu_limit=90, thermistor_limit=100,
-            swap_limit_bytes=None, address_limit=96*guard.GIB)
+            swap_limit_bytes=None, address_limit=96*guard.GIB,
+            protect_group=True, extra_lock_fds=(normal_lock,))
         self.logs, self.seed, self.last_log = logs, 0, 0
         self.parse = guard.json_event
 
     def sample(self, process, phase, target):
         row = super().sample(process, phase, target)
+        if (self.root/'STOP').exists():
+            error = RuntimeError('owner stop file')
+            error.resource_sample = row
+            raise error
         disk = os.statvfs('/home/dberweger')
         row['nvme_free_bytes'] = disk.f_bavail*disk.f_frsize
         row['cpu_stop_c'], row['thermistor15_stop_c'], row['swap_guard_enabled'] = 90, 100, False
@@ -217,6 +273,8 @@ class Supervisor(guard.Supervisor):
         e = self.parse(line)
         if e is None:
             return None
+        if e.get('event') == 'fatal':
+            raise RuntimeError(e.get('error', 'guarded stage failed'))
         if e.get('event') in ('progress', 'trained'):
             for key in ('nodes', 'entries', 'active_seconds', 'monitor_seconds', 'nodes_per_second'):
                 if isinstance(e.get(key), (int, float)):
@@ -236,6 +294,10 @@ class Supervisor(guard.Supervisor):
 
 
 def run(root):
+    def interrupted(signum, frame):
+        raise InterruptedError(f'owner/supervisor signal {signum}')
+    signal.signal(signal.SIGTERM, interrupted)
+    signal.signal(signal.SIGINT, interrupted)
     c = load(root/'config.json')
     src = Path(__file__).parents[1]
     for name, digest in c['source_files'].items():
@@ -247,8 +309,11 @@ def run(root):
     if (root/'launch.json').exists():
         raise ValueError('this run was already launched')
     started = time.time()
+    qualification_deadline = c['qualification_deadline_epoch']
+    if not started < qualification_deadline <= started+QUAL_SECONDS:
+        raise ValueError('qualification deadline is expired or exceeds two hours')
     guard.write(root/'launch.json', dict(epoch=started, supervisor_pid=os.getpid(),
-        qualification_deadline_epoch=started+QUAL_SECONDS, main_maximum_seconds=MAIN_SECONDS,
+        qualification_deadline_epoch=qualification_deadline, main_maximum_seconds=MAIN_SECONDS,
         seeds=SEEDS, targets=TARGETS, cap=CAP, output_reservation_bytes=OUTPUT_BUDGET,
         rss_limit_bytes=80*guard.GIB, address_limit_bytes=96*guard.GIB,
         cpu_stop_c=90, thermistor15_stop_c=100, swap_guard_enabled=False,
@@ -257,7 +322,7 @@ def run(root):
         for lock in (own, normal):
             fcntl.flock(lock, fcntl.LOCK_EX|fcntl.LOCK_NB)
         logs = Scalars(root/'tensorboard')
-        s = Supervisor(root, own.fileno(), logs)
+        s = Supervisor(root, own.fileno(), normal.fileno(), logs, qualification_deadline)
         guard.json_event = s.event
         first = s.sample(None, 'admission', 0)
         if first['temperatures_c']['Package id 0'] >= 70 or first['temperatures_c']['Thermistor 15'] >= 80:
@@ -287,13 +352,18 @@ def run(root):
             path = root/(name+'-config.json')
             guard.write(path, config)
             result = stage(name, [c['train'], path])
-            validate_trajectory(result, cap, targets[-1])
+            validation = root/'validations'/name
+            validation.mkdir(parents=True, exist_ok=False)
+            guard.write(validation/'manifest.json', dict(result=str(root/'measurements'/name/'result.json'), cap=cap, endpoint=targets[-1]))
+            stage('validate-'+name, [c['python'], '-m', 'scripts.nplayer_bb100_overnight', 'validate', validation])
             return result
         def audit(name, m, parallel=True):
             module = 'scripts.audit_nplayer_policy_parallel' if parallel else 'scripts.audit_nplayer_policy'
             result = stage(name, [c['python'], '-m', module, m['checkpoint'], m['path']])
             value = load(root/'measurements'/name/'stdout.log')
-            if value['status'] != 'passed' or value['policy_sha256'] != m['sha256']:
+            if (value['status'] != 'passed' or value['policy_sha256'] != m['sha256']
+                    or value['checkpoint_sha256'] != m['checkpoint_sha256']
+                    or value['strategy'] != 'average' or value['last_average_street'] != 3):
                 raise ValueError('independent audit failed')
             return result, value
         def cli(name, threads):
@@ -364,7 +434,7 @@ def run(root):
             stage('probe-replay-'+row['bot'], [c['python'], '-m', 'scripts.check_nplayer_policy_replay', path])
         smoke = root/'smoke'; smoke.mkdir(exist_ok=False)
         m = dict(arena=c['arena'], arena_sha256=c['arena_sha256'], tables=c['tables'], smoke=True,
-            cases=cases(True), models={f'{label}-{seed}':base for seed in SEEDS for label in ('anchor','final')})
+            cases=cases(True), models=aliased_models(smoke, base, base))
         guard.write(smoke/'evaluation-manifest.json', m)
         stage('matrix-smoke', [c['python'], '-m', 'scripts.nplayer_bb100_overnight', 'batch', smoke])
         guard.write(root/'small-qualification.json', dict(status='passed', cli_checkpoint_sha256=one,
@@ -374,18 +444,19 @@ def run(root):
         anchor, final = model(calibration, 'anchor'), model(calibration, '2000000000')
         audit_a, _ = audit('calibration-anchor-audit', anchor)
         audit_b, _ = audit('calibration-final-audit', final)
-        pair0, pair_summary = arena('calibration-pair', 128, 20261019355403,
-                                   spec('a', {'a':final}), spec('b', {'b':anchor}))
-        pair1, _ = arena('calibration-pair-repeat', 128, 20261019355403,
-                         spec('a', {'a':final}), spec('b', {'b':anchor}))
-        if guard.sha(pair0) != guard.sha(pair1):
-            raise ValueError('mature reproduction differs')
-        replay = stage('calibration-pair-replay', [c['python'], '-m', 'scripts.check_nplayer_policy_replay', pair0])
-        quote = cost_quote(calibration, audit_a, audit_b, pair_summary, replay,
-                           load(root/'measurements/calibration-pair/result.json'))
+        performance = root/'calibration-evaluation'; performance.mkdir(exist_ok=False)
+        pm = dict(arena=c['arena'], arena_sha256=c['arena_sha256'], tables=c['tables'], smoke=False,
+            calibration=True, cases=cases(calibration=True), models=aliased_models(performance, anchor, final))
+        guard.write(performance/'evaluation-manifest.json', pm)
+        performance_result = stage('calibration-persistent-evaluation',
+            [c['python'], '-m', 'scripts.nplayer_bb100_overnight', 'batch', performance])
+        quote = cost_quote(calibration, audit_a, audit_b,
+            load(performance/'evaluation-cost.json'), performance_result)
+        quote['remaining_output_reservation_bytes'] = s.sample(None, 'cost-admission', 0)['remaining_output_reservation_bytes']
         guard.write(root/'cost-quote.json', quote)
         if (quote['total_seconds_with_allowance'] > MAIN_SECONDS or quote['peak_rss_with_allowance_bytes'] > 80*guard.GIB
-                or quote['monitoring_fraction'] > .1):
+                or quote['monitoring_fraction'] > .1
+                or quote['main_output_bytes_with_allowance'] > quote['remaining_output_reservation_bytes']):
             raise RuntimeError('measured overnight admission refused; no final seed started')
         s.sample(None, 'qualified', 0)
         # A prospective main deadline, distinct from the fixed qualification budget.
@@ -413,7 +484,27 @@ def run(root):
         logs.close()
 
 
-def cost_quote(calibration, audit_a, audit_b, pair, replay, pair_measurement):
+def aliased_models(root, anchor, final):
+    directory = root/'model-aliases'; directory.mkdir(exist_ok=False)
+    models = {}
+    for seed in SEEDS:
+        for label, value in [('anchor', anchor), ('final', final)]:
+            path = directory/f'{label}-{seed}.gz'
+            # Immutable owned inputs, distinct cache identities, no duplicate
+            # large bytes. Preserve these aliases with their original parent.
+            os.link(value['path'], path)
+            models[f'{label}-{seed}'] = dict(value, path=str(path))
+    return models
+
+
+def validate(root):
+    m = load(root/'manifest.json')
+    row = validate_trajectory(load(m['result']), m['cap'], m['endpoint'])
+    guard.write(root/'verified.json', dict(status='passed', nodes=row['nodes'], sha256=row['sha256']))
+    print(json.dumps(dict(event='complete', status='passed')), flush=True)
+
+
+def cost_quote(calibration, audit_a, audit_b, performance, performance_measurement):
     frozen = events(calibration, 'frozen')[0]
     done = events(calibration, 'complete')[0]
     rate = (done['nodes']-frozen['nodes'])/(done['active_seconds']-frozen['active_seconds'])
@@ -421,34 +512,44 @@ def cost_quote(calibration, audit_a, audit_b, pair, replay, pair_measurement):
     training = 3*(growth+(10_000_000_000-frozen['nodes'])/rate)
     checkpoints = events(calibration, 'checkpoint')
     exports = events(calibration, 'exported')
-    # Four saves and two exports per final seed; source readbacks and hashes get
-    # explicit allowances from measured whole-stage overhead, not training rate.
     saving = 12*max(e['save_seconds'] for e in checkpoints)
     exporting = 6*max(e['export_seconds'] for e in exports)
     auditing = 3*(audit_a['wall_seconds']+audit_b['wall_seconds'])
-    monitoring = done['monitor_seconds']*15  # two calibration probes ->30 final probes.
-    # Persistent batches retain two tables: six own-seed + six cyclic cross loads.
-    loading = 6*pair['load_seconds']
-    playing = pair['play_seconds']*(1769472*2/(128*6))
-    replaying = replay['wall_seconds']*(1769472/(128*6))/8
-    remainder = max(0, calibration['wall_seconds']-done['active_seconds']-done['monitor_seconds']
-                    -sum(e['save_seconds'] for e in checkpoints)-sum(e['export_seconds'] for e in exports))
-    verification = remainder*4 + 900
+    monitoring = done['monitor_seconds']*15
+    # The complete bounded128-block matrix measures all scripts, persistent
+    # eviction/transients, native parallelism and actual8-worker replay/I/O.
+    scale = 8192/performance['blocks']
+    if performance['cases'] != 36 or performance['policy_loads'] != 12 or scale != 64:
+        raise ValueError('incomplete representative mature performance matrix')
+    loading = performance['native_load_seconds']
+    native_residual = max(0, performance['native_wall_seconds']-performance['native_load_seconds']-performance['native_play_seconds'])
+    playing = (performance['native_play_seconds']+native_residual)*scale
+    final_trace_bytes = performance['trace_bytes']*scale
+    replaying = max(performance['replay_wall_seconds']*scale, 2.5*final_trace_bytes/25_000_000)
+    verification = (3*performance['input_verification_seconds']+900
+                    + final_trace_bytes/25_000_000 + performance['json_scan_seconds']*scale)
+    # Parent readback now runs in separate guarded validation measurements.
+    # Quote four large checkpoint plus two export hashes per seed explicitly.
+    compressed = max(e['bytes'] for e in checkpoints)
+    export_bytes = max(Path(e['path']).stat().st_size for e in exports)
+    # Verification reads are conservatively quoted at25MB/s on the owned HDD.
+    verification += (12*compressed+6*export_bytes)/25_000_000
     peak = max(max(calibration['sampled_peak_rss_by_phase'].values()),
-               max(pair_measurement['sampled_peak_rss_by_phase'].values()), CAP*224+4*guard.GIB)
+               max(performance_measurement['sampled_peak_rss_by_phase'].values()), CAP*224+4*guard.GIB)
     total = sum((training, saving, exporting, auditing, monitoring, loading, playing, replaying, verification))
     return dict(training_seconds=training, saving_seconds=saving, export_seconds=exporting,
         audit_seconds=auditing, monitoring_seconds=monitoring, model_load_seconds=loading,
         play_seconds=playing, replay_seconds=replaying, verification_allowance_seconds=verification,
         total_seconds_with_allowance=1.25*total, post_freeze_nodes_per_second=rate,
         peak_rss_with_allowance_bytes=1.25*peak, monitoring_fraction=monitoring/training,
+        main_output_bytes_with_allowance=1.25*(12*compressed+6*export_bytes+performance['trace_bytes']*scale+2_000_000_000),
         cap=CAP, final_seeds=SEEDS, final_hands=1769472, reproduction_hands=1769472,
-        scope='one calibration trajectory; fixed matrix, no strength-based selection')
+        scope='one calibration trajectory; full representative matrix; no strength-based selection')
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('mode', choices=('run', 'batch', 'read'))
+    parser.add_argument('mode', choices=('run', 'batch', 'read', 'validate'))
     parser.add_argument('root', type=Path)
     args = parser.parse_args()
     try:
