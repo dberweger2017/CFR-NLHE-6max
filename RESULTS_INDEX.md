@@ -1,8 +1,10 @@
-## Pruning cost/strength study — implementation review only (proposal351)
+## PR352 — pruning cost/strength study, implementation review only
 
-[Protocol](docs/nplayer-pruning-strength-study.md),
+[PR352](https://github.com/dberweger2017/CFR-NLHE-6max/pull/352),
+[protocol](docs/nplayer-pruning-strength-study.md),
 [proposal351](https://github.com/dberweger2017/CFR-NLHE-6max/issues/351).
-The owner requested a fresh pruned3B comparison, then only the remaining time
+The future per-PR namespace is`PR-352-nplayer-pruning-strength`; no folder has
+been created. The owner requested a fresh pruned3B comparison, then only the remaining time
 up to the historical unpruned630.740595090997s traversal and a second comparison.
 Code is prepared; **no benchmark, cost pilot, study release build, deployment or
 study training has started**. Only local correctness tests ran. No new raw model,
