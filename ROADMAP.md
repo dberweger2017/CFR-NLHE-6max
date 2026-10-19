@@ -95,7 +95,13 @@ Open tasks for contributors, grouped by the compute they need. Comment on or ope
 
 ## Current position
 
-- **Three-player 100 BB admission pilot complete (October 19):** [#350](https://github.com/dberweger2017/CFR-NLHE-6max/pull/350) reaches500M with113M entries,10.53GiB peak and exact thread/resume fixtures. Traversal is5.21M nodes/s; the final save takes389s. The local growth scenarios do not admit the proposed three-seed10B campaign under the current table/memory envelope. No main seed or strength evaluation ran;200BB is separate. [Measurements, limits and next qualification](docs/reports/nplayer-bb100/results.md).
+- **Three-player100BB capped qualification active (October19):** owner accepted
+  [#350](https://github.com/dberweger2017/CFR-NLHE-6max/pull/350)'s bounded-table
+  route after the500M pilot. The pinned host/evaluator/auditor pass57native and20
+  focused Python tests. One250M-entry calibration qualifies full costs/memory and
+  exact recovery/replay before automatically admitting three fresh10B seeds;
+  main has not started yet. [Frozen protocol](docs/nplayer-bb100-bounded-protocol.md),
+  [pilot measurements](docs/reports/nplayer-bb100/results.md).200BB is separate.
 
 - **Three-player overnight30B study complete (October19):** [#346](https://github.com/dberweger2017/CFR-NLHE-6max/pull/346) finishes all three seeds and verified36-lineup comparison. Two same-seed gains clear zero; seed1541 is inconclusive, so the declared all-three improvement gate fails. All cyclic safeguards pass, but random-opponent return regresses on all seeds. Retain30B as research evidence; no stronger-family/default/release adoption. [Full results and retained failure/cost history](docs/reports/nplayer-overnight/results.md).
 

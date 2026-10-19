@@ -1,4 +1,4 @@
-## PR350 — three-player 100 BB cost admission (pilot complete; 10B unadmitted)
+## PR350 — three-player 100 BB (pilot complete; bounded qualification active)
 
 [PR350](https://github.com/dberweger2017/CFR-NLHE-6max/pull/350),
 [proposal349](https://github.com/dberweger2017/CFR-NLHE-6max/issues/349),
@@ -6,6 +6,24 @@
 [compact receipt](docs/reports/nplayer-bb100/receipt.json) and
 [exact checkpoint paths/hashes/counts](docs/reports/nplayer-bb100/costs.csv).
 
+- **Owner-authorized capped-table qualification launched October19**, frozen
+  source`24157c92b52998e9eca06fd715ee53f7386dd2db`,1043 deployed source/config
+  files, bundleSHA256`51c60d7f56224809431230b1cfe9d0832445bfcfe5a37267ac7b19798f7d0f08`.
+  [Prospective protocol](docs/nplayer-bb100-bounded-protocol.md):250M-key cap,
+  freeze-boundary anchors, three fresh10B seeds,16threads,CPU90/Thermistor100,
+  swap telemetry only. Final seeds start automatically only after correctness,
+  mature-memory and full-cost admission; no current strength result.
+  Separate two-hour qualification and eight-hour main deadlines. Supervisor478791;
+  control`bb128:/home/dberweger/nplayer-bb100-bounded-20261019/` contains
+  `source-v3`, pinned`binaries-v3`, and all bootstrap/failed engineering build
+  receipts. `bootstrap-v3` passes57native+20focused Python tests.
+  New owned output`bb128:/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019/`
+  retains source/config/binary receipts, checkpoints, raw traces and partials.
+  ConfigSHA256`d7cdfb5c0f8d3d4bc485fe633c37bee961f693498cb7aab9c5b3278face9cdbf`.
+  Lightweight status retrieval: `python3.11 docs/reports/nplayer-bb100/collect_bounded.py FRESH_IGNORED_DESTINATION`.
+  TensorBoard owns port6007 onbb128, local tunnel8607, logdir in the new output
+  root; the old20BB dashboard/process is unchanged. No model/trace copying toMac,
+  no cleanup, cloud acceptance or main-strength claim.
 - Owner authorized 100 BB only, targeting 10B per seed after cost admission;
   200 BB is a separate future run. One calibration seed2026101935001 completes
   100M/200M/500M with saves, all seven native stages return0, no failure,
@@ -32,7 +50,8 @@
 - Last-interval linear scenarios give150M entries near0.719B and1.718B
   entries /131.8GiB peak RSS at10B. These are not bounds or proof of saturation;
   they do not admit the unchanged150M-entry full campaign. Larger-capacity
-  growth and evaluation-memory qualification is proposed, not started.
+  growth and evaluation-memory qualification is now running under the separate
+  owner-authorized capped protocol above.
 - PR350 is open. Raw originals remain protected; Drive ZIP/file IDs,
   matching upload acceptance and cloud restoration are pending. No archival,
   cleanup, eviction or deletion claim.

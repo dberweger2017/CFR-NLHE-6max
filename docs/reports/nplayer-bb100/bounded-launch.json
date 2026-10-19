@@ -1,0 +1,85 @@
+{
+  "root": "/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019",
+  "launch": {
+    "epoch": 1792409558.7111406,
+    "supervisor_pid": 478791,
+    "qualification_deadline_epoch": 1792416758.7111406,
+    "main_maximum_seconds": 28800,
+    "seeds": [
+      202610193501,
+      202610193502,
+      202610193503
+    ],
+    "targets": [
+      1000000000,
+      3000000000,
+      10000000000
+    ],
+    "cap": 250000000,
+    "output_reservation_bytes": 600000000000,
+    "rss_limit_bytes": 85899345920,
+    "address_limit_bytes": 103079215104,
+    "cpu_stop_c": 90,
+    "thermistor15_stop_c": 100,
+    "swap_guard_enabled": false,
+    "source_commit": "24157c92b52998e9eca06fd715ee53f7386dd2db",
+    "source_manifest_sha256": "d7cdfb5c0f8d3d4bc485fe633c37bee961f693498cb7aab9c5b3278face9cdbf"
+  },
+  "source-receipt": {
+    "source_commit": "24157c92b52998e9eca06fd715ee53f7386dd2db",
+    "bundle_sha256": "51c60d7f56224809431230b1cfe9d0832445bfcfe5a37267ac7b19798f7d0f08",
+    "source_path": "/home/dberweger/nplayer-bb100-bounded-20261019/source-v3",
+    "config_sha256": "d7cdfb5c0f8d3d4bc485fe633c37bee961f693498cb7aab9c5b3278face9cdbf"
+  },
+  "admission": {
+    "at": 1792409558.7123773,
+    "phase": "admission",
+    "target": 0,
+    "temperatures_c": {
+      "Thermistor 15": 37.5,
+      "Package id 0": 39.0
+    },
+    "available_ram_bytes": 109179510784,
+    "fan1_rpm": 481,
+    "swap_used_bytes": 24537772032,
+    "swap_growth_bytes": 0,
+    "free_disk_bytes": 1142134751232,
+    "remaining_output_reservation_bytes": 600000000000,
+    "rss_bytes": 0,
+    "nvme_free_bytes": 55292686336,
+    "cpu_stop_c": 90,
+    "thermistor15_stop_c": 100,
+    "swap_guard_enabled": false
+  },
+  "status": {
+    "status": "matrix-smoke",
+    "at": 1792409639.5076432,
+    "seed": 2026101935004
+  },
+  "supervisor_command": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/venv/bin/python -m scripts.nplayer_bb100_overnight run /mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019 ",
+  "last_resource": {
+    "at": 1792409643.0780938,
+    "phase": "startup",
+    "target": 0,
+    "temperatures_c": {
+      "Thermistor 15": 50.5,
+      "Package id 0": 52.0
+    },
+    "available_ram_bytes": 108896792576,
+    "fan1_rpm": 673,
+    "swap_used_bytes": 24537772032,
+    "swap_growth_bytes": 0,
+    "free_disk_bytes": 1142038216704,
+    "remaining_output_reservation_bytes": 599933600336,
+    "rss_bytes": 198074368,
+    "read_bytes": 0,
+    "write_bytes": 49152,
+    "rchar": 1205050717,
+    "wchar": 48212,
+    "nvme_free_bytes": 55292596224,
+    "cpu_stop_c": 90,
+    "thermistor15_stop_c": 100,
+    "swap_guard_enabled": false
+  },
+  "status_note": "Snapshot during matrix smoke; not main admission or final-seed completion proof."
+}
