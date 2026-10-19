@@ -9,6 +9,45 @@ from unittest.mock import patch
 from scripts import nplayer_pruning_strength as study
 
 
+class PythonEnvironmentTests(unittest.TestCase):
+    def test_configure_cli_preserves_the_virtual_environment_executable(self):
+        import sys
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            base=root/'base-python';base.touch()
+            python=root/'venv/bin/python';python.parent.mkdir(parents=True);python.symlink_to(base)
+            argv=['study','configure',str(root/'study'),'--build-root',str(root/'build'),
+                  '--tables',str(root/'tables'),'--python',str(python)]
+            with patch.object(sys,'argv',argv),patch.object(study,'configure') as configure:
+                study.main()
+            self.assertEqual(configure.call_args.args[-1],python)
+            self.assertNotEqual(configure.call_args.args[-1],python.resolve())
+
+    def test_dependency_probe_uses_the_unresolved_executable(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            base=root/'base-python';base.touch()
+            python=root/'venv/bin/python';python.parent.mkdir(parents=True);python.symlink_to(base)
+            receipt=dict(executable=str(python),prefix=str(root/'venv'),engine={'pinned':True})
+            with patch.object(study.subprocess,'check_output',return_value=json.dumps(receipt)) as probe:
+                selected,value=study.python_environment(python)
+            self.assertEqual(selected,python.absolute())
+            self.assertEqual(probe.call_args.args[0][0],str(python))
+            self.assertIn('engine_identity()',probe.call_args.args[0][-1])
+            self.assertIn('from scipy.stats import t',probe.call_args.args[0][-1])
+            self.assertEqual(value,receipt)
+
+    def test_missing_dependencies_fail_before_creating_a_study_root(self):
+        import subprocess
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)/'study'
+            error=subprocess.CalledProcessError(1,['python','-c','probe'])
+            with patch.object(study.subprocess,'check_output',side_effect=error):
+                with self.assertRaises(subprocess.CalledProcessError):
+                    study.configure(root,Path('unused-build'),Path('tables'),Path('venv/bin/python'))
+            self.assertFalse(root.exists())
+
+
 class ProtocolTests(unittest.TestCase):
     def test_two_disjoint_paired_matrices_with_fixed_sample_counts(self):
         roots=[]

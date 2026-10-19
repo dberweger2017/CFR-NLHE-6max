@@ -1,4 +1,4 @@
-## PR352 — pruning cost/strength study, running
+## PR352 — training complete, evaluation startup failure
 
 [PR352](https://github.com/dberweger2017/CFR-NLHE-6max/pull/352),
 [protocol](docs/nplayer-pruning-strength-study.md),
@@ -21,8 +21,13 @@ source66150f3b remains unchanged. [Compact qualification/pins](docs/reports/npla
 Main launched2026-10-19 16:41:35UTC, supervisorPID517163, after the owner explicitly
 authorized reviewing CI after launch. CI is not a compute-start gate.
 [Launch command/authorization/config receipt](docs/reports/nplayer-pruning-strength/launch.json).
-Both endpoint stages, audits, replay and readouts advance automatically in the
-existing supervisor. All480 development/reproduction hands are fixture evidence
+The supervisor exited17:22:33UTC when evaluation startup could not import
+`pokers`. Training and both full-average exports completed;3B hash/recipe
+verification and the250,000,119-row independent audit passed. Zero evaluation
+hands ran. The failed root/config/source/logs and both snapshots remain unchanged.
+[Failure and validated training evidence](docs/reports/nplayer-pruning-strength/startup-failure.json),
+[diagnosis and tested interpreter fix](docs/reports/nplayer-pruning-strength/startup-failure.md).
+No automatic retry or retraining has started. All480 development/reproduction hands are fixture evidence
 only, with disjoint roots and no final-outcome inference.
 Manual prelaunch sample:132.17GB available RAM,55.03GB free NVMe,1.083TB free
 HDD,227.9MB swap used; CPU37°C/Thermistor1531°C. No resource thresholds added.

@@ -8,6 +8,10 @@ source is`66150f3b5089edc4c4dabf66c2a3a439d565953f`; later evidence commits do
 not change its settings. Main run launched October19 at16:41:35UTC after qualification. The owner explicitly
 authorized reviewing CI after launch; CI is not a compute-start gate.
 [Launch receipt](reports/nplayer-pruning-strength/launch.json).
+**Current status:** stopped at evaluation startup on October19; training and
+exports passed, but the configured base Python lacked`pokers`. Zero evaluation
+hands ran. [Failure, preserved inputs and tested fix](reports/nplayer-pruning-strength/startup-failure.md).
+The original failed attempt is retained; no retry has started.
 PR350's cancelled10B campaign remains cancelled; this is a separate experiment.
 
 ## Question

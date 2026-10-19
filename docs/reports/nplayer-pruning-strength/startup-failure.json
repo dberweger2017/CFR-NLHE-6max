@@ -1,0 +1,75 @@
+{
+  "failure": {
+    "error": "RuntimeError('evaluate-nodes failed with exit 1')",
+    "at": 1792430553.111579
+  },
+  "evaluation_failure": {
+    "error": "ModuleNotFoundError(\"No module named 'pokers'\")",
+    "at": 1792430553.084046
+  },
+  "training": {
+    "returncode": 0,
+    "wall_seconds": 2011.2167448099935,
+    "cpu_seconds": 13869.018818
+  },
+  "endpoints": {
+    "clock": {
+      "active_seconds": 630.7424571240145,
+      "clock_path": "/home/dberweger/nplayer-pruning-strength-20261019/study-v1/candidate-nodes/clock-clock.json",
+      "clock_sha256": "c852e485e1be06ef03d46e7eb2ef6a1b98d14973b9a62208c151e285d413e4cb",
+      "event": "endpoint",
+      "iteration": 212096,
+      "label": "clock",
+      "last_iteration_seconds": 0.003026321,
+      "nodes": 2994344973,
+      "pruned_actions": 32496,
+      "segment_active_seconds": 630.7424571240145,
+      "model": {
+        "path": "/home/dberweger/nplayer-pruning-strength-20261019/study-v1/candidate-nodes/clock-average.gz",
+        "sha256": "8535a0d1e20b5f7818a82850e166f2a4bb9d972ad27093c9cf1dcd0e37bbb174",
+        "checkpoint": "/home/dberweger/nplayer-pruning-strength-20261019/study-v1/candidate-nodes/clock.gz",
+        "checkpoint_sha256": "89e5fceedec1f3f7c937d6859cf0d703f17b4dd2f646c1ffd2cfc4b099fc8e8e",
+        "strategy": "average",
+        "scope": 3
+      }
+    },
+    "nodes": {
+      "active_seconds": 631.8955200200134,
+      "clock_path": "/home/dberweger/nplayer-pruning-strength-20261019/study-v1/candidate-nodes/nodes-clock.json",
+      "clock_sha256": "21caf2f6f44a4b843ff328f0cbd7d1f7f153e3dd82c6c25f48c07f299e7b7706",
+      "event": "endpoint",
+      "iteration": 212514,
+      "label": "nodes",
+      "last_iteration_seconds": 0.004071748,
+      "nodes": 3000010865,
+      "pruned_actions": 32499,
+      "segment_active_seconds": 631.8955200200134,
+      "model": {
+        "path": "/home/dberweger/nplayer-pruning-strength-20261019/study-v1/candidate-nodes/nodes-average.gz",
+        "sha256": "d29f1d4a69557425b2a9a816d1ecd87f5056eacb465412387c0b8ca2033b05ef",
+        "checkpoint": "/home/dberweger/nplayer-pruning-strength-20261019/study-v1/candidate-nodes/nodes.gz",
+        "checkpoint_sha256": "19b572881073c93d05ed6f50db8c25b482489bedc1eebeaa7fff33c20f2d95a7",
+        "strategy": "average",
+        "scope": 3
+      }
+    }
+  },
+  "audit": {
+    "status": "passed",
+    "checkpoint_sha256": "19b572881073c93d05ed6f50db8c25b482489bedc1eebeaa7fff33c20f2d95a7",
+    "policy_sha256": "d29f1d4a69557425b2a9a816d1ecd87f5056eacb465412387c0b8ca2033b05ef",
+    "strategy": "average",
+    "last_average_street": 3,
+    "rows": 250000119,
+    "average_rows": 250000119,
+    "current_rows": 0,
+    "zero_mass_rows": 79715556
+  },
+  "evaluation_hands": 0,
+  "source_commit": "66150f3b5089edc4c4dabf66c2a3a439d565953f",
+  "root": "bb128:/home/dberweger/nplayer-pruning-strength-20261019/study-v1",
+  "status": "terminal-startup-failure",
+  "cause": "configure CLI resolved the virtual-environment Python symlink to its base interpreter, losing pokers and SciPy packages",
+  "originals_retained": true,
+  "restarted": false
+}

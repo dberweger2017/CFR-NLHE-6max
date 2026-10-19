@@ -163,7 +163,21 @@ def build(destination):
     guard.write(destination/'build-receipt.json', receipt)
 
 
+def python_environment(python):
+    # Resolving a venv executable symlink selects its base interpreter and
+    # drops the environment's packages. Preserve the executable path itself.
+    python = python.expanduser().absolute()
+    probe = ('import json,sys,scipy;'
+             'from scipy.stats import t;'
+             'from scripts.check_nplayer_parity import engine_identity;'
+             'print(json.dumps(dict(executable=sys.executable,prefix=sys.prefix,'
+             'version=list(sys.version_info[:3]),scipy=scipy.__version__,engine=engine_identity())))')
+    value = json.loads(subprocess.check_output([str(python), '-c', probe], cwd=SOURCE, text=True))
+    return python, value
+
+
 def configure(root, build_root, tables, python):
+    python, environment = python_environment(python)
     receipt = load(build_root/'build-receipt.json')
     if receipt['library_source_commit'] != LIBRARY_COMMIT:
         raise ValueError('baseline library source required')
@@ -180,7 +194,8 @@ def configure(root, build_root, tables, python):
     guard.write(root/'config.json', dict(build_receipt=str(build_root/'build-receipt.json'),
         build_receipt_sha256=guard.sha(build_root/'build-receipt.json'),
         **{k:receipt[k] for k in ('train','train_sha256','arena','arena_sha256')},
-        python=str(python), tables=str(tables), baseline=baseline(), pruning=PRUNING,
+        python=str(python), evaluation_environment=environment,
+        tables=str(tables), baseline=baseline(), pruning=PRUNING,
         node_target=NODE_TARGET, active_seconds_target=ACTIVE_TARGET, seed=SEED,
         source_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=SOURCE,text=True).strip(),
         source_files={name:guard.sha(SOURCE/name) for name in paths}, resource_policy=RESOURCE_POLICY,
@@ -275,6 +290,8 @@ def run(root):
     if guard.sha(c['build_receipt']) != c['build_receipt_sha256']:raise ValueError('build receipt changed')
     for key in ('train','arena'):
         if guard.sha(c[key]) != c[key+'_sha256']:raise ValueError('native binary changed')
+    if python_environment(Path(c['python']))[1] != c['evaluation_environment']:
+        raise ValueError('evaluation Python environment changed')
     with Path('/tmp/cfr-nplayer-pruning-strength.lock').open('a') as own, Path('/tmp/cfr-cygnus-exclusive.lock').open('a') as normal:
         for lock in (own,normal):fcntl.flock(lock,fcntl.LOCK_EX)
         epoch=time.time();guard.write(root/'launch.json',dict(epoch=epoch,deadline_epoch=None,resource_policy=RESOURCE_POLICY,pid=os.getpid(),
@@ -384,7 +401,7 @@ def main():
     prepare.add_argument('--python',type=Path,required=True)
     a=p.parse_args()
     if a.mode=='build':build(a.root.resolve());return
-    if a.mode=='configure':configure(a.root.resolve(),a.build_root.resolve(),a.tables.resolve(),a.python.resolve());return
+    if a.mode=='configure':configure(a.root.resolve(),a.build_root.resolve(),a.tables.resolve(),a.python);return
     if a.mode=='verify':
         c=load(a.root);verify_model(c['model'],c['pruning'],c.get('endpoint'));return
     try:globals()[a.mode](a.root.resolve())
