@@ -187,22 +187,23 @@ def batch(root):
         cases=len(m['cases']),hands=sum(c['blocks']*6 for c in m['cases'])))
 
 
-def read(root):
+def read(root, matrix=None):
+    matrix = cases() if matrix is None else matrix
     from scipy.stats import t
     from scripts.read_nplayer_fast_study import paired_blocks
     from scripts.analyze_nplayer_arena import interval
     if (root/'failure.json').exists() or load(root/'status.json')['status']!='verified-readout-ready':
         raise ValueError('global barrier not ready')
     m=load(root/'evaluation-manifest.json');verified=load(root/'evaluation-verified.json')
-    if m['cases']!=cases() or verified!=dict(status='passed',manifest_sha256=guard.sha(root/'evaluation-manifest.json'),cases=36,hands=1769472):
+    if m['cases']!=matrix or verified!=dict(status='passed',manifest_sha256=guard.sha(root/'evaluation-manifest.json'),cases=36,hands=1769472):
         raise ValueError('verification identity mismatch')
-    for c in cases():
+    for c in matrix:
         d=root/'evaluation'/c['name'];result=load(d/'result.json');replay=load(d/'replay.json')
         if result['status']!='passed' or result['case']!=c or result['hands']!=49152 or replay['status']!='passed':raise ValueError('unverified case')
         if len({result['trace_sha256'],replay['trace_sha256'],guard.sha(d/'play-0.jsonl'),guard.sha(d/'play-1.jsonl')})!=1:
             raise ValueError('trace proof differs')
     rows=[]
-    for a,b in zip(cases()[::2],cases()[1::2]):
+    for a,b in zip(matrix[::2],matrix[1::2]):
         values=list(paired_blocks(root/'evaluation'/a['name']/'play-0.jsonl',root/'evaluation'/b['name']/'play-0.jsonl',a['root']))
         if len(values)!=8192:raise ValueError('statistical block count')
         key='advantage' if a['group']!='bot' else 'fast_singleton'

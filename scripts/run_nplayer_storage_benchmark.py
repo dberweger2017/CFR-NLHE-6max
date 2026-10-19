@@ -114,8 +114,10 @@ def enforce(row, remaining, elapsed, max_seconds=4 * 3600, rss_limit=24 * GIB,
 
 class Supervisor:
     def __init__(self, root, lock_fd, cpus=None, max_seconds=4 * 3600, rss_limit=24 * GIB,
-                 cpu_limit=80, thermistor_limit=85, swap_limit_bytes=256 * 1024**2):
+                 cpu_limit=80, thermistor_limit=85, swap_limit_bytes=256 * 1024**2,
+                 address_limit=48 * GIB):
         self.root = root
+        self.address_limit = address_limit
         self.lock_fd = lock_fd
         self.cpus = set(cpus) if cpus is not None else {0, 1, 2, 3}
         self.max_seconds = max_seconds
@@ -165,7 +167,7 @@ class Supervisor:
                 raise RuntimeError('cannot set parent-death signal')
             os.sched_setaffinity(0, self.cpus)
             os.nice(10)
-            resource.setrlimit(resource.RLIMIT_AS, (48 * GIB,) * 2)
+            resource.setrlimit(resource.RLIMIT_AS, (self.address_limit,) * 2)
         child = None
         events, peaks = [], {}
         phase, target = 'startup', 0
