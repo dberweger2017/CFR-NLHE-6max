@@ -43,3 +43,57 @@ Report both policies' absolute returns, per-seat/position coverage, per-street/l
 bb128 only; sequential16-thread continuation followed by a persistent two-model evaluator. No extra model family or additional training seeds. Historical post-freeze4.83Mnodes/s suggests roughly24minutes active training for the remaining7B; this is not a complete-job ETA. Loading/saving/exporting/hashing/audits/evaluation/replay and instrumentation qualification must be measured/quoted separately before launch. Reserve RAM for the host using observed peak/headroom; inspect disk/swap manually. Owner's current temperature-only automatic resource stops remainCPU90C/Thermistor15100C/missing temperature readings, with mutex/manualSTOP and genuine correctness/accounting/replay failures; no new arbitrary runtime/RAM/disk/swap kill thresholds. No automatic extension/retry after a failed scientific attempt.
 
 This issue records the accepted scientific direction; implementation, exact frozen manifest and complete ETA return for review before new training or matches. It does not launch a campaign. PR352/353 source evidence and PR350 inputs remain protected; no cleanup, archive movement, new driver/fan settings or other-job edits.
+
+
+## Implementation and explicit operator commands
+
+`scripts.nplayer_bb100_continuation` owns the frozen18-lineup manifest, historical
+native build, qualification/configuration boundaries, temperature-only process
+supervision, exact continuation, audits, persistent mixed evaluation and global
+readout. `scripts.qualify_nplayer_bb100_continuation` runs only the small fixtures.
+The native training library is archived from PR350 source`b9882e7e`; no current
+storage/key changes enter the model. Native example overlays change only shared
+checkpoint I/O and the new mixed diagnostic evaluator. A separate historical
+host is compiled unchanged for the checkpoint/trajectory qualification.
+
+The optional `--lookup-out NEW_DIRECTORY` flag of
+`scripts.audit_nplayer_policy_parallel` emits `zero-keys.bin` plus a passed
+`receipt.json` commit marker during its existing row audit. Partial files remain
+without a valid receipt on error. Normal audits omit this option and preserve
+their previous return format and behavior. The receipt binds all-row keyset,
+positive/zero counts, zero-key bytes, checkpoint/export hashes and average scope.
+Uniform positive-mass policies and uniform zero-mass fallbacks remain distinct.
+
+Native `nplayer_continuation_arena batch MANIFEST` loads at most the two frozen
+models and one K50 table set. Each labeled identity receives its own unchanged
+RNG. Per-action`lookups` align with`states`/`actors`/`actions`; script entries are
+`not_applicable`. Each model decision records the acting alias, key, both mass
+labels in[baseline,candidate] order, street/position/public pot/live count and
+chosen action. Summary lookup counts index[identity][street][model][status],
+status order[positive_mass,zero_mass,missing]. No diagnostic reaches a policy
+input or alters its action distribution/RNG. Checkpoint/policy export bytes
+remain in their original format; the mass metadata is an additional artifact.
+
+Example preparation on bb128 using its already qualified venv (do not resolve
+its executable symlink):
+
+```sh
+python -m scripts.nplayer_bb100_continuation build /ABS/NEW_BUILD
+python -m scripts.nplayer_bb100_continuation qualify /ABS/NEW_QUAL \
+  --build-root /ABS/NEW_BUILD --tables /ABS/K50 \
+  --python /home/dberweger/nplayer-fast-strength-20261018-main-v5/venv/bin/python
+python -m scripts.nplayer_bb100_continuation configure /ABS/NEW_MAIN \
+  --build-root /ABS/NEW_BUILD --tables /ABS/K50 \
+  --python /home/dberweger/nplayer-fast-strength-20261018-main-v5/venv/bin/python \
+  --qualification /ABS/NEW_QUAL/qualification.json
+```
+
+These commands do not start the main experiment. The separately authorized
+launch is`python -m scripts.nplayer_bb100_continuation run /ABS/NEW_MAIN`.
+Existing launched roots refuse reuse without modifying their receipts; there
+is no automatic failed-science retry. Final readout follows all18verification
+proofs and returns one direct contrast plus eight adjusted opponent contrasts,
+absolute/seat/position returns, matched lookup transitions, coverage, descriptive
+paths with replay references, pot bands and actionable river counts. Reproduction
+hands add no statistical samples. All source/native/config/metadata hashes and
+training/save/load/audit/play/replay costs remain separate in the receipts.

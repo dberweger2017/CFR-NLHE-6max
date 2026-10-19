@@ -1,3 +1,17 @@
+## PR355 — fixed100BB3B→10B implementation and fixture qualification
+
+[PR355](https://github.com/dberweger2017/CFR-NLHE-6max/pull/355),
+[proposal354](https://github.com/dberweger2017/CFR-NLHE-6max/issues/354),
+[protocol](docs/nplayer-bb100-10b-study.md).
+Implementation only; no main10B continuation or final evaluation launched.
+Qualification uses fresh owned small100BB/K50 fixtures and checks historical
+native versus resumed checkpoint/export bytes, mixed-opponent replay and
+instrumentation-on/off trajectories. The large PR350/352/353 input roots remain
+read-only protected dependencies; no copies, archival or cleanup through this
+PR. New metadata belongs to the new study root, bound to checkpoint/policy hashes.
+Archive namespace`PR-355-nplayer-bb100-10b`; Research-Cloud/Drive acceptance pending.
+Qualification root/proofs and retrieval provenance will be recorded when created.
+
 ## PR352 — verified final pruning comparison; original failure preserved
 
 **Final completion October19,18:13:14UTC:** recovery supervisor525334 exited,
