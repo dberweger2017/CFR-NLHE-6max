@@ -2,8 +2,10 @@
 
 The owner authorized qualification and launch on October19: “Perfect do those
 things and start the run.” The release build and real K50 engineering fixture
-pass. The main3B study is configured but awaits GitHub CI; no main training or
-held-out study hand has run. [Compact receipt and hashes](qualification.json).
+pass. At qualification completion, the main3B study was configured and awaited CI.
+The owner subsequently authorized reviewing CI after launch; the supervisor
+started16:41:35UTC asPID517163. [Launch receipt](launch.json). The fixture data
+below are separate from final study evidence. [Qualification hashes](qualification.json).
 
 Frozen controller/harness source is`66150f3b5089edc4c4dabf66c2a3a439d565953f`;
 native library/arena is the historical PR350 source

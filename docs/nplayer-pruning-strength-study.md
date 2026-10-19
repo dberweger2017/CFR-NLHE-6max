@@ -5,7 +5,9 @@
 was returned for review: “Perfect do those things and start the run.”**
 The release build and small K50 qualification precede the full study. The frozen
 source is`66150f3b5089edc4c4dabf66c2a3a439d565953f`; later evidence commits do
-not change its settings. Main-run launch status is recorded in RESULTS_INDEX.
+not change its settings. Main run launched October19 at16:41:35UTC after qualification. The owner explicitly
+authorized reviewing CI after launch; CI is not a compute-start gate.
+[Launch receipt](reports/nplayer-pruning-strength/launch.json).
 PR350's cancelled10B campaign remains cancelled; this is a separate experiment.
 
 ## Question
@@ -189,6 +191,6 @@ acceptance is claimed by this implementation PR.
 python3.11 -m scripts.nplayer_pruning_strength build /ABS/OWNED/build
 python3.11 -m scripts.nplayer_pruning_strength configure /ABS/OWNED/study \
   --build-root /ABS/OWNED/build --tables /ABS/PINNED/K50 --python /ABS/MANAGED/python
-# Qualification and CI precede the authorized launch; configure never runs training.
+# Qualification precedes launch; review CI separately. Configure never runs training.
 python3.11 -m scripts.nplayer_pruning_strength run /ABS/OWNED/study
 ```

@@ -1,4 +1,4 @@
-## PR352 — pruning cost/strength study, authorized qualification
+## PR352 — pruning cost/strength study, running
 
 [PR352](https://github.com/dberweger2017/CFR-NLHE-6max/pull/352),
 [protocol](docs/nplayer-pruning-strength-study.md),
@@ -18,8 +18,14 @@ clock carry-over, early snapshot, two-model cache, both audit/replay/readout pat
 Main configuration is frozen at
 `bb128:/home/dberweger/nplayer-pruning-strength-20261019/study-v1/config.json`;
 source66150f3b remains unchanged. [Compact qualification/pins](docs/reports/nplayer-pruning-strength/qualification.json).
-CI is queued; no main launch exists. All480 development/reproduction hands are
-fixture evidence only, with disjoint roots and no final-outcome inference.
+Main launched2026-10-19 16:41:35UTC, supervisorPID517163, after the owner explicitly
+authorized reviewing CI after launch. CI is not a compute-start gate.
+[Launch command/authorization/config receipt](docs/reports/nplayer-pruning-strength/launch.json).
+Both endpoint stages, audits, replay and readouts advance automatically in the
+existing supervisor. All480 development/reproduction hands are fixture evidence
+only, with disjoint roots and no final-outcome inference.
+Manual prelaunch sample:132.17GB available RAM,55.03GB free NVMe,1.083TB free
+HDD,227.9MB swap used; CPU37°C/Thermistor1531°C. No resource thresholds added.
 
 The two-stage comparison remains fresh pruned3B, then only the remaining time
 up to the unpruned630.740595090997s active traversal. Temperature-only automatic
