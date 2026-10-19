@@ -60,7 +60,7 @@ def preserve(root, cache, names):
             dest.parent.mkdir(parents=True, exist_ok=True)
             digest = guard.sha(path)
             if dest.exists():
-                if guard.sha(dest) != digest:
+                if not path.samefile(dest) and guard.sha(dest) != digest:
                     raise ValueError('preservation destination changed: '+str(relative))
             else:
                 with path.open('rb') as src, dest.open('xb') as out:
@@ -158,6 +158,19 @@ def case_run(task):
     return result
 
 
+def evaluation_directory(root, m):
+    if 'evaluation_directory' in m:
+        # Large final traces can live directly in the owned retained cache.
+        directory=Path(m['evaluation_directory'])
+        expected=Path(load(root/'config.json')['cache'])/'evaluation'
+        if directory!=expected or not directory.is_absolute():
+            raise ValueError('evaluation directory must be the owned cache/evaluation')
+        directory.mkdir(exist_ok=False)
+        (root/'evaluation').symlink_to(directory,target_is_directory=True)
+    else:
+        (root/'evaluation').mkdir(exist_ok=False)
+
+
 def batch(root):
     from scripts.check_nplayer_parity import engine_identity
     engine_identity()
@@ -165,7 +178,7 @@ def batch(root):
     if m['cases']!=cases(m['smoke']):raise ValueError('changed frozen matrix')
     for path,digest in [(m['arena'],m['arena_sha256'])]+[(v['path'],v['sha256']) for v in m['models'].values()]:
         if guard.sha(path)!=digest:raise ValueError('evaluation input mismatch')
-    (root/'evaluation').mkdir(exist_ok=False)
+    evaluation_directory(root,m)
     with ProcessPoolExecutor(max_workers=4) as pool:
         futures=[pool.submit(case_run,(case,m,str(root))) for case in m['cases']]
         for i,future in enumerate(as_completed(futures),1):

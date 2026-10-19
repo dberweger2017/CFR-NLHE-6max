@@ -49,11 +49,11 @@ def resume_plan(events):
 
 class ContinuedScalars(Scalars):
     """Append a unique event file while keeping the existing run and time counters."""
-    def __init__(self, folder, trained):
+    def __init__(self, folder, trained, seed=SEED):
         folder = Path(folder)
         self.path = folder / f'events.out.tfevents.{int(time.time())}.{socket.gethostname()}.{os.getpid()}'
         self.file = self.path.open('xb')
-        self.offsets = {f'{SEED}/training/{key}':trained[key] for key in ('active_seconds','monitor_seconds')}
+        self.offsets = {f'{seed}/training/{key}':trained[key] for key in ('active_seconds','monitor_seconds')}
         self.record(b'\x09'+struct.pack('<d',time.time())+string_field(3,'brain.Event:2'))
 
     def add(self, tag, value, step):
@@ -61,17 +61,20 @@ class ContinuedScalars(Scalars):
 
 
 class ContinuationSupervisor(campaign.Supervisor):
-    def __init__(self, *args, origin=None, expected_probe=None, **kwargs):
+    def __init__(self, *args, origin=None, expected_probe=None, retained_roots=None, cache_parent=None, **kwargs):
         super().__init__(*args, **kwargs)
         self.origin=origin
         self.expected_probe=expected_probe
+        self.retained_roots=retained_roots
+        self.cache_parent=cache_parent
         self.external_refresh=0
 
     def sample(self, process, phase, target):
         if self.origin is not None and time.monotonic()-self.external_refresh>=10:
             # Both attempts share the original allowances, including retained failures.
-            self.initial_bytes=-campaign.guard.tree_bytes(self.origin)
-            old_cache=Path(campaign.load(self.origin/'config.json')['cache'])
+            roots=self.retained_roots if self.retained_roots is not None else [self.origin]
+            self.initial_bytes=-sum(campaign.guard.tree_bytes(p) for p in roots)
+            old_cache=self.cache_parent if self.cache_parent is not None else Path(campaign.load(self.origin/'config.json')['cache'])
             self.initial_cache_bytes=-(campaign.guard.tree_bytes(old_cache)-campaign.guard.tree_bytes(self.cache))
             self.external_refresh=time.monotonic()
         row=super().sample(process,phase,target)

@@ -69,6 +69,7 @@ class RecoveryTests(unittest.TestCase):
             (origin/'config.json').write_text(json.dumps({'cache':'/cache/original'}))
             s=ContinuationSupervisor.__new__(ContinuationSupervisor)
             s.origin=origin;s.cache=Path('/cache/original/resume100');s.external_refresh=0
+            s.retained_roots=None;s.cache_parent=None
             s.cpu_limit=90;s.thermistor_limit=100
             s.swap_limit_bytes=None
             sizes={str(origin):100,'/cache/original':1000,str(s.cache):200}

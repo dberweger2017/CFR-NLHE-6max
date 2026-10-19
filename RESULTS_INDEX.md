@@ -1,4 +1,4 @@
-## Overnight three-player20BB campaign (terminal partial: two30B seeds; originals retained)
+## Overnight three-player20BB campaign (final seed resumed without swap stop)
 
 [Proposal345](https://github.com/dberweger2017/CFR-NLHE-6max/issues/345); [frozen protocol](docs/nplayer-overnight-blueprint.md). The existing PR340~3B raw checkpoints/averages are read-only inputs. New owned tmpfs workspace `/tmp/nplayer-overnight-20261018` has retained, hash-verified copies in a new per-PR2TB cache root; exact [pins/root/launch receipts](docs/reports/nplayer-overnight/launch.md) record frozen source4cd199a5 and supervisor358105. Preserve all failures and partials. No originals deleted; cloud archival/acceptance pending.
 
@@ -9,6 +9,8 @@ October18 owner amendment requested Thermistor15 stop100°C after the next compl
 Explicit subsequent owner recovery: [100°C recovery launch and setup-refusal provenance](docs/reports/nplayer-overnight/recovery100.md). Fresh root `bb128:/tmp/nplayer-overnight-20261018-resume100-v2`, supervisor371963; same10B input, frozen native binary and original deadline. Prior thermal failure and initial recovery setup refusal remain intact. Combined owned storage and absolute swap are charged to the original ceilings; no cleanup or cloud acceptance.
 
 October19 owner instruction removed swap as a campaign stop condition in the updated code; absolute usage/growth remain telemetry. Historical stops and remote source copies remain retained. No new run or deadline reset.
+
+October19 owner instruction “please resume the run”: [remaining-work continuation](docs/reports/nplayer-overnight/finish-noswap.md), root `bb128:/tmp/nplayer-overnight-20261019-finish-noswap`, supervisor437572. New explicit4h allocation06:11:45–10:11:45UTC; previous expired allocation and all failed roots remain historical evidence. Reuse the two audited30B averages read-only; resume seed1543 from10B, then unchanged full final evaluation. No swap stop, CPU90°C/Thermistor15100°C; combined storage limits retained. Final traces go directly to the new owned HDD cache/evaluation path; no deletion/Drive acceptance.
 
 ## PR340 — PR335 strength study (complete; archival pending)
 
