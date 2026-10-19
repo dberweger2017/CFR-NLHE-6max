@@ -1,3 +1,52 @@
+## PR355 — completed fixed100BB3B→10B comparison
+
+**Verified completion October19,21:21:05UTC:** all five measured stages returned0,
+both250,000,475-row audits passed, all18cases passed exact reproduction and
+independent replay:884,736initial plus884,736repeat hands. Primary mean-oriented
+singleton gain+28.40[+18.98,+37.81]BB/100. Fixed3B+pot-pressure also clears zero
+after eight-panel adjustment; random/random+TAG have adverse pointwise signals
+with adjusted intervals crossing zero. One training seed/host; no automatic
+adoption/release/merge or additional compute. [Final report](docs/reports/nplayer-bb100-10b/results.md),
+[derived compact readout](docs/reports/nplayer-bb100-10b/results.json),
+[completion/provenance/resources/source hashes](docs/reports/nplayer-bb100-10b/completion.json),
+[strength](docs/reports/nplayer-bb100-10b/strength.csv),
+[all positions](docs/reports/nplayer-bb100-10b/seats-and-positions.csv),
+[lookup counts](docs/reports/nplayer-bb100-10b/lookup.csv),
+[matched transitions](docs/reports/nplayer-bb100-10b/matched-transitions.csv),
+[paths with replay references](docs/reports/nplayer-bb100-10b/paths.csv).
+
+Raw owned root`bb128:/home/dberweger/nplayer-bb100-10b-20261019/main-v1/`
+remains unchanged. Frozen controllerecb08ada/nativeb9882e7e and original
+configSHA256`eb43aa2598151eb291441552e52b1e73915a9a218de8049f8d3645c846cee856`.
+10Bcheckpoint`candidate/10000000000.gz`,11,009,014,184bytes,
+SHA256`788e75acf8b98d88518faf3da683048ec05604ba001c8a59bb1ec5f740b52b80`;
+full average`candidate/10000000000-average.gz`,6,230,067,388bytes,
+SHA256`a85364b71c478be213e0356c5201911755228c864472427b64699346191facbd`.
+Same membership SHA256 as immutablePR3503B input, with10,000,009,599nodes.
+Original raw settled result925,548bytes, SHA256
+`41cffb0c7b131358b7b3906bb540cb12116f22da5200dcb0b99edc1612e83bd3`.
+
+Compact JSON/proofs only were retrieved into ignored
+`results/pr355-final-20261019T2125/compact/`; every source file matches its
+indexed SHA256. Regenerate all report tables with
+`python3.11 docs/reports/nplayer-bb100-10b/summarize.py FRESH_COMPACT_SOURCE FRESH_OUTPUT`.
+Exact source-relative paths/hashes are in the completion receipt. Retrieve
+selected files with`rsync -a bb128:EXACT_REMOTE_FILE FRESH_IGNORED_DIRECTORY/`,
+preserving relative paths and verifying their indexed SHA256 before use.
+This does not retrain, re-evaluate or duplicate engine replay.
+
+Whole wall72.77min; extra7Bactive25.04min; peak sampled66.03GiB;
+CPU/Thermistor15max74/91.5°C; no thermal/scientific failure. Supervisor544891
+exited and both study/normal compute mutexes are free at closeout. Initial
+network timeouts were local Tailscale connectivity, not an interrupted study.
+The initial Cargo/PATH setup failure, qualification fixtures and all raw logs,
+models,6.31GBtraces, sidecars and sources stay on bb128; partial local
+report-generation output is retained in the ignored retrieval directory.
+PR355 is open: its roots and PR350/352/353 dependencies remain protected.
+Archive namespace`PR-355-nplayer-bb100-10b`; HDD/Drive archive/acceptance pending.
+No new scientific evidence is copied to the HDD, uploaded or deleted by this
+closeout. No new timer, another seed or other campaign is started.
+
 ## bb128 NVMe evidence relocation — October19,2026
 
 The owner explicitly requested moving previous rounds' evidence to the2TB
@@ -31,7 +80,7 @@ during final disk sync; it started20:08:19UTC asPID544891, with its original
 configuration hash and working runtime confirmed.
 [Launch receipt](docs/reports/nplayer-bb100-10b/launch.json).
 
-## PR355 — fixed100BB3B→10B qualified and launched
+## PR355 — historical qualification and launch record
 
 [PR355](https://github.com/dberweger2017/CFR-NLHE-6max/pull/355),
 [proposal354](https://github.com/dberweger2017/CFR-NLHE-6max/issues/354),

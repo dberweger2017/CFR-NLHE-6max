@@ -126,3 +126,13 @@ rule only adds nonnegative mass. The evaluator refuses a positive→zero mass
 transition on a matched key. The controller also checks that the global zero-row
 count does not increase. A zero→positive transition is evidence that a previously
 zero-mass row received average updates, not evidence that its decision is optimal.
+
+
+## Completed owner-authorized campaign
+
+After engineering qualification and the owner-requested completed-evidence
+relocation, the owner separately instructed the main launch. It finished
+October19,21:21:05UTC with all original stages and proof barriers passed.
+The frozen source, target, recipe and sample sizes above were unchanged.
+[Final results and interpretation](reports/nplayer-bb100-10b/results.md).
+This dated completion note does not alter the prospective statistical rules.
