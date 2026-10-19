@@ -376,72 +376,92 @@ def run(root):
             if summary['stop_reason'] != 'nodes':
                 raise ValueError('CLI fixture incomplete')
             return guard.sha(path)
-        one, many = cli('fixture-cli-one', 1), cli('fixture-cli-sixteen', 16)
-        fixture = train('fixture-host', FIXTURE_SEED, [1_000_000, 3_000_000], probes=[0, 1_000_000, 3_000_000])
-        if one != many or events(fixture, 'checkpoint')[-1]['sha256'] != one:
-            raise ValueError('CLI/thread/host fixture differs')
-        base = model(fixture, '3000000')
-        resumed = train('fixture-resume', FIXTURE_SEED, [5_000_000], input_model=base, probes=[0], reference=base)
-        fresh = train('fixture-fresh', FIXTURE_SEED, [5_000_000])
-        parallel = train('fixture-parallel-gzip', FIXTURE_SEED, [3_000_000], parallel=True)
-        parallel_base = model(parallel, '3000000')
-        parallel_resume = train('fixture-parallel-resume', FIXTURE_SEED, [5_000_000], input_model=parallel_base)
-        if len({events(r, 'checkpoint')[-1]['sha256'] for r in (resumed, fresh, parallel_resume)}) != 1:
-            raise ValueError('resume/compression recovery differs')
-        if decompressed_sha(base['checkpoint']) != decompressed_sha(parallel_base['checkpoint']):
-            raise ValueError('parallel compression changes checkpoint')
-        exported = root/'fixture-separate-export.gz'
-        stage('fixture-separate-export', [c['policy'], 'export', base['checkpoint'], base['checkpoint_sha256'], 'average', exported])
-        if guard.sha(exported) != base['sha256']:
-            raise ValueError('direct/separate export differs')
-        _, serial_audit = audit('fixture-serial-audit', base, False)
-        _, parallel_audit = audit('fixture-parallel-audit', base)
-        if serial_audit != parallel_audit:
-            raise ValueError('serial/parallel independent audits differ')
-        def arena(name, blocks, root_seed, singleton, pair, stack=100, threads=16, old=False):
-            path = root/(name+'.jsonl')
-            args = [c['legacy_arena'] if old else c['arena'], c['tables'], blocks, root_seed, path, singleton, pair]
-            if not old:
-                args += [stack, threads]
-            stage(name, args)
-            return path, load(root/'measurements'/name/'stdout.log')
-        policy_spec = spec('p', {'p': base})
-        a, _ = arena('fixture-arena-one', 2, 20261019355401, policy_spec, 'bot=random', threads=1)
-        b, _ = arena('fixture-arena-sixteen', 2, 20261019355401, policy_spec, 'bot=random')
-        if guard.sha(a) != guard.sha(b):
-            raise ValueError('parallel arena changes trace')
-        old, _ = arena('fixture-old20', 2, 20261019355402, 'bot=random', 'bot=pot-pressure', old=True)
-        new, _ = arena('fixture-new20', 2, 20261019355402, 'bot=random', 'bot=pot-pressure', stack=20)
-        if guard.sha(old) != guard.sha(new):
-            raise ValueError('old20BB arena trace changed')
-        for name, path in [('fixture-replay', a), ('fixture-old20-replay', new)]:
-            stage(name, [c['python'], '-m', 'scripts.check_nplayer_policy_replay', path])
-        # Check complete in-memory probe paths against the independently replayed exported policy.
-        probe = events(resumed, 'probe')[0]
-        for row in probe['results']:
-            path, _ = arena('probe-'+row['bot'], 128, row['root'], policy_spec, 'bot='+row['bot'])
-            value = hashlib.sha256(); values = []; rewards = []
-            with path.open() as stream:
-                next(stream)
-                for line in stream:
-                    h = json.loads(line)
-                    value.update((json.dumps([h[k] for k in ('block','permutation','actors','actions','rewards')], separators=(',', ':'))+'\n').encode())
-                    rewards.append(h['rewards'][h['identities'].index(0)])
-                    if h['permutation'] == 5:
-                        values.append(sum(rewards)/6); rewards = []
-            if value.hexdigest() != row['play_sha256'] or values != row['block_bb100']:
-                raise ValueError('probe/export played path differs')
-            stage('probe-replay-'+row['bot'], [c['python'], '-m', 'scripts.check_nplayer_policy_replay', path])
-        smoke = root/'smoke'; smoke.mkdir(exist_ok=False)
-        m = dict(arena=c['arena'], arena_sha256=c['arena_sha256'], tables=c['tables'], smoke=True,
-            cases=cases(True), models=aliased_models(smoke, base, base))
-        guard.write(smoke/'evaluation-manifest.json', m)
-        stage('matrix-smoke', [c['python'], '-m', 'scripts.nplayer_bb100_overnight', 'batch', smoke])
-        guard.write(root/'small-qualification.json', dict(status='passed', cli_checkpoint_sha256=one,
-            resume_checkpoint_sha256=events(fresh,'checkpoint')[-1]['sha256'], probe_hands=3072, smoke_hands=432))
-        calibration = train('calibration', CALIBRATION_SEED, [1_000_000_000, 2_000_000_000], cap=CAP, parallel=True,
-                            probes=[1_000_000_000, 2_000_000_000])
-        anchor, final = model(calibration, 'anchor'), model(calibration, '2000000000')
+        m = dict(arena=c['arena'], arena_sha256=c['arena_sha256'], tables=c['tables'],
+                 smoke=False, cases=cases(), models={})
+        if 'continuation_parent' in c:
+            stage('verify-parent', [c['python'], '-m', 'scripts.nplayer_bb100_overnight', 'parent', root])
+            previous = Path(c['continuation_parent']['root'])
+            parent_result = load(previous/'measurements/calibration/result.json')
+            validation = root/'validations/calibration-parent'
+            validation.mkdir(parents=True, exist_ok=False)
+            guard.write(validation/'manifest.json', dict(result=str(previous/'measurements/calibration/result.json'),
+                cap=CAP, endpoint=2_000_000_000, require_frozen=False))
+            stage('validate-calibration-parent',
+                [c['python'], '-m', 'scripts.nplayer_bb100_overnight', 'validate', validation])
+            continuation = train('calibration-continuation', CALIBRATION_SEED,
+                [3_000_000_000], cap=CAP, parallel=True,
+                input_model=model(parent_result, '2000000000'), probes=[3_000_000_000])
+            calibration = continuation_cost_basis(parent_result, continuation)
+            guard.write(root/'calibration-cost-basis.json', calibration)
+            calibration_final_label = '3000000000'
+        else:
+            one, many = cli('fixture-cli-one', 1), cli('fixture-cli-sixteen', 16)
+            fixture = train('fixture-host', FIXTURE_SEED, [1_000_000, 3_000_000], probes=[0, 1_000_000, 3_000_000])
+            if one != many or events(fixture, 'checkpoint')[-1]['sha256'] != one:
+                raise ValueError('CLI/thread/host fixture differs')
+            base = model(fixture, '3000000')
+            resumed = train('fixture-resume', FIXTURE_SEED, [5_000_000], input_model=base, probes=[0], reference=base)
+            fresh = train('fixture-fresh', FIXTURE_SEED, [5_000_000])
+            parallel = train('fixture-parallel-gzip', FIXTURE_SEED, [3_000_000], parallel=True)
+            parallel_base = model(parallel, '3000000')
+            parallel_resume = train('fixture-parallel-resume', FIXTURE_SEED, [5_000_000], input_model=parallel_base)
+            if len({events(r, 'checkpoint')[-1]['sha256'] for r in (resumed, fresh, parallel_resume)}) != 1:
+                raise ValueError('resume/compression recovery differs')
+            if decompressed_sha(base['checkpoint']) != decompressed_sha(parallel_base['checkpoint']):
+                raise ValueError('parallel compression changes checkpoint')
+            exported = root/'fixture-separate-export.gz'
+            stage('fixture-separate-export', [c['policy'], 'export', base['checkpoint'], base['checkpoint_sha256'], 'average', exported])
+            if guard.sha(exported) != base['sha256']:
+                raise ValueError('direct/separate export differs')
+            _, serial_audit = audit('fixture-serial-audit', base, False)
+            _, parallel_audit = audit('fixture-parallel-audit', base)
+            if serial_audit != parallel_audit:
+                raise ValueError('serial/parallel independent audits differ')
+            def arena(name, blocks, root_seed, singleton, pair, stack=100, threads=16, old=False):
+                path = root/(name+'.jsonl')
+                args = [c['legacy_arena'] if old else c['arena'], c['tables'], blocks, root_seed, path, singleton, pair]
+                if not old:
+                    args += [stack, threads]
+                stage(name, args)
+                return path, load(root/'measurements'/name/'stdout.log')
+            policy_spec = spec('p', {'p': base})
+            a, _ = arena('fixture-arena-one', 2, 20261019355401, policy_spec, 'bot=random', threads=1)
+            b, _ = arena('fixture-arena-sixteen', 2, 20261019355401, policy_spec, 'bot=random')
+            if guard.sha(a) != guard.sha(b):
+                raise ValueError('parallel arena changes trace')
+            old, _ = arena('fixture-old20', 2, 20261019355402, 'bot=random', 'bot=pot-pressure', old=True)
+            new, _ = arena('fixture-new20', 2, 20261019355402, 'bot=random', 'bot=pot-pressure', stack=20)
+            if guard.sha(old) != guard.sha(new):
+                raise ValueError('old20BB arena trace changed')
+            for name, path in [('fixture-replay', a), ('fixture-old20-replay', new)]:
+                stage(name, [c['python'], '-m', 'scripts.check_nplayer_policy_replay', path])
+            # Check complete in-memory probe paths against the independently replayed exported policy.
+            probe = events(resumed, 'probe')[0]
+            for row in probe['results']:
+                path, _ = arena('probe-'+row['bot'], 128, row['root'], policy_spec, 'bot='+row['bot'])
+                value = hashlib.sha256(); values = []; rewards = []
+                with path.open() as stream:
+                    next(stream)
+                    for line in stream:
+                        h = json.loads(line)
+                        value.update((json.dumps([h[k] for k in ('block','permutation','actors','actions','rewards')], separators=(',', ':'))+'\n').encode())
+                        rewards.append(h['rewards'][h['identities'].index(0)])
+                        if h['permutation'] == 5:
+                            values.append(sum(rewards)/6); rewards = []
+                if value.hexdigest() != row['play_sha256'] or values != row['block_bb100']:
+                    raise ValueError('probe/export played path differs')
+                stage('probe-replay-'+row['bot'], [c['python'], '-m', 'scripts.check_nplayer_policy_replay', path])
+            smoke = root/'smoke'; smoke.mkdir(exist_ok=False)
+            m = dict(arena=c['arena'], arena_sha256=c['arena_sha256'], tables=c['tables'], smoke=True,
+                cases=cases(True), models=aliased_models(smoke, base, base))
+            guard.write(smoke/'evaluation-manifest.json', m)
+            stage('matrix-smoke', [c['python'], '-m', 'scripts.nplayer_bb100_overnight', 'batch', smoke])
+            guard.write(root/'small-qualification.json', dict(status='passed', cli_checkpoint_sha256=one,
+                resume_checkpoint_sha256=events(fresh,'checkpoint')[-1]['sha256'], probe_hands=3072, smoke_hands=432))
+            calibration = train('calibration', CALIBRATION_SEED, [1_000_000_000, 2_000_000_000], cap=CAP, parallel=True,
+                                probes=[1_000_000_000, 2_000_000_000])
+            calibration_final_label = '2000000000'
+        anchor, final = model(calibration, 'anchor'), model(calibration, calibration_final_label)
         audit_a, _ = audit('calibration-anchor-audit', anchor)
         audit_b, _ = audit('calibration-final-audit', final)
         performance = root/'calibration-evaluation'; performance.mkdir(exist_ok=False)
@@ -499,10 +519,99 @@ def aliased_models(root, anchor, final):
 
 def validate(root):
     m = load(root/'manifest.json')
-    row = validate_trajectory(load(m['result']), m['cap'], m['endpoint'])
+    row = validate_trajectory(load(m['result']), m['cap'], m['endpoint'], m.get('require_frozen', True))
     guard.write(root/'verified.json', dict(status='passed', nodes=row['nodes'], sha256=row['sha256']))
     print(json.dumps(dict(event='complete', status='passed')), flush=True)
 
+
+
+def parent(root):
+    """Verify previously completed qualification; never mutate its stopped root."""
+    c = load(root/'config.json')
+    p = c['continuation_parent']
+    previous = Path(p['root'])
+    names = {'config.json', 'small-qualification.json', 'smoke/evaluation-manifest.json',
+        'smoke/evaluation-verified.json', 'smoke/evaluation-cost.json',
+        'measurements/calibration/result.json', 'validations/calibration/failure.json', 'source-receipt.json',
+        'status.json', 'failure.json'}
+    if set(p['files']) != names:
+        raise ValueError('incomplete inherited qualification pins')
+    for name, digest in p['files'].items():
+        if guard.sha(previous/name) != digest:
+            raise ValueError('inherited qualification changed: '+name)
+    old = load(previous/'config.json')
+    for key in ('train', 'legacy_train', 'policy', 'arena', 'legacy_arena'):
+        if c[key+'_sha256'] != old[key+'_sha256']:
+            raise ValueError('native binary changed since inherited qualification')
+    if c['python'] != old['python'] or c['tables'] != old['tables']:
+        raise ValueError('runtime or card-table location changed since qualification')
+    reviewed_changes = {'scripts/nplayer_bb100_overnight.py', 'tests/test_nplayer_bb100_overnight.py',
+                        'docs/nplayer-bb100-bounded-protocol.md', 'ROADMAP.md'}
+    for name, digest in old['source_files'].items():
+        if name not in reviewed_changes and c['source_files'].get(name) != digest:
+            raise ValueError('unreviewed inherited dependency change: '+name)
+    failure = load(previous/'failure.json')
+    if (failure['error'] != "RuntimeError('validate-calibration failed with exit 1')"
+            or set(failure)-{'error', 'at'} or load(previous/'status.json')['status'] != 'validate-calibration'
+            or (previous/'measurements/calibration/failure.json').exists()):
+        raise ValueError('parent root has an unrelated failure')
+    small = load(previous/'small-qualification.json')
+    manifest = load(previous/'smoke/evaluation-manifest.json')
+    proof = load(previous/'smoke/evaluation-verified.json')
+    costs = load(previous/'smoke/evaluation-cost.json')
+    if (small['status'] != 'passed' or small['probe_hands'] != 3072 or small['smoke_hands'] != 432
+            or manifest['cases'] != cases(True) or not manifest['smoke']
+            or proof != dict(status='passed', manifest_sha256=p['files']['smoke/evaluation-manifest.json'], cases=36, hands=432)
+            or costs['policy_loads'] != 12):
+        raise ValueError('incomplete inherited small-matrix proof')
+    if load(previous/'validations/calibration/failure.json')['error'] != "ValueError('capacity was not reached at the fixed qualification endpoint')":
+        raise ValueError('parent stopped for a different reason')
+    result = load(previous/'measurements/calibration/result.json')
+    cp = events(result, 'checkpoint')[-1]
+    final = model(result, '2000000000')
+    if (result['returncode'] != 0 or cp['label'] != '2000000000'
+            or cp['nodes'] != 2_000_003_197 or cp['entries'] != 244_485_627
+            or cp['frozen_at'] is not None or events(result, 'frozen')
+            or cp['sha256'] != p['checkpoint_sha256'] or cp['path'] != p['checkpoint']
+            or final['checkpoint_sha256'] != cp['sha256']
+            or Path(final['checkpoint']) != previous/'calibration/2000000000.gz'
+            or (previous/'pretraining-freeze.json').exists()):
+        raise ValueError('parent is not the completed unfrozen2B calibration')
+    guard.write(root/'inherited-qualification.json', dict(status='passed', parent=p,
+        reused_small_fixtures=True, reused_mature_checkpoint=True, next_fixed_endpoint=3_000_000_000))
+    print(json.dumps(dict(event='complete', status='passed', inherited_nodes=cp['nodes'])), flush=True)
+
+
+def continuation_cost_basis(previous, continuation):
+    """Add the completed prefix's active time to a resumed cost measurement.
+
+    Native events and both raw results remain unchanged. Only this explicitly
+    derived timing basis spans0→3B for the fresh final-seed cost forecast.
+    """
+    before, after = events(previous, 'complete'), events(continuation, 'complete')
+    boundary = events(continuation, 'frozen')
+    if (previous['returncode'] != 0 or continuation['returncode'] != 0
+            or len(before) != 1 or len(after) != 1 or len(boundary) != 1
+            or before[0]['nodes'] != 2_000_003_197 or after[0]['nodes'] < 3_000_000_000
+            or not before[0]['nodes'] < boundary[0]['nodes'] < after[0]['nodes']
+            or len(events(previous, 'probe')) != 2 or len(events(continuation, 'probe')) != 1):
+        raise ValueError('incomplete calibration continuation cost basis')
+    normalized = []
+    for event in continuation['events']:
+        row = dict(event)
+        for key in ('active_seconds', 'monitor_seconds'):
+            if key in row:
+                row[key] += before[0][key]
+        normalized.append(row)
+    peaks = {f'parent/{k}':v for k,v in previous['sampled_peak_rss_by_phase'].items()}
+    peaks.update({f'continuation/{k}':v for k,v in continuation['sampled_peak_rss_by_phase'].items()})
+    return dict(continuation, events=normalized, sampled_peak_rss_by_phase=peaks,
+        wall_seconds=previous['wall_seconds']+continuation['wall_seconds'],
+        cpu_seconds=previous['cpu_seconds']+continuation['cpu_seconds'],
+        monitor_probe_count=len(events(previous, 'probe'))+len(events(continuation, 'probe')),
+        derived=True, prefix_active_seconds=before[0]['active_seconds'],
+        prefix_monitor_seconds=before[0]['monitor_seconds'],
+        scope='sum of preserved0→2B and authorized2B→3B costs; excludes stopped waiting time')
 
 def cost_quote(calibration, audit_a, audit_b, performance, performance_measurement):
     frozen = events(calibration, 'frozen')[0]
@@ -515,7 +624,7 @@ def cost_quote(calibration, audit_a, audit_b, performance, performance_measureme
     saving = 12*max(e['save_seconds'] for e in checkpoints)
     exporting = 6*max(e['export_seconds'] for e in exports)
     auditing = 3*(audit_a['wall_seconds']+audit_b['wall_seconds'])
-    monitoring = done['monitor_seconds']*15
+    monitoring = done['monitor_seconds']*30/calibration.get('monitor_probe_count', 2)
     # The complete bounded128-block matrix measures all scripts, persistent
     # eviction/transients, native parallelism and actual8-worker replay/I/O.
     scale = 8192/performance['blocks']
@@ -549,7 +658,7 @@ def cost_quote(calibration, audit_a, audit_b, performance, performance_measureme
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('mode', choices=('run', 'batch', 'read', 'validate'))
+    parser.add_argument('mode', choices=('run', 'batch', 'read', 'validate', 'parent'))
     parser.add_argument('root', type=Path)
     args = parser.parse_args()
     try:

@@ -1,5 +1,7 @@
 import unittest
 import tempfile
+import copy
+import json
 from pathlib import Path
 from scripts import nplayer_bb100_overnight as study
 
@@ -58,3 +60,83 @@ class CampaignTests(unittest.TestCase):
     def test_missing_completion_refuses(self):
         with self.assertRaisesRegex(ValueError, 'incomplete'):
             study.validate_trajectory({'events':[]}, study.CAP, 2000000000)
+
+
+class ContinuationTests(unittest.TestCase):
+    def test_prefix_cost_offsets_preserve_post_freeze_rate_and_raw_results(self):
+        before=dict(returncode=0,wall_seconds=1000,cpu_seconds=5000,
+            sampled_peak_rss_by_phase={'train':20},events=[
+                dict(event='probe'),dict(event='probe'),
+                dict(event='complete',nodes=2000003197,active_seconds=400.,monitor_seconds=2.)])
+        after=dict(returncode=0,wall_seconds=800,cpu_seconds=3000,
+            sampled_peak_rss_by_phase={'train':30},events=[
+                dict(event='frozen',nodes=2100000000,active_seconds=20.,monitor_seconds=0.),
+                dict(event='probe'),
+                dict(event='complete',nodes=3000000001,active_seconds=220.,monitor_seconds=1.)])
+        original=copy.deepcopy((before,after))
+        basis=study.continuation_cost_basis(before,after)
+        frozen=study.events(basis,'frozen')[0];done=study.events(basis,'complete')[0]
+        self.assertEqual(frozen['active_seconds'],420.)
+        self.assertEqual(done['active_seconds'],620.)
+        self.assertEqual(done['monitor_seconds'],3.)
+        self.assertEqual(basis['monitor_probe_count'],3)
+        self.assertEqual(basis['wall_seconds'],1800)
+        self.assertEqual(done['active_seconds']-frozen['active_seconds'],200.)
+        self.assertEqual((before,after),original)
+        bad=copy.deepcopy(after);bad['events'][0]['nodes']=1999999999
+        with self.assertRaisesRegex(ValueError,'incomplete'):
+            study.continuation_cost_basis(before,bad)
+
+    def fixture(self,folder):
+        previous=folder/'previous';previous.mkdir()
+        root=folder/'next';root.mkdir()
+        config={k+'_sha256':k for k in ('train','legacy_train','policy','arena','legacy_arena')}
+        config.update(python='pinned-python',tables='pinned-tables',source_files={'scripts/audit_nplayer_policy_parallel.py':'audit-pin'})
+        def write(name,value):
+            path=previous/name;path.parent.mkdir(parents=True,exist_ok=True);study.guard.write(path,value)
+        write('config.json',config)
+        write('small-qualification.json',dict(status='passed',probe_hands=3072,smoke_hands=432))
+        write('smoke/evaluation-manifest.json',dict(smoke=True,cases=study.cases(True)))
+        manifest_sha=study.guard.sha(previous/'smoke/evaluation-manifest.json')
+        write('smoke/evaluation-verified.json',dict(status='passed',manifest_sha256=manifest_sha,cases=36,hands=432))
+        write('smoke/evaluation-cost.json',dict(policy_loads=12))
+        checkpoint=str(previous/'calibration/2000000000.gz');digest='a'*64
+        write('measurements/calibration/result.json',dict(returncode=0,events=[
+            dict(event='checkpoint',label='2000000000',nodes=2000003197,entries=244485627,
+                 frozen_at=None,path=checkpoint,sha256=digest),
+            dict(event='exported',label='2000000000',checkpoint=checkpoint,checkpoint_sha256=digest,
+                 path=str(previous/'calibration/2000000000-average.gz'),sha256='b'*64)]))
+        write('validations/calibration/failure.json',dict(error="ValueError('capacity was not reached at the fixed qualification endpoint')"))
+        write('source-receipt.json',dict(source_commit='fixture'))
+        write('status.json',dict(status='validate-calibration'))
+        write('failure.json',dict(error="RuntimeError('validate-calibration failed with exit 1')",at=1))
+        files={str(p.relative_to(previous)):study.guard.sha(p) for p in previous.rglob('*.json')}
+        config['continuation_parent']=dict(root=str(previous),files=files,checkpoint=checkpoint,checkpoint_sha256=digest)
+        study.guard.write(root/'config.json',config)
+        return root,previous
+
+    def test_pinned_completed_parent_is_reused_and_changes_refused(self):
+        with tempfile.TemporaryDirectory() as d:
+            root,previous=self.fixture(Path(d))
+            study.parent(root)
+            self.assertEqual(study.load(root/'inherited-qualification.json')['status'],'passed')
+            path=previous/'small-qualification.json';path.write_text(path.read_text()+' ')
+            with self.assertRaisesRegex(ValueError,'changed'):
+                study.parent(root)
+
+    def test_changed_binary_and_wrong_parent_stop_are_refused(self):
+        for error_kind in ('binary','stop','dependency','root-failure'):
+            with self.subTest(error_kind=error_kind),tempfile.TemporaryDirectory() as d:
+                root,previous=self.fixture(Path(d));config=study.load(root/'config.json')
+                if error_kind=='binary':config['train_sha256']='changed'
+                elif error_kind=='dependency':config['source_files']['scripts/audit_nplayer_policy_parallel.py']='changed'
+                elif error_kind=='root-failure':
+                    path=previous/'failure.json'
+                    study.guard.write(path,dict(error="RuntimeError('validate-calibration failed with exit 1')",resource_sample={'rss_bytes':99}))
+                    config['continuation_parent']['files']['failure.json']=study.guard.sha(path)
+                else:
+                    path=previous/'validations/calibration/failure.json'
+                    study.guard.write(path,dict(error='unexpected numerical failure'))
+                    config['continuation_parent']['files']['validations/calibration/failure.json']=study.guard.sha(path)
+                study.guard.write(root/'config.json',config)
+                with self.assertRaises(ValueError):study.parent(root)

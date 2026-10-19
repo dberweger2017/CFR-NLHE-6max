@@ -95,12 +95,7 @@ Open tasks for contributors, grouped by the compute they need. Comment on or ope
 
 ## Current position
 
-- **Three-player100BB calibration stopped at admission (October19):** [#350](https://github.com/dberweger2017/CFR-NLHE-6max/pull/350)'s
-  reviewed fix passes its complete small matrix. Native2B calibration succeeds
-  at244.49M entries/22.23GiB peak;250M cap has not triggered, so the fixed2B
-  protocol refuses main. No final10B seed or full ETA. A prospective fixed3B
-  calibration continuation is recommended, not launched. [Costs, pins and limits](docs/reports/nplayer-bb100/calibration-cap-stop.md).
-  Owner order remains100BB blueprint, search evaluation, then200BB.
+- **Three-player100BB continuation authorized (October19):** [#350](https://github.com/dberweger2017/CFR-NLHE-6max/pull/350) preserves the completed2B calibration and its cap-admission stop. The owner approved one fixed2B→3B continuation, two additional hours of qualification, then automatic three-seed10B main only if all unchanged mature audits/matrix/resource/cost gates pass. Independent review finds no blocker; all26 guarded Linux tests pass. Native binaries and guards are unchanged. [Continuation amendment](docs/nplayer-bb100-bounded-protocol.md#owner-authorized2b3b-continuation-and-overnight-launch-october19), [review](docs/reports/nplayer-bb100/continuation-review.md). Owner order remains100BB blueprint, search evaluation, then200BB.
 
 - **Three-player overnight30B study complete (October19):** [#346](https://github.com/dberweger2017/CFR-NLHE-6max/pull/346) finishes all three seeds and verified36-lineup comparison. Two same-seed gains clear zero; seed1541 is inconclusive, so the declared all-three improvement gate fails. All cyclic safeguards pass, but random-opponent return regresses on all seeds. Retain30B as research evidence; no stronger-family/default/release adoption. [Full results and retained failure/cost history](docs/reports/nplayer-overnight/results.md).
 

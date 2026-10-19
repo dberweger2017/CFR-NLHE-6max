@@ -141,3 +141,48 @@ this one corrected qualification. The same terminal failure policy applies to
 this new attempt; no further automatic retry, recipe change, pruning, search,
 200BB/default/release/merge. After100BB completes, the owner now prioritizes
 search on its trained blueprint (including evaluation of pruning) before200BB.
+
+## Owner-authorized2B→3B continuation and overnight launch (October19)
+
+After the [2B cap-admission stop](reports/nplayer-bb100/calibration-cap-stop.md),
+the owner explicitly approved: continue the saved calibration checkpoint to a
+**fixed3B**, allow **two additional hours of remaining qualification**, then
+start the three fresh10B seeds automatically if all gates pass. This is one new,
+prospective allowance; it does not rewrite the prior stop or its deadline.
+
+Use fresh owned output `bounded-20261019-v3`, a new pinned controller source and
+the **unchanged previously qualified native binaries**. PR347/storage changes,
+pruning and GPU/search are excluded. The new qualification deadline is launch
+plus at most7200seconds; record its absolute epoch before the first stage.
+The conditional main's8h allocation, all16threads/guards/disk reservation,
+three final seeds, cap250M, checkpoint cadence and final matrix remain unchanged.
+No further automatic retry or extension if3B fails to freeze or another gate fails.
+
+Pin the preserved v2 config, native calibration result, complete small-matrix
+manifest/verification/cost proof, original cap-only validation/root failures and
+source receipt. Check native hashes and all unmodified runtime/audit/replay/
+guardian dependencies. Inherit successful small fixtures rather than replaying
+them. Independently hash/read back the parent1B/2B checkpoints and2B average in
+a guarded stage, permitting an unfrozen **parent** only. Its seed/recipe/cap are
+also checked by the unchanged native resume loader.
+
+Parent checkpoint:
+`bounded-20261019-v2/calibration/2000000000.gz`,
+SHA256`43320d93b5dda9981d4f99e1d8b4898b924e38acfe8f809f6693ff79cdc41566`.
+Actual2,000,003,197nodes/244,485,627entries. Resume that exact state to3B;
+save/export the first freeze boundary and3B. The resumed calibration must freeze
+and retain identical key membership thereafter. Audit both new averages and run
+the same mature36x128 persistent matrix/reproduction/replay/cost scan before main.
+
+For the **derived cost forecast only**, add the preserved prefix's active/monitor
+seconds to resumed events. This reconstructs0→3B growth cost while preserving
+the measured post-freeze time difference. Raw native events/results are never
+edited. Count the two prefix probes plus the one3B probe when quoting30final
+probes; do not charge the stopped waiting interval or checkpoint restoration as
+fresh-final traversal work. Preserve all parent and continuation measurements.
+
+Independent review of this continuation and focused tests precede launch, as the
+owner requested for the repaired campaign. The two-hour qualifier can still
+refuse or expire during large audits/model loads; no main-start or overnight
+completion ETA is claimed before `pretraining-freeze.json` exists. The recipe,
+scientific endpoints and full admission conditions remain reviewable in advance.
