@@ -67,3 +67,37 @@ entry/storage/evaluation-memory budgets and total cost must be frozen from
 measured admission before that main study starts. The current PR admits only
 the pilot; it never silently starts an unquoted full campaign. The200BB campaign
 is a separate run and is outside this PR. Neither campaign is a release promise.
+
+## Proposed100BB main design (not admitted by this pilot)
+
+The owner accepted100BB only at10B nodes per seed. Use three fresh final seeds,
+separate from the calibration seed, with the established unpruned fast recipe.
+Retain1B/3B/10B recovery checkpoints; the1B average is the same-game anchor.
+The20BB policies are not valid same-game opponents or resume inputs here.
+
+Use immutable in-memory probes every1B nodes,128six-hand blocks against each
+of random/check-call/tight-aggressive/pot-pressure. Reused monitoring deals are
+for development curves only. Before main, prove the100BB monitor equals exported
+policy probabilities and played paths, reproduces/replays, preserves training
+checkpoint bytes, and has projected monitoring overhead below10%.
+
+The intended final matrix is the earlier overnight design at the new depth:
+10B vs own1B and cyclic other-seed1B, both singleton orientations, plus10B and
+own1B as singleton against all four scripted pairs. Each of36 lineups has8192
+fresh six-hand blocks:1,769,472 final hands plus the same reproduction count,
+all independently replayed before a global readout. Report per-seat, position,
+coverage and every adjusted scripted contrast. Primary improvement requires
+all three same-seed oriented singleton-contrast lower95 bounds above zero;
+cyclic noninferiority requires all three lower bounds above-5BB/100. These
+contrasts are not pooled per-player returns. Scripted differences have12-way
+Bonferroni intervals; an upper bound below-10BB/100 is a severe adverse result.
+Neither favorable monitoring curves nor inconclusive final results extend work.
+
+Provisional planning allowance is4–8hours including verification, with an8-hour
+outer maximum for a separately admitted main launch. This is not a measured ETA.
+Before main, freeze seeds and noncolliding roots, source/binary hashes, qualified
+100BB harnesses, an entry ceiling and memory/storage/evaluation budgets. Require
+the measured forecast with25% allowance to fit the full remaining allocation.
+A credible model-growth envelope and a successful evaluation-memory qualification
+are required; a fast traversal measurement alone cannot admit10B. The pilot's
+150M-entry ceiling is not permission to freeze the table or raise limits in place.
