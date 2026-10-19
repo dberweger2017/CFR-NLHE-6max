@@ -100,7 +100,16 @@ fn play_block(block:u64, root:u64, config:Config, tables:Option<&EquityTables>,
         }
     Ok((bytes,decisions,misses))
 }
-fn run_case(a: &[String], cache: &mut HashMap<String,Arc<PolicyTable>>) -> Result<Value, String> {
+// EquityTables::load returns process-lifetime storage. Reuse it for the whole
+// batch; loading in each lineup would retain another complete K50 set.
+fn tables_for_case(path: &Path, needed: bool, cached: &mut Option<&'static EquityTables>)
+    -> Result<Option<&'static EquityTables>, String> {
+    if !needed { return Ok(None); }
+    if cached.is_none() { *cached = Some(EquityTables::load(path, false)?); }
+    Ok(*cached)
+}
+fn run_case(a: &[String], cache: &mut HashMap<String,Arc<PolicyTable>>,
+    card_tables: &mut Option<&'static EquityTables>) -> Result<Value, String> {
     if a.len() != 7 && a.len() != 9 {
         return Err(
             "K50 BLOCKS ROOT NEW_TRACE SINGLETON PAIR [STACK_BB THREADS] (policy=PATH@SHA256 or bot=NAME)".into(),
@@ -143,11 +152,7 @@ fn run_case(a: &[String], cache: &mut HashMap<String,Arc<PolicyTable>>) -> Resul
             return Err("expected policy=PATH@SHA256 or bot=NAME".into());
         }
     }
-    let tables = if cache.is_empty() {
-        None
-    } else {
-        Some(EquityTables::load(Path::new(&a[1]), false)?)
-    };
+    let tables = tables_for_case(Path::new(&a[1]), !cache.is_empty(), card_tables)?;
     let identity = identity.unwrap_or_else(
         || json!({"players":3,"stacks":vec![stack*100;3],"small_blind":50,"big_blind":100}),
     );
@@ -185,6 +190,7 @@ fn run_case(a: &[String], cache: &mut HashMap<String,Arc<PolicyTable>>) -> Resul
 fn run()->Result<(),String>{
     let a:Vec<String>=std::env::args().collect();
     let mut cache=HashMap::new();
+    let mut card_tables=None;
     if a.len()==3 && a[1]=="batch" {
         let m:Value=serde_json::from_slice(&std::fs::read(&a[2]).map_err(|e|e.to_string())?).map_err(|e|e.to_string())?;
         let threads=m["threads"].as_u64().ok_or("batch threads")?;
@@ -195,7 +201,7 @@ fn run()->Result<(),String>{
                 row["blocks"].as_u64().ok_or("blocks")?.to_string(),row["root"].as_u64().ok_or("root")?.to_string(),
                 row["trace"].as_str().ok_or("trace")?.into(),row["singleton"].as_str().ok_or("singleton")?.into(),
                 row["pair"].as_str().ok_or("pair")?.into(),m["stack_bb"].as_u64().ok_or("stack_bb")?.to_string(),threads.to_string()];
-            let result=run_case(&args,&mut cache)?;
+            let result=run_case(&args,&mut cache,&mut card_tables)?;
             let mut summary=std::fs::OpenOptions::new().write(true).create_new(true)
                 .open(row["summary"].as_str().ok_or("summary")?).map_err(|e|e.to_string())?;
             writeln!(&mut summary,"{result}").map_err(|e|e.to_string())?;
@@ -206,7 +212,7 @@ fn run()->Result<(),String>{
         let threads:usize=if a.len()==9 {a[8].parse().map_err(|_|"threads")?}else{1};
         if !(1..=16).contains(&threads){return Err("thread bound".into());}
         rayon::ThreadPoolBuilder::new().num_threads(threads).build_global().map_err(|e|e.to_string())?;
-        println!("{}",run_case(&a,&mut cache)?);
+        println!("{}",run_case(&a,&mut cache,&mut card_tables)?);
     }
     Ok(())
 }
@@ -214,5 +220,25 @@ fn main() {
     if let Err(error) = run() {
         eprintln!("nplayer_arena: {error}");
         std::process::exit(2);
+    }
+}
+
+#[cfg(test)]
+mod batch_resource_tests {
+    use super::*;
+
+    #[test]
+    #[ignore = "Requires pinned K50 files; run guarded with NPLAYER_K50_TABLES"]
+    fn seventy_two_lineups_reuse_one_card_table_set() {
+        let path = std::env::var("NPLAYER_K50_TABLES").expect("pinned K50 directory");
+        let mut cached = None;
+        assert!(tables_for_case(Path::new(&path), false, &mut cached).unwrap().is_none());
+        let first = tables_for_case(Path::new(&path), true, &mut cached).unwrap().unwrap();
+        for _ in 1..72 {
+            let next = tables_for_case(Path::new(&path), true, &mut cached).unwrap().unwrap();
+            assert!(std::ptr::eq(first, next));
+        }
+        assert!(tables_for_case(Path::new(&path), false, &mut cached).unwrap().is_none());
+        assert!(std::ptr::eq(first, cached.unwrap()));
     }
 }

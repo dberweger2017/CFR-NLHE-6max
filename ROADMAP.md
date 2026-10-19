@@ -95,13 +95,13 @@ Open tasks for contributors, grouped by the compute they need. Comment on or ope
 
 ## Current position
 
-- **Three-player100BB capped qualification active (October19):** owner accepted
-  [#350](https://github.com/dberweger2017/CFR-NLHE-6max/pull/350)'s bounded-table
-  route after the500M pilot. The pinned host/evaluator/auditor pass57native and20
-  focused Python tests. One250M-entry calibration qualifies full costs/memory and
-  exact recovery/replay before automatically admitting three fresh10B seeds;
-  main has not started yet. [Frozen protocol](docs/nplayer-bb100-bounded-protocol.md),
-  [pilot measurements](docs/reports/nplayer-bb100/results.md).200BB is separate.
+- **Three-player100BB qualification stopped (October19):** [#350](https://github.com/dberweger2017/CFR-NLHE-6max/pull/350)'s
+  new persistent evaluator repeatedly loaded process-lifetime K50 tables. The
+  full-matrix smoke crossed80GiB; no mature calibration/final10B seed started.
+  A prospective wrapper fix shares one card-table set. Failed source/partials
+  are retained; no automatic retry or current completion ETA.
+  [Diagnosis and receipt](docs/reports/nplayer-bb100/bounded-terminal.md),
+  [500M pilot](docs/reports/nplayer-bb100/results.md).200BB remains separate.
 
 - **Three-player overnight30B study complete (October19):** [#346](https://github.com/dberweger2017/CFR-NLHE-6max/pull/346) finishes all three seeds and verified36-lineup comparison. Two same-seed gains clear zero; seed1541 is inconclusive, so the declared all-three improvement gate fails. All cyclic safeguards pass, but random-opponent return regresses on all seeds. Retain30B as research evidence; no stronger-family/default/release adoption. [Full results and retained failure/cost history](docs/reports/nplayer-overnight/results.md).
 

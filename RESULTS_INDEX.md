@@ -1,4 +1,4 @@
-## PR350 — three-player 100 BB (pilot complete; bounded qualification active)
+## PR350 — three-player 100 BB (pilot complete; bounded qualification stopped)
 
 [PR350](https://github.com/dberweger2017/CFR-NLHE-6max/pull/350),
 [proposal349](https://github.com/dberweger2017/CFR-NLHE-6max/issues/349),
@@ -6,6 +6,19 @@
 [compact receipt](docs/reports/nplayer-bb100/receipt.json) and
 [exact checkpoint paths/hashes/counts](docs/reports/nplayer-bb100/costs.csv).
 
+- **Terminal October19 11:39:11UTC/13:39:11Madrid:** bounded full-matrix smoke
+  crossed80GiB familyRSS (80.105GiB);CPU53/Thermistor58,23.22GiB available RAM.
+  New batch wrapper repeatedly loaded process-lifetime fixed K50 tables.
+  No mature calibration, final10B seed, complete matrix or strength result.
+  [Diagnosis](docs/reports/nplayer-bb100/bounded-terminal.md),
+  [exact receipt](docs/reports/nplayer-bb100/bounded-terminal.json).
+  Supervisor478791 exited; root/source-v3/binaries-v3/config/deadline/partials
+  retained unchanged. Prospective wrapper fix and its engineering cache test are
+  separate; [72-case card-table reuse engineering test](docs/reports/nplayer-bb100/card-table-cache-test.json)
+  passes at1.13GiB whole-command sampled peak,13.48s including build. Test-only
+  source`source-cache-fix` and receipt`cache-fix-build` remain in control. No
+  scientific retry or deadline reset. Snapshot retrieved to
+  ignored`results/bounded-eta-20261019-check1` with the collector below.
 - **Owner-authorized capped-table qualification launched October19**, frozen
   source`24157c92b52998e9eca06fd715ee53f7386dd2db`,1043 deployed source/config
   files, bundleSHA256`51c60d7f56224809431230b1cfe9d0832445bfcfe5a37267ac7b19798f7d0f08`.
@@ -50,8 +63,8 @@
 - Last-interval linear scenarios give150M entries near0.719B and1.718B
   entries /131.8GiB peak RSS at10B. These are not bounds or proof of saturation;
   they do not admit the unchanged150M-entry full campaign. Larger-capacity
-  growth and evaluation-memory qualification is now running under the separate
-  owner-authorized capped protocol above.
+  growth and evaluation-memory qualification was attempted under the separate
+  capped protocol above, and stopped before the mature trajectory.
 - PR350 is open. Raw originals remain protected; Drive ZIP/file IDs,
   matching upload acceptance and cloud restoration are pending. No archival,
   cleanup, eviction or deletion claim.
