@@ -93,6 +93,10 @@ Open tasks for contributors, grouped by the compute they need. Comment on or ope
 
 ## Current position
 
+- **N-player pruning merged as an experimental opt-in (October 19):** owner-authorized [#336](https://github.com/dberweger2017/CFR-NLHE-6max/pull/336) passes independent source review and all57 native library tests on current-main integration. It requires explicit fast-mode pruning flags; production and unpruned fast defaults stay unchanged. Matched-compute NLHE strength evidence is still required before campaign adoption or benefit claims. The running overnight campaign retains its frozen unpruned binary. [Behavior and limits](docs/nplayer-pruning.md).
+
+- **Three-player search cost calibration ([#334](https://github.com/dberweger2017/CFR-NLHE-6max/pull/334)), completed groundwork:** fixed 1,000-hand blueprint baseline completes in 34.122 s with 3.90 GiB sampled RSS and supplies 43 legal postflop observations. Zero search solves; current K50 search adapter qualification precedes solver timing. No strength or scheduling change. [Report](docs/reports/nplayer-search-cost-pilot.md).
+
 - **v0.5.5 released (October 18):** #306's audited HU200 blend is Latest, with all three averages and raw checkpoints in a separate frozen-seed research pre-release. All 49 authenticated asset readbacks and all 15 stable public-URL hashes pass. The owner cancelled the remaining post-publication checks, including the rebuild from public seed parts. [Publication record](docs/releases/v0.5.5/PUBLICATION.md).
 
 - **v0.5.5 confirmation diagnosis (October 17):** card-only AIVAT on all 30,000 hands gives pooled plain **−21.12 [−36.39, −5.84] BB/100**, worth 1.53 raw hands per hand; raw protocol v2 qualification stands. Across the confirmation and four earlier runs, the largest recurring flop-fold path is BB call of a 2 BB open followed by check-fold to a half-pot bet. These are descriptive targets, with no evaluated fix or policy change. [Report](docs/reports/v055-confirmation-diagnostics.md).
