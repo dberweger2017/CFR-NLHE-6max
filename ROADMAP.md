@@ -95,6 +95,8 @@ Open tasks for contributors, grouped by the compute they need. Comment on or ope
 
 ## Current position
 
+- **Three-player overnight30B study complete (October19):** [#346](https://github.com/dberweger2017/CFR-NLHE-6max/pull/346) finishes all three seeds and verified36-lineup comparison. Two same-seed gains clear zero; seed1541 is inconclusive, so the declared all-three improvement gate fails. All cyclic safeguards pass, but random-opponent return regresses on all seeds. Retain30B as research evidence; no stronger-family/default/release adoption. [Full results and retained failure/cost history](docs/reports/nplayer-overnight/results.md).
+
 - **N-player pruning merged as an experimental opt-in (October 19):** owner-authorized [#336](https://github.com/dberweger2017/CFR-NLHE-6max/pull/336) passes independent source review and all57 native library tests on current-main integration. It requires explicit fast-mode pruning flags; production and unpruned fast defaults stay unchanged. Matched-compute NLHE strength evidence is still required before campaign adoption or benefit claims. The running overnight campaign retains its frozen unpruned binary. [Behavior and limits](docs/nplayer-pruning.md).
 
 - **Three-player search cost calibration ([#334](https://github.com/dberweger2017/CFR-NLHE-6max/pull/334)), completed groundwork:** fixed 1,000-hand blueprint baseline completes in 34.122 s with 3.90 GiB sampled RSS and supplies 43 legal postflop observations. Zero search solves; current K50 search adapter qualification precedes solver timing. No strength or scheduling change. [Report](docs/reports/nplayer-search-cost-pilot.md).

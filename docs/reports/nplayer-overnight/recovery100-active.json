@@ -1,0 +1,57 @@
+{
+  "checked_utc": "2026-10-18T20:57:52Z",
+  "status.json": {
+    "status": "training-2026101541-thermal100",
+    "at": 1792357015.716879,
+    "seed": 2026101541
+  },
+  "failure.json": null,
+  "thermal-handoff-active.json": {
+    "status": "active",
+    "at": 1792357015.42466,
+    "supervisor_pid": 371963,
+    "cpu_stop_c": 90,
+    "thermistor15_stop_c": 100,
+    "original_deadline": 1792387148.4860098,
+    "checkpoint": {
+      "event": "checkpoint",
+      "path": "/tmp/nplayer-overnight-20261018/training-2026101541/10000000000.gz",
+      "save_seconds": 255.392962596,
+      "sha256": "36b61a8848fd30aec0e83086ede3f8ac3e4681e7c6afb99c4c0b99780f79d5a1",
+      "target": 10000000000
+    },
+    "source_commit": "4cd199a5fef18b24cac188617d767b3f49a422de",
+    "amendment_sha256": "7166248838b25a7627fc93418a44421522d6334e891d1429a9653edaa7155a84",
+    "budgets": "Existing owned bytes and absolute swap usage charged in full against unchanged ceilings."
+  },
+  "resume15b-verified.json": null,
+  "progress.json": {
+    "event": "phase",
+    "phase": "load",
+    "target": 0
+  },
+  "resource": {
+    "at": 1792357072.465671,
+    "phase": "load",
+    "target": 0,
+    "temperatures_c": {
+      "Thermistor 15": 49.5,
+      "Package id 0": 57
+    },
+    "available_ram_bytes": 120332009472,
+    "fan1_rpm": 743,
+    "swap_growth_bytes": 140816384,
+    "free_disk_bytes": 60399386624,
+    "remaining_output_reservation_bytes": 44522201876,
+    "rss_bytes": 4776742912,
+    "read_bytes": 0,
+    "write_bytes": 0,
+    "rchar": 7477611768,
+    "wchar": 44,
+    "nvme_free_bytes": 55490535424,
+    "hdd_free_bytes": 1223876116480,
+    "cpu_stop_c": 90,
+    "thermistor15_stop_c": 100
+  },
+  "supervisor": "371963       01:17 /home/dberweger/nplayer-fast-strength-20261018-main-v5/venv/bin/python /tmp/nplayer-overnight-20261018/owner-recovery100-v2/resume_nplayer_overnight.py /tmp/nplayer-overnight-20261018 /tmp/nplayer-overnight-20261018-resume100-v2"
+}

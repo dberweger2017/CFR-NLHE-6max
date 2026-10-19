@@ -1,0 +1,81 @@
+{
+  "remaining-cost-quote": {
+    "projected_remaining_seconds": 11269.615419710006,
+    "remaining_training_nodes": 19999997894,
+    "max_seconds": 14400,
+    "final_allowance_seconds": 3600,
+    "completed_models_reused": {
+      "2026101541": {
+        "path": "/tmp/nplayer-overnight-20261018-resume100-v2/final-2026101541-average.gz",
+        "sha256": "7373a0883a878236c362afd2f52f9676e9aabf26f83ed3d92fc0342dd7dfc416",
+        "checkpoint": "/tmp/nplayer-overnight-20261018-resume100-v2/training-2026101541-thermal100/30000000000.gz",
+        "checkpoint_sha256": "fcfc009ee2ca9d6b5770bbf1f6ac6fb60927f4a9f4a2a7651e9e52cd68775c25",
+        "strategy": "average",
+        "scope": 3
+      },
+      "2026101542": {
+        "path": "/tmp/nplayer-overnight-20261018-resume100-v2/final-2026101542-average.gz",
+        "sha256": "5e8f39d4b76b6af34141f37d859e1bd7e38dfbd36bb2a9b03701b1513b393a6b",
+        "checkpoint": "/tmp/nplayer-overnight-20261018-resume100-v2/training-2026101542/30000000000.gz",
+        "checkpoint_sha256": "4b166ef2a1d41cef8a9185ff548b42d28e8d8dd654901a644a2aebe10ed98474",
+        "strategy": "average",
+        "scope": 3
+      }
+    }
+  },
+  "active": {
+    "status": "active",
+    "at": 1792390351.2828999,
+    "supervisor_pid": 437572,
+    "cpu_stop_c": 90,
+    "thermistor15_stop_c": 100,
+    "swap_guard_enabled": false,
+    "deadline_epoch": 1792404705.5822828,
+    "resumed_seed": 2026101543,
+    "checkpoint": {
+      "event": "checkpoint",
+      "path": "/tmp/nplayer-overnight-20261018-resume100-v2/training-2026101543/10000000000.gz",
+      "save_seconds": 272.363446531,
+      "sha256": "424976a1e00e8e2262c3b7b999c3cf9e888a7a7030add20193215d0d0913d472",
+      "target": 10000000000
+    },
+    "reused_models": {
+      "2026101541": {
+        "path": "/tmp/nplayer-overnight-20261018-resume100-v2/final-2026101541-average.gz",
+        "sha256": "7373a0883a878236c362afd2f52f9676e9aabf26f83ed3d92fc0342dd7dfc416",
+        "checkpoint": "/tmp/nplayer-overnight-20261018-resume100-v2/training-2026101541-thermal100/30000000000.gz",
+        "checkpoint_sha256": "fcfc009ee2ca9d6b5770bbf1f6ac6fb60927f4a9f4a2a7651e9e52cd68775c25",
+        "strategy": "average",
+        "scope": 3
+      },
+      "2026101542": {
+        "path": "/tmp/nplayer-overnight-20261018-resume100-v2/final-2026101542-average.gz",
+        "sha256": "5e8f39d4b76b6af34141f37d859e1bd7e38dfbd36bb2a9b03701b1513b393a6b",
+        "checkpoint": "/tmp/nplayer-overnight-20261018-resume100-v2/training-2026101542/30000000000.gz",
+        "checkpoint_sha256": "4b166ef2a1d41cef8a9185ff548b42d28e8d8dd654901a644a2aebe10ed98474",
+        "strategy": "average",
+        "scope": 3
+      }
+    },
+    "native_sha256": "54d2bc7b727737fdd5e92aecc4464583ea3c374a92e3f9b0f8485e64ba652d84",
+    "controller_hashes": {
+      "run_nplayer_storage_benchmark.py": "3562c3646d281307316b1bebb87d7f04776c0a69885fddc422d08feb5c514163",
+      "finish_nplayer_overnight.py": "6047f54c4adf630c3131fffafd59f8cd3da3d7850dbae874f59a4013ae7952a8",
+      "nplayer_overnight.py": "d822488a29950133743f34272eab71a973f46e24dade0846ed05b8e997536dc4",
+      "overnight_tensorboard.py": "62a6117769cd973d21536693e687fc18e07afe317ee7c13598064dd8a1ad3f50",
+      "__init__.py": "4032724b98ed267185b12b8ec78dd9bcb0423ab1c89a6f0dad99397fd51159d9",
+      "nplayer_overnight_thermal_handoff.py": "b620b68d04a05e33167c6fdf4ae5768525e6cb1596c215ab1245f706a4118009"
+    }
+  },
+  "launch": {
+    "epoch": 1792390305.5822828,
+    "deadline_epoch": 1792404705.5822828,
+    "max_seconds": 14400,
+    "supervisor_pid": 437572,
+    "owner_authorization": "please resume the run; swap guard removed",
+    "native_source_commit": "4cd199a5fef18b24cac188617d767b3f49a422de",
+    "original_root": "/tmp/nplayer-overnight-20261018",
+    "previous_root": "/tmp/nplayer-overnight-20261018-resume100-v2",
+    "original_expired_deadline": 1792387148.4860098
+  }
+}

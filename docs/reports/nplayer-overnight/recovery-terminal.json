@@ -1,0 +1,431 @@
+{
+  "root": "/tmp/nplayer-overnight-20261018-resume100-v2",
+  "cache": "/mnt/data2tb/research-cloud/PR-346-nplayer-overnight-blueprint/nplayer-overnight-20261018-resume100-v2",
+  "stop": {
+    "error": "RuntimeError('swap growth stop')",
+    "at": 1792373698.2979867,
+    "resource_sample": {
+      "at": 1792373698.0232131,
+      "phase": "train",
+      "target": 20000000000,
+      "temperatures_c": {
+        "Thermistor 15": 94,
+        "Package id 0": 61
+      },
+      "available_ram_bytes": 88448929792,
+      "fan1_rpm": 1019,
+      "swap_growth_bytes": 269004800,
+      "free_disk_bytes": 31694127104,
+      "remaining_output_reservation_bytes": 15817063667,
+      "rss_bytes": 8147652608,
+      "read_bytes": 258707456,
+      "write_bytes": 0,
+      "rchar": 9537246114,
+      "wchar": 3072451590
+    }
+  },
+  "stages": {
+    "audit-2026101541": {
+      "returncode": 0,
+      "wall_seconds": 712.627365739987,
+      "cpu_seconds": 712.5451099999991,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 20549632
+      },
+      "events": []
+    },
+    "audit-2026101542": {
+      "returncode": 0,
+      "wall_seconds": 712.8543340949982,
+      "cpu_seconds": 712.7753599999996,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 20283392
+      },
+      "events": []
+    },
+    "export-2026101541": {
+      "returncode": 0,
+      "wall_seconds": 319.4464655990014,
+      "cpu_seconds": 582.7315239999971,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 9709817856
+      },
+      "events": []
+    },
+    "export-2026101542": {
+      "returncode": 0,
+      "wall_seconds": 317.17440431399154,
+      "cpu_seconds": 560.7021729999979,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 9616711680
+      },
+      "events": []
+    },
+    "training-2026101541-thermal100": {
+      "returncode": 0,
+      "wall_seconds": 5183.819670105993,
+      "cpu_seconds": 53998.731308,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 1389314048,
+        "load/0": 7557779456,
+        "train/20000000000": 9288679424,
+        "save/20000000000": 9836929024,
+        "hash/20000000000": 9297948672,
+        "train/30000000000": 10537381888,
+        "save/30000000000": 11169030144,
+        "hash/30000000000": 10552770560
+      },
+      "events": [
+        {
+          "active_seconds": 2171.1521333661067,
+          "counts": {
+            "decisions": [
+              862579918,
+              1625252513,
+              3473126945,
+              5961296702
+            ],
+            "discarded_keys": 0,
+            "discarded_visits": 0,
+            "missing": [
+              965586,
+              4491733,
+              18975425,
+              68685953
+            ],
+            "nodes": 20000003724,
+            "terminals": 8077747646,
+            "traverser": [
+              1281483481,
+              1281750988,
+              1281080103,
+              0,
+              0,
+              0
+            ]
+          },
+          "entries": 93117233,
+          "event": "trained",
+          "iteration": 3625332,
+          "monitor_seconds": 0.039081313,
+          "nodes": 20000003724,
+          "target": 20000000000
+        },
+        {
+          "event": "checkpoint",
+          "path": "/tmp/nplayer-overnight-20261018-resume100-v2/training-2026101541-thermal100/20000000000.gz",
+          "save_seconds": 317.288410958,
+          "sha256": "6fec25f31cb2e2837f8a369985e79d52b728a85578c0e4bb27fc16fa041a21a7",
+          "target": 20000000000
+        },
+        {
+          "active_seconds": 4356.166200128018,
+          "counts": {
+            "decisions": [
+              1278022783,
+              2418284718,
+              5219311725,
+              8991300924
+            ],
+            "discarded_keys": 0,
+            "discarded_visits": 0,
+            "missing": [
+              1028552,
+              5051117,
+              22097495,
+              81203029
+            ],
+            "nodes": 30000002144,
+            "terminals": 12093081994,
+            "traverser": [
+              1920841668,
+              1921378678,
+              1920589556,
+              0,
+              0,
+              0
+            ]
+          },
+          "entries": 109378727,
+          "event": "trained",
+          "iteration": 5429345,
+          "monitor_seconds": 0.07805185399999999,
+          "nodes": 30000002144,
+          "target": 30000000000
+        },
+        {
+          "event": "checkpoint",
+          "path": "/tmp/nplayer-overnight-20261018-resume100-v2/training-2026101541-thermal100/30000000000.gz",
+          "save_seconds": 373.046759976,
+          "sha256": "fcfc009ee2ca9d6b5770bbf1f6ac6fb60927f4a9f4a2a7651e9e52cd68775c25",
+          "target": 30000000000
+        },
+        {
+          "active_seconds": 4356.166200128018,
+          "event": "complete",
+          "monitor_seconds": 0.07805185399999999,
+          "nodes": 30000002144
+        }
+      ]
+    },
+    "training-2026101542": {
+      "returncode": 0,
+      "wall_seconds": 6599.392453401,
+      "cpu_seconds": 68460.947123,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 1389256704,
+        "load/0": 5112799232,
+        "train/10000000000": 7517270016,
+        "save/10000000000": 7975624704,
+        "hash/10000000000": 7558909952,
+        "train/20000000000": 9200525312,
+        "save/20000000000": 9741606912,
+        "hash/20000000000": 9197256704,
+        "train/30000000000": 10440171520,
+        "save/30000000000": 11053617152,
+        "hash/30000000000": 10450022400
+      },
+      "events": [
+        {
+          "active_seconds": 1426.3194317510033,
+          "counts": {
+            "decisions": [
+              444905920,
+              828648617,
+              1731844488,
+              2940455042
+            ],
+            "discarded_keys": 0,
+            "discarded_visits": 0,
+            "missing": [
+              872923,
+              3695603,
+              14584980,
+              50997876
+            ],
+            "nodes": 10000001942,
+            "terminals": 4054147875,
+            "traverser": [
+              642207706,
+              641888445,
+              642152436,
+              0,
+              0,
+              0
+            ]
+          },
+          "entries": 70149792,
+          "event": "trained",
+          "iteration": 1838694,
+          "monitor_seconds": 0.057823995,
+          "nodes": 10000001942,
+          "target": 10000000000
+        },
+        {
+          "event": "checkpoint",
+          "path": "/tmp/nplayer-overnight-20261018-resume100-v2/training-2026101542/10000000000.gz",
+          "save_seconds": 237.719927964,
+          "sha256": "79d2390182d424641b5e2c0a2823037dee35295303c36bddce7b81b8d199b59f",
+          "target": 10000000000
+        },
+        {
+          "active_seconds": 3487.3599602280815,
+          "counts": {
+            "decisions": [
+              856608426,
+              1624251511,
+              3478402186,
+              5960478850
+            ],
+            "discarded_keys": 0,
+            "discarded_visits": 0,
+            "missing": [
+              963704,
+              4464557,
+              18772879,
+              67849868
+            ],
+            "nodes": 20000000158,
+            "terminals": 8080259185,
+            "traverser": [
+              1281986459,
+              1281818877,
+              1282203372,
+              0,
+              0,
+              0
+            ]
+          },
+          "entries": 92049398,
+          "event": "trained",
+          "iteration": 3614540,
+          "monitor_seconds": 0.09696713800000001,
+          "nodes": 20000000158,
+          "target": 20000000000
+        },
+        {
+          "event": "checkpoint",
+          "path": "/tmp/nplayer-overnight-20261018-resume100-v2/training-2026101542/20000000000.gz",
+          "save_seconds": 313.716971695,
+          "sha256": "ac47d33bf32e0bdaffe4e399a2fac7d445873f711ace83097a2350482595c1f7",
+          "target": 20000000000
+        },
+        {
+          "active_seconds": 5562.102349587123,
+          "counts": {
+            "decisions": [
+              1264623035,
+              2407740060,
+              5225771943,
+              9002689972
+            ],
+            "discarded_keys": 0,
+            "discarded_visits": 0,
+            "missing": [
+              1024621,
+              5007588,
+              21854519,
+              80363606
+            ],
+            "nodes": 30000001659,
+            "terminals": 12099176649,
+            "traverser": [
+              1921157347,
+              1920823736,
+              1921446485,
+              0,
+              0,
+              0
+            ]
+          },
+          "entries": 108248711,
+          "event": "trained",
+          "iteration": 5386674,
+          "monitor_seconds": 0.13551610700000002,
+          "nodes": 30000001659,
+          "target": 30000000000
+        },
+        {
+          "event": "checkpoint",
+          "path": "/tmp/nplayer-overnight-20261018-resume100-v2/training-2026101542/30000000000.gz",
+          "save_seconds": 368.999850975,
+          "sha256": "4b166ef2a1d41cef8a9185ff548b42d28e8d8dd654901a644a2aebe10ed98474",
+          "target": 30000000000
+        },
+        {
+          "active_seconds": 5562.102349587123,
+          "event": "complete",
+          "monitor_seconds": 0.13551610700000002,
+          "nodes": 30000001659
+        }
+      ]
+    }
+  },
+  "saved": [
+    {
+      "path": "training-2026101541-thermal100/20000000000.gz",
+      "bytes": 3992996584,
+      "cache_exists": true,
+      "cache_bytes": 3992996584
+    },
+    {
+      "path": "training-2026101541-thermal100/30000000000.gz",
+      "bytes": 4695694552,
+      "cache_exists": true,
+      "cache_bytes": 4695694552
+    },
+    {
+      "path": "training-2026101542/10000000000.gz",
+      "bytes": 2989269595,
+      "cache_exists": true,
+      "cache_bytes": 2989269595
+    },
+    {
+      "path": "training-2026101542/20000000000.gz",
+      "bytes": 3945716065,
+      "cache_exists": true,
+      "cache_bytes": 3945716065
+    },
+    {
+      "path": "training-2026101542/30000000000.gz",
+      "bytes": 4648330962,
+      "cache_exists": true,
+      "cache_bytes": 4648330962
+    },
+    {
+      "path": "training-2026101543/10000000000.gz",
+      "bytes": 3072418144,
+      "cache_exists": true,
+      "cache_bytes": 3072418144
+    },
+    {
+      "path": "final-2026101541-average.gz",
+      "bytes": 2685659113,
+      "cache_exists": true,
+      "cache_bytes": 2685659113
+    },
+    {
+      "path": "final-2026101542-average.gz",
+      "bytes": 2658089174,
+      "cache_exists": true,
+      "cache_bytes": 2658089174
+    }
+  ],
+  "stop_utc": "2026-10-19T01:34:58Z",
+  "third_checkpoints": [
+    {
+      "active_seconds": 1523.792523391105,
+      "counts": {
+        "decisions": [
+          446872739,
+          833857355,
+          1733913034,
+          2934592585
+        ],
+        "discarded_keys": 0,
+        "discarded_visits": 0,
+        "missing": [
+          890170,
+          3800018,
+          15008448,
+          52544379
+        ],
+        "nodes": 10000002106,
+        "terminals": 4050766393,
+        "traverser": [
+          641523419,
+          641460002,
+          641550600,
+          0,
+          0,
+          0
+        ]
+      },
+      "entries": 72241620,
+      "event": "trained",
+      "iteration": 1836293,
+      "monitor_seconds": 0.054634382999999995,
+      "nodes": 10000002106,
+      "target": 10000000000
+    },
+    {
+      "event": "checkpoint",
+      "path": "/tmp/nplayer-overnight-20261018-resume100-v2/training-2026101543/10000000000.gz",
+      "save_seconds": 272.363446531,
+      "sha256": "424976a1e00e8e2262c3b7b999c3cf9e888a7a7030add20193215d0d0913d472",
+      "target": 10000000000
+    }
+  ],
+  "preservation_failure": false,
+  "failure_cache_exists": true,
+  "last_reported_third_nodes": 12204443619,
+  "swap_accounting": {
+    "absolute_at_stop_bytes": 269004800,
+    "ceiling_bytes": 268435456,
+    "absolute_at_resume_bytes": 140816384,
+    "increase_since_resume_bytes": 128188416,
+    "note": "Recovery deliberately charged all absolute host swap; recorded swap_growth_bytes is absolute under baseline0."
+  },
+  "final_evaluation_started": false,
+  "status": "terminal-swap-stop-partial-campaign"
+}
