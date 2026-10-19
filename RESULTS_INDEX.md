@@ -1,3 +1,129 @@
+## PR355 — completed fixed100BB3B→10B comparison
+
+**Verified completion October19,21:21:05UTC:** all five measured stages returned0,
+both250,000,475-row audits passed, all18cases passed exact reproduction and
+independent replay:884,736initial plus884,736repeat hands. Primary mean-oriented
+singleton gain+28.40[+18.98,+37.81]BB/100. Fixed3B+pot-pressure also clears zero
+after eight-panel adjustment; random/random+TAG have adverse pointwise signals
+with adjusted intervals crossing zero. One training seed/host; no automatic
+adoption/release/merge or additional compute. [Final report](docs/reports/nplayer-bb100-10b/results.md),
+[derived compact readout](docs/reports/nplayer-bb100-10b/results.json),
+[completion/provenance/resources/source hashes](docs/reports/nplayer-bb100-10b/completion.json),
+[strength](docs/reports/nplayer-bb100-10b/strength.csv),
+[all positions](docs/reports/nplayer-bb100-10b/seats-and-positions.csv),
+[lookup counts](docs/reports/nplayer-bb100-10b/lookup.csv),
+[matched transitions](docs/reports/nplayer-bb100-10b/matched-transitions.csv),
+[paths with replay references](docs/reports/nplayer-bb100-10b/paths.csv).
+
+Raw owned root`bb128:/home/dberweger/nplayer-bb100-10b-20261019/main-v1/`
+remains unchanged. Frozen controllerecb08ada/nativeb9882e7e and original
+configSHA256`eb43aa2598151eb291441552e52b1e73915a9a218de8049f8d3645c846cee856`.
+10Bcheckpoint`candidate/10000000000.gz`,11,009,014,184bytes,
+SHA256`788e75acf8b98d88518faf3da683048ec05604ba001c8a59bb1ec5f740b52b80`;
+full average`candidate/10000000000-average.gz`,6,230,067,388bytes,
+SHA256`a85364b71c478be213e0356c5201911755228c864472427b64699346191facbd`.
+Same membership SHA256 as immutablePR3503B input, with10,000,009,599nodes.
+Original raw settled result925,548bytes, SHA256
+`41cffb0c7b131358b7b3906bb540cb12116f22da5200dcb0b99edc1612e83bd3`.
+
+Compact JSON/proofs only were retrieved into ignored
+`results/pr355-final-20261019T2125/compact/`; every source file matches its
+indexed SHA256. Regenerate all report tables with
+`python3.11 docs/reports/nplayer-bb100-10b/summarize.py FRESH_COMPACT_SOURCE FRESH_OUTPUT`.
+Exact source-relative paths/hashes are in the completion receipt. Retrieve
+selected files with`rsync -a bb128:EXACT_REMOTE_FILE FRESH_IGNORED_DIRECTORY/`,
+preserving relative paths and verifying their indexed SHA256 before use.
+This does not retrain, re-evaluate or duplicate engine replay.
+
+Whole wall72.77min; extra7Bactive25.04min; peak sampled66.03GiB;
+CPU/Thermistor15max74/91.5°C; no thermal/scientific failure. Supervisor544891
+exited and both study/normal compute mutexes are free at closeout. Initial
+network timeouts were local Tailscale connectivity, not an interrupted study.
+The initial Cargo/PATH setup failure, qualification fixtures and all raw logs,
+models,6.31GBtraces, sidecars and sources stay on bb128; partial local
+report-generation output is retained in the ignored retrieval directory.
+PR355 is open: its roots and PR350/352/353 dependencies remain protected.
+Archive namespace`PR-355-nplayer-bb100-10b`; HDD/Drive archive/acceptance pending.
+No new scientific evidence is copied to the HDD, uploaded or deleted by this
+closeout. No new timer, another seed or other campaign is started.
+
+The owner-requested post-hoc script-behavior audit reads all196,608 existing
+initial random/check-call hands (blueprint identity only), with no new games.
+[Counts and exact trace pins](docs/reports/nplayer-bb100-10b/script-behavior.json),
+[reproducer](docs/reports/nplayer-bb100-10b/script_behavior.py),
+[interpretation in final report](docs/reports/nplayer-bb100-10b/results.md#why-do-returns-fall-against-random-and-check-call).
+Remote compact result:
+`bb128:/home/dberweger/nplayer-bb100-10b-20261019/posthoc-script-behavior-v1/script-behavior.json`,
+SHA256`4b18f51bd4a68704df415ae8a1fbdfee40d59f7b60f72945d44251a118f69807`.
+Retrieve only that file via`scp bb128:EXACT_REMOTE_FILE FRESH_IGNORED_DIRECTORY/`
+and verify SHA256. Local identical compact copy is in ignored
+`results/pr355-final-20261019T2125/script-behavior.json`.
+One-core wall13.81s is additional descriptive-analysis cost. Original roots,
+trace bytes and all predeclared strength results stay unchanged; archival pending.
+
+## bb128 NVMe evidence relocation — October19,2026
+
+The owner explicitly requested moving previous rounds' evidence to the2TB
+drive. Current GitHub checks show PR339/340/342 merged. **46.265GB /19,893files**
+are SHA256-verified at both source and HDD destination before releasing only
+the matching NVMe copies. NVMe free space is now**64.360GB**
+(observed gain46.270GB). [Report](docs/artifacts/nvme-relocation-20261019.md),
+[compact exact-path/manifests/runtime receipt](docs/artifacts/nvme-relocation-20261019.json),
+receiptSHA256`feab7991d204381caa9cfea4bb490934b247ac66a9c33d57ceb70d364df47b5b`.
+
+Destinations under`bb128:/mnt/data2tb/research-cloud/` are
+`PR-339-nplayer-storage-benchmark/roots/`,
+`PR-340-nplayer-fast-strength-study/roots/` and
+`PR-342-nplayer-blueprint-promotion/roots/`, retaining original root names.
+The receipt maps all13root/subdirectory relocations. Original NVMe paths now
+resolve through compatibility symlinks. Full file inventories, copier, checked
+PR statuses and initial process-inspection preflight failure remain in
+`.storage-receipts/nvme-relocation-20261019T195815Z/`. Each destination hasKEEP.
+PR340 main-v5's small controls also have a verified HDD copy; original controls
+and the shared runtime stay on NVMe. No PR350/352/353/355 root/input, shared
+Git/K50 table, other process, schedule or machine setting was moved or changed.
+
+Restore selected evidence with`rsync -a bb128:EXACT_HDD_DESTINATION/ FRESH_IGNORED_DIRECTORY/`
+and verify the relevant indexed manifest/memberSHA256s before use. These
+locations supersede earlier local-retention notes below; historical original
+paths keep working. **Drive archival/upload acceptance remains pending** for
+these relocated roots; no Drive restoration link, upload or purge is claimed.
+This specific owner-authorized local relocation does not expand the standing
+original-deletion policy. The HDD copy must be retained. The owner separately authorized PR355 launch
+during final disk sync; it started20:08:19UTC asPID544891, with its original
+configuration hash and working runtime confirmed.
+[Launch receipt](docs/reports/nplayer-bb100-10b/launch.json).
+
+## PR355 — historical qualification and launch record
+
+[PR355](https://github.com/dberweger2017/CFR-NLHE-6max/pull/355),
+[proposal354](https://github.com/dberweger2017/CFR-NLHE-6max/issues/354),
+[protocol](docs/nplayer-bb100-10b-study.md).
+The owner-authorized main campaign launchedOctober19,20:08:19UTC asPID544891,
+using the unchanged qualified source/configuration. Input verification and full
+baseline audit precede the3B→10B continuation; no outcome read at startup.
+[Launch/status/environment receipt](docs/reports/nplayer-bb100-10b/launch.json),
+[launch scope and ETA](docs/reports/nplayer-bb100-10b/launch.md).
+Qualification uses fresh owned small100BB/K50 fixtures and checks historical
+native versus resumed checkpoint/export bytes, mixed-opponent replay and
+instrumentation-on/off trajectories. The large PR350/352/353 input roots remain
+read-only protected dependencies; no copies, archival or cleanup through this
+PR. New metadata belongs to the new study root, bound to checkpoint/policy hashes.
+Archive namespace`PR-355-nplayer-bb100-10b`; Research-Cloud/Drive acceptance pending.
+Qualification passed under source`ecb08ada`. Fresh owned bb128 root:
+`/home/dberweger/nplayer-bb100-10b-20261019/` contains source-v1, failedbuild-v1,
+successfulbuild-v2 and qualification-v1. Main-v1/config.json remains frozen;
+its owner-authorized main launch is recorded above. [Qualification report](docs/reports/nplayer-bb100-10b/qualification.md),
+[compact source/native/proof/config/temperature receipt](docs/reports/nplayer-bb100-10b/qualification.json),
+[informational75–94minute forecast](docs/reports/nplayer-bb100-10b/forecast.json).
+Compact metadata was retrieved into ignored`results/pr355-qualification/`;
+raw models/traces/mass metadata stay on bb128. The report gives retrieval and
+qualificationSHA256 verification. The historical18.50GB free NVMe snapshot
+was below25.11GB predicted output; the owner-requested completed-evidence
+relocation above raises free space to64.36GB before launch. Compact launch
+metadata is retained in ignored`planning/nvme-relocation-20261019/`.
+No resource guard beyond the owner's temperature policy was introduced.
+
 ## PR352 — verified final pruning comparison; original failure preserved
 
 **Final completion October19,18:13:14UTC:** recovery supervisor525334 exited,
