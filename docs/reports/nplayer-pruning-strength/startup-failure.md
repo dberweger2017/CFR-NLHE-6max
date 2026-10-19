@@ -15,15 +15,15 @@ the failure. The supervisor has exited and released its compute locks.
 
 ## Completed evidence
 
--3B:3,000,010,865nodes,212514iterations,631.8955200200134active seconds,
+- 3B:3,000,010,865nodes,212514iterations,631.8955200200134active seconds,
  32,499skipped actions. Historical unpruned3B:630.740595090997seconds.
  The difference is1.154925seconds,0.1831%; no replicated timing claim.
--Equal-time snapshot:2,994,344,973nodes,212096iterations,
+- Equal-time snapshot:2,994,344,973nodes,212096iterations,
  630.7424571240145active seconds. Its overshoot is0.001862seconds, within
  the final iteration's0.003026seconds.
--Native training/export command returned0,2011.21674481s wall,
+- Native training/export command returned0,2011.21674481s wall,
  13869.018818s child CPU. Model verification and3B audit returned0.
--Evaluation returned1 at startup in0.086s. Zero play/reproduction hands;
+- Evaluation returned1 at startup in0.086s. Zero play/reproduction hands;
  neither final statistical readout has run.
 
 The JSON evidence pins both checkpoint/policy pairs and retains the completed
