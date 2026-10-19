@@ -127,7 +127,7 @@ def run(root, config):
             result = dict(status='complete-cost-only', rows=rows,
                 last_interval_keys_per_node=slope, last_interval_nodes_per_second=rate,
                 linear_entries_at_3b=rows[-1]['entries'] + slope * (3_000_000_000 - rows[-1]['counts']['nodes']),
-                linear_entries_at_30b=rows[-1]['entries'] + slope * (30_000_000_000 - rows[-1]['counts']['nodes']),
+                linear_entries_at_10b=rows[-1]['entries'] + slope * (10_000_000_000 - rows[-1]['counts']['nodes']),
                 projection_scope='local linear scenarios, not bounds or saturation forecasts',
                 full_campaign_admitted=False, elapsed_seconds=time.time() - started)
             guard.write(root / 'results.json', result)

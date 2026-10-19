@@ -34,8 +34,8 @@ Any20/100BB comparison states the existing20BB data used a different trajectory.
 The old production size study saw9.67M vs4.91M keys at20M nodes; its old
 allocation forecasts predate compact storage and are not current RAM estimates.
 
-Local linear3B/30B scenarios describe extrapolation, not confidence bounds,
-proof of saturation or permission to run30B. No poker outcomes are collected.
+Local linear3B/10B scenarios describe extrapolation, not confidence bounds,
+proof of saturation or permission to start the full campaign. No poker outcomes are collected.
 A capacity/resource/identity/numerical failure is terminal, preserved and
 reported; no automatic retry, target reduction, cap increase or budget reset.
 
@@ -58,10 +58,12 @@ other-job changes, OS/driver/fan changes or M1/M4 scientific compute.
 
 ## Full campaign decision after the pilot
 
-The intended next study is three fresh100BB seeds, establishing earlier100BB
+The owner selected a10B-node endpoint for each of three fresh100BB seeds,
+establishing earlier100BB
 anchors and comparing later fixed checkpoints with them and all four scripts,
 with TensorBoard development curves, independent replay/reproduction and fresh
 reserved final roots. The20BB models are not same-game baselines. Exact targets,
 entry/storage/evaluation-memory budgets and total cost must be frozen from
 measured admission before that main study starts. The current PR admits only
-the pilot; it never silently starts an unquoted three-seed30B run.
+the pilot; it never silently starts an unquoted full campaign. The200BB campaign
+is a separate run and is outside this PR. Neither campaign is a release promise.
