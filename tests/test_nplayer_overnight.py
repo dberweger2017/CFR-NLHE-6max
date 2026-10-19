@@ -2,12 +2,35 @@ import struct
 import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
+from unittest.mock import Mock, patch
 
-from scripts.nplayer_overnight import BOTS, SEEDS, cases, preserve
+from scripts.nplayer_overnight import BOTS, SEEDS, Supervisor, cases, guard, preserve
 from scripts.overnight_tensorboard import Scalars, crc32c, masked_crc
 
 
 class OvernightTests(unittest.TestCase):
+    def test_swap_is_telemetry_while_available_ram_still_stops(self):
+        gib=1024**3
+        initial=dict(SwapTotal=2*gib,SwapFree=2*gib-200*1024**2,MemAvailable=50*gib)
+        used=dict(initial,SwapFree=initial['SwapFree']-gib)
+        low_ram=dict(used,MemAvailable=7*gib)
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)/'run';cache=Path(tmp)/'cache';root.mkdir();cache.mkdir()
+            with patch.object(guard,'memory',side_effect=[initial,used,low_ram]), \
+                 patch.object(guard,'sensors',return_value={'Package id 0':60,'Thermistor 15':70}), \
+                 patch.object(guard,'fan_rpm',return_value=1000), \
+                 patch.object(guard.os,'statvfs',return_value=SimpleNamespace(f_bavail=1000*gib,f_frsize=1)), \
+                 patch.object(guard,'BUDGET',guard.BUDGET),patch.object(guard,'FLOOR',guard.FLOOR):
+                logs=Mock();s=Supervisor(root,cache,0,3600,logs)
+                self.assertIsNone(s.swap_limit_bytes)
+                sample=s.sample(None,'train',20_000_000_000)
+                self.assertEqual(sample['swap_growth_bytes'],gib)
+                self.assertEqual(sample['swap_used_bytes'],gib+200*1024**2)
+                logs.add.assert_any_call('resources/swap_used_bytes',sample['swap_used_bytes'],unittest.mock.ANY)
+                with self.assertRaisesRegex(RuntimeError,'memory stop'):
+                    s.sample(None,'train',20_000_000_000)
+
     def test_frozen_matrix_and_independent_roots(self):
         matrix=cases()
         self.assertEqual(len(matrix),36)

@@ -94,7 +94,7 @@ def group_metrics(pgid):
 
 
 def enforce(row, remaining, elapsed, max_seconds=4 * 3600, rss_limit=24 * GIB,
-            cpu_limit=80, thermistor_limit=85):
+            cpu_limit=80, thermistor_limit=85, swap_limit_bytes=256 * 1024**2):
     t = row['temperatures_c']
     exceeded = {name: dict(reading_c=t[name], limit_c=limit)
                 for name, limit in [('Package id 0', cpu_limit),
@@ -104,7 +104,7 @@ def enforce(row, remaining, elapsed, max_seconds=4 * 3600, rss_limit=24 * GIB,
         raise RuntimeError('thermal stop: ' + json.dumps(exceeded, sort_keys=True))
     if row['available_ram_bytes'] < 8 * GIB or row['rss_bytes'] > rss_limit:
         raise RuntimeError('memory stop')
-    if row['swap_growth_bytes'] > 256 * 1024**2:
+    if swap_limit_bytes is not None and row['swap_growth_bytes'] > swap_limit_bytes:
         raise RuntimeError('swap growth stop')
     if remaining < 0 or row['free_disk_bytes'] < FLOOR + remaining:
         raise RuntimeError('disk reservation stop')
@@ -114,7 +114,7 @@ def enforce(row, remaining, elapsed, max_seconds=4 * 3600, rss_limit=24 * GIB,
 
 class Supervisor:
     def __init__(self, root, lock_fd, cpus=None, max_seconds=4 * 3600, rss_limit=24 * GIB,
-                 cpu_limit=80, thermistor_limit=85):
+                 cpu_limit=80, thermistor_limit=85, swap_limit_bytes=256 * 1024**2):
         self.root = root
         self.lock_fd = lock_fd
         self.cpus = set(cpus) if cpus is not None else {0, 1, 2, 3}
@@ -122,6 +122,7 @@ class Supervisor:
         self.rss_limit = rss_limit
         self.cpu_limit = cpu_limit
         self.thermistor_limit = thermistor_limit
+        self.swap_limit_bytes = swap_limit_bytes
         self.started = time.monotonic()
         m = memory()
         self.swap = m['SwapTotal'] - m['SwapFree']
@@ -138,13 +139,15 @@ class Supervisor:
         row = dict(at=time.time(), phase=phase, target=target,
                    temperatures_c=sensors(), available_ram_bytes=m['MemAvailable'],
                    fan1_rpm=fan_rpm(),
+                   swap_used_bytes=m['SwapTotal'] - m['SwapFree'],
                    swap_growth_bytes=m['SwapTotal'] - m['SwapFree'] - self.swap,
                    free_disk_bytes=disk.f_bavail * disk.f_frsize,
                    remaining_output_reservation_bytes=self.remaining,
                    **(group_metrics(process.pid) if process else dict(rss_bytes=0)))
         try:
             enforce(row, self.remaining, time.monotonic() - self.started,
-                    self.max_seconds, self.rss_limit, self.cpu_limit, self.thermistor_limit)
+                    self.max_seconds, self.rss_limit, self.cpu_limit, self.thermistor_limit,
+                    self.swap_limit_bytes)
         except RuntimeError as error:
             # Preserve the exact crossing sample even though it fails enforcement.
             error.resource_sample = row

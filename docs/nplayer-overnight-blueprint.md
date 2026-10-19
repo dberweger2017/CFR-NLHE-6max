@@ -1,5 +1,7 @@
 # Three-player20BB overnight blueprint campaign
 
+**Current owner amendment, October19:** swap usage is telemetry only and cannot stop this campaign. CPU90°C/Thermistor15100°C,80GiB family RSS,8GiB available-RAM floor, disk limits and deadline checks remain. Earlier swap limits below record the protocols actually used by the retained failed attempts.
+
 Owner-authorized [proposal345](https://github.com/dberweger2017/CFR-NLHE-6max/issues/345).
 
 ## Question and owner authorization
@@ -39,3 +41,9 @@ After the original95°C stop before20B, the owner explicitly instructed: “Okay
 The retained15B probe is reproduced on the resumed trajectory and must match node/iteration counts, every scripted block return, coverage count and played-path fingerprint exactly; duplicate TensorBoard emission is suppressed. A new event file continues the existing run. Training-time telemetry is cumulative from the saved10B point; discarded work from the failed segment must be included separately in actual compute cost.
 
 Thermistor15 stop100°C and CPU90°C are enforced from recovery admission onward. Existing original+recovery workspace bytes and both retained cache portions share the original allowances; they are not reset. Swap is charged conservatively as **absolute current usage** against256MiB because the original trace recorded growth without exposing the absolute baseline. The initial recovery setup incorrectly required zero absolute swap, refused before any native child or measurements stage, and is retained. A corrected fresh setup accepts the existing~134MiB only by charging it in full, leaving less available swap headroom. No swap is cleared or host setting changed. Any actual recovery scientific/resource failure is terminal; no further automatic retry.
+
+## Swap stop removed by owner, October19
+
+After the recovery stopped on256.54MiB total host swap despite82.37GiB available RAM, the owner explicitly instructed “Remove the swap guard.” The current campaign supervisor disables swap enforcement while recording absolute usage and growth as telemetry. Continuations no longer replace the telemetry baseline with zero. The shared supervisor accepts an explicit disabled swap limit; its defaults remain unchanged for other historical campaigns.
+
+Available RAM, family RSS, missing sensors, CPU90°C/Thermistor15100°C, storage and deadline enforcement remain independent stop conditions. Tests exercise more than256MiB swap through the actual campaign sample path and verify that low-RAM/thermal/RSS/deadline failures still stop. Historical failure files and frozen remote controller copies are retained as evidence. This code amendment does not restart the stopped campaign or reset its expired allocation; a future authorized deployment must include the updated controller and guard modules, not just the old frozen Python package.

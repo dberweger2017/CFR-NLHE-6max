@@ -41,13 +41,19 @@ class RecoveryTests(unittest.TestCase):
                 bad=dict(s.expected_probe,results=[{'block_bb100':[1,3]}])
                 with self.assertRaisesRegex(ValueError,'differs'):s.event(json.dumps(bad))
 
-    def test_existing_swap_is_charged_rather_than_reset(self):
+    def test_disabled_swap_stop_does_not_disable_memory_thermal_or_deadline_stops(self):
         from scripts.run_nplayer_storage_benchmark import GIB,enforce
         row=dict(temperatures_c={'Package id 0':40,'Thermistor 15':40},available_ram_bytes=16*GIB,
                  rss_bytes=8*GIB,swap_growth_bytes=140816384,free_disk_bytes=100_000_000_000)
-        enforce(row,0,1,cpu_limit=90,thermistor_limit=100)
-        with self.assertRaisesRegex(RuntimeError,'swap growth'):
-            enforce(dict(row,swap_growth_bytes=256*1024**2+1),0,1,cpu_limit=90,thermistor_limit=100)
+        row['swap_growth_bytes']=GIB
+        enforce(row,0,1,cpu_limit=90,thermistor_limit=100,swap_limit_bytes=None)
+        for changes,message in [(dict(available_ram_bytes=7*GIB),'memory stop'),
+                                (dict(rss_bytes=81*GIB),'memory stop'),
+                                (dict(temperatures_c={'Package id 0':90,'Thermistor 15':40}),'thermal stop')]:
+            with self.assertRaisesRegex(RuntimeError,message):
+                enforce(dict(row,**changes),0,1,rss_limit=80*GIB,cpu_limit=90,thermistor_limit=100,swap_limit_bytes=None)
+        with self.assertRaisesRegex(RuntimeError,'fail-safe'):
+            enforce(row,0,14400,cpu_limit=90,thermistor_limit=100,swap_limit_bytes=None)
 
     def test_existing_recovery_root_is_not_reused(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -64,6 +70,7 @@ class RecoveryTests(unittest.TestCase):
             s=ContinuationSupervisor.__new__(ContinuationSupervisor)
             s.origin=origin;s.cache=Path('/cache/original/resume100');s.external_refresh=0
             s.cpu_limit=90;s.thermistor_limit=100
+            s.swap_limit_bytes=None
             sizes={str(origin):100,'/cache/original':1000,str(s.cache):200}
             with patch.object(campaign.guard,'tree_bytes',lambda p:sizes[str(p)]),patch.object(campaign.Supervisor,'sample',return_value={}):
                 row=s.sample(None,'test',0)

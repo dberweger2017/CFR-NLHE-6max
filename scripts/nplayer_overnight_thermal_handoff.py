@@ -76,6 +76,7 @@ class ContinuationSupervisor(campaign.Supervisor):
             self.external_refresh=time.monotonic()
         row=super().sample(process,phase,target)
         row.update(cpu_stop_c=self.cpu_limit,thermistor15_stop_c=self.thermistor_limit)
+        row['swap_guard_enabled']=self.swap_limit_bytes is not None
         return row
 
     def event(self, line):
@@ -162,9 +163,7 @@ def continue_campaign(root, plan, origin=None):
         s.thermistor_limit=100
         # Charge all existing owned bytes; no resource budget is reset by restart.
         s.initial_bytes=0;s.initial_cache_bytes=0
-        # The old trace recorded growth, not absolute usage. Charging all current
-        # swap against256MiB is conservative and never resets the old allowance.
-        s.swap=0
+        # Swap remains telemetry; the owner removed it as a stop condition.
         boundary=plan['checkpoint']['target']
         admission=s.sample(None,'owner-checkpoint-handoff',boundary)
         if origin is not None and (admission['temperatures_c']['Package id 0']>=70 or
@@ -194,7 +193,8 @@ def continue_campaign(root, plan, origin=None):
             status='active',at=time.time(),supervisor_pid=os.getpid(),cpu_stop_c=s.cpu_limit,
             thermistor15_stop_c=s.thermistor_limit,original_deadline=deadline,
             checkpoint=cp,source_commit=c['source_commit'],amendment_sha256=campaign.guard.sha(__file__),
-            budgets='Existing owned bytes and absolute swap usage charged in full against unchanged ceilings.'))
+            budgets='Existing owned storage charged in full; swap guard removed by owner, telemetry retained.',
+            swap_guard_enabled=s.swap_limit_bytes is not None))
         campaign.guard.write(root/'status.json',dict(status='owner-checkpoint-handoff',at=time.time(),seed=SEED))
         if origin is None:
             campaign.preserve(root,cache,[f'training-{SEED}',f'measurements/training-{SEED}',

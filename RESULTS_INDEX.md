@@ -8,6 +8,8 @@ October18 owner amendment requested Thermistor15 stop100°C after the next compl
 
 Explicit subsequent owner recovery: [100°C recovery launch and setup-refusal provenance](docs/reports/nplayer-overnight/recovery100.md). Fresh root `bb128:/tmp/nplayer-overnight-20261018-resume100-v2`, supervisor371963; same10B input, frozen native binary and original deadline. Prior thermal failure and initial recovery setup refusal remain intact. Combined owned storage and absolute swap are charged to the original ceilings; no cleanup or cloud acceptance.
 
+October19 owner instruction removed swap as a campaign stop condition in the updated code; absolute usage/growth remain telemetry. Historical stops and remote source copies remain retained. No new run or deadline reset.
+
 ## PR340 — PR335 strength study (complete; archival pending)
 
 [PR340](https://github.com/dberweger2017/CFR-NLHE-6max/pull/340),

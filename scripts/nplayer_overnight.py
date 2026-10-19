@@ -77,7 +77,8 @@ class Supervisor(guard.Supervisor):
         guard.BUDGET = TMP_BUDGET
         guard.FLOOR = 2 * guard.GIB  # tmpfs reservation; physical disks checked separately.
         super().__init__(root, lock, cpus=range(16), max_seconds=remaining,
-                         rss_limit=80*guard.GIB, cpu_limit=90, thermistor_limit=95)
+                         rss_limit=80*guard.GIB, cpu_limit=90, thermistor_limit=95,
+                         swap_limit_bytes=None)
         self.cache, self.logs, self.seed = cache, logs, 0
         self.last_log = 0
         self.initial_cache_bytes = guard.tree_bytes(cache)
@@ -96,7 +97,7 @@ class Supervisor(guard.Supervisor):
             error.resource_sample = row
             raise
         if time.monotonic()-self.last_log >= 30:
-            for k in ('rss_bytes', 'available_ram_bytes', 'swap_growth_bytes', 'nvme_free_bytes', 'hdd_free_bytes'):
+            for k in ('rss_bytes', 'available_ram_bytes', 'swap_used_bytes', 'swap_growth_bytes', 'nvme_free_bytes', 'hdd_free_bytes'):
                 self.logs.add('resources/'+k, row[k], int(time.time()))
             for k,v in row['temperatures_c'].items():
                 self.logs.add('temperature/'+k, v, int(time.time()))
