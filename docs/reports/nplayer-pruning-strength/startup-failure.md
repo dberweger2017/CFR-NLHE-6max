@@ -59,9 +59,11 @@ have not been edited.
 
 ## Recovery boundary
 
-No automatic retry or replacement run has started. An evaluation-only continuation
-can reuse the two checksum-bound endpoints, preserve the successful3B audit,
-and execute the unchanged two held-out matrices without repeating training.
+At the original failure closeout no retry had started. The owner subsequently
+requested “Please resume it then.” An evaluation-only continuation launched
+17:44:02UTC on the two checksum-bound endpoints, preserving the successful3B
+audit and executing the unchanged held-out matrices without repeating training.
+[Recovery launch and identity](evaluation-recovery-launch.json).
 It must record its new source/interpreter identity and link the original failure,
 keeping that original root unchanged. No strength outcomes were available to
 select a different model, root, sample count or evaluation method.

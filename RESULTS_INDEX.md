@@ -1,4 +1,4 @@
-## PR352 — training complete, evaluation startup failure
+## PR352 — evaluation-only recovery running; original failure preserved
 
 [PR352](https://github.com/dberweger2017/CFR-NLHE-6max/pull/352),
 [protocol](docs/nplayer-pruning-strength-study.md),
@@ -27,7 +27,17 @@ verification and the250,000,119-row independent audit passed. Zero evaluation
 hands ran. The failed root/config/source/logs and both snapshots remain unchanged.
 [Failure and validated training evidence](docs/reports/nplayer-pruning-strength/startup-failure.json),
 [diagnosis and tested interpreter fix](docs/reports/nplayer-pruning-strength/startup-failure.md).
-No automatic retry or retraining has started. All480 development/reproduction hands are fixture evidence
+After the owner explicitly requested resumption, an evaluation-only recovery
+launched17:44:02UTC asPID525334 at
+`bb128:/home/dberweger/nplayer-pruning-strength-20261019/evaluation-recovery-v1`.
+[Recovery launch/config/environment receipt](docs/reports/nplayer-pruning-strength/evaluation-recovery-launch.json),
+[21-test Linux and actual-parent qualification](docs/reports/nplayer-pruning-strength/evaluation-recovery-qualification.json).
+Frozen recovery controller`5ce973c98c152ebb08a5a717cc76d4dbfe0bbd08` uses the
+original unchanged native binaries and model bytes. It verifies model hashes,
+inherits the completed3B audit, then runs the original nodes and clock matrices
+with their replay/reproduction/readout barriers. No training is repeated.
+Original source/root/failures remain unchanged; raw models are read in place.
+The same temperature-only resource policy applies; disk/swap checks remain manual. All480 development/reproduction hands are fixture evidence
 only, with disjoint roots and no final-outcome inference.
 Manual prelaunch sample:132.17GB available RAM,55.03GB free NVMe,1.083TB free
 HDD,227.9MB swap used; CPU37°C/Thermistor1531°C. No resource thresholds added.

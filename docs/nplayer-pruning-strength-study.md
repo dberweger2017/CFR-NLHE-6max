@@ -13,6 +13,7 @@ exports passed, but the configured base Python lacked`pokers`. Zero evaluation
 hands ran. [Failure, preserved inputs and tested fix](reports/nplayer-pruning-strength/startup-failure.md).
 The original failed attempt is retained. The owner subsequently requested
 “Please resume it then”; the evaluation-only recovery below reuses its models.
+Recovery launched17:44:02UTC; [command, source/config/environment identity](reports/nplayer-pruning-strength/evaluation-recovery-launch.json).
 PR350's cancelled10B campaign remains cancelled; this is a separate experiment.
 
 ## Question
