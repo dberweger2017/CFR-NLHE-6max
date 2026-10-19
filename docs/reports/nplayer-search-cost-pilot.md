@@ -128,3 +128,9 @@ Main-branch integration preserves both sides of the ROADMAP and RESULTS_INDEX
 additions. The measured baseline and extraction code are unchanged. The search
 implementation plan remains future work; merging this completed groundwork
 starts no new experiment and changes no running campaign.
+
+Integration also includes the independently reviewed, opt-in PR336 implementation
+without enabling it here or in the running overnight campaign. All57 native
+library tests and example compilation passed on that main-branch integration.
+The roadmap records the owner-authorized merge; an NLHE strength comparison
+remains required before adopting pruning for training.

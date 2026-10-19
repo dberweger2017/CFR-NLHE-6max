@@ -23,6 +23,9 @@ pub fn save(trainer: &Trainer, path: &Path, gzip: Gzip) -> Result<(), String> {
         header["sampling"] = json!(PATH_SAMPLING);
         header["roots_per_seat"] = json!(trainer.roots_per_seat);
     }
+    if let Some(p) = trainer.prune {
+        header["pruning"] = json!({"bb": p.bb, "after": p.after, "pruned_actions": trainer.counts.pruned});
+    }
     write_atomic(path, |file| {
         trainer.table.write_sorted(file, gzip, format!("{header}\n").as_bytes(), |key, e, out| {
             serde_json::to_writer(&mut *out, &(key_hex(&key), e.actor, e.street, e.code, e.visits, e.regrets, e.average)).unwrap();
@@ -92,6 +95,14 @@ pub fn load(path: &Path) -> Result<Trainer, String> {
         (Sampling::Path, Some(r)) => usize::try_from(integer(r)?).ok().filter(|&r| (1..=1024).contains(&r)).ok_or("invalid roots per seat")?,
         _ => return Err("roots per seat belongs to fast mode".into()),
     };
+    let (prune, pruned) = match (sampling, h.get("pruning")) {
+        (_, None) => (None, 0),
+        (Sampling::Path, Some(p)) => {
+            let bb = p["bb"].as_f64().filter(|b| b.is_finite() && *b > 0.).ok_or("invalid pruning limit")?;
+            (Some(crate::multi_cfr::Prune { bb, after: integer(&p["after"])? }), integer(&p["pruned_actions"])?)
+        }
+        _ => return Err("pruning belongs to fast mode".into()),
+    };
     let players = integer(&h["players"])? as usize;
     let last_average_street = integer(&h["last_average_street"])? as usize;
     let max_entries = usize::try_from(integer(&h["max_entries"])?).map_err(|e| e.to_string())?;
@@ -120,6 +131,7 @@ pub fn load(path: &Path) -> Result<Trainer, String> {
         traverser: fixed(&c["traverser"])?,
         discarded_keys: integer(&c["discarded_keys"])?,
         discarded_visits: integer(&c["discarded_visits"])?,
+        pruned,
     };
     if counts.terminals.checked_add(
         counts
@@ -208,5 +220,6 @@ pub fn load(path: &Path) -> Result<Trainer, String> {
         counts,
         sampling,
         roots_per_seat,
+        prune,
     })
 }
