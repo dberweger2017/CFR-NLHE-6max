@@ -9,11 +9,14 @@ does not launch the full training or claim poker strength.
 
 ## Question and fixed pilot
 
-Use the already qualified native fast trainer from frozen4cd199a5, full-street
+Use the already qualified native fast CLI pinned by the20BB study (binary
+SHA256`fc37a562f8d3753d920b07b5d35c6deabe75fc846196b176f749187a3b3ac790`), full-street
 averages, K50, minimum/pot/conditional-jam menu,8roots/seat,16threads and
 three100BB stacks (10000chips, blinds50/100). Fresh training is mandatory:
 20BB checkpoints have a different game identity and cannot be resumed here.
-PR336 pruning, PR344 compact keys and PR347's new store are excluded.
+PR336 pruning, PR344 compact keys and PR347's new store are excluded. The enclosing
+overnight configuration is source4cd199a5; the reused CLI comes from the earlier
+fast-mode qualification, not a new build from current main.
 
 Before measurement, verify fresh200K checkpoint identity at1vs16threads and
 fresh400K vs200K+resume400K. Checkpoint SHA readback and headers must match
