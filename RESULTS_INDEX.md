@@ -1,4 +1,4 @@
-## PR350 — three-player 100 BB (2B calibration complete; cap admission stopped)
+## PR350 — three-player 100 BB (authorized3B continuation active)
 
 [PR350](https://github.com/dberweger2017/CFR-NLHE-6max/pull/350),
 [proposal349](https://github.com/dberweger2017/CFR-NLHE-6max/issues/349),
@@ -6,6 +6,24 @@
 [compact receipt](docs/reports/nplayer-bb100/receipt.json) and
 [exact checkpoint paths/hashes/counts](docs/reports/nplayer-bb100/costs.csv).
 
+- **Owner-authorized continuation active October19 13:21:12UTC/15:21:12Madrid:**
+  [Launch and current phase](docs/reports/nplayer-bb100/continuation-launch.md),
+  [compact source/config/PID/deadline receipt](docs/reports/nplayer-bb100/continuation-launch.json),
+  [independent review and26Linux tests](docs/reports/nplayer-bb100/continuation-review.md),
+  [read-only parent pins](docs/reports/nplayer-bb100/continuation-parent-pins.json).
+  Output`bb128:/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3/`;
+  supervisor492733, controller source`b9882e7e728847a58691995e64eabd4563ea0991`,
+  control`/home/dberweger/nplayer-bb100-bounded-20261019/source-continuation-v1`.
+  Existing`binaries-v4` unchanged. Fixed2B→3B qualification deadline
+  `1792423272.9440205`=15:21:12UTC/17:21:12Madrid; main starts automatically only
+  if all unchanged mature qualification/resource/full8h cost gates pass.
+  First snapshot validates parent files, healthy; no final10B seed or ETA yet.
+  Raw receipts/resources stay in owned root; small snapshot retrieved only to
+  ignored`results/continuation-launch-20261019-v3/`. Retrieve once into a fresh
+  ignored directory with `python3.11 docs/reports/nplayer-bb100/collect_bounded.py DEST --root /mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3`.
+  Own TensorBoardPID492788/port6007/local8607 now reads v3; old20BB6006 untouched.
+  PR350 open: all roots and v2parent/input dependencies protected; no archival,
+  cleanup or Drive acceptance claimed. No further automatic retry/extension.
 - **Corrected attempt terminal October19 12:31:49UTC/14:31:49Madrid:**
   native calibration returns0 at2,000,003,197nodes/244,485,627entries. The250Mcap
   never triggered, so validation refuses the predeclared2B endpoint. No
@@ -13,12 +31,12 @@
   [Full diagnosis/costs/next prospective step](docs/reports/nplayer-bb100/calibration-cap-stop.md),
   [compact native/checkpoint/small-matrix metadata](docs/reports/nplayer-bb100/calibration-cap-stop.json).
   Native423.45active seconds,1485.09wall,9087.44CPU seconds,22.23GiB peak.
-  Retain both1B/2B checkpoints and2Baverage in active root below;
+  Retain both1B/2B checkpoints and2Baverage in the preserved v2root below;
   2BcheckpointSHA256`43320d93b5dda9981d4f99e1d8b4898b924e38acfe8f809f6693ff79cdc41566`,
   averageSHA256`4637b9911b89a241be9dd4d3b03e0d80f483669516bd56009c8ada6e5ccb3bb7`.
   Complete small matrix passes432replay+432reproduction hands/12policy loads.
   Supervisor483894 exited. No retry/cap/endpoint/deadline change or model copy
-  toMac; a fixed3B calibration continuation is proposed for owner decision.
+  toMac. The subsequently authorized continuation above uses this immutable parent.
 - **Reviewed corrected qualification launched October19** after explicit owner
   request for a review subagent before resuming. [Independent review and fixes](docs/reports/nplayer-bb100/review-before-resume.md),
   [23Linux/process tests + native rebuild/reuse proof](docs/reports/nplayer-bb100/review-engineering-tests.json),
