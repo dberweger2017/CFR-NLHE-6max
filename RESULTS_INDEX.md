@@ -1,4 +1,12 @@
-## Overnight three-player20BB campaign (final seed resumed without swap stop)
+## PR346 — overnight three-player20BB campaign (complete; mixed results; archival pending)
+
+**Verified complete October19 08:44:04UTC /10:44:04Madrid.** All three30B models pass export/every-row audits (328,640,906rows). All36 final lineups replay/reproduce before settled readout:1,769,472 final+1,769,472 reproduction hands. [Final report](docs/reports/nplayer-overnight/results.md), [compact receipt](docs/reports/nplayer-overnight/completion.json), [exact settled result](docs/reports/nplayer-overnight/source-results.json), [model/checkpoint pins and training costs](docs/reports/nplayer-overnight/models-and-training.csv).
+
+Same-seed oriented contrasts1541/42/43:+1.66[−1.54,+4.86],+5.89[+2.88,+8.91],+4.59[+1.46,+7.72]BB/100. All-three improvement gate fails (first inconclusive); cyclic−5 safeguard passes. Random-opponent return regresses across all three seeds; seed1542 check-call also regresses under the12-way adjustment. No default/release/stronger-family adoption. Source native4cd199a5 and full36×8192 matrix remain unchanged; later Git commits contain evidence/integration only.
+
+Final continuation2h32m19s wall/18.36 child CPU-hours; training9.91GiB/save10.49GiB peak, evaluation63.99GiB peak with33.74GiB minimum available RAM. Evaluation host swap peaks23.09GiB (telemetry only); it cannot be attributed to particular pages from these receipts. Overall campaign13h24m56s includes pauses and retained failures; exact whole-campaign CPU unknown, successful-stage receipts total54.75CPU-hours. All failures and partials remain indexed below.
+
+Raw result SHA256`e47b9e07bae8a6ad1f898a8c4175ffb070807dc1f1dac716e713566ab912a695`; evaluation manifestSHA256`99364b06c47aa6077e27da64166274f3886355bc637737c1517a7f4010cf6cde`. Compact metadata retrieved to ignored`results/overnight-complete-20261019T094456Z/`; no model/hand trace retrieval. Read-only exact-result command:`ssh bb128 cat /tmp/nplayer-overnight-20261019-finish-noswap/results.json > FRESH_DESTINATION/source-results.json`, then verify the SHA256. Original/cache paths remain as below, exact final/anchor checkpoint/export paths and hashes in the model CSV/completion receipt. PR346 remains open; no new ZIP/Drive receipt exists, so archive/upload acceptance is pending. No deletion or cleanup.
 
 [Proposal345](https://github.com/dberweger2017/CFR-NLHE-6max/issues/345); [frozen protocol](docs/nplayer-overnight-blueprint.md). The existing PR340~3B raw checkpoints/averages are read-only inputs. New owned tmpfs workspace `/tmp/nplayer-overnight-20261018` has retained, hash-verified copies in a new per-PR2TB cache root; exact [pins/root/launch receipts](docs/reports/nplayer-overnight/launch.md) record frozen source4cd199a5 and supervisor358105. Preserve all failures and partials. No originals deleted; cloud archival/acceptance pending.
 
@@ -11,6 +19,56 @@ Explicit subsequent owner recovery: [100°C recovery launch and setup-refusal pr
 October19 owner instruction removed swap as a campaign stop condition in the updated code; absolute usage/growth remain telemetry. Historical stops and remote source copies remain retained. No new run or deadline reset.
 
 October19 owner instruction “please resume the run”: [remaining-work continuation](docs/reports/nplayer-overnight/finish-noswap.md), root `bb128:/tmp/nplayer-overnight-20261019-finish-noswap`, supervisor437572. New explicit4h allocation06:11:45–10:11:45UTC; previous expired allocation and all failed roots remain historical evidence. Reuse the two audited30B averages read-only; resume seed1543 from10B, then unchanged full final evaluation. No swap stop, CPU90°C/Thermistor15100°C; combined storage limits retained. Final traces go directly to the new owned HDD cache/evaluation path; no deletion/Drive acceptance.
+
+## PR334 — three-player search cost calibration: completed groundwork; archival pending
+
+[PR334](https://github.com/dberweger2017/CFR-NLHE-6max/pull/334), [protocol](docs/nplayer-search-cost-pilot.md), [report and retrieval commands](docs/reports/nplayer-search-cost-pilot.md).
+October 17, 2026: fixed 1,000-hand three-player blueprint baseline, seed
+`202610173401`, source `2fe300e2`; zero search solves. Raw output remains at
+`bb128:/home/dberweger/nplayer-search-cost-20261017/baseline/`; local ignored
+copy and 43 extracted legal observations are under
+`/tmp/cfr-three-player-search-cost-pilot/results/nplayer-search-cost-20261017/`.
+Trace: 2,438,056 bytes, SHA256
+`d39d160c1d0d193b29056872c74c5a1e2a3d724d4b77dbdc0b281fef2e75399f`.
+Input model: PR292 `training/2026101541/1000m-average.gz`, SHA256
+`990246065bfc1f8a13c5ca3456090689b5ab52105c860d4bca1531b3f5e3db70`;
+its [accepted archive/member provenance](docs/reports/nplayer-blueprint-phase2-artifacts/archive-model-members.json)
+and restoration links remain in the PR292 entry. Inputs were read in place.
+Drive archival of this new run is pending; no upload acceptance or cleanup is
+claimed. Preserve these active originals until closeout and dependency review.
+
+## PR342 — three-player blueprint promotion (complete; archival pending)
+
+[PR342](https://github.com/dberweger2017/CFR-NLHE-6max/pull/342),
+[proposal341](https://github.com/dberweger2017/CFR-NLHE-6max/issues/341),
+[frozen protocol](docs/nplayer-blueprint-promotion.md),
+[verified report](docs/reports/nplayer-blueprint-promotion/results.md),
+[compact receipt](docs/reports/nplayer-blueprint-promotion/completion.json).
+
+- Owner accepted15–30min bb128 compute with existing models. Frozen source
+  `d6cb8ebdb9384142b78d8ee93fa609b9dbe6b133`; later commits are evidence only.
+  `bb128:/home/dberweger/nplayer-blueprint-promotion-20261018`, PID336533,
+  October18 16:38:01–16:50:09UTC, complete/no failure. All3 stages return0,
+  all12 cases independently replay and exactly reproduce before settled readout:
+  589824 final plus589824 reproduction hands; excluded smoke144+144.
+- Same-seed contrasts1541/42/43: +5.92[+2.55,+9.30], +5.38[+1.96,+8.80],
+  +4.35[+0.87,+7.83]BB/100. Cross-seed1541vs42/42vs43/43vs41:
+  +3.02[−0.42,+6.45], +5.18[+1.71,+8.65], +5.58[+2.22,+8.94].
+  Primary improvement and cross-seed−5 noninferiority gates both pass.
+  These are oriented singleton contrasts, not pooled player return.
+- Total12.13min wall/1.142 child CPU-hours,56.22GiB sampled family RSS;
+  CPU69C/Thermistor15 81.5C max,2.75MiB swap growth,55.70GB minimum free NVMe.
+  Six workers across affinity0–15. No training, new models or environment changes.
+- [Six model/binary pins](docs/nplayer-blueprint-promotion-inputs.json) depend
+  read-only on PR292 production1B and PR340 fast600s full averages. Preserve
+  those roots and the shared tables/arena/venv; do not clean dependencies while
+  needed by this open PR. PR292 Drive restoration is indexed below; PR340 raw
+  archival remains pending. Never infer cloud acceptance for either new root.
+- All raw traces, logs, excluded smoke, frozen source and launch hashes remain
+  in the owned root. Compact metadata retrieved by SSH into ignored
+  `/tmp/cfr-nplayer-blueprint-promotion/results/promotion-completion.json`;
+  no models/raw traces copied locally. Reanalysis command and exact provenance
+  are in the report. Cloud archival/upload acceptance is pending, no deletion.
 
 ## PR340 — PR335 strength study (complete; archival pending)
 
