@@ -35,6 +35,30 @@ stay offGit. Final ZIP/manifest/member readback/Drive acceptance **pending**;
 `gdrive:PR-367-nplayer-v06-acceptance/` is a future fallback, not an accepted
 restoration claim. No deletion/cleanup. Native river remains a separate follow-up.
 
+## PR362 — matched-state diagnosis complete; aggregate cause unresolved
+
+[PR362](https://github.com/dberweger2017/CFR-NLHE-6max/pull/362), proposal360,
+[protocol](docs/nplayer-matched-regression.md),
+[results and limits](docs/reports/nplayer-matched-regression/results.md),
+[compact proofs/receipts](docs/reports/nplayer-matched-regression/results.json),
+[all64 conditional contrasts](docs/reports/nplayer-matched-regression/contrasts.csv),
+[street/position/visible-strength groups](docs/reports/nplayer-matched-regression/matched-groups.csv),
+[20 stage costs](docs/reports/nplayer-matched-regression/costs.csv),
+[dated launch](docs/reports/nplayer-matched-regression/launch.md).
+Runtimeb7214c13 completedOct20,10:14:29UTC; rootsettled/nofailure/all20RC0.
+1,970 matched states across two fixed lineages;32 selected decisions, each32
+discovery+512heldout worlds, all reproduced. Two local10B root improvements
+clear bounded family intervals under both continuations;30 inconclusive,
+no conclusively negative root mixture. One selected alternative clears zero.
+Heldout random/TAG betting/raising falls4.1–4.3pp;98.38% sampled states have
+positive mass in both. No causal attribution of aggregate regression/Nash claim.
+Thirty verified new-owned staging records/74.41GB retained under
+`bb128:/mnt/data2tb/research-cloud/PR-362-nplayer-matched-regression/main-v1/`,
+with accessible original NVMe paths. Previous inputs/source/partials/raw
+evidence retained. ZIP/Drive acceptance and future fallback
+`gdrive:PR-362-nplayer-matched-regression/` pending; no deletion/remote retrieval
+claim or default/release adoption. PR ready for owner review, not auto-merged.
+
 ## PR361 — exact mature parity; 1.75–1.82× loads and 1.95× reusable job
 
 [PR361](https://github.com/dberweger2017/CFR-NLHE-6max/pull/361),

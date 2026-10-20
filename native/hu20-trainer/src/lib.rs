@@ -26,3 +26,5 @@ pub mod trainer;
 
 pub mod checkpoint;
 pub mod telemetry;
+
+pub mod multi_counterfactual;
