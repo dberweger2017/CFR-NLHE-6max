@@ -1,3 +1,15 @@
+## PR362 — matched-state scripted regression investigation queued
+
+[PR362](https://github.com/dberweger2017/CFR-NLHE-6max/pull/362), proposal360,
+[protocol](docs/nplayer-matched-regression.md),
+[launch/retention](docs/reports/nplayer-matched-regression/launch.md),
+[compact queue receipt](docs/reports/nplayer-matched-regression/launch.json).
+Runtimeb7214c13, bb128 main-v1PID626281, queued behindPR361's exclusive mutex.
+M1:68native tests, four Python checks and release build pass. Mature outcomes
+pending. NamespacePR-362-nplayer-matched-regression stores only new owned copies/
+outputs; original dependencies remain read-only. Raw/source/partials preserved;
+cache/Drive archive acceptance pending, no deletion or external retrieval claim.
+
 ## PR359 — exact binary inference, local qualification only
 
 [Draft PR359](https://github.com/dberweger2017/CFR-NLHE-6max/pull/359),
