@@ -1,3 +1,24 @@
+## PR367 — fresh v0.6 acceptance, qualification before final hands
+
+[PR367](https://github.com/dberweger2017/CFR-NLHE-6max/pull/367),
+[proposal366](https://github.com/dberweger2017/CFR-NLHE-6max/issues/366),
+[prospective protocol](docs/nplayer-v06-acceptance.md),
+[fixed sizing](configs/research/nplayer-v06-acceptance-sizing.json),
+[original and derivative pins](configs/research/nplayer-v06-acceptance-inputs.json).
+Three frozen100BB10B candidates and their own3B checkpoints; no new training.
+Thirty one-sided family95% decisions,36 cases,2,635,776 initial hand instances
+plus matching reproduction. No result/acceptance claim before the global barrier.
+Retain PR357 relative regressions beside the new absolute-profit gates.
+
+Owned bb128 base `/home/dberweger/nplayer-v06-acceptance-20261020/`;
+qualification and source snapshots retained, main launch record pending.
+New-owned staging namespace
+`/mnt/data2tb/research-cloud/PR-367-nplayer-v06-acceptance/` with verified copies
+and accessible original paths. Existing PR350/355/357/361/362 inputs protected.
+Future Drive fallback `gdrive:PR-367-nplayer-v06-acceptance/` is **pending**;
+no ZIP/Drive acceptance, old-input move, deletion or cleanup is claimed.
+No default, release, merge or native-river implementation in this study.
+
 ## PR361 — exact mature parity; 1.75–1.82× loads and 1.95× reusable job
 
 [PR361](https://github.com/dberweger2017/CFR-NLHE-6max/pull/361),
