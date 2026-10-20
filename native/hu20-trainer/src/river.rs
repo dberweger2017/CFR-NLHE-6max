@@ -37,6 +37,7 @@ pub struct Game {
     z: f64,
     nodes: Vec<Node>,
     root_pot_bb: f64,
+    scalar_control: bool,
 }
 
 fn finite(x: f64) -> Result<f64, String> {
@@ -167,6 +168,7 @@ impl Game {
             z,
             nodes,
             root_pot_bb,
+            scalar_control: false,
         })
     }
 
@@ -182,7 +184,7 @@ impl Game {
         // Inclusion-exclusion loses relative accuracy when almost all chance
         // mass is blocked. Preserve values with an explicit allocation-free
         // scalar fallback; report this mode rather than claim linear cost.
-        if self.z < 1e-4 {
+        if self.z < 1e-4 || self.scalar_control {
             for (i, h) in self.hands[seat].iter().enumerate() {
                 let mut value = 0.;
                 for (j, o) in self.hands[other].iter().enumerate() {
@@ -603,6 +605,7 @@ impl Solver {
 
 mod prepared;
 pub use prepared::request;
+pub mod live;
 
 #[cfg(test)]
 mod tests;

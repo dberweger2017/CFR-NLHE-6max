@@ -44,6 +44,7 @@ pub fn request(v: &Value) -> Result<Value, String> {
             "leaf_queries",
             "include_profiles",
             "strategy_queries",
+            "scalar_control",
         ],
     )?;
     if v["format"] != "river-prepared-v1" {
@@ -96,7 +97,10 @@ pub fn request(v: &Value) -> Result<Value, String> {
             });
         }
     }
-    let game = Game::new(board, ranges, nodes, number(&g["root_pot_bb"])?)?;
+    let mut game = Game::new(board, ranges, nodes, number(&g["root_pot_bb"])?)?;
+    if let Some(scalar) = v.get("scalar_control") {
+        game.scalar_control = scalar.as_bool().ok_or("scalar_control must be boolean")?;
+    }
     let mut fixed = vec![None; game.nodes.len()];
     if let Some(rows) = v.get("fixed") {
         for (key, p) in rows.as_object().ok_or("fixed profiles must be an object")? {
@@ -155,6 +159,9 @@ pub fn request(v: &Value) -> Result<Value, String> {
         }
     }
     let mut out = json!({"format":"river-prepared-result-v1","sweeps":solver.sweeps,"leaf_evaluation_mode":if solver.game.z<1e-4 {"scalar-ill-conditioned-chance"} else {"sorted-linear"},"strategy_rows":selected,"quality":quality,"ranks":solver.game.ranks(),"leaf_values":leaves,"nodes":solver.game.nodes.len(),"holdings":[solver.game.holdings(0),solver.game.holdings(1)],"leaf_query_seconds":leaf_seconds,"leaf_query_count":leaf_count,"preparation_seconds":prepare,"solve_seconds":solve,"quality_seconds":quality_seconds,"native_seconds_before_serialization":started.elapsed().as_secs_f64()});
+    if solver.game.scalar_control {
+        out["leaf_evaluation_mode"] = json!("scalar-review-control");
+    }
     let profiles = match v.get("include_profiles") {
         None => true,
         Some(p) => p.as_bool().ok_or("include_profiles must be boolean")?,

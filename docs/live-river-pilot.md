@@ -42,7 +42,11 @@ support limit, not a changed menu. Off-tree reuse is not claimed.
 ## Fixed small pilot
 
 Before measurement freeze six deterministic legal public roots with different
-boards, positions, pot sizes and prior folded-seat histories. Use the existing
+boards, positions, pot sizes and prior folded-seat histories. The first four
+are deeper, short-history states; the last two are declared near-all-in support
+controls with long minimum-raise histories. These are synthetic engineering
+fixtures, not a representative frequency sample or an eligibility-rate estimate.
+Use the existing
 seed2026101935003 10B binary and pinned K50 tables read-only on bb128; load once
 into a persistent process. Run 16/64/256 sweeps with three fixed repetitions,
 then one 1024-sweep engineering reference per supported root. No outcome-based
