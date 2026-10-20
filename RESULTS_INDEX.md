@@ -1,4 +1,4 @@
-## PR367 — fresh v0.6 acceptance, qualification before final hands
+## PR367 — fresh v0.6 acceptance, qualified workflow running
 
 [PR367](https://github.com/dberweger2017/CFR-NLHE-6max/pull/367),
 [proposal366](https://github.com/dberweger2017/CFR-NLHE-6max/issues/366),
@@ -11,7 +11,13 @@ plus matching reproduction. No result/acceptance claim before the global barrier
 Retain PR357 relative regressions beside the new absolute-profit gates.
 
 Owned bb128 base `/home/dberweger/nplayer-v06-acceptance-20261020/`;
-qualification and source snapshots retained, main launch record pending.
+qualification and source snapshots retained. Main-v1 launched11:02:37UTC, PID649076,
+frozen source7f36a93a, config3c711be0c8d05e3750498a59bff8b80887594decf52f3295c010333894b898a9.
+[Launch and qualification](docs/reports/nplayer-v06-acceptance/launch.md),
+[compact receipt](docs/reports/nplayer-v06-acceptance/launch.json).
+Final fixture36cases/432initial+432reproduction hands and all70stages pass;
+63native library,4arena,7Python tests and216engine-parity hands pass.
+Original-pair preparation precedes the fresh acceptance hands; no outcome yet.
 New-owned staging namespace
 `/mnt/data2tb/research-cloud/PR-367-nplayer-v06-acceptance/` with verified copies
 and accessible original paths. Existing PR350/355/357/361/362 inputs protected.
