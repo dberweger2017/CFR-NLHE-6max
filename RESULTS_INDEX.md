@@ -1,3 +1,14 @@
+## PR361 — mature inference validation running
+
+[PR361](https://github.com/dberweger2017/CFR-NLHE-6max/pull/361),
+[protocol](docs/nplayer-inference-validation.md),
+[launch/provenance](docs/reports/nplayer-inference-validation/launch.md),
+[compact snapshot](docs/reports/nplayer-inference-validation/launch.json).
+Runtimec06fc565; bb128 main-v1PID622098, launchedOct20,06:52:34UTC.
+Full33-stage fixture passes; mature results pending. New-owned cache namespace
+PR-361-nplayer-inference-validation; all originals/partials retained.
+Archive and Drive receipt pending, so no remote acceptance/retrieval claim.
+
 ## PR359 — exact binary inference, local qualification only
 
 [Draft PR359](https://github.com/dberweger2017/CFR-NLHE-6max/pull/359),
