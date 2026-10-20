@@ -1,0 +1,2858 @@
+{
+  "status": "settled",
+  "provenance": {
+    "pr": 361,
+    "root": "/home/dberweger/nplayer-inference-validation-20261020/main-v1",
+    "runtime_source": "c06fc565",
+    "source_bundle_sha256": "6096a8517c93f0204efad6c2859d7d020d2d688b9da07e1efa2103e22038c064",
+    "result_sha256": "4d86548d8fa33c6a215463189d984c76035e6fa7acbf722b5932a89f9621efc6",
+    "retrieved_compact_evidence_sha256": "3c97efd1f8758031ec43560fdd795bbd31d4e8a8b7b567d93f856ad10a2ed2c0",
+    "launch": {
+      "pid": 622098,
+      "at": 1792479154.964509,
+      "config_sha256": "0c64d074aedffe0c50bcf86e059e172b37347811a5f42599e64cea484ef5defb",
+      "source": "c06fc565"
+    },
+    "terminal": {
+      "status": "complete",
+      "at": 1792486381.2396386,
+      "result_sha256": "4d86548d8fa33c6a215463189d984c76035e6fa7acbf722b5932a89f9621efc6"
+    },
+    "binary_pins": {
+      "inference": "51b7735a4d2b78920dbb80d0e5884306a60a69458bb7b03ce4d9078223fcfbfe",
+      "arena": "e23591c8f56ec8f39a7b411011d387781b67ff4c8374698ceb3164798a9e55b5"
+    },
+    "seed": 202610200601,
+    "all_33_stage_returncodes_zero": true,
+    "failure_file_absent_at_retrieval": true
+  },
+  "run_result": {
+    "status": "settled",
+    "source": "c06fc565",
+    "config_sha256": "0c64d074aedffe0c50bcf86e059e172b37347811a5f42599e64cea484ef5defb",
+    "conversions": {
+      "baseline": {
+        "bytes": 14148446930,
+        "conversion_seconds": 317.144693207,
+        "metadata": {
+          "byte_order": "little",
+          "dtype": "float64",
+          "format": "nplayer-policy-binary-v1",
+          "mass": {
+            "keyset_sha256": "d2e9bbadb39aa5f6504b077cdfd764fd5f41c4407706f9f5b6124325154a10a3",
+            "positive_mass_rows": 170197626,
+            "receipt_sha256": "3e9a93c694733e86199fd33d123b3c9d06e30c9b2479379d3ff1a885ac165c03",
+            "zero_keys_sha256": "a8dc804abb529173606451264371f3079e2eeb5a65fe9c89bac23ed237df8a38",
+            "zero_mass_rows": 79803443
+          },
+          "policy": {
+            "continuation": "none",
+            "entries": 250001069,
+            "format": "nplayer-policy-v1",
+            "identity": {
+              "big_blind": 100,
+              "card_tables": [
+                "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+                "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+                "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+              ],
+              "game": "nlhe-cash",
+              "menu": "min-pot-conditional-jam-v1",
+              "players": 3,
+              "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+              "small_blind": 50,
+              "stacks": [
+                10000,
+                10000,
+                10000
+              ],
+              "utility_unit": "big-blind"
+            },
+            "last_average_street": 3,
+            "missing": "uniform",
+            "players": 3,
+            "source_checkpoint_sha256": "46353888a1425189555da3414aef862f7912bbc8e325b7b77af635230ae0b94c",
+            "strategy": "average"
+          },
+          "record_bytes": 32,
+          "source_policy_sha256": "9890286b1cb5d4cf71380d7cd07c6d220ac98e7b05cc6165837cd60b426bbf78"
+        },
+        "probabilities": 768551424,
+        "rows": 250001069,
+        "sha256": "41b70ad8bd60312c6c3fe300abefb316fd427a062e5303b8d566b456053d77af",
+        "source_policy_sha256": "9890286b1cb5d4cf71380d7cd07c6d220ac98e7b05cc6165837cd60b426bbf78",
+        "status": "converted"
+      },
+      "candidate": {
+        "bytes": 14148446930,
+        "conversion_seconds": 324.4734225,
+        "metadata": {
+          "byte_order": "little",
+          "dtype": "float64",
+          "format": "nplayer-policy-binary-v1",
+          "mass": {
+            "keyset_sha256": "d2e9bbadb39aa5f6504b077cdfd764fd5f41c4407706f9f5b6124325154a10a3",
+            "positive_mass_rows": 181590424,
+            "receipt_sha256": "d1740074496f7bed582cb6829a9c1316ba43b2d1740fc2922a76d361bf1f5ad0",
+            "zero_keys_sha256": "82f0d3bdc3def6e084eef1d09c9fcd505e3587dc88c620175e4cae30a81f06a0",
+            "zero_mass_rows": 68410645
+          },
+          "policy": {
+            "continuation": "none",
+            "entries": 250001069,
+            "format": "nplayer-policy-v1",
+            "identity": {
+              "big_blind": 100,
+              "card_tables": [
+                "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+                "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+                "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+              ],
+              "game": "nlhe-cash",
+              "menu": "min-pot-conditional-jam-v1",
+              "players": 3,
+              "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+              "small_blind": 50,
+              "stacks": [
+                10000,
+                10000,
+                10000
+              ],
+              "utility_unit": "big-blind"
+            },
+            "last_average_street": 3,
+            "missing": "uniform",
+            "players": 3,
+            "source_checkpoint_sha256": "d03db22316af0e8bd04e76f5303603709bd77b2bf13dcc13ea07482ca10170ca",
+            "strategy": "average"
+          },
+          "record_bytes": 32,
+          "source_policy_sha256": "fbb0b16f8459376519c9ea81c2c2d33b8c08d36efeb8cc2ca9d148eaf08b8843"
+        },
+        "probabilities": 768551424,
+        "rows": 250001069,
+        "sha256": "23599816cf632a51cace45f25d70ed4918fe5e75875c33136d8629052a8a2a70",
+        "source_policy_sha256": "fbb0b16f8459376519c9ea81c2c2d33b8c08d36efeb8cc2ca9d148eaf08b8843",
+        "status": "converted"
+      }
+    },
+    "audits": {
+      "baseline": {
+        "binary_sha256": "41b70ad8bd60312c6c3fe300abefb316fd427a062e5303b8d566b456053d77af",
+        "rows": 250001069,
+        "source_policy_sha256": "9890286b1cb5d4cf71380d7cd07c6d220ac98e7b05cc6165837cd60b426bbf78",
+        "status": "passed",
+        "verify_seconds": 317.447004637
+      },
+      "candidate": {
+        "binary_sha256": "23599816cf632a51cace45f25d70ed4918fe5e75875c33136d8629052a8a2a70",
+        "rows": 250001069,
+        "source_policy_sha256": "fbb0b16f8459376519c9ea81c2c2d33b8c08d36efeb8cc2ca9d148eaf08b8843",
+        "status": "passed",
+        "verify_seconds": 328.056240342
+      }
+    },
+    "loads": [
+      {
+        "alias": "baseline",
+        "order": 0,
+        "average_scope": 3,
+        "binary_source_policy_sha256": null,
+        "fine_profile": false,
+        "format": "gzip-json",
+        "identity": {
+          "big_blind": 100,
+          "card_tables": [
+            "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+            "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+            "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+          ],
+          "game": "nlhe-cash",
+          "menu": "min-pot-conditional-jam-v1",
+          "players": 3,
+          "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+          "small_blind": 50,
+          "stacks": [
+            10000,
+            10000,
+            10000
+          ],
+          "utility_unit": "big-blind"
+        },
+        "index_insert_seconds": 0.0,
+        "parse_validate_allocate_seconds": 0.0,
+        "rows": 250001069,
+        "source_checkpoint_sha256": "46353888a1425189555da3414aef862f7912bbc8e325b7b77af635230ae0b94c",
+        "status": "passed",
+        "strategy": "average",
+        "stream_decode_seconds": 0.0,
+        "total_seconds": 201.309120033,
+        "verify_file_seconds": 18.20740255
+      },
+      {
+        "alias": "baseline",
+        "order": 1,
+        "average_scope": 3,
+        "binary_source_policy_sha256": "9890286b1cb5d4cf71380d7cd07c6d220ac98e7b05cc6165837cd60b426bbf78",
+        "fine_profile": false,
+        "format": "binary",
+        "identity": {
+          "big_blind": 100,
+          "card_tables": [
+            "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+            "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+            "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+          ],
+          "game": "nlhe-cash",
+          "menu": "min-pot-conditional-jam-v1",
+          "players": 3,
+          "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+          "small_blind": 50,
+          "stacks": [
+            10000,
+            10000,
+            10000
+          ],
+          "utility_unit": "big-blind"
+        },
+        "index_insert_seconds": 0.0,
+        "parse_validate_allocate_seconds": 0.0,
+        "rows": 250001069,
+        "source_checkpoint_sha256": "46353888a1425189555da3414aef862f7912bbc8e325b7b77af635230ae0b94c",
+        "status": "passed",
+        "strategy": "average",
+        "stream_decode_seconds": 0.0,
+        "total_seconds": 114.84763205,
+        "verify_file_seconds": 46.334636003
+      },
+      {
+        "alias": "baseline",
+        "order": 2,
+        "average_scope": 3,
+        "binary_source_policy_sha256": null,
+        "fine_profile": false,
+        "format": "gzip-json",
+        "identity": {
+          "big_blind": 100,
+          "card_tables": [
+            "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+            "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+            "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+          ],
+          "game": "nlhe-cash",
+          "menu": "min-pot-conditional-jam-v1",
+          "players": 3,
+          "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+          "small_blind": 50,
+          "stacks": [
+            10000,
+            10000,
+            10000
+          ],
+          "utility_unit": "big-blind"
+        },
+        "index_insert_seconds": 0.0,
+        "parse_validate_allocate_seconds": 0.0,
+        "rows": 250001069,
+        "source_checkpoint_sha256": "46353888a1425189555da3414aef862f7912bbc8e325b7b77af635230ae0b94c",
+        "status": "passed",
+        "strategy": "average",
+        "stream_decode_seconds": 0.0,
+        "total_seconds": 203.263044184,
+        "verify_file_seconds": 18.428828082
+      },
+      {
+        "alias": "baseline",
+        "order": 3,
+        "average_scope": 3,
+        "binary_source_policy_sha256": "9890286b1cb5d4cf71380d7cd07c6d220ac98e7b05cc6165837cd60b426bbf78",
+        "fine_profile": false,
+        "format": "binary",
+        "identity": {
+          "big_blind": 100,
+          "card_tables": [
+            "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+            "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+            "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+          ],
+          "game": "nlhe-cash",
+          "menu": "min-pot-conditional-jam-v1",
+          "players": 3,
+          "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+          "small_blind": 50,
+          "stacks": [
+            10000,
+            10000,
+            10000
+          ],
+          "utility_unit": "big-blind"
+        },
+        "index_insert_seconds": 0.0,
+        "parse_validate_allocate_seconds": 0.0,
+        "rows": 250001069,
+        "source_checkpoint_sha256": "46353888a1425189555da3414aef862f7912bbc8e325b7b77af635230ae0b94c",
+        "status": "passed",
+        "strategy": "average",
+        "stream_decode_seconds": 0.0,
+        "total_seconds": 116.191831492,
+        "verify_file_seconds": 46.821359936
+      },
+      {
+        "alias": "baseline",
+        "order": 4,
+        "average_scope": 3,
+        "binary_source_policy_sha256": null,
+        "fine_profile": false,
+        "format": "gzip-json",
+        "identity": {
+          "big_blind": 100,
+          "card_tables": [
+            "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+            "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+            "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+          ],
+          "game": "nlhe-cash",
+          "menu": "min-pot-conditional-jam-v1",
+          "players": 3,
+          "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+          "small_blind": 50,
+          "stacks": [
+            10000,
+            10000,
+            10000
+          ],
+          "utility_unit": "big-blind"
+        },
+        "index_insert_seconds": 0.0,
+        "parse_validate_allocate_seconds": 0.0,
+        "rows": 250001069,
+        "source_checkpoint_sha256": "46353888a1425189555da3414aef862f7912bbc8e325b7b77af635230ae0b94c",
+        "status": "passed",
+        "strategy": "average",
+        "stream_decode_seconds": 0.0,
+        "total_seconds": 204.070304753,
+        "verify_file_seconds": 18.441400654
+      },
+      {
+        "alias": "baseline",
+        "order": 5,
+        "average_scope": 3,
+        "binary_source_policy_sha256": "9890286b1cb5d4cf71380d7cd07c6d220ac98e7b05cc6165837cd60b426bbf78",
+        "fine_profile": false,
+        "format": "binary",
+        "identity": {
+          "big_blind": 100,
+          "card_tables": [
+            "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+            "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+            "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+          ],
+          "game": "nlhe-cash",
+          "menu": "min-pot-conditional-jam-v1",
+          "players": 3,
+          "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+          "small_blind": 50,
+          "stacks": [
+            10000,
+            10000,
+            10000
+          ],
+          "utility_unit": "big-blind"
+        },
+        "index_insert_seconds": 0.0,
+        "parse_validate_allocate_seconds": 0.0,
+        "rows": 250001069,
+        "source_checkpoint_sha256": "46353888a1425189555da3414aef862f7912bbc8e325b7b77af635230ae0b94c",
+        "status": "passed",
+        "strategy": "average",
+        "stream_decode_seconds": 0.0,
+        "total_seconds": 115.906047773,
+        "verify_file_seconds": 46.639729013
+      },
+      {
+        "alias": "candidate",
+        "order": 0,
+        "average_scope": 3,
+        "binary_source_policy_sha256": null,
+        "fine_profile": false,
+        "format": "gzip-json",
+        "identity": {
+          "big_blind": 100,
+          "card_tables": [
+            "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+            "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+            "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+          ],
+          "game": "nlhe-cash",
+          "menu": "min-pot-conditional-jam-v1",
+          "players": 3,
+          "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+          "small_blind": 50,
+          "stacks": [
+            10000,
+            10000,
+            10000
+          ],
+          "utility_unit": "big-blind"
+        },
+        "index_insert_seconds": 0.0,
+        "parse_validate_allocate_seconds": 0.0,
+        "rows": 250001069,
+        "source_checkpoint_sha256": "d03db22316af0e8bd04e76f5303603709bd77b2bf13dcc13ea07482ca10170ca",
+        "status": "passed",
+        "strategy": "average",
+        "stream_decode_seconds": 0.0,
+        "total_seconds": 212.108907708,
+        "verify_file_seconds": 20.454713297
+      },
+      {
+        "alias": "candidate",
+        "order": 1,
+        "average_scope": 3,
+        "binary_source_policy_sha256": "fbb0b16f8459376519c9ea81c2c2d33b8c08d36efeb8cc2ca9d148eaf08b8843",
+        "fine_profile": false,
+        "format": "binary",
+        "identity": {
+          "big_blind": 100,
+          "card_tables": [
+            "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+            "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+            "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+          ],
+          "game": "nlhe-cash",
+          "menu": "min-pot-conditional-jam-v1",
+          "players": 3,
+          "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+          "small_blind": 50,
+          "stacks": [
+            10000,
+            10000,
+            10000
+          ],
+          "utility_unit": "big-blind"
+        },
+        "index_insert_seconds": 0.0,
+        "parse_validate_allocate_seconds": 0.0,
+        "rows": 250001069,
+        "source_checkpoint_sha256": "d03db22316af0e8bd04e76f5303603709bd77b2bf13dcc13ea07482ca10170ca",
+        "status": "passed",
+        "strategy": "average",
+        "stream_decode_seconds": 0.0,
+        "total_seconds": 115.775678971,
+        "verify_file_seconds": 46.678545959
+      },
+      {
+        "alias": "candidate",
+        "order": 2,
+        "average_scope": 3,
+        "binary_source_policy_sha256": null,
+        "fine_profile": false,
+        "format": "gzip-json",
+        "identity": {
+          "big_blind": 100,
+          "card_tables": [
+            "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+            "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+            "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+          ],
+          "game": "nlhe-cash",
+          "menu": "min-pot-conditional-jam-v1",
+          "players": 3,
+          "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+          "small_blind": 50,
+          "stacks": [
+            10000,
+            10000,
+            10000
+          ],
+          "utility_unit": "big-blind"
+        },
+        "index_insert_seconds": 0.0,
+        "parse_validate_allocate_seconds": 0.0,
+        "rows": 250001069,
+        "source_checkpoint_sha256": "d03db22316af0e8bd04e76f5303603709bd77b2bf13dcc13ea07482ca10170ca",
+        "status": "passed",
+        "strategy": "average",
+        "stream_decode_seconds": 0.0,
+        "total_seconds": 211.49528179,
+        "verify_file_seconds": 20.532963539
+      },
+      {
+        "alias": "candidate",
+        "order": 3,
+        "average_scope": 3,
+        "binary_source_policy_sha256": "fbb0b16f8459376519c9ea81c2c2d33b8c08d36efeb8cc2ca9d148eaf08b8843",
+        "fine_profile": false,
+        "format": "binary",
+        "identity": {
+          "big_blind": 100,
+          "card_tables": [
+            "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+            "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+            "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+          ],
+          "game": "nlhe-cash",
+          "menu": "min-pot-conditional-jam-v1",
+          "players": 3,
+          "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+          "small_blind": 50,
+          "stacks": [
+            10000,
+            10000,
+            10000
+          ],
+          "utility_unit": "big-blind"
+        },
+        "index_insert_seconds": 0.0,
+        "parse_validate_allocate_seconds": 0.0,
+        "rows": 250001069,
+        "source_checkpoint_sha256": "d03db22316af0e8bd04e76f5303603709bd77b2bf13dcc13ea07482ca10170ca",
+        "status": "passed",
+        "strategy": "average",
+        "stream_decode_seconds": 0.0,
+        "total_seconds": 115.927105933,
+        "verify_file_seconds": 46.550856726
+      },
+      {
+        "alias": "candidate",
+        "order": 4,
+        "average_scope": 3,
+        "binary_source_policy_sha256": null,
+        "fine_profile": false,
+        "format": "gzip-json",
+        "identity": {
+          "big_blind": 100,
+          "card_tables": [
+            "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+            "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+            "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+          ],
+          "game": "nlhe-cash",
+          "menu": "min-pot-conditional-jam-v1",
+          "players": 3,
+          "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+          "small_blind": 50,
+          "stacks": [
+            10000,
+            10000,
+            10000
+          ],
+          "utility_unit": "big-blind"
+        },
+        "index_insert_seconds": 0.0,
+        "parse_validate_allocate_seconds": 0.0,
+        "rows": 250001069,
+        "source_checkpoint_sha256": "d03db22316af0e8bd04e76f5303603709bd77b2bf13dcc13ea07482ca10170ca",
+        "status": "passed",
+        "strategy": "average",
+        "stream_decode_seconds": 0.0,
+        "total_seconds": 211.518629985,
+        "verify_file_seconds": 20.517042833
+      },
+      {
+        "alias": "candidate",
+        "order": 5,
+        "average_scope": 3,
+        "binary_source_policy_sha256": "fbb0b16f8459376519c9ea81c2c2d33b8c08d36efeb8cc2ca9d148eaf08b8843",
+        "fine_profile": false,
+        "format": "binary",
+        "identity": {
+          "big_blind": 100,
+          "card_tables": [
+            "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+            "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+            "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+          ],
+          "game": "nlhe-cash",
+          "menu": "min-pot-conditional-jam-v1",
+          "players": 3,
+          "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+          "small_blind": 50,
+          "stacks": [
+            10000,
+            10000,
+            10000
+          ],
+          "utility_unit": "big-blind"
+        },
+        "index_insert_seconds": 0.0,
+        "parse_validate_allocate_seconds": 0.0,
+        "rows": 250001069,
+        "source_checkpoint_sha256": "d03db22316af0e8bd04e76f5303603709bd77b2bf13dcc13ea07482ca10170ca",
+        "status": "passed",
+        "strategy": "average",
+        "stream_decode_seconds": 0.0,
+        "total_seconds": 116.041977328,
+        "verify_file_seconds": 46.671935396
+      }
+    ],
+    "medians": {
+      "baseline": {
+        "gzip-json": 203.263044184,
+        "binary": 115.906047773
+      },
+      "candidate": {
+        "gzip-json": 211.518629985,
+        "binary": 115.927105933
+      }
+    },
+    "load_speedups": {
+      "baseline": 1.7536879920371988,
+      "candidate": 1.824583028124993
+    },
+    "first_actions": {
+      "baseline-gzip-json": {
+        "action": [
+          "fold",
+          0
+        ],
+        "first_action_seconds": 206.271618419,
+        "fixture": "fixed deck 0..51, button0, action seed20261020359",
+        "format": "gzip-json",
+        "misses": 0,
+        "policy_load_seconds": 201.337769895,
+        "status": "passed"
+      },
+      "baseline-binary": {
+        "action": [
+          "fold",
+          0
+        ],
+        "first_action_seconds": 121.051549974,
+        "fixture": "fixed deck 0..51, button0, action seed20261020359",
+        "format": "binary",
+        "misses": 0,
+        "policy_load_seconds": 116.113650462,
+        "status": "passed"
+      },
+      "candidate-gzip-json": {
+        "action": [
+          "fold",
+          0
+        ],
+        "first_action_seconds": 216.890014276,
+        "fixture": "fixed deck 0..51, button0, action seed20261020359",
+        "format": "gzip-json",
+        "misses": 0,
+        "policy_load_seconds": 211.938156125,
+        "status": "passed"
+      },
+      "candidate-binary": {
+        "action": [
+          "fold",
+          0
+        ],
+        "first_action_seconds": 119.680520122,
+        "fixture": "fixed deck 0..51, button0, action seed20261020359",
+        "format": "binary",
+        "misses": 0,
+        "policy_load_seconds": 114.715303967,
+        "status": "passed"
+      }
+    },
+    "profile": {
+      "average_scope": 3,
+      "binary_source_policy_sha256": null,
+      "fine_profile": true,
+      "format": "gzip-json",
+      "identity": {
+        "big_blind": 100,
+        "card_tables": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "game": "nlhe-cash",
+        "menu": "min-pot-conditional-jam-v1",
+        "players": 3,
+        "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+        "small_blind": 50,
+        "stacks": [
+          10000,
+          10000,
+          10000
+        ],
+        "utility_unit": "big-blind"
+      },
+      "index_insert_seconds": 29.05555775447879,
+      "parse_validate_allocate_seconds": 100.91093952485645,
+      "rows": 250001069,
+      "source_checkpoint_sha256": "46353888a1425189555da3414aef862f7912bbc8e325b7b77af635230ae0b94c",
+      "status": "passed",
+      "strategy": "average",
+      "stream_decode_seconds": 54.68187786694797,
+      "total_seconds": 229.693487891,
+      "verify_file_seconds": 18.436739148
+    },
+    "complete_job_wall_seconds": {
+      "gzip": 635.4334774650051,
+      "binary": 325.99043520598207
+    },
+    "costs": {
+      "gzip-job": {
+        "returncode": 0,
+        "wall_seconds": 594.4663756969967,
+        "cpu_seconds": 716.496779,
+        "peak_rss_bytes": 70807556096,
+        "minor_faults": 11258655,
+        "major_faults": 0,
+        "inblocks": 507888,
+        "outblocks": 12310360
+      },
+      "binary-job": {
+        "returncode": 0,
+        "wall_seconds": 285.524803125998,
+        "cpu_seconds": 411.635368,
+        "peak_rss_bytes": 29690953728,
+        "minor_faults": 21109,
+        "major_faults": 0,
+        "inblocks": 0,
+        "outblocks": 12310360
+      },
+      "gzip-job-replay": {
+        "returncode": 0,
+        "wall_seconds": 40.96710176800843,
+        "cpu_seconds": 296.40646100000004,
+        "peak_rss_bytes": 2390085632,
+        "minor_faults": 635353,
+        "major_faults": 0,
+        "inblocks": 2368,
+        "outblocks": 304
+      },
+      "binary-job-replay": {
+        "returncode": 0,
+        "wall_seconds": 40.46563207998406,
+        "cpu_seconds": 296.04424800000004,
+        "peak_rss_bytes": 2390007808,
+        "minor_faults": 644375,
+        "major_faults": 0,
+        "inblocks": 776,
+        "outblocks": 304
+      }
+    },
+    "binary_files": {
+      "baseline": {
+        "bytes": 14148446930,
+        "allocated_bytes": 14148452352
+      },
+      "candidate": {
+        "bytes": 14148446930,
+        "allocated_bytes": 14148452352
+      }
+    },
+    "models": {
+      "baseline": {
+        "path": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/inputs/baseline.bin",
+        "sha256": "41b70ad8bd60312c6c3fe300abefb316fd427a062e5303b8d566b456053d77af",
+        "checkpoint": "/home/dberweger/nplayer-bb100-confirmation-20261020/main-v1/lineage-202610200601/baseline/3000000000.gz",
+        "checkpoint_sha256": "46353888a1425189555da3414aef862f7912bbc8e325b7b77af635230ae0b94c",
+        "strategy": "average",
+        "scope": 3,
+        "mass": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/inputs/baseline-mass",
+        "mass_sha256": "3e9a93c694733e86199fd33d123b3c9d06e30c9b2479379d3ff1a885ac165c03"
+      },
+      "candidate": {
+        "path": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/inputs/candidate.bin",
+        "sha256": "23599816cf632a51cace45f25d70ed4918fe5e75875c33136d8629052a8a2a70",
+        "checkpoint": "/home/dberweger/nplayer-bb100-confirmation-20261020/main-v1/lineage-202610200601/candidate/10000000000.gz",
+        "checkpoint_sha256": "d03db22316af0e8bd04e76f5303603709bd77b2bf13dcc13ea07482ca10170ca",
+        "strategy": "average",
+        "scope": 3,
+        "mass": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/inputs/candidate-mass",
+        "mass_sha256": "d1740074496f7bed582cb6829a9c1316ba43b2d1740fc2922a76d361bf1f5ad0"
+      }
+    },
+    "load_gate": false,
+    "whole_job_gate": true,
+    "parity": {
+      "status": "passed",
+      "hands": 884736,
+      "cases": {
+        "direct-0": 49152,
+        "direct-1": 49152,
+        "random-candidate": 49152,
+        "random-baseline": 49152,
+        "check-call-candidate": 49152,
+        "check-call-baseline": 49152,
+        "tight-aggressive-candidate": 49152,
+        "tight-aggressive-baseline": 49152,
+        "pot-pressure-candidate": 49152,
+        "pot-pressure-baseline": 49152,
+        "trained-call-candidate": 49152,
+        "trained-call-baseline": 49152,
+        "trained-pressure-candidate": 49152,
+        "trained-pressure-baseline": 49152,
+        "call-pressure-candidate": 49152,
+        "call-pressure-baseline": 49152,
+        "random-tight-candidate": 49152,
+        "random-tight-baseline": 49152
+      }
+    },
+    "completed": 1792485212.7978456,
+    "limits": "One seed/pair/host, fixed JSON-first order, ordinary caches; conversion/audit and staging separate, no strength claim."
+  },
+  "summaries": {
+    "baseline": {
+      "gzip-json": {
+        "median_native_load_seconds": 203.263044184,
+        "median_process_wall_seconds": 240.12781610299135,
+        "median_process_peak_rss_bytes": 34710093824
+      },
+      "binary": {
+        "median_native_load_seconds": 115.906047773,
+        "median_process_wall_seconds": 115.928857183957,
+        "median_process_peak_rss_bytes": 14152855552
+      }
+    },
+    "candidate": {
+      "gzip-json": {
+        "median_native_load_seconds": 211.518629985,
+        "median_process_wall_seconds": 248.46117542800494,
+        "median_process_peak_rss_bytes": 34710102016
+      },
+      "binary": {
+        "median_native_load_seconds": 115.927105933,
+        "median_process_wall_seconds": 115.94985041499604,
+        "median_process_peak_rss_bytes": 14152781824
+      }
+    }
+  },
+  "stage_costs": {
+    "audit-baseline": {
+      "returncode": 0,
+      "wall_seconds": 317.4700622499804,
+      "cpu_seconds": 317.436078,
+      "peak_rss_bytes": 14153093120,
+      "minor_faults": 8422,
+      "major_faults": 0,
+      "inblocks": 0,
+      "outblocks": 8
+    },
+    "audit-candidate": {
+      "returncode": 0,
+      "wall_seconds": 328.0791098230402,
+      "cpu_seconds": 328.038547,
+      "peak_rss_bytes": 14153007104,
+      "minor_faults": 8391,
+      "major_faults": 0,
+      "inblocks": 0,
+      "outblocks": 8
+    },
+    "binary-job": {
+      "returncode": 0,
+      "wall_seconds": 285.524803125998,
+      "cpu_seconds": 411.635368,
+      "peak_rss_bytes": 29690953728,
+      "minor_faults": 21109,
+      "major_faults": 0,
+      "inblocks": 0,
+      "outblocks": 12310360
+    },
+    "binary-job-replay": {
+      "returncode": 0,
+      "wall_seconds": 40.46563207998406,
+      "cpu_seconds": 296.04424800000004,
+      "peak_rss_bytes": 2390007808,
+      "minor_faults": 644375,
+      "major_faults": 0,
+      "inblocks": 776,
+      "outblocks": 304
+    },
+    "build": {
+      "returncode": 0,
+      "wall_seconds": 0.02498186402954161,
+      "cpu_seconds": 0.025419999999999998,
+      "peak_rss_bytes": 25657344,
+      "minor_faults": 3737,
+      "major_faults": 0,
+      "inblocks": 0,
+      "outblocks": 24
+    },
+    "compare-hand-rows": {
+      "returncode": 0,
+      "wall_seconds": 2.808391307014972,
+      "cpu_seconds": 2.803289,
+      "peak_rss_bytes": 21823488,
+      "minor_faults": 2706,
+      "major_faults": 0,
+      "inblocks": 0,
+      "outblocks": 8
+    },
+    "convert-baseline": {
+      "returncode": 0,
+      "wall_seconds": 317.14575324603356,
+      "cpu_seconds": 317.079687,
+      "peak_rss_bytes": 21385216,
+      "minor_faults": 1148,
+      "major_faults": 0,
+      "inblocks": 0,
+      "outblocks": 27633848
+    },
+    "convert-candidate": {
+      "returncode": 0,
+      "wall_seconds": 324.4743852080428,
+      "cpu_seconds": 324.402161,
+      "peak_rss_bytes": 21803008,
+      "minor_faults": 1147,
+      "major_faults": 0,
+      "inblocks": 0,
+      "outblocks": 27633864
+    },
+    "first-baseline-binary": {
+      "returncode": 0,
+      "wall_seconds": 121.07661338301841,
+      "cpu_seconds": 121.062445,
+      "peak_rss_bytes": 15536967680,
+      "minor_faults": 12084,
+      "major_faults": 0,
+      "inblocks": 0,
+      "outblocks": 8
+    },
+    "first-baseline-gzip-json": {
+      "returncode": 0,
+      "wall_seconds": 243.06004181102617,
+      "cpu_seconds": 243.020155,
+      "peak_rss_bytes": 36095021056,
+      "minor_faults": 3114951,
+      "major_faults": 0,
+      "inblocks": 672,
+      "outblocks": 8
+    },
+    "first-candidate-binary": {
+      "returncode": 0,
+      "wall_seconds": 119.70602011302253,
+      "cpu_seconds": 119.691136,
+      "peak_rss_bytes": 15536893952,
+      "minor_faults": 12084,
+      "major_faults": 0,
+      "inblocks": 0,
+      "outblocks": 8
+    },
+    "first-candidate-gzip-json": {
+      "returncode": 0,
+      "wall_seconds": 254.06760186102474,
+      "cpu_seconds": 254.03205,
+      "peak_rss_bytes": 36095373312,
+      "minor_faults": 3114963,
+      "major_faults": 0,
+      "inblocks": 0,
+      "outblocks": 8
+    },
+    "gzip-job": {
+      "returncode": 0,
+      "wall_seconds": 594.4663756969967,
+      "cpu_seconds": 716.496779,
+      "peak_rss_bytes": 70807556096,
+      "minor_faults": 11258655,
+      "major_faults": 0,
+      "inblocks": 507888,
+      "outblocks": 12310360
+    },
+    "gzip-job-replay": {
+      "returncode": 0,
+      "wall_seconds": 40.96710176800843,
+      "cpu_seconds": 296.40646100000004,
+      "peak_rss_bytes": 2390085632,
+      "minor_faults": 635353,
+      "major_faults": 0,
+      "inblocks": 2368,
+      "outblocks": 304
+    },
+    "legacy-profile": {
+      "returncode": 0,
+      "wall_seconds": 266.3747582830256,
+      "cpu_seconds": 266.325207,
+      "peak_rss_bytes": 34710007808,
+      "minor_faults": 3110991,
+      "major_faults": 0,
+      "inblocks": 0,
+      "outblocks": 8
+    },
+    "load-baseline-0": {
+      "returncode": 0,
+      "wall_seconds": 237.9450994390063,
+      "cpu_seconds": 237.903779,
+      "peak_rss_bytes": 34710126592,
+      "minor_faults": 3110994,
+      "major_faults": 0,
+      "inblocks": 0,
+      "outblocks": 8
+    },
+    "load-baseline-1": {
+      "returncode": 0,
+      "wall_seconds": 114.87024768203264,
+      "cpu_seconds": 114.855934,
+      "peak_rss_bytes": 14153015296,
+      "minor_faults": 8889,
+      "major_faults": 0,
+      "inblocks": 0,
+      "outblocks": 8
+    },
+    "load-baseline-2": {
+      "returncode": 0,
+      "wall_seconds": 240.12781610299135,
+      "cpu_seconds": 240.08764299999999,
+      "peak_rss_bytes": 34709991424,
+      "minor_faults": 3110989,
+      "major_faults": 0,
+      "inblocks": 0,
+      "outblocks": 8
+    },
+    "load-baseline-3": {
+      "returncode": 0,
+      "wall_seconds": 116.21462907997193,
+      "cpu_seconds": 116.200422,
+      "peak_rss_bytes": 14152822784,
+      "minor_faults": 8886,
+      "major_faults": 0,
+      "inblocks": 0,
+      "outblocks": 8
+    },
+    "load-baseline-4": {
+      "returncode": 0,
+      "wall_seconds": 241.61296586703975,
+      "cpu_seconds": 241.580427,
+      "peak_rss_bytes": 34710093824,
+      "minor_faults": 3110990,
+      "major_faults": 0,
+      "inblocks": 0,
+      "outblocks": 8
+    },
+    "load-baseline-5": {
+      "returncode": 0,
+      "wall_seconds": 115.928857183957,
+      "cpu_seconds": 115.915205,
+      "peak_rss_bytes": 14152855552,
+      "minor_faults": 8886,
+      "major_faults": 0,
+      "inblocks": 0,
+      "outblocks": 8
+    },
+    "load-candidate-0": {
+      "returncode": 0,
+      "wall_seconds": 249.35481964697829,
+      "cpu_seconds": 249.321015,
+      "peak_rss_bytes": 34710245376,
+      "minor_faults": 3110993,
+      "major_faults": 0,
+      "inblocks": 0,
+      "outblocks": 8
+    },
+    "load-candidate-1": {
+      "returncode": 0,
+      "wall_seconds": 115.79839896701742,
+      "cpu_seconds": 115.784149,
+      "peak_rss_bytes": 14152781824,
+      "minor_faults": 8374,
+      "major_faults": 0,
+      "inblocks": 0,
+      "outblocks": 8
+    },
+    "load-candidate-2": {
+      "returncode": 0,
+      "wall_seconds": 248.1466418170021,
+      "cpu_seconds": 248.103567,
+      "peak_rss_bytes": 34710102016,
+      "minor_faults": 3110988,
+      "major_faults": 0,
+      "inblocks": 0,
+      "outblocks": 8
+    },
+    "load-candidate-3": {
+      "returncode": 0,
+      "wall_seconds": 115.94985041499604,
+      "cpu_seconds": 115.93812299999999,
+      "peak_rss_bytes": 14152921088,
+      "minor_faults": 8888,
+      "major_faults": 0,
+      "inblocks": 0,
+      "outblocks": 8
+    },
+    "load-candidate-4": {
+      "returncode": 0,
+      "wall_seconds": 248.46117542800494,
+      "cpu_seconds": 248.428541,
+      "peak_rss_bytes": 34710040576,
+      "minor_faults": 3110991,
+      "major_faults": 0,
+      "inblocks": 0,
+      "outblocks": 8
+    },
+    "load-candidate-5": {
+      "returncode": 0,
+      "wall_seconds": 116.06482065597083,
+      "cpu_seconds": 116.050528,
+      "peak_rss_bytes": 14152765440,
+      "minor_faults": 8372,
+      "major_faults": 0,
+      "inblocks": 0,
+      "outblocks": 8
+    },
+    "native-qualification": {
+      "returncode": 0,
+      "wall_seconds": 0.18256168102379888,
+      "cpu_seconds": 0.28857299999999997,
+      "peak_rss_bytes": 25460736,
+      "minor_faults": 6730,
+      "major_faults": 0,
+      "inblocks": 0,
+      "outblocks": 16
+    },
+    "restore": {
+      "returncode": 0,
+      "wall_seconds": 55.05876691197045,
+      "cpu_seconds": 50.233245000000004,
+      "peak_rss_bytes": 30281728,
+      "minor_faults": 5228,
+      "major_faults": 0,
+      "inblocks": 200,
+      "outblocks": 27751032
+    },
+    "stage-binary-job": {
+      "returncode": 0,
+      "wall_seconds": 150.2265523680253,
+      "cpu_seconds": 35.535788,
+      "peak_rss_bytes": 31252480,
+      "minor_faults": 147177,
+      "major_faults": 0,
+      "inblocks": 24,
+      "outblocks": 12310560
+    },
+    "stage-final-derivatives": {
+      "returncode": 0,
+      "wall_seconds": 1168.3652960970066,
+      "cpu_seconds": 156.692387,
+      "peak_rss_bytes": 30953472,
+      "minor_faults": 11991,
+      "major_faults": 0,
+      "inblocks": 32,
+      "outblocks": 55267408
+    },
+    "stage-gzip-inputs": {
+      "returncode": 0,
+      "wall_seconds": 271.1247305669822,
+      "cpu_seconds": 64.549141,
+      "peak_rss_bytes": 31293440,
+      "minor_faults": 11992,
+      "major_faults": 0,
+      "inblocks": 1880,
+      "outblocks": 23119336
+    },
+    "stage-gzip-job": {
+      "returncode": 0,
+      "wall_seconds": 162.57212603796506,
+      "cpu_seconds": 36.014292,
+      "peak_rss_bytes": 31133696,
+      "minor_faults": 147180,
+      "major_faults": 0,
+      "inblocks": 280,
+      "outblocks": 12310632
+    }
+  },
+  "sampled_resources": {
+    "audit-baseline": {
+      "samples": 624,
+      "peak_rss_bytes": 14192365568,
+      "max_temperatures_c": {
+        "Thermistor 15": 58.5,
+        "Package id 0": 59.0
+      }
+    },
+    "audit-candidate": {
+      "samples": 645,
+      "peak_rss_bytes": 14193246208,
+      "max_temperatures_c": {
+        "Thermistor 15": 60.0,
+        "Package id 0": 56.0
+      }
+    },
+    "binary-job": {
+      "samples": 561,
+      "peak_rss_bytes": 29731454976,
+      "max_temperatures_c": {
+        "Thermistor 15": 65.5,
+        "Package id 0": 58.0
+      }
+    },
+    "binary-job-replay": {
+      "samples": 79,
+      "peak_rss_bytes": 14669721600,
+      "max_temperatures_c": {
+        "Thermistor 15": 77.0,
+        "Package id 0": 67.0
+      }
+    },
+    "build": {
+      "samples": 1,
+      "peak_rss_bytes": 13066240,
+      "max_temperatures_c": {
+        "Thermistor 15": 34.5,
+        "Package id 0": 38.0
+      }
+    },
+    "compare-hand-rows": {
+      "samples": 6,
+      "peak_rss_bytes": 60612608,
+      "max_temperatures_c": {
+        "Thermistor 15": 76.0,
+        "Package id 0": 64.0
+      }
+    },
+    "convert-baseline": {
+      "samples": 623,
+      "peak_rss_bytes": 45686784,
+      "max_temperatures_c": {
+        "Thermistor 15": 58.0,
+        "Package id 0": 58.0
+      }
+    },
+    "convert-candidate": {
+      "samples": 638,
+      "peak_rss_bytes": 45178880,
+      "max_temperatures_c": {
+        "Thermistor 15": 60.0,
+        "Package id 0": 58.0
+      }
+    },
+    "first-baseline-binary": {
+      "samples": 238,
+      "peak_rss_bytes": 14971461632,
+      "max_temperatures_c": {
+        "Thermistor 15": 60.0,
+        "Package id 0": 55.0
+      }
+    },
+    "first-baseline-gzip-json": {
+      "samples": 478,
+      "peak_rss_bytes": 36135636992,
+      "max_temperatures_c": {
+        "Thermistor 15": 60.0,
+        "Package id 0": 57.0
+      }
+    },
+    "first-candidate-binary": {
+      "samples": 235,
+      "peak_rss_bytes": 14930796544,
+      "max_temperatures_c": {
+        "Thermistor 15": 60.0,
+        "Package id 0": 57.0
+      }
+    },
+    "first-candidate-gzip-json": {
+      "samples": 499,
+      "peak_rss_bytes": 36134633472,
+      "max_temperatures_c": {
+        "Thermistor 15": 60.0,
+        "Package id 0": 56.0
+      }
+    },
+    "gzip-job": {
+      "samples": 1167,
+      "peak_rss_bytes": 70847815680,
+      "max_temperatures_c": {
+        "Thermistor 15": 66.0,
+        "Package id 0": 60.0
+      }
+    },
+    "gzip-job-replay": {
+      "samples": 80,
+      "peak_rss_bytes": 14664978432,
+      "max_temperatures_c": {
+        "Thermistor 15": 76.5,
+        "Package id 0": 67.0
+      }
+    },
+    "legacy-profile": {
+      "samples": 523,
+      "peak_rss_bytes": 34750640128,
+      "max_temperatures_c": {
+        "Thermistor 15": 60.0,
+        "Package id 0": 56.0
+      }
+    },
+    "load-baseline-0": {
+      "samples": 468,
+      "peak_rss_bytes": 34749591552,
+      "max_temperatures_c": {
+        "Thermistor 15": 59.5,
+        "Package id 0": 56.0
+      }
+    },
+    "load-baseline-1": {
+      "samples": 226,
+      "peak_rss_bytes": 14191828992,
+      "max_temperatures_c": {
+        "Thermistor 15": 59.5,
+        "Package id 0": 57.0
+      }
+    },
+    "load-baseline-2": {
+      "samples": 472,
+      "peak_rss_bytes": 34749554688,
+      "max_temperatures_c": {
+        "Thermistor 15": 59.5,
+        "Package id 0": 55.0
+      }
+    },
+    "load-baseline-3": {
+      "samples": 229,
+      "peak_rss_bytes": 14191423488,
+      "max_temperatures_c": {
+        "Thermistor 15": 59.5,
+        "Package id 0": 55.0
+      }
+    },
+    "load-baseline-4": {
+      "samples": 475,
+      "peak_rss_bytes": 34751004672,
+      "max_temperatures_c": {
+        "Thermistor 15": 59.5,
+        "Package id 0": 57.0
+      }
+    },
+    "load-baseline-5": {
+      "samples": 228,
+      "peak_rss_bytes": 14192328704,
+      "max_temperatures_c": {
+        "Thermistor 15": 59.5,
+        "Package id 0": 56.0
+      }
+    },
+    "load-candidate-0": {
+      "samples": 490,
+      "peak_rss_bytes": 34749231104,
+      "max_temperatures_c": {
+        "Thermistor 15": 59.5,
+        "Package id 0": 56.0
+      }
+    },
+    "load-candidate-1": {
+      "samples": 228,
+      "peak_rss_bytes": 14194233344,
+      "max_temperatures_c": {
+        "Thermistor 15": 59.5,
+        "Package id 0": 54.0
+      }
+    },
+    "load-candidate-2": {
+      "samples": 488,
+      "peak_rss_bytes": 34749972480,
+      "max_temperatures_c": {
+        "Thermistor 15": 60.5,
+        "Package id 0": 55.0
+      }
+    },
+    "load-candidate-3": {
+      "samples": 228,
+      "peak_rss_bytes": 14191448064,
+      "max_temperatures_c": {
+        "Thermistor 15": 60.0,
+        "Package id 0": 55.0
+      }
+    },
+    "load-candidate-4": {
+      "samples": 488,
+      "peak_rss_bytes": 34749173760,
+      "max_temperatures_c": {
+        "Thermistor 15": 60.5,
+        "Package id 0": 54.0
+      }
+    },
+    "load-candidate-5": {
+      "samples": 228,
+      "peak_rss_bytes": 14192119808,
+      "max_temperatures_c": {
+        "Thermistor 15": 60.0,
+        "Package id 0": 55.0
+      }
+    },
+    "native-qualification": {
+      "samples": 1,
+      "peak_rss_bytes": 12980224,
+      "max_temperatures_c": {
+        "Thermistor 15": 34.5,
+        "Package id 0": 38.0
+      }
+    },
+    "restore": {
+      "samples": 109,
+      "peak_rss_bytes": 68857856,
+      "max_temperatures_c": {
+        "Thermistor 15": 46.0,
+        "Package id 0": 53.0
+      }
+    },
+    "stage-binary-job": {
+      "samples": 294,
+      "peak_rss_bytes": 70733824,
+      "max_temperatures_c": {
+        "Thermistor 15": 73.5,
+        "Package id 0": 59.0
+      }
+    },
+    "stage-final-derivatives": {
+      "samples": 2279,
+      "peak_rss_bytes": 72347648,
+      "max_temperatures_c": {
+        "Thermistor 15": 51.0,
+        "Package id 0": 55.0
+      }
+    },
+    "stage-gzip-inputs": {
+      "samples": 530,
+      "peak_rss_bytes": 71446528,
+      "max_temperatures_c": {
+        "Thermistor 15": 60.0,
+        "Package id 0": 55.0
+      }
+    },
+    "stage-gzip-job": {
+      "samples": 318,
+      "peak_rss_bytes": 69730304,
+      "max_temperatures_c": {
+        "Thermistor 15": 75.0,
+        "Package id 0": 59.0
+      }
+    }
+  },
+  "case_costs": {
+    "gzip-job": {
+      "evaluation/call-pressure-baseline/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.947036445,
+        "trace_sha256": "1ab3ea4e6fd6321c05895731c629b2ddf9e9a3bda50d5ca3a3054ba0ffd34fa1",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/call-pressure-baseline/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.908798561,
+        "trace_sha256": "1ab3ea4e6fd6321c05895731c629b2ddf9e9a3bda50d5ca3a3054ba0ffd34fa1",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/call-pressure-candidate/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.940693163,
+        "trace_sha256": "d585975747822eac0d6a908591f75832360c1b3c32663e8df2c96010bbea48be",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/call-pressure-candidate/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.921155904,
+        "trace_sha256": "d585975747822eac0d6a908591f75832360c1b3c32663e8df2c96010bbea48be",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/check-call-baseline/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 1.121897796,
+        "trace_sha256": "6723d36f951f3e991026aa179a92e3e3eccda3b701840a02c61696fc07e7c45e",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/check-call-baseline/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 1.05046179,
+        "trace_sha256": "6723d36f951f3e991026aa179a92e3e3eccda3b701840a02c61696fc07e7c45e",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/check-call-candidate/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 1.003326223,
+        "trace_sha256": "984de9524df98e133f95d296e4df4c944e8ce51910d1dc56659c7ebb1988820d",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/check-call-candidate/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.967874233,
+        "trace_sha256": "984de9524df98e133f95d296e4df4c944e8ce51910d1dc56659c7ebb1988820d",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/direct-0/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 468.778184465,
+        "play_seconds": 0.85502772,
+        "trace_sha256": "c75bd93610f0bd082d60262802c95e034baef04197fdf0a11386b2d0baf7390a",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/direct-0/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.906831233,
+        "trace_sha256": "c75bd93610f0bd082d60262802c95e034baef04197fdf0a11386b2d0baf7390a",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/direct-1/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.944497255,
+        "trace_sha256": "89a4795a3b695f9b55afa06959d999307a3ca168cf11810799a17c2a132d0e4d",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/direct-1/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.950749601,
+        "trace_sha256": "89a4795a3b695f9b55afa06959d999307a3ca168cf11810799a17c2a132d0e4d",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/pot-pressure-baseline/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.462773455,
+        "trace_sha256": "0215430c152f49c180588baa9f5c69796941ed82de92163367df8e875dfad8f5",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/pot-pressure-baseline/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.443643234,
+        "trace_sha256": "0215430c152f49c180588baa9f5c69796941ed82de92163367df8e875dfad8f5",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/pot-pressure-candidate/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.44685623,
+        "trace_sha256": "de467b481f8736b732214bdb7fd299f8210022d12160bbdfe265c27a896abf33",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/pot-pressure-candidate/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.443089596,
+        "trace_sha256": "de467b481f8736b732214bdb7fd299f8210022d12160bbdfe265c27a896abf33",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/random-baseline/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.711763037,
+        "trace_sha256": "bf7de1ada6ef9982c4d4cf59ebf8f7a1aa37278358411d744aad4639584f0dc7",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/random-baseline/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.743096183,
+        "trace_sha256": "bf7de1ada6ef9982c4d4cf59ebf8f7a1aa37278358411d744aad4639584f0dc7",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/random-candidate/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.686087331,
+        "trace_sha256": "8652edeee184228a40b1f797e00fb946dc5990684e2c15c129a8e0d9f54732c7",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/random-candidate/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.716211623,
+        "trace_sha256": "8652edeee184228a40b1f797e00fb946dc5990684e2c15c129a8e0d9f54732c7",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/random-tight-baseline/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.587720188,
+        "trace_sha256": "c29247d815c041e1a431fe2822a820bfb0f8f9a4a4463867884f6fbb106f0e94",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/random-tight-baseline/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.606922175,
+        "trace_sha256": "c29247d815c041e1a431fe2822a820bfb0f8f9a4a4463867884f6fbb106f0e94",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/random-tight-candidate/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.595708288,
+        "trace_sha256": "65836fe4284823a0dc9989587a852f32cc0ba9d8f196f09ecc28b1a9fe93538c",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/random-tight-candidate/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.637006369,
+        "trace_sha256": "65836fe4284823a0dc9989587a852f32cc0ba9d8f196f09ecc28b1a9fe93538c",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/tight-aggressive-baseline/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.405457944,
+        "trace_sha256": "c47a810f482f18eab3915d9cfe4c01511c38b0e2b0d7094f15d46a20f89d076a",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/tight-aggressive-baseline/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.435585406,
+        "trace_sha256": "c47a810f482f18eab3915d9cfe4c01511c38b0e2b0d7094f15d46a20f89d076a",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/tight-aggressive-candidate/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.39989643,
+        "trace_sha256": "579be4d152963d5af3a5157f310ce0b41f0536e6cecff0b12176a5c733b3268a",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/tight-aggressive-candidate/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.411515855,
+        "trace_sha256": "579be4d152963d5af3a5157f310ce0b41f0536e6cecff0b12176a5c733b3268a",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/trained-call-baseline/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 1.08387255,
+        "trace_sha256": "1abd7119b7451555f15798d4a09f820942a084bc769fae8cebd937a866f33a49",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/trained-call-baseline/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 1.037752808,
+        "trace_sha256": "1abd7119b7451555f15798d4a09f820942a084bc769fae8cebd937a866f33a49",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/trained-call-candidate/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 1.098645692,
+        "trace_sha256": "1760db0b03f749202049d4da7aa5c878684a43dbc1e38261bb31ed59ff8342e1",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/trained-call-candidate/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 1.113461574,
+        "trace_sha256": "1760db0b03f749202049d4da7aa5c878684a43dbc1e38261bb31ed59ff8342e1",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/trained-pressure-baseline/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.653855528,
+        "trace_sha256": "cabb7f9ecbf471812379b53df99e0963474f7abe332b94515d70431221612bbc",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/trained-pressure-baseline/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.640470208,
+        "trace_sha256": "cabb7f9ecbf471812379b53df99e0963474f7abe332b94515d70431221612bbc",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/trained-pressure-candidate/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.65839475,
+        "trace_sha256": "82094cf83ffb9b1c261582ebd2f0deed7058f5f3f762bb8745c6150ff9d57ad4",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/trained-pressure-candidate/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.670076709,
+        "trace_sha256": "82094cf83ffb9b1c261582ebd2f0deed7058f5f3f762bb8745c6150ff9d57ad4",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      }
+    },
+    "binary-job": {
+      "evaluation/call-pressure-baseline/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.874621124,
+        "trace_sha256": "47c8620f22f073520c15fc9117fcf462df47f52d7fd1ac56f0f59b0d4a14a079",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/call-pressure-baseline/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.870430117,
+        "trace_sha256": "47c8620f22f073520c15fc9117fcf462df47f52d7fd1ac56f0f59b0d4a14a079",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/call-pressure-candidate/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.876453518,
+        "trace_sha256": "1c0d2f8a89c9b0040df485ebd526c54ca18a980f1a540126b73b42d1fb8e2249",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/call-pressure-candidate/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.863443637,
+        "trace_sha256": "1c0d2f8a89c9b0040df485ebd526c54ca18a980f1a540126b73b42d1fb8e2249",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/check-call-baseline/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 1.071414825,
+        "trace_sha256": "48b2d7e848bfe84b8e4a676ec5ea5cc04cd0576306970959701b1346de8520b8",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/check-call-baseline/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.95794852,
+        "trace_sha256": "48b2d7e848bfe84b8e4a676ec5ea5cc04cd0576306970959701b1346de8520b8",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/check-call-candidate/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 1.008243864,
+        "trace_sha256": "c6e584e2cf58d97443e5c1b5b07b08e93ec3592d3a7e1c979ff2c43a15971cf1",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/check-call-candidate/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.997937914,
+        "trace_sha256": "c6e584e2cf58d97443e5c1b5b07b08e93ec3592d3a7e1c979ff2c43a15971cf1",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/direct-0/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 237.175825231,
+        "play_seconds": 0.936608776,
+        "trace_sha256": "c74a2918c03872890ca406fddf6b96ffc4b788b21a5836f05b78c9da1a8e42c8",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/direct-0/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.967965751,
+        "trace_sha256": "c74a2918c03872890ca406fddf6b96ffc4b788b21a5836f05b78c9da1a8e42c8",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/direct-1/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.965929873,
+        "trace_sha256": "7e9cc9a7245e02c7a79573f69316a7af5e92c936a7d761660b86704c1f27c31e",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/direct-1/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.940184061,
+        "trace_sha256": "7e9cc9a7245e02c7a79573f69316a7af5e92c936a7d761660b86704c1f27c31e",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/pot-pressure-baseline/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.509140483,
+        "trace_sha256": "54235a13f87eb778cf1ecba32afe95904d06af8775042e2fa7ac6c04cce7cf46",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/pot-pressure-baseline/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.467850461,
+        "trace_sha256": "54235a13f87eb778cf1ecba32afe95904d06af8775042e2fa7ac6c04cce7cf46",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/pot-pressure-candidate/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.457477348,
+        "trace_sha256": "f19a0d620e12fd2b6a85224ba2c0dc9abefc2f63c13a2e0e1a89689ae17bf9b2",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/pot-pressure-candidate/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.472534783,
+        "trace_sha256": "f19a0d620e12fd2b6a85224ba2c0dc9abefc2f63c13a2e0e1a89689ae17bf9b2",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/random-baseline/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.706982476,
+        "trace_sha256": "260dd5921659ac328c3587946e40ced32f9114a99a323d0eb2263197e6d97f06",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/random-baseline/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.690142611,
+        "trace_sha256": "260dd5921659ac328c3587946e40ced32f9114a99a323d0eb2263197e6d97f06",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/random-candidate/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.747697064,
+        "trace_sha256": "1961afabfba6332d73f849588818b4b67f8c620ac43287a775c34c2821182419",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/random-candidate/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.697476848,
+        "trace_sha256": "1961afabfba6332d73f849588818b4b67f8c620ac43287a775c34c2821182419",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/random-tight-baseline/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.624916683,
+        "trace_sha256": "0d6f0afea4bcc404afe4272ce39d892f835840901e4aaf480ecf438ea0add937",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/random-tight-baseline/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.606984681,
+        "trace_sha256": "0d6f0afea4bcc404afe4272ce39d892f835840901e4aaf480ecf438ea0add937",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/random-tight-candidate/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.626591076,
+        "trace_sha256": "7a7e068ed443db6b69bd6caf5225999b4a946e394f70f6e74e25ae448e755f49",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/random-tight-candidate/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.627412058,
+        "trace_sha256": "7a7e068ed443db6b69bd6caf5225999b4a946e394f70f6e74e25ae448e755f49",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/tight-aggressive-baseline/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.394873719,
+        "trace_sha256": "dcf19078c1358f405a80d694bd449f8425a131d8811575330de96e12cc47601d",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/tight-aggressive-baseline/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.433215917,
+        "trace_sha256": "dcf19078c1358f405a80d694bd449f8425a131d8811575330de96e12cc47601d",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/tight-aggressive-candidate/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.467593682,
+        "trace_sha256": "c53a340af1fdc35f03c8902934067fedca6e3931e5190d78e65f7f46289d18c9",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/tight-aggressive-candidate/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.406876901,
+        "trace_sha256": "c53a340af1fdc35f03c8902934067fedca6e3931e5190d78e65f7f46289d18c9",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/trained-call-baseline/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 1.048074883,
+        "trace_sha256": "34064c93ac0cf9dddb8734b9d1c491d3077d73d631e17b6f3faa7f6c0b7e83d6",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/trained-call-baseline/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 1.067234774,
+        "trace_sha256": "34064c93ac0cf9dddb8734b9d1c491d3077d73d631e17b6f3faa7f6c0b7e83d6",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/trained-call-candidate/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 1.02421614,
+        "trace_sha256": "362a61516916f0726c26fcf99f0a6b0411c74af5914f66ae14e994bfb7a4ac67",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/trained-call-candidate/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 1.018607588,
+        "trace_sha256": "362a61516916f0726c26fcf99f0a6b0411c74af5914f66ae14e994bfb7a4ac67",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/trained-pressure-baseline/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.745173727,
+        "trace_sha256": "60390ea111a573bf49c64bb62de631360af21e77d1905f8899599fe8ba99c7e1",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/trained-pressure-baseline/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.748063106,
+        "trace_sha256": "60390ea111a573bf49c64bb62de631360af21e77d1905f8899599fe8ba99c7e1",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/trained-pressure-candidate/play-0.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.70547733,
+        "trace_sha256": "3ed4681b8655654ce385aa9a70b5f4a73ef51f592b022a23ae093df41c371309",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      },
+      "evaluation/trained-pressure-candidate/play-1.json": {
+        "status": "passed",
+        "hands": 49152,
+        "blocks": 8192,
+        "load_seconds": 0.0,
+        "play_seconds": 0.700825885,
+        "trace_sha256": "3ed4681b8655654ce385aa9a70b5f4a73ef51f592b022a23ae093df41c371309",
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 2
+      }
+    }
+  },
+  "verification": {
+    "gzip-job": {
+      "status": "passed",
+      "cases": 18,
+      "hands": 884736
+    },
+    "binary-job": {
+      "status": "passed",
+      "cases": 18,
+      "hands": 884736
+    }
+  },
+  "input_files": {
+    "baseline": {
+      "bytes": 5600774554,
+      "allocated_bytes": 5600780288
+    },
+    "candidate": {
+      "bytes": 6236306384,
+      "allocated_bytes": 6236311552
+    }
+  },
+  "staging": {
+    "relocations": [
+      {
+        "at": 1792479850.6879604,
+        "bytes": 195567835,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/direct-0/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479680214093878,
+        "sha256": "c75bd93610f0bd082d60262802c95e034baef04197fdf0a11386b2d0baf7390a",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/direct-0/play-0.jsonl"
+      },
+      {
+        "at": 1792479855.55149,
+        "bytes": 195567835,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/direct-0/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479681774109117,
+        "sha256": "c75bd93610f0bd082d60262802c95e034baef04197fdf0a11386b2d0baf7390a",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/direct-0/play-1.jsonl"
+      },
+      {
+        "at": 1792479860.348193,
+        "bytes": 195767830,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/direct-1/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479683374124748,
+        "sha256": "89a4795a3b695f9b55afa06959d999307a3ca168cf11810799a17c2a132d0e4d",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/direct-1/play-0.jsonl"
+      },
+      {
+        "at": 1792479865.5379274,
+        "bytes": 195767830,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/direct-1/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479684982140460,
+        "sha256": "89a4795a3b695f9b55afa06959d999307a3ca168cf11810799a17c2a132d0e4d",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/direct-1/play-1.jsonl"
+      },
+      {
+        "at": 1792479870.2125373,
+        "bytes": 169018373,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/random-candidate/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479686330153629,
+        "sha256": "8652edeee184228a40b1f797e00fb946dc5990684e2c15c129a8e0d9f54732c7",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/random-candidate/play-0.jsonl"
+      },
+      {
+        "at": 1792479874.5884793,
+        "bytes": 169018373,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/random-candidate/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479687606166095,
+        "sha256": "8652edeee184228a40b1f797e00fb946dc5990684e2c15c129a8e0d9f54732c7",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/random-candidate/play-1.jsonl"
+      },
+      {
+        "at": 1792479878.3088264,
+        "bytes": 168268604,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/random-baseline/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479688882178561,
+        "sha256": "bf7de1ada6ef9982c4d4cf59ebf8f7a1aa37278358411d744aad4639584f0dc7",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/random-baseline/play-0.jsonl"
+      },
+      {
+        "at": 1792479882.3719547,
+        "bytes": 168268604,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/random-baseline/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479690182191263,
+        "sha256": "bf7de1ada6ef9982c4d4cf59ebf8f7a1aa37278358411d744aad4639584f0dc7",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/random-baseline/play-1.jsonl"
+      },
+      {
+        "at": 1792479888.8335724,
+        "bytes": 255010998,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/check-call-candidate/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479691746206545,
+        "sha256": "984de9524df98e133f95d296e4df4c944e8ce51910d1dc56659c7ebb1988820d",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/check-call-candidate/play-0.jsonl"
+      },
+      {
+        "at": 1792479894.6609266,
+        "bytes": 255010998,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/check-call-candidate/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479693570224367,
+        "sha256": "984de9524df98e133f95d296e4df4c944e8ce51910d1dc56659c7ebb1988820d",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/check-call-candidate/play-1.jsonl"
+      },
+      {
+        "at": 1792479900.1822803,
+        "bytes": 254224070,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/check-call-baseline/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479695542243635,
+        "sha256": "6723d36f951f3e991026aa179a92e3e3eccda3b701840a02c61696fc07e7c45e",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/check-call-baseline/play-0.jsonl"
+      },
+      {
+        "at": 1792479906.2479506,
+        "bytes": 254224070,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/check-call-baseline/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479697450262278,
+        "sha256": "6723d36f951f3e991026aa179a92e3e3eccda3b701840a02c61696fc07e7c45e",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/check-call-baseline/play-1.jsonl"
+      },
+      {
+        "at": 1792479908.692339,
+        "bytes": 98999934,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/tight-aggressive-candidate/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479698690274394,
+        "sha256": "579be4d152963d5af3a5157f310ce0b41f0536e6cecff0b12176a5c733b3268a",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/tight-aggressive-candidate/play-0.jsonl"
+      },
+      {
+        "at": 1792479910.8726523,
+        "bytes": 98999934,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/tight-aggressive-candidate/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479699434281666,
+        "sha256": "579be4d152963d5af3a5157f310ce0b41f0536e6cecff0b12176a5c733b3268a",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/tight-aggressive-candidate/play-1.jsonl"
+      },
+      {
+        "at": 1792479913.418905,
+        "bytes": 98811096,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/tight-aggressive-baseline/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479700170288856,
+        "sha256": "c47a810f482f18eab3915d9cfe4c01511c38b0e2b0d7094f15d46a20f89d076a",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/tight-aggressive-baseline/play-0.jsonl"
+      },
+      {
+        "at": 1792479916.3105018,
+        "bytes": 98811096,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/tight-aggressive-baseline/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479700930296283,
+        "sha256": "c47a810f482f18eab3915d9cfe4c01511c38b0e2b0d7094f15d46a20f89d076a",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/tight-aggressive-baseline/play-1.jsonl"
+      },
+      {
+        "at": 1792479919.003155,
+        "bytes": 108103955,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/pot-pressure-candidate/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479701706303865,
+        "sha256": "de467b481f8736b732214bdb7fd299f8210022d12160bbdfe265c27a896abf33",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/pot-pressure-candidate/play-0.jsonl"
+      },
+      {
+        "at": 1792479921.8436503,
+        "bytes": 108103955,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/pot-pressure-candidate/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479702502311646,
+        "sha256": "de467b481f8736b732214bdb7fd299f8210022d12160bbdfe265c27a896abf33",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/pot-pressure-candidate/play-1.jsonl"
+      },
+      {
+        "at": 1792479924.4883926,
+        "bytes": 107717064,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/pot-pressure-baseline/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479703326319698,
+        "sha256": "0215430c152f49c180588baa9f5c69796941ed82de92163367df8e875dfad8f5",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/pot-pressure-baseline/play-0.jsonl"
+      },
+      {
+        "at": 1792479927.1919155,
+        "bytes": 107717064,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/pot-pressure-baseline/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479704122327476,
+        "sha256": "0215430c152f49c180588baa9f5c69796941ed82de92163367df8e875dfad8f5",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/pot-pressure-baseline/play-1.jsonl"
+      },
+      {
+        "at": 1792479933.8879957,
+        "bytes": 248258815,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/trained-call-candidate/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479705574341666,
+        "sha256": "1760db0b03f749202049d4da7aa5c878684a43dbc1e38261bb31ed59ff8342e1",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/trained-call-candidate/play-0.jsonl"
+      },
+      {
+        "at": 1792479940.8081772,
+        "bytes": 248258815,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/trained-call-candidate/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479707510360585,
+        "sha256": "1760db0b03f749202049d4da7aa5c878684a43dbc1e38261bb31ed59ff8342e1",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/trained-call-candidate/play-1.jsonl"
+      },
+      {
+        "at": 1792479946.5772958,
+        "bytes": 248318863,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/trained-call-baseline/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479709414379195,
+        "sha256": "1abd7119b7451555f15798d4a09f820942a084bc769fae8cebd937a866f33a49",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/trained-call-baseline/play-0.jsonl"
+      },
+      {
+        "at": 1792479954.5973785,
+        "bytes": 248318863,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/trained-call-baseline/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479711270397333,
+        "sha256": "1abd7119b7451555f15798d4a09f820942a084bc769fae8cebd937a866f33a49",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/trained-call-baseline/play-1.jsonl"
+      },
+      {
+        "at": 1792479958.8182304,
+        "bytes": 149084575,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/trained-pressure-candidate/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479712754411838,
+        "sha256": "82094cf83ffb9b1c261582ebd2f0deed7058f5f3f762bb8745c6150ff9d57ad4",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/trained-pressure-candidate/play-0.jsonl"
+      },
+      {
+        "at": 1792479962.3191977,
+        "bytes": 149084575,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/trained-pressure-candidate/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479713922423253,
+        "sha256": "82094cf83ffb9b1c261582ebd2f0deed7058f5f3f762bb8745c6150ff9d57ad4",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/trained-pressure-candidate/play-1.jsonl"
+      },
+      {
+        "at": 1792479966.2946358,
+        "bytes": 147951065,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/trained-pressure-baseline/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479715078434551,
+        "sha256": "cabb7f9ecbf471812379b53df99e0963474f7abe332b94515d70431221612bbc",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/trained-pressure-baseline/play-0.jsonl"
+      },
+      {
+        "at": 1792479970.2072227,
+        "bytes": 147951065,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/trained-pressure-baseline/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479716226445772,
+        "sha256": "cabb7f9ecbf471812379b53df99e0963474f7abe332b94515d70431221612bbc",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/trained-pressure-baseline/play-1.jsonl"
+      },
+      {
+        "at": 1792479975.5652056,
+        "bytes": 214588117,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/call-pressure-candidate/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479717658459771,
+        "sha256": "d585975747822eac0d6a908591f75832360c1b3c32663e8df2c96010bbea48be",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/call-pressure-candidate/play-0.jsonl"
+      },
+      {
+        "at": 1792479981.9411104,
+        "bytes": 214588117,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/call-pressure-candidate/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479719290475722,
+        "sha256": "d585975747822eac0d6a908591f75832360c1b3c32663e8df2c96010bbea48be",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/call-pressure-candidate/play-1.jsonl"
+      },
+      {
+        "at": 1792479987.3522086,
+        "bytes": 213453112,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/call-pressure-baseline/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479720966492105,
+        "sha256": "1ab3ea4e6fd6321c05895731c629b2ddf9e9a3bda50d5ca3a3054ba0ffd34fa1",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/call-pressure-baseline/play-0.jsonl"
+      },
+      {
+        "at": 1792479992.99927,
+        "bytes": 213453112,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/call-pressure-baseline/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479722586507942,
+        "sha256": "1ab3ea4e6fd6321c05895731c629b2ddf9e9a3bda50d5ca3a3054ba0ffd34fa1",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/call-pressure-baseline/play-1.jsonl"
+      },
+      {
+        "at": 1792479996.6717227,
+        "bytes": 140520852,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/random-tight-candidate/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479723894520726,
+        "sha256": "65836fe4284823a0dc9989587a852f32cc0ba9d8f196f09ecc28b1a9fe93538c",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/random-tight-candidate/play-0.jsonl"
+      },
+      {
+        "at": 1792480000.2368886,
+        "bytes": 140520852,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/random-tight-candidate/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479724998531520,
+        "sha256": "65836fe4284823a0dc9989587a852f32cc0ba9d8f196f09ecc28b1a9fe93538c",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/random-tight-candidate/play-1.jsonl"
+      },
+      {
+        "at": 1792480004.3103285,
+        "bytes": 137673380,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/random-tight-baseline/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479726054541841,
+        "sha256": "c29247d815c041e1a431fe2822a820bfb0f8f9a4a4463867884f6fbb106f0e94",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/random-tight-baseline/play-0.jsonl"
+      },
+      {
+        "at": 1792480008.7215986,
+        "bytes": 137673380,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/gzip-job/evaluation/random-tight-baseline/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792479727118552242,
+        "sha256": "c29247d815c041e1a431fe2822a820bfb0f8f9a4a4463867884f6fbb106f0e94",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/gzip-job/evaluation/random-tight-baseline/play-1.jsonl"
+      },
+      {
+        "at": 1792484578.7397683,
+        "bytes": 5600774554,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/inputs/baseline.gz",
+        "drive_accepted": false,
+        "mtime_ns": 1792479165741098077,
+        "sha256": "9890286b1cb5d4cf71380d7cd07c6d220ac98e7b05cc6165837cd60b426bbf78",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/inputs/baseline.gz"
+      },
+      {
+        "at": 1792484732.9663417,
+        "bytes": 6236306384,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/inputs/candidate.gz",
+        "drive_accepted": false,
+        "mtime_ns": 1792479193665367134,
+        "sha256": "fbb0b16f8459376519c9ea81c2c2d33b8c08d36efeb8cc2ca9d148eaf08b8843",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/inputs/candidate.gz"
+      },
+      {
+        "at": 1792485066.4060931,
+        "bytes": 195567835,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/direct-0/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792484971591675906,
+        "sha256": "c74a2918c03872890ca406fddf6b96ffc4b788b21a5836f05b78c9da1a8e42c8",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/direct-0/play-0.jsonl"
+      },
+      {
+        "at": 1792485070.4591582,
+        "bytes": 195567835,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/direct-0/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792484973211694443,
+        "sha256": "c74a2918c03872890ca406fddf6b96ffc4b788b21a5836f05b78c9da1a8e42c8",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/direct-0/play-1.jsonl"
+      },
+      {
+        "at": 1792485073.9297867,
+        "bytes": 195767830,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/direct-1/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792484974827712932,
+        "sha256": "7e9cc9a7245e02c7a79573f69316a7af5e92c936a7d761660b86704c1f27c31e",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/direct-1/play-0.jsonl"
+      },
+      {
+        "at": 1792485077.440812,
+        "bytes": 195767830,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/direct-1/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792484976419731137,
+        "sha256": "7e9cc9a7245e02c7a79573f69316a7af5e92c936a7d761660b86704c1f27c31e",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/direct-1/play-1.jsonl"
+      },
+      {
+        "at": 1792485079.9762774,
+        "bytes": 169018373,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/random-candidate/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792484977811747054,
+        "sha256": "1961afabfba6332d73f849588818b4b67f8c620ac43287a775c34c2821182419",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/random-candidate/play-0.jsonl"
+      },
+      {
+        "at": 1792485083.4798198,
+        "bytes": 169018373,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/random-candidate/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792484979075761504,
+        "sha256": "1961afabfba6332d73f849588818b4b67f8c620ac43287a775c34c2821182419",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/random-candidate/play-1.jsonl"
+      },
+      {
+        "at": 1792485086.934801,
+        "bytes": 168268604,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/random-baseline/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792484980343775995,
+        "sha256": "260dd5921659ac328c3587946e40ced32f9114a99a323d0eb2263197e6d97f06",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/random-baseline/play-0.jsonl"
+      },
+      {
+        "at": 1792485095.00141,
+        "bytes": 168268604,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/random-baseline/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792484981599790346,
+        "sha256": "260dd5921659ac328c3587946e40ced32f9114a99a323d0eb2263197e6d97f06",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/random-baseline/play-1.jsonl"
+      },
+      {
+        "at": 1792485100.230427,
+        "bytes": 255010998,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/check-call-candidate/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792484983167808260,
+        "sha256": "c6e584e2cf58d97443e5c1b5b07b08e93ec3592d3a7e1c979ff2c43a15971cf1",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/check-call-candidate/play-0.jsonl"
+      },
+      {
+        "at": 1792485105.3095984,
+        "bytes": 255010998,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/check-call-candidate/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792484985019829409,
+        "sha256": "c6e584e2cf58d97443e5c1b5b07b08e93ec3592d3a7e1c979ff2c43a15971cf1",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/check-call-candidate/play-1.jsonl"
+      },
+      {
+        "at": 1792485110.268965,
+        "bytes": 254224070,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/check-call-baseline/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792484986947851422,
+        "sha256": "48b2d7e848bfe84b8e4a676ec5ea5cc04cd0576306970959701b1346de8520b8",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/check-call-baseline/play-0.jsonl"
+      },
+      {
+        "at": 1792485114.4230678,
+        "bytes": 254224070,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/check-call-baseline/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792484988747871967,
+        "sha256": "48b2d7e848bfe84b8e4a676ec5ea5cc04cd0576306970959701b1346de8520b8",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/check-call-baseline/play-1.jsonl"
+      },
+      {
+        "at": 1792485116.2137322,
+        "bytes": 98999934,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/tight-aggressive-candidate/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792484990055886893,
+        "sha256": "c53a340af1fdc35f03c8902934067fedca6e3931e5190d78e65f7f46289d18c9",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/tight-aggressive-candidate/play-0.jsonl"
+      },
+      {
+        "at": 1792485118.4211314,
+        "bytes": 98999934,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/tight-aggressive-candidate/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792484990795895335,
+        "sha256": "c53a340af1fdc35f03c8902934067fedca6e3931e5190d78e65f7f46289d18c9",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/tight-aggressive-candidate/play-1.jsonl"
+      },
+      {
+        "at": 1792485120.348316,
+        "bytes": 98811096,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/tight-aggressive-baseline/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792484991515903548,
+        "sha256": "dcf19078c1358f405a80d694bd449f8425a131d8811575330de96e12cc47601d",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/tight-aggressive-baseline/play-0.jsonl"
+      },
+      {
+        "at": 1792485126.2599645,
+        "bytes": 98811096,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/tight-aggressive-baseline/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792484992283912307,
+        "sha256": "dcf19078c1358f405a80d694bd449f8425a131d8811575330de96e12cc47601d",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/tight-aggressive-baseline/play-1.jsonl"
+      },
+      {
+        "at": 1792485138.7918973,
+        "bytes": 108103955,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/pot-pressure-candidate/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792484993067921248,
+        "sha256": "f19a0d620e12fd2b6a85224ba2c0dc9abefc2f63c13a2e0e1a89689ae17bf9b2",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/pot-pressure-candidate/play-0.jsonl"
+      },
+      {
+        "at": 1792485141.4537928,
+        "bytes": 108103955,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/pot-pressure-candidate/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792484993899930736,
+        "sha256": "f19a0d620e12fd2b6a85224ba2c0dc9abefc2f63c13a2e0e1a89689ae17bf9b2",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/pot-pressure-candidate/play-1.jsonl"
+      },
+      {
+        "at": 1792485143.3968976,
+        "bytes": 107717064,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/pot-pressure-baseline/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792484994771940677,
+        "sha256": "54235a13f87eb778cf1ecba32afe95904d06af8775042e2fa7ac6c04cce7cf46",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/pot-pressure-baseline/play-0.jsonl"
+      },
+      {
+        "at": 1792485145.5496159,
+        "bytes": 107717064,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/pot-pressure-baseline/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792484995595950071,
+        "sha256": "54235a13f87eb778cf1ecba32afe95904d06af8775042e2fa7ac6c04cce7cf46",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/pot-pressure-baseline/play-1.jsonl"
+      },
+      {
+        "at": 1792485150.3057206,
+        "bytes": 248258815,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/trained-call-candidate/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792484996987965937,
+        "sha256": "362a61516916f0726c26fcf99f0a6b0411c74af5914f66ae14e994bfb7a4ac67",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/trained-call-candidate/play-0.jsonl"
+      },
+      {
+        "at": 1792485155.5824394,
+        "bytes": 248258815,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/trained-call-candidate/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792484998823986858,
+        "sha256": "362a61516916f0726c26fcf99f0a6b0411c74af5914f66ae14e994bfb7a4ac67",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/trained-call-candidate/play-1.jsonl"
+      },
+      {
+        "at": 1792485159.2020304,
+        "bytes": 248318863,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/trained-call-baseline/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792485000696008182,
+        "sha256": "34064c93ac0cf9dddb8734b9d1c491d3077d73d631e17b6f3faa7f6c0b7e83d6",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/trained-call-baseline/play-0.jsonl"
+      },
+      {
+        "at": 1792485164.5809083,
+        "bytes": 248318863,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/trained-call-baseline/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792485002588029726,
+        "sha256": "34064c93ac0cf9dddb8734b9d1c491d3077d73d631e17b6f3faa7f6c0b7e83d6",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/trained-call-baseline/play-1.jsonl"
+      },
+      {
+        "at": 1792485168.8372457,
+        "bytes": 149084575,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/trained-pressure-candidate/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792485004112047076,
+        "sha256": "3ed4681b8655654ce385aa9a70b5f4a73ef51f592b022a23ae093df41c371309",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/trained-pressure-candidate/play-0.jsonl"
+      },
+      {
+        "at": 1792485174.7197068,
+        "bytes": 149084575,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/trained-pressure-candidate/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792485005308060690,
+        "sha256": "3ed4681b8655654ce385aa9a70b5f4a73ef51f592b022a23ae093df41c371309",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/trained-pressure-candidate/play-1.jsonl"
+      },
+      {
+        "at": 1792485178.0483737,
+        "bytes": 147951065,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/trained-pressure-baseline/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792485006552074848,
+        "sha256": "60390ea111a573bf49c64bb62de631360af21e77d1905f8899599fe8ba99c7e1",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/trained-pressure-baseline/play-0.jsonl"
+      },
+      {
+        "at": 1792485181.2819407,
+        "bytes": 147951065,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/trained-pressure-baseline/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792485007796089002,
+        "sha256": "60390ea111a573bf49c64bb62de631360af21e77d1905f8899599fe8ba99c7e1",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/trained-pressure-baseline/play-1.jsonl"
+      },
+      {
+        "at": 1792485185.6811821,
+        "bytes": 214588117,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/call-pressure-candidate/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792485009164104564,
+        "sha256": "1c0d2f8a89c9b0040df485ebd526c54ca18a980f1a540126b73b42d1fb8e2249",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/call-pressure-candidate/play-0.jsonl"
+      },
+      {
+        "at": 1792485189.35955,
+        "bytes": 214588117,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/call-pressure-candidate/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792485010740122486,
+        "sha256": "1c0d2f8a89c9b0040df485ebd526c54ca18a980f1a540126b73b42d1fb8e2249",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/call-pressure-candidate/play-1.jsonl"
+      },
+      {
+        "at": 1792485192.7113705,
+        "bytes": 213453112,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/call-pressure-baseline/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792485012324140498,
+        "sha256": "47c8620f22f073520c15fc9117fcf462df47f52d7fd1ac56f0f59b0d4a14a079",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/call-pressure-baseline/play-0.jsonl"
+      },
+      {
+        "at": 1792485198.0533178,
+        "bytes": 213453112,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/call-pressure-baseline/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792485013916158595,
+        "sha256": "47c8620f22f073520c15fc9117fcf462df47f52d7fd1ac56f0f59b0d4a14a079",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/call-pressure-baseline/play-1.jsonl"
+      },
+      {
+        "at": 1792485200.9901655,
+        "bytes": 140520852,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/random-tight-candidate/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792485015244173683,
+        "sha256": "7a7e068ed443db6b69bd6caf5225999b4a946e394f70f6e74e25ae448e755f49",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/random-tight-candidate/play-0.jsonl"
+      },
+      {
+        "at": 1792485203.6010985,
+        "bytes": 140520852,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/random-tight-candidate/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792485016340186139,
+        "sha256": "7a7e068ed443db6b69bd6caf5225999b4a946e394f70f6e74e25ae448e755f49",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/random-tight-candidate/play-1.jsonl"
+      },
+      {
+        "at": 1792485209.3711762,
+        "bytes": 137673380,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/random-tight-baseline/play-0.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792485017428198501,
+        "sha256": "0d6f0afea4bcc404afe4272ce39d892f835840901e4aaf480ecf438ea0add937",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/random-tight-baseline/play-0.jsonl"
+      },
+      {
+        "at": 1792485212.7585938,
+        "bytes": 137673380,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/binary-job/evaluation/random-tight-baseline/play-1.jsonl",
+        "drive_accepted": false,
+        "mtime_ns": 1792485018492210584,
+        "sha256": "0d6f0afea4bcc404afe4272ce39d892f835840901e4aaf480ecf438ea0add937",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/binary-job/evaluation/random-tight-baseline/play-1.jsonl"
+      },
+      {
+        "at": 1792485838.529423,
+        "bytes": 14148446930,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/inputs/baseline.bin",
+        "drive_accepted": false,
+        "mtime_ns": 1792480279188408256,
+        "sha256": "41b70ad8bd60312c6c3fe300abefb316fd427a062e5303b8d566b456053d77af",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/inputs/baseline.bin"
+      },
+      {
+        "at": 1792486379.9906135,
+        "bytes": 14148446930,
+        "destination": "/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/inputs/candidate.bin",
+        "drive_accepted": false,
+        "mtime_ns": 1792482353489575419,
+        "sha256": "23599816cf632a51cace45f25d70ed4918fe5e75875c33136d8629052a8a2a70",
+        "source": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/inputs/candidate.bin"
+      }
+    ],
+    "bytes": 52739328950,
+    "count": 76,
+    "drive_accepted": false
+  },
+  "limitations": "One seed/pair/host, fixed JSON-first order, ordinary caches; conversion/audit and staging separate, no strength claim."
+}

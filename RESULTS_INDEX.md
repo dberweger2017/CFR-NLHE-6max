@@ -1,6 +1,27 @@
+## PR361 — exact mature parity; 1.75–1.82× loads and 1.95× reusable job
+
+[PR361](https://github.com/dberweger2017/CFR-NLHE-6max/pull/361),
+[protocol](docs/nplayer-inference-validation.md),
+[results and limits](docs/reports/nplayer-inference-validation/results.md),
+[compact proofs/receipts](docs/reports/nplayer-inference-validation/results.json),
+[all12 loads](docs/reports/nplayer-inference-validation/loads.csv),
+[33 stage costs](docs/reports/nplayer-inference-validation/costs.csv),
+[dated launch/provenance](docs/reports/nplayer-inference-validation/launch.md).
+Runtimec06fc565 completedOct20,08:53:01UTC; all33stagesRC0/no failure.
+Two250,001,069-row audits and884,736 cross-format initial hand rows exactly
+match; reproduction/replay pass. Predeclared2× native-load gate fails;
+whole-job gate passes (635.43→325.99s), peak evaluator65.94→27.65GiB.
+Conversion+audit21.45min separate; binary pair28.30GB vs11.84GB gzip.
+76 verified new-owned staging records/52.74GB retained under
+`bb128:/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/`,
+accessible at original NVMe paths. Protect active PR362 dependency and all old
+inputs/partials. ZIP/Drive acceptance and fallback
+`gdrive:PR-361-nplayer-inference-validation/` remain pending; no remote retrieval
+claim, deletion, default or new strength result.
+
 ## PR359 — exact binary inference, local qualification only
 
-[Draft PR359](https://github.com/dberweger2017/CFR-NLHE-6max/pull/359),
+[Merged PR359](https://github.com/dberweger2017/CFR-NLHE-6max/pull/359),
 [proposal358](https://github.com/dberweger2017/CFR-NLHE-6max/issues/358),
 [format/commands](docs/nplayer-binary-inference.md),
 [report and mature quote](docs/reports/nplayer-binary-inference/local-qualification.md),
@@ -12,9 +33,9 @@ Final generated100k-row/380k-value fixture: 3.16× median validated load speedup
 about21% lower per-child peak RSS, 1.62× lookup-plus-digest time, 1.15× logical
 file bytes. All stored float bits and probe digests match. 63 native library,
 4 mass-helper and3 CLI tests pass; final reader changes recheck the4 binary test
-groups. No realK50/mature performance/strength/default claim. Mature bb128 quote
-is90–150min with new-output storage approval still pending; no science launched.
-One read-only host capacity check was made, with no old input changes.
+groups. These local figures are not mature performance/strength/default claims.
+The owner subsequently accepted the90–150min quote and new-output staging;
+the completed mature result belongs to PR361 above. Old inputs stay unchanged.
 
 Owned ignored Mac evidence:
 `/Users/dberweger/Local/cfr-nplayer-binary-inference-20261020/results/nplayer-binary-inference-20261020-local-v4/`.
