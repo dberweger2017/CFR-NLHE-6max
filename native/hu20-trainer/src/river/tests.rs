@@ -246,3 +246,53 @@ fn numerical_failure_does_not_publish_a_partial_sweep() {
     assert!(solver.denom.iter().flatten().all(|&x| x == 0.));
     assert!(solver.quality(&[]).is_err());
 }
+
+#[test]
+fn nearly_blocked_chance_law_uses_stable_explicit_scalar_fallback() {
+    let e = 1e-12;
+    let g = Game::new(
+        [0, 9, 22, 35, 48],
+        [
+            vec![
+                Holding {
+                    cards: [1, 2],
+                    weight: 1.,
+                },
+                Holding {
+                    cards: [5, 6],
+                    weight: e,
+                },
+            ],
+            vec![
+                Holding {
+                    cards: [1, 3],
+                    weight: 1.,
+                },
+                Holding {
+                    cards: [7, 8],
+                    weight: e,
+                },
+            ],
+        ],
+        vec![Node::Leaf(Terminal {
+            base: 1.,
+            win0: 0.,
+            tie0: 0.,
+        })],
+        1.,
+    )
+    .unwrap();
+    assert!(g.z < 1e-4);
+    for seat in 0..2 {
+        let t = Terminal {
+            base: 1.,
+            win0: 2.,
+            tie0: 1.,
+        };
+        let actual = g.leaf(t, seat, &[1., 1.]).unwrap();
+        let expected = scalar(&g, t, seat, &[1., 1.]);
+        for (a, b) in actual.iter().zip(expected) {
+            assert!((a - b).abs() < 1e-13);
+        }
+    }
+}

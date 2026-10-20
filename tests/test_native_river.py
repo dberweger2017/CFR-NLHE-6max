@@ -86,7 +86,7 @@ def test_prepared_terminal_ledgers_match_independent_native_settlement(case):
     from src.arena.endgame_quality import _world
     from src.game.observation import ActionTaken, HandFinished
     from src.game.showdown import hand_value
-    game,ranges=fixture(case)
+    game,ranges=fixture(case,dead_money=True)
     root=game.nodes[0].history
     first,second=game.seats
     for node in game.nodes:

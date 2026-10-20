@@ -154,7 +154,7 @@ pub fn request(v: &Value) -> Result<Value, String> {
             selected.push(json!({"node":id,"holding":h,"probabilities":average[id][h*k..(h+1)*k]}));
         }
     }
-    let mut out = json!({"format":"river-prepared-result-v1","sweeps":solver.sweeps,"strategy_rows":selected,"quality":quality,"ranks":solver.game.ranks(),"leaf_values":leaves,"nodes":solver.game.nodes.len(),"holdings":[solver.game.holdings(0),solver.game.holdings(1)],"leaf_query_seconds":leaf_seconds,"leaf_query_count":leaf_count,"preparation_seconds":prepare,"solve_seconds":solve,"quality_seconds":quality_seconds,"native_seconds_before_serialization":started.elapsed().as_secs_f64()});
+    let mut out = json!({"format":"river-prepared-result-v1","sweeps":solver.sweeps,"leaf_evaluation_mode":if solver.game.z<1e-4 {"scalar-ill-conditioned-chance"} else {"sorted-linear"},"strategy_rows":selected,"quality":quality,"ranks":solver.game.ranks(),"leaf_values":leaves,"nodes":solver.game.nodes.len(),"holdings":[solver.game.holdings(0),solver.game.holdings(1)],"leaf_query_seconds":leaf_seconds,"leaf_query_count":leaf_count,"preparation_seconds":prepare,"solve_seconds":solve,"quality_seconds":quality_seconds,"native_seconds_before_serialization":started.elapsed().as_secs_f64()});
     let profiles = match v.get("include_profiles") {
         None => true,
         Some(p) => p.as_bool().ok_or("include_profiles must be boolean")?,
@@ -163,6 +163,7 @@ pub fn request(v: &Value) -> Result<Value, String> {
         out["average"] = json!(average);
         out["current"] = json!(solver.profile);
         out["regrets"] = json!(solver.regrets);
+        out["last_deltas"] = json!(solver.deltas);
         out["average_numer"] = json!(solver.numer);
         out["average_denom"] = json!(solver.denom);
     }

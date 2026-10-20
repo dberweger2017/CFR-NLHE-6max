@@ -179,6 +179,26 @@ impl Game {
 
     fn leaf_into(&self, t: Terminal, seat: usize, reach: &[f64], out: &mut [f64]) {
         let other = 1 - seat;
+        // Inclusion-exclusion loses relative accuracy when almost all chance
+        // mass is blocked. Preserve values with an explicit allocation-free
+        // scalar fallback; report this mode rather than claim linear cost.
+        if self.z < 1e-4 {
+            for (i, h) in self.hands[seat].iter().enumerate() {
+                let mut value = 0.;
+                for (j, o) in self.hands[other].iter().enumerate() {
+                    if h.mask & o.mask != 0 {
+                        continue;
+                    }
+                    let (a, b) = if seat == 0 { (h, o) } else { (o, h) };
+                    let u = t.base
+                        + t.win0 * (if a.rank > b.rank { 1. } else { 0. })
+                        + t.tie0 * (if a.rank == b.rank { 1. } else { 0. });
+                    value += (h.weight * o.weight / self.z) * reach[j] * u;
+                }
+                out[i] = if seat == 0 { value } else { -value };
+            }
+            return;
+        }
         let mut total = 0.;
         let mut cards = [0.; 52];
         for (h, &r) in self.hands[other].iter().zip(reach) {
