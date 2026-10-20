@@ -6,7 +6,7 @@ explicit **product-compatible** private range law. It does not construct beliefs
 from a blueprint or act in a live hand. Its inputs are hypothetical ranges and
 prepared terminal ledgers, never an actual opponent hand or hidden deal.
 
-The implementation will use float64, sorted linear leaf evaluation with card
+The implementation uses float64, sorted linear leaf evaluation with card
 removal and identical-holding correction, simultaneous linearly weighted CFR,
 actual-own-reach averaging, and information-set best-response quality. Existing
 Python `RiverGame`/`RiverCFR` remain the reference and are unchanged. Native values,
@@ -54,3 +54,30 @@ Its result labels that mode; no linear-cost claim applies to that fallback.
 Full and compact JSON roundtrips are timed separately. Compact requests return
 selected average action distributions without every debug accumulator matrix.
 All these times still exclude blueprint belief construction and live adaptation.
+
+
+## Commands and result
+
+```sh
+cargo build --release --locked --manifest-path native/hu20-trainer/Cargo.toml --example river_prepared
+OPENBLAS_NUM_THREADS=1 python -m scripts.benchmark_native_river --out results/FRESH_NATIVE_RIVER
+```
+
+`river_prepared` accepts one strict `river-prepared-v1` JSON object per line and
+returns one response per request. `game` supplies five card IDs (rank*4+suit),
+two arrays of `[card0, card1, weight]`, a rooted tree and positive `root_pot_bb`.
+A decision node has `actor`0/1 and ordered `children`; a terminal has
+`terminal: [base, win0, tie0]`, defining first-seat utility by showdown outcome
+and opposite utility for the other seat. Input rejects cyclic/shared/unreachable
+nodes, invalid or duplicate cards/holdings, invalid weights and nonfinite values.
+
+`sweeps` declares fixed complete work. Optional `fixed` supplies flattened
+probability matrices by node; `strategy_queries` selects `{node, holding}` rows.
+`include_profiles: false` omits full debug accumulators while retaining those
+selected average distributions and quality diagnostics. Prepared ranges/ledgers
+are supplied explicitly; this endpoint is not a legal-observation search API.
+
+The completed twelve-case benchmark takes 72.48 seconds. Numerical checks pass;
+all 18 full-range comparisons meet the fixed-work quality screen, while two of 18
+small-range points miss it. Overall `quality-threshold-not-met` is retained.
+[Measurements, development failures and limitations](reports/native-river-prototype/results.md).

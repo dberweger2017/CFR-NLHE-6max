@@ -180,6 +180,17 @@ records the historical630.741s clock, node-first comparison, exact-clock resume
 and second comparison. The owner requested reviewing this implementation before
 any benchmark or training starts. It is a campaign entry point, not a default trainer.
 
+### Prepared native river prototype
+
+The opt-in `river_prepared` example uses `native/hu20-trainer/src/river.rs` for
+float64 linear terminal evaluation and simultaneous CFR, with a separate strict
+prepared-input boundary. `src/blueprint/native_river.py` exports a stipulated
+reference game to a persistent worker; it does not construct beliefs or enter
+live play. `scripts.benchmark_native_river` checks values, gradients, averages,
+best responses and fixed-work timing. [Protocol and limits](native-river-prototype.md)
+include the retained small-range quality-screen misses. No blueprint/model load,
+training or search strength study is part of this example.
+
 ### Exact native inference derivatives
 
 The optional [binary inference reader](nplayer-binary-inference.md) converts a

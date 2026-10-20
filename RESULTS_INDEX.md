@@ -1,3 +1,27 @@
+## PR373 — prepared native river prototype, numerical checks pass; quality screen34/36
+
+[PR373](https://github.com/dberweger2017/CFR-NLHE-6max/pull/373), issue372.
+Clean measured source `7e905da4be0c640e6518f2b68eaf330104e81788`: twelve cases,
+16/64/256 sweeps, three native repetitions. Complete fixed grid72.48s;
+full1,081-holding solving30.89–36.11× faster than the dense Python reference,
+43.00MiB native-child high-water RSS. Maximum leaf absolute error1.63e-13BB.
+All identical-profile value/gradient/average/best-response checks pass;75native
+library tests and58focused Python tests pass. Full-range quality18/18; overall
+quality agreement34/36 and `quality-threshold-not-met` remain explicit. The two
+small-range discrepancies are one worse and one better at fixed work.
+
+[Report](docs/reports/native-river-prototype/results.md) ·
+[Compact JSON/source pins](docs/reports/native-river-prototype/results.json) ·
+[All36 measurements](docs/reports/native-river-prototype/measurements.csv) ·
+[Retained evidence/test proof](docs/reports/native-river-prototype/verification.json).
+NVMe originals: `bb128:/home/dberweger/native-river-prototype-20261020/`;
+verified at-rest copy: `/mnt/data2tb/research-cloud/PR-373-native-river-prototype/`.
+All earlier qualification stops, smoke runs, source bundles, exact binary and
+logs remain retained. ZIP/Drive acceptance is pending; no deletion or completed
+cloud archive is claimed. The concurrent release upload and existing models,
+environments, inputs and live search remain unchanged. No whole-decision latency,
+15ms target, playing-strength or adoption claim follows.
+
 ## v0.6.0 publication authorization and source binding
 
 The owner approved publication on October 20, 2026. PR369 merged
