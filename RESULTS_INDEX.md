@@ -1,3 +1,36 @@
+## PR369 — v0.6.0 release preparation, exact model/runtime checks pass
+
+[PR369](https://github.com/dberweger2017/CFR-NLHE-6max/pull/369), proposal368,
+follows the owner-authorized PR367 merge `606bfc58`. Frozen implementation
+`3b43d05c24b8ec661c416568679d661518a9bb8d` prepares all three qualified 100 BB
+10B averages as exact float64 binaries in 42 parts. All three reconstruct to
+their fixed PR361/367 SHA256s; 36 human/spectator integration hands replay before
+and after journal restart, with one shared table per model, privacy, restricted
+sizing and chip conservation. All 14 stages return0; 66.46min wall,
+27.33 child CPU-minutes, sampled peak14.53GiB, CPU57°C/Thermistor15 57°C.
+No new strength estimate, training, defaults, release tag or publication.
+
+[Report](docs/releases/v0.6.0/verification/qualification.md) ·
+[Compact receipt, complete model/part/source pins](docs/releases/v0.6.0/verification/qualification.json).
+Working root `bb128:/home/dberweger/v060-release-20261020-pr369/qualification-v2`;
+physical cache `/mnt/data2tb/research-cloud/PR-369-v060-release/qualification-v2/`:
+81 unique files /89,046,108,651 bytes verified by copy/readback, with original
+working paths accessible as symlinks (use physical paths for the strict bundle
+verifier). Private journals, reconstructed models and parts stay off Git.
+All old PR350/355/357/361/362/367 inputs are read-only and unchanged.
+
+The first setup's successful12.2s native build and missing-pytest failure before
+model work remain under `qualification-v1`; v2 reused the successful binary.
+108 support files plus exact280,360,960-byte source TAR are verified under
+`PR-369-v060-release/support-v1/`. Copy-manifest SHA256
+`9861d1133b36bbb63fa035c6cf7f43e6f35ce69b533931e4ee22e7f2491efff5`;
+source TAR SHA256 `8e89ed38576277ed1bef60c54671ce73b0c99ba9563764f09601a8a3f1603be7`.
+All originals retained. ZIP/Drive archive acceptance and public release links
+remain pending, with no eviction/deletion or remote-acceptance claim. Restore
+from the physical cache while present; Drive fallback is pending a verified
+archive/receipt, rather than an assumed folder. Planned public Drive whole-model
+links will supplement GitHub split downloads with the same model hashes.
+
 ## PR367 — fresh v0.6 acceptance complete, all30 gates pass
 
 [PR367](https://github.com/dberweger2017/CFR-NLHE-6max/pull/367),
