@@ -28,3 +28,5 @@ pub mod checkpoint;
 pub mod telemetry;
 
 pub mod multi_counterfactual;
+
+pub mod river;
