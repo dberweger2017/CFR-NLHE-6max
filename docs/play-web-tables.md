@@ -44,8 +44,21 @@ Each session journals the starting states of its deal and bot generators, every 
 - the public events still hash to the journaled digest;
 - the Python result equals the native settlement for every seat, and the session totals add up.
 
+## Benchmarks
+
+A table with a human seat offers **Benchmark** sessions alongside casual play. A benchmark fixes its hand count (1–5000) before the first deal; the page shows **Hand X / N** and **Deal hand X / N**.
+
+**While it runs, nothing beyond the table itself is shown:** no running total, no hand-history results and no bot decision details. **End benchmark early** keeps the completed hands and marks the result incomplete, recording any unfinished hand.
+
+When it ends, the result shows your net and BB/100, your result in each position, each player's net and its trained and uniform lookups, and wins, losses and ties. **Download result JSON** saves the same report, served at `/api/sessions/ID/benchmark/export`.
+
+**Seat swap.** At a table with two or more different bots, a benchmark can swap their seats. Every arrangement of the bots around your fixed seat plays one equal block of hands, in a fixed order: with two bots, the first half is you → A → B and the second half is you → B → A. The hand count must be a multiple of (arrangements × seats); for three seats that is a multiple of 6. Then every arrangement also gives you every position equally often. Cards are fresh every hand; no deal is repeated. The report adds your result per arrangement.
+
+**The rules are the same for every player.** Everyone has the same stack, blinds and button rotation, and everyone sees only their own cards. At a table with model seats, everyone also bets from the same menu, the models' own.
+
+`--verify-session` also checks a benchmark's hand count and status. It checks that the button followed its schedule and that every hand used its scheduled seat arrangement.
+
 ## Limits
 
-- **No human benchmark sessions yet.** There is no fixed hand count or hidden result, which an agent or human study needs. The heads-up table has them.
 - **Large models load fully into memory.** Large 100 BB checkpoints need disk-backed loading on a 16 GB machine; that is a separate change.
 - **No action translation.** See *Bet sizing*.

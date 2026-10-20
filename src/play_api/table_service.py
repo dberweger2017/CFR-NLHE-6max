@@ -14,7 +14,9 @@ import secrets
 import sqlite3
 import threading
 from dataclasses import asdict, dataclass
+from datetime import datetime, timezone
 from pathlib import Path
+from itertools import permutations
 from random import Random
 
 from src.arena.runner import public_events
@@ -26,6 +28,7 @@ from src.play_api.native_decisions import (FORMAT as DECISION_FORMAT, SCRIPTS, c
 from src.play_api.service import PRESETS, PlayError, _events, _json, _rng
 
 API_VERSION = "nseat-play-api-v1"
+BENCHMARK_PROTOCOL = "nseat-human-benchmark-v1"
 BUTTON_SCHEDULE = "rotating-seat-0-first-v1"
 STACKS_BB = (20, 100, 200)
 # Native `min-pot-conditional-jam-v1` menu labels.
@@ -74,6 +77,32 @@ class SeatTable:
                      chip_unit=self.chip_unit)
 
 
+def position_name(offset: int, players: int) -> str:
+    """Seat name by clockwise distance from the button."""
+    if players == 2:
+        return ("button/SB", "BB")[offset]
+    if offset < 3:
+        return ("button", "SB", "BB")[offset]
+    return "CO" if offset == players - 1 else "UTG" if offset == 3 else "MP"
+
+
+def seat_orders(agents) -> list[list[str]]:
+    """Every distinct arrangement of the bots around the fixed human seat, in a fixed order."""
+    human = agents.index("human")
+    bots = [agent for agent in agents if agent != "human"]
+    orders = []
+    for order in permutations(bots):
+        arranged = list(order)
+        arranged.insert(human, "human")
+        if arranged not in orders:
+            orders.append(arranged)
+    return orders
+
+
+def _utc_now():
+    return datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+
 def deck_for(seed: int) -> list[int]:
     deck = list(range(52))
     Random(seed).shuffle(deck)
@@ -117,10 +146,8 @@ class TableService:
     def model_info(self):
         return self.identity
 
-    def benchmark_result(self, *_):
-        raise PlayError("Multi-seat tables have no human benchmark yet", 404)
-
-    diagnostics = end_benchmark = benchmark_result
+    def diagnostics(self, *_):
+        raise PlayError("Decision details are in the session view after each hand", 404)
 
     # Journal replay -------------------------------------------------------
 
@@ -186,7 +213,24 @@ class TableService:
     # Operations -------------------------------------------------------------
 
     def create(self, key, body):
-        if set(body) != {"playMode"} or body["playMode"] not in ("restricted", "free"):
+        benchmark = body.get("sessionType") == "benchmark"
+        orders = None
+        if benchmark:
+            if (set(body) - {"seatSwap"} != {"sessionType", "playMode", "targetHands"}
+                    or type(body["targetHands"]) is not int or not 1 <= body["targetHands"] <= 5000
+                    or type(body.get("seatSwap", False)) is not bool):
+                raise PlayError("Benchmark needs a target of 1–5000 hands")
+            if self.table.human is None:
+                raise PlayError("Benchmarks need a human seat")
+            if body.get("seatSwap"):
+                # Each arrangement plays one equal block, with every position equally often.
+                orders = seat_orders(self.table.agents)
+                block = len(orders) * self.table.players
+                if len(orders) < 2 or body["targetHands"] % block:
+                    raise PlayError(f"Seat swaps need distinct bots and a multiple of {block} hands")
+        elif set(body) not in ({"playMode"}, {"sessionType", "playMode"}) or body.get("sessionType", "casual") != "casual":
+            raise PlayError("Choose a valid session type")
+        if body["playMode"] not in ("restricted", "free"):
             raise PlayError("Choose a valid play mode")
         if body["playMode"] == "free" and any(a.startswith("policy:") for a in self.table.agents):
             # Policy keys include every raise size; an off-menu size is an unseen key.
@@ -201,7 +245,13 @@ class TableService:
                      "revision": 0, "handsPlayed": 0, "totals": [0] * self.table.players,
                      "dealRng": deals, "botRng": bots, "dealRngStart": deals, "botRngStart": bots,
                      "current": None, "history": [], "sourceVersion": self.source_version,
-                     "identity": self.identity}
+                     "identity": self.identity, "sessionType": "benchmark" if benchmark else "casual"}
+            if benchmark:
+                state["benchmark"] = {"id": secrets.token_urlsafe(18), "protocolVersion": BENCHMARK_PROTOCOL,
+                                      "targetHands": body["targetHands"], "status": "ACTIVE",
+                                      "buttonSchedule": BUTTON_SCHEDULE, "startedAt": _utc_now(),
+                                      "endedAt": None, "abortedHandId": None,
+                                      "seatOrders": orders or [list(self.table.agents)]}
             return state, self._view(state)
 
         return self._mutate(key, _json(["create", body]), None, operation)
@@ -213,17 +263,27 @@ class TableService:
     def new_hand(self, session_id, key, body):
         def operation(state):
             self._check_revision(state, body, {"revision"}, hand=False)
+            self._require_active(state)
             if state["current"] is not None and not state["current"].get("completed"):
                 raise PlayError("Finish the current hand first", 409)
             deals = _rng(state["dealRng"])
             state["current"] = {"handId": secrets.token_urlsafe(18), "number": state["handsPlayed"],
                                 "button": state["handsPlayed"] % self.table.players,
+                                "agents": self._scheduled_agents(state, state["handsPlayed"]),
                                 "dealSeed": deals.randrange(2**63), "actions": []}
             state["dealRng"] = deals.getstate()
             state["revision"] += 1
             return state, self._view(state)
 
         return self._mutate(key, _json(["new-hand", session_id, body]), session_id, operation)
+
+    def _scheduled_agents(self, state, number):
+        orders = state["benchmark"]["seatOrders"] if state.get("benchmark") else [list(self.table.agents)]
+        block = -(-state["benchmark"]["targetHands"] // len(orders)) if len(orders) > 1 else 1
+        return list(orders[min(number // block, len(orders) - 1)])
+
+    def _agents(self, row):
+        return row.get("agents", list(self.table.agents))
 
     def _menu(self, row, hand, seat):
         view = hand.observe(seat)
@@ -233,6 +293,7 @@ class TableService:
     def act(self, session_id, key, body):
         def operation(state):
             self._check_revision(state, body, {"handId", "revision", "kind", "raiseTo"})
+            self._require_active(state)
             row = state["current"]
             hand = self._hand(row)
             human = self.table.human
@@ -263,12 +324,13 @@ class TableService:
         """Exactly one bot decision, so clients can show each seat acting in turn."""
         def operation(state):
             self._check_revision(state, body, {"handId", "revision"})
+            self._require_active(state)
             row = state["current"]
             hand = self._hand(row)
             if hand.finished or hand.actor == self.table.human:
                 raise PlayError("No bot is acting", 409)
             seat = hand.actor
-            agent = self.table.agents[seat]
+            agent = self._agents(row)[seat]
             bot = _rng(state["botRng"])
             seed = bot.getrandbits(63)
             view = hand.observe(seat)
@@ -285,6 +347,32 @@ class TableService:
             return state, self._view(state)
 
         return self._mutate(key, _json(["advance", session_id, body]), session_id, operation)
+
+    @staticmethod
+    def _require_active(state):
+        if state.get("sessionType") == "benchmark" and state["benchmark"]["status"] != "ACTIVE":
+            raise PlayError("Benchmark has ended", 409)
+
+    def end_benchmark(self, session_id, key, body):
+        def operation(state):
+            if state.get("sessionType") != "benchmark":
+                raise PlayError("This is not a benchmark session", 409)
+            self._check_revision(state, body, {"revision", "handId", "confirm"}, hand=False)
+            if body["confirm"] is not True:
+                raise PlayError("Confirm early benchmark end")
+            current = state["current"]["handId"] if state["current"] else None
+            if body["handId"] != current:
+                raise PlayError("Stale or unknown hand", 409)
+            self._require_active(state)
+            benchmark = state["benchmark"]
+            benchmark["status"] = "ABORTED"
+            benchmark["endedAt"] = _utc_now()
+            if state["current"] is not None and not state["current"].get("completed"):
+                benchmark["abortedHandId"] = current
+            state["revision"] += 1
+            return state, self._view(state)
+
+        return self._mutate(key, _json(["end-benchmark", session_id, body]), session_id, operation)
 
     @staticmethod
     def _record(hand, action, agent, decision=None):
@@ -319,6 +407,9 @@ class TableService:
         state["history"].append(row)
         state["handsPlayed"] += 1
         state["totals"] = [a + b for a, b in zip(state["totals"], row["chips"])]
+        if state.get("sessionType") == "benchmark" and state["handsPlayed"] == state["benchmark"]["targetHands"]:
+            state["benchmark"]["status"] = "COMPLETE"
+            state["benchmark"]["endedAt"] = _utc_now()
 
     # Views ---------------------------------------------------------------------
 
@@ -338,29 +429,41 @@ class TableService:
 
     def _view(self, state):
         human = self.table.human
+        benchmark = state.get("benchmark")
+        active = benchmark is not None and benchmark["status"] == "ACTIVE"
+        # Running totals stay hidden during a benchmark, as in the heads-up table.
         response = {"sessionId": state["sessionId"], "revision": state["revision"],
                     "playMode": state["playMode"], "table": self.identity, "humanSeat": human,
-                    "handsPlayed": state["handsPlayed"], "totals": state["totals"],
+                    "sessionType": state.get("sessionType", "casual"), "handsPlayed": state["handsPlayed"],
+                    "totals": None if active else state["totals"],
                     "phase": "ready" if state["current"] is None else "playing", "hand": None}
+        if benchmark is not None:
+            response["benchmark"] = {key: benchmark[key] for key in
+                                     ("id", "protocolVersion", "targetHands", "status", "buttonSchedule", "seatOrders")}
+            response["benchmark"]["completedHands"] = state["handsPlayed"]
+            if not active:
+                response["benchmarkResult"] = self._benchmark_report(state)
+                response["phase"] = benchmark["status"].lower()
         row = state["current"]
         if row is None:
             return response
         hand = self._hand(row)
         # Bot-only tables reveal every seat, so seat 0 serves as the public view.
         view = hand.observe(0 if human is None else human)
-        own_turn = not hand.finished and human is not None and hand.actor == human
+        own_turn = not hand.finished and human is not None and hand.actor == human and (benchmark is None or active)
         # A bot-only table has no hidden information to protect from its viewer.
         revealed = range(self.table.players) if human is None else (human,)
         holes = {seat: list(hand.observe(seat).hole_cards) for seat in revealed}
         menu = self._menu(row, hand, human) if own_turn and state["playMode"] == "restricted" else []
         legal = view.legal_actions
-        response["phase"] = "finished" if hand.finished else "playing"
+        if benchmark is None or active:
+            response["phase"] = "finished" if hand.finished else "playing"
         response["hand"] = {
             "id": row["handId"], "number": row["number"], "street": view.street.value,
             "board": list(view.board), "button": view.button, "smallBlind": view.small_blind,
             "bigBlind": view.big_blind, "actor": hand.actor,
             "pot": sum(pot.amount for pot in hand.events[-1].pots) if hand.finished else view.pot,
-            "players": [{"seat": p.seat, "agent": self.table.agents[p.seat], "stack": p.stack,
+            "players": [{"seat": p.seat, "agent": self._agents(row)[p.seat], "stack": p.stack,
                          "streetBet": p.street_bet, "contributed": p.contributed, "folded": p.folded,
                          "allIn": p.all_in, "shownCards": list(p.shown_cards),
                          "holeCards": holes.get(p.seat)} for p in view.players],
@@ -370,11 +473,12 @@ class TableService:
             "presets": self._presets(view, human) if own_turn and state["playMode"] == "free" else [],
             "events": _events(hand),
             "result": row["chips"] if hand.finished else None,
-            # A bot's distribution depends on its cards, so it stays private until the hand ends.
+            # A bot's distribution depends on its cards, so it stays private until the hand
+            # ends, and benchmarks never show it.
             "decisions": [{"seat": r["seat"], "agent": r["agent"], "street": r["street"],
                            "action": [r["kind"], r["raiseTo"]], **r["decision"]}
                           for r in row["actions"] if "decision" in r]
-                         if hand.finished or human is None else None,
+                         if (hand.finished or human is None) and benchmark is None else None,
         }
         return response
 
@@ -382,12 +486,14 @@ class TableService:
         with self.lock:
             state = self._load(session_id)
             human = self.table.human
+            hide = state.get("sessionType") == "benchmark" and state["benchmark"]["status"] == "ACTIVE"
             hands = []
             for row in state["history"]:
                 hand = self._hand(row)
                 view = hand.observe(0 if human is None else human)
                 hands.append({"handId": row["handId"], "number": row["number"], "button": row["button"],
-                              "board": list(view.board), "chips": row["chips"], "events": _events(hand),
+                              "board": list(view.board), "chips": None if hide else row["chips"],
+                              "events": _events(hand),
                               "humanCards": list(view.hole_cards) if human is not None else None,
                               "publicEventsSha256": row["publicEventsSha256"]})
             return {"sessionId": session_id, "hands": hands}
@@ -398,12 +504,16 @@ class TableService:
             state = self._load(session_id)
             totals = [0] * self.table.players
             deals, bot = _rng(state["dealRngStart"]), _rng(state["botRngStart"])
-            for row in state["history"]:
+            for index, row in enumerate(state["history"]):
                 if row["dealSeed"] != deals.randrange(2**63):
                     raise ValueError("Deal seed is not the session's next deal")
+                if self._agents(row) != self._scheduled_agents(state, index):
+                    raise ValueError("Seat arrangement differs from the session schedule")
                 for index, record in enumerate(row["actions"]):
                     if "decision" not in record:
                         continue
+                    if record["agent"] != self._agents(row)[record["seat"]]:
+                        raise ValueError("Decision agent differs from the seat arrangement")
                     if record["decision"]["seed"] != bot.getrandbits(63):
                         raise ValueError("Bot seed is not the session's next bot draw")
                     hand = self._hand(row, index)
@@ -420,4 +530,86 @@ class TableService:
                 totals = [a + b for a, b in zip(totals, row["chips"])]
             if totals != state["totals"] or len(state["history"]) != state["handsPlayed"]:
                 raise ValueError("Session totals mismatch")
+            if state.get("sessionType") == "benchmark":
+                self._benchmark_report(state)
             return len(state["history"])
+
+    # Benchmarks ----------------------------------------------------------------
+
+    def _benchmark_report(self, state):
+        benchmark = state["benchmark"]
+        if benchmark["status"] == "ACTIVE":
+            raise PlayError("Benchmark result is available after it ends", 409)
+        rows, n, human = state["history"], self.table.players, self.table.human
+        target = benchmark["targetHands"]
+        if (len(rows) != state["handsPlayed"] or len(rows) > target
+                or (benchmark["status"] == "COMPLETE") != (len(rows) == target)):
+            raise RuntimeError("Benchmark hand count mismatch")
+        positions = {position_name(offset, n): {"hands": 0, "netChips": 0} for offset in range(n)}
+        pins = {seat["agent"]: seat["pin"] for seat in self.identity["seats"]}
+        players = {agent: {"agent": agent, "pin": pins[agent], "hands": 0, "netChips": 0,
+                           "trainedLookups": 0, "uniformLookups": 0} for agent in self.table.agents}
+        arrangements = [{"agents": order, "hands": 0, "humanNetChips": 0}
+                        for order in benchmark["seatOrders"]]
+        wins = losses = ties = total_pot = decisions = 0
+        references = []
+        for index, row in enumerate(rows):
+            hand = self._hand(row)
+            if (not hand.finished or row["button"] != index % n or row["number"] != index
+                    or digest(public_events(hand.events)) != row["publicEventsSha256"]):
+                raise RuntimeError("Benchmark replay mismatch")
+            payoff = row["chips"][human]
+            position = positions[position_name((human - row["button"]) % n, n)]
+            position["hands"] += 1
+            position["netChips"] += payoff
+            wins += payoff > 0
+            losses += payoff < 0
+            ties += payoff == 0
+            total_pot += sum(pot.amount for pot in hand.events[-1].pots)
+            agents = self._agents(row)
+            arrangement = arrangements[benchmark["seatOrders"].index(agents)]
+            arrangement["hands"] += 1
+            arrangement["humanNetChips"] += payoff
+            for agent, chips in zip(agents, row["chips"]):
+                players[agent]["hands"] += 1
+                players[agent]["netChips"] += chips
+            for record in row["actions"]:
+                if record["seat"] == human:
+                    decisions += 1
+                elif record["decision"]["trained"] is not None:
+                    key = "trainedLookups" if record["decision"]["trained"] else "uniformLookups"
+                    players[record["agent"]][key] += 1
+            references.append({"handId": row["handId"], "number": index, "button": row["button"],
+                               "publicEventsSha256": row["publicEventsSha256"]})
+        net = state["totals"][human]
+        if sum(item["netChips"] for item in players.values()) != 0 or players["human"]["netChips"] != net:
+            raise RuntimeError("Benchmark total mismatch")
+        big_blind = self.table.big_blind
+        for item in players.values():
+            item["netBB"] = item["netChips"] / big_blind
+            # Per player, not per seat: with seat swaps a bot's hands span seats.
+            item["bbPer100"] = 100 * item["netChips"] / (big_blind * item["hands"]) if item["hands"] else None
+        for position in positions.values():
+            position["netBB"] = position["netChips"] / big_blind
+        return {"benchmarkId": benchmark["id"], "protocolVersion": benchmark["protocolVersion"],
+                "interfaceVersion": API_VERSION, "sessionId": state["sessionId"],
+                "players": n, "humanSeat": human, "table": self.table.record(),
+                "schema": self.identity["schema"], "menu": self.identity["menu"],
+                "cardTables": self.identity["cardTables"], "playMode": state["playMode"],
+                "status": benchmark["status"], "targetHands": target, "completedHands": len(rows),
+                "abortedHandId": benchmark["abortedHandId"], "buttonSchedule": benchmark["buttonSchedule"],
+                "startedAt": benchmark["startedAt"], "endedAt": benchmark["endedAt"],
+                "sourceVersion": state["sourceVersion"],
+                "netChips": net, "netBB": net / big_blind,
+                "bbPer100": 100 * net / (big_blind * len(rows)) if rows else None,
+                "humanDecisions": decisions, "wins": wins, "losses": losses, "ties": ties,
+                "averagePotBB": total_pot / (big_blind * len(rows)) if rows else None,
+                "byPosition": positions, "results": list(players.values()), "seatOrders": arrangements,
+                "handRecords": references}
+
+    def benchmark_result(self, session_id):
+        with self.lock:
+            state = self._load(session_id)
+            if state.get("sessionType") != "benchmark":
+                raise PlayError("This is not a benchmark session", 404)
+            return self._benchmark_report(state)
