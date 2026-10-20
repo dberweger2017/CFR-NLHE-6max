@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Multi-seat · Local Poker Table</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/table.css">
+  <script src="/table.js" defer></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">♠</span><div><strong id="brand-seats">2–6 SEATS</strong><small>LOCAL PLAY TABLE</small></div></div>
+      <div id="connection" class="connection">Connecting…</div>
+    </header>
+
+    <section id="gate" class="gate panel" hidden>
+      <div class="eyebrow">LOCAL ACCESS</div>
+      <h1>Enter your table</h1>
+      <p>The access token is in the private token file named by the server. It stays in this browser, not in the URL.</p>
+      <form id="gate-form">
+        <label for="token">Access token</label>
+        <input id="token" type="password" autocomplete="off" required>
+        <button type="submit" class="primary">Unlock table</button>
+      </form>
+    </section>
+
+    <section id="setup" class="setup panel" hidden>
+      <div class="eyebrow">NEW SESSION</div>
+      <h1 id="setup-title">Multi-seat table</h1>
+      <p id="table-configuration"></p>
+      <div id="seat-list" class="seat-list"></div>
+      <div id="human-options">
+        <div class="field-label">Bet sizing</div>
+        <div class="choice-grid">
+          <label class="choice"><input type="radio" name="playMode" value="restricted" checked><span><strong>Restricted research</strong><small>Choose from the models’ concrete training menu.</small></span></label>
+          <label class="choice"><input id="free-mode" type="radio" name="playMode" value="free"><span><strong>Free sizing</strong><small id="free-hint">Make any legal wager.</small></span></label>
+        </div>
+      </div>
+      <button id="create" class="primary">Create session</button>
+    </section>
+
+    <section id="game" hidden>
+      <div class="status-row">
+        <div><div id="mode" class="eyebrow"></div><div id="summary" class="model"></div></div>
+        <div id="session-stat" class="session-stat"><small id="session-label">SESSION RESULT</small><strong id="session-bb">0 BB</strong></div>
+      </div>
+      <div class="table-wrap">
+        <div class="table-felt nseat-felt">
+          <div id="seats" class="nseat-seats"></div>
+          <div class="center-board nseat-center"><div id="street" class="street"></div><div id="board" class="cards"></div><div id="pot" class="pot"></div></div>
+        </div>
+      </div>
+      <div class="bottom-grid">
+        <section class="panel action-panel">
+          <div id="turn" class="turn"></div>
+          <div id="result" class="result"></div>
+          <div id="controls"></div>
+          <div id="autoplay" hidden>
+            <div class="button-grid"><button id="auto-play" class="primary">Play</button><button id="auto-pause" class="action-button">Pause</button><button id="auto-step" class="action-button">Step</button></div>
+          </div>
+          <label for="speed" class="speed-label">Time between bot decisions</label>
+          <select id="speed"><option value="300">0.3 seconds</option><option value="800" selected>0.8 seconds</option><option value="1500">1.5 seconds</option></select>
+          <button id="new-hand" class="primary" hidden>Deal next hand</button>
+          <button id="new-session" class="text-button">New session</button>
+        </section>
+        <aside class="panel history-panel"><div class="panel-heading"><h2>Hand history</h2></div><div id="events" class="events"></div></aside>
+      </div>
+      <section id="decisions-panel" class="panel decisions-panel" hidden>
+        <div class="panel-heading"><h2>Bot decisions this hand</h2></div>
+        <p class="hint">Shown after the hand ends at tables with a human, because a bot’s action probabilities depend on its private cards.</p>
+        <div id="decisions"></div>
+      </section>
+      <details class="model-details"><summary>Table and session details</summary><div id="details"></div></details>
+    </section>
+    <div id="notice" class="notice" role="status" aria-live="polite"></div>
+    <button id="retry" class="action-button" hidden>Reconnect / retry pending operation</button>
+  </main>
+</body>
+</html>

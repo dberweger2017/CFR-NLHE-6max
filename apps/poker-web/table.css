@@ -1,0 +1,29 @@
+.nseat-felt{position:relative;display:block;min-height:560px}
+.nseat-seats{position:absolute;inset:0}
+.nseat-seats .seat{position:absolute;transform:translate(-50%,-50%);min-width:150px;max-width:190px;padding:8px 11px}
+.nseat-seats .seat.folded{opacity:.55}
+.nseat-seats .seat.you{border-color:#c9ac69}
+.nseat-seats .stack{font-size:17px;margin:4px 0}
+.seat-agent{display:block;color:#9fbcaa;font-size:10px;letter-spacing:.06em;margin-top:2px}
+.seat-bet{display:inline-block;margin-top:5px;background:#0a281d;border:1px solid #619071;color:#f4e3ae;border-radius:99px;padding:3px 9px;font-size:11px;font-weight:800}
+.seat-net{font-size:12px;font-weight:800;margin-top:4px}
+.seat-net.up{color:#9fe0b4}.seat-net.down{color:#f0a39a}
+.nseat-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+.seat-list{display:grid;gap:7px;margin:18px 0}
+.seat-row{display:flex;justify-content:space-between;gap:12px;border:1px solid #3d624e;background:#0e241b;border-radius:10px;padding:10px 13px;font-size:13px}
+.seat-row small{color:#9fbcaa;overflow-wrap:anywhere;text-align:right}
+.field-label{font-size:13px;font-weight:700;color:#dcebe1;margin-top:8px}
+.speed-label{display:block;font-size:12px;color:#b6cbb8;margin-top:16px}
+#speed{background:#092017;color:#eaf4ef;border:1px solid #537563;border-radius:9px;padding:8px;margin:6px 0 10px}
+#new-hand{margin-top:12px}
+.decisions-panel{padding:18px 22px;margin-top:16px}
+.decisions-panel .hint{font-size:12px;color:#9fbcaa}
+.decision{font-size:12px;color:#c7dacb;border-bottom:1px solid #294a38;padding:7px 0}
+.decision .bar{display:inline-block;height:7px;background:#d9bb78;border-radius:3px;margin-right:6px;vertical-align:middle}
+.model-details{margin-top:16px;color:#b6cbb8;font-size:12px;overflow-wrap:anywhere}
+@media (max-width:760px){
+  .nseat-felt{min-height:0;padding:12px 8px}
+  .nseat-seats{position:static;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .nseat-seats .seat{position:static;transform:none;min-width:0;max-width:none}
+  .nseat-center{position:static;transform:none;margin:14px 0}
+}
