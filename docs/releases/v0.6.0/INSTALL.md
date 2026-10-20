@@ -1,7 +1,9 @@
 # v0.6.0 installation
 
-Prepared release candidate: publication is pending. These download commands become
-available only after the owner publishes the v0.6.0 release. The release contains
+Use the published assets on the
+[v0.6.0 release page](https://github.com/dberweger2017/CFR-NLHE-6max/releases/tag/v0.6.0).
+The release page records availability, the exact reviewed source commit and
+verified per-model download links. The release contains
 three separately qualified 100 BB blueprints; choose a seed explicitly. There is
 no blended policy or highest-scoring default.
 
@@ -11,7 +13,7 @@ K50 tables; reconstruction keeps another 14.15 GB model. The 16 GB M1/M4 is not 
 supported full-model memory target. First reconstruction/start can take several
 minutes; later starts reuse the combined file but still verify/load it.
 
-After publication, check out the reviewed `v0.6.0` tag before building:
+Check out the reviewed `v0.6.0` tag before building:
 
 ```sh
 git checkout v0.6.0
@@ -36,9 +38,11 @@ python -m scripts.play_v060 --bundle models/v0.6.0/bundle --seed 2026101935003
 
 ## Whole-model download through Drive
 
-The release page will also list a verified public Drive link for each complete
-model. Those links are pending upload/public-download verification; the research
-archive folder is not a substitute for an exact release-file link. Choose one
+The release page lists verified public Drive links as each complete model is
+uploaded and checked. The dedicated
+[release folder](https://drive.google.com/drive/folders/1H2MVAmOHHku1LhmZtxbkVYN3LyP8Xz0j)
+is separate from private runtime journals. A folder link alone is not proof of a
+completed model upload; use the release page's per-file verification record. Choose one
 seed and download its `.bin` into `models/v0.6.0/cache/` using the filename shown
 in the manifest. Download that seed's `.manifest.json` and `.SHA256SUMS`, the
 three K50 tables, verifier and three documents from the GitHub release; omit the

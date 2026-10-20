@@ -1,9 +1,12 @@
-# v0.6.0 release preparation
+# v0.6.0 release readiness
 
-The owner authorized merging PR367 and preparing this release PR. PR367 merged
-as `606bfc58de2a7147338253de0c4150389894f1a0` after all five checks passed.
-Publication, a release tag, uploaded assets and default-model changes remain
-pending a separate owner decision.
+The owner authorized publication on October 20, 2026 after reviewing the release
+preparation. PR367 merged as `606bfc58de2a7147338253de0c4150389894f1a0`;
+PR369 merged as `1faacabf710dd6f1d73f368ee740831fec6e0878`, each after all five
+checks passed. The authorized publication uses fresh approved manifests bound to
+the reviewed tag source. Actual upload/readback status belongs on the
+[v0.6.0 release page](https://github.com/dberweger2017/CFR-NLHE-6max/releases/tag/v0.6.0).
+Default-model changes are outside this release.
 
 ## Fixed contents
 
@@ -71,9 +74,8 @@ A user needs one model plus common K50 tables, rather than all three models.
 
 ## Publication checklist
 
-Before publication, review this PR and its qualification receipts, merge with
-passing checks, and obtain the owner's publication approval. Update pending
-publication labels as part of the reviewed publication source before tagging. Bind the approved
+The owner has approved publication and PR369's qualification receipts. Merge the
+publication documentation with passing checks before tagging. Bind the approved
 bundles to that exact reviewed source/tag commit rather than silently changing
 source provenance in an existing prepared manifest. Build into fresh paths:
 
@@ -93,4 +95,8 @@ to the dedicated public Drive release folder, verify no-sign-in download and
 whole-file SHA256, then add their stable per-model links to the release notes. Do not replace retained research inputs or infer
 Drive archive acceptance from GitHub release publication.
 
-The release PR does not execute this checklist's upload, tagging or publication.
+PR369 completed preparation; the subsequent owner-authorized publication executes
+this checklist. Its per-asset receipts must distinguish uploaded, publicly
+verified and runtime-verified files. Research ZIP/Drive archive acceptance remains
+a separate operation. The dedicated public release folder is
+[here](https://drive.google.com/drive/folders/1H2MVAmOHHku1LhmZtxbkVYN3LyP8Xz0j).

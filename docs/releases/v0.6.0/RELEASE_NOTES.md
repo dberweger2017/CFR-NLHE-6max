@@ -1,6 +1,8 @@
 # v0.6.0 — three-player 100 BB blueprint
 
-Prepared release candidate, publication pending owner approval.
+Owner-approved release of the qualified three-player 100 BB blueprints.
+Availability and verified per-file download links are recorded on the
+[v0.6.0 release page](https://github.com/dberweger2017/CFR-NLHE-6max/releases/tag/v0.6.0).
 
 - Three independently trained, fixed 10B average policies pass the prospective
   PR367 acceptance study on fresh held-out deals. Choose a seed explicitly.
