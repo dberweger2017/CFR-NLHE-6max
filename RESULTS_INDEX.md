@@ -1,29 +1,39 @@
-## PR367 — fresh v0.6 acceptance, qualified workflow running
+## PR367 — fresh v0.6 acceptance complete, all30 gates pass
 
 [PR367](https://github.com/dberweger2017/CFR-NLHE-6max/pull/367),
 [proposal366](https://github.com/dberweger2017/CFR-NLHE-6max/issues/366),
 [prospective protocol](docs/nplayer-v06-acceptance.md),
-[fixed sizing](configs/research/nplayer-v06-acceptance-sizing.json),
-[original and derivative pins](configs/research/nplayer-v06-acceptance-inputs.json).
-Three frozen100BB10B candidates and their own3B checkpoints; no new training.
-Thirty one-sided family95% decisions,36 cases,2,635,776 initial hand instances
-plus matching reproduction. No result/acceptance claim before the global barrier.
-Retain PR357 relative regressions beside the new absolute-profit gates.
+[results and caveats](docs/reports/nplayer-v06-acceptance/results.md),
+[compact proofs](docs/reports/nplayer-v06-acceptance/results.json),
+[all30 gates](docs/reports/nplayer-v06-acceptance/gates.csv),
+[58 stage costs](docs/reports/nplayer-v06-acceptance/costs.csv),
+[seats/positions](docs/reports/nplayer-v06-acceptance/seats-and-positions.csv),
+[lookup counts](docs/reports/nplayer-v06-acceptance/lookup-counts.csv),
+[cross coverage](docs/reports/nplayer-v06-acceptance/cross-coverage.csv),
+[launch/qualification](docs/reports/nplayer-v06-acceptance/launch.md).
 
-Owned bb128 base `/home/dberweger/nplayer-v06-acceptance-20261020/`;
-qualification and source snapshots retained. Main-v1 launched11:02:37UTC, PID649076,
-frozen source7f36a93a, config3c711be0c8d05e3750498a59bff8b80887594decf52f3295c010333894b898a9.
-[Launch and qualification](docs/reports/nplayer-v06-acceptance/launch.md),
-[compact receipt](docs/reports/nplayer-v06-acceptance/launch.json).
-Final fixture36cases/432initial+432reproduction hands and all70stages pass;
-63native library,4arena,7Python tests and216engine-parity hands pass.
-Original-pair preparation precedes the fresh acceptance hands; no outcome yet.
-New-owned staging namespace
-`/mnt/data2tb/research-cloud/PR-367-nplayer-v06-acceptance/` with verified copies
-and accessible original paths. Existing PR350/355/357/361/362 inputs protected.
-Future Drive fallback `gdrive:PR-367-nplayer-v06-acceptance/` is **pending**;
-no ZIP/Drive acceptance, old-input move, deletion or cleanup is claimed.
-No default, release, merge or native-river implementation in this study.
+Main-v1 completed October20 at14:31:12UTC /16:31Madrid, no failure/retry,
+all58stagesRC0. All36 cases independently replay2,635,776 initial hands and
+exactly reproduce the same count. All24absolute-profit,3own-checkpoint and
+3cyclic lower-bound tests pass in the predeclared one-sided family30.
+No training, release/default change or merge. PR357 relative adverse evidence
+and its failed scripted safeguard remain unchanged beside fresh acceptance.
+
+Frozen runtime7f36a93aae7d43d1912d9a93eddd78ca0d4430c5, source-v2/769pins;
+config3c711be0c8d05e3750498a59bff8b80887594decf52f3295c010333894b898a9.
+Source settled result200,999bytes/SHA256
+15c573e88d9b3b3c9ab81f6f3150eff6b91d577b6aa26fdad0a2af3045f32453.
+3.476h wall,2.237childCPUh; sampled peak27.69GiB, CPU69/Thermistor15 67°C.
+
+Owned root `bb128:/home/dberweger/nplayer-v06-acceptance-20261020/main-v1/`;
+all source/fixture snapshots, original inputs and partial locations retained.
+224unique verified staged files/112,380,112,386bytes at
+`bb128:/mnt/data2tb/research-cloud/PR-367-nplayer-v06-acceptance/main-v1/`,
+with original paths accessible; metadata/mass/source also retained on NVMe.
+Previous PR350/355/357/361/362 inputs untouched/read-only. Rawtrace/model files
+stay offGit. Final ZIP/manifest/member readback/Drive acceptance **pending**;
+`gdrive:PR-367-nplayer-v06-acceptance/` is a future fallback, not an accepted
+restoration claim. No deletion/cleanup. Native river remains a separate follow-up.
 
 ## PR361 — exact mature parity; 1.75–1.82× loads and 1.95× reusable job
 
