@@ -32,6 +32,18 @@
       <p id="table-configuration"></p>
       <div id="seat-list" class="seat-list"></div>
       <div id="human-options">
+        <div class="choice-grid session-choice">
+          <label class="choice"><input type="radio" name="sessionType" value="casual" checked><span><strong>Casual play</strong><small>Play without a planned hand count.</small></span></label>
+          <label class="choice"><input type="radio" name="sessionType" value="benchmark"><span><strong>Benchmark</strong><small>Fix a hand count in advance. Running results and bot decisions stay hidden until it ends.</small></span></label>
+        </div>
+        <div id="benchmark-options" hidden>
+          <label for="target-hands" class="field-label">Planned hands</label>
+          <select id="target-hands"><option value="60">60</option><option value="150">150</option><option value="300" selected>300</option><option value="600">600</option><option value="custom">Custom</option></select>
+          <label for="custom-hands" id="custom-hands-label" class="field-label" hidden>Custom target (1–5000 hands)</label>
+          <input id="custom-hands" type="number" min="1" max="5000" step="1" inputmode="numeric" hidden>
+          <label id="seat-swap-choice" class="choice"><input id="seat-swap" type="checkbox"><span><strong>Swap the bots’ seats</strong><small id="seat-swap-hint">The bots change seats in equal blocks, so each sits on each side of you.</small></span></label>
+          <p class="hint">A multiple of the seat count gives you every position equally often. No hand count guarantees a reliable strength conclusion.</p>
+        </div>
         <div class="field-label">Bet sizing</div>
         <div class="choice-grid">
           <label class="choice"><input type="radio" name="playMode" value="restricted" checked><span><strong>Restricted research</strong><small>Choose from the models’ concrete training menu.</small></span></label>
@@ -44,6 +56,7 @@
     <section id="game" hidden>
       <div class="status-row">
         <div><div id="mode" class="eyebrow"></div><div id="summary" class="model"></div></div>
+        <div id="progress" class="session-stat" hidden><small>BENCHMARK PROGRESS</small><strong id="progress-text"></strong></div>
         <div id="session-stat" class="session-stat"><small id="session-label">SESSION RESULT</small><strong id="session-bb">0 BB</strong></div>
       </div>
       <div class="table-wrap">
@@ -64,6 +77,7 @@
           <select id="speed"><option value="300">0.3 seconds</option><option value="800" selected>0.8 seconds</option><option value="1500">1.5 seconds</option></select>
           <button id="new-hand" class="primary" hidden>Deal next hand</button>
           <button id="new-session" class="text-button">New session</button>
+          <button id="benchmark-end" class="text-button" hidden>End benchmark early</button>
         </section>
         <aside class="panel history-panel"><div class="panel-heading"><h2>Hand history</h2></div><div id="events" class="events"></div></aside>
       </div>
@@ -71,6 +85,11 @@
         <div class="panel-heading"><h2>Bot decisions this hand</h2></div>
         <p class="hint">Shown after the hand ends at tables with a human, because a bot’s action probabilities depend on its private cards.</p>
         <div id="decisions"></div>
+      </section>
+      <section id="benchmark-results" class="panel benchmark-results" hidden>
+        <div class="panel-heading"><h2>Benchmark result</h2><span id="benchmark-status" class="badge"></span></div>
+        <div id="benchmark-summary"></div>
+        <button id="export-benchmark" class="primary" type="button">Download result JSON</button>
       </section>
       <details class="model-details"><summary>Table and session details</summary><div id="details"></div></details>
     </section>

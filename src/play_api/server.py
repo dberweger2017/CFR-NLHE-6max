@@ -136,7 +136,8 @@ def handler_for(service, token, port, assets=ASSET_TYPES):
                 elif match := BENCHMARK_EXPORT.fullmatch(path):
                     report = service.benchmark_result(match[1])
                     stack_bb = report['table']['stack'] // report['table']['big_blind']
-                    self._send(200, report, download_name=f'hu{stack_bb}-benchmark-{report["benchmarkId"]}.json')
+                    game = f"{report['players']}seat-{stack_bb}bb" if 'players' in report else f'hu{stack_bb}'
+                    self._send(200, report, download_name=f'{game}-benchmark-{report["benchmarkId"]}.json')
                 elif match := DIAGNOSTICS.fullmatch(path):
                     self._send(200, service.diagnostics(match[1], match[2]))
                 else:

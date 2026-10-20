@@ -29,8 +29,12 @@ function agentName(agent) {
   const [kind, name] = agent.split(":");
   return kind === "policy" ? name : { "random": "Random", "check-call": "Check-call", "tight-aggressive": "Tight-aggressive", "pot-pressure": "Pot-pressure" }[name] || name;
 }
+function seatAgent(seat) {
+  // With seat swaps, the hand's own arrangement names each seat.
+  return state?.hand?.players[seat]?.agent || (state?.table || tableInfo).seats[seat].agent;
+}
 function seatName(seat) {
-  const agent = (state?.table || tableInfo).seats[seat].agent;
+  const agent = seatAgent(seat);
   return agent === "human" ? "You" : `Seat ${seat + 1} · ${agentName(agent)}`;
 }
 
@@ -114,6 +118,44 @@ function setup() {
     ? "Unavailable with model seats: a model only knows its training menu’s bet sizes."
     : "Make any legal wager.";
   if (models) document.querySelector('input[name="playMode"][value="restricted"]').checked = true;
+  updateSetup();
+}
+function updateSetup() {
+  const isBenchmark = document.querySelector('input[name="sessionType"]:checked').value === "benchmark";
+  $("benchmark-options").hidden = !isBenchmark;
+  const bots = new Set(tableInfo.seats.map(s => s.agent).filter(a => a !== "human"));
+  const orders = [...bots].reduce((count, _, i) => count * (i + 1), 1);
+  $("seat-swap-choice").hidden = bots.size < 2;
+  $("seat-swap-hint").textContent = `The bots change seats in ${orders} equal blocks, so each sits in every seat around you. Needs a multiple of ${orders * tableInfo.seats.length} hands.`;
+  const custom = $("target-hands").value === "custom";
+  $("custom-hands").hidden = $("custom-hands-label").hidden = !isBenchmark || !custom;
+}
+function line(label, value) {
+  const row = node("div", "benchmark-line");
+  row.append(node("span", "", label), node("strong", "", value));
+  return row;
+}
+function renderBenchmarkResult(report) {
+  $("benchmark-results").hidden = !report;
+  if (!report) return;
+  $("benchmark-status").textContent = report.status === "COMPLETE" ? "COMPLETE" : "INCOMPLETE · ENDED EARLY";
+  const summary = $("benchmark-summary"); clear(summary);
+  const rows = [
+    ["Benchmark", `${report.benchmarkId} · ${report.protocolVersion}`],
+    ["Hands", `${report.completedHands} / ${report.targetHands}`],
+    ["Your net", `${signed(report.netChips)}${report.bbPer100 === null ? "" : ` · ${report.bbPer100.toFixed(2)} BB/100`}`],
+    ...Object.entries(report.byPosition).map(([name, item]) => [`As ${name}`, `${item.hands} hands · ${signed(item.netChips)}`]),
+    ...report.results.filter(item => item.agent !== "human").map(item => [
+      agentName(item.agent),
+      `${signed(item.netChips)}${item.pin ? ` · ${item.trainedLookups} trained / ${item.uniformLookups} uniform lookups` : ""}`]),
+    ...(report.seatOrders.length > 1 ? report.seatOrders.map((order, i) => [
+      `Seat order ${i + 1}: ${order.agents.map(agentName).join(" → ")}`,
+      `${order.hands} hands · you ${signed(order.humanNetChips)}`]) : []),
+    ["Wins / losses / ties", `${report.wins} / ${report.losses} / ${report.ties}`],
+    ["Average pot", report.averagePotBB === null ? "No completed hands" : `${report.averagePotBB.toFixed(2)} BB`],
+    ["Started / ended", `${report.startedAt} / ${report.endedAt}`],
+  ];
+  for (const [label, value] of rows) summary.append(line(label, value));
 }
 
 function card(value, hidden = false) {
@@ -152,7 +194,7 @@ function renderSeats(hand) {
       if (tags.length) head.append(node("span", "badge", tags.join(" · ")));
     }
     box.append(head);
-    if (seat !== you) box.append(node("span", "seat-agent", agentName(state.table.seats[seat].agent)));
+    if (seat !== you) box.append(node("span", "seat-agent", agentName(seatAgent(seat))));
     box.append(node("div", "stack", bb(player ? player.stack : state.table.table.stack)));
     if (player) {
       const shown = player.holeCards || player.shownCards;
@@ -275,33 +317,51 @@ function render() {
   const n = state.table.seats.length;
   const botOnly = you === null;
   $("brand-seats").textContent = `${n} SEATS`;
-  $("mode").textContent = botOnly ? "BOT TABLE · ALL CARDS VISIBLE" : state.playMode === "free" ? "FREE SIZING" : "RESTRICTED RESEARCH";
-  $("summary").textContent = `${n} seats · ${state.table.table.stack / 100} BB · ${state.handsPlayed} ${state.handsPlayed === 1 ? "hand" : "hands"} played`;
+  const benchmark = state.benchmark;
+  const active = benchmark?.status === "ACTIVE";
+  $("mode").textContent = botOnly ? "BOT TABLE · ALL CARDS VISIBLE" : `${benchmark ? "BENCHMARK · " : ""}${state.playMode === "free" ? "FREE SIZING" : "RESTRICTED RESEARCH"}`;
+  const order = state.hand ? state.hand.players.map(p => agentName(p.agent)).join(" → ") : "";
+  $("summary").textContent = `${n} seats · ${state.table.table.stack / 100} BB · ${state.handsPlayed} ${state.handsPlayed === 1 ? "hand" : "hands"} played${order ? ` · seats ${order}` : ""}`;
   $("session-label").textContent = botOnly ? "SESSION · SEAT 1" : "YOUR SESSION RESULT";
-  $("session-bb").textContent = signed(state.totals[botOnly ? 0 : you]);
-  $("details").textContent = `Session ${state.sessionId} · ${state.table.apiVersion} · ${state.table.schema} · ${state.table.menu} · totals ${state.totals.map((c, i) => `seat ${i + 1} ${signed(c)}`).join(", ")} · ${state.table.seats.filter(s => s.pin).map(s => `seat ${s.seat + 1} SHA-256 ${s.pin.sha256}`).join(" · ")}`;
+  // Benchmarks hide running totals until they end.
+  $("session-stat").hidden = state.totals === null;
+  if (state.totals) $("session-bb").textContent = signed(state.totals[botOnly ? 0 : you]);
+  $("progress").hidden = !benchmark;
+  if (benchmark) $("progress-text").textContent = active && state.hand && state.phase === "playing"
+    ? `Hand ${state.hand.number + 1} / ${benchmark.targetHands}`
+    : `${benchmark.completedHands} / ${benchmark.targetHands} completed`;
+  $("details").textContent = [`Session ${state.sessionId}`, benchmark ? `Benchmark ${benchmark.id}` : "", state.table.apiVersion, state.table.schema, state.table.menu,
+    state.totals ? `totals ${state.totals.map((c, i) => `seat ${i + 1} ${signed(c)}`).join(", ")}` : "",
+    ...state.table.seats.filter(s => s.pin).map(s => `seat ${s.seat + 1} SHA-256 ${s.pin.sha256}`)].filter(Boolean).join(" · ");
+  $("benchmark-end").hidden = !active;
+  $("benchmark-end").disabled = busy || !!saved.pending;
+  renderBenchmarkResult(state.benchmarkResult || null);
+  const dealLabel = active ? `Deal hand ${benchmark.completedHands + 1} / ${benchmark.targetHands}` : "Deal next hand";
   $("autoplay").hidden = !botOnly;
   $("auto-play").disabled = autoplay; $("auto-pause").disabled = !autoplay;
   $("auto-step").disabled = busy || autoplay;
-  $("new-session").disabled = busy || state.phase === "playing";
+  $("new-session").disabled = busy || state.phase === "playing" || active;
   const hand = state.hand;
   renderSeats(hand);
   renderControls(hand);
   renderDecisions(hand);
   const events = $("events"); clear(events);
   if (!hand) {
-    $("turn").textContent = "Ready to deal";
+    $("turn").textContent = state.phase === "aborted" ? "Benchmark ended early" : "Ready to deal";
     $("result").textContent = "";
-    $("new-hand").hidden = false; $("new-hand").disabled = busy || !!saved.pending;
+    $("new-hand").hidden = state.phase === "aborted"; $("new-hand").disabled = busy || !!saved.pending;
+    $("new-hand").textContent = dealLabel;
     clear($("board")); $("street").textContent = "PRE-FLOP"; $("pot").textContent = "POT · 0 BB";
     return;
   }
   cards($("board"), hand.board, 5 - hand.board.length);
   $("street").textContent = hand.street.toUpperCase();
   $("pot").textContent = `POT · ${bb(hand.pot)}`;
-  $("turn").textContent = state.phase === "finished" ? "Hand complete" : hand.actor === you ? "Your turn" : `${seatName(hand.actor)} is acting…`;
-  $("result").textContent = hand.result && !botOnly ? `This hand: ${signed(hand.result[you])} · Session: ${signed(state.totals[you])}` : "";
+  $("turn").textContent = { complete: "Benchmark complete", aborted: "Benchmark ended early", finished: "Hand complete" }[state.phase]
+    || (hand.actor === you ? "Your turn" : `${seatName(hand.actor)} is acting…`);
+  $("result").textContent = hand.result && !botOnly ? `This hand: ${signed(hand.result[you])}${state.totals ? ` · Session: ${signed(state.totals[you])}` : ""}` : "";
   $("new-hand").hidden = state.phase !== "finished" || (botOnly && autoplay); $("new-hand").disabled = busy || !!saved.pending;
+  $("new-hand").textContent = dealLabel;
   for (const event of hand.events) events.append(node("div", "event", eventText(event)));
   events.scrollTop = events.scrollHeight;
 }
@@ -332,7 +392,39 @@ $("gate-form").addEventListener("submit", async (event) => {
 });
 $("create").addEventListener("click", async () => {
   const playMode = document.querySelector('input[name="playMode"]:checked').value;
-  try { await mutate("/api/sessions", { playMode }); } catch (_) { /* Notice shown. */ }
+  let body = { playMode };
+  if (human() !== -1 && document.querySelector('input[name="sessionType"]:checked').value === "benchmark") {
+    const raw = $("target-hands").value === "custom" ? $("custom-hands").value.trim() : $("target-hands").value;
+    const targetHands = /^\d+$/.test(raw) ? Number(raw) : NaN;
+    if (!Number.isInteger(targetHands) || targetHands < 1 || targetHands > 5000) {
+      notice("Choose a whole-number benchmark target between 1 and 5000 hands.", true);
+      return;
+    }
+    body = { sessionType: "benchmark", playMode, targetHands };
+    if (!$("seat-swap-choice").hidden && $("seat-swap").checked) body.seatSwap = true;
+  }
+  try { await mutate("/api/sessions", body); } catch (_) { /* Notice shown. */ }
+});
+for (const input of document.querySelectorAll('input[name="sessionType"]')) input.addEventListener("change", updateSetup);
+$("target-hands").addEventListener("change", updateSetup);
+$("benchmark-end").addEventListener("click", async () => {
+  if (!state?.benchmark || state.benchmark.status !== "ACTIVE") return;
+  if (!window.confirm("End this benchmark early? Completed hands remain recorded, and the result is marked INCOMPLETE.")) return;
+  try {
+    await mutate(`/api/sessions/${state.sessionId}/benchmark/end`, { revision: state.revision, handId: state.hand ? state.hand.id : null, confirm: true });
+  } catch (_) { /* Notice shown. */ }
+});
+$("export-benchmark").addEventListener("click", async () => {
+  if (!state?.benchmarkResult) return;
+  try {
+    const report = await request(`/api/sessions/${state.sessionId}/benchmark/export`);
+    const blob = new Blob([JSON.stringify(report, null, 2) + "\n"], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = node("a"); link.href = url;
+    link.download = `${report.players}seat-${report.table.stack / report.table.big_blind}bb-benchmark-${report.benchmarkId}.json`;
+    document.body.append(link); link.click(); link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  } catch (error) { notice(error.message, true); }
 });
 $("new-hand").addEventListener("click", async () => {
   try { await mutate(`/api/sessions/${state.sessionId}/hands`, { revision: state.revision }); schedule(); } catch (_) { /* Notice shown. */ }

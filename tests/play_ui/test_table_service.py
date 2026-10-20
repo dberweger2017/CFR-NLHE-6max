@@ -190,3 +190,121 @@ def test_policy_seats_need_a_matching_model_and_restricted_sizing(tmp_path):
 def test_table_shapes_are_validated(agents):
     with pytest.raises(ValueError):
         SeatTable(agents)
+
+
+def benchmark(service, key, target, mode="restricted"):
+    return service.create(key(), {"sessionType": "benchmark", "playMode": mode, "targetHands": target})
+
+
+def test_benchmark_hides_totals_and_decisions_then_reports_by_position_and_seat(tmp_path, decisions):
+    key = Keys()
+    service = table(tmp_path, decisions, ["script:tight-aggressive", "human", "script:pot-pressure"])
+    view = benchmark(service, key, 6)
+    assert view["benchmark"]["status"] == "ACTIVE" and view["totals"] is None
+    sid = view["sessionId"]
+    view = play(service, key, view, 5, Random(3))
+    assert view["phase"] == "finished" and view["totals"] is None and view["hand"]["decisions"] is None
+    assert all(hand["chips"] is None for hand in service.history(sid)["hands"])
+    with pytest.raises(PlayError, match="after it ends"):
+        service.benchmark_result(sid)
+    view = play(service, key, view, 1, Random(4))
+    assert view["phase"] == "complete" and view["benchmark"]["status"] == "COMPLETE"
+    report = view["benchmarkResult"]
+    assert report == service.benchmark_result(sid)
+    assert report["completedHands"] == 6 and report["players"] == 3 and report["humanSeat"] == 1
+    assert {name: item["hands"] for name, item in report["byPosition"].items()} == {"button": 2, "SB": 2, "BB": 2}
+    assert sum(item["netChips"] for item in report["byPosition"].values()) == report["netChips"]
+    assert {r["agent"]: r["netChips"] for r in report["results"]} == {
+        agent: chips for agent, chips in zip(["script:tight-aggressive", "human", "script:pot-pressure"], view["totals"])}
+    assert sum(view["totals"]) == 0 and report["seatOrders"][0]["hands"] == 6
+    assert report["bbPer100"] == pytest.approx(100 * report["netChips"] / 600)
+    with pytest.raises(PlayError, match="Benchmark has ended"):
+        service.new_hand(sid, key(), {"revision": view["revision"]})
+    assert service.verify_replay(sid) == 6
+    service.close()
+
+
+def test_benchmark_can_end_early_mid_hand_and_records_the_unfinished_hand(tmp_path, decisions):
+    key = Keys()
+    service = table(tmp_path, decisions, ["human", "script:check-call", "script:check-call"])
+    view = play(service, key, benchmark(service, key, 300), 2, Random(5))
+    sid = view["sessionId"]
+    view = service.new_hand(sid, key(), {"revision": view["revision"]})
+    assert view["hand"]["actor"] == 2  # the button (seat 2) acts first; seat 0 posts the small blind
+    request = {"revision": view["revision"], "handId": view["hand"]["id"], "confirm": False}
+    with pytest.raises(PlayError, match="Confirm"):
+        service.end_benchmark(sid, key(), request)
+    view = service.end_benchmark(sid, key(), dict(request, confirm=True))
+    report = view["benchmarkResult"]
+    assert view["phase"] == "aborted" and report["status"] == "ABORTED"
+    assert report["completedHands"] == 2 and report["abortedHandId"] == view["hand"]["id"]
+    with pytest.raises(PlayError, match="Benchmark has ended"):
+        service.advance(sid, key(), {"handId": view["hand"]["id"], "revision": view["revision"]})
+    assert service.verify_replay(sid) == 2
+    service.close()
+
+
+@pytest.mark.parametrize("body", [{"sessionType": "benchmark", "playMode": "restricted", "targetHands": 0},
+                                  {"sessionType": "benchmark", "playMode": "restricted", "targetHands": 5001},
+                                  {"sessionType": "benchmark", "playMode": "restricted"},
+                                  {"sessionType": "spectator", "playMode": "restricted"}])
+def test_benchmark_requests_are_validated(tmp_path, decisions, body):
+    service = table(tmp_path, decisions, ["human", "script:random", "script:random"])
+    with pytest.raises(PlayError):
+        service.create("validated-create-key-01", body)
+    service.close()
+
+
+def test_bot_tables_have_no_benchmark(tmp_path, decisions):
+    service = table(tmp_path, decisions, ["script:random"] * 3)
+    with pytest.raises(PlayError, match="human seat"):
+        service.create("bot-benchmark-key-0001", {"sessionType": "benchmark", "playMode": "restricted",
+                                                  "targetHands": 3})
+    service.close()
+
+
+@pytest.mark.parametrize("offsets,players", [(["button/SB", "BB"], 2), (["button", "SB", "BB"], 3),
+                                             (["button", "SB", "BB", "UTG", "MP", "CO"], 6)])
+def test_position_names(offsets, players):
+    from src.play_api.table_service import position_name
+    assert [position_name(i, players) for i in range(players)] == offsets
+
+
+def test_seat_swap_moves_each_bot_to_both_sides_with_every_position_balanced(tmp_path, decisions):
+    key = Keys()
+    service = table(tmp_path, decisions, ["human", "script:tight-aggressive", "script:pot-pressure"])
+    with pytest.raises(PlayError, match="multiple of 6"):
+        service.create(key(), {"sessionType": "benchmark", "playMode": "restricted", "targetHands": 9,
+                               "seatSwap": True})
+    view = service.create(key(), {"sessionType": "benchmark", "playMode": "restricted", "targetHands": 12,
+                                  "seatSwap": True})
+    assert view["benchmark"]["seatOrders"] == [["human", "script:tight-aggressive", "script:pot-pressure"],
+                                               ["human", "script:pot-pressure", "script:tight-aggressive"]]
+    sid = view["sessionId"]
+    view = play(service, key, view, 12, Random(8))
+    state = service._load(sid)
+    assert [row["agents"][1] for row in state["history"]] == ["script:tight-aggressive"] * 6 + ["script:pot-pressure"] * 6
+    assert all(record["agent"] == row["agents"][record["seat"]] for row in state["history"] for record in row["actions"])
+    report = view["benchmarkResult"]
+    assert [order["hands"] for order in report["seatOrders"]] == [6, 6]
+    assert sum(order["humanNetChips"] for order in report["seatOrders"]) == report["netChips"]
+    assert {name: item["hands"] for name, item in report["byPosition"].items()} == {"button": 4, "SB": 4, "BB": 4}
+    assert all(item["hands"] == 12 for item in report["results"])
+    assert sum(item["netChips"] for item in report["results"]) == 0
+    assert service.verify_replay(sid) == 12
+    # A journal that moves a bot outside the schedule fails the audit.
+    tampered = json.loads(json.dumps(state))
+    tampered["history"][0]["agents"] = tampered["history"][-1]["agents"]
+    service.db.execute("UPDATE sessions SET state=? WHERE id=?", (json.dumps(tampered), sid))
+    service.db.commit()
+    with pytest.raises(ValueError, match="arrangement"):
+        service.verify_replay(sid)
+    service.close()
+
+
+def test_seat_swap_needs_distinct_bots(tmp_path, decisions):
+    service = table(tmp_path, decisions, ["human", "script:random", "script:random"])
+    with pytest.raises(PlayError, match="distinct bots"):
+        service.create("swap-copies-key-00001", {"sessionType": "benchmark", "playMode": "restricted",
+                                                 "targetHands": 6, "seatSwap": True})
+    service.close()
