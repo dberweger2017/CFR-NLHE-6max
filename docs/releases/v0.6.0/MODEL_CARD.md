@@ -1,6 +1,6 @@
 # v0.6.0 model card — three players, 100 BB
 
-Release preparation; not published yet. This release packages the three frozen
+Owner-approved v0.6.0 release. This release packages the three frozen
 10B-node all-street average blueprints qualified by PR367, seeds 2026101935003,
 202610200601 and 202610200602. The binary derivatives preserve every sorted key,
 action code, float64 probability bit and original-average mass tag from the

@@ -1,3 +1,18 @@
+## v0.6.0 publication authorization and source binding
+
+The owner approved publication on October 20, 2026. PR369 merged
+`1faacabf710dd6f1d73f368ee740831fec6e0878` after all five checks passed.
+The documentation follow-up records that approval before tagging; model and
+runtime source are unchanged. Fresh approved manifests must name the reviewed
+release source rather than modify the retained prepared manifests in place.
+The [release page](https://github.com/dberweger2017/CFR-NLHE-6max/releases/tag/v0.6.0)
+will record actual per-asset upload/readback status. The dedicated public
+[Drive release folder](https://drive.google.com/drive/folders/1H2MVAmOHHku1LhmZtxbkVYN3LyP8Xz0j)
+was created and its public reader permission verified; at this source commit it
+contains no models. This is not an upload or research-archive acceptance claim.
+All payload operations originate on bb128; private journals and support artifacts
+remain excluded. [Checklist](docs/releases/v0.6.0/READINESS.md).
+
 ## PR369 — v0.6.0 release preparation, exact model/runtime checks pass
 
 [PR369](https://github.com/dberweger2017/CFR-NLHE-6max/pull/369), proposal368,

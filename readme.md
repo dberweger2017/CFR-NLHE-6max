@@ -4,13 +4,14 @@ This bot plays heads-up (HU, one-on-one) no-limit Texas hold'em. Each model lear
 
 There are three release lines, HU20, HU100 and HU200, for 20, 100 and 200 big-blind stacks, with no rake or ante and fresh stacks each hand. They play tabular, linearly weighted, opponent-sampled CFR averages.
 
-**v0.6.0 preparation — three players, 100 BB.** Fresh acceptance passes all 30
+**v0.6.0 — three players, 100 BB (publication authorized).** Fresh acceptance passes all 30
 simultaneous gates across three independent 10B lineages. The release PR prepares
 explicit seed selection, verified split binary models and a local human/spectator
-table. Publication is pending; earlier relative random/random+TAG regressions
+table. See the [release page](https://github.com/dberweger2017/CFR-NLHE-6max/releases/tag/v0.6.0)
+for verified download availability; earlier relative random/random+TAG regressions
 remain adverse evidence. Recommend 32 GB RAM for one loaded model.
 [Model card](docs/releases/v0.6.0/MODEL_CARD.md) ·
-[Preparation and remaining publication steps](docs/releases/v0.6.0/READINESS.md)
+[Readiness and publication checks](docs/releases/v0.6.0/READINESS.md)
 
 **[v0.5.5, heads-up 200 BB — Latest](https://github.com/dberweger2017/CFR-NLHE-6max/releases/tag/v0.5.5).**
 
