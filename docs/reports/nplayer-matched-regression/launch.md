@@ -1,4 +1,7 @@
-# Matched-state regression study — queued
+# Matched-state regression study — dated launch snapshot
+
+The study subsequently completed; see the [final results](results.md).
+The following records the original queue/qualification state.
 
 [PR362](https://github.com/dberweger2017/CFR-NLHE-6max/pull/362), proposal360;
 [fixed protocol](../../nplayer-matched-regression.md). Owner authorized alongside

@@ -48,7 +48,7 @@ def token_file(path):
     return token
 
 
-def handler_for(service, token, port):
+def handler_for(service, token, port, assets=ASSET_TYPES):
     allowed_host = f"127.0.0.1:{port}"
     allowed_origin = f"http://{allowed_host}"
 
@@ -104,8 +104,8 @@ def handler_for(service, token, port):
             try:
                 self._guard()
                 path = urlsplit(self.path).path
-                if path in ASSET_TYPES and self.path == path:
-                    name, kind = ASSET_TYPES[path]
+                if path in assets and self.path == path:
+                    name, kind = assets[path]
                     asset = ASSETS / name
                     if asset.is_symlink() or not asset.is_file():
                         raise PlayError("Asset unavailable", 404)
@@ -136,7 +136,8 @@ def handler_for(service, token, port):
                 elif match := BENCHMARK_EXPORT.fullmatch(path):
                     report = service.benchmark_result(match[1])
                     stack_bb = report['table']['stack'] // report['table']['big_blind']
-                    self._send(200, report, download_name=f'hu{stack_bb}-benchmark-{report["benchmarkId"]}.json')
+                    game = f"{report['players']}seat-{stack_bb}bb" if 'players' in report else f'hu{stack_bb}'
+                    self._send(200, report, download_name=f'{game}-benchmark-{report["benchmarkId"]}.json')
                 elif match := DIAGNOSTICS.fullmatch(path):
                     self._send(200, service.diagnostics(match[1], match[2]))
                 else:

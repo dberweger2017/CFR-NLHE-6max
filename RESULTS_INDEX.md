@@ -1,18 +1,51 @@
-## PR362 — matched-state scripted regression investigation queued
+## PR362 — matched-state diagnosis complete; aggregate cause unresolved
 
 [PR362](https://github.com/dberweger2017/CFR-NLHE-6max/pull/362), proposal360,
 [protocol](docs/nplayer-matched-regression.md),
-[launch/retention](docs/reports/nplayer-matched-regression/launch.md),
-[compact queue receipt](docs/reports/nplayer-matched-regression/launch.json).
-Runtimeb7214c13, bb128 main-v1PID626281, queued behindPR361's exclusive mutex.
-M1:68native tests, four Python checks and release build pass. Mature outcomes
-pending. NamespacePR-362-nplayer-matched-regression stores only new owned copies/
-outputs; original dependencies remain read-only. Raw/source/partials preserved;
-cache/Drive archive acceptance pending, no deletion or external retrieval claim.
+[results and limits](docs/reports/nplayer-matched-regression/results.md),
+[compact proofs/receipts](docs/reports/nplayer-matched-regression/results.json),
+[all64 conditional contrasts](docs/reports/nplayer-matched-regression/contrasts.csv),
+[street/position/visible-strength groups](docs/reports/nplayer-matched-regression/matched-groups.csv),
+[20 stage costs](docs/reports/nplayer-matched-regression/costs.csv),
+[dated launch](docs/reports/nplayer-matched-regression/launch.md).
+Runtimeb7214c13 completedOct20,10:14:29UTC; rootsettled/nofailure/all20RC0.
+1,970 matched states across two fixed lineages;32 selected decisions, each32
+discovery+512heldout worlds, all reproduced. Two local10B root improvements
+clear bounded family intervals under both continuations;30 inconclusive,
+no conclusively negative root mixture. One selected alternative clears zero.
+Heldout random/TAG betting/raising falls4.1–4.3pp;98.38% sampled states have
+positive mass in both. No causal attribution of aggregate regression/Nash claim.
+Thirty verified new-owned staging records/74.41GB retained under
+`bb128:/mnt/data2tb/research-cloud/PR-362-nplayer-matched-regression/main-v1/`,
+with accessible original NVMe paths. Previous inputs/source/partials/raw
+evidence retained. ZIP/Drive acceptance and future fallback
+`gdrive:PR-362-nplayer-matched-regression/` pending; no deletion/remote retrieval
+claim or default/release adoption. PR ready for owner review, not auto-merged.
+
+## PR361 — exact mature parity; 1.75–1.82× loads and 1.95× reusable job
+
+[PR361](https://github.com/dberweger2017/CFR-NLHE-6max/pull/361),
+[protocol](docs/nplayer-inference-validation.md),
+[results and limits](docs/reports/nplayer-inference-validation/results.md),
+[compact proofs/receipts](docs/reports/nplayer-inference-validation/results.json),
+[all12 loads](docs/reports/nplayer-inference-validation/loads.csv),
+[33 stage costs](docs/reports/nplayer-inference-validation/costs.csv),
+[dated launch/provenance](docs/reports/nplayer-inference-validation/launch.md).
+Runtimec06fc565 completedOct20,08:53:01UTC; all33stagesRC0/no failure.
+Two250,001,069-row audits and884,736 cross-format initial hand rows exactly
+match; reproduction/replay pass. Predeclared2× native-load gate fails;
+whole-job gate passes (635.43→325.99s), peak evaluator65.94→27.65GiB.
+Conversion+audit21.45min separate; binary pair28.30GB vs11.84GB gzip.
+76 verified new-owned staging records/52.74GB retained under
+`bb128:/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/`,
+accessible at original NVMe paths. Protect active PR362 dependency and all old
+inputs/partials. ZIP/Drive acceptance and fallback
+`gdrive:PR-361-nplayer-inference-validation/` remain pending; no remote retrieval
+claim, deletion, default or new strength result.
 
 ## PR359 — exact binary inference, local qualification only
 
-[Draft PR359](https://github.com/dberweger2017/CFR-NLHE-6max/pull/359),
+[Merged PR359](https://github.com/dberweger2017/CFR-NLHE-6max/pull/359),
 [proposal358](https://github.com/dberweger2017/CFR-NLHE-6max/issues/358),
 [format/commands](docs/nplayer-binary-inference.md),
 [report and mature quote](docs/reports/nplayer-binary-inference/local-qualification.md),
@@ -24,9 +57,9 @@ Final generated100k-row/380k-value fixture: 3.16× median validated load speedup
 about21% lower per-child peak RSS, 1.62× lookup-plus-digest time, 1.15× logical
 file bytes. All stored float bits and probe digests match. 63 native library,
 4 mass-helper and3 CLI tests pass; final reader changes recheck the4 binary test
-groups. No realK50/mature performance/strength/default claim. Mature bb128 quote
-is90–150min with new-output storage approval still pending; no science launched.
-One read-only host capacity check was made, with no old input changes.
+groups. These local figures are not mature performance/strength/default claims.
+The owner subsequently accepted the90–150min quote and new-output staging;
+the completed mature result belongs to PR361 above. Old inputs stay unchanged.
 
 Owned ignored Mac evidence:
 `/Users/dberweger/Local/cfr-nplayer-binary-inference-20261020/results/nplayer-binary-inference-20261020-local-v4/`.
