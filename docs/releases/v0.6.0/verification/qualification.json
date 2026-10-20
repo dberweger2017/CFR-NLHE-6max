@@ -1,0 +1,969 @@
+{
+  "archive_drive_acceptance": "pending",
+  "cache": "/mnt/data2tb/research-cloud/PR-369-v060-release/qualification-v2",
+  "finished_at": 1792517854.4828734,
+  "publication_approved": false,
+  "qualification_policy": {
+    "automatic_resource_stops": "temperatures only",
+    "build_jobs": 4,
+    "cpu_stop_c": 90,
+    "disk_or_swap_cutoff": false,
+    "invalid_or_missing_sensor": "stop",
+    "manual_disk_and_swap_inspection": true,
+    "rayon_threads": 4,
+    "rss_limit_bytes": null,
+    "seeds_sequential": true,
+    "thermistor15_stop_c": 100,
+    "time_limit_seconds": null
+  },
+  "resource_summary": {
+    "archive_drive_acceptance": "pending; no data deletion",
+    "binary_sha256": "6802d603dc5c6ea19e037be6ff1952d8f23e729b7cb531036dc5349ce93209f5",
+    "driver_sha256": "9c3bc67f6accaa18372ec7591edfea267b23989a46239b4b8fca66f90d0d7f1e",
+    "hdd_free_bytes": 590767730688,
+    "max_temperatures_c": {
+      "Package id 0": 57.0,
+      "Thermistor 15": 57.0
+    },
+    "measured_child_cpu_seconds": 1639.6847700000005,
+    "measured_stage_wall_seconds": 3987.6110992758768,
+    "nvme_free_bytes": 49033863168,
+    "peak_sampled_worker_rss_bytes": 15600676864,
+    "per_stage_sampled_peak_rss_bytes": {
+      "2026101935003-build": 47640576,
+      "2026101935003-runtime": 15600676864,
+      "2026101935003-stage": 49524736,
+      "2026101935003-standalone": 45826048,
+      "202610200601-build": 46854144,
+      "202610200601-runtime": 15597289472,
+      "202610200601-stage": 48529408,
+      "202610200601-standalone": 44109824,
+      "202610200602-build": 45940736,
+      "202610200602-runtime": 15598260224,
+      "202610200602-stage": 48246784,
+      "202610200602-standalone": 43905024,
+      "focused-tests": 14372864,
+      "reuse-build": 13246464
+    },
+    "receipt_pins": {
+      "2026101935003/bundle/NP3-100BB-v060-seed-2026101935003.manifest.json": {
+        "bytes": 6007,
+        "sha256": "b690e73dbd891f9c27f9fca0faacb7aee90029289cc3ad09d3714f1e66d4cb3e"
+      },
+      "2026101935003/runtime/receipt.json": {
+        "bytes": 2502,
+        "sha256": "ea2547b1b955310e8d9144381da8c1c8a4e19dc55549e976bd27f093bcfb3962"
+      },
+      "202610200601/bundle/NP3-100BB-v060-seed-202610200601.manifest.json": {
+        "bytes": 5991,
+        "sha256": "f9b66f606b62d0ffd94e8438e0fcb028dcdd2b41ed0bcb98a631193e949be253"
+      },
+      "202610200601/runtime/receipt.json": {
+        "bytes": 2499,
+        "sha256": "870d9eaff7efcbbbe7b6c87dd8d140a4308f8e559e2870cb65d88efb21846c35"
+      },
+      "202610200602/bundle/NP3-100BB-v060-seed-202610200602.manifest.json": {
+        "bytes": 5991,
+        "sha256": "86b73ffbd01ddd815755d1f14eeb56283a79ade30c4f9ddc398756e7c2828c3d"
+      },
+      "202610200602/runtime/receipt.json": {
+        "bytes": 2500,
+        "sha256": "2737b2db861668b482226126787d28274da9f1df708d4526afea6139c32d289a"
+      }
+    },
+    "relocations_sha256": "c0bbb3c812131b5e0857e914d9d3fb111643f907043a18e4ff8c3b15369adf68",
+    "samples": 7800,
+    "staged_bytes": 89046108651,
+    "staged_unique_files": 81,
+    "status": "passed",
+    "timing_limitations": "One host/ordinary warm cache; no cache flush or comparative speed claim. Includes full split/reconstruction/copy/readback. Nine stdlib tests at frozen source; tenth cache-contract test runs locally and in final CI.",
+    "wall_seconds": 3987.627107858658
+  },
+  "retained_setup_failure": {
+    "reason": "Managed Python has no pytest; stopped before reading/copying a model. Successful native build reused read-only by v2.",
+    "root": "/home/dberweger/v060-release-20261020-pr369/qualification-v1"
+  },
+  "seeds": [
+    {
+      "manifest": {
+        "card_tables": {
+          "flop-k50.bin": {
+            "bytes": 12867944,
+            "sha256": "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111"
+          },
+          "river-k50.bin": {
+            "bytes": 1231562564,
+            "sha256": "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+          },
+          "turn-k50.bin": {
+            "bytes": 139600524,
+            "sha256": "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f"
+          }
+        },
+        "evidence": {
+          "acceptance_pr": 367,
+          "adverse_relative_regressions_pr": 357,
+          "settled_results_sha256": "15c573e88d9b3b3c9ab81f6f3150eff6b91d577b6aa26fdad0a2af3045f32453",
+          "simultaneous_gates_passed": 30
+        },
+        "format": "nplayer-v060-release-v1",
+        "model": {
+          "bytes": 14149208746,
+          "file": "NP3-100BB-v060-seed-2026101935003.bin",
+          "metadata": {
+            "byte_order": "little",
+            "dtype": "float64",
+            "format": "nplayer-policy-binary-v1",
+            "mass": {
+              "keyset_sha256": "a83858109eed965e73acd76787761d9353f2a66cccb482c0271173e3ff731425",
+              "positive_mass_rows": 181458908,
+              "receipt_sha256": "2d957c76b9e35690cf7eb56087bb96e703e034b6533b73f3be7c72e0aaea01a0",
+              "zero_keys_sha256": "45af8328c11b51ca5fd53242306271d18ea4c08f3f4af74d3bbf288425b0c69a",
+              "zero_mass_rows": 68541567
+            },
+            "policy": {
+              "continuation": "none",
+              "entries": 250000475,
+              "format": "nplayer-policy-v1",
+              "identity": {
+                "big_blind": 100,
+                "card_tables": [
+                  "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+                  "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+                  "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+                ],
+                "game": "nlhe-cash",
+                "menu": "min-pot-conditional-jam-v1",
+                "players": 3,
+                "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+                "small_blind": 50,
+                "stacks": [
+                  10000,
+                  10000,
+                  10000
+                ],
+                "utility_unit": "big-blind"
+              },
+              "last_average_street": 3,
+              "missing": "uniform",
+              "players": 3,
+              "source_checkpoint_sha256": "788e75acf8b98d88518faf3da683048ec05604ba001c8a59bb1ec5f740b52b80",
+              "strategy": "average"
+            },
+            "record_bytes": 32,
+            "source_policy_sha256": "a85364b71c478be213e0356c5201911755228c864472427b64699346191facbd"
+          },
+          "sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189"
+        },
+        "parts": [
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-2026101935003.bin.part-001",
+            "sha256": "38956616e5088a5679f0f1e2bd126811f063c4f52de3f796493bf289cf08ac63"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-2026101935003.bin.part-002",
+            "sha256": "e76ca54de44db1fd6f7c04a9ad46b41ad7c96590c9fbd3e209d1971b1bc2fc2d"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-2026101935003.bin.part-003",
+            "sha256": "362fb09b36de52fa726e99da25adbc2aa8ff49bc0926ae8f1a68937f780b6a4c"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-2026101935003.bin.part-004",
+            "sha256": "7a2870ef856d23811586be173787ad409563f763e3d7333c85b4efcd390eec9a"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-2026101935003.bin.part-005",
+            "sha256": "08b8cbd6c5ff8d4c07085d89a422c55e89c251363675470b9488d14ba0622911"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-2026101935003.bin.part-006",
+            "sha256": "ebb22e339baaacfd965985e5f384f8ef857f1eb9bf0ac3c5b3304a45fdfa822f"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-2026101935003.bin.part-007",
+            "sha256": "cdc98440dd5a4b39f780de495b1746e6fe0cd5ba31367081be827d618603c4cf"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-2026101935003.bin.part-008",
+            "sha256": "64acca9120903208a04b449b9e0af86b3a787bf239832f79347334f5b3969453"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-2026101935003.bin.part-009",
+            "sha256": "f76239951d2b9cfcba3ea7e64ea7ef8d8ef30bfcb8047a0597dd345ee39f712a"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-2026101935003.bin.part-010",
+            "sha256": "7fb6bbd185e5399dd00f859298e3454d3e6f806176270473761d82679ffc1413"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-2026101935003.bin.part-011",
+            "sha256": "80500ac98aedd9855424395f7bc67f1347ddefa690b0cbf13715b72206ef6776"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-2026101935003.bin.part-012",
+            "sha256": "63b657dcff2b113ede26b4aad74ed8b244b86a1c0fbeaf891a3e0ece5b695329"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-2026101935003.bin.part-013",
+            "sha256": "f938953bd7d5f86f1d29b121a9c035c1895e45a30a6ae73af61c38abbe8c089c"
+          },
+          {
+            "bytes": 190565034,
+            "file": "NP3-100BB-v060-seed-2026101935003.bin.part-014",
+            "sha256": "16fd1b92053a5b909d7160b8d8fed700cfedd13907dd520c2588186f1e65a23f"
+          }
+        ],
+        "publication_approved": false,
+        "seed": "2026101935003",
+        "source_assets": {
+          "INSTALL.md": {
+            "bytes": 2939,
+            "sha256": "f49362b6721bb915e3f0122186608d8375c61068978d84480bc224fd3de6f0e4"
+          },
+          "MODEL_CARD.md": {
+            "bytes": 3431,
+            "sha256": "feb574cb19378d8e6d695068cce6c2e537b2aac673106456b9f1ab10c070b6b0"
+          },
+          "RELEASE_NOTES.md": {
+            "bytes": 1484,
+            "sha256": "6ffb7ba2e164588c03ec984173262bfe8485bf3785196d46ca3930e34af1ff08"
+          },
+          "verify_v060_bundle.py": {
+            "bytes": 17229,
+            "sha256": "575d8f62dd1aae3fdab9e6b4ca0d92a8a29e22cd8a3c570d87050284dab00346"
+          }
+        },
+        "source_commit": "3b43d05c24b8ec661c416568679d661518a9bb8d",
+        "table": {
+          "big_blind": 100,
+          "players": 3,
+          "search": false,
+          "small_blind": 50,
+          "stack_bb": 100
+        },
+        "version": "v0.6.0"
+      },
+      "runtime": {
+        "assembly_and_asset_check_seconds": 25.242277283978183,
+        "limitation": "Twelve integration hands, no poker-strength estimate",
+        "loaded_weight_tables": 1,
+        "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+        "native_ready": {
+          "card_tables": [
+            "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+            "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+            "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+          ],
+          "format": "nplayer-decision-service-v1",
+          "loaded_weight_tables": 1,
+          "menu": "min-pot-conditional-jam-v1",
+          "ok": true,
+          "policies": {
+            "v0.6.0-2026101935003": {
+              "average_scope": 3,
+              "identity": {
+                "big_blind": 100,
+                "card_tables": [
+                  "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+                  "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+                  "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+                ],
+                "game": "nlhe-cash",
+                "menu": "min-pot-conditional-jam-v1",
+                "players": 3,
+                "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+                "small_blind": 50,
+                "stacks": [
+                  10000,
+                  10000,
+                  10000
+                ],
+                "utility_unit": "big-blind"
+              },
+              "players": 3,
+              "rows": 250000475,
+              "sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+              "source_checkpoint_sha256": "788e75acf8b98d88518faf3da683048ec05604ba001c8a59bb1ec5f740b52b80",
+              "strategy": "average"
+            }
+          },
+          "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+          "scripts": [
+            "random",
+            "check-call",
+            "tight-aggressive",
+            "pot-pressure"
+          ]
+        },
+        "native_start_seconds": 122.63257862400496,
+        "play_and_double_replay_seconds": 0.2980756280012429,
+        "seed": "2026101935003",
+        "status": "passed",
+        "tables": [
+          {
+            "chip_conservation": true,
+            "hands": 6,
+            "mode": "human",
+            "privacy": true,
+            "replayed_before_and_after_restart": true,
+            "restricted_menu": true
+          },
+          {
+            "chip_conservation": true,
+            "hands": 6,
+            "mode": "spectator",
+            "privacy": true,
+            "replayed_before_and_after_restart": true,
+            "restricted_menu": true
+          }
+        ]
+      },
+      "seed": "2026101935003"
+    },
+    {
+      "manifest": {
+        "card_tables": {
+          "flop-k50.bin": {
+            "bytes": 12867944,
+            "sha256": "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111"
+          },
+          "river-k50.bin": {
+            "bytes": 1231562564,
+            "sha256": "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+          },
+          "turn-k50.bin": {
+            "bytes": 139600524,
+            "sha256": "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f"
+          }
+        },
+        "evidence": {
+          "acceptance_pr": 367,
+          "adverse_relative_regressions_pr": 357,
+          "settled_results_sha256": "15c573e88d9b3b3c9ab81f6f3150eff6b91d577b6aa26fdad0a2af3045f32453",
+          "simultaneous_gates_passed": 30
+        },
+        "format": "nplayer-v060-release-v1",
+        "model": {
+          "bytes": 14148446930,
+          "file": "NP3-100BB-v060-seed-202610200601.bin",
+          "metadata": {
+            "byte_order": "little",
+            "dtype": "float64",
+            "format": "nplayer-policy-binary-v1",
+            "mass": {
+              "keyset_sha256": "d2e9bbadb39aa5f6504b077cdfd764fd5f41c4407706f9f5b6124325154a10a3",
+              "positive_mass_rows": 181590424,
+              "receipt_sha256": "d1740074496f7bed582cb6829a9c1316ba43b2d1740fc2922a76d361bf1f5ad0",
+              "zero_keys_sha256": "82f0d3bdc3def6e084eef1d09c9fcd505e3587dc88c620175e4cae30a81f06a0",
+              "zero_mass_rows": 68410645
+            },
+            "policy": {
+              "continuation": "none",
+              "entries": 250001069,
+              "format": "nplayer-policy-v1",
+              "identity": {
+                "big_blind": 100,
+                "card_tables": [
+                  "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+                  "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+                  "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+                ],
+                "game": "nlhe-cash",
+                "menu": "min-pot-conditional-jam-v1",
+                "players": 3,
+                "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+                "small_blind": 50,
+                "stacks": [
+                  10000,
+                  10000,
+                  10000
+                ],
+                "utility_unit": "big-blind"
+              },
+              "last_average_street": 3,
+              "missing": "uniform",
+              "players": 3,
+              "source_checkpoint_sha256": "d03db22316af0e8bd04e76f5303603709bd77b2bf13dcc13ea07482ca10170ca",
+              "strategy": "average"
+            },
+            "record_bytes": 32,
+            "source_policy_sha256": "fbb0b16f8459376519c9ea81c2c2d33b8c08d36efeb8cc2ca9d148eaf08b8843"
+          },
+          "sha256": "23599816cf632a51cace45f25d70ed4918fe5e75875c33136d8629052a8a2a70"
+        },
+        "parts": [
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-202610200601.bin.part-001",
+            "sha256": "a5dbe5c861faac105021cb3b48a7da5ea9e114bdd902273ab11efcc9e5855e8a"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-202610200601.bin.part-002",
+            "sha256": "4f64b000c2adb391217ceef4d96238a5eb516678694534f3eaabaa8301187457"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-202610200601.bin.part-003",
+            "sha256": "0b9adee1dd3efb0a3615b19ccaa25642db8fa2d25ddcdb9bf3c4fa1c14b406bb"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-202610200601.bin.part-004",
+            "sha256": "d706ba09ae153c0efca07333e30184e9b26d901b0c8d5250db23d2ed34a8e699"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-202610200601.bin.part-005",
+            "sha256": "818480f6bd4478a8cbd4ca5a9f9a9ab54f74544922a1eb81649dea9d2a319903"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-202610200601.bin.part-006",
+            "sha256": "9aab30d253e5fde9177ed76d9c15170b44def3a465bf9c71fd08c632c8b3616d"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-202610200601.bin.part-007",
+            "sha256": "bad289e81d19f62e2066618359ce956b52e6ac403eddcc72369e526b2cb1f033"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-202610200601.bin.part-008",
+            "sha256": "b19bebc5f7ac7e424c4a0cd240256f0ea08784868c1d1e5ff08268acf78e12d6"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-202610200601.bin.part-009",
+            "sha256": "5320ef631d3baa418cb89c324df3b1c93a5eb27a685b525064e646e54a2364ee"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-202610200601.bin.part-010",
+            "sha256": "1dfa73228e32090d5135437b0759c3a61565f0bb53dfae124eb6a5e7c112523b"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-202610200601.bin.part-011",
+            "sha256": "8f38a1756d31377f76017f83ffa50dd59cd76cd0fb6db607cc6c3af5a3d53b40"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-202610200601.bin.part-012",
+            "sha256": "e111033cad40f2fea976e01566a28bb2c3a0a37e0888f4d3672ba97af161d7e7"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-202610200601.bin.part-013",
+            "sha256": "540f01fc4e867d94a4701dd5f08dc511ba3c38cc8d3ed02cf08271221ff5e7a0"
+          },
+          {
+            "bytes": 189803218,
+            "file": "NP3-100BB-v060-seed-202610200601.bin.part-014",
+            "sha256": "d35d639b19fbd4f40dd48fa91780c9df4f33564b9254f5f09923b4c8ee759e00"
+          }
+        ],
+        "publication_approved": false,
+        "seed": "202610200601",
+        "source_assets": {
+          "INSTALL.md": {
+            "bytes": 2939,
+            "sha256": "f49362b6721bb915e3f0122186608d8375c61068978d84480bc224fd3de6f0e4"
+          },
+          "MODEL_CARD.md": {
+            "bytes": 3431,
+            "sha256": "feb574cb19378d8e6d695068cce6c2e537b2aac673106456b9f1ab10c070b6b0"
+          },
+          "RELEASE_NOTES.md": {
+            "bytes": 1484,
+            "sha256": "6ffb7ba2e164588c03ec984173262bfe8485bf3785196d46ca3930e34af1ff08"
+          },
+          "verify_v060_bundle.py": {
+            "bytes": 17229,
+            "sha256": "575d8f62dd1aae3fdab9e6b4ca0d92a8a29e22cd8a3c570d87050284dab00346"
+          }
+        },
+        "source_commit": "3b43d05c24b8ec661c416568679d661518a9bb8d",
+        "table": {
+          "big_blind": 100,
+          "players": 3,
+          "search": false,
+          "small_blind": 50,
+          "stack_bb": 100
+        },
+        "version": "v0.6.0"
+      },
+      "runtime": {
+        "assembly_and_asset_check_seconds": 25.1195035239798,
+        "limitation": "Twelve integration hands, no poker-strength estimate",
+        "loaded_weight_tables": 1,
+        "model_sha256": "23599816cf632a51cace45f25d70ed4918fe5e75875c33136d8629052a8a2a70",
+        "native_ready": {
+          "card_tables": [
+            "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+            "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+            "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+          ],
+          "format": "nplayer-decision-service-v1",
+          "loaded_weight_tables": 1,
+          "menu": "min-pot-conditional-jam-v1",
+          "ok": true,
+          "policies": {
+            "v0.6.0-202610200601": {
+              "average_scope": 3,
+              "identity": {
+                "big_blind": 100,
+                "card_tables": [
+                  "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+                  "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+                  "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+                ],
+                "game": "nlhe-cash",
+                "menu": "min-pot-conditional-jam-v1",
+                "players": 3,
+                "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+                "small_blind": 50,
+                "stacks": [
+                  10000,
+                  10000,
+                  10000
+                ],
+                "utility_unit": "big-blind"
+              },
+              "players": 3,
+              "rows": 250001069,
+              "sha256": "23599816cf632a51cace45f25d70ed4918fe5e75875c33136d8629052a8a2a70",
+              "source_checkpoint_sha256": "d03db22316af0e8bd04e76f5303603709bd77b2bf13dcc13ea07482ca10170ca",
+              "strategy": "average"
+            }
+          },
+          "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+          "scripts": [
+            "random",
+            "check-call",
+            "tight-aggressive",
+            "pot-pressure"
+          ]
+        },
+        "native_start_seconds": 122.59346974699292,
+        "play_and_double_replay_seconds": 0.28922160499496385,
+        "seed": "202610200601",
+        "status": "passed",
+        "tables": [
+          {
+            "chip_conservation": true,
+            "hands": 6,
+            "mode": "human",
+            "privacy": true,
+            "replayed_before_and_after_restart": true,
+            "restricted_menu": true
+          },
+          {
+            "chip_conservation": true,
+            "hands": 6,
+            "mode": "spectator",
+            "privacy": true,
+            "replayed_before_and_after_restart": true,
+            "restricted_menu": true
+          }
+        ]
+      },
+      "seed": "202610200601"
+    },
+    {
+      "manifest": {
+        "card_tables": {
+          "flop-k50.bin": {
+            "bytes": 12867944,
+            "sha256": "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111"
+          },
+          "river-k50.bin": {
+            "bytes": 1231562564,
+            "sha256": "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+          },
+          "turn-k50.bin": {
+            "bytes": 139600524,
+            "sha256": "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f"
+          }
+        },
+        "evidence": {
+          "acceptance_pr": 367,
+          "adverse_relative_regressions_pr": 357,
+          "settled_results_sha256": "15c573e88d9b3b3c9ab81f6f3150eff6b91d577b6aa26fdad0a2af3045f32453",
+          "simultaneous_gates_passed": 30
+        },
+        "format": "nplayer-v060-release-v1",
+        "model": {
+          "bytes": 14148348082,
+          "file": "NP3-100BB-v060-seed-202610200602.bin",
+          "metadata": {
+            "byte_order": "little",
+            "dtype": "float64",
+            "format": "nplayer-policy-binary-v1",
+            "mass": {
+              "keyset_sha256": "e99622c1ee718733cef4aa0df6ddfc7032e1e3dfd7fc08b5a9396fb7e34c73fd",
+              "positive_mass_rows": 181434181,
+              "receipt_sha256": "59ee0b8ae9169b49798dfe4672d6178f5e0777b06eb406ca4c8f6d1362a050b5",
+              "zero_keys_sha256": "a68c4bfea00334c388868e562d5d411df83d8399ba6cfe4f00919a3a1b0ee32f",
+              "zero_mass_rows": 68566135
+            },
+            "policy": {
+              "continuation": "none",
+              "entries": 250000316,
+              "format": "nplayer-policy-v1",
+              "identity": {
+                "big_blind": 100,
+                "card_tables": [
+                  "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+                  "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+                  "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+                ],
+                "game": "nlhe-cash",
+                "menu": "min-pot-conditional-jam-v1",
+                "players": 3,
+                "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+                "small_blind": 50,
+                "stacks": [
+                  10000,
+                  10000,
+                  10000
+                ],
+                "utility_unit": "big-blind"
+              },
+              "last_average_street": 3,
+              "missing": "uniform",
+              "players": 3,
+              "source_checkpoint_sha256": "94836638f4818414307425278bdc291948a060107ed0064552f329d4960d7200",
+              "strategy": "average"
+            },
+            "record_bytes": 32,
+            "source_policy_sha256": "8427dffd00de9b9cb490cc6842aecf279eab6d55a27752dcd3781df3d0c52ecf"
+          },
+          "sha256": "2911937c047c644324d7a78a944949192f19d44eda373ca333d94a0dcaec8984"
+        },
+        "parts": [
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-202610200602.bin.part-001",
+            "sha256": "78b64bc87c892fb92197544a0e3544ef6ba4ee0e590156c921be42f6c874684c"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-202610200602.bin.part-002",
+            "sha256": "c77e418a75c0929375502b1229752dd530f31fff10a6637296c70da0c092b71c"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-202610200602.bin.part-003",
+            "sha256": "62fc38fb14fbfac1df1059df23f0d4fe312466e38ffccee13a538b34d9187eb0"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-202610200602.bin.part-004",
+            "sha256": "e883796d10cc21dbfa383c779bb565659c8c449992e00a7db2ea14fa845033c6"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-202610200602.bin.part-005",
+            "sha256": "e8b821a5583fea3d5853f64c81ce2c1f926c08006c54c376cf6ce290068e8175"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-202610200602.bin.part-006",
+            "sha256": "4766ef2dca93247615d86b3704facd531b27e07d68b5d270466bdda264de0e9d"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-202610200602.bin.part-007",
+            "sha256": "fa9559e7e7532f22ba07c3b196e24f5b831a60ff4cd326d5bfe74e13038b20ed"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-202610200602.bin.part-008",
+            "sha256": "9e44112f5fddcb3b1dd8bc0ef455105e362a1f338660a96709cd1bee09fc6db8"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-202610200602.bin.part-009",
+            "sha256": "db12ba3980fae8fafeda4169bca6efc9e769bcdc008cc1339204fbe29e094dd4"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-202610200602.bin.part-010",
+            "sha256": "e3fa54180b68ac1ade364a1e9de9c707689c966d3551082a2634d68f7d220476"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-202610200602.bin.part-011",
+            "sha256": "15ad81630ae03f04622e20e892e49908d999d32387f4bb9a6fed4e95940e8aae"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-202610200602.bin.part-012",
+            "sha256": "a878726b4b6d7ff5233d9bcc7b1eaf066a285e4e3d150f4cc8160eb143e3bced"
+          },
+          {
+            "bytes": 1073741824,
+            "file": "NP3-100BB-v060-seed-202610200602.bin.part-013",
+            "sha256": "2284966b5942f8ce4a71422bdd26d07401f4931d89eaaa8916b90d50fb2e02ac"
+          },
+          {
+            "bytes": 189704370,
+            "file": "NP3-100BB-v060-seed-202610200602.bin.part-014",
+            "sha256": "942d8c35b555e9cf4de53dafbdb793798d973ac128a4915710ccf96caffcec76"
+          }
+        ],
+        "publication_approved": false,
+        "seed": "202610200602",
+        "source_assets": {
+          "INSTALL.md": {
+            "bytes": 2939,
+            "sha256": "f49362b6721bb915e3f0122186608d8375c61068978d84480bc224fd3de6f0e4"
+          },
+          "MODEL_CARD.md": {
+            "bytes": 3431,
+            "sha256": "feb574cb19378d8e6d695068cce6c2e537b2aac673106456b9f1ab10c070b6b0"
+          },
+          "RELEASE_NOTES.md": {
+            "bytes": 1484,
+            "sha256": "6ffb7ba2e164588c03ec984173262bfe8485bf3785196d46ca3930e34af1ff08"
+          },
+          "verify_v060_bundle.py": {
+            "bytes": 17229,
+            "sha256": "575d8f62dd1aae3fdab9e6b4ca0d92a8a29e22cd8a3c570d87050284dab00346"
+          }
+        },
+        "source_commit": "3b43d05c24b8ec661c416568679d661518a9bb8d",
+        "table": {
+          "big_blind": 100,
+          "players": 3,
+          "search": false,
+          "small_blind": 50,
+          "stack_bb": 100
+        },
+        "version": "v0.6.0"
+      },
+      "runtime": {
+        "assembly_and_asset_check_seconds": 25.201576268998906,
+        "limitation": "Twelve integration hands, no poker-strength estimate",
+        "loaded_weight_tables": 1,
+        "model_sha256": "2911937c047c644324d7a78a944949192f19d44eda373ca333d94a0dcaec8984",
+        "native_ready": {
+          "card_tables": [
+            "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+            "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+            "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+          ],
+          "format": "nplayer-decision-service-v1",
+          "loaded_weight_tables": 1,
+          "menu": "min-pot-conditional-jam-v1",
+          "ok": true,
+          "policies": {
+            "v0.6.0-202610200602": {
+              "average_scope": 3,
+              "identity": {
+                "big_blind": 100,
+                "card_tables": [
+                  "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+                  "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+                  "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+                ],
+                "game": "nlhe-cash",
+                "menu": "min-pot-conditional-jam-v1",
+                "players": 3,
+                "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+                "small_blind": 50,
+                "stacks": [
+                  10000,
+                  10000,
+                  10000
+                ],
+                "utility_unit": "big-blind"
+              },
+              "players": 3,
+              "rows": 250000316,
+              "sha256": "2911937c047c644324d7a78a944949192f19d44eda373ca333d94a0dcaec8984",
+              "source_checkpoint_sha256": "94836638f4818414307425278bdc291948a060107ed0064552f329d4960d7200",
+              "strategy": "average"
+            }
+          },
+          "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+          "scripts": [
+            "random",
+            "check-call",
+            "tight-aggressive",
+            "pot-pressure"
+          ]
+        },
+        "native_start_seconds": 122.76336602901574,
+        "play_and_double_replay_seconds": 0.2931352179730311,
+        "seed": "202610200602",
+        "status": "passed",
+        "tables": [
+          {
+            "chip_conservation": true,
+            "hands": 6,
+            "mode": "human",
+            "privacy": true,
+            "replayed_before_and_after_restart": true,
+            "restricted_menu": true
+          },
+          {
+            "chip_conservation": true,
+            "hands": 6,
+            "mode": "spectator",
+            "privacy": true,
+            "replayed_before_and_after_restart": true,
+            "restricted_menu": true
+          }
+        ]
+      },
+      "seed": "202610200602"
+    }
+  ],
+  "source": "3b43d05c24b8ec661c416568679d661518a9bb8d",
+  "source_inputs_read_only": true,
+  "source_note": "Frozen implementation qualified at 3b43d05c; subsequent edits are documentation, an additional cache-contract test and compact receipts. Publication requires fresh approved manifests bound to the reviewed release commit.",
+  "stages": {
+    "2026101935003-build": {
+      "cpu_seconds": 180.540794,
+      "returncode": 0,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 47640576
+      },
+      "wall_seconds": 411.69506991899107
+    },
+    "2026101935003-runtime": {
+      "cpu_seconds": 148.73288000000002,
+      "returncode": 0,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 15600676864
+      },
+      "wall_seconds": 148.8635346479714
+    },
+    "2026101935003-stage": {
+      "cpu_seconds": 163.30942000000005,
+      "returncode": 0,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 49524736
+      },
+      "wall_seconds": 667.236083945958
+    },
+    "2026101935003-standalone": {
+      "cpu_seconds": 51.352603,
+      "returncode": 0,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 45826048
+      },
+      "wall_seconds": 59.33087617601268
+    },
+    "202610200601-build": {
+      "cpu_seconds": 185.24938300000002,
+      "returncode": 0,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 46854144
+      },
+      "wall_seconds": 440.02120834501693
+    },
+    "202610200601-runtime": {
+      "cpu_seconds": 148.65227399999995,
+      "returncode": 0,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 15597289472
+      },
+      "wall_seconds": 148.78287792397896
+    },
+    "202610200601-stage": {
+      "cpu_seconds": 164.28766300000007,
+      "returncode": 0,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 48529408
+      },
+      "wall_seconds": 687.3446334019536
+    },
+    "202610200601-standalone": {
+      "cpu_seconds": 51.31996500000005,
+      "returncode": 0,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 44109824
+      },
+      "wall_seconds": 59.142423130979296
+    },
+    "202610200602-build": {
+      "cpu_seconds": 181.802671,
+      "returncode": 0,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 45940736
+      },
+      "wall_seconds": 429.7059659700026
+    },
+    "202610200602-runtime": {
+      "cpu_seconds": 148.84536899999995,
+      "returncode": 0,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 15598260224
+      },
+      "wall_seconds": 148.96464724297402
+    },
+    "202610200602-stage": {
+      "cpu_seconds": 164.2073700000001,
+      "returncode": 0,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 48246784
+      },
+      "wall_seconds": 727.3961231360445
+    },
+    "202610200602-standalone": {
+      "cpu_seconds": 51.18702900000022,
+      "returncode": 0,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 43905024
+      },
+      "wall_seconds": 58.92516966199037
+    },
+    "focused-tests": {
+      "cpu_seconds": 0.14385399999999998,
+      "returncode": 0,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 14372864
+      },
+      "wall_seconds": 0.14852217200677842
+    },
+    "reuse-build": {
+      "cpu_seconds": 0.053495000000000015,
+      "returncode": 0,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 13246464
+      },
+      "wall_seconds": 0.05396360199665651
+    }
+  },
+  "status": "passed",
+  "support_retention": {
+    "drive_accepted": false,
+    "originals_retained": true,
+    "path": "/mnt/data2tb/research-cloud/PR-369-v060-release/support-v1/COPY-MANIFEST.json",
+    "sha256": "9861d1133b36bbb63fa035c6cf7f43e6f35ce69b533931e4ee22e7f2491efff5",
+    "source_archive": {
+      "bytes": 280360960,
+      "path": "source-3b43d05c.tar",
+      "sha256": "8e89ed38576277ed1bef60c54671ce73b0c99ba9563764f09601a8a3f1603be7"
+    },
+    "status": "passed",
+    "support_files": 108
+  }
+}

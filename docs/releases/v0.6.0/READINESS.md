@@ -25,6 +25,17 @@ source/schema/count mismatches. An approval field is a workflow declaration,
 not a cryptographic signature: users must obtain the verifier and expected
 source commit from the reviewed release through a trusted channel.
 
+## Completed qualification
+
+All three exact models pass full part reconstruction and native runtime checks:
+36 integration hands, independent replay before/after journal restart, one shared
+weight table, legal restricted sizing and human privacy. All 14 stages return
+zero. Wall 66.46 minutes; sampled peak 14.53 GiB; CPU/Thermistor 15 maxima 57°C.
+81 new files / 89,046,108,651 bytes are verified on the 2 TB cache. No publication
+has occurred. The first setup's missing-pytest failure is preserved separately.
+[Results, measurements and retained paths](verification/qualification.md) ·
+[Compact manifests and proof](verification/qualification.json).
+
 ## Qualification scope
 
 Small real-format fixtures cover exact reconstruction, preserved partials,
@@ -34,8 +45,8 @@ verifier imports only the Python standard library.
 
 The bb128 packaging check is separate from poker-strength acceptance. It uses
 an isolated source checkout and new output paths, reads PR367's models and K50
-tables without changing them, and processes one model at a time. It will verify
-full-model reconstruction and exercise the existing human/spectator runtime,
+tables without changing them, and processes one model at a time. It verified
+full-model reconstruction and exercised the existing human/spectator runtime,
 chip conservation, privacy, restart and independent replay on a small hand set.
 Prepared bundles remain unapproved. Large files and private journals stay off
 Git; compact receipts record the exact source and measurements. Any completed
@@ -61,7 +72,8 @@ A user needs one model plus common K50 tables, rather than all three models.
 ## Publication checklist
 
 Before publication, review this PR and its qualification receipts, merge with
-passing checks, and obtain the owner's publication approval. Bind the approved
+passing checks, and obtain the owner's publication approval. Update pending
+publication labels as part of the reviewed publication source before tagging. Bind the approved
 bundles to that exact reviewed source/tag commit rather than silently changing
 source provenance in an existing prepared manifest. Build into fresh paths:
 
