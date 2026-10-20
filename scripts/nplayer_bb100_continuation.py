@@ -192,14 +192,14 @@ def check_config(c):
         raise ValueError('qualified Python changed')
 
 
-def supervised(root, callback):
+def supervised(root, callback, *, nonblocking=False):
     def interrupted(signum, frame):
         raise InterruptedError('owner/supervisor signal '+str(signum))
     signal.signal(signal.SIGTERM, interrupted)
     signal.signal(signal.SIGINT, interrupted)
     with Path('/tmp/cfr-nplayer-bb100-10b.lock').open('a') as own, Path('/tmp/cfr-cygnus-exclusive.lock').open('a') as normal:
         for lock in (own, normal):
-            fcntl.flock(lock, fcntl.LOCK_EX)
+            fcntl.flock(lock, fcntl.LOCK_EX | (fcntl.LOCK_NB if nonblocking else 0))
         if (root/'launch.json').exists():
             raise ValueError('root already launched; no automatic retry')
         guard.write(root/'launch.json', dict(pid=os.getpid(), at=time.time(), resource_policy=RESOURCE_POLICY,
@@ -381,9 +381,9 @@ def check_case(task):
     return result
 
 
-def batch(root):
+def batch(root, *, matrix=None):
     m = load(root/'evaluation-manifest.json')
-    if m['cases'] != cases(m['smoke']):
+    if m['cases'] != (cases(m['smoke']) if matrix is None else matrix):
         raise ValueError('changed fixed matrix')
     from scripts.check_nplayer_parity import engine_identity
     engine_identity()
@@ -421,7 +421,7 @@ def batch(root):
         cases=len(m['cases']),hands=sum(c['blocks']*6 for c in m['cases'])))
 
 
-def read(root):
+def read(root, *, matrix=None):
     from scripts.analyze_nplayer_arena import interval
     from scripts.read_nplayer_fast_study import paired_blocks
     from scipy.stats import t
@@ -429,7 +429,7 @@ def read(root):
     m=load(root/'evaluation-manifest.json')
     proof=load(root/'evaluation-verified.json')
     if ((root/'failure.json').exists() or load(root/'status.json')['status'] not in ('verified-readout-ready','complete')
-            or m['cases'] != cases(m['smoke']) or proof != dict(status='passed',
+            or m['cases'] != (cases(m['smoke']) if matrix is None else matrix) or proof != dict(status='passed',
                 manifest_sha256=guard.sha(root/'evaluation-manifest.json'),cases=18,hands=sum(c['blocks']*6 for c in m['cases']))):
         raise ValueError('global replay barrier not ready')
     # Revalidate trace bytes before exposing any payoff. Do not repeat engine play.

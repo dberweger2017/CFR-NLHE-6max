@@ -1,3 +1,60 @@
+## PR357 — completed independent 100 BB 3B→10B confirmations
+
+[PR357](https://github.com/dberweger2017/CFR-NLHE-6max/pull/357),
+[proposal356](https://github.com/dberweger2017/CFR-NLHE-6max/issues/356),
+[protocol](docs/nplayer-bb100-seed-confirmation.md),
+[launch/readiness](docs/reports/nplayer-bb100-confirmation/launch.md),
+[compact source/proof/resource receipt](docs/reports/nplayer-bb100-confirmation/launch.json).
+Owner-authorized launchOctober19,22:16:02UTC /October20,00:16:02Madrid, PID561159.
+Root`bb128:/home/dberweger/nplayer-bb100-confirmation-20261020/main-v1/`;
+frozen upstreamedd5bc767bdeea6bc41e695bbe2cc0f089042f62, independently committed
+source-v3snapshot312a33b6f99977c618b19ba00fafe1ab015b4001 with700matching
+controller/config file hashes. ConfigSHA256
+`6d15cb8b9630eb0e22665d50cd35de68aa2f3dd7b3e0614d5093fa5372b523b0`.
+SourcearchiveSHA256`05cb04fe18ca7e0db46134d9596dc759e5a0210d4899ab00929473b7e32b8f4c`.
+Later evidence commits do not change the frozen snapshot.
+
+Verified completion October20,02:35:55UTC /04:35:55Madrid: all18stages returned0,
+all42cases verify2,064,384initial+2,064,384reproductionhands, fourfullaudits pass.
+Fresh primary family95 gains+35.79[+25.68,+45.91] and+31.49[+20.33,+42.66]BB/100;
+cyclic safeguards pass, script/mixed safeguards fail. No final retry/adoption/merge.
+[Final report](docs/reports/nplayer-bb100-confirmation/results.md),
+[compact proofs/endpoints/costs/relocation hashes](docs/reports/nplayer-bb100-confirmation/results.json),
+[strength](docs/reports/nplayer-bb100-confirmation/strength.csv),
+[training](docs/reports/nplayer-bb100-confirmation/training.csv),
+[seats/positions](docs/reports/nplayer-bb100-confirmation/seats-and-positions.csv),
+[lookup counts](docs/reports/nplayer-bb100-confirmation/lookup-counts.csv).
+Compact retrieval evidence is ignored locally at
+`/Users/dberweger/Local/cfr-nplayer-bb100-confirmation-20261019/results/pr357-completed-20261020T0449/`;
+input SHA256s and exact remote source paths are in finalresults.json.
+232new files/82,498,076,625bytes were verified-staged under the owned HDD namespace.
+No Research-Cloud ZIP/Drive acceptance; all source/failure/model/trace roots retained.
+
+Freshqualification-v2 and fullfixture-v2 pass47focusedtests, realK50 historical/
+resumed checkpoint/export parity,216initial+repeat diagnostic hands,120legacy
+trajectory matches, then504initial+504exact reproduction hands across42cases,
+allinitial independently replayed,232verified staged files and9cross-policyloads.
+Priorfixture-v1's readout-phase failure, partial-clone/import-path setup errors
+and all source/fixture/cache roots are retained; no final training ran there.
+The compact receipt pins exact qualification/fixture/control paths and hashes.
+
+New-owned cache namespace`PR-357-nplayer-bb100-seed-confirmation` under
+`bb128:/mnt/data2tb/research-cloud/`; approved staged main members retain
+`main-v1/<original-relative-path>`. After each completed phase, per-file
+`main-v1/relocations.jsonl` records SHA256/bytes/mtime and restoration destination
+before atomically replacing an NVMe pathname with its verified destination
+symlink. Owner explicitly authorized this open-PR relocation for NEWoutputs;
+existingPR350/355 model/build/venv inputs are unchanged protected dependencies.
+No Drive archive/upload acceptance or deletion is claimed.
+
+Restore an exact selected member with
+`rsync -a bb128:EXACT_RECORDED_HDD_DESTINATION FRESH_IGNORED_DIRECTORY/`
+and verify its recorded SHA256. Controls and nonstaged outputs remain in the
+NVMe main root; retrieve compact receipts with
+`scp bb128:EXACT_CONTROL_FILE FRESH_IGNORED_DIRECTORY/`.
+Research-Cloud ZIP/Drive archival pending. Keep all failures/partials and owned
+cache files, live source/configs, models and raw traces while this PR is open.
+
 ## PR355 — completed fixed100BB3B→10B comparison
 
 **Verified completion October19,21:21:05UTC:** all five measured stages returned0,
