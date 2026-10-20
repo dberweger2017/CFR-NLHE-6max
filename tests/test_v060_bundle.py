@@ -70,6 +70,15 @@ class BundleTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             v.read_manifest(self.bundle, self.seed)
 
+    def test_valid_cached_model_does_not_need_parts_but_verifier_does(self):
+        dst = self.root/'cached.bin'
+        v.assemble(self.bundle, self.seed, dst)
+        for part in v.layout(self.seed):
+            (self.bundle/part['file']).unlink()
+        self.assertEqual(v.assemble(self.bundle, self.seed, dst), dst)
+        with self.assertRaises(ValueError):
+            v.verify_bundle(self.bundle, self.seed)
+
     def test_publication_and_source_refusal(self):
         with self.assertRaises(ValueError):v.verify_bundle(self.bundle,self.seed,'b'*40)
         with self.assertRaises(ValueError):v.verify_bundle(self.bundle,self.seed,require_publication=True)

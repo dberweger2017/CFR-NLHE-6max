@@ -7,7 +7,7 @@ action code, float64 probability bit and original-average mass tag from the
 checkpoint-audited averages. No retraining, model selection, ensemble, pruning
 recipe change or search is introduced. Explicit seed selection is required.
 
-Each is unraked no-ante three-player Hold'em, equal 100 BB stacks,0.5/1 blinds,
+Each is unraked no-ante three-player Hold'em, equal 100 BB stacks, 0.5/1 blinds,
 K50 postflop cards and the exact `min-pot-conditional-jam-v1` menu. Averaging
 covers every street. Each lineage freezes membership at approximately 250M keys;
 continued training refines retained keys and does not expand that membership.
@@ -18,7 +18,7 @@ Missing keys and represented zero-mass rows use the unchanged uniform fallback.
 PR367 froze counts and a one-sided simultaneous 95% Bonferroni 30 family before
 fresh hands. All 30 decisions pass: 24 absolute profits against identical-script
 and mixed fields, three gains over own 3B checkpoints and three cyclic continuation
-robustness tests above −5 BB/100 against fixed other-seed3B pairs. All 36 cases
+robustness tests above −5 BB/100 against fixed other-seed 3B pairs. All 36 cases
 independently replay 2,635,776 initial hands and exactly reproduce the same number.
 
 Own-checkpoint mean oriented singleton contrasts (half paired reciprocal

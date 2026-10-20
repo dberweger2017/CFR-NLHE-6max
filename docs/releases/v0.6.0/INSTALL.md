@@ -34,12 +34,48 @@ python3.11 -I -S models/v0.6.0/bundle/verify_v060_bundle.py models/v0.6.0/bundle
 python -m scripts.play_v060 --bundle models/v0.6.0/bundle --seed 2026101935003
 ```
 
+## Whole-model download through Drive
+
+The release page will also list a verified public Drive link for each complete
+model. Those links are pending upload/public-download verification; the research
+archive folder is not a substitute for an exact release-file link. Choose one
+seed and download its `.bin` into `models/v0.6.0/cache/` using the filename shown
+in the manifest. Download that seed's `.manifest.json` and `.SHA256SUMS`, the
+three K50 tables, verifier and three documents from the GitHub release; omit the
+`.part-*` assets for this route.
+
+For example, after downloading seed `2026101935003`:
+
+```sh
+python3.11 -I -S models/v0.6.0/bundle/verify_v060_bundle.py models/v0.6.0/bundle \
+  --seed 2026101935003 --require-publication --expect-source REVIEWED_RELEASE_COMMIT \
+  --assemble models/v0.6.0/cache/NP3-100BB-v060-seed-2026101935003.bin
+python -m scripts.play_v060 --bundle models/v0.6.0/bundle --seed 2026101935003
+```
+
+When the combined file already exists, `--assemble` verifies its exact pinned
+bytes rather than requesting the parts. The same verifier, schema checks and
+model SHA256 apply to both download paths. Drive avoids keeping a second copy
+as parts; the split-download route needs the larger working-space allowance above.
+
+## Play locally or through a tunnel
+
 Open http://127.0.0.1:8766/ and enter the private token from
 `results/play-v060/access.token`. You play against two independently sampled
 instances sharing one selected model. Add `--watch` for a three-bot spectator
 (table cards and decision probabilities are visible there). Human tables hide
 opponents' private cards/decision probabilities until the appropriate disclosure.
 All sessions keep private replayable journals; do not share their SQLite files.
+
+To use a smaller laptop, keep the model/server on a 32 GB or larger host and
+forward its loopback port from the laptop:
+
+```sh
+ssh -N -L 8766:127.0.0.1:8766 USER@HOST
+```
+
+Then open the same local URL and read the host's private access token over your
+SSH connection. Keep the server bound to loopback and tokens out of URLs/logs.
 
 Stacks reset to 100 BB each hand, blinds 0.5/1, button rotates. The model's fixed
 training menu applies to everyone: minimum raise, pot raise and conditional jam
@@ -49,7 +85,11 @@ rows keep their qualified uniform fallback. The UI's trained indicator means a
 represented information key, not positive original average mass.
 
 For local review of an unpublished, verified prepared bundle, add
-`--allow-prepared`. That does not approve or publish a release. Corrupt, missing,
-wrong-source/schema or unapproved public bundles fail explicitly; partial
-reconstructions remain preserved. Use a fresh output path for an intentional
+`--allow-prepared --data-dir results/play-v060-review` to keep review journals
+separate from the eventual published version. That does not approve or publish
+a release. Corrupt, missing,
+wrong-source/schema or unapproved public bundles fail explicitly. A fresh
+reconstruction verifies every part. Later starts verify the combined model,
+manifest and common assets; they can reuse that exact cache without reading
+the part files again. Partial reconstructions remain preserved. Use a fresh output path for an intentional
 retry after diagnosing a failure. Do not overwrite original research inputs.

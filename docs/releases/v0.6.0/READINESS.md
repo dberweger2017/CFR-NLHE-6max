@@ -42,6 +42,22 @@ Git; compact receipts record the exact source and measurements. Any completed
 new artifacts staged to the 2 TB cache retain verified paths and copies; archive
 and Drive acceptance remain pending until their own receipts exist.
 
+## Distribution
+
+The GitHub release is the versioned entry point for code, documentation, manifests,
+checksums and the split models. Each 1 GiB part is below GitHub's per-file 2 GiB
+limit ([GitHub documentation](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases));
+the complete release may contain all three models. A dedicated public
+Drive release folder will offer each exact combined binary as a single download,
+with the same model SHA256. Keep private runtime journals and other research
+artifacts out of that public release folder.
+
+Drive URLs remain pending until uploaded from bb128's owned cache, public access
+and full downloaded bytes have been verified. Link exact version/seed files from
+the GitHub release; do not rely on an unverified broad research-folder link.
+GitHub parts remain an alternative if a Drive download is temporarily unavailable.
+A user needs one model plus common K50 tables, rather than all three models.
+
 ## Publication checklist
 
 Before publication, review this PR and its qualification receipts, merge with
@@ -60,7 +76,9 @@ For each seed, independently run the shipped verifier with `python3.11 -I -S`,
 its pinned model. Publish all common assets and the three seed-specific part,
 manifest and checksum sets. Read back every uploaded asset and verify its byte
 count and SHA256; verify public download, reconstruction and runtime before
-claiming publication complete. Do not replace retained research inputs or infer
+claiming publication complete. Separately upload the three exact combined binaries
+to the dedicated public Drive release folder, verify no-sign-in download and
+whole-file SHA256, then add their stable per-model links to the release notes. Do not replace retained research inputs or infer
 Drive archive acceptance from GitHub release publication.
 
 The release PR does not execute this checklist's upload, tagging or publication.

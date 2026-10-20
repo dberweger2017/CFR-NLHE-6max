@@ -5,7 +5,9 @@ Prepared release candidate, publication pending owner approval.
 - Three independently trained, fixed 10B average policies pass the prospective
   PR367 acceptance study on fresh held-out deals. Choose a seed explicitly.
 - Packages the exact audited float64 binary weights and original mass tags in
-  1 GiB parts, with whole-model/source/schema/K50 pins and a standalone verifier.
+  1 GiB GitHub parts, with whole-model/source/schema/K50 pins and a standalone
+  verifier. Planned Drive links offer the same complete binaries as single files;
+  those links remain pending public-download verification.
 - The existing native legal-observation service and three-seat web table provide
   human play or spectator mode. One selected model is shared across bot seats;
   journals preserve exact deals, actions and decision seeds for replay.
