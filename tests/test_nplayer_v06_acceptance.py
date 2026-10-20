@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from scripts import nplayer_v06_acceptance as study
 from scripts import nplayer_inference_validation as io
@@ -34,6 +35,21 @@ class AcceptanceTest(unittest.TestCase):
             self.assertEqual(b['singleton'],f'baseline-{seed}')
             self.assertEqual(a['pair'],f'baseline-{other}')
             self.assertEqual(b['pair'],a['pair'])
+
+    def test_frozen_configuration_source_and_binary_refusals(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            d=Path(tmp);binary=d/'binary';binary.write_bytes(b'qualified')
+            pins={name:dict(path=str(binary),sha256=io.sha(binary)) for name in study.BINARY_NAMES}
+            c=dict(authorization='owner-20261020-fresh-v06-acceptance',cases=study.matrix(True),smoke=True,
+                threads=8,family=30,cross_margin_bb100=-5,resource_policy=study.thermal.RESOURCE_POLICY,
+                source_files={'script':'abc'},binaries=pins,python='/python',environment={'engine':'pinned'})
+            with patch.object(study,'source_pins',return_value={'script':'abc'}),patch.object(study.thermal,'python_environment',return_value=('/python',{'engine':'pinned'})):
+                study.validate_config(c)
+                for field,value in [('threads',16),('family',3),('cross_margin_bb100',-50),('source_files',{}),('cases',[])]:
+                    bad=deepcopy(c);bad[field]=value
+                    with self.assertRaises(ValueError):study.validate_config(bad)
+                binary.write_bytes(b'changed')
+                with self.assertRaisesRegex(ValueError,'binary changed'):study.validate_config(c)
 
     def test_one_sided_family_bound(self):
         from scipy.stats import t

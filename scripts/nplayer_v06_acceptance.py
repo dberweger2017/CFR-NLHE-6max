@@ -88,6 +88,7 @@ def validate_config(c):
         fc, result = io.load(f/'config.json'), io.load(q['path'])
         if (not fc['smoke'] or fc['source_files'] != c['source_files'] or fc['binaries'] != c['binaries']
                 or fc['environment'] != c['environment'] or result['status'] != 'settled'
+                or result['config_sha256'] != io.sha(f/'config.json')
                 or result['initial_hands'] != 432 or len(result['gates']) != 30
                 or io.load(f/'status.json')['status'] != 'complete' or (f/'failure.json').exists()):
             raise ValueError('full36-case fixture not qualified')
@@ -320,11 +321,13 @@ def read(root):
                           score=lower_bound(data,g['margin']),descriptive=detail))
     hands=sum(r['blocks']*6 for r in rows)
     costs={p.parent.name:io.load(p) for p in (root/'measurements').glob('*/process.json') if p.parent.name!='global-readout'}
+    sampled_costs={p.parent.name:{k:io.load(p)[k] for k in ('returncode','wall_seconds','cpu_seconds','sampled_peak_rss_by_phase')}
+        for p in (root/'measurements').glob('*/result.json') if p.parent.name!='global-readout'}
     io.write(root/'evaluation-verified.json',dict(status='passed',initial_hands=hands,reproduction_hands=hands,
         jobs={k:io.sha(root/'jobs'/k/'evaluation-verified.json') for k in proofs}))
     io.write(root/'results.json',dict(status='settled',config_sha256=io.sha(root/'config.json'),initial_hands=hands,
         reproduction_hands=hands,gates=gates,acceptance=all(r['score']['passed'] for r in gates),models=io.load(root/'models.json'),
-        coverage=coverage,proofs=proofs,costs=costs,completed=time.time(),
+        coverage=coverage,proofs=proofs,costs=costs,sampled_stage_costs=sampled_costs,completed=time.time(),
         old_evidence='PR357 relative script/mixed safeguard remains failed/unresolved. Fresh absolute-profit acceptance is a different prospective criterion.',
         limits='Three fixed lineages, one host, conditional power estimates; no Nash, universal strength, human/external strength, release or default claim.'))
 
