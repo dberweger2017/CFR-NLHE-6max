@@ -1,7 +1,7 @@
 //! Checkpoint-audited original-average mass, independent of normalized policy rows.
 use hu20_trainer::{
     export::sha256_file,
-    multi_policy::{PolicyTable, Row},
+    multi_policy::{PolicyTable, RowView},
 };
 use serde_json::Value;
 use std::path::Path;
@@ -20,7 +20,7 @@ impl MassMetadata {
     ) -> Result<Self, String> {
         let receipt = directory.join("receipt.json");
         let data = directory.join("zero-keys.bin");
-        if !receipt.is_file() || !data.is_file() || sha256_file(&receipt) != expected {
+        if !receipt.is_file() || sha256_file(&receipt) != expected {
             return Err("mass metadata receipt missing or changed".into());
         }
         let h: Value = serde_json::from_slice(&std::fs::read(&receipt).map_err(|e| e.to_string())?)
@@ -36,16 +36,39 @@ impl MassMetadata {
             || h["strategy"] != "average"
             || h["last_average_street"] != 3
             || h["checkpoint_sha256"] != table.source_checkpoint_sha256
-            || h["policy_sha256"] != policy_sha
+            || h["policy_sha256"]
+                != table
+                    .binary_source_policy_sha256
+                    .as_deref()
+                    .unwrap_or(policy_sha)
             || rows != table.rows.len() as u64
             || h["average_rows"].as_u64() != Some(rows)
             || h["current_rows"] != 0
             || zeros.checked_add(positive) != Some(rows)
             || keyset.len() != 64
             || !keyset.bytes().all(|b| b.is_ascii_hexdigit())
-            || h["zero_keys_sha256"].as_str() != Some(&sha256_file(&data))
         {
             return Err("mass metadata lineage/counts differ".into());
+        }
+        if let Some(m) = &table.binary_mass_metadata {
+            // The eager reader already checked every embedded tag, row, count
+            // and keyset. Bind the exact audit receipt without reloading its
+            // potentially multi-gigabyte zero-key list or retagging rows.
+            if m["receipt_sha256"] != expected
+                || m["zero_keys_sha256"] != h["zero_keys_sha256"]
+                || m["keyset_sha256"] != h["keyset_sha256"]
+                || m["zero_mass_rows"] != zeros
+                || m["positive_mass_rows"] != positive
+            {
+                return Err("embedded mass receipt mismatch".into());
+            }
+            return Ok(Self {
+                receipt_sha256: expected.into(),
+                keyset_sha256: keyset.into(),
+            });
+        }
+        if !data.is_file() || h["zero_keys_sha256"].as_str() != Some(&sha256_file(&data)) {
+            return Err("mass zero keys missing or changed".into());
         }
         if std::fs::metadata(&data).map_err(|e| e.to_string())?.len()
             != zeros.checked_mul(16).ok_or("zero byte overflow")?
@@ -54,9 +77,7 @@ impl MassMetadata {
         }
         // Row already has alignment padding. Tag it once while loading rather
         // than retain tens of millions of zero-key hashes for every decision.
-        for row in table.rows.values_mut() {
-            row.original_average_mass = Some(true);
-        }
+        table.rows.tag_all_mass(true);
         use std::io::Read;
         let mut input =
             std::io::BufReader::new(std::fs::File::open(&data).map_err(|e| e.to_string())?);
@@ -70,7 +91,7 @@ impl MassMetadata {
             previous = Some(key);
             let row = table
                 .rows
-                .get_mut(&key)
+                .get(&key)
                 .ok_or("zero mass key absent from policy")?;
             let uniform = 1. / row.probabilities.len() as f64;
             if row
@@ -80,7 +101,7 @@ impl MassMetadata {
             {
                 return Err("zero mass row does not use uniform fallback".into());
             }
-            row.original_average_mass = Some(false);
+            table.rows.tag_mass(&key, false)?;
         }
         Ok(Self {
             receipt_sha256: expected.into(),
@@ -91,7 +112,7 @@ impl MassMetadata {
     pub fn classify(table: &PolicyTable, key: &[u8; 16]) -> Result<usize, String> {
         Self::classify_row(table.rows.get(key))
     }
-    pub fn classify_row(row: Option<&Row>) -> Result<usize, String> {
+    pub fn classify_row(row: Option<RowView<'_>>) -> Result<usize, String> {
         match row {
             None => Ok(2),
             Some(row) => match row.original_average_mass {
@@ -188,6 +209,44 @@ mod tests {
         assert!(MassMetadata::load(&path, &sha256_file(&file), &digest, &mut table).is_err());
         std::fs::remove_file(&file).unwrap();
         assert!(MassMetadata::load(&path, &"a".repeat(64), &digest, &mut table).is_err());
+        std::fs::remove_dir_all(path).unwrap();
+    }
+    #[test]
+    fn binary_embedded_tags_bind_receipt_without_zero_key_reload() {
+        let (path, _, digest) = fixture();
+        // The original helper fixture uses a placeholder keyset; conversion
+        // enforces the actual sorted-key digest, so replace it before pinning.
+        use sha2::{Digest, Sha256};
+        let receipt = path.join("receipt.json");
+        let mut h: Value = serde_json::from_slice(&std::fs::read(&receipt).unwrap()).unwrap();
+        let mut keys = Sha256::new();
+        keys.update([1u8; 16]);
+        keys.update([2u8; 16]);
+        h["keyset_sha256"] = serde_json::json!(format!("{:x}", keys.finalize()));
+        std::fs::write(&receipt, h.to_string()).unwrap();
+        let receipt_sha = sha256_file(&receipt);
+        let binary = path.join("policy.bin");
+        hu20_trainer::multi_binary::convert(
+            &path.join("policy.gz"),
+            &digest,
+            &binary,
+            Some((&receipt, &receipt_sha)),
+        )
+        .unwrap();
+        let binary_sha = sha256_file(&binary);
+        let mut table = PolicyTable::load(&binary, &binary_sha).unwrap();
+        // The derivative is self-contained after receipt binding. Source inputs
+        // stay retained in real campaigns; this removal is a temporary fixture.
+        std::fs::remove_file(path.join("zero-keys.bin")).unwrap();
+        MassMetadata::load(&path, &receipt_sha, &binary_sha, &mut table).unwrap();
+        assert_eq!(MassMetadata::classify(&table, &[1; 16]).unwrap(), 0);
+        assert_eq!(MassMetadata::classify(&table, &[2; 16]).unwrap(), 1);
+        h["zero_mass_rows"] = serde_json::json!(0);
+        h["positive_mass_rows"] = serde_json::json!(2);
+        std::fs::write(&receipt, h.to_string()).unwrap();
+        assert!(
+            MassMetadata::load(&path, &sha256_file(&receipt), &binary_sha, &mut table).is_err()
+        );
         std::fs::remove_dir_all(path).unwrap();
     }
 }

@@ -41,7 +41,7 @@ impl Mode {
             Self::ScopedAverage => "scoped-average",
         }
     }
-    fn continuation(self) -> &'static str {
+    pub(crate) fn continuation(self) -> &'static str {
         if self == Self::ScopedAverage {
             "current-after-average-scope"
         } else {
@@ -65,7 +65,204 @@ pub struct PolicyTable {
     pub mode: Mode,
     pub source_checkpoint_sha256: String,
     config: Config,
-    pub rows: HashMap<Key, Row, BuildHasherDefault<KeyHasher>>,
+    pub rows: Rows,
+    pub binary_source_policy_sha256: Option<String>,
+    pub binary_mass_metadata: Option<Value>,
+}
+/// Borrowed row view has the same probability order for either representation.
+#[derive(Clone, Copy, Debug)]
+pub struct RowView<'a> {
+    pub owner: u8,
+    pub street: u8,
+    pub code: u16,
+    pub probabilities: &'a [f64],
+    pub original_average_mass: Option<bool>,
+}
+pub enum Rows {
+    Json(HashMap<Key, Row, BuildHasherDefault<KeyHasher>>),
+    Binary(crate::multi_binary::BinaryRows),
+}
+impl Rows {
+    pub fn len(&self) -> usize {
+        match self {
+            Self::Json(r) => r.len(),
+            Self::Binary(r) => r.len(),
+        }
+    }
+    pub fn is_empty(&self) -> bool {
+        self.len() == 0
+    }
+    pub fn get(&self, key: &Key) -> Option<RowView<'_>> {
+        match self {
+            Self::Json(r) => r.get(key).map(|r| RowView {
+                owner: r.owner,
+                street: r.street,
+                code: r.code,
+                probabilities: &r.probabilities,
+                original_average_mass: r.original_average_mass,
+            }),
+            Self::Binary(r) => r.get(key),
+        }
+    }
+    pub fn tag_all_mass(&mut self, positive: bool) {
+        match self {
+            Self::Json(r) => r
+                .values_mut()
+                .for_each(|r| r.original_average_mass = Some(positive)),
+            Self::Binary(r) => r.tag_all_mass(positive),
+        }
+    }
+    pub fn tag_mass(&mut self, key: &Key, positive: bool) -> Result<(), String> {
+        match self {
+            Self::Json(r) => {
+                r.get_mut(key)
+                    .ok_or("mass key absent from policy")?
+                    .original_average_mass = Some(positive);
+                Ok(())
+            }
+            Self::Binary(r) => r.tag_mass(key, positive),
+        }
+    }
+}
+#[derive(Default)]
+pub struct LoadReport {
+    pub format: &'static str,
+    pub rows: usize,
+    pub total_seconds: f64,
+    pub verify_seconds: f64,
+    pub stream_seconds: f64,
+    pub parse_validate_seconds: f64,
+    pub insert_seconds: f64,
+}
+pub(crate) fn validate_header(h: &Value) -> Result<(), String> {
+    if h["format"] != "nplayer-policy-v1" || h["missing"] != "uniform" {
+        return Err("unsupported policy".into());
+    }
+    let config = cash_config(&h["identity"])?;
+    let players = h["players"].as_u64().ok_or("invalid N")?;
+    let scope = h["last_average_street"].as_u64().ok_or("invalid scope")?;
+    let mode = Mode::parse(h["strategy"].as_str().ok_or("missing strategy")?)?;
+    let source = h["source_checkpoint_sha256"]
+        .as_str()
+        .ok_or("missing checkpoint pin")?;
+    if players != config.players() as u64
+        || scope > 3
+        || (mode == Mode::Average && scope != 3)
+        || h["continuation"] != mode.continuation()
+        || !crate::multi_binary::valid_sha(source)
+    {
+        return Err("invalid policy metadata".into());
+    }
+    usize::try_from(h["entries"].as_u64().ok_or("invalid entry count")?)
+        .map_err(|e| e.to_string())?;
+    Ok(())
+}
+/// Streaming conversion must not first materialize a 250M-row legacy table.
+pub(crate) struct TextReader {
+    pub header: Value,
+    input: BufReader<GzDecoder<std::fs::File>>,
+    line: String,
+    previous: Option<Key>,
+    count: u64,
+}
+impl TextReader {
+    pub fn open(path: &Path) -> Result<Self, String> {
+        let mut input = BufReader::new(GzDecoder::new(
+            std::fs::File::open(path).map_err(|e| e.to_string())?,
+        ));
+        let mut line = String::new();
+        input.read_line(&mut line).map_err(|e| e.to_string())?;
+        let header: Value = serde_json::from_str(&line).map_err(|e| e.to_string())?;
+        validate_header(&header)?;
+        Ok(Self {
+            header,
+            input,
+            line,
+            previous: None,
+            count: 0,
+        })
+    }
+    pub fn next_row(
+        &mut self,
+        profile: bool,
+        report: &mut LoadReport,
+    ) -> Result<Option<(Key, Row)>, String> {
+        self.line.clear();
+        let tick = profile.then(std::time::Instant::now);
+        let n = self
+            .input
+            .read_line(&mut self.line)
+            .map_err(|e| e.to_string())?;
+        if let Some(t) = tick {
+            report.stream_seconds += t.elapsed().as_secs_f64();
+        }
+        if n == 0 {
+            if self.count != self.header["entries"].as_u64().unwrap() {
+                return Err("entry count mismatch".into());
+            }
+            return Ok(None);
+        }
+        let tick = profile.then(std::time::Instant::now);
+        let value: Value = serde_json::from_str(&self.line).map_err(|e| e.to_string())?;
+        let a = value.as_array().ok_or("invalid row")?;
+        if a.len() != 5 {
+            return Err("invalid row length".into());
+        }
+        let hex = a[0].as_str().ok_or("invalid key")?;
+        if hex.len() != 32 || !hex.is_ascii() {
+            return Err("invalid key".into());
+        }
+        let mut key = [0; 16];
+        for (i, k) in key.iter_mut().enumerate() {
+            *k = u8::from_str_radix(&hex[2 * i..2 * i + 2], 16).map_err(|e| e.to_string())?;
+        }
+        if self.previous.is_some_and(|p| p >= key) {
+            return Err("keys must be strictly sorted".into());
+        }
+        let owner = a[1].as_u64().ok_or("invalid owner")?;
+        let street = a[2].as_u64().ok_or("invalid street")?;
+        let code = a[3].as_u64().ok_or("invalid actions")?;
+        if owner >= self.header["players"].as_u64().unwrap()
+            || street > 3
+            || code == 0
+            || code & !63 != 0
+        {
+            return Err("invalid row identity".into());
+        }
+        let probabilities = a[4]
+            .as_array()
+            .ok_or("invalid probabilities")?
+            .iter()
+            .map(|v| {
+                v.as_f64()
+                    .filter(|p| p.is_finite() && *p >= 0. && *p <= 1.)
+                    .ok_or("invalid probability".to_string())
+            })
+            .collect::<Result<Vec<_>, _>>()?;
+        if probabilities.len() != code.count_ones() as usize
+            || (probabilities.iter().sum::<f64>() - 1.).abs() > 1e-12
+        {
+            return Err("invalid distribution".into());
+        }
+        self.previous = Some(key);
+        self.count += 1;
+        if self.count > self.header["entries"].as_u64().unwrap() {
+            return Err("too many rows".into());
+        }
+        if let Some(t) = tick {
+            report.parse_validate_seconds += t.elapsed().as_secs_f64();
+        }
+        Ok(Some((
+            key,
+            Row {
+                owner: owner as u8,
+                street: street as u8,
+                code: code as u16,
+                probabilities: probabilities.into_boxed_slice(),
+                original_average_mass: None,
+            },
+        )))
+    }
 }
 fn cash_config(identity: &Value) -> Result<Config, String> {
     let n = identity["players"].as_u64().ok_or("missing N")?;
@@ -98,19 +295,31 @@ fn verified(path: &Path, expected: &str) -> Result<(), String> {
         return Err("expected complete SHA256".into());
     }
     std::fs::File::open(path).map_err(|e| e.to_string())?;
-    if crate::export::sha256_file(path) != expected {
+    if crate::multi_binary::sha_file(path)? != expected {
         return Err("SHA256 mismatch".into());
     }
     Ok(())
 }
-pub fn export(checkpoint: &Path, expected: &str, mode: Mode, out: &Path, gzip: Gzip) -> Result<(), String> {
+pub fn export(
+    checkpoint: &Path,
+    expected: &str,
+    mode: Mode,
+    out: &Path,
+    gzip: Gzip,
+) -> Result<(), String> {
     verified(checkpoint, expected)?;
     let trainer = multi_checkpoint::load(checkpoint)?;
     write_trainer(&trainer, expected, mode, out, gzip)
 }
 /// Export an immutable trainer immediately after saving and pinning its checkpoint.
 /// The caller owns the saved-state/source-hash association; no second trainer is loaded.
-pub fn write_trainer(trainer: &Trainer, source: &str, mode: Mode, out: &Path, gzip: Gzip) -> Result<(), String> {
+pub fn write_trainer(
+    trainer: &Trainer,
+    source: &str,
+    mode: Mode,
+    out: &Path,
+    gzip: Gzip,
+) -> Result<(), String> {
     cash_config(&trainer.identity)?;
     if mode == Mode::Average && trainer.last_average_street != 3 {
         return Err("full average unavailable; explicitly choose scoped-average or current".into());
@@ -120,115 +329,93 @@ pub fn write_trainer(trainer: &Trainer, source: &str, mode: Mode, out: &Path, gz
     }
     let header = json!({"format":"nplayer-policy-v1","identity":trainer.identity,"players":trainer.players,"entries":trainer.table.len(),"strategy":mode.name(),"last_average_street":trainer.last_average_street,"continuation":mode.continuation(),"missing":"uniform","source_checkpoint_sha256":source});
     multi_checkpoint::write_atomic(out, |file| {
-        trainer.table.write_sorted(file, gzip, format!("{header}\n").as_bytes(), |key, e, out| {
-            let average = mode != Mode::Current && e.street as usize <= trainer.last_average_street;
-            let policy = e.policy(average);
-            serde_json::to_writer(&mut *out, &(multi_checkpoint::key_hex(&key), e.actor, e.street, e.code, &policy[..e.regrets.len()])).unwrap();
-            out.push(b'\n');
-        })
+        trainer.table.write_sorted(
+            file,
+            gzip,
+            format!("{header}\n").as_bytes(),
+            |key, e, out| {
+                let average =
+                    mode != Mode::Current && e.street as usize <= trainer.last_average_street;
+                let policy = e.policy(average);
+                serde_json::to_writer(
+                    &mut *out,
+                    &(
+                        multi_checkpoint::key_hex(&key),
+                        e.actor,
+                        e.street,
+                        e.code,
+                        &policy[..e.regrets.len()],
+                    ),
+                )
+                .unwrap();
+                out.push(b'\n');
+            },
+        )
     })
 }
 impl PolicyTable {
     pub fn load(path: &Path, expected: &str) -> Result<Self, String> {
-        verified(path, expected)?;
-        Self::read(path)
+        Ok(Self::load_profiled(path, expected, false)?.0)
     }
-    fn read(path: &Path) -> Result<Self, String> {
-        let mut lines = BufReader::new(GzDecoder::new(
-            std::fs::File::open(path).map_err(|e| e.to_string())?,
-        ))
-        .lines();
-        let h: Value = serde_json::from_str(
-            &lines
-                .next()
-                .ok_or("missing header")?
-                .map_err(|e| e.to_string())?,
-        )
-        .map_err(|e| e.to_string())?;
-        if h["format"] != "nplayer-policy-v1" || h["missing"] != "uniform" {
-            return Err("unsupported policy".into());
-        }
-        let config = cash_config(&h["identity"])?;
-        let players = h["players"].as_u64().ok_or("invalid N")?;
-        let scope = h["last_average_street"].as_u64().ok_or("invalid scope")?;
-        let mode = Mode::parse(h["strategy"].as_str().ok_or("missing strategy")?)?;
-        let source = h["source_checkpoint_sha256"]
-            .as_str()
-            .ok_or("missing checkpoint pin")?;
-        if players != config.players() as u64
-            || scope > 3
-            || (mode == Mode::Average && scope != 3)
-            || h["continuation"] != mode.continuation()
-            || source.len() != 64
-            || !source.bytes().all(|b| b.is_ascii_hexdigit())
-        {
-            return Err("invalid policy metadata".into());
-        }
-        let count=usize::try_from(h["entries"].as_u64().ok_or("invalid entry count")?).map_err(|e|e.to_string())?;
-        let mut rows = HashMap::default();
-        // The validated export declares its size; avoid old/new index overlap while loading.
-        rows.try_reserve(count).map_err(|e|e.to_string())?;
-        let mut previous = None;
-        for line in lines {
-            let value: Value = serde_json::from_str(&line.map_err(|e| e.to_string())?)
+    /// Fine-grained counters are opt-in: per-row clocks must not tax ordinary play.
+    pub fn load_profiled(
+        path: &Path,
+        expected: &str,
+        profile: bool,
+    ) -> Result<(Self, LoadReport), String> {
+        let start = std::time::Instant::now();
+        verified(path, expected)?;
+        let verify_seconds = start.elapsed().as_secs_f64();
+        let mut report = LoadReport {
+            verify_seconds,
+            ..LoadReport::default()
+        };
+        let table = if crate::multi_binary::is_binary(path)? {
+            report.format = "binary";
+            crate::multi_binary::read(path)?
+        } else {
+            report.format = "gzip-json";
+            let mut reader = TextReader::open(path)?;
+            let mut rows = HashMap::default();
+            rows.try_reserve(reader.header["entries"].as_u64().unwrap() as usize)
                 .map_err(|e| e.to_string())?;
-            let a = value.as_array().ok_or("invalid row")?;
-            if a.len() != 5 {
-                return Err("invalid row length".into());
+            loop {
+                let next = reader.next_row(profile, &mut report)?;
+                if let Some((key, row)) = next {
+                    let insert = if profile {
+                        Some(std::time::Instant::now())
+                    } else {
+                        None
+                    };
+                    rows.insert(key, row);
+                    if let Some(t) = insert {
+                        report.insert_seconds += t.elapsed().as_secs_f64();
+                    }
+                } else {
+                    break;
+                }
             }
-            let hex = a[0].as_str().ok_or("invalid key")?;
-            if hex.len() != 32 || !hex.is_ascii() {
-                return Err("invalid key".into());
-            }
-            let mut key = [0u8; 16];
-            for (i, k) in key.iter_mut().enumerate() {
-                *k = u8::from_str_radix(&hex[2 * i..2 * i + 2], 16).map_err(|e| e.to_string())?;
-            }
-            if previous.is_some_and(|p| p >= key) {
-                return Err("keys must be strictly sorted".into());
-            }
-            previous = Some(key);
-            let owner = a[1].as_u64().ok_or("invalid owner")?;
-            let street = a[2].as_u64().ok_or("invalid street")?;
-            let code = a[3].as_u64().ok_or("invalid actions")?;
-            if owner >= players || street > 3 || code == 0 || code & !0b11_1111 != 0 {
-                return Err("invalid row identity".into());
-            }
-            let p = a[4]
-                .as_array()
-                .ok_or("invalid probabilities")?
-                .iter()
-                .map(|v| {
-                    v.as_f64()
-                        .filter(|p| p.is_finite() && *p >= 0. && *p <= 1.)
-                        .ok_or("invalid probability".to_string())
-                })
-                .collect::<Result<Vec<_>, _>>()?;
-            if p.len() != code.count_ones() as usize || (p.iter().sum::<f64>() - 1.).abs() > 1e-12 {
-                return Err("invalid distribution".into());
-            }
-            rows.insert(
-                key,
-                Row {
-                    owner: owner as u8,
-                    street: street as u8,
-                    code: code as u16,
-                    probabilities: p.into_boxed_slice(),
-                    original_average_mass: None,
-                },
-            );
-        }
+            Self::from_header(&reader.header, Rows::Json(rows))?
+        };
+        report.total_seconds = start.elapsed().as_secs_f64();
+        report.rows = table.rows.len();
+        Ok((table, report))
+    }
+    pub(crate) fn from_header(h: &Value, rows: Rows) -> Result<Self, String> {
+        validate_header(h)?;
         if h["entries"].as_u64() != Some(rows.len() as u64) {
             return Err("entry count mismatch".into());
         }
         Ok(Self {
             identity: h["identity"].clone(),
-            players: players as usize,
-            scope: scope as usize,
-            mode,
-            source_checkpoint_sha256: source.to_owned(),
-            config,
+            players: h["players"].as_u64().unwrap() as usize,
+            scope: h["last_average_street"].as_u64().unwrap() as usize,
+            mode: Mode::parse(h["strategy"].as_str().unwrap())?,
+            source_checkpoint_sha256: h["source_checkpoint_sha256"].as_str().unwrap().to_owned(),
+            config: cash_config(&h["identity"])?,
             rows,
+            binary_source_policy_sha256: None,
+            binary_mass_metadata: None,
         })
     }
     pub fn config(&self) -> Config {
@@ -344,7 +531,10 @@ mod tests {
                 // Gzip members per piece: same text, read by the loader.
                 let p = dir.join(format!("{n}-{mode:?}-p.gz"));
                 write_trainer(&t, &"a".repeat(64), mode, &p, Gzip::Parallel).unwrap();
-                let text = |path: &Path| std::io::read_to_string(GzDecoder::new(std::fs::File::open(path).unwrap())).unwrap();
+                let text = |path: &Path| {
+                    std::io::read_to_string(GzDecoder::new(std::fs::File::open(path).unwrap()))
+                        .unwrap()
+                };
                 assert_ne!(std::fs::read(&a).unwrap(), std::fs::read(&p).unwrap());
                 assert_eq!(text(&a), text(&p));
                 let members = PolicyTable::load(&p, &crate::export::sha256_file(&p)).unwrap();
@@ -358,7 +548,10 @@ mod tests {
                     } else {
                         vec![0.25, 0.75]
                     };
-                    assert_eq!(&*table.rows[&[street as u8; 16]].probabilities, &expected);
+                    assert_eq!(
+                        table.rows.get(&[street as u8; 16]).unwrap().probabilities,
+                        &expected
+                    );
                 }
                 assert!(write_trainer(&t, &"a".repeat(64), mode, &a, Gzip::Compatible).is_err());
                 assert!(PolicyTable::load(&a, &"0".repeat(64)).is_err());
@@ -380,7 +573,14 @@ mod tests {
             std::env::temp_dir().join(format!("nplayer-invalid-policy-{}", std::process::id()));
         std::fs::create_dir(&dir).unwrap();
         let valid = dir.join("valid.gz");
-        write_trainer(&fixture(3, 0), &"a".repeat(64), Mode::ScopedAverage, &valid, Gzip::Compatible).unwrap();
+        write_trainer(
+            &fixture(3, 0),
+            &"a".repeat(64),
+            Mode::ScopedAverage,
+            &valid,
+            Gzip::Compatible,
+        )
+        .unwrap();
         let values: Vec<Value> =
             BufReader::new(GzDecoder::new(std::fs::File::open(&valid).unwrap()))
                 .lines()

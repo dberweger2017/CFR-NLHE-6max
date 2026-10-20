@@ -1,3 +1,36 @@
+## PR359 — exact binary inference, local qualification only
+
+[Draft PR359](https://github.com/dberweger2017/CFR-NLHE-6max/pull/359),
+[proposal358](https://github.com/dberweger2017/CFR-NLHE-6max/issues/358),
+[format/commands](docs/nplayer-binary-inference.md),
+[report and mature quote](docs/reports/nplayer-binary-inference/local-qualification.md),
+[compact execution/accounting receipt](docs/reports/nplayer-binary-inference/local-qualification.json),
+[six alternating loads](docs/reports/nplayer-binary-inference/loads.csv).
+
+October20 owner authorized implementation and small local qualification.
+Final generated100k-row/380k-value fixture: 3.16× median validated load speedup,
+about21% lower per-child peak RSS, 1.62× lookup-plus-digest time, 1.15× logical
+file bytes. All stored float bits and probe digests match. 63 native library,
+4 mass-helper and3 CLI tests pass; final reader changes recheck the4 binary test
+groups. No realK50/mature performance/strength/default claim. Mature bb128 quote
+is90–150min with new-output storage approval still pending; no science launched.
+One read-only host capacity check was made, with no old input changes.
+
+Owned ignored Mac evidence:
+`/Users/dberweger/Local/cfr-nplayer-binary-inference-20261020/results/nplayer-binary-inference-20261020-local-v4/`.
+Contains generated source/binary fixtures, queries, per-child stdout/stderr and
+receipt; all binary/source/derivative/execution-file SHA256 pins are in compact
+JSON. Earlier development fixtures remain in adjacent local-v1/v2/v3 roots;
+no failures are concealed or samples pooled. Source implementation is this PR;
+no model, raw trace or binary enters Git.
+
+Future owning cache namespace is `PR-359-nplayer-binary-inference` under
+`bb128:/mnt/data2tb/research-cloud/` and `gdrive:`. Cache copy/ZIP/member-readback/
+Drive acceptance are **pending**, so neither is claimed as a current retrieval
+source. Retain local originals. After archival, a receipt will identify exact
+members, hashes and both bb128-cache and Drive restoration paths. No deletion,
+cleanup, other open PR root or existing PR350/355/357 input was modified.
+
 ## PR357 — completed independent 100 BB 3B→10B confirmations
 
 [PR357](https://github.com/dberweger2017/CFR-NLHE-6max/pull/357),
