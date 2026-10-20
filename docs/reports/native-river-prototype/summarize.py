@@ -25,7 +25,7 @@ for c in r['cases']:
     python_exploitability_bb=x['python_quality']['exploitability_bb'],native_exploitability_bb=x['native_quality']['exploitability_bb'],
     signed_quality_gap_bb=x['quality_signed_gap_bb'],quality_tolerance_bb=x['quality_tolerance_bb'],quality_agreement=x['quality_within_tolerance']))
 with (out/'measurements.csv').open('w',newline='') as f:
- w=csv.DictWriter(f,fieldnames=rows[0]);w.writeheader();w.writerows(rows)
+ w=csv.DictWriter(f,fieldnames=rows[0],lineterminator="\n");w.writeheader();w.writerows(rows)
 lines=['| Sweeps | Native solve ms, range | Prepared compact roundtrip ms, range | Median solver speedup |','|---|---:|---:|---:|']
 for n in (16,64,256):
  a=[x for x in rows if x['holdings_per_seat']==1081 and x['sweeps']==n]
