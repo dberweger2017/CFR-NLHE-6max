@@ -88,8 +88,9 @@ Each release uses fresh roots, predeclared paired gates, a direct incumbent matc
 | **v0.5.2** | Heads-up 100 BB 4B-node average with translation; beats v0.5.1 head to head by +17.9 BB/100, repeated on two other seeds; [release and verified assets](https://github.com/dberweger2017/CFR-NLHE-6max/releases/tag/v0.5.2) |
 | **v0.5.3** | Heads-up 100 BB 5B-node average on the larger menu with translation; beats v0.5.2 head to head by +37.1 BB/100, all three seeds beat v0.5.2; [release and verified assets](https://github.com/dberweger2017/CFR-NLHE-6max/releases/tag/v0.5.3) |
 | **v0.5.5** | Released, Latest: heads-up 200 BB three-seed blend; protocol-v2 Slumbot result −19.67 [−38.57, −0.76] BB/100 over 30,000 hands; [publication record](docs/releases/v0.5.5/PUBLICATION.md) |
-| **v0.6** | Three-player blueprint play; search is not required |
-| **v0.6.1–v0.6.4** | Validated three-player blueprint and product improvements before search |
+| **v0.6** | Three-player blueprint play at 100 BB that beats every scripted opponent; search is not required |
+| **v0.6.1** | Three-player blueprint play at 200 BB |
+| **v0.6.2–v0.6.4** | Validated three-player blueprint and product improvements before search |
 | **v0.6.5** | Three-player search, following its own strength validation |
 | **v0.7** | Four and five players |
 | **v0.8** | Six players, 100 BB; confirmed profit against the scripted pool |
