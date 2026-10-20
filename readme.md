@@ -63,7 +63,7 @@ python -m src.play_api.server --models-dir models
 
 Open **http://127.0.0.1:8765/** and enter the token from `results/play-web/access.token` locally. Keep tokens out of URLs and screenshots. Choose **v0.4.2** (default), **v0.4.1** or **v0.4.0**, choose bet sizing, create a session and deal. Seats alternate each hand. Model choice is frozen for that session; refresh resumes it, including after server restart. Use a new session to change models. All three pinned files are required for model selection; a missing or corrupt default causes an error, never a silent replacement. The average readers use compact storage; the M4 runtime/replay smoke peaked at 2.76 GiB with all three releases. Allow at least 3 GiB of RAM.
 
-Restricted mode uses the concrete training menu. Free sizing executes any native-legal integer-chip human wager exactly; the bot keeps its trained menu and unchanged uniform fallback on missing/zero-mass keys. This does not solve off-tree strategy. [Play/replay guide](docs/play-web.md), [human benchmark guide](docs/play-web-benchmark.md).
+Restricted mode uses the concrete training menu. Free sizing executes any native-legal integer-chip human wager exactly; the bot keeps its trained menu and unchanged uniform fallback on missing/zero-mass keys. This does not solve off-tree strategy. [Play/replay guide](docs/play-web.md), [human benchmark guide](docs/play-web-benchmark.md). For 2–6 seats with n-player models and scripted bots, see the [multi-seat table guide](docs/play-web-tables.md).
 
 | Model | Default / selection | Training and inference |
 | --- | --- | --- |
@@ -88,8 +88,9 @@ Each release uses fresh roots, predeclared paired gates, a direct incumbent matc
 | **v0.5.2** | Heads-up 100 BB 4B-node average with translation; beats v0.5.1 head to head by +17.9 BB/100, repeated on two other seeds; [release and verified assets](https://github.com/dberweger2017/CFR-NLHE-6max/releases/tag/v0.5.2) |
 | **v0.5.3** | Heads-up 100 BB 5B-node average on the larger menu with translation; beats v0.5.2 head to head by +37.1 BB/100, all three seeds beat v0.5.2; [release and verified assets](https://github.com/dberweger2017/CFR-NLHE-6max/releases/tag/v0.5.3) |
 | **v0.5.5** | Released, Latest: heads-up 200 BB three-seed blend; protocol-v2 Slumbot result −19.67 [−38.57, −0.76] BB/100 over 30,000 hands; [publication record](docs/releases/v0.5.5/PUBLICATION.md) |
-| **v0.6** | Three-player blueprint play; search is not required |
-| **v0.6.1–v0.6.4** | Validated three-player blueprint and product improvements before search |
+| **v0.6** | Three-player blueprint play at 100 BB that beats every scripted opponent; search is not required |
+| **v0.6.1** | Three-player blueprint play at 200 BB |
+| **v0.6.2–v0.6.4** | Validated three-player blueprint and product improvements before search |
 | **v0.6.5** | Three-player search, following its own strength validation |
 | **v0.7** | Four and five players |
 | **v0.8** | Six players, 100 BB; confirmed profit against the scripted pool |
