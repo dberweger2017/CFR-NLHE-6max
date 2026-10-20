@@ -1,0 +1,449 @@
+{
+  "status": "passed",
+  "rows": 100000,
+  "binary_sha256": "2298b6d2d79b52df980201c2794b09f6ae799456e96eae712926ea6414d49ed4",
+  "source_sha256": "6c9738ff1c1a211143529918ea15175ee605de8fa452081283a57343db986027",
+  "derivative_sha256": "5fc97ea613e97bb629213285e75b85a0ba9fc490480100e9b11a459909a0a1d6",
+  "platform": "darwin",
+  "hardware": "arm64",
+  "python": "3.11.14",
+  "execution_sources": {
+    "scripts/benchmark_nplayer_inference.py": "d38af8497517c4fe622d6b29ae5d1d7c4f849510593fa75bab7df48b7c7ff4ed",
+    "native/hu20-trainer/src/multi_binary.rs": "0d20340ed2681909df732eb4471ff5e7c2854aa427cc9ec876ad53c16dcf81b5",
+    "native/hu20-trainer/src/multi_policy.rs": "2f4dddc39c9dbcffd371d1cc37e6ee3726f7601856f1e6c83597bd237ab97b9b",
+    "native/hu20-trainer/examples/nplayer_inference.rs": "bc52d66baef9fabe133e9f8ad47d7f9337b51a6a4b245f4be25c506fdf0b2617",
+    "native/hu20-trainer/Cargo.lock": "6e8a903b4164b36f53a234b77d650bb71e5a165919b699615902c0b4924e90a2"
+  },
+  "conversion": {
+    "result": {
+      "bytes": 6241020,
+      "conversion_seconds": 0.231115,
+      "metadata": {
+        "byte_order": "little",
+        "dtype": "float64",
+        "format": "nplayer-policy-binary-v1",
+        "mass": null,
+        "policy": {
+          "continuation": "none",
+          "entries": 100000,
+          "format": "nplayer-policy-v1",
+          "identity": {
+            "big_blind": 100,
+            "card_tables": [
+              "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+              "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+              "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+            ],
+            "game": "nlhe-cash",
+            "menu": "min-pot-conditional-jam-v1",
+            "players": 3,
+            "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+            "small_blind": 50,
+            "stacks": [
+              10000,
+              10000,
+              10000
+            ],
+            "utility_unit": "big-blind"
+          },
+          "last_average_street": 3,
+          "missing": "uniform",
+          "players": 3,
+          "source_checkpoint_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "strategy": "average"
+        },
+        "record_bytes": 32,
+        "source_policy_sha256": "6c9738ff1c1a211143529918ea15175ee605de8fa452081283a57343db986027"
+      },
+      "probabilities": 380000,
+      "rows": 100000,
+      "sha256": "5fc97ea613e97bb629213285e75b85a0ba9fc490480100e9b11a459909a0a1d6",
+      "source_policy_sha256": "6c9738ff1c1a211143529918ea15175ee605de8fa452081283a57343db986027",
+      "status": "converted"
+    },
+    "wall_seconds": 0.5117052919958951,
+    "cpu_seconds": 0.22114899999999998,
+    "peak_rss_bytes": 4620288,
+    "minor_faults": 372,
+    "major_faults": 0,
+    "block_inputs": 0,
+    "block_outputs": 0
+  },
+  "audit": {
+    "result": {
+      "binary_sha256": "5fc97ea613e97bb629213285e75b85a0ba9fc490480100e9b11a459909a0a1d6",
+      "rows": 100000,
+      "source_policy_sha256": "6c9738ff1c1a211143529918ea15175ee605de8fa452081283a57343db986027",
+      "status": "passed",
+      "verify_seconds": 0.191895417
+    },
+    "wall_seconds": 0.19518108300690074,
+    "cpu_seconds": 0.19283199999999998,
+    "peak_rss_bytes": 10862592,
+    "minor_faults": 754,
+    "major_faults": 0,
+    "block_inputs": 0,
+    "block_outputs": 0
+  },
+  "load_order": "ABABAB (A=gzip JSON, B=binary)",
+  "loads": [
+    {
+      "result": {
+        "average_scope": 3,
+        "binary_source_policy_sha256": null,
+        "fine_profile": false,
+        "format": "gzip-json",
+        "identity": {
+          "big_blind": 100,
+          "card_tables": [
+            "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+            "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+            "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+          ],
+          "game": "nlhe-cash",
+          "menu": "min-pot-conditional-jam-v1",
+          "players": 3,
+          "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+          "small_blind": 50,
+          "stacks": [
+            10000,
+            10000,
+            10000
+          ],
+          "utility_unit": "big-blind"
+        },
+        "index_insert_seconds": 0.0,
+        "parse_validate_allocate_seconds": 0.0,
+        "rows": 100000,
+        "source_checkpoint_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "status": "passed",
+        "strategy": "average",
+        "stream_decode_seconds": 0.0,
+        "total_seconds": 0.12591675,
+        "verify_file_seconds": 0.015850958
+      },
+      "wall_seconds": 0.1310308329993859,
+      "cpu_seconds": 0.129847,
+      "peak_rss_bytes": 13434880,
+      "minor_faults": 911,
+      "major_faults": 0,
+      "block_inputs": 0,
+      "block_outputs": 0
+    },
+    {
+      "result": {
+        "average_scope": 3,
+        "binary_source_policy_sha256": "6c9738ff1c1a211143529918ea15175ee605de8fa452081283a57343db986027",
+        "fine_profile": false,
+        "format": "binary",
+        "identity": {
+          "big_blind": 100,
+          "card_tables": [
+            "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+            "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+            "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+          ],
+          "game": "nlhe-cash",
+          "menu": "min-pot-conditional-jam-v1",
+          "players": 3,
+          "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+          "small_blind": 50,
+          "stacks": [
+            10000,
+            10000,
+            10000
+          ],
+          "utility_unit": "big-blind"
+        },
+        "index_insert_seconds": 0.0,
+        "parse_validate_allocate_seconds": 0.0,
+        "rows": 100000,
+        "source_checkpoint_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "status": "passed",
+        "strategy": "average",
+        "stream_decode_seconds": 0.0,
+        "total_seconds": 0.041208667,
+        "verify_file_seconds": 0.018431417
+      },
+      "wall_seconds": 0.04415358300320804,
+      "cpu_seconds": 0.043132,
+      "peak_rss_bytes": 10665984,
+      "minor_faults": 742,
+      "major_faults": 0,
+      "block_inputs": 0,
+      "block_outputs": 0
+    },
+    {
+      "result": {
+        "average_scope": 3,
+        "binary_source_policy_sha256": null,
+        "fine_profile": false,
+        "format": "gzip-json",
+        "identity": {
+          "big_blind": 100,
+          "card_tables": [
+            "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+            "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+            "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+          ],
+          "game": "nlhe-cash",
+          "menu": "min-pot-conditional-jam-v1",
+          "players": 3,
+          "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+          "small_blind": 50,
+          "stacks": [
+            10000,
+            10000,
+            10000
+          ],
+          "utility_unit": "big-blind"
+        },
+        "index_insert_seconds": 0.0,
+        "parse_validate_allocate_seconds": 0.0,
+        "rows": 100000,
+        "source_checkpoint_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "status": "passed",
+        "strategy": "average",
+        "stream_decode_seconds": 0.0,
+        "total_seconds": 0.12966425,
+        "verify_file_seconds": 0.016211625
+      },
+      "wall_seconds": 0.1346434169972781,
+      "cpu_seconds": 0.133402,
+      "peak_rss_bytes": 13418496,
+      "minor_faults": 909,
+      "major_faults": 0,
+      "block_inputs": 0,
+      "block_outputs": 0
+    },
+    {
+      "result": {
+        "average_scope": 3,
+        "binary_source_policy_sha256": "6c9738ff1c1a211143529918ea15175ee605de8fa452081283a57343db986027",
+        "fine_profile": false,
+        "format": "binary",
+        "identity": {
+          "big_blind": 100,
+          "card_tables": [
+            "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+            "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+            "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+          ],
+          "game": "nlhe-cash",
+          "menu": "min-pot-conditional-jam-v1",
+          "players": 3,
+          "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+          "small_blind": 50,
+          "stacks": [
+            10000,
+            10000,
+            10000
+          ],
+          "utility_unit": "big-blind"
+        },
+        "index_insert_seconds": 0.0,
+        "parse_validate_allocate_seconds": 0.0,
+        "rows": 100000,
+        "source_checkpoint_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "status": "passed",
+        "strategy": "average",
+        "stream_decode_seconds": 0.0,
+        "total_seconds": 0.04069025,
+        "verify_file_seconds": 0.018234
+      },
+      "wall_seconds": 0.04378795900265686,
+      "cpu_seconds": 0.042713,
+      "peak_rss_bytes": 10665984,
+      "minor_faults": 741,
+      "major_faults": 0,
+      "block_inputs": 0,
+      "block_outputs": 0
+    },
+    {
+      "result": {
+        "average_scope": 3,
+        "binary_source_policy_sha256": null,
+        "fine_profile": false,
+        "format": "gzip-json",
+        "identity": {
+          "big_blind": 100,
+          "card_tables": [
+            "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+            "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+            "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+          ],
+          "game": "nlhe-cash",
+          "menu": "min-pot-conditional-jam-v1",
+          "players": 3,
+          "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+          "small_blind": 50,
+          "stacks": [
+            10000,
+            10000,
+            10000
+          ],
+          "utility_unit": "big-blind"
+        },
+        "index_insert_seconds": 0.0,
+        "parse_validate_allocate_seconds": 0.0,
+        "rows": 100000,
+        "source_checkpoint_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "status": "passed",
+        "strategy": "average",
+        "stream_decode_seconds": 0.0,
+        "total_seconds": 0.136827083,
+        "verify_file_seconds": 0.016454125
+      },
+      "wall_seconds": 0.14235491599538364,
+      "cpu_seconds": 0.141261,
+      "peak_rss_bytes": 13418496,
+      "minor_faults": 909,
+      "major_faults": 0,
+      "block_inputs": 0,
+      "block_outputs": 0
+    },
+    {
+      "result": {
+        "average_scope": 3,
+        "binary_source_policy_sha256": "6c9738ff1c1a211143529918ea15175ee605de8fa452081283a57343db986027",
+        "fine_profile": false,
+        "format": "binary",
+        "identity": {
+          "big_blind": 100,
+          "card_tables": [
+            "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+            "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+            "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+          ],
+          "game": "nlhe-cash",
+          "menu": "min-pot-conditional-jam-v1",
+          "players": 3,
+          "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+          "small_blind": 50,
+          "stacks": [
+            10000,
+            10000,
+            10000
+          ],
+          "utility_unit": "big-blind"
+        },
+        "index_insert_seconds": 0.0,
+        "parse_validate_allocate_seconds": 0.0,
+        "rows": 100000,
+        "source_checkpoint_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "status": "passed",
+        "strategy": "average",
+        "stream_decode_seconds": 0.0,
+        "total_seconds": 0.041092916,
+        "verify_file_seconds": 0.018737666
+      },
+      "wall_seconds": 0.04405066600884311,
+      "cpu_seconds": 0.043018999999999995,
+      "peak_rss_bytes": 10665984,
+      "minor_faults": 741,
+      "major_faults": 0,
+      "block_inputs": 0,
+      "block_outputs": 0
+    }
+  ],
+  "profiled_json": {
+    "result": {
+      "average_scope": 3,
+      "binary_source_policy_sha256": null,
+      "fine_profile": true,
+      "format": "gzip-json",
+      "identity": {
+        "big_blind": 100,
+        "card_tables": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "game": "nlhe-cash",
+        "menu": "min-pot-conditional-jam-v1",
+        "players": 3,
+        "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+        "small_blind": 50,
+        "stacks": [
+          10000,
+          10000,
+          10000
+        ],
+        "utility_unit": "big-blind"
+      },
+      "index_insert_seconds": 0.002592724000001478,
+      "parse_validate_allocate_seconds": 0.053641872999992395,
+      "rows": 100000,
+      "source_checkpoint_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "status": "passed",
+      "strategy": "average",
+      "stream_decode_seconds": 0.04698560699995085,
+      "total_seconds": 0.134255292,
+      "verify_file_seconds": 0.016172625
+    },
+    "wall_seconds": 0.1394533330021659,
+    "cpu_seconds": 0.13812599999999997,
+    "peak_rss_bytes": 13451264,
+    "minor_faults": 911,
+    "major_faults": 0,
+    "block_inputs": 0,
+    "block_outputs": 0
+  },
+  "probes": [
+    {
+      "result": {
+        "format": "gzip-json",
+        "found": 131072,
+        "load_seconds": 0.129194958,
+        "probe_seconds": 0.01461525,
+        "probe_sha256": "8813bf85095e71bbb395f7f810607b8317abfa8b8883e08fc4dc7396ec2115c5",
+        "probes": 133120,
+        "rows": 100000,
+        "status": "passed"
+      },
+      "wall_seconds": 0.1501747079892084,
+      "cpu_seconds": 0.14873099999999997,
+      "peak_rss_bytes": 13697024,
+      "minor_faults": 927,
+      "major_faults": 0,
+      "block_inputs": 0,
+      "block_outputs": 0
+    },
+    {
+      "result": {
+        "format": "binary",
+        "found": 131072,
+        "load_seconds": 0.042143708,
+        "probe_seconds": 0.023656166,
+        "probe_sha256": "8813bf85095e71bbb395f7f810607b8317abfa8b8883e08fc4dc7396ec2115c5",
+        "probes": 133120,
+        "rows": 100000,
+        "status": "passed"
+      },
+      "wall_seconds": 0.06934670799819287,
+      "cpu_seconds": 0.068212,
+      "peak_rss_bytes": 10960896,
+      "minor_faults": 760,
+      "major_faults": 0,
+      "block_inputs": 0,
+      "block_outputs": 0
+    }
+  ],
+  "median_load_seconds": {
+    "gzip-json": 0.12966425,
+    "binary": 0.041092916
+  },
+  "warm_load_speedup": 3.1553917955104476,
+  "files": {
+    "fixture.gz": {
+      "bytes": 5440945,
+      "allocated_bytes": 6000640
+    },
+    "fixture.bin": {
+      "bytes": 6241020,
+      "allocated_bytes": 6242304
+    }
+  },
+  "cache_note": "Ordinary filesystem cache; conversion/audit touched both inputs before loads. First recorded loads are not cold-cache claims.",
+  "limits": "Generated rows, one laptop, no real K50 play or mature-table performance claim; trajectory unit tests use explicit toy card assignments."
+}
