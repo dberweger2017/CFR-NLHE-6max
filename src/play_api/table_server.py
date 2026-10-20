@@ -25,7 +25,7 @@ ASSETS = {"/": ("table.html", "text/html; charset=utf-8"),
           "/style.css": ("style.css", "text/css; charset=utf-8")}
 
 
-def main():
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--seat", action="append", required=True, dest="seats",
                         help="human, policy:NAME or script:random|check-call|tight-aggressive|pot-pressure")
@@ -37,7 +37,7 @@ def main():
     parser.add_argument("--port", type=int, default=8766)
     parser.add_argument("--source-version", default="unknown")
     parser.add_argument("--verify-session")
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
     if not 1 <= args.port <= 65535:
         parser.error("Port must be 1–65535")
     if args.policy and args.card_buckets is None:

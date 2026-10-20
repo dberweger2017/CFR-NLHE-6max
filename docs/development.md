@@ -19,6 +19,11 @@ The [research history](research-history.md) indexes completed experiments.
   the HU20 catalog. [v0.5.2 install](releases/v0.5.2/INSTALL.md), [v0.5.3 split model/K50 install](releases/v0.5.3/INSTALL.md).
   `hu100_research.py` is an explicit research-only pin; [local HU100 play](hu100-local-play.md)
   records its retrieval gate, fixed table and off-by-default translation option.
+  `v060_bundle.py` verifies the prepared three-player 100 BB release's exact
+  binary parts, K50 tables and source manifests with Python stdlib only.
+  `scripts.build_v060_bundle` prepares assets in a fresh directory;
+  `scripts.play_v060` requires explicit seed selection and shares one model
+  across the existing three-seat table. [Release preparation](releases/v0.6.0/READINESS.md).
 - `src/play_api/` and `apps/poker-web/`: durable local sessions, HTTP and the table.
   `versions.py` has the explicit release catalog. Defaults never silently fall
   back when an artifact is missing or corrupt; sessions keep their model.
