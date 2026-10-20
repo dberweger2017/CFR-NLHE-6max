@@ -23,7 +23,9 @@ reconstruction must recover the archived key/menu exactly.
 ## Matched-state panel
 
 Sample one permutation and one hero decision per archived six-hand block with
-fixed hashes, then retain32 discovery and32 held-out observations per
+fixed hashes (decision ordinal0–15 selected before seeing the hand, omitted
+if unreached, so future decision counts cannot affect selection), then retain32
+discovery and32 held-out observations per
 field/reached-policy/street stratum. Split by whole block, not duplicate hand;
 use outcome-blind deterministic priority sampling. Report every populated and
 missing stratum, both original reach distributions, position, menu and original
@@ -53,10 +55,19 @@ then512 fresh held-out worlds for evaluation. Evaluate all legal root actions
 under common hidden worlds and action streams, with both fixed3B and fixed10B
 hero continuations. Opponents keep their exact scripts and receive only their
 own legal observations. Compare3B/10B root mixtures and the selected alternative
-within each continuation. Keep discovery and held-out RNG roots distinct.
+within each continuation (values are BB per decision, not BB/100). Repeat all32+512 worlds in memory for exact
+reproduction without reloading models; repeated worlds are not extra samples.
+Keep discovery and held-out RNG roots distinct.
+
+Record visible made-hand features and conditional showdown share against
+current live contenders on fresh belief runouts (no-further-folding proxy, not
+strategy value). Never feed those sampled hidden values to a policy.
 
 Report paired Monte Carlo estimates/standard errors and predeclared family
-intervals for the fixed selected-state panel, plus each action value and its
+intervals for the fixed selected-state panel (Bonferroni upper family512,
+two-sided empirical Bernstein bounds across512 independent worlds, with
+normal intervals auxiliary; Monte Carlo uncertainty conditional on observations,
+not a full-policy strength interval), plus each action value and its
 probability shift. A reduction in betting only indicates missed value if its
 alternative has higher conditional value; it can instead avoid negative value.
 Different continuation results indicate dependence on downstream strategy. No
@@ -75,3 +86,15 @@ correctness/owner stop; inspect disk/RAM/swap manually. No competing measured
 bb128 load job, automatic retry or outcome-driven extension. Full costs and any
 unsupported/insufficient states must be reported. Raw evidence stays outside Git;
 Research-Cloud archival remains pending until verified receipt.
+
+## Bounded conditional uncertainty
+
+Primary intervals rescale [Maurer–Pontil2009, theorem4](https://www.learningtheory.org/colt2009/papers/012.pdf)
+and union-bound both tails over at most512 contrasts. With n=512, sample variance
+s², known range width R and L=ln(4×512/0.05), the half-width is
+sqrt(2s²L/n)+7RL/[3(n−1)]. Each hero return lies in[−100,200]BB, so a linear
+action contrast with coefficients c has width R=300Σ|c|. Root-mixture and
+selected-action widths use their actual fixed coefficients; identical actions
+have zero width. Selection uses independent discovery worlds. These bounds
+can remain wide after a small panel; normal/SE estimates are descriptive and
+do not override the bounded decision interval. No outcome-driven extra worlds.
