@@ -2,11 +2,20 @@
 //!
 //! A `HashMap<Key, Node>` spends 112 bytes on every slot, whatever the menu's length, and
 //! leaves up to half its slots empty after each doubling: about 415 bytes per entry at HU100's
-//! 39M-node peak. Here each shard keeps its entries' fixed fields in one segmented array, their
-//! regrets and averages at their actual length in another, and a hash index of 32-bit positions.
-//! Keys stored only from opponent visits never receive regrets, which stay exactly +0.0, so they
-//! keep no regret storage at all. Segments grow by fixed chunks, so memory grows in proportion
-//! to entries instead of in doublings, and nothing is moved when a shard grows.
+//! 39M-node peak. Here each shard keeps one record per entry in a segmented array of 8-byte
+//! words, and a hash index of 32-bit record positions. A record is the entry's fixed fields
+//! (4 words) followed by its regrets and its average at their actual length, so a lookup reads
+//! the index and then one contiguous record.
+//!
+//! Keys stored only from opponent visits never receive regrets, which stay exactly +0.0, so their
+//! records have no regret words. When an entry's first regret differs from +0.0 its record moves
+//! to a longer one; the shorter record goes on a free list by length and is reused by the next
+//! record of that length. A frozen table adds no keys, so once a shard's free records exceed both
+//! `COMPACT_MIN` words (256 KiB) and 1/16 of its words, the shard rewrites its live records
+//! contiguously; below that size the free records are bounded by `COMPACT_MIN` per shard
+//! (16 MiB over all shards). Segments grow by fixed chunks,
+//! so memory grows in proportion to entries instead of in doublings, and nothing is moved when a
+//! shard grows.
 //!
 //! Both trainers use it. Each entry carries one opaque 32-bit `meta` (the HU discount stamp, the
 //! n-player owner and street), and averages are optional for streets the n-player trainer does
@@ -26,8 +35,14 @@ const SAVE_PIECE: usize = 16_384;
 
 /// Regrets of keys without stored ones: `Node::empty`'s.
 static ZEROS: [f64; MAX_ACTIONS] = [0.0; MAX_ACTIONS];
-/// A position with no storage.
+/// The end of a free list.
 const NONE: u32 = u32::MAX;
+/// Words of a record's fixed fields: key (2), visits, then meta | code << 32 | len << 48 | flags << 56.
+const HEAD: usize = 4;
+/// The longest record.
+const RECORD: usize = HEAD + 2 * MAX_ACTIONS;
+const HAS_AVERAGE: u64 = 1 << 56;
+const HAS_REGRETS: u64 = 1 << 57;
 
 /// Fixed-size chunks, so growth never copies or doubles existing items.
 struct Segments<T, const SHIFT: u32> {
@@ -83,31 +98,23 @@ impl<T: Copy, const SHIFT: u32> Segments<T, SHIFT> {
     }
 }
 
-#[derive(Clone, Copy)]
-struct Entry {
-    key: Key,
-    visits: u64,
-    average: u32,
-    regrets: u32,
-    meta: u32,
-    code: u16,
-    len: u8,
-}
+/// Record words. Values are `f64`; the fixed fields are stored as `f64::from_bits` and read back
+/// with `to_bits`, which round-trip every bit pattern since no arithmetic touches them.
+type Words = Segments<f64, 15>;
 
 /// Bytes of one entry's fixed fields.
-pub const ENTRY_BYTES: usize = std::mem::size_of::<Entry>();
+pub const ENTRY_BYTES: usize = HEAD * 8;
 
-/// Heap bytes the table owns, by part; `values` and `entries` include unused chunk capacity.
+/// Heap bytes the table owns, by part; `records` includes unused chunk capacity and free records.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub struct Allocation {
     pub index: usize,
-    pub entries: usize,
-    pub values: usize,
+    pub records: usize,
 }
 
 impl Allocation {
     pub fn total(self) -> usize {
-        self.index + self.entries + self.values
+        self.index + self.records
     }
 }
 
@@ -126,38 +133,105 @@ fn hash(key: &Key) -> u64 {
     u64::from_le_bytes(key[8..16].try_into().unwrap())
 }
 
+/// A record's fixed fields, decoded.
+#[derive(Clone, Copy)]
+struct Head {
+    visits: u64,
+    meta: u32,
+    code: u16,
+    len: usize,
+    average: bool,
+    regrets: bool,
+}
+
+impl Head {
+    fn words(self) -> usize {
+        HEAD + self.len * (self.average as usize + self.regrets as usize)
+    }
+
+    fn packed(self) -> f64 {
+        let flags = if self.average { HAS_AVERAGE } else { 0 } | if self.regrets { HAS_REGRETS } else { 0 };
+        f64::from_bits(self.meta as u64 | (self.code as u64) << 32 | (self.len as u64) << 48 | flags)
+    }
+}
+
+/// A record laid out in a buffer before it is stored.
+fn record(key: &Key, head: Head, regrets: &[f64], average: Option<&[f64]>) -> ([f64; RECORD], usize) {
+    let mut words = [0.0; RECORD];
+    words[0] = f64::from_bits(u64::from_le_bytes(key[..8].try_into().unwrap()));
+    words[1] = f64::from_bits(hash(key));
+    words[2] = f64::from_bits(head.visits);
+    words[3] = head.packed();
+    let mut at = HEAD;
+    if head.regrets {
+        words[at..at + head.len].copy_from_slice(regrets);
+        at += head.len;
+    }
+    if let Some(a) = average {
+        words[at..at + head.len].copy_from_slice(a);
+        at += head.len;
+    }
+    debug_assert_eq!(at, head.words());
+    (words, at)
+}
+
+/// Free words that trigger a compaction once they also exceed 1/16 of a shard's record words.
+const COMPACT_MIN: usize = 1 << 15;
+
 #[derive(Clone)]
 pub struct Shard {
     index: HashTable<u32>,
-    entries: Segments<Entry, 13>,
-    values: Segments<f64, 15>,
+    words: Words,
+    /// The first free record of each length, chained through the records' first words.
+    free: [u32; RECORD + 1],
+    /// Words in free records, and words ever appended (free records included).
+    free_words: usize,
+    used_words: usize,
 }
 
 impl Shard {
     fn new() -> Shard {
-        Shard { index: HashTable::new(), entries: Segments::new(), values: Segments::new() }
+        Shard { index: HashTable::new(), words: Segments::new(), free: [NONE; RECORD + 1], free_words: 0, used_words: 0 }
     }
 
-    fn entry(&self, i: u32) -> &Entry {
-        &self.entries.get(i, 1)[0]
+    fn key(&self, p: u32) -> Key {
+        let w = self.words.get(p, 2);
+        let mut key = [0u8; 16];
+        key[..8].copy_from_slice(&w[0].to_bits().to_le_bytes());
+        key[8..].copy_from_slice(&w[1].to_bits().to_le_bytes());
+        key
+    }
+
+    fn head(&self, p: u32) -> Head {
+        let w = self.words.get(p, HEAD);
+        let packed = w[3].to_bits();
+        Head {
+            visits: w[2].to_bits(),
+            meta: packed as u32,
+            code: (packed >> 32) as u16,
+            len: (packed >> 48) as u8 as usize,
+            average: packed & HAS_AVERAGE != 0,
+            regrets: packed & HAS_REGRETS != 0,
+        }
     }
 
     fn find(&self, key: &Key) -> Option<u32> {
-        self.index.find(hash(key), |&i| self.entry(i).key == *key).copied()
+        let words = &self.words;
+        self.index.find(hash(key), |&p| {
+            let w = words.get(p, 2);
+            w[1].to_bits() == hash(key) && w[0].to_bits().to_le_bytes() == key[..8]
+        }).copied()
     }
 
-    fn regrets(&self, e: &Entry) -> &[f64] {
-        if e.regrets == NONE { &ZEROS[..e.len as usize] } else { self.values.get(e.regrets, e.len as usize) }
+    fn view(&self, p: u32) -> View<'_> {
+        let h = self.head(p);
+        let regrets = if h.regrets { self.words.get(p + HEAD as u32, h.len) } else { &ZEROS[..h.len] };
+        let average = h.average.then(|| self.words.get(p + (HEAD + if h.regrets { h.len } else { 0 }) as u32, h.len));
+        View { code: h.code, meta: h.meta, visits: h.visits, regrets, average }
     }
 
-    fn view(&self, i: u32) -> View<'_> {
-        let e = self.entry(i);
-        let average = (e.average != NONE).then(|| self.values.get(e.average, e.len as usize));
-        View { code: e.code, meta: e.meta, visits: e.visits, regrets: self.regrets(e), average }
-    }
-
-    fn node(&self, i: u32) -> Node {
-        let v = self.view(i);
+    fn node(&self, p: u32) -> Node {
+        let v = self.view(p);
         let n = v.regrets.len();
         let mut node = Node { stamp: v.meta, visits: v.visits, ..Node::empty(v.code, n) };
         node.regrets[..n].copy_from_slice(v.regrets);
@@ -165,16 +239,62 @@ impl Shard {
         node
     }
 
-    /// Stores a new entry; regret storage only when some regret differs from +0.0.
+    /// Stores `words`, reusing a free record of the same length when there is one.
+    fn allocate(&mut self, words: &[f64]) -> u32 {
+        let head = self.free[words.len()];
+        if head == NONE {
+            self.used_words += words.len();
+            return self.words.push(words);
+        }
+        let slot = self.words.get_mut(head, words.len());
+        self.free[words.len()] = slot[0].to_bits() as u32;
+        slot.copy_from_slice(words);
+        self.free_words -= words.len();
+        head
+    }
+
+    fn release(&mut self, p: u32, len: usize) {
+        self.words.get_mut(p, 1)[0] = f64::from_bits(self.free[len] as u64);
+        self.free[len] = p;
+        self.free_words += len;
+    }
+
+    /// Rewrites every live record contiguously, in position order, and drops the free lists:
+    /// a frozen table adds no keys, so nothing else reuses the records left by moves.
+    /// Returns the new position of the record at `keep`.
+    fn compact(&mut self, keep: u32) -> u32 {
+        let mut old: Vec<u32> = self.index.iter().copied().collect();
+        old.sort_unstable();
+        let mut words = Words::new();
+        let mut used = 0;
+        let new: Vec<u32> = old.iter().map(|&p| {
+            let len = self.head(p).words();
+            used += len;
+            words.push(self.words.get(p, len))
+        }).collect();
+        let moved = |p: u32| new[old.binary_search(&p).expect("indexed record")];
+        for p in self.index.iter_mut() {
+            *p = moved(*p);
+        }
+        let keep = moved(keep);
+        self.used_words = used;
+        self.words = words;
+        self.free = [NONE; RECORD + 1];
+        self.free_words = 0;
+        keep
+    }
+
+    /// Stores a new entry; regret words only when some regret differs from +0.0.
     fn add(&mut self, key: Key, entry: View) -> u32 {
         let n = entry.regrets.len();
         debug_assert!((1..=MAX_ACTIONS).contains(&n) && entry.average.map_or(true, |a| a.len() == n));
-        let average = entry.average.map_or(NONE, |a| self.values.push(a));
-        let regrets = if entry.regrets.iter().all(|r| r.to_bits() == 0) { NONE } else { self.values.push(entry.regrets) };
-        let i = self.entries.push(&[Entry { key, visits: entry.visits, average, regrets, meta: entry.meta, code: entry.code, len: n as u8 }]);
-        let entries = &self.entries;
-        self.index.insert_unique(hash(&key), i, |&j| hash(&entries.get(j, 1)[0].key));
-        i
+        let head = Head { visits: entry.visits, meta: entry.meta, code: entry.code, len: n, average: entry.average.is_some(),
+            regrets: entry.regrets.iter().any(|r| r.to_bits() != 0) };
+        let (words, len) = record(&key, head, entry.regrets, entry.average);
+        let p = self.allocate(&words[..len]);
+        let all = &self.words;
+        self.index.insert_unique(hash(&key), p, |&q| all.get(q, 2)[1].to_bits());
+        p
     }
 
     fn add_node(&mut self, key: Key, node: &Node) -> u32 {
@@ -182,64 +302,88 @@ impl Shard {
         self.add(key, View { code: node.code, meta: node.stamp, visits: node.visits, regrets: &node.regrets[..n], average: Some(&node.average[..n]) })
     }
 
-    /// Writes `e`'s regrets, giving it regret storage once one differs from +0.0.
-    fn set_regrets(&mut self, e: &mut Entry, regrets: &[f64]) {
-        if e.regrets != NONE {
-            self.values.get_mut(e.regrets, regrets.len()).copy_from_slice(regrets);
-        } else if regrets.iter().any(|r| r.to_bits() != 0) {
-            e.regrets = self.values.push(regrets);
+    /// Writes the regrets of the entry at `p`, moving it to a record with regret words once one
+    /// differs from +0.0, and returns its position.
+    fn set_regrets(&mut self, p: u32, regrets: &[f64]) -> u32 {
+        let h = self.head(p);
+        if h.regrets {
+            self.words.get_mut(p + HEAD as u32, h.len).copy_from_slice(regrets);
+            return p;
         }
+        if regrets.iter().all(|r| r.to_bits() == 0) {
+            return p;
+        }
+        let key = self.key(p);
+        let average = self.view(p).average.map(|a| {
+            let mut copy = [0.0; MAX_ACTIONS];
+            copy[..a.len()].copy_from_slice(a);
+            copy
+        });
+        let (words, len) = record(&key, Head { regrets: true, ..h }, regrets, average.as_ref().map(|a| &a[..h.len]));
+        self.release(p, h.words());
+        let q = self.allocate(&words[..len]);
+        *self.index.find_mut(hash(&key), |&r| r == p).expect("indexed") = q;
+        if self.free_words >= COMPACT_MIN && self.free_words * 16 > self.used_words {
+            return self.compact(q);
+        }
+        q
     }
 
-    fn store(&mut self, i: u32, node: &Node) {
-        let mut e = *self.entry(i);
-        let n = e.len as usize;
-        debug_assert!(node.code == e.code && node.len == e.len);
-        self.values.get_mut(e.average, n).copy_from_slice(&node.average[..n]);
-        self.set_regrets(&mut e, &node.regrets[..n]);
-        e.visits = node.visits;
-        e.meta = node.stamp;
-        self.entries.get_mut(i, 1)[0] = e;
+    fn set_head(&mut self, p: u32, visits: u64, meta: u32) {
+        let h = Head { visits, meta, ..self.head(p) };
+        let w = self.words.get_mut(p, HEAD);
+        w[2] = f64::from_bits(visits);
+        w[3] = h.packed();
+    }
+
+    fn store(&mut self, p: u32, node: &Node) {
+        let h = self.head(p);
+        let n = h.len;
+        debug_assert!(node.code == h.code && node.len as usize == n);
+        let at = p + (HEAD + if h.regrets { n } else { 0 }) as u32;
+        self.words.get_mut(at, n).copy_from_slice(&node.average[..n]);
+        let p = self.set_regrets(p, &node.regrets[..n]);
+        self.set_head(p, node.visits, node.stamp);
     }
 
     /// Applies `update` to `key`'s node, created as `fresh` when the key is new.
     pub fn update(&mut self, key: Key, fresh: impl FnOnce() -> Node, update: impl FnOnce(&mut Node)) {
-        let (i, mut node) = match self.find(&key) {
-            Some(i) => (i, self.node(i)),
+        let (p, mut node) = match self.find(&key) {
+            Some(p) => (p, self.node(p)),
             None => {
                 let node = fresh();
                 (self.add_node(key, &node), node)
             }
         };
         update(&mut node);
-        self.store(i, &node);
+        self.store(p, &node);
     }
 
     /// Adds `delta`'s regrets, averages and visits to `key`'s entry, or stores `delta` as it is
     /// when the key is new.
     pub fn merge(&mut self, key: Key, delta: View) {
-        let Some(i) = self.find(&key) else {
+        let Some(p) = self.find(&key) else {
             self.add(key, delta);
             return;
         };
-        let mut e = *self.entry(i);
-        let n = e.len as usize;
-        assert_eq!((e.code, n, e.meta, e.average != NONE), (delta.code, delta.regrets.len(), delta.meta, delta.average.is_some()),
+        let h = self.head(p);
+        let n = h.len;
+        assert_eq!((h.code, n, h.meta, h.average), (delta.code, delta.regrets.len(), delta.meta, delta.average.is_some()),
             "a merged entry changed its menu, meta or average scope");
         let mut regrets = [0.0; MAX_ACTIONS];
-        for ((sum, stored), inc) in regrets.iter_mut().zip(self.regrets(&e)).zip(delta.regrets) {
+        for ((sum, stored), inc) in regrets.iter_mut().zip(self.view(p).regrets).zip(delta.regrets) {
             *sum = stored + inc;
             assert!(sum.is_finite());
         }
-        self.set_regrets(&mut e, &regrets[..n]);
         if let Some(increments) = delta.average {
-            for (sum, inc) in self.values.get_mut(e.average, n).iter_mut().zip(increments) {
+            let at = p + (HEAD + if h.regrets { n } else { 0 }) as u32;
+            for (sum, inc) in self.words.get_mut(at, n).iter_mut().zip(increments) {
                 *sum += inc;
                 assert!(sum.is_finite());
             }
         }
-        e.visits += delta.visits;
-        self.entries.get_mut(i, 1)[0] = e;
+        let p = self.set_regrets(p, &regrets[..n]);
+        self.set_head(p, h.visits + delta.visits, h.meta);
     }
 
     pub fn contains(&self, key: &Key) -> bool {
@@ -251,42 +395,42 @@ impl Shard {
     }
 
     pub fn allocation(&self) -> Allocation {
-        Allocation { index: self.index.allocation_size(), entries: self.entries.allocation_size(), values: self.values.allocation_size() }
+        Allocation { index: self.index.allocation_size(), records: self.words.allocation_size() }
     }
 
     /// Bytes of stored regrets and stored averages.
     pub fn payload_bytes(&self) -> (usize, usize) {
-        self.index.iter().fold((0, 0), |(regrets, average), &i| {
-            let e = self.entry(i);
-            let bytes = e.len as usize * 8;
-            (regrets + if e.regrets == NONE { 0 } else { bytes }, average + if e.average == NONE { 0 } else { bytes })
+        self.index.iter().fold((0, 0), |(regrets, average), &p| {
+            let h = self.head(p);
+            let bytes = h.len * 8;
+            (regrets + if h.regrets { bytes } else { 0 }, average + if h.average { bytes } else { 0 })
         })
     }
 
-    /// Entry positions in key order.
+    /// Record positions in key order; 4 bytes per entry, since every shard's order is alive while saving.
     pub fn order(&self) -> Vec<u32> {
         let mut order: Vec<u32> = self.index.iter().copied().collect();
-        order.sort_unstable_by(|&a, &b| self.entry(a).key.cmp(&self.entry(b).key));
+        order.sort_unstable_by(|&a, &b| self.key(a).cmp(&self.key(b)));
         order
     }
 
     /// The key and node at a position from `order`.
-    pub fn row(&self, i: u32) -> (Key, Node) {
-        (self.entry(i).key, self.node(i))
+    pub fn row(&self, p: u32) -> (Key, Node) {
+        (self.key(p), self.node(p))
     }
 
     /// The key and entry at a position from `order`.
-    pub fn row_view(&self, i: u32) -> (Key, View<'_>) {
-        (self.entry(i).key, self.view(i))
+    pub fn row_view(&self, p: u32) -> (Key, View<'_>) {
+        (self.key(p), self.view(p))
     }
 
     /// Entries in key order.
     fn sorted(&self) -> impl Iterator<Item = (Key, Node)> + '_ {
-        self.order().into_iter().map(move |i| self.row(i))
+        self.order().into_iter().map(move |p| self.row(p))
     }
 
     fn sorted_views(&self) -> impl Iterator<Item = (Key, View<'_>)> + '_ {
-        self.order().into_iter().map(move |i| self.row_view(i))
+        self.order().into_iter().map(move |p| self.row_view(p))
     }
 }
 
@@ -309,12 +453,12 @@ impl Store {
 
     pub fn get(&self, key: &Key) -> Option<Node> {
         let shard = &self.0[Self::shard(key)];
-        shard.find(key).map(|i| shard.node(i))
+        shard.find(key).map(|p| shard.node(p))
     }
 
     pub fn view(&self, key: &Key) -> Option<View<'_>> {
         let shard = &self.0[Self::shard(key)];
-        shard.find(key).map(|i| shard.view(i))
+        shard.find(key).map(|p| shard.view(p))
     }
 
     pub fn contains(&self, key: &Key) -> bool {
@@ -349,8 +493,7 @@ impl Store {
     pub fn allocation(&self) -> Allocation {
         self.0.iter().map(Shard::allocation).fold(Allocation::default(), |a, b| Allocation {
             index: a.index + b.index,
-            entries: a.entries + b.entries,
-            values: a.values + b.values,
+            records: a.records + b.records,
         })
     }
 
@@ -365,7 +508,7 @@ impl Store {
 
     /// Every entry, in no particular order.
     pub fn iter(&self) -> impl Iterator<Item = (Key, Node)> + '_ {
-        self.0.iter().flat_map(|s| s.index.iter().map(move |&i| (s.entry(i).key, s.node(i))))
+        self.0.iter().flat_map(|s| s.index.iter().map(move |&p| s.row(p)))
     }
 
     /// Every entry in key order, sorting one shard at a time.
@@ -374,7 +517,7 @@ impl Store {
     }
 
     pub fn views(&self) -> impl Iterator<Item = (Key, View<'_>)> + '_ {
-        self.0.iter().flat_map(|s| s.index.iter().map(move |&i| s.row_view(i)))
+        self.0.iter().flat_map(|s| s.index.iter().map(move |&p| s.row_view(p)))
     }
 
     pub fn sorted_views(&self) -> impl Iterator<Item = (Key, View<'_>)> + '_ {
@@ -389,8 +532,8 @@ impl Store {
             .flat_map(|(s, order)| (0..order.len()).step_by(SAVE_PIECE).map(move |i| (s, i..(i + SAVE_PIECE).min(order.len()))))
             .collect();
         crate::gz::write_ordered(file, gzip, head, &pieces, |(s, range), out| {
-            for &i in &orders[*s][range.clone()] {
-                row(&self.0[*s], i, out);
+            for &p in &orders[*s][range.clone()] {
+                row(&self.0[*s], p, out);
             }
         })
     }
@@ -405,9 +548,9 @@ impl Default for Store {
 impl Lookup for Store {
     fn regrets(&self, key: &Key) -> Option<(u16, &[f64])> {
         let shard = &self.0[Self::shard(key)];
-        shard.find(key).map(|i| {
-            let e = shard.entry(i);
-            (e.code, shard.regrets(e))
+        shard.find(key).map(|p| {
+            let v = shard.view(p);
+            (v.code, v.regrets)
         })
     }
 }
@@ -434,6 +577,11 @@ mod tests {
          v.average.map(|a| a.iter().map(|x| x.to_bits()).collect()))
     }
 
+    fn has_regrets(store: &Store, key: &Key) -> bool {
+        let shard = &store.0[Store::shard(key)];
+        shard.head(shard.find(key).unwrap()).regrets
+    }
+
     #[test]
     fn stores_nodes_exactly_and_allocates_regrets_only_when_needed() {
         let mut store = Store::new();
@@ -444,7 +592,7 @@ mod tests {
         assert!(!store.insert([1; 16], opponent), "duplicate keys are rejected");
         assert_eq!(bits(&store.get(&[1; 16]).unwrap()), bits(&opponent));
         assert_eq!(bits(&store.get(&[2; 16]).unwrap()), bits(&negative_zero), "-0.0 keeps its sign");
-        assert_eq!(store.0[0].entry(store.0[0].find(&[1; 16]).unwrap()).regrets, NONE);
+        assert!(!has_regrets(&store, &[1; 16]) && has_regrets(&store, &[2; 16]));
         let (code, regrets) = store.regrets(&[1; 16]).unwrap();
         assert_eq!((code, regrets.len()), (0b110, 2));
         // A first traverser visit gives an opponent-only key its regret storage.
@@ -452,6 +600,7 @@ mod tests {
         shard.update([1; 16], || unreachable!(), |n| { n.regrets[1] = -2.25; n.visits = 1; n.stamp = 7; });
         let expected = node(0b110, 2, &[0.0, -2.25], &[3.5, 1.0], 1);
         assert_eq!(bits(&store.get(&[1; 16]).unwrap()), bits(&Node { stamp: 7, ..expected }));
+        assert!(has_regrets(&store, &[1; 16]));
         assert!(store.get(&[3; 16]).is_none() && store.regrets(&[3; 16]).is_none());
     }
 
@@ -464,15 +613,17 @@ mod tests {
         assert_eq!(view_bits(store.view(&[5; 16]).unwrap()), view_bits(delta(&[-0.0, 0.0, 0.0], None, 0)));
         // +0.0 regrets keep no storage until a sum differs from +0.0.
         store.merge([6; 16], delta(&[0.0, 0.0, 0.0], Some(&[1.0, 0.5, 0.0]), 0));
-        let shard = &store.0[Store::shard(&[6; 16])];
-        assert_eq!(shard.entry(shard.find(&[6; 16]).unwrap()).regrets, NONE);
+        assert!(!has_regrets(&store, &[6; 16]));
         store.merge([6; 16], delta(&[0.0, -0.0, 0.0], Some(&[0.25, 0.0, 2.0]), 0));
-        let shard = &store.0[Store::shard(&[6; 16])];
-        assert_eq!(shard.entry(shard.find(&[6; 16]).unwrap()).regrets, NONE, "+0.0 + -0.0 is +0.0");
+        assert!(!has_regrets(&store, &[6; 16]), "+0.0 + -0.0 is +0.0");
         store.merge([6; 16], delta(&[1.5, -2.0, 0.0], Some(&[0.0, 0.0, 0.0]), 1));
+        assert!(has_regrets(&store, &[6; 16]));
         store.merge([6; 16], delta(&[0.25, 0.0, 3.0], Some(&[1.0, 1.0, 1.0]), 2));
         assert_eq!(view_bits(store.view(&[6; 16]).unwrap()),
             view_bits(delta(&[1.75, -2.0, 3.0], Some(&[2.25, 1.5, 3.0]), 3)));
+        // Entries without averages move too.
+        store.merge([5; 16], delta(&[0.5, 0.0, 0.0], None, 4));
+        assert_eq!(view_bits(store.view(&[5; 16]).unwrap()), view_bits(delta(&[0.5, 0.0, 0.0], None, 4)));
     }
 
     #[test]
@@ -484,7 +635,89 @@ mod tests {
     }
 
     #[test]
-    fn many_keys_survive_index_growth_and_sort_by_key() {
+    fn moved_records_are_reused_by_the_next_record_of_their_length() {
+        let mut store = Store::new();
+        let shard = &mut store.0[0];
+        let delta = |regrets: &'static [f64], visits| View { code: 0b111, meta: 3, visits, regrets, average: Some(&[1.0, 2.0, 3.0]) };
+        // One key, then its move to a longer record; the next short record takes the freed one.
+        let mut key = [0u8; 16];
+        key[8] = 1;
+        shard.merge(key, delta(&[0.0; 3], 0));
+        let short = shard.find(&key).unwrap();
+        shard.merge(key, delta(&[1.0, 0.0, 0.0], 1));
+        let long = shard.find(&key).unwrap();
+        assert_ne!(short, long);
+        let before = shard.allocation();
+        let mut other = key;
+        other[8] = 2;
+        shard.merge(other, delta(&[0.0; 3], 0));
+        assert_eq!(shard.find(&other), Some(short), "the freed record is reused");
+        assert_eq!(shard.allocation(), before);
+        // Both entries read back exactly after the move and the reuse.
+        let a = shard.view(shard.find(&key).unwrap());
+        assert_eq!(view_bits(a), view_bits(View { code: 0b111, meta: 3, visits: 1, regrets: &[1.0, 0.0, 0.0], average: Some(&[2.0, 4.0, 6.0]) }));
+        let b = shard.view(shard.find(&other).unwrap());
+        assert_eq!(view_bits(b), view_bits(delta(&[0.0; 3], 0)));
+        assert_eq!(store.len(), 2);
+    }
+
+    #[test]
+    fn a_frozen_table_compacts_the_records_its_moves_leave_behind() {
+        // Opponent-only keys that all gain regrets later, with no new keys: nothing reuses the
+        // short records, so only compaction keeps the shard near its live size.
+        let mut store = Store::new();
+        let key = |i: u32| {
+            let mut k = [0u8; 16];
+            k[8..12].copy_from_slice(&i.to_le_bytes());
+            k[12..].copy_from_slice(&i.wrapping_mul(0x9E37_79B9).to_le_bytes());
+            k
+        };
+        let count = 100_000u32;
+        let average = [0.5, 1.5, 2.5];
+        for i in 0..count {
+            assert!(store.insert_view(key(i), View { code: 0b111, meta: i, visits: 0, regrets: &[0.0; 3], average: Some(&average) }));
+        }
+        let shard = &mut store.0[0];
+        let check = |shard: &Shard| {
+            let live: usize = shard.index.iter().map(|&p| shard.head(p).words()).sum();
+            assert!(shard.free_words < COMPACT_MIN || shard.free_words * 16 <= shard.used_words, "free records pile up");
+            assert_eq!(shard.used_words, live + shard.free_words);
+            live
+        };
+        for i in 0..count {
+            let regrets = [i as f64, -1.0, 0.0];
+            shard.merge(key(i), View { code: 0b111, meta: i, visits: 1, regrets: &regrets, average: Some(&average) });
+            if i % 4096 == 0 {
+                check(shard);
+            }
+        }
+        let live = check(shard);
+        assert!(shard.free_words * 8 < count as usize * 8 * 7, "compaction ran");
+        let chunk = Words::CHUNK * 8;
+        assert!(shard.allocation().records <= (live + COMPACT_MIN.max(live / 16)) * 8 + 2 * chunk,
+            "records {} for {} live bytes", shard.allocation().records, live * 8);
+        // New keys after the compactions, enough to drain any free list: none may land on a live record.
+        let fresh = |i: u32| key(count + i);
+        for i in 0..20_000 {
+            assert!(store.insert_view(fresh(i), View { code: 0b111, meta: i, visits: 0, regrets: &[0.0; 3], average: Some(&average) }));
+        }
+        let shard = &store.0[0];
+        for i in 0..count {
+            let v = shard.view(shard.find(&key(i)).unwrap());
+            assert_eq!(view_bits(v), view_bits(View { code: 0b111, meta: i, visits: 1, regrets: &[i as f64, -1.0, 0.0], average: Some(&[1.0, 3.0, 5.0]) }));
+        }
+        for i in 0..20_000 {
+            let v = shard.view(shard.find(&fresh(i)).unwrap());
+            assert_eq!(view_bits(v), view_bits(View { code: 0b111, meta: i, visits: 0, regrets: &[0.0; 3], average: Some(&average) }));
+        }
+        check(shard);
+        assert_eq!(store.len(), count as usize + 20_000);
+        let sorted: Vec<Key> = store.sorted().map(|(k, _)| k).collect();
+        assert!(sorted.windows(2).all(|w| w[0] < w[1]) && sorted.len() == count as usize + 20_000);
+    }
+
+    #[test]
+    fn many_keys_survive_index_growth_moves_and_sort_by_key() {
         let mut store = Store::new();
         let key = |i: u64| {
             let mut k = [0u8; 16];
@@ -497,14 +730,31 @@ mod tests {
         let count = 50_000u64;
         for i in 0..count {
             let len = 1 + (i % 5) as usize;
-            let values: Vec<f64> = (0..len).map(|j| (i * 7 + j as u64) as f64 - 3.0).collect();
-            assert!(store.insert(key(i), node((1u16 << len) - 1, len, &values, &values, i)));
+            let average: Vec<f64> = (0..len).map(|j| (i * 7 + j as u64) as f64 - 3.0).collect();
+            // Every third key starts without regrets.
+            let regrets = if i % 3 == 0 { vec![0.0; len] } else { average.clone() };
+            assert!(store.insert(key(i), node((1u16 << len) - 1, len, &regrets, &average, i)));
         }
         assert_eq!(store.len(), count as usize);
+        // Updates and merges after growth, some moving records.
+        for i in (0..count).step_by(7) {
+            let len = 1 + (i % 5) as usize;
+            store.0[Store::shard(&key(i))].update(key(i), || unreachable!(), |n| { n.visits += 1; n.regrets[0] += 0.5; });
+            let ones = vec![1.0; len];
+            store.merge(key(i), View { code: (1u16 << len) - 1, meta: 0, visits: 1, regrets: &ones, average: Some(&ones) });
+        }
+        let clone = store.clone();
         for i in (0..count).step_by(97) {
-            let n = store.get(&key(i)).unwrap();
-            assert_eq!((n.visits, n.len as u64), (i, 1 + i % 5));
-            assert_eq!(n.average[n.len as usize - 1], (i * 7 + i % 5) as f64 - 3.0);
+            for s in [&store, &clone] {
+                let n = s.get(&key(i)).unwrap();
+                let touched = i % 7 == 0;
+                let len = 1 + (i % 5) as usize;
+                assert_eq!((n.visits, n.len as usize), (i + if touched { 2 } else { 0 }, len));
+                let last = (i * 7 + len as u64 - 1) as f64 - 3.0 + if touched { 1.0 } else { 0.0 };
+                assert_eq!(n.average[len - 1], last);
+                let first_regret = if i % 3 == 0 { 0.0 } else { (i * 7) as f64 - 3.0 } + if touched { 1.5 } else { 0.0 };
+                assert_eq!(n.regrets[0], first_regret);
+            }
         }
         let sorted: Vec<Key> = store.sorted().map(|(k, _)| k).collect();
         assert_eq!(sorted.len(), count as usize);

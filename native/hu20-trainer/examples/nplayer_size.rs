@@ -106,7 +106,7 @@ fn main() {
             let a = trainer.table.allocation();
             println!(
                 "{}",
-                json!({"nodes":trainer.counts.nodes,"iteration":trainer.iteration,"entries":trainer.table.len(),"index_capacity":trainer.table.index_capacity(),"index_bytes":a.index,"entry_bytes":a.entries,"value_bytes":a.values,"entries_by_street":entries,"reached_keys":s.keys.len(),"reached_by_street":s.by_street,"observer_requested_bytes":s.allocated,"table_requested_bytes":table_bytes,"regret_payload_bytes":regret_bytes,"average_payload_bytes":average_bytes,"average_entries_by_street":averages,"requested_live_bytes":memory::live(),"requested_peak_bytes":memory::peak(),"rss_bytes":hu20_trainer::telemetry::process_rss_bytes().unwrap(),"training_seconds":training_seconds,"elapsed_seconds":start.elapsed().as_secs_f64()})
+                json!({"nodes":trainer.counts.nodes,"iteration":trainer.iteration,"entries":trainer.table.len(),"index_capacity":trainer.table.index_capacity(),"index_bytes":a.index,"record_bytes":a.records,"entries_by_street":entries,"reached_keys":s.keys.len(),"reached_by_street":s.by_street,"observer_requested_bytes":s.allocated,"table_requested_bytes":table_bytes,"regret_payload_bytes":regret_bytes,"average_payload_bytes":average_bytes,"average_entries_by_street":averages,"requested_live_bytes":memory::live(),"requested_peak_bytes":memory::peak(),"rss_bytes":hu20_trainer::telemetry::process_rss_bytes().unwrap(),"training_seconds":training_seconds,"elapsed_seconds":start.elapsed().as_secs_f64()})
             );
             while next < milestones.len() && milestones[next] <= trainer.counts.nodes {
                 next += 1;

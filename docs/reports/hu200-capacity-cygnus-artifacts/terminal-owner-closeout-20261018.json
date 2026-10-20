@@ -1,0 +1,145 @@
+{
+  "status": "terminal-owner-stopped-no-retry",
+  "owner_instruction": "leve your pr open explaining what happened, but dont retry, recomendation to try again in a different pr. Clean up your thing your work is done",
+  "recorded_utc": "2026-10-18T08:59:20.655598+00:00",
+  "failure_sha256": "f6288457562e77cd9af20c208de686d754bcbc072f53c18b57f18cb7a6430813",
+  "failure_utc": "2026-10-18T08:51:55.356821+00:00",
+  "root_cause": "planning/prepare_single_seed_20261018.py copied the20Bconfig into both output groups without setting cfg.kind=kind; actual5Bconfig retained kind20B",
+  "actual_primary_hands": 1441792,
+  "declared_primary_hands": 983040,
+  "unplanned_extra_primary_hands": 458752,
+  "diagnosis": {
+    "20B": {
+      "config_kind": "20B",
+      "model": "large-20B-2026101302",
+      "model_hash": "f69c6f3eed4fab078cddbeccb2d2196a2d64206a17c3942ff067f6b9d748b799",
+      "verified_kind": "20B",
+      "all_hands_replayed_and_reproduced": true,
+      "cases": [
+        {
+          "blocks": 131072,
+          "name": "direct-20B",
+          "opponent": null,
+          "root": 202610160303
+        },
+        {
+          "blocks": 16384,
+          "name": "panel-random",
+          "opponent": "random",
+          "root": 202610160305
+        },
+        {
+          "blocks": 16384,
+          "name": "panel-check_call",
+          "opponent": "check_call",
+          "root": 202610160305
+        },
+        {
+          "blocks": 16384,
+          "name": "panel-tight_aggressive",
+          "opponent": "tight_aggressive",
+          "root": 202610160305
+        },
+        {
+          "blocks": 16384,
+          "name": "panel-loose_aggressive",
+          "opponent": "loose_aggressive",
+          "root": 202610160305
+        },
+        {
+          "blocks": 16384,
+          "name": "panel-pot_pressure",
+          "opponent": "pot_pressure",
+          "root": 202610160305
+        },
+        {
+          "blocks": 16384,
+          "name": "panel-half_pot_pressure",
+          "opponent": "half_pot_pressure",
+          "root": 202610160305
+        },
+        {
+          "blocks": 16384,
+          "name": "panel-matched_pot_pressure",
+          "opponent": "matched_pot_pressure",
+          "root": 202610160305
+        }
+      ],
+      "actual_primary_hands": 720896
+    },
+    "5B": {
+      "config_kind": "20B",
+      "model": "large-5B-2026101302",
+      "model_hash": "19b2723dff161d10c063e191c9b4fc10f61a2f85687b33009f1b4509441580a5",
+      "verified_kind": "20B",
+      "all_hands_replayed_and_reproduced": true,
+      "cases": [
+        {
+          "blocks": 131072,
+          "name": "direct-20B",
+          "opponent": null,
+          "root": 202610160303
+        },
+        {
+          "blocks": 16384,
+          "name": "panel-random",
+          "opponent": "random",
+          "root": 202610160305
+        },
+        {
+          "blocks": 16384,
+          "name": "panel-check_call",
+          "opponent": "check_call",
+          "root": 202610160305
+        },
+        {
+          "blocks": 16384,
+          "name": "panel-tight_aggressive",
+          "opponent": "tight_aggressive",
+          "root": 202610160305
+        },
+        {
+          "blocks": 16384,
+          "name": "panel-loose_aggressive",
+          "opponent": "loose_aggressive",
+          "root": 202610160305
+        },
+        {
+          "blocks": 16384,
+          "name": "panel-pot_pressure",
+          "opponent": "pot_pressure",
+          "root": 202610160305
+        },
+        {
+          "blocks": 16384,
+          "name": "panel-half_pot_pressure",
+          "opponent": "half_pot_pressure",
+          "root": 202610160305
+        },
+        {
+          "blocks": 16384,
+          "name": "panel-matched_pot_pressure",
+          "opponent": "matched_pot_pressure",
+          "root": 202610160305
+        }
+      ],
+      "actual_primary_hands": 720896
+    }
+  },
+  "global_barrier_passed": false,
+  "outcomes_read": false,
+  "scientific_retry_authorized": false,
+  "trainer_changed": false,
+  "compute_release": {
+    "verified_utc": "2026-10-18T08:55:43.382686+00:00",
+    "known_worker_identities_checked": 17,
+    "matching_live_workers": [],
+    "reused_pids_not_touched": [],
+    "supervisor_pid": 187170,
+    "supervisor_absent": true,
+    "mutex_free": true,
+    "free_nvme_bytes": 76909223936
+  },
+  "cleanup": "In progress: archive valid trained models and all failure evidence, preserve unpackedHDD copy, retire inactive reconstructible caches/verified transport replicas only; PR/source remain open. No further scientific work.",
+  "local_query_setup_error": "Initial inline read-only failure query had shell-quote SyntaxError before execution; corrected stdin-based collector, no scientific side effects."
+}

@@ -174,3 +174,11 @@ from `run`; no subcommand is invoked by a timer. The [protocol](nplayer-pruning-
 records the historical630.741s clock, node-first comparison, exact-clock resume
 and second comparison. The owner requested reviewing this implementation before
 any benchmark or training starts. It is a campaign entry point, not a default trainer.
+
+### Exact native inference derivatives
+
+The optional [binary inference reader](nplayer-binary-inference.md) converts a
+pinned N-player export into a fully validated float64 derivative. The original
+gzip reader stays supported. Build `--example nplayer_inference` for conversion,
+full-row verification, load profiling and fixture benchmarks; no training runs
+through this tool. Mature loading/play qualification is tracked in PR359.

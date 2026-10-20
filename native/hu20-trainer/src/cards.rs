@@ -34,6 +34,14 @@ thread_local! {
 }
 
 impl EquityTables {
+    /// Unit-only card assignments for reader/trajectory parity, not real K50 qualification.
+    #[cfg(test)]
+    pub(crate) fn policy_test_fixture(keys: [Vec<u128>; 3]) -> Self {
+        Self {
+            tables: std::array::from_fn(|i| BucketTable::new(i as u32 + 1, 50, &keys[i], &vec![0; keys[i].len()])),
+            sha256: EQUITY_K50_SHA256.map(str::to_owned),
+        }
+    }
     /// `{flop,turn,river}-k50.bin` from `directory`. Unless `unpinned` (test tables only),
     /// each file must be #163's.
     pub fn load(directory: &Path, unpinned: bool) -> Result<&'static EquityTables, String> {
