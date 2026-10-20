@@ -67,7 +67,7 @@ jobs:
           RUST_TEST_THREADS=1 cargo test --locked --manifest-path native/hu20-trainer/Cargo.toml --example nplayer_size
           cargo test --locked --manifest-path native/hu20-trainer/Cargo.toml --example nplayer_bounded --example nplayer_pruning_study --example nplayer_continuation_arena
           python -m scripts.build_native_trainer
-          cargo build --release --locked --manifest-path native/hu20-trainer/Cargo.toml --example nplayer_parity --example multi_known --example nplayer_train --example nplayer_size --example hu_size_reference --example nplayer_policy --example nplayer_arena --example nplayer_inference --example nplayer_serve
+          cargo build --release --locked --manifest-path native/hu20-trainer/Cargo.toml --example nplayer_parity --example multi_known --example nplayer_train --example nplayer_size --example hu_size_reference --example nplayer_policy --example nplayer_arena --example nplayer_inference --example nplayer_serve --example nplayer_matched_regression
           if strings native/hu20-trainer/target/release/hu20-trainer | grep -F -e "$GITHUB_WORKSPACE" -e /tmp/hu20-trainer-build; then
             echo "The native binary embeds a build path"; exit 1
           fi
