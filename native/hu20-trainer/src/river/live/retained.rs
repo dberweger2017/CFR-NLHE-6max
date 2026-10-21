@@ -534,6 +534,32 @@ impl SessionStore {
                     tables,
                 )
             }
+            Some("retained-harm-diagnosis") => {
+                // #384's fixed-profile response diagnosis, on the live retained
+                // root rather than a saved snapshot. It never advances the solver.
+                fields(v, &["mode", "hand_id", "handle"])?;
+                let active = self.check(v)?;
+                if active.off_tree {
+                    return Err("harm diagnosis requires original retained root".into());
+                }
+                let cap = active
+                    .captured
+                    .as_ref()
+                    .or(active.fallback_root.as_ref())
+                    .unwrap();
+                if cap.profile.is_empty() {
+                    return Err("root has no saved solver profile".into());
+                }
+                harms::diagnose(
+                    &cap.root,
+                    &cap.pairs,
+                    &cap.tree,
+                    &cap.profile,
+                    cap.installed,
+                    table,
+                    tables,
+                )
+            }
             Some("retained-full-menu-audit") => {
                 fields(v, &["mode", "hand_id", "handle"])?;
                 let active = self.check(v)?;
