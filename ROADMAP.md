@@ -103,18 +103,26 @@ Search installs in 8.27% of search-on hands; all nonzero exploratory return
 intervals cross zero, with fragile sparse-tail variance. This is engineering
 qualification, not a strength or release decision.
 
-1. **Off-tree continuation: a small correctness-first prototype.** Preserve the
+1. **Qualify evaluation efficiency before sizing confirmation.**
+   [PR390's action-expectation prototype](docs/reports/river-conditional-evaluation/results.md)
+   passes fixtures and13/13 saved calibration roots. Enumeration takes0.012s;
+   model/K50 startup takes234.2s. All384 roots plus reproduction are quoted at
+   21.67min centrally, with3h42m59s conservative reserve, awaiting an accepted
+   budget. No variance-reduction or strength verdict yet. Compare whole-hand
+   block variance times total cost, keeping unchanged actions, quality fallbacks
+   and noneligible-hand zeros. Fresh confirmation still needs a separate quote.
+2. **Off-tree continuation: a small correctness-first prototype.** Preserve the
    saved cap/all-in cases 21/91 and the pilot's omitted 3,700-chip response.
    Treat consistent beliefs and retained hero policy as requirements;
    re-solving is a candidate, not an established repair. One observed off-tree
    hand does not settle adversarial full-menu vulnerability.
-2. **Design and separately quote strength confirmation before more hands.**
+3. **Design and separately quote strength confirmation before more hands.**
    Declare primary opponents, families/margins and effect size. The pilot's
    conditional three-lineage trained-pair scenarios take 4.8–14.0 hours for a
    stipulated 5 BB/100 effect, 27.7–82.6 hours for 2 BB/100, excluding safeguards
    and across-seed variance calibration. Do not promise a short precise verdict
    from this sparse pilot or extend it using observed scores.
-3. **Keep exact-runtime optimization secondary.** PR386's projected menu is the
+4. **Keep exact-runtime optimization secondary.** PR386's projected menu is the
    measured live backend; exact modeled beliefs remain an audit oracle.
    Preserve the full-menu harms, historical belief findings and convergence
    misses; this pilot does not supersede those tests.
@@ -126,6 +134,8 @@ automatically. [The frozen pilot protocol](docs/river-whole-hand-pilot.md),
 separate the completed experiment from proposed next work.
 
 ## Current position
+
+- **River action-expectation prototype calibrated ([PR390](https://github.com/dberweger2017/CFR-NLHE-6max/pull/390), proposal389):** 116 native library tests, one script-law test and seven Python tests pass on bb128. All13 predeclared roots reproduce original profiles; ten installed profiles enumerate both arms within200K states/arm/root, and three original quality fallbacks cancel identical policies explicitly. Calibration250.17s/27.67GiB, CPU58/Thermistor15 56.5°C, no swap growth. All384-root execution, reproduction and block readout are prepared but unstarted pending the published budget decision. Variance efficiency remains unknown; no fresh strength campaign. [Report and quote](docs/reports/river-conditional-evaluation/results.md).
 
 - **Frozen river whole-hand pilot complete ([PR388](https://github.com/dberweger2017/CFR-NLHE-6max/pull/388), proposal387):** 9,216 initial hands independently replay and 9,216 fresh reproductions match byte-for-byte. Projected search installs 381/4,608 hands (8.27%); 97 retained decisions use zero new solves, three roots retain quality fallbacks and one hand falls off-tree. Root median0.430s/mean0.559s/p951.367s/max3.094s. Main12.14min,27.70GiB sampled RSS, CPU65/Thermistor15 64°C, no swap growth. All nonzero exploratory intervals cross zero; check-call has no intervention, not a zero-effect verdict. Keep the model frozen; separately qualify off-tree continuation and budget confirmation using fragile tail variance. [Report, coverage, costs and future scenarios](docs/reports/river-whole-hand-pilot/results.md).
 

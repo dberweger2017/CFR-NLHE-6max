@@ -1,0 +1,116 @@
+{
+  "qualification-v1": {
+    "stages": [
+      {
+        "phase": "build",
+        "returncode": 0,
+        "wall_seconds": 16.148564074013848,
+        "user_cpu_seconds": 32.40602,
+        "system_cpu_seconds": 1.553264
+      },
+      {
+        "phase": "native-tests",
+        "returncode": 0,
+        "wall_seconds": 36.346109673031606,
+        "user_cpu_seconds": 119.102812,
+        "system_cpu_seconds": 38.155036
+      },
+      {
+        "phase": "script-tests",
+        "returncode": 0,
+        "wall_seconds": 4.0391395019833,
+        "user_cpu_seconds": 6.662897000000015,
+        "system_cpu_seconds": 0.19614800000000088
+      },
+      {
+        "phase": "python-tests",
+        "returncode": 0,
+        "wall_seconds": 2.0214418419636786,
+        "user_cpu_seconds": 0.046851999999972804,
+        "system_cpu_seconds": 0.008411999999999864
+      },
+      {
+        "phase": "freeze",
+        "returncode": 0,
+        "wall_seconds": 2.02253102598479,
+        "user_cpu_seconds": 0.34186100000002284,
+        "system_cpu_seconds": 0.024475999999999942
+      }
+    ],
+    "resources": {
+      "samples": 30,
+      "first": {
+        "utc": "2026-10-21T23:20:42Z",
+        "phase": "build",
+        "cpu_c": 38.0,
+        "thermistor15_c": 29.5,
+        "worker_family_rss_bytes": 16662528,
+        "live_family_cpu_seconds": 0.01,
+        "available_ram_bytes": 131775471616,
+        "swap_used_bytes": 367697920,
+        "nvme_free_bytes": 258444988416,
+        "hdd_free_bytes": 530777976832
+      },
+      "last": {
+        "utc": "2026-10-21T23:21:41Z",
+        "phase": "freeze",
+        "cpu_c": 40.0,
+        "thermistor15_c": 47.0,
+        "worker_family_rss_bytes": 15548416,
+        "live_family_cpu_seconds": 0.01,
+        "available_ram_bytes": 131657891840,
+        "swap_used_bytes": 367697920,
+        "nvme_free_bytes": 258321735680,
+        "hdd_free_bytes": 530777976832
+      },
+      "max_cpu_c": 65.0,
+      "max_t15_c": 51.5,
+      "max_rss_bytes": 980488192,
+      "min_available_ram_bytes": 130832875520,
+      "swap_growth_bytes": 0
+    }
+  },
+  "calibration-v1": {
+    "stages": [
+      {
+        "phase": "calibrate",
+        "returncode": 0,
+        "wall_seconds": 250.1687797359773,
+        "user_cpu_seconds": 242.58365700000002,
+        "system_cpu_seconds": 6.4292169999999995
+      }
+    ],
+    "resources": {
+      "samples": 124,
+      "first": {
+        "utc": "2026-10-21T23:21:44Z",
+        "phase": "calibrate",
+        "cpu_c": 46.0,
+        "thermistor15_c": 45.5,
+        "worker_family_rss_bytes": 16146432,
+        "live_family_cpu_seconds": 0.01,
+        "available_ram_bytes": 131666632704,
+        "swap_used_bytes": 367697920,
+        "nvme_free_bytes": 258320199680,
+        "hdd_free_bytes": 530777976832
+      },
+      "last": {
+        "utc": "2026-10-21T23:25:52Z",
+        "phase": "calibrate",
+        "cpu_c": 58.0,
+        "thermistor15_c": 56.5,
+        "worker_family_rss_bytes": 29714268160,
+        "live_family_cpu_seconds": 248.12,
+        "available_ram_bytes": 101967704064,
+        "swap_used_bytes": 367697920,
+        "nvme_free_bytes": 258320084992,
+        "hdd_free_bytes": 530777976832
+      },
+      "max_cpu_c": 58.0,
+      "max_t15_c": 56.5,
+      "max_rss_bytes": 29714268160,
+      "min_available_ram_bytes": 101967671296,
+      "swap_growth_bytes": 0
+    }
+  }
+}

@@ -1,4 +1,4 @@
-"""Owner-authorized qualification and bounded saved-root calibration only."""
+"""Qualification/calibration; full assessment needs an accepted measured quote."""
 import argparse
 import fcntl
 import json
@@ -15,7 +15,11 @@ from scripts.run_river_continuation_qualification import thermal, resources, sto
 
 def run(args):
     args.out.mkdir(parents=True,exist_ok=False)
-    root=args.root.resolve();source=root/'source';python=root/'venv/bin/python'
+    root=args.root.resolve();source=(args.implementation_root or root/'source').resolve();python=root/'venv/bin/python'
+    if args.implementation_root and args.mode!='assess':
+        raise RuntimeError('original qualification/calibration use their unchanged source')
+    if args.mode=='assess' and source==(root/'source').resolve():
+        raise RuntimeError('use a separate pinned assessment checkout; preserve qualified source')
     config=read(root/'control.json');config_sha=sha(root/'control.json')
     locks=[]
     for name in ('/tmp/cfr-cygnus-exclusive.lock','/tmp/cfr-pr390-conditional.lock'):
@@ -29,7 +33,8 @@ def run(args):
     write(args.out/'launch.json',{'pid':os.getpid(),'source':actual,'config_sha256':config_sha,
         'mode':args.mode,'utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),
         'cpu_stop_c':90,'thermistor15_stop_c':100,'no_other_resource_stops':True,
-        'new_deals':False,'training':False,'main_inventory_started':False})
+        'new_deals':False,'training':False,'main_inventory_requested':args.mode=='assess',
+        'main_inventory_started':False})
     target=root/'target';binary=target/'release/examples/nplayer_river_expectation'
     env={**os.environ,'PATH':'/home/dberweger/.cargo/bin:'+os.environ.get('PATH',''),
          'PYTHONPATH':str(source),'CARGO_TARGET_DIR':str(target),'CARGO_BUILD_JOBS':'8','RAYON_NUM_THREADS':'1'}
@@ -42,17 +47,46 @@ def run(args):
             ('freeze',driver+['freeze','--pilot',config['pilot'],'--out',str(args.out/'inventory')])]
     else:
         qual=root/'qualification-v1'
-        if (qual/'failure.json').exists() or read(qual/'status.json')['status']!='complete':
+        if ((qual/'failure.json').exists() or read(qual/'status.json')['status']!='complete'
+                or any(c['returncode'] for c in read(qual/'stage-costs.json'))):
             raise RuntimeError('complete original qualification required')
-        if read(qual/'source-manifest.json')!=pins or read(qual/'launch.json')['config_sha256']!=config_sha:
-            raise RuntimeError('qualified source/config changed')
+        qualified=read(qual/'source-manifest.json')
+        if read(qual/'launch.json')['config_sha256']!=config_sha:
+            raise RuntimeError('qualified config changed')
+        if args.mode=='calibrate' and qualified!=pins:
+            raise RuntimeError('qualified source changed')
         if read(qual/'binary-pin.json')['sha256']!=sha(binary):
             raise RuntimeError('qualified binary changed')
-        stages=[('calibrate',driver+['calibrate','--inventory',str(qual/'inventory/inventory.json'),
-            '--binary',str(binary),'--out',str(args.out/'calibrate')])]
+        if args.mode=='calibrate':
+            stages=[('calibrate',driver+['calibrate','--inventory',str(qual/'inventory/inventory.json'),
+                '--binary',str(binary),'--out',str(args.out/'calibrate')])]
+        else:
+            # Measurement binary and native source remain exactly qualified;
+            # only the separately pinned orchestration/readout may differ.
+            critical=lambda p:p.startswith('native/') or p in ('scripts/river_whole_hand_pilot.py',
+                'scripts/run_river_continuation_qualification.py')
+            if {p:v for p,v in qualified.items() if critical(p)}!={p:v for p,v in pins.items() if critical(p)}:
+                raise RuntimeError('qualified native/helper source changed')
+            cal=root/'calibration-v1'
+            if ((cal/'failure.json').exists() or read(cal/'status.json')['status']!='complete'
+                    or any(c['returncode'] for c in read(cal/'stage-costs.json'))
+                    or read(cal/'source-manifest.json')!=qualified
+                    or read(cal/'launch.json')['config_sha256']!=config_sha
+                    or read(cal/'binary-pin.json')['sha256']!=sha(binary)):
+                raise RuntimeError('unchanged successful original calibration required')
+            from scripts.assess_river_conditional_evaluation import admission
+            admission(read(cal/'calibrate/quote.json'),sha(cal/'calibrate/quote.json'),
+                      args.accepted_quote_sha256,args.accepted_budget_seconds)
+            stages=[('assessment-tests',[str(python),'-m','unittest','tests.test_river_conditional_evaluation','-v']),
+                ('assess',[str(python),'-m','scripts.assess_river_conditional_evaluation',
+                    '--inventory',str(qual/'inventory/inventory.json'),'--calibration',str(cal/'calibrate'),
+                    '--binary',str(binary),'--out',str(args.out/'assess'),
+                    '--accepted-quote-sha256',args.accepted_quote_sha256,
+                    '--accepted-budget-seconds',str(args.accepted_budget_seconds)])]
     costs=[]
     for phase,command in stages:
-        write(args.out/'status.json',{'status':'running','phase':phase,'completed_stages':len(costs),'total_stages':len(stages)})
+        write(args.out/'status.json',{'status':'running','phase':phase,'completed_stages':len(costs),
+            'total_stages':len(stages),'main_inventory_started':phase=='assess'})
         tick=time.monotonic();before=resource.getrusage(resource.RUSAGE_CHILDREN)
         with (args.out/(phase+'.stdout')).open('x') as o,(args.out/(phase+'.stderr')).open('x') as e:
             child=subprocess.Popen(command,cwd=source,env=env,stdout=o,stderr=e,start_new_session=True)
@@ -79,9 +113,14 @@ def run(args):
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('mode',choices=['qualify','calibrate'])
+    p.add_argument('mode',choices=['qualify','calibrate','assess'])
     p.add_argument('--root',type=Path,required=True);p.add_argument('--out',type=Path,required=True)
+    p.add_argument('--implementation-root',type=Path)
+    p.add_argument('--accepted-quote-sha256')
+    p.add_argument('--accepted-budget-seconds',type=float)
     p.add_argument('--source',required=True);args=p.parse_args()
+    if args.mode=='assess' and (args.accepted_quote_sha256 is None or args.accepted_budget_seconds is None):
+        p.error('assessment requires explicit accepted quote SHA256 and planning allowance')
     if args.out.exists():p.error('fresh output required; no automatic retry')
     def interrupted(signum,frame):raise InterruptedError('owner/process signal '+str(signum))
     signal.signal(signal.SIGTERM,interrupted);signal.signal(signal.SIGINT,interrupted)

@@ -132,3 +132,28 @@ follows. Raw inputs/profiles/traces remain off Git. Stage intended compact files
 before the repository artifact check. Preserve all failures and originals;
 archive only owned evidence through the deployed research cache with verified
 receipts, no deletion and no cloud-acceptance claim before receipt.
+
+## October22 qualification result and prepared assessment
+
+The [calibration report](reports/river-conditional-evaluation/results.md) records
+13/13 complete roots, original-profile identity and116 native library tests,
+one script-law test and seven Python tests passing. Runtime9998501a is frozen.
+The all384 two-pass mean extrapolation is21.67min, with3h42m59s conservative
+reserve. This is a quote, not an accepted budget, variance verdict or launch.
+
+The separate assessment driver is prepared but unexecuted. It requires the exact
+quote SHA256 and accepted allowance, the pinned inventory and qualified binary.
+Its native files/critical helpers must match the original qualification; source
+for the new readout lives in a separate pinned checkout. Initial and fresh repeat
+must match every strategic field, including float64 values, profile hashes,
+work and fallback labels, before block readout. Timing fields may differ.
+
+For the prospective efficiency readout, use Python random.Random with the
+declared bootstrap seed. Report each lineup separately with the common measured
+whole-panel cost basis, explicitly not a marginal per-lineup benchmark. Retain
+the full original generate/play/replay pipeline as a conservative common-prefix
+allowance, then add measured assessment costs including hashing, verification
+and bootstrap. Remove measured model loads only for the separately labeled
+amortized view. This is a cost projection from measured components, not an
+implemented fresh integrated pipeline. Ratios below one remain development
+evidence, subject to sparse-tail and cross-seed limitations.
