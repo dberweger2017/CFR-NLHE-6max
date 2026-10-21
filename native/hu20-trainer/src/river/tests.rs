@@ -380,6 +380,105 @@ fn product_joint_law_matches_product_leaves_and_refuses_blocked_mass() {
 }
 
 #[test]
+fn correlated_joint_law_matches_hand_calculated_values_and_best_responses() {
+    // Public royal flush: every compatible holding ties, independently of the
+    // evaluator. The nonfactorizable law has determinant .10, not zero.
+    let board = [32, 36, 40, 44, 48];
+    let ranges = [
+        vec![
+            Holding {
+                cards: [0, 1],
+                weight: 1.,
+            },
+            Holding {
+                cards: [2, 3],
+                weight: 1.,
+            },
+            Holding {
+                cards: [4, 5],
+                weight: 0.,
+            },
+        ],
+        vec![
+            Holding {
+                cards: [4, 5],
+                weight: 1.,
+            },
+            Holding {
+                cards: [6, 7],
+                weight: 1.,
+            },
+        ],
+    ];
+    let nodes = vec![
+        Node::Decision {
+            actor: 0,
+            children: vec![1, 2],
+        },
+        Node::Leaf(Terminal {
+            base: 0.,
+            win0: 0.,
+            tie0: 0.,
+        }),
+        Node::Decision {
+            actor: 1,
+            children: vec![3, 4],
+        },
+        Node::Leaf(Terminal {
+            base: 1.,
+            win0: 0.,
+            tie0: 0.,
+        }),
+        Node::Leaf(Terminal {
+            base: -1.,
+            win0: 0.,
+            tie0: 0.,
+        }),
+    ];
+    let game = Game::new(board, ranges, nodes, 2.)
+        .unwrap()
+        .with_joint(vec![0.4, 0.1, 0.2, 0.3, 0., 0.])
+        .unwrap();
+    let terminal = Terminal {
+        base: 2.,
+        win0: 17.,
+        tie0: 0.75,
+    };
+    // Own rows use the joint; player 1 uses its transpose. Product marginals
+    // would give different answers, so product-only bugs cannot pass this.
+    let a = game.leaf(terminal, 0, &[0.2, 0.9]).unwrap();
+    let b = game.leaf(terminal, 1, &[0.2, 0.9, 0.7]).unwrap();
+    for (actual, expected) in a.iter().zip([0.4675, 0.8525, 0.]) {
+        assert!((actual - expected).abs() < 1e-14);
+    }
+    for (actual, expected) in b.iter().zip([-0.715, -0.7975]) {
+        assert!((actual - expected).abs() < 1e-14);
+    }
+    // Hero mixes fold/play 50:50. Opponent chooses +1 with its first holding
+    // and -1 with its second. EV=.5*(.4-.1+.2-.3)=.1. Hero BR plays only its
+    // first holding for EV=.3; opponent BR always chooses -1 for EV=.5.
+    let mut solver = Solver::new(game, vec![None; 5]).unwrap();
+    let profile = vec![vec![0.5; 6], vec![], vec![1., 0., 0., 1.], vec![], vec![]];
+    let quality = solver.quality(&profile).unwrap();
+    for (actual, expected) in quality["profile_values_bb"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .zip([0.1, -0.1])
+    {
+        assert!((actual.as_f64().unwrap() - expected).abs() < 1e-14);
+    }
+    for (actual, expected) in quality["best_response_gains_bb"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .zip([0.2, 0.6])
+    {
+        assert!((actual.as_f64().unwrap() - expected).abs() < 1e-14);
+    }
+}
+
+#[test]
 fn masked_best_responses_agree_with_quality_and_only_restrict() {
     let g = sample(true, false);
     let n = g.node_count();

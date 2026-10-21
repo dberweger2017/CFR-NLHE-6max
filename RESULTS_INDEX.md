@@ -1,3 +1,16 @@
+## PR380 — fresh river panel, exact retained continuation, belief gate failure
+
+[PR380](https://github.com/dberweger2017/CFR-NLHE-6max/pull/380), proposal379. Measured source `0bb9c621cbf5f4d89bed9fc92d0419fb9825ea66`, readout-only `dfa8da42c4c6a0f40cc1d70c8a8280a529ddc00b`. Frozen v0.6 seed2026101935003; two fresh5,000-hand traces,200 sampled first-river roots,20 preselected pot-stratified controls. No arena, training or defaults.
+
+- Strict199/200 matched pairs:181 improve/18 worsen; median opponent full-menu gain0.7433→0.3152BB, paired median reduction0.1755BB. Blueprint regressions56→32, including three new; worst paired harm2.1285BB. These are modeled engineering diagnostics, not whole-hand strength.
+- Candidate allocation2,961/2,961 and retained installation198/200; deployment median0.360s/p951.345s passes, every-root quality198/200 fails. Retained1,482 exact profile rows, zero new solves.
+- Both belief solves qualify on20/20 at0.01BB, but nine fail the unchanged0.05BB excess gate. Worst1.07138BB; large-pot stress strata fail most. Not a population failure-rate estimate.
+- All16stages0; strategic results reproduce, traces byte-identical and every initial hand independently replayed. Main77.84min/11.4675CPUhours; sampled73.43GiB, CPU74/Thermistor15 95.5C, no swap growth. Preserve pre-science missing-cargo calibration failure. Native94/focused Python8 qualification pass; initial full CI legacy disk failures and hosted-runner space fix documented.
+
+[Report and conditional pilot quote](docs/reports/river-continuation-qualification/results.md) · [compact verified results](docs/reports/river-continuation-qualification/results.json) · [200 cases](docs/reports/river-continuation-qualification/cases.csv) · [belief controls](docs/reports/river-continuation-qualification/belief-controls.csv) · [verification](docs/reports/river-continuation-qualification/verification.json) · [costs](docs/reports/river-continuation-qualification/costs.json) · [source/binary/input pins](docs/reports/river-continuation-qualification/provenance.json).
+
+Originals `bb128:/home/dberweger/river-continuation-qualification-20261021/`: main-v1, readout-v1, both calibration attempts, frozen source/bundle/binaries/logs retained. Prior PR367 model/K50 inputs untouched. Cache/Drive acceptance pending; no cleanup, deletion or cloud receipt claimed. Recommendation: bounded belief engineering before a longer strength study; no automatic follow-up.
+
 ## PR377 — one minimum opening bet reduces selected-case river vulnerability
 
 [PR377](https://github.com/dberweger2017/CFR-NLHE-6max/pull/377), measured source `a8078b9d14addc721d1567ff15230cc47c7049cc`, frozen comparison SHA256 `efb768b8fc128ec9c41b3ef2e6a9b53c42ef7e6785e3f8f493faed596b88ee50`. Twenty selected diagnostic observations, unchanged v0.6 seed 2026101935003, cap3 versus only the opponent's minimum opening bet immediately after hero's root check. Same projected beliefs, DCFR, raise cap and blueprint fallback.

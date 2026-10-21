@@ -18,6 +18,7 @@ fn run() -> Result<(), String> {
     writeln!(output,"{}",json!({"status":"ready","model_sha256":a[3],"policy_load_seconds":load.total_seconds,"model_and_k50_load_seconds":tick.elapsed().as_secs_f64(),"rows":table.rows.len()})).map_err(|e|e.to_string())?;
     output.flush().map_err(|e| e.to_string())?;
     let mut input = io::stdin().lock();
+    let mut sessions = live::SessionStore::new(&a[3])?;
     loop {
         let mut line = Vec::new();
         let n = (&mut input)
@@ -33,7 +34,7 @@ fn run() -> Result<(), String> {
         let tick = Instant::now();
         let value = serde_json::from_slice::<Value>(&line)
             .map_err(|e| e.to_string())
-            .and_then(|v| live::request(&v, &table, tables));
+            .and_then(|v| sessions.request(&v, &table, tables));
         let response = match value {
             Ok(result) => json!({"status":"ok","result":result}),
             Err(error)

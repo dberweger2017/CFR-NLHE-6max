@@ -1,6 +1,6 @@
 use super::*;
 
-fn root() -> PublicRoot {
+pub(super) fn root() -> PublicRoot {
     let config = Config::new(&[10000; 3], 50, 100).unwrap();
     let mut hand = representative(config, 0, [0, 5, 10, 15, 20]).unwrap();
     let mut actions = Vec::new();
@@ -37,6 +37,60 @@ fn root() -> PublicRoot {
     reconstruct(&json!({"format":"nplayer-live-river-v1","button":0,"board":[0,5,10,15,20],"seat":hand.actor(),"hole":[30,31],"actions":actions,
         "players":hand.players().iter().map(|p|json!([p.stack,p.street_bet,p.contributed,p.folded])).collect::<Vec<_>>(),
         "legal":{"check":legal.check,"call_amount":legal.call_amount,"raise_to":legal.raise_to},"sweeps":16}),config).unwrap()
+}
+
+#[test]
+fn matched_belief_control_uses_equal_targets_and_reports_residual_identity() {
+    let r = root();
+    let pairs = [[21, 22], [23, 24], [25, 26], [27, 28], [29, 30], [30, 31]];
+    let likelihood = [
+        vec![0.1, 0.2, 0.1, 0.2, 0.1, 0.3],
+        vec![1. / 6.; 6],
+        vec![1. / 6.; 6],
+    ];
+    let out = belief_control(
+        &r,
+        &pairs,
+        &likelihood,
+        SearchMenu::RootCheckMinOpen,
+        &[1],
+        &[1],
+        0.01,
+        true,
+    )
+    .unwrap();
+    assert_eq!(out["target_bb"], 0.01);
+    assert_eq!(out["reference"]["tolerance_bb"], 0.01);
+    for s in 0..2 {
+        let d = &out["decomposition"];
+        let expected = d["same_profile_law_shift_bb"][s].as_f64().unwrap()
+            + d["solver_residual_bb"][s].as_f64().unwrap()
+            - d["reference_residual_bb"][s].as_f64().unwrap();
+        assert!((out["excess_gain_bb"][s].as_f64().unwrap() - expected).abs() < 1e-12);
+    }
+    assert_eq!(
+        out["qualified"],
+        out["deployed"]["target_met"] == true && out["reference"]["qualified"] == true
+    );
+    let mut zero = likelihood.clone();
+    zero[r
+        .live
+        .iter()
+        .position(|s| *s == r.seat)
+        .map(|_| r.seat)
+        .unwrap()][5] = 0.;
+    assert!(belief_control(
+        &r,
+        &pairs,
+        &zero,
+        SearchMenu::RootCheckMinOpen,
+        &[1],
+        &[1],
+        0.01,
+        true
+    )
+    .unwrap_err()
+    .contains("zero modeled root reach"));
 }
 
 #[test]
@@ -192,7 +246,7 @@ fn all_small_full_menu_leaves_match_engine_settlement_in_both_orientations() {
     }
 }
 
-fn short_stack_river(stack: u64) -> (Hand, [usize; 2]) {
+pub(super) fn short_stack_river(stack: u64) -> (Hand, [usize; 2]) {
     let config = Config::new(&[stack; 3], 50, 100).unwrap();
     let mut hand = representative(config, 0, [0, 5, 10, 15, 20]).unwrap();
     while hand.street() != Street::River {

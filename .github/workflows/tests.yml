@@ -49,6 +49,13 @@ jobs:
         shard: [0, 1]
     steps:
       - uses: actions/checkout@v4
+      # Ubuntu 26.04 puts /tmp on a small RAM filesystem. These tests retain
+      # real disk-reserve guards, so use the runner's disk-backed temp instead.
+      - name: Use disk-backed temporary files
+        run: |
+          mkdir -p "$RUNNER_TEMP/cfr-tmp"
+          echo "TMPDIR=$RUNNER_TEMP/cfr-tmp" >> "$GITHUB_ENV"
+          df -h . /tmp "$RUNNER_TEMP/cfr-tmp"
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
