@@ -1,0 +1,3559 @@
+{
+  "format": "river-root-min-responses-v1",
+  "panel_sha256": "f5b6b2706a0b6ee8912a52961b6b8e2795158bd982bea18fa43227f74924b919",
+  "menus": [
+    "pot-jam-cap3-root-check-min-v1",
+    "pot-jam-cap3-root-min-responses-v1"
+  ],
+  "law": "exact_modeled",
+  "arms": {
+    "projected/pot-jam-cap3-root-check-min-v1": {
+      "attempted": 200,
+      "installed": 198,
+      "fallbacks": 2,
+      "declared_quality_met": 198,
+      "exact_oracle_quality_met": 147,
+      "decision_seconds": {
+        "median": 0.3684617575199809,
+        "mean": 0.5048717299400596,
+        "max": 2.796599334978964,
+        "p50": 0.3695877520367503,
+        "p90": 0.8196290250052698,
+        "p95": 1.381026445014868,
+        "p99": 2.7788807890028693
+      },
+      "latency_gate": true,
+      "installed_coverage_gate": true,
+      "every_decision_declared_quality_gate": false,
+      "offline_audit_seconds": {
+        "median": 3.991190002474468,
+        "mean": 4.136990321327467,
+        "max": 8.03091884101741,
+        "p50": 4.012252804997843,
+        "p90": 5.560182410990819,
+        "p95": 7.361908370978199,
+        "p99": 7.740787236019969
+      },
+      "retained_checked_rows": 1482,
+      "retained_payload_bytes": {
+        "median": 333266.0,
+        "mean": 358902.48,
+        "max": 437938,
+        "p50": 333266,
+        "p90": 437938,
+        "p95": 437938,
+        "p99": 437938
+      },
+      "decision_components_seconds": {
+        "likelihood_seconds": {
+          "median": 0.008640048,
+          "mean": 0.009014548655,
+          "max": 0.015650857,
+          "p50": 0.008645321,
+          "p90": 0.011027296,
+          "p95": 0.011477446,
+          "p99": 0.013235531
+        },
+        "native_before_serialization_seconds": {
+          "median": 0.366762834,
+          "mean": 0.503239213225,
+          "max": 2.794820117,
+          "p50": 0.367904767,
+          "p90": 0.817635231,
+          "p95": 1.379287699,
+          "p99": 2.777085164
+        },
+        "projection_seconds": {
+          "median": 0.0154498995,
+          "mean": 0.015501431244999999,
+          "max": 0.026017248,
+          "p50": 0.015451963,
+          "p90": 0.01561507,
+          "p95": 0.015667432,
+          "p99": 0.016022942
+        },
+        "quality_seconds": {
+          "median": 0.009619428499999999,
+          "mean": 0.010478132389999999,
+          "max": 0.018570758,
+          "p50": 0.009626544,
+          "p90": 0.014130858999999999,
+          "p95": 0.014516695999999999,
+          "p99": 0.016152903
+        },
+        "reconstruction_seconds": {
+          "median": 1.0663e-05,
+          "mean": 1.1292240000000001e-05,
+          "max": 2.9447e-05,
+          "p50": 1.0679e-05,
+          "p90": 1.2328e-05,
+          "p95": 1.5716e-05,
+          "p99": 2.6199e-05
+        },
+        "solve_seconds": {
+          "median": 0.3295973865,
+          "mean": 0.465208654495,
+          "max": 2.747545212,
+          "p50": 0.331407454,
+          "p90": 0.775321818,
+          "p95": 1.334230875,
+          "p99": 2.7325229330000003
+        },
+        "tree_and_solver_preparation_seconds": {
+          "median": 0.0029896085,
+          "mean": 0.003003781245,
+          "max": 0.003825585,
+          "p50": 0.002990602,
+          "p90": 0.003057887,
+          "p95": 0.003088761,
+          "p99": 0.003477493
+        }
+      },
+      "batched_continuation_seconds_per_checked_row": {
+        "median": 1.6268375e-05,
+        "mean": 1.641427237654321e-05,
+        "max": 2.400075e-05,
+        "p50": 1.62695e-05,
+        "p90": 1.8831666666666668e-05,
+        "p95": 1.9334625e-05,
+        "p99": 2.3114e-05
+      },
+      "chance_scalar_rows": null,
+      "max_capped_oracle_error_bb": 2.460254222569347e-12,
+      "classification_tolerance_bb": 1e-08,
+      "laws": {
+        "projected": {
+          "hero_worst_case_change_vs_blueprint_bb": {
+            "median": 0.8472275983266656,
+            "mean": 1.7873472924545228,
+            "max": 16.57009552651202,
+            "p50": 0.8657495359222198,
+            "p90": 5.584942794017192,
+            "p95": 8.51288005325287,
+            "p99": 14.596458358816411
+          },
+          "worse_than_blueprint": 23,
+          "opponent_deviation_gain_bb": {
+            "median": 0.3175637859975742,
+            "mean": 0.7313954376091135,
+            "max": 11.562168027829317,
+            "p50": 0.31919288577346144,
+            "p90": 1.8267045166475615,
+            "p95": 2.827418785974049,
+            "p99": 6.333493682338926
+          }
+        },
+        "exact_modeled": {
+          "hero_worst_case_change_vs_blueprint_bb": {
+            "median": 0.8527258173844772,
+            "mean": 1.7630932551505465,
+            "max": 15.213265419872968,
+            "p50": 0.854173972056743,
+            "p90": 5.478534389612984,
+            "p95": 8.406279152835406,
+            "p99": 14.507140696390818
+          },
+          "worse_than_blueprint": 23,
+          "opponent_deviation_gain_bb": {
+            "median": 0.35456541803256325,
+            "mean": 0.7540413307792639,
+            "max": 11.457984559401785,
+            "p50": 0.3624610915412383,
+            "p90": 1.8960704080683528,
+            "p95": 2.779396138953785,
+            "p99": 6.379985538433352
+          }
+        }
+      }
+    },
+    "projected/pot-jam-cap3-root-min-responses-v1": {
+      "attempted": 200,
+      "installed": 198,
+      "fallbacks": 2,
+      "declared_quality_met": 198,
+      "exact_oracle_quality_met": 151,
+      "decision_seconds": {
+        "median": 0.4740470925171394,
+        "mean": 0.6715101925769704,
+        "max": 3.312386523000896,
+        "p50": 0.4743630440207198,
+        "p90": 1.2028733220067807,
+        "p95": 1.7514928150339983,
+        "p99": 3.2963777070399374
+      },
+      "latency_gate": true,
+      "installed_coverage_gate": true,
+      "every_decision_declared_quality_gate": false,
+      "offline_audit_seconds": {
+        "median": 4.082990196999162,
+        "mean": 4.244373689532804,
+        "max": 8.071324821969029,
+        "p50": 4.085446112032514,
+        "p90": 5.704341000004206,
+        "p95": 7.421130078961141,
+        "p99": 7.820224854978733
+      },
+      "retained_checked_rows": 1865,
+      "retained_payload_bytes": {
+        "median": 464010.0,
+        "mean": 469500.72,
+        "max": 542514,
+        "p50": 464010,
+        "p90": 542514,
+        "p95": 542514,
+        "p99": 542514
+      },
+      "decision_components_seconds": {
+        "likelihood_seconds": {
+          "median": 0.0087379625,
+          "mean": 0.0090176829,
+          "max": 0.013046226,
+          "p50": 0.008742917,
+          "p90": 0.010726493,
+          "p95": 0.011439523,
+          "p99": 0.013036909
+        },
+        "native_before_serialization_seconds": {
+          "median": 0.4719857495,
+          "mean": 0.6694605741399999,
+          "max": 3.3103516219999998,
+          "p50": 0.472309871,
+          "p90": 1.201333962,
+          "p95": 1.749336002,
+          "p99": 3.294349914
+        },
+        "projection_seconds": {
+          "median": 0.0154068305,
+          "mean": 0.015489326265,
+          "max": 0.025892674,
+          "p50": 0.015407019,
+          "p90": 0.015626115,
+          "p95": 0.015725205,
+          "p99": 0.015970425
+        },
+        "quality_seconds": {
+          "median": 0.013316652499999998,
+          "mean": 0.01372694973,
+          "max": 0.020752890999999996,
+          "p50": 0.013319810999999999,
+          "p90": 0.017414778,
+          "p95": 0.018100392,
+          "p99": 0.020581944
+        },
+        "reconstruction_seconds": {
+          "median": 1.07405e-05,
+          "mean": 1.1785665e-05,
+          "max": 4.9118e-05,
+          "p50": 1.0749e-05,
+          "p90": 1.2562e-05,
+          "p95": 2.4845e-05,
+          "p99": 2.9875e-05
+        },
+        "solve_seconds": {
+          "median": 0.43065154149999996,
+          "mean": 0.628132187465,
+          "max": 3.2628485240000002,
+          "p50": 0.430668885,
+          "p90": 1.157235072,
+          "p95": 1.7018514409999999,
+          "p99": 3.2464150189999996
+        },
+        "tree_and_solver_preparation_seconds": {
+          "median": 0.0030450184999999998,
+          "mean": 0.00306094149,
+          "max": 0.003967222,
+          "p50": 0.00304542,
+          "p90": 0.003110742,
+          "p95": 0.003179849,
+          "p99": 0.003889304
+        }
+      },
+      "batched_continuation_seconds_per_checked_row": {
+        "median": 1.5003459595959596e-05,
+        "mean": 1.5315009375501042e-05,
+        "max": 2.3034111111111113e-05,
+        "p50": 1.5008363636363638e-05,
+        "p90": 1.72799e-05,
+        "p95": 1.9168e-05,
+        "p99": 2.19141e-05
+      },
+      "chance_scalar_rows": null,
+      "max_capped_oracle_error_bb": 2.4158453015843406e-12,
+      "classification_tolerance_bb": 1e-08,
+      "laws": {
+        "projected": {
+          "hero_worst_case_change_vs_blueprint_bb": {
+            "median": 0.925728097154251,
+            "mean": 2.116520307488356,
+            "max": 16.657933087764818,
+            "p50": 0.9270476722600509,
+            "p90": 6.064068963806333,
+            "p95": 9.19446574630629,
+            "p99": 15.591875237888011
+          },
+          "worse_than_blueprint": 10,
+          "opponent_deviation_gain_bb": {
+            "median": 0.12685259015593825,
+            "mean": 0.40304076899347974,
+            "max": 11.562168027829317,
+            "p50": 0.1279198367662416,
+            "p90": 0.6507271226634702,
+            "p95": 1.3121042399878964,
+            "p99": 7.534654984694311
+          }
+        },
+        "exact_modeled": {
+          "hero_worst_case_change_vs_blueprint_bb": {
+            "median": 0.9367879096271844,
+            "mean": 2.0884315577400154,
+            "max": 15.475856532033136,
+            "p50": 0.9442187674707176,
+            "p90": 5.999683599018026,
+            "p95": 9.002722997909883,
+            "p99": 15.35811163482574
+          },
+          "worse_than_blueprint": 10,
+          "opponent_deviation_gain_bb": {
+            "median": 0.15154678667715782,
+            "mean": 0.42953275112268285,
+            "max": 11.457984559401785,
+            "p50": 0.15294001112794767,
+            "p90": 0.7004461492473407,
+            "p95": 1.3275536911147081,
+            "p99": 8.08466391938687
+          }
+        }
+      }
+    },
+    "exact/pot-jam-cap3-root-check-min-v1": {
+      "attempted": 200,
+      "installed": 198,
+      "fallbacks": 2,
+      "declared_quality_met": 198,
+      "exact_oracle_quality_met": 198,
+      "decision_seconds": {
+        "median": 3.5203612525074277,
+        "mean": 4.775347523857199,
+        "max": 27.25995698600309,
+        "p50": 3.5364249820122495,
+        "p90": 8.4481698339805,
+        "p95": 13.526693844003603,
+        "p99": 23.568630010995548
+      },
+      "latency_gate": false,
+      "installed_coverage_gate": true,
+      "every_decision_declared_quality_gate": false,
+      "offline_audit_seconds": {
+        "median": 4.169634377525654,
+        "mean": 4.372040068063652,
+        "max": 8.199771050014533,
+        "p50": 4.1704735640087165,
+        "p90": 5.955567979020998,
+        "p95": 7.7344522349885665,
+        "p99": 8.192431750008836
+      },
+      "retained_checked_rows": 1482,
+      "retained_payload_bytes": {
+        "median": 333266.0,
+        "mean": 358902.48,
+        "max": 437938,
+        "p50": 333266,
+        "p90": 437938,
+        "p95": 437938,
+        "p99": 437938
+      },
+      "decision_components_seconds": {
+        "likelihood_seconds": {
+          "median": 0.0090041215,
+          "mean": 0.009353739934999999,
+          "max": 0.01407509,
+          "p50": 0.009010842,
+          "p90": 0.011385265,
+          "p95": 0.012087736,
+          "p99": 0.013287799
+        },
+        "native_before_serialization_seconds": {
+          "median": 3.5186772245,
+          "mean": 4.77355689483,
+          "max": 27.258066486,
+          "p50": 3.534733148,
+          "p90": 8.446730071,
+          "p95": 13.524554009,
+          "p99": 23.566770191
+        },
+        "projection_seconds": {
+          "median": 0.015543253,
+          "mean": 0.015605057305000001,
+          "max": 0.026503503,
+          "p50": 0.015543258,
+          "p90": 0.015752374,
+          "p95": 0.015838365,
+          "p99": 0.015983944
+        },
+        "quality_seconds": {
+          "median": 0.15008698049999997,
+          "mean": 0.1548720072,
+          "max": 0.25229698,
+          "p50": 0.15044809499999998,
+          "p90": 0.20783859400000002,
+          "p95": 0.22025867300000002,
+          "p99": 0.23907959100000004
+        },
+        "reconstruction_seconds": {
+          "median": 1.1122e-05,
+          "mean": 1.298448e-05,
+          "max": 3.479e-05,
+          "p50": 1.1129e-05,
+          "p90": 2.5065e-05,
+          "p95": 2.7092e-05,
+          "p99": 2.9609e-05
+        },
+        "solve_seconds": {
+          "median": 3.326399349,
+          "mean": 4.57903126306,
+          "max": 26.978274321,
+          "p50": 3.336208186,
+          "p90": 8.235097500999998,
+          "p95": 13.229661119,
+          "p99": 23.325059459000002
+        },
+        "tree_and_solver_preparation_seconds": {
+          "median": 0.0146540495,
+          "mean": 0.014653923155,
+          "max": 0.019954174,
+          "p50": 0.014657964,
+          "p90": 0.015601449,
+          "p95": 0.015782049,
+          "p99": 0.016887792
+        }
+      },
+      "batched_continuation_seconds_per_checked_row": {
+        "median": 1.63011875e-05,
+        "mean": 1.64491753647587e-05,
+        "max": 2.490675e-05,
+        "p50": 1.6306375e-05,
+        "p90": 1.8608285714285715e-05,
+        "p95": 1.988677777777778e-05,
+        "p99": 2.1582833333333336e-05
+      },
+      "chance_scalar_rows": {
+        "median": 3747.0,
+        "mean": 15605.405,
+        "max": 416375,
+        "p50": 3830,
+        "p90": 47111,
+        "p95": 69757,
+        "p99": 154409
+      },
+      "max_capped_oracle_error_bb": 2.431832513138943e-12,
+      "classification_tolerance_bb": 1e-08,
+      "laws": {
+        "projected": {
+          "hero_worst_case_change_vs_blueprint_bb": {
+            "median": 0.8219285670366103,
+            "mean": 1.7617388090704744,
+            "max": 15.822868244424408,
+            "p50": 0.8228472981885626,
+            "p90": 5.653478168825812,
+            "p95": 8.428612292663113,
+            "p99": 13.225958197348792
+          },
+          "worse_than_blueprint": 22,
+          "opponent_deviation_gain_bb": {
+            "median": 0.3293423446686545,
+            "mean": 0.7562134187348518,
+            "max": 11.562168027829317,
+            "p50": 0.33008569734602167,
+            "p90": 1.8890264118075408,
+            "p95": 2.8944419919814357,
+            "p99": 6.511554637130116
+          }
+        },
+        "exact_modeled": {
+          "hero_worst_case_change_vs_blueprint_bb": {
+            "median": 0.8346561507198305,
+            "mean": 1.785555352455737,
+            "max": 16.331338355470223,
+            "p50": 0.8358701893693112,
+            "p90": 5.551361489723516,
+            "p95": 8.691193087603976,
+            "p99": 14.137697821059746
+          },
+          "worse_than_blueprint": 23,
+          "opponent_deviation_gain_bb": {
+            "median": 0.32071256996965825,
+            "mean": 0.7337466100663663,
+            "max": 11.457984559401785,
+            "p50": 0.3259230967763009,
+            "p90": 1.8889085929388671,
+            "p95": 2.846001159370308,
+            "p99": 6.557868609110717
+          }
+        }
+      }
+    },
+    "exact/pot-jam-cap3-root-min-responses-v1": {
+      "attempted": 200,
+      "installed": 198,
+      "fallbacks": 2,
+      "declared_quality_met": 198,
+      "exact_oracle_quality_met": 198,
+      "decision_seconds": {
+        "median": 4.59579674602719,
+        "mean": 6.325548513359973,
+        "max": 32.848572526010685,
+        "p50": 4.597907295043115,
+        "p90": 11.129015355021693,
+        "p95": 17.727721581002697,
+        "p99": 28.303911875991616
+      },
+      "latency_gate": false,
+      "installed_coverage_gate": true,
+      "every_decision_declared_quality_gate": false,
+      "offline_audit_seconds": {
+        "median": 4.335080305987503,
+        "mean": 4.490713116403786,
+        "max": 8.475788298994303,
+        "p50": 4.336433021002449,
+        "p90": 6.214094789989758,
+        "p95": 7.898556737985928,
+        "p99": 8.368173157970887
+      },
+      "retained_checked_rows": 1865,
+      "retained_payload_bytes": {
+        "median": 464010.0,
+        "mean": 469500.72,
+        "max": 542514,
+        "p50": 464010,
+        "p90": 542514,
+        "p95": 542514,
+        "p99": 542514
+      },
+      "decision_components_seconds": {
+        "likelihood_seconds": {
+          "median": 0.009045148499999999,
+          "mean": 0.00931589496,
+          "max": 0.014294331,
+          "p50": 0.009056335,
+          "p90": 0.010899671,
+          "p95": 0.011951125,
+          "p99": 0.014285049
+        },
+        "native_before_serialization_seconds": {
+          "median": 4.593444792,
+          "mean": 6.323333187749999,
+          "max": 32.846367879,
+          "p50": 4.595443566,
+          "p90": 11.126486274,
+          "p95": 17.725213963,
+          "p99": 28.301657386
+        },
+        "projection_seconds": {
+          "median": 0.0155393085,
+          "mean": 0.01554598317,
+          "max": 0.015945233,
+          "p50": 0.015539721,
+          "p90": 0.015724541,
+          "p95": 0.01577084,
+          "p99": 0.015858302
+        },
+        "quality_seconds": {
+          "median": 0.19843511349999998,
+          "mean": 0.20173856908,
+          "max": 0.320429264,
+          "p50": 0.198760309,
+          "p90": 0.257247908,
+          "p95": 0.279416858,
+          "p99": 0.30350704400000006
+        },
+        "reconstruction_seconds": {
+          "median": 1.126e-05,
+          "mean": 1.269291e-05,
+          "max": 2.9231e-05,
+          "p50": 1.127e-05,
+          "p90": 1.4897e-05,
+          "p95": 2.6542e-05,
+          "p99": 2.7936e-05
+        },
+        "solve_seconds": {
+          "median": 4.346957788499999,
+          "mean": 6.0820190220849994,
+          "max": 32.520077087000004,
+          "p50": 4.348668587,
+          "p90": 10.781160319,
+          "p95": 17.406339318,
+          "p99": 27.973152386000002
+        },
+        "tree_and_solver_preparation_seconds": {
+          "median": 0.014686168,
+          "mean": 0.01467352809,
+          "max": 0.016755582,
+          "p50": 0.014690009,
+          "p90": 0.015630761,
+          "p95": 0.015829977,
+          "p99": 0.016352062
+        }
+      },
+      "batched_continuation_seconds_per_checked_row": {
+        "median": 1.4985835227272727e-05,
+        "mean": 1.5240269289576865e-05,
+        "max": 2.2545000000000002e-05,
+        "p50": 1.4990545454545453e-05,
+        "p90": 1.743109090909091e-05,
+        "p95": 1.9040222222222222e-05,
+        "p99": 2.20526e-05
+      },
+      "chance_scalar_rows": {
+        "median": 7139.0,
+        "mean": 25900.16,
+        "max": 849671,
+        "p50": 7146,
+        "p90": 69854,
+        "p95": 106719,
+        "p99": 211664
+      },
+      "max_capped_oracle_error_bb": 2.467359649926948e-12,
+      "classification_tolerance_bb": 1e-08,
+      "laws": {
+        "projected": {
+          "hero_worst_case_change_vs_blueprint_bb": {
+            "median": 0.9409568903227797,
+            "mean": 2.091932811663639,
+            "max": 15.844100325422014,
+            "p50": 0.9461132138084737,
+            "p90": 6.0599618645983755,
+            "p95": 8.982772902179045,
+            "p99": 15.514084760526712
+          },
+          "worse_than_blueprint": 9,
+          "opponent_deviation_gain_bb": {
+            "median": 0.1607535945024246,
+            "mean": 0.42710595597387074,
+            "max": 11.562168027829317,
+            "p50": 0.1610884145498832,
+            "p90": 0.6762964253766577,
+            "p95": 1.2726217107260904,
+            "p99": 7.656009817144336
+          }
+        },
+        "exact_modeled": {
+          "hero_worst_case_change_vs_blueprint_bb": {
+            "median": 0.9586925077530997,
+            "mean": 2.117795150270019,
+            "max": 16.35608060780357,
+            "p50": 0.9739334290427595,
+            "p90": 6.011363674289592,
+            "p95": 9.103701822145226,
+            "p99": 15.409713946508974
+          },
+          "worse_than_blueprint": 10,
+          "opponent_deviation_gain_bb": {
+            "median": 0.12956838627074746,
+            "mean": 0.40251452329485327,
+            "max": 11.457984559401785,
+            "p50": 0.12982878659140196,
+            "p90": 0.6321407565090844,
+            "p95": 1.2978289501487306,
+            "p99": 8.09641674117752
+          }
+        }
+      }
+    },
+    "strict/pot-jam-cap3-root-check-min-v1": {
+      "attempted": 200,
+      "installed": 199,
+      "fallbacks": 1,
+      "declared_quality_met": 199,
+      "exact_oracle_quality_met": 27,
+      "decision_seconds": {
+        "median": 2.3197152559587266,
+        "mean": 2.2927092226603416,
+        "max": 10.865071826963685,
+        "p50": 2.3219129009521566,
+        "p90": 3.9732605169992894,
+        "p95": 5.486078719026409,
+        "p99": 10.799554453988094
+      },
+      "latency_gate": false,
+      "installed_coverage_gate": true,
+      "every_decision_declared_quality_gate": false,
+      "offline_audit_seconds": {
+        "median": 4.011310652480461,
+        "mean": 4.192952914613998,
+        "max": 7.927497880998999,
+        "p50": 4.011395717971027,
+        "p90": 5.614404939988162,
+        "p95": 7.523039391962811,
+        "p99": 7.839514806051739
+      },
+      "retained_checked_rows": 1490,
+      "retained_payload_bytes": {
+        "median": 333266.0,
+        "mean": 358902.48,
+        "max": 437938,
+        "p50": 333266,
+        "p90": 437938,
+        "p95": 437938,
+        "p99": 437938
+      },
+      "decision_components_seconds": {
+        "likelihood_seconds": {
+          "median": 0.008656291,
+          "mean": 0.00900569704,
+          "max": 0.01407235,
+          "p50": 0.00866485,
+          "p90": 0.010864031,
+          "p95": 0.01148921,
+          "p99": 0.012949751
+        },
+        "native_before_serialization_seconds": {
+          "median": 2.318204769,
+          "mean": 2.29108438824,
+          "max": 10.86332934,
+          "p50": 2.320398589,
+          "p90": 3.971922753,
+          "p95": 5.484371266,
+          "p99": 10.79782061
+        },
+        "projection_seconds": {
+          "median": 0.015436782,
+          "mean": 0.015468537675,
+          "max": 0.016271514,
+          "p50": 0.015437269,
+          "p90": 0.015660349,
+          "p95": 0.015705034,
+          "p99": 0.016042324
+        },
+        "quality_seconds": {
+          "median": 0.009043433,
+          "mean": 0.009125138715,
+          "max": 0.014526139,
+          "p50": 0.009043581,
+          "p90": 0.012240138,
+          "p95": 0.012838076,
+          "p99": 0.014362482
+        },
+        "reconstruction_seconds": {
+          "median": 1.0888e-05,
+          "mean": 1.2202145e-05,
+          "max": 3.6006e-05,
+          "p50": 1.0891e-05,
+          "p90": 1.433e-05,
+          "p95": 2.6062e-05,
+          "p99": 3.0134e-05
+        },
+        "solve_seconds": {
+          "median": 2.2832980655,
+          "mean": 2.254453677855,
+          "max": 10.820758029,
+          "p50": 2.285579521,
+          "p90": 3.933230445,
+          "p95": 5.439313381000001,
+          "p99": 10.755302866
+        },
+        "tree_and_solver_preparation_seconds": {
+          "median": 0.0029847119999999996,
+          "mean": 0.0029980355850000003,
+          "max": 0.003429667,
+          "p50": 0.002985117,
+          "p90": 0.003058439,
+          "p95": 0.003107595,
+          "p99": 0.003419352
+        }
+      },
+      "batched_continuation_seconds_per_checked_row": {
+        "median": 1.551425e-05,
+        "mean": 1.5771218692669695e-05,
+        "max": 2.517375e-05,
+        "p50": 1.551425e-05,
+        "p90": 1.799625e-05,
+        "p95": 1.8457e-05,
+        "p99": 2.3942e-05
+      },
+      "chance_scalar_rows": null,
+      "max_capped_oracle_error_bb": 2.5490720645393594e-12,
+      "classification_tolerance_bb": 1e-08,
+      "laws": {
+        "projected": {
+          "hero_worst_case_change_vs_blueprint_bb": {
+            "median": 0.8240702471648742,
+            "mean": 1.8126401958063394,
+            "max": 16.49669862609573,
+            "p50": 0.8611492069056359,
+            "p90": 6.042927097953118,
+            "p95": 9.20000916172965,
+            "p99": 14.494602498733393
+          },
+          "worse_than_blueprint": 27,
+          "opponent_deviation_gain_bb": {
+            "median": 0.3197017730297997,
+            "mean": 0.715724728754365,
+            "max": 10.197340339906695,
+            "p50": 0.3241890667884688,
+            "p90": 1.7552896977752048,
+            "p95": 2.6093797739771265,
+            "p99": 6.561189776204242
+          }
+        },
+        "exact_modeled": {
+          "hero_worst_case_change_vs_blueprint_bb": {
+            "median": 0.8182179732657466,
+            "mean": 1.7795540238263938,
+            "max": 15.106567190506285,
+            "p50": 0.859637374159323,
+            "p90": 6.033619311974976,
+            "p95": 8.999838527886585,
+            "p99": 14.407304077016327
+          },
+          "worse_than_blueprint": 28,
+          "opponent_deviation_gain_bb": {
+            "median": 0.35307268688687765,
+            "mean": 0.7479059185449368,
+            "max": 10.004479176018023,
+            "p50": 0.3538534085993801,
+            "p90": 1.8268579078966651,
+            "p95": 2.6421639922696434,
+            "p99": 6.6067481571396485
+          }
+        }
+      }
+    },
+    "strict/pot-jam-cap3-root-min-responses-v1": {
+      "attempted": 200,
+      "installed": 199,
+      "fallbacks": 1,
+      "declared_quality_met": 199,
+      "exact_oracle_quality_met": 30,
+      "decision_seconds": {
+        "median": 2.7651425724907313,
+        "mean": 3.0392424924348598,
+        "max": 15.285692072007805,
+        "p50": 2.7692603319883347,
+        "p90": 5.8406207980006,
+        "p95": 7.632301752048079,
+        "p99": 13.133438598946668
+      },
+      "latency_gate": false,
+      "installed_coverage_gate": true,
+      "every_decision_declared_quality_gate": false,
+      "offline_audit_seconds": {
+        "median": 4.144724269019207,
+        "mean": 4.292970726640778,
+        "max": 8.0269817020162,
+        "p50": 4.1465579840005375,
+        "p90": 5.893494242045563,
+        "p95": 7.611620256036986,
+        "p99": 8.018964771006722
+      },
+      "retained_checked_rows": 1874,
+      "retained_payload_bytes": {
+        "median": 464010.0,
+        "mean": 469500.72,
+        "max": 542514,
+        "p50": 464010,
+        "p90": 542514,
+        "p95": 542514,
+        "p99": 542514
+      },
+      "decision_components_seconds": {
+        "likelihood_seconds": {
+          "median": 0.008746479500000001,
+          "mean": 0.009045172740000001,
+          "max": 0.013771314,
+          "p50": 0.008747276,
+          "p90": 0.010842777,
+          "p95": 0.011534421,
+          "p99": 0.013313541
+        },
+        "native_before_serialization_seconds": {
+          "median": 2.7632981770000002,
+          "mean": 3.0371972317849996,
+          "max": 15.28338117,
+          "p50": 2.76727026,
+          "p90": 5.838757045,
+          "p95": 7.629980018,
+          "p99": 13.131380219
+        },
+        "projection_seconds": {
+          "median": 0.015418603,
+          "mean": 0.015564032685,
+          "max": 0.026654325,
+          "p50": 0.015419354,
+          "p90": 0.015653961,
+          "p95": 0.015752488,
+          "p99": 0.026183615
+        },
+        "quality_seconds": {
+          "median": 0.01194238,
+          "mean": 0.011948041195000002,
+          "max": 0.019589826999999997,
+          "p50": 0.011942964,
+          "p90": 0.014992531,
+          "p95": 0.016872206999999997,
+          "p99": 0.017843669
+        },
+        "reconstruction_seconds": {
+          "median": 1.0885e-05,
+          "mean": 1.222565e-05,
+          "max": 2.8242e-05,
+          "p50": 1.0895e-05,
+          "p90": 1.4959e-05,
+          "p95": 2.6185e-05,
+          "p99": 2.8077e-05
+        },
+        "solve_seconds": {
+          "median": 2.724908168,
+          "mean": 2.99754704191,
+          "max": 15.23488529,
+          "p50": 2.729046568,
+          "p90": 5.796255677,
+          "p95": 7.583459276,
+          "p99": 13.085751123
+        },
+        "tree_and_solver_preparation_seconds": {
+          "median": 0.003046882,
+          "mean": 0.0030593724,
+          "max": 0.003894295,
+          "p50": 0.00304708,
+          "p90": 0.003116511,
+          "p95": 0.003148585,
+          "p99": 0.003783655
+        }
+      },
+      "batched_continuation_seconds_per_checked_row": {
+        "median": 1.4766111111111111e-05,
+        "mean": 1.527823463656667e-05,
+        "max": 2.4296222222222224e-05,
+        "p50": 1.4766111111111111e-05,
+        "p90": 1.8231000000000002e-05,
+        "p95": 1.9296e-05,
+        "p99": 2.0546e-05
+      },
+      "chance_scalar_rows": null,
+      "max_capped_oracle_error_bb": 2.4851232183209504e-12,
+      "classification_tolerance_bb": 1e-08,
+      "laws": {
+        "projected": {
+          "hero_worst_case_change_vs_blueprint_bb": {
+            "median": 0.968505973733003,
+            "mean": 2.1567350249994908,
+            "max": 16.704231101919937,
+            "p50": 0.970086856745587,
+            "p90": 6.215889776846369,
+            "p95": 9.499794613525406,
+            "p99": 15.706451867232115
+          },
+          "worse_than_blueprint": 12,
+          "opponent_deviation_gain_bb": {
+            "median": 0.09739415742802349,
+            "mean": 0.37067915862350787,
+            "max": 10.197340339906695,
+            "p50": 0.09801299670963282,
+            "p90": 0.6806548258529432,
+            "p95": 1.1609777907239576,
+            "p99": 8.549122628445517
+          }
+        },
+        "exact_modeled": {
+          "hero_worst_case_change_vs_blueprint_bb": {
+            "median": 0.9688178459025392,
+            "mean": 2.1194942247250714,
+            "max": 15.581346337971382,
+            "p50": 0.9723280522316282,
+            "p90": 6.31280103076419,
+            "p95": 9.447821619915157,
+            "p99": 15.350762770633208
+          },
+          "worse_than_blueprint": 13,
+          "opponent_deviation_gain_bb": {
+            "median": 0.13619590870898546,
+            "mean": 0.4070732292484417,
+            "max": 10.004479176018023,
+            "p50": 0.1401603607739137,
+            "p90": 0.7517819500539119,
+            "p95": 1.229826138283885,
+            "p99": 8.438007807196907
+          }
+        }
+      }
+    }
+  },
+  "comparisons": {
+    "projected/new_vs_baseline": {
+      "cases": 200,
+      "hero_worst_case_change_bb": {
+        "median": 0.12764864161296707,
+        "mean": 0.3253383025894692,
+        "max": 5.084026548393739,
+        "p50": 0.1280836949295393,
+        "p90": 1.1077317202256127,
+        "p95": 1.9698452505780537,
+        "p99": 4.469170702367961
+      },
+      "opponent_gain_reduction_bb": {
+        "median": 0.1264886681426764,
+        "mean": 0.32450857965658103,
+        "max": 5.083292446908517,
+        "p50": 0.12649645373153096,
+        "p90": 1.101882347391618,
+        "p95": 1.9680372749517012,
+        "p99": 4.488305125852374
+      },
+      "better": 164,
+      "worse": 34,
+      "within_numeric_tolerance": 2,
+      "classification_tolerance_bb": 1e-08,
+      "harms": [
+        {
+          "case_index": 21,
+          "hero_worst_case_change_bb": -7.699956911344969,
+          "opponent_gain_reduction_bb": -7.722202827845631
+        },
+        {
+          "case_index": 91,
+          "hero_worst_case_change_bb": -2.8051130297984392,
+          "opponent_gain_reduction_bb": -2.7772155881428917
+        },
+        {
+          "case_index": 117,
+          "hero_worst_case_change_bb": -1.8418328069566665,
+          "opponent_gain_reduction_bb": -1.844720476879457
+        },
+        {
+          "case_index": 86,
+          "hero_worst_case_change_bb": -1.5611895916875467,
+          "opponent_gain_reduction_bb": -1.570712821400316
+        },
+        {
+          "case_index": 155,
+          "hero_worst_case_change_bb": -0.43889702745177694,
+          "opponent_gain_reduction_bb": -0.4320856769235273
+        },
+        {
+          "case_index": 176,
+          "hero_worst_case_change_bb": -0.398501182179959,
+          "opponent_gain_reduction_bb": -0.38314065054075064
+        },
+        {
+          "case_index": 169,
+          "hero_worst_case_change_bb": -0.28289597153213064,
+          "opponent_gain_reduction_bb": -0.2621760545913284
+        },
+        {
+          "case_index": 173,
+          "hero_worst_case_change_bb": -0.2759198807713539,
+          "opponent_gain_reduction_bb": -0.27505622118383355
+        },
+        {
+          "case_index": 180,
+          "hero_worst_case_change_bb": -0.27295437566225766,
+          "opponent_gain_reduction_bb": -0.2732281371327445
+        },
+        {
+          "case_index": 159,
+          "hero_worst_case_change_bb": -0.2661447161409386,
+          "opponent_gain_reduction_bb": -0.2703234232330719
+        },
+        {
+          "case_index": 145,
+          "hero_worst_case_change_bb": -0.24579946739772968,
+          "opponent_gain_reduction_bb": -0.24609109834844156
+        },
+        {
+          "case_index": 24,
+          "hero_worst_case_change_bb": -0.2018829689764181,
+          "opponent_gain_reduction_bb": -0.19956489556044898
+        },
+        {
+          "case_index": 125,
+          "hero_worst_case_change_bb": -0.1659050751963873,
+          "opponent_gain_reduction_bb": -0.16538010173588757
+        },
+        {
+          "case_index": 40,
+          "hero_worst_case_change_bb": -0.1640949252035946,
+          "opponent_gain_reduction_bb": -0.15596597515278776
+        },
+        {
+          "case_index": 77,
+          "hero_worst_case_change_bb": -0.11530912219429279,
+          "opponent_gain_reduction_bb": -0.10307199702163139
+        },
+        {
+          "case_index": 50,
+          "hero_worst_case_change_bb": -0.10815753712828458,
+          "opponent_gain_reduction_bb": -0.09475521032834322
+        },
+        {
+          "case_index": 52,
+          "hero_worst_case_change_bb": -0.10394390236456244,
+          "opponent_gain_reduction_bb": -0.10258743593094266
+        },
+        {
+          "case_index": 61,
+          "hero_worst_case_change_bb": -0.08768252743626204,
+          "opponent_gain_reduction_bb": -0.08749347493606396
+        },
+        {
+          "case_index": 160,
+          "hero_worst_case_change_bb": -0.06989549933434436,
+          "opponent_gain_reduction_bb": -0.06421842834969926
+        },
+        {
+          "case_index": 168,
+          "hero_worst_case_change_bb": -0.0697719362983521,
+          "opponent_gain_reduction_bb": -0.06749668585531449
+        },
+        {
+          "case_index": 166,
+          "hero_worst_case_change_bb": -0.0557647758628701,
+          "opponent_gain_reduction_bb": -0.05050713385850525
+        },
+        {
+          "case_index": 184,
+          "hero_worst_case_change_bb": -0.048621500175287935,
+          "opponent_gain_reduction_bb": -0.04998341737591594
+        },
+        {
+          "case_index": 9,
+          "hero_worst_case_change_bb": -0.04273513848104683,
+          "opponent_gain_reduction_bb": -0.042161948585784245
+        },
+        {
+          "case_index": 106,
+          "hero_worst_case_change_bb": -0.033624391894715444,
+          "opponent_gain_reduction_bb": -0.02774267447310974
+        },
+        {
+          "case_index": 120,
+          "hero_worst_case_change_bb": -0.030540007650458056,
+          "opponent_gain_reduction_bb": -0.029347677998832478
+        },
+        {
+          "case_index": 114,
+          "hero_worst_case_change_bb": -0.028053392435465507,
+          "opponent_gain_reduction_bb": -0.028543807496292872
+        },
+        {
+          "case_index": 59,
+          "hero_worst_case_change_bb": -0.023327374884940077,
+          "opponent_gain_reduction_bb": -0.02347174769329574
+        },
+        {
+          "case_index": 73,
+          "hero_worst_case_change_bb": -0.014640658560541198,
+          "opponent_gain_reduction_bb": -0.017101407715848893
+        },
+        {
+          "case_index": 35,
+          "hero_worst_case_change_bb": -0.009308125916671184,
+          "opponent_gain_reduction_bb": -0.010757938020161006
+        },
+        {
+          "case_index": 144,
+          "hero_worst_case_change_bb": -0.009211090910294817,
+          "opponent_gain_reduction_bb": -0.010258589671312934
+        },
+        {
+          "case_index": 55,
+          "hero_worst_case_change_bb": -0.008969906791023163,
+          "opponent_gain_reduction_bb": -0.0028054016094385403
+        },
+        {
+          "case_index": 82,
+          "hero_worst_case_change_bb": -0.004273015350396481,
+          "opponent_gain_reduction_bb": -0.0016019451982309807
+        },
+        {
+          "case_index": 29,
+          "hero_worst_case_change_bb": -0.0035869947370512634,
+          "opponent_gain_reduction_bb": -0.000656068367173468
+        },
+        {
+          "case_index": 128,
+          "hero_worst_case_change_bb": -0.0005422150872196885,
+          "opponent_gain_reduction_bb": -0.002959350994055421
+        }
+      ]
+    },
+    "exact/new_vs_baseline": {
+      "cases": 200,
+      "hero_worst_case_change_bb": {
+        "median": 0.13619059953072693,
+        "mean": 0.33223979781428215,
+        "max": 6.255322933603134,
+        "p50": 0.13722603989471616,
+        "p90": 1.2132027352237222,
+        "p95": 2.1056013234412303,
+        "p99": 4.384976796673752
+      },
+      "opponent_gain_reduction_bb": {
+        "median": 0.13175077999799767,
+        "mean": 0.33123208677151306,
+        "max": 6.255526066346069,
+        "p50": 0.13273767534346925,
+        "p90": 1.215013177196692,
+        "p95": 2.118858399040186,
+        "p99": 4.405435029115033
+      },
+      "better": 168,
+      "worse": 30,
+      "within_numeric_tolerance": 2,
+      "classification_tolerance_bb": 1e-08,
+      "harms": [
+        {
+          "case_index": 21,
+          "hero_worst_case_change_bb": -7.836764389362526,
+          "opponent_gain_reduction_bb": -7.839048999151034
+        },
+        {
+          "case_index": 91,
+          "hero_worst_case_change_bb": -3.5520005369919563,
+          "opponent_gain_reduction_bb": -3.531205620675594
+        },
+        {
+          "case_index": 86,
+          "hero_worst_case_change_bb": -1.6732856705074903,
+          "opponent_gain_reduction_bb": -1.6768727396727359
+        },
+        {
+          "case_index": 117,
+          "hero_worst_case_change_bb": -1.6316919049676053,
+          "opponent_gain_reduction_bb": -1.630738697837523
+        },
+        {
+          "case_index": 176,
+          "hero_worst_case_change_bb": -0.5651960037928851,
+          "opponent_gain_reduction_bb": -0.550510197908531
+        },
+        {
+          "case_index": 159,
+          "hero_worst_case_change_bb": -0.4051490589357146,
+          "opponent_gain_reduction_bb": -0.4148342259319422
+        },
+        {
+          "case_index": 77,
+          "hero_worst_case_change_bb": -0.3012553961669706,
+          "opponent_gain_reduction_bb": -0.29427279982847354
+        },
+        {
+          "case_index": 155,
+          "hero_worst_case_change_bb": -0.2677819849802143,
+          "opponent_gain_reduction_bb": -0.2617042126204061
+        },
+        {
+          "case_index": 61,
+          "hero_worst_case_change_bb": -0.2551205486406489,
+          "opponent_gain_reduction_bb": -0.2551365532183789
+        },
+        {
+          "case_index": 24,
+          "hero_worst_case_change_bb": -0.25094182079407457,
+          "opponent_gain_reduction_bb": -0.24729960645422366
+        },
+        {
+          "case_index": 173,
+          "hero_worst_case_change_bb": -0.21763692982908406,
+          "opponent_gain_reduction_bb": -0.21480409079802498
+        },
+        {
+          "case_index": 40,
+          "hero_worst_case_change_bb": -0.20064243926669412,
+          "opponent_gain_reduction_bb": -0.18563777566673212
+        },
+        {
+          "case_index": 44,
+          "hero_worst_case_change_bb": -0.18936121741690304,
+          "opponent_gain_reduction_bb": -0.19477914711546207
+        },
+        {
+          "case_index": 127,
+          "hero_worst_case_change_bb": -0.15867527901585143,
+          "opponent_gain_reduction_bb": -0.16022828564308356
+        },
+        {
+          "case_index": 50,
+          "hero_worst_case_change_bb": -0.15409335074681563,
+          "opponent_gain_reduction_bb": -0.1555325333005263
+        },
+        {
+          "case_index": 169,
+          "hero_worst_case_change_bb": -0.14517333080838069,
+          "opponent_gain_reduction_bb": -0.1282375401939353
+        },
+        {
+          "case_index": 145,
+          "hero_worst_case_change_bb": -0.1421637663602432,
+          "opponent_gain_reduction_bb": -0.14183131173766778
+        },
+        {
+          "case_index": 43,
+          "hero_worst_case_change_bb": -0.1285017126542254,
+          "opponent_gain_reduction_bb": -0.12542642327094045
+        },
+        {
+          "case_index": 160,
+          "hero_worst_case_change_bb": -0.08456736234519213,
+          "opponent_gain_reduction_bb": -0.07971011117155646
+        },
+        {
+          "case_index": 184,
+          "hero_worst_case_change_bb": -0.08348966911650518,
+          "opponent_gain_reduction_bb": -0.08323783128223106
+        },
+        {
+          "case_index": 179,
+          "hero_worst_case_change_bb": -0.0793336881416522,
+          "opponent_gain_reduction_bb": -0.0889021366630196
+        },
+        {
+          "case_index": 134,
+          "hero_worst_case_change_bb": -0.05409643144493215,
+          "opponent_gain_reduction_bb": -0.060227411147216525
+        },
+        {
+          "case_index": 175,
+          "hero_worst_case_change_bb": -0.04341712794198749,
+          "opponent_gain_reduction_bb": -0.04266236908686605
+        },
+        {
+          "case_index": 52,
+          "hero_worst_case_change_bb": -0.040086820531930745,
+          "opponent_gain_reduction_bb": -0.039490923011675616
+        },
+        {
+          "case_index": 9,
+          "hero_worst_case_change_bb": -0.03912977045167959,
+          "opponent_gain_reduction_bb": -0.03785649690414819
+        },
+        {
+          "case_index": 103,
+          "hero_worst_case_change_bb": -0.03623478304855701,
+          "opponent_gain_reduction_bb": -0.031492065949610154
+        },
+        {
+          "case_index": 151,
+          "hero_worst_case_change_bb": -0.026300784261011234,
+          "opponent_gain_reduction_bb": -0.0336209955772373
+        },
+        {
+          "case_index": 144,
+          "hero_worst_case_change_bb": -0.014897549179509806,
+          "opponent_gain_reduction_bb": -0.014779066215784398
+        },
+        {
+          "case_index": 73,
+          "hero_worst_case_change_bb": -0.01415298022744338,
+          "opponent_gain_reduction_bb": -0.021945679887428682
+        },
+        {
+          "case_index": 128,
+          "hero_worst_case_change_bb": -0.013869699196824847,
+          "opponent_gain_reduction_bb": -0.013021589660745958
+        }
+      ]
+    },
+    "strict/inconclusive_pairs": 1,
+    "strict/new_vs_baseline": {
+      "cases": 199,
+      "hero_worst_case_change_bb": {
+        "median": 0.12740820637434216,
+        "mean": 0.34164844311424863,
+        "max": 5.377664035403386,
+        "p50": 0.12740820637434216,
+        "p90": 1.286222558564709,
+        "p95": 2.1622137028028687,
+        "p99": 4.3801138377830755
+      },
+      "opponent_gain_reduction_bb": {
+        "median": 0.12796198900335493,
+        "mean": 0.34254541637838715,
+        "max": 5.376922018855764,
+        "p50": 0.12796198900335493,
+        "p90": 1.2858066314319119,
+        "p95": 2.1629488205000955,
+        "p99": 4.4164390644503175
+      },
+      "better": 165,
+      "worse": 34,
+      "within_numeric_tolerance": 0,
+      "classification_tolerance_bb": 1e-08,
+      "harms": [
+        {
+          "case_index": 21,
+          "hero_worst_case_change_bb": -6.7711596185778875,
+          "opponent_gain_reduction_bb": -6.774187072384588
+        },
+        {
+          "case_index": 91,
+          "hero_worst_case_change_bb": -4.20926780390295,
+          "opponent_gain_reduction_bb": -4.187917999428816
+        },
+        {
+          "case_index": 86,
+          "hero_worst_case_change_bb": -2.0171584832377683,
+          "opponent_gain_reduction_bb": -2.017178878120526
+        },
+        {
+          "case_index": 117,
+          "hero_worst_case_change_bb": -1.7742447692481353,
+          "opponent_gain_reduction_bb": -1.7680160842197896
+        },
+        {
+          "case_index": 176,
+          "hero_worst_case_change_bb": -0.7923091307717588,
+          "opponent_gain_reduction_bb": -0.777820556577639
+        },
+        {
+          "case_index": 155,
+          "hero_worst_case_change_bb": -0.7801317165352712,
+          "opponent_gain_reduction_bb": -0.768140094474377
+        },
+        {
+          "case_index": 180,
+          "hero_worst_case_change_bb": -0.4555770625244526,
+          "opponent_gain_reduction_bb": -0.454081695512659
+        },
+        {
+          "case_index": 173,
+          "hero_worst_case_change_bb": -0.2844007315874306,
+          "opponent_gain_reduction_bb": -0.28298829787679436
+        },
+        {
+          "case_index": 145,
+          "hero_worst_case_change_bb": -0.20994993042138382,
+          "opponent_gain_reduction_bb": -0.20987751851971997
+        },
+        {
+          "case_index": 40,
+          "hero_worst_case_change_bb": -0.20660129229329816,
+          "opponent_gain_reduction_bb": -0.19641440528056509
+        },
+        {
+          "case_index": 169,
+          "hero_worst_case_change_bb": -0.17212332586708778,
+          "opponent_gain_reduction_bb": -0.1715367432893009
+        },
+        {
+          "case_index": 184,
+          "hero_worst_case_change_bb": -0.1626637772649429,
+          "opponent_gain_reduction_bb": -0.16104795821025153
+        },
+        {
+          "case_index": 159,
+          "hero_worst_case_change_bb": -0.13887003119308627,
+          "opponent_gain_reduction_bb": -0.13797245245081347
+        },
+        {
+          "case_index": 9,
+          "hero_worst_case_change_bb": -0.12227901784218485,
+          "opponent_gain_reduction_bb": -0.12189466862170598
+        },
+        {
+          "case_index": 153,
+          "hero_worst_case_change_bb": -0.11742214164227244,
+          "opponent_gain_reduction_bb": -0.11689724197024012
+        },
+        {
+          "case_index": 198,
+          "hero_worst_case_change_bb": -0.0923702190355522,
+          "opponent_gain_reduction_bb": -0.09222736218700978
+        },
+        {
+          "case_index": 77,
+          "hero_worst_case_change_bb": -0.09127264426888404,
+          "opponent_gain_reduction_bb": -0.09105948668415742
+        },
+        {
+          "case_index": 50,
+          "hero_worst_case_change_bb": -0.08891701949940911,
+          "opponent_gain_reduction_bb": -0.0906956748319333
+        },
+        {
+          "case_index": 52,
+          "hero_worst_case_change_bb": -0.06878422943067394,
+          "opponent_gain_reduction_bb": -0.06790760944982466
+        },
+        {
+          "case_index": 44,
+          "hero_worst_case_change_bb": -0.063353572616486,
+          "opponent_gain_reduction_bb": -0.06376389386246206
+        },
+        {
+          "case_index": 166,
+          "hero_worst_case_change_bb": -0.04630076899236579,
+          "opponent_gain_reduction_bb": -0.04696498012087291
+        },
+        {
+          "case_index": 24,
+          "hero_worst_case_change_bb": -0.045038310094771994,
+          "opponent_gain_reduction_bb": -0.044829118829654124
+        },
+        {
+          "case_index": 151,
+          "hero_worst_case_change_bb": -0.04326928322956314,
+          "opponent_gain_reduction_bb": -0.044073599076356995
+        },
+        {
+          "case_index": 168,
+          "hero_worst_case_change_bb": -0.03340211682533245,
+          "opponent_gain_reduction_bb": -0.032822816721833015
+        },
+        {
+          "case_index": 125,
+          "hero_worst_case_change_bb": -0.022742846104178316,
+          "opponent_gain_reduction_bb": -0.0221839266045033
+        },
+        {
+          "case_index": 12,
+          "hero_worst_case_change_bb": -0.015641219820963004,
+          "opponent_gain_reduction_bb": -0.01607612664053959
+        },
+        {
+          "case_index": 120,
+          "hero_worst_case_change_bb": -0.01481995667668995,
+          "opponent_gain_reduction_bb": -0.01481388961305058
+        },
+        {
+          "case_index": 127,
+          "hero_worst_case_change_bb": -0.008949405831248258,
+          "opponent_gain_reduction_bb": -0.00901293787722246
+        },
+        {
+          "case_index": 103,
+          "hero_worst_case_change_bb": -0.007516644826266405,
+          "opponent_gain_reduction_bb": -0.00808736316992456
+        },
+        {
+          "case_index": 178,
+          "hero_worst_case_change_bb": -0.007510700185844321,
+          "opponent_gain_reduction_bb": -0.004240410517334148
+        },
+        {
+          "case_index": 179,
+          "hero_worst_case_change_bb": -0.007206115268128421,
+          "opponent_gain_reduction_bb": -0.007121937483759666
+        },
+        {
+          "case_index": 135,
+          "hero_worst_case_change_bb": -0.004392889896632335,
+          "opponent_gain_reduction_bb": -0.004321541487781078
+        },
+        {
+          "case_index": 99,
+          "hero_worst_case_change_bb": -0.004029996215202836,
+          "opponent_gain_reduction_bb": -0.005768152257449977
+        },
+        {
+          "case_index": 53,
+          "hero_worst_case_change_bb": -0.002900832078290616,
+          "opponent_gain_reduction_bb": -0.0031741611789088964
+        }
+      ]
+    },
+    "exact_vs_projected/pot-jam-cap3-root-check-min-v1": {
+      "cases": 200,
+      "hero_worst_case_change_bb": {
+        "median": 0.00212729766227418,
+        "mean": 0.022462097305190654,
+        "max": 1.1180729355972527,
+        "p50": 0.002489031998569924,
+        "p90": 0.1519276653108168,
+        "p95": 0.24045042890172996,
+        "p99": 0.9661583217398393
+      },
+      "opponent_gain_reduction_bb": {
+        "median": 0.0022410036200859185,
+        "mean": 0.020294720712897577,
+        "max": 1.1174454372358138,
+        "p50": 0.0024889449404241204,
+        "p90": 0.15091166038305293,
+        "p95": 0.23165705782716706,
+        "p99": 0.9530882311787171
+      },
+      "better": 105,
+      "worse": 93,
+      "within_numeric_tolerance": 2,
+      "classification_tolerance_bb": 1e-08,
+      "harms": [
+        {
+          "case_index": 75,
+          "hero_worst_case_change_bb": -1.3352691509255035,
+          "opponent_gain_reduction_bb": -1.315195662578101
+        },
+        {
+          "case_index": 53,
+          "hero_worst_case_change_bb": -1.120115177156637,
+          "opponent_gain_reduction_bb": -1.1083511349312518
+        },
+        {
+          "case_index": 69,
+          "hero_worst_case_change_bb": -0.29691399364045035,
+          "opponent_gain_reduction_bb": -0.30949830383700005
+        },
+        {
+          "case_index": 33,
+          "hero_worst_case_change_bb": -0.20390409895025075,
+          "opponent_gain_reduction_bb": -0.20077736649970523
+        },
+        {
+          "case_index": 70,
+          "hero_worst_case_change_bb": -0.17775554425854434,
+          "opponent_gain_reduction_bb": -0.17788307067736486
+        },
+        {
+          "case_index": 108,
+          "hero_worst_case_change_bb": -0.14681700738164238,
+          "opponent_gain_reduction_bb": -0.15331806286242244
+        },
+        {
+          "case_index": 45,
+          "hero_worst_case_change_bb": -0.14191326972354634,
+          "opponent_gain_reduction_bb": -0.14846750572066858
+        },
+        {
+          "case_index": 182,
+          "hero_worst_case_change_bb": -0.12847286589797768,
+          "opponent_gain_reduction_bb": -0.12852464778748018
+        },
+        {
+          "case_index": 192,
+          "hero_worst_case_change_bb": -0.0998009611557853,
+          "opponent_gain_reduction_bb": -0.09345903076090245
+        },
+        {
+          "case_index": 163,
+          "hero_worst_case_change_bb": -0.09039562640210974,
+          "opponent_gain_reduction_bb": -0.08955840999025977
+        },
+        {
+          "case_index": 115,
+          "hero_worst_case_change_bb": -0.07890966345922301,
+          "opponent_gain_reduction_bb": -0.07641022521524787
+        },
+        {
+          "case_index": 77,
+          "hero_worst_case_change_bb": -0.07844920975646819,
+          "opponent_gain_reduction_bb": -0.07940564119491622
+        },
+        {
+          "case_index": 63,
+          "hero_worst_case_change_bb": -0.07250893441816153,
+          "opponent_gain_reduction_bb": -0.07225818909703463
+        },
+        {
+          "case_index": 10,
+          "hero_worst_case_change_bb": -0.06722193719530167,
+          "opponent_gain_reduction_bb": -0.06830298696321935
+        },
+        {
+          "case_index": 13,
+          "hero_worst_case_change_bb": -0.06696453621056264,
+          "opponent_gain_reduction_bb": -0.05646666930624278
+        },
+        {
+          "case_index": 169,
+          "hero_worst_case_change_bb": -0.06626729085765581,
+          "opponent_gain_reduction_bb": -0.06735985250837961
+        },
+        {
+          "case_index": 172,
+          "hero_worst_case_change_bb": -0.05394984170075601,
+          "opponent_gain_reduction_bb": -0.05649989330202443
+        },
+        {
+          "case_index": 122,
+          "hero_worst_case_change_bb": -0.05359923508426956,
+          "opponent_gain_reduction_bb": -0.05577769401620425
+        },
+        {
+          "case_index": 91,
+          "hero_worst_case_change_bb": -0.053182207554707706,
+          "opponent_gain_reduction_bb": -0.05120252984304097
+        },
+        {
+          "case_index": 26,
+          "hero_worst_case_change_bb": -0.05242198303820844,
+          "opponent_gain_reduction_bb": -0.05378521837640049
+        },
+        {
+          "case_index": 156,
+          "hero_worst_case_change_bb": -0.048201642030791136,
+          "opponent_gain_reduction_bb": -0.0473686111677003
+        },
+        {
+          "case_index": 114,
+          "hero_worst_case_change_bb": -0.043276321413521945,
+          "opponent_gain_reduction_bb": -0.04183413674759151
+        },
+        {
+          "case_index": 6,
+          "hero_worst_case_change_bb": -0.0420336083847348,
+          "opponent_gain_reduction_bb": -0.041221950064989965
+        },
+        {
+          "case_index": 150,
+          "hero_worst_case_change_bb": -0.041785960991297944,
+          "opponent_gain_reduction_bb": -0.04148722239214497
+        },
+        {
+          "case_index": 168,
+          "hero_worst_case_change_bb": -0.041726511126680355,
+          "opponent_gain_reduction_bb": -0.04019027618963855
+        },
+        {
+          "case_index": 11,
+          "hero_worst_case_change_bb": -0.03862723502153198,
+          "opponent_gain_reduction_bb": -0.03721721002961931
+        },
+        {
+          "case_index": 109,
+          "hero_worst_case_change_bb": -0.037896841626691824,
+          "opponent_gain_reduction_bb": -0.04395029617169666
+        },
+        {
+          "case_index": 112,
+          "hero_worst_case_change_bb": -0.03468975569957333,
+          "opponent_gain_reduction_bb": -0.03195613665315189
+        },
+        {
+          "case_index": 32,
+          "hero_worst_case_change_bb": -0.03355119048658861,
+          "opponent_gain_reduction_bb": -0.034206542233340465
+        },
+        {
+          "case_index": 59,
+          "hero_worst_case_change_bb": -0.03321380671264307,
+          "opponent_gain_reduction_bb": -0.03536662200780438
+        },
+        {
+          "case_index": 29,
+          "hero_worst_case_change_bb": -0.031054201446146568,
+          "opponent_gain_reduction_bb": -0.021788118938228962
+        },
+        {
+          "case_index": 157,
+          "hero_worst_case_change_bb": -0.029684319856433827,
+          "opponent_gain_reduction_bb": -0.02945938939229764
+        },
+        {
+          "case_index": 58,
+          "hero_worst_case_change_bb": -0.029361605168219118,
+          "opponent_gain_reduction_bb": -0.028490583709739892
+        },
+        {
+          "case_index": 153,
+          "hero_worst_case_change_bb": -0.02896077810735631,
+          "opponent_gain_reduction_bb": -0.02808639896594259
+        },
+        {
+          "case_index": 158,
+          "hero_worst_case_change_bb": -0.028529677187986713,
+          "opponent_gain_reduction_bb": -0.02569005086215559
+        },
+        {
+          "case_index": 1,
+          "hero_worst_case_change_bb": -0.028170885018683478,
+          "opponent_gain_reduction_bb": -0.044849215598136816
+        },
+        {
+          "case_index": 131,
+          "hero_worst_case_change_bb": -0.027830126356224616,
+          "opponent_gain_reduction_bb": -0.027633963939295958
+        },
+        {
+          "case_index": 52,
+          "hero_worst_case_change_bb": -0.027227435690040075,
+          "opponent_gain_reduction_bb": -0.026754688884753408
+        },
+        {
+          "case_index": 73,
+          "hero_worst_case_change_bb": -0.02491398341146578,
+          "opponent_gain_reduction_bb": -0.02588942139064976
+        },
+        {
+          "case_index": 34,
+          "hero_worst_case_change_bb": -0.024181837092039166,
+          "opponent_gain_reduction_bb": -0.024199488818522352
+        },
+        {
+          "case_index": 24,
+          "hero_worst_case_change_bb": -0.022925939453099176,
+          "opponent_gain_reduction_bb": -0.018499388170087894
+        },
+        {
+          "case_index": 16,
+          "hero_worst_case_change_bb": -0.022563731481771404,
+          "opponent_gain_reduction_bb": -0.024003981554591935
+        },
+        {
+          "case_index": 118,
+          "hero_worst_case_change_bb": -0.02219684572285474,
+          "opponent_gain_reduction_bb": -0.027695477784584366
+        },
+        {
+          "case_index": 119,
+          "hero_worst_case_change_bb": -0.021813097318867353,
+          "opponent_gain_reduction_bb": -0.021589472349191452
+        },
+        {
+          "case_index": 5,
+          "hero_worst_case_change_bb": -0.021259195090347932,
+          "opponent_gain_reduction_bb": -0.02119997750646152
+        },
+        {
+          "case_index": 124,
+          "hero_worst_case_change_bb": -0.021095450099254176,
+          "opponent_gain_reduction_bb": -0.020292928773427144
+        },
+        {
+          "case_index": 100,
+          "hero_worst_case_change_bb": -0.0208756069798659,
+          "opponent_gain_reduction_bb": -0.027369515240912357
+        },
+        {
+          "case_index": 42,
+          "hero_worst_case_change_bb": -0.02083393276694423,
+          "opponent_gain_reduction_bb": -0.019695753113461834
+        },
+        {
+          "case_index": 7,
+          "hero_worst_case_change_bb": -0.020184940840616727,
+          "opponent_gain_reduction_bb": -0.01987832034347925
+        },
+        {
+          "case_index": 83,
+          "hero_worst_case_change_bb": -0.020079579031854367,
+          "opponent_gain_reduction_bb": -0.020594912929933873
+        },
+        {
+          "case_index": 167,
+          "hero_worst_case_change_bb": -0.019993721181135626,
+          "opponent_gain_reduction_bb": -0.019849096020574386
+        },
+        {
+          "case_index": 145,
+          "hero_worst_case_change_bb": -0.019365450903259418,
+          "opponent_gain_reduction_bb": -0.01989280884780864
+        },
+        {
+          "case_index": 55,
+          "hero_worst_case_change_bb": -0.0184473703510859,
+          "opponent_gain_reduction_bb": -0.015140224972776561
+        },
+        {
+          "case_index": 12,
+          "hero_worst_case_change_bb": -0.016828276801745146,
+          "opponent_gain_reduction_bb": -0.015497151866324499
+        },
+        {
+          "case_index": 117,
+          "hero_worst_case_change_bb": -0.01676754379432399,
+          "opponent_gain_reduction_bb": -0.021017404174995313
+        },
+        {
+          "case_index": 166,
+          "hero_worst_case_change_bb": -0.01675090965868553,
+          "opponent_gain_reduction_bb": -0.01523303886017846
+        },
+        {
+          "case_index": 39,
+          "hero_worst_case_change_bb": -0.016260282586907315,
+          "opponent_gain_reduction_bb": -0.01649948439104615
+        },
+        {
+          "case_index": 165,
+          "hero_worst_case_change_bb": -0.01457305418072874,
+          "opponent_gain_reduction_bb": -0.017618845888310197
+        },
+        {
+          "case_index": 173,
+          "hero_worst_case_change_bb": -0.01456327165807475,
+          "opponent_gain_reduction_bb": -0.015529065215407756
+        },
+        {
+          "case_index": 120,
+          "hero_worst_case_change_bb": -0.013167424521292936,
+          "opponent_gain_reduction_bb": -0.013647970249676122
+        },
+        {
+          "case_index": 198,
+          "hero_worst_case_change_bb": -0.012323854913508736,
+          "opponent_gain_reduction_bb": -0.014661072765033145
+        },
+        {
+          "case_index": 193,
+          "hero_worst_case_change_bb": -0.011600328328188247,
+          "opponent_gain_reduction_bb": -0.010768999911916932
+        },
+        {
+          "case_index": 148,
+          "hero_worst_case_change_bb": -0.011366169129816361,
+          "opponent_gain_reduction_bb": -0.007801547149485444
+        },
+        {
+          "case_index": 2,
+          "hero_worst_case_change_bb": -0.010771175096185193,
+          "opponent_gain_reduction_bb": -0.012356739857396493
+        },
+        {
+          "case_index": 93,
+          "hero_worst_case_change_bb": -0.01046906272799386,
+          "opponent_gain_reduction_bb": -0.011042741209201234
+        },
+        {
+          "case_index": 65,
+          "hero_worst_case_change_bb": -0.010441860997935759,
+          "opponent_gain_reduction_bb": -0.005387343947947709
+        },
+        {
+          "case_index": 155,
+          "hero_worst_case_change_bb": -0.008319313389052896,
+          "opponent_gain_reduction_bb": -0.007980635261141344
+        },
+        {
+          "case_index": 87,
+          "hero_worst_case_change_bb": -0.007850116413423314,
+          "opponent_gain_reduction_bb": -0.008633915724707508
+        },
+        {
+          "case_index": 130,
+          "hero_worst_case_change_bb": -0.007095582457822158,
+          "opponent_gain_reduction_bb": -0.007130197635668245
+        },
+        {
+          "case_index": 68,
+          "hero_worst_case_change_bb": -0.006067353630333727,
+          "opponent_gain_reduction_bb": -0.018667815718367953
+        },
+        {
+          "case_index": 54,
+          "hero_worst_case_change_bb": -0.005899000883885508,
+          "opponent_gain_reduction_bb": -0.0014468742354269981
+        },
+        {
+          "case_index": 140,
+          "hero_worst_case_change_bb": -0.005836166506691942,
+          "opponent_gain_reduction_bb": -0.0011612156961429143
+        },
+        {
+          "case_index": 132,
+          "hero_worst_case_change_bb": -0.005471059430619096,
+          "opponent_gain_reduction_bb": -0.005145022548417422
+        },
+        {
+          "case_index": 149,
+          "hero_worst_case_change_bb": -0.0053933232783496265,
+          "opponent_gain_reduction_bb": -0.004431966146344779
+        },
+        {
+          "case_index": 14,
+          "hero_worst_case_change_bb": -0.004898500415017493,
+          "opponent_gain_reduction_bb": -0.0037380355540452825
+        },
+        {
+          "case_index": 9,
+          "hero_worst_case_change_bb": -0.004666978802705904,
+          "opponent_gain_reduction_bb": -0.0063206955024828065
+        },
+        {
+          "case_index": 88,
+          "hero_worst_case_change_bb": -0.004174615581982732,
+          "opponent_gain_reduction_bb": -0.005935707522851774
+        },
+        {
+          "case_index": 30,
+          "hero_worst_case_change_bb": -0.003701820004626641,
+          "opponent_gain_reduction_bb": -0.003687737257932547
+        },
+        {
+          "case_index": 144,
+          "hero_worst_case_change_bb": -0.003268562360662197,
+          "opponent_gain_reduction_bb": -0.002668346778174513
+        },
+        {
+          "case_index": 162,
+          "hero_worst_case_change_bb": -0.003197778316267663,
+          "opponent_gain_reduction_bb": -0.0035630242973367365
+        },
+        {
+          "case_index": 84,
+          "hero_worst_case_change_bb": -0.002931866399659644,
+          "opponent_gain_reduction_bb": -0.0033863167894059854
+        },
+        {
+          "case_index": 90,
+          "hero_worst_case_change_bb": -0.002848393930377502,
+          "opponent_gain_reduction_bb": -0.002658180187260273
+        },
+        {
+          "case_index": 15,
+          "hero_worst_case_change_bb": -0.0024068189255341266,
+          "opponent_gain_reduction_bb": -0.0014872027447074831
+        },
+        {
+          "case_index": 8,
+          "hero_worst_case_change_bb": -0.0020102105348316357,
+          "opponent_gain_reduction_bb": 0.006314927004519966
+        },
+        {
+          "case_index": 17,
+          "hero_worst_case_change_bb": -0.0018847688217489278,
+          "opponent_gain_reduction_bb": -0.0028316874190486008
+        },
+        {
+          "case_index": 85,
+          "hero_worst_case_change_bb": -0.0018606158433642772,
+          "opponent_gain_reduction_bb": -0.0011941176115586594
+        },
+        {
+          "case_index": 183,
+          "hero_worst_case_change_bb": -0.0013432460917520705,
+          "opponent_gain_reduction_bb": -0.0016570368089794396
+        },
+        {
+          "case_index": 94,
+          "hero_worst_case_change_bb": -0.0012183501043468298,
+          "opponent_gain_reduction_bb": -0.0009910661115094949
+        },
+        {
+          "case_index": 152,
+          "hero_worst_case_change_bb": -0.0011481222778684241,
+          "opponent_gain_reduction_bb": -0.004258951653543175
+        },
+        {
+          "case_index": 97,
+          "hero_worst_case_change_bb": -0.0009906300286983694,
+          "opponent_gain_reduction_bb": 0.0011942200262833325
+        },
+        {
+          "case_index": 175,
+          "hero_worst_case_change_bb": -0.0008689266229320036,
+          "opponent_gain_reduction_bb": -0.0018163331195221177
+        },
+        {
+          "case_index": 18,
+          "hero_worst_case_change_bb": -0.0007144810919709199,
+          "opponent_gain_reduction_bb": 0.00017880803326497663
+        },
+        {
+          "case_index": 174,
+          "hero_worst_case_change_bb": -0.00013221476046343383,
+          "opponent_gain_reduction_bb": -4.062719496134015e-05
+        }
+      ]
+    },
+    "exact_vs_projected/pot-jam-cap3-root-min-responses-v1": {
+      "cases": 200,
+      "hero_worst_case_change_bb": {
+        "median": 0.0073204011323060175,
+        "mean": 0.02936359253000363,
+        "max": 0.9979689729778283,
+        "p50": 0.0075359798040218196,
+        "p90": 0.104117975449177,
+        "p95": 0.2176594272811342,
+        "p99": 0.9935408409508506
+      },
+      "opponent_gain_reduction_bb": {
+        "median": 0.006599756071619181,
+        "mean": 0.02701822782782963,
+        "max": 1.004963616130345,
+        "p50": 0.006721882067820206,
+        "p90": 0.10205380386158813,
+        "p95": 0.2164586332604297,
+        "p99": 0.9943505487601871
+      },
+      "better": 129,
+      "worse": 69,
+      "within_numeric_tolerance": 2,
+      "classification_tolerance_bb": 1e-08,
+      "harms": [
+        {
+          "case_index": 91,
+          "hero_worst_case_change_bb": -0.8000697147482247,
+          "opponent_gain_reduction_bb": -0.8051925623757432
+        },
+        {
+          "case_index": 77,
+          "hero_worst_case_change_bb": -0.264395483729146,
+          "opponent_gain_reduction_bb": -0.2706064440017584
+        },
+        {
+          "case_index": 175,
+          "hero_worst_case_change_bb": -0.17008280227719935,
+          "opponent_gain_reduction_bb": -0.17011734010564267
+        },
+        {
+          "case_index": 143,
+          "hero_worst_case_change_bb": -0.15333017656529313,
+          "opponent_gain_reduction_bb": -0.15259504000795393
+        },
+        {
+          "case_index": 53,
+          "hero_worst_case_change_bb": -0.15100724739112703,
+          "opponent_gain_reduction_bb": -0.1453817442884504
+        },
+        {
+          "case_index": 44,
+          "hero_worst_case_change_bb": -0.14154843672133444,
+          "opponent_gain_reduction_bb": -0.17327720472174413
+        },
+        {
+          "case_index": 43,
+          "hero_worst_case_change_bb": -0.13821821204848095,
+          "opponent_gain_reduction_bb": -0.15946671723443795
+        },
+        {
+          "case_index": 179,
+          "hero_worst_case_change_bb": -0.12299743226253668,
+          "opponent_gain_reduction_bb": -0.11101844686040963
+        },
+        {
+          "case_index": 127,
+          "hero_worst_case_change_bb": -0.0922116266165367,
+          "opponent_gain_reduction_bb": -0.09013494286188217
+        },
+        {
+          "case_index": 10,
+          "hero_worst_case_change_bb": -0.09147268363223215,
+          "opponent_gain_reduction_bb": -0.08569834590321918
+        },
+        {
+          "case_index": 22,
+          "hero_worst_case_change_bb": -0.08352702890598818,
+          "opponent_gain_reduction_bb": -0.08255800453094897
+        },
+        {
+          "case_index": 176,
+          "hero_worst_case_change_bb": -0.07743483990419242,
+          "opponent_gain_reduction_bb": -0.07535470668489674
+        },
+        {
+          "case_index": 61,
+          "hero_worst_case_change_bb": -0.07654710442971235,
+          "opponent_gain_reduction_bb": -0.07864650509872473
+        },
+        {
+          "case_index": 24,
+          "hero_worst_case_change_bb": -0.07198479127075563,
+          "opponent_gain_reduction_bb": -0.06623409906386257
+        },
+        {
+          "case_index": 75,
+          "hero_worst_case_change_bb": -0.06614258552416175,
+          "opponent_gain_reduction_bb": -0.0693752621467425
+        },
+        {
+          "case_index": 17,
+          "hero_worst_case_change_bb": -0.05480372508164666,
+          "opponent_gain_reduction_bb": -0.057556697696904635
+        },
+        {
+          "case_index": 45,
+          "hero_worst_case_change_bb": -0.05465863997327913,
+          "opponent_gain_reduction_bb": -0.047940103703940196
+        },
+        {
+          "case_index": 159,
+          "hero_worst_case_change_bb": -0.0534923208334791,
+          "opponent_gain_reduction_bb": -0.04969557268446745
+        },
+        {
+          "case_index": 153,
+          "hero_worst_case_change_bb": -0.05030912372823744,
+          "opponent_gain_reduction_bb": -0.051379030225760944
+        },
+        {
+          "case_index": 86,
+          "hero_worst_case_change_bb": -0.04788475843191886,
+          "opponent_gain_reduction_bb": -0.04739395709676408
+        },
+        {
+          "case_index": 146,
+          "hero_worst_case_change_bb": -0.046692007081302084,
+          "opponent_gain_reduction_bb": -0.046365627005869436
+        },
+        {
+          "case_index": 0,
+          "hero_worst_case_change_bb": -0.04289098044629913,
+          "opponent_gain_reduction_bb": -0.04561454677044319
+        },
+        {
+          "case_index": 64,
+          "hero_worst_case_change_bb": -0.035191157381472826,
+          "opponent_gain_reduction_bb": -0.032665416947938064
+        },
+        {
+          "case_index": 156,
+          "hero_worst_case_change_bb": -0.0314208661795361,
+          "opponent_gain_reduction_bb": -0.03137260112437801
+        },
+        {
+          "case_index": 11,
+          "hero_worst_case_change_bb": -0.029165138199485297,
+          "opponent_gain_reduction_bb": -0.03413351945254384
+        },
+        {
+          "case_index": 151,
+          "hero_worst_case_change_bb": -0.02874376767915665,
+          "opponent_gain_reduction_bb": -0.02056673593194569
+        },
+        {
+          "case_index": 131,
+          "hero_worst_case_change_bb": -0.024663811509574973,
+          "opponent_gain_reduction_bb": -0.030753442501072925
+        },
+        {
+          "case_index": 73,
+          "hero_worst_case_change_bb": -0.02442630507836796,
+          "opponent_gain_reduction_bb": -0.030733693562229547
+        },
+        {
+          "case_index": 39,
+          "hero_worst_case_change_bb": -0.02189250588007774,
+          "opponent_gain_reduction_bb": -0.020967968664010128
+        },
+        {
+          "case_index": 103,
+          "hero_worst_case_change_bb": -0.020054785294844835,
+          "opponent_gain_reduction_bb": -0.021490195048903565
+        },
+        {
+          "case_index": 65,
+          "hero_worst_case_change_bb": -0.018285812496906306,
+          "opponent_gain_reduction_bb": -0.021999735233961815
+        },
+        {
+          "case_index": 2,
+          "hero_worst_case_change_bb": -0.015616192479153357,
+          "opponent_gain_reduction_bb": -0.014257645413973785
+        },
+        {
+          "case_index": 199,
+          "hero_worst_case_change_bb": -0.015511997589685578,
+          "opponent_gain_reduction_bb": -0.015344025868935462
+        },
+        {
+          "case_index": 122,
+          "hero_worst_case_change_bb": -0.014014769520463322,
+          "opponent_gain_reduction_bb": -0.009317255519897483
+        },
+        {
+          "case_index": 16,
+          "hero_worst_case_change_bb": -0.013171226254537205,
+          "opponent_gain_reduction_bb": -0.01088046695284306
+        },
+        {
+          "case_index": 183,
+          "hero_worst_case_change_bb": -0.013085750773019655,
+          "opponent_gain_reduction_bb": -0.012864384052758554
+        },
+        {
+          "case_index": 142,
+          "hero_worst_case_change_bb": -0.012661508526550014,
+          "opponent_gain_reduction_bb": -0.012920157689071954
+        },
+        {
+          "case_index": 158,
+          "hero_worst_case_change_bb": -0.01123824596937778,
+          "opponent_gain_reduction_bb": -0.007923067032423736
+        },
+        {
+          "case_index": 165,
+          "hero_worst_case_change_bb": -0.01079872605044585,
+          "opponent_gain_reduction_bb": -0.020363790481217947
+        },
+        {
+          "case_index": 150,
+          "hero_worst_case_change_bb": -0.010384595731966484,
+          "opponent_gain_reduction_bb": -0.007514665037134383
+        },
+        {
+          "case_index": 184,
+          "hero_worst_case_change_bb": -0.009902500434351313,
+          "opponent_gain_reduction_bb": -0.009578609963741491
+        },
+        {
+          "case_index": 188,
+          "hero_worst_case_change_bb": -0.009691789562009556,
+          "opponent_gain_reduction_bb": -0.008259454688817391
+        },
+        {
+          "case_index": 5,
+          "hero_worst_case_change_bb": -0.009315533794598402,
+          "opponent_gain_reduction_bb": -0.009209929271465689
+        },
+        {
+          "case_index": 187,
+          "hero_worst_case_change_bb": -0.00912060531629022,
+          "opponent_gain_reduction_bb": -0.012694916476144957
+        },
+        {
+          "case_index": 144,
+          "hero_worst_case_change_bb": -0.008955020629877186,
+          "opponent_gain_reduction_bb": -0.007188823322645976
+        },
+        {
+          "case_index": 162,
+          "hero_worst_case_change_bb": -0.008801511224908659,
+          "opponent_gain_reduction_bb": -0.00788688984950911
+        },
+        {
+          "case_index": 21,
+          "hero_worst_case_change_bb": -0.008772335777456064,
+          "opponent_gain_reduction_bb": -0.011752821790651069
+        },
+        {
+          "case_index": 85,
+          "hero_worst_case_change_bb": -0.008603797702797011,
+          "opponent_gain_reduction_bb": -0.00910684427594155
+        },
+        {
+          "case_index": 147,
+          "hero_worst_case_change_bb": -0.007900526231744587,
+          "opponent_gain_reduction_bb": -0.004356786549511715
+        },
+        {
+          "case_index": 160,
+          "hero_worst_case_change_bb": -0.007694670849354601,
+          "opponent_gain_reduction_bb": -0.00871502360556764
+        },
+        {
+          "case_index": 88,
+          "hero_worst_case_change_bb": -0.0075776008398401595,
+          "opponent_gain_reduction_bb": -0.006477146953810631
+        },
+        {
+          "case_index": 1,
+          "hero_worst_case_change_bb": -0.0075676445456061,
+          "opponent_gain_reduction_bb": -0.006204985807206853
+        },
+        {
+          "case_index": 29,
+          "hero_worst_case_change_bb": -0.007047183962040737,
+          "opponent_gain_reduction_bb": -0.006810953135197639
+        },
+        {
+          "case_index": 104,
+          "hero_worst_case_change_bb": -0.005820452760731731,
+          "opponent_gain_reduction_bb": 0.0020725169054449655
+        },
+        {
+          "case_index": 54,
+          "hero_worst_case_change_bb": -0.005444376715728172,
+          "opponent_gain_reduction_bb": -0.005244335391358712
+        },
+        {
+          "case_index": 57,
+          "hero_worst_case_change_bb": -0.005082139378609962,
+          "opponent_gain_reduction_bb": -0.004930513584155749
+        },
+        {
+          "case_index": 124,
+          "hero_worst_case_change_bb": -0.005020869952348711,
+          "opponent_gain_reduction_bb": -0.00535691280800854
+        },
+        {
+          "case_index": 109,
+          "hero_worst_case_change_bb": -0.0044934258679178996,
+          "opponent_gain_reduction_bb": -0.005492958168107354
+        },
+        {
+          "case_index": 15,
+          "hero_worst_case_change_bb": -0.003004245143539308,
+          "opponent_gain_reduction_bb": -0.0027866342043300074
+        },
+        {
+          "case_index": 93,
+          "hero_worst_case_change_bb": -0.0027459113358210274,
+          "opponent_gain_reduction_bb": -0.0038932043466175514
+        },
+        {
+          "case_index": 97,
+          "hero_worst_case_change_bb": -0.0026705197273075854,
+          "opponent_gain_reduction_bb": -0.0009209790798871964
+        },
+        {
+          "case_index": 186,
+          "hero_worst_case_change_bb": -0.002222092034240064,
+          "opponent_gain_reduction_bb": -0.0022942815349977635
+        },
+        {
+          "case_index": 101,
+          "hero_worst_case_change_bb": -0.0021440435012154424,
+          "opponent_gain_reduction_bb": -0.0024064227196468613
+        },
+        {
+          "case_index": 115,
+          "hero_worst_case_change_bb": -0.0018233366607538493,
+          "opponent_gain_reduction_bb": -0.004110729538922886
+        },
+        {
+          "case_index": 9,
+          "hero_worst_case_change_bb": -0.0010616107733386615,
+          "opponent_gain_reduction_bb": -0.0020152438208467516
+        },
+        {
+          "case_index": 34,
+          "hero_worst_case_change_bb": -0.0010498719526899972,
+          "opponent_gain_reduction_bb": -0.0008247868180319279
+        },
+        {
+          "case_index": 28,
+          "hero_worst_case_change_bb": -0.0007895184886845541,
+          "opponent_gain_reduction_bb": -0.0012427457825314875
+        },
+        {
+          "case_index": 71,
+          "hero_worst_case_change_bb": -0.0007671810072776841,
+          "opponent_gain_reduction_bb": -0.00015703101085015603
+        },
+        {
+          "case_index": 132,
+          "hero_worst_case_change_bb": -0.0001393342364664485,
+          "opponent_gain_reduction_bb": -0.0004346333209061526
+        }
+      ]
+    }
+  },
+  "diagnosis": {
+    "pot-jam-cap3-root-check-min-v1": {
+      "cases": 27,
+      "top_response_type_counts": {
+        "depth 1 after raise, minimum raise facing a bet": 20,
+        "depth 3 after raise, pot raise facing a bet": 2,
+        "depth 3 after check, minimum raise facing a bet": 4,
+        "depth 3 after raise, minimum raise facing a bet": 1
+      },
+      "ranking": [
+        {
+          "type": "depth 1 after raise, minimum raise facing a bet",
+          "leave_one_out_wc_improvement_bb": 28.845184436783978,
+          "cases": 27
+        },
+        {
+          "type": "depth 3 after check, minimum raise facing a bet",
+          "leave_one_out_wc_improvement_bb": 3.5643049241002,
+          "cases": 26
+        },
+        {
+          "type": "depth 3 after raise, pot raise facing a bet",
+          "leave_one_out_wc_improvement_bb": 1.145914109528639,
+          "cases": 23
+        },
+        {
+          "type": "depth 3 after raise, minimum raise facing a bet",
+          "leave_one_out_wc_improvement_bb": 0.8748395515103011,
+          "cases": 26
+        },
+        {
+          "type": "depth 3 after raise, all-in raise facing a bet",
+          "leave_one_out_wc_improvement_bb": 0.15655606431557612,
+          "cases": 10
+        }
+      ],
+      "per_case_top": [
+        {
+          "case_index": 0,
+          "type": "depth 1 after raise, minimum raise facing a bet",
+          "path": [
+            [
+              "raise",
+              800
+            ]
+          ],
+          "action": [
+            "raise",
+            1600
+          ],
+          "leave_one_out_wc_improvement_bb": 1.0836234579411212
+        },
+        {
+          "case_index": 21,
+          "type": "depth 3 after raise, pot raise facing a bet",
+          "path": [
+            [
+              "raise",
+              100
+            ],
+            [
+              "raise",
+              1200
+            ],
+            [
+              "raise",
+              4500
+            ]
+          ],
+          "action": [
+            "raise",
+            9600
+          ],
+          "leave_one_out_wc_improvement_bb": 0.048678197763574405
+        },
+        {
+          "case_index": 35,
+          "type": "depth 3 after raise, pot raise facing a bet",
+          "path": [
+            [
+              "raise",
+              100
+            ],
+            [
+              "raise",
+              1100
+            ],
+            [
+              "raise",
+              4100
+            ]
+          ],
+          "action": [
+            "raise",
+            9600
+          ],
+          "leave_one_out_wc_improvement_bb": 0.943295573706221
+        },
+        {
+          "case_index": 48,
+          "type": "depth 1 after raise, minimum raise facing a bet",
+          "path": [
+            [
+              "raise",
+              700
+            ]
+          ],
+          "action": [
+            "raise",
+            1400
+          ],
+          "leave_one_out_wc_improvement_bb": 1.4340381712425132
+        },
+        {
+          "case_index": 57,
+          "type": "depth 1 after raise, minimum raise facing a bet",
+          "path": [
+            [
+              "raise",
+              100
+            ]
+          ],
+          "action": [
+            "raise",
+            200
+          ],
+          "leave_one_out_wc_improvement_bb": 0.4102821211594814
+        },
+        {
+          "case_index": 58,
+          "type": "depth 1 after raise, minimum raise facing a bet",
+          "path": [
+            [
+              "raise",
+              100
+            ]
+          ],
+          "action": [
+            "raise",
+            200
+          ],
+          "leave_one_out_wc_improvement_bb": 0.2837508785546663
+        },
+        {
+          "case_index": 64,
+          "type": "depth 1 after raise, minimum raise facing a bet",
+          "path": [
+            [
+              "raise",
+              650
+            ]
+          ],
+          "action": [
+            "raise",
+            1300
+          ],
+          "leave_one_out_wc_improvement_bb": 0.47071004318907694
+        },
+        {
+          "case_index": 69,
+          "type": "depth 1 after raise, minimum raise facing a bet",
+          "path": [
+            [
+              "raise",
+              1800
+            ]
+          ],
+          "action": [
+            "raise",
+            3600
+          ],
+          "leave_one_out_wc_improvement_bb": 2.1700177552865942
+        },
+        {
+          "case_index": 74,
+          "type": "depth 1 after raise, minimum raise facing a bet",
+          "path": [
+            [
+              "raise",
+              100
+            ]
+          ],
+          "action": [
+            "raise",
+            200
+          ],
+          "leave_one_out_wc_improvement_bb": 1.3047691638872467
+        },
+        {
+          "case_index": 78,
+          "type": "depth 1 after raise, minimum raise facing a bet",
+          "path": [
+            [
+              "raise",
+              450
+            ]
+          ],
+          "action": [
+            "raise",
+            900
+          ],
+          "leave_one_out_wc_improvement_bb": 0.2880774411455966
+        },
+        {
+          "case_index": 79,
+          "type": "depth 1 after raise, minimum raise facing a bet",
+          "path": [
+            [
+              "raise",
+              100
+            ]
+          ],
+          "action": [
+            "raise",
+            200
+          ],
+          "leave_one_out_wc_improvement_bb": 2.5307874253400455
+        },
+        {
+          "case_index": 91,
+          "type": "depth 1 after raise, minimum raise facing a bet",
+          "path": [
+            [
+              "raise",
+              800
+            ]
+          ],
+          "action": [
+            "raise",
+            1600
+          ],
+          "leave_one_out_wc_improvement_bb": 2.7400732429465924
+        },
+        {
+          "case_index": 98,
+          "type": "depth 3 after check, minimum raise facing a bet",
+          "path": [
+            [
+              "check",
+              0
+            ],
+            [
+              "raise",
+              100
+            ],
+            [
+              "raise",
+              800
+            ]
+          ],
+          "action": [
+            "raise",
+            1500
+          ],
+          "leave_one_out_wc_improvement_bb": 0.14245162933860173
+        },
+        {
+          "case_index": 113,
+          "type": "depth 1 after raise, minimum raise facing a bet",
+          "path": [
+            [
+              "raise",
+              800
+            ]
+          ],
+          "action": [
+            "raise",
+            1600
+          ],
+          "leave_one_out_wc_improvement_bb": 4.716584012818826
+        },
+        {
+          "case_index": 116,
+          "type": "depth 1 after raise, minimum raise facing a bet",
+          "path": [
+            [
+              "raise",
+              250
+            ]
+          ],
+          "action": [
+            "raise",
+            500
+          ],
+          "leave_one_out_wc_improvement_bb": 0.13857887021167659
+        },
+        {
+          "case_index": 117,
+          "type": "depth 3 after raise, minimum raise facing a bet",
+          "path": [
+            [
+              "raise",
+              100
+            ],
+            [
+              "raise",
+              700
+            ],
+            [
+              "raise",
+              2500
+            ]
+          ],
+          "action": [
+            "raise",
+            4300
+          ],
+          "leave_one_out_wc_improvement_bb": 0.78016403815574
+        },
+        {
+          "case_index": 121,
+          "type": "depth 1 after raise, minimum raise facing a bet",
+          "path": [
+            [
+              "raise",
+              100
+            ]
+          ],
+          "action": [
+            "raise",
+            200
+          ],
+          "leave_one_out_wc_improvement_bb": 1.883419089391007
+        },
+        {
+          "case_index": 122,
+          "type": "depth 1 after raise, minimum raise facing a bet",
+          "path": [
+            [
+              "raise",
+              1200
+            ]
+          ],
+          "action": [
+            "raise",
+            2400
+          ],
+          "leave_one_out_wc_improvement_bb": 1.5275171700266752
+        },
+        {
+          "case_index": 123,
+          "type": "depth 1 after raise, minimum raise facing a bet",
+          "path": [
+            [
+              "raise",
+              100
+            ]
+          ],
+          "action": [
+            "raise",
+            200
+          ],
+          "leave_one_out_wc_improvement_bb": 1.969746617088802
+        },
+        {
+          "case_index": 124,
+          "type": "depth 1 after raise, minimum raise facing a bet",
+          "path": [
+            [
+              "raise",
+              100
+            ]
+          ],
+          "action": [
+            "raise",
+            200
+          ],
+          "leave_one_out_wc_improvement_bb": 0.10237026411736025
+        },
+        {
+          "case_index": 129,
+          "type": "depth 3 after check, minimum raise facing a bet",
+          "path": [
+            [
+              "check",
+              0
+            ],
+            [
+              "raise",
+              100
+            ],
+            [
+              "raise",
+              500
+            ]
+          ],
+          "action": [
+            "raise",
+            900
+          ],
+          "leave_one_out_wc_improvement_bb": 0.12455026205682049
+        },
+        {
+          "case_index": 142,
+          "type": "depth 1 after raise, minimum raise facing a bet",
+          "path": [
+            [
+              "raise",
+              800
+            ]
+          ],
+          "action": [
+            "raise",
+            1600
+          ],
+          "leave_one_out_wc_improvement_bb": 0.6121208813160229
+        },
+        {
+          "case_index": 145,
+          "type": "depth 1 after raise, minimum raise facing a bet",
+          "path": [
+            [
+              "raise",
+              100
+            ]
+          ],
+          "action": [
+            "raise",
+            200
+          ],
+          "leave_one_out_wc_improvement_bb": 0.02088370249803842
+        },
+        {
+          "case_index": 146,
+          "type": "depth 1 after raise, minimum raise facing a bet",
+          "path": [
+            [
+              "raise",
+              250
+            ]
+          ],
+          "action": [
+            "raise",
+            500
+          ],
+          "leave_one_out_wc_improvement_bb": 0.38768688720884303
+        },
+        {
+          "case_index": 149,
+          "type": "depth 3 after check, minimum raise facing a bet",
+          "path": [
+            [
+              "check",
+              0
+            ],
+            [
+              "raise",
+              600
+            ],
+            [
+              "raise",
+              2400
+            ]
+          ],
+          "action": [
+            "raise",
+            4200
+          ],
+          "leave_one_out_wc_improvement_bb": 0.5403590900245878
+        },
+        {
+          "case_index": 160,
+          "type": "depth 1 after raise, minimum raise facing a bet",
+          "path": [
+            [
+              "raise",
+              750
+            ]
+          ],
+          "action": [
+            "raise",
+            1500
+          ],
+          "leave_one_out_wc_improvement_bb": 0.3174081537339708
+        },
+        {
+          "case_index": 176,
+          "type": "depth 3 after check, minimum raise facing a bet",
+          "path": [
+            [
+              "check",
+              0
+            ],
+            [
+              "raise",
+              100
+            ],
+            [
+              "raise",
+              900
+            ]
+          ],
+          "action": [
+            "raise",
+            1700
+          ],
+          "leave_one_out_wc_improvement_bb": 0.45733841334031416
+        }
+      ],
+      "scope": "overlapping leave-one-out restrictions of fixed profiles; not additive"
+    },
+    "pot-jam-cap3-root-min-responses-v1": {
+      "cases": 26,
+      "top_response_type_counts": {
+        "depth 3 after check, minimum raise facing a bet": 14,
+        "depth 3 after raise, minimum raise facing a bet": 4,
+        "depth 3 after raise, pot raise facing a bet": 7,
+        "depth 3 after raise, all-in raise facing a bet": 1
+      },
+      "ranking": [
+        {
+          "type": "depth 3 after raise, minimum raise facing a bet",
+          "leave_one_out_wc_improvement_bb": 14.922781461748711,
+          "cases": 26
+        },
+        {
+          "type": "depth 3 after check, minimum raise facing a bet",
+          "leave_one_out_wc_improvement_bb": 4.031979549610476,
+          "cases": 26
+        },
+        {
+          "type": "depth 3 after raise, all-in raise facing a bet",
+          "leave_one_out_wc_improvement_bb": 2.3984279715492836,
+          "cases": 14
+        },
+        {
+          "type": "depth 3 after raise, pot raise facing a bet",
+          "leave_one_out_wc_improvement_bb": 2.1432523195992887,
+          "cases": 26
+        }
+      ],
+      "per_case_top": [
+        {
+          "case_index": 0,
+          "type": "depth 3 after check, minimum raise facing a bet",
+          "path": [
+            [
+              "check",
+              0
+            ],
+            [
+              "raise",
+              100
+            ],
+            [
+              "raise",
+              1100
+            ]
+          ],
+          "action": [
+            "raise",
+            2100
+          ],
+          "leave_one_out_wc_improvement_bb": 0.06710497054027487
+        },
+        {
+          "case_index": 21,
+          "type": "depth 3 after raise, minimum raise facing a bet",
+          "path": [
+            [
+              "raise",
+              900
+            ],
+            [
+              "raise",
+              1800
+            ],
+            [
+              "raise",
+              6300
+            ]
+          ],
+          "action": [
+            "raise",
+            9600
+          ],
+          "leave_one_out_wc_improvement_bb": 7.720450464253069
+        },
+        {
+          "case_index": 35,
+          "type": "depth 3 after raise, pot raise facing a bet",
+          "path": [
+            [
+              "raise",
+              100
+            ],
+            [
+              "raise",
+              1100
+            ],
+            [
+              "raise",
+              4100
+            ]
+          ],
+          "action": [
+            "raise",
+            9600
+          ],
+          "leave_one_out_wc_improvement_bb": 1.1041960510253899
+        },
+        {
+          "case_index": 48,
+          "type": "depth 3 after check, minimum raise facing a bet",
+          "path": [
+            [
+              "check",
+              0
+            ],
+            [
+              "raise",
+              100
+            ],
+            [
+              "raise",
+              1000
+            ]
+          ],
+          "action": [
+            "raise",
+            1900
+          ],
+          "leave_one_out_wc_improvement_bb": 0.006122754504631123
+        },
+        {
+          "case_index": 57,
+          "type": "depth 3 after raise, pot raise facing a bet",
+          "path": [
+            [
+              "raise",
+              100
+            ],
+            [
+              "raise",
+              200
+            ],
+            [
+              "raise",
+              1000
+            ]
+          ],
+          "action": [
+            "raise",
+            3400
+          ],
+          "leave_one_out_wc_improvement_bb": 0.12619737992818295
+        },
+        {
+          "case_index": 58,
+          "type": "depth 3 after check, minimum raise facing a bet",
+          "path": [
+            [
+              "check",
+              0
+            ],
+            [
+              "raise",
+              450
+            ],
+            [
+              "raise",
+              1800
+            ]
+          ],
+          "action": [
+            "raise",
+            3150
+          ],
+          "leave_one_out_wc_improvement_bb": 0.18986095349787574
+        },
+        {
+          "case_index": 64,
+          "type": "depth 3 after raise, pot raise facing a bet",
+          "path": [
+            [
+              "raise",
+              100
+            ],
+            [
+              "raise",
+              950
+            ],
+            [
+              "raise",
+              3500
+            ]
+          ],
+          "action": [
+            "raise",
+            9700
+          ],
+          "leave_one_out_wc_improvement_bb": 0.18469645598703663
+        },
+        {
+          "case_index": 69,
+          "type": "depth 3 after raise, minimum raise facing a bet",
+          "path": [
+            [
+              "raise",
+              100
+            ],
+            [
+              "raise",
+              200
+            ],
+            [
+              "raise",
+              2400
+            ]
+          ],
+          "action": [
+            "raise",
+            4600
+          ],
+          "leave_one_out_wc_improvement_bb": 0.010550952497561106
+        },
+        {
+          "case_index": 74,
+          "type": "depth 3 after raise, minimum raise facing a bet",
+          "path": [
+            [
+              "raise",
+              100
+            ],
+            [
+              "raise",
+              1300
+            ],
+            [
+              "raise",
+              4900
+            ]
+          ],
+          "action": [
+            "raise",
+            8500
+          ],
+          "leave_one_out_wc_improvement_bb": 0.0006789446188140147
+        },
+        {
+          "case_index": 78,
+          "type": "depth 3 after check, minimum raise facing a bet",
+          "path": [
+            [
+              "check",
+              0
+            ],
+            [
+              "raise",
+              100
+            ],
+            [
+              "raise",
+              750
+            ]
+          ],
+          "action": [
+            "raise",
+            1400
+          ],
+          "leave_one_out_wc_improvement_bb": 0.09823673198047911
+        },
+        {
+          "case_index": 79,
+          "type": "depth 3 after check, minimum raise facing a bet",
+          "path": [
+            [
+              "check",
+              0
+            ],
+            [
+              "raise",
+              650
+            ],
+            [
+              "raise",
+              2600
+            ]
+          ],
+          "action": [
+            "raise",
+            4550
+          ],
+          "leave_one_out_wc_improvement_bb": 0.697254199747771
+        },
+        {
+          "case_index": 91,
+          "type": "depth 3 after raise, minimum raise facing a bet",
+          "path": [
+            [
+              "raise",
+              800
+            ],
+            [
+              "raise",
+              1600
+            ],
+            [
+              "raise",
+              5600
+            ]
+          ],
+          "action": [
+            "raise",
+            9600
+          ],
+          "leave_one_out_wc_improvement_bb": 5.4141661121358595
+        },
+        {
+          "case_index": 98,
+          "type": "depth 3 after check, minimum raise facing a bet",
+          "path": [
+            [
+              "check",
+              0
+            ],
+            [
+              "raise",
+              100
+            ],
+            [
+              "raise",
+              800
+            ]
+          ],
+          "action": [
+            "raise",
+            1500
+          ],
+          "leave_one_out_wc_improvement_bb": 0.16291983845391406
+        },
+        {
+          "case_index": 113,
+          "type": "depth 3 after check, minimum raise facing a bet",
+          "path": [
+            [
+              "check",
+              0
+            ],
+            [
+              "raise",
+              100
+            ],
+            [
+              "raise",
+              1100
+            ]
+          ],
+          "action": [
+            "raise",
+            2100
+          ],
+          "leave_one_out_wc_improvement_bb": 0.24590339662176897
+        },
+        {
+          "case_index": 116,
+          "type": "depth 3 after check, minimum raise facing a bet",
+          "path": [
+            [
+              "check",
+              0
+            ],
+            [
+              "raise",
+              100
+            ],
+            [
+              "raise",
+              550
+            ]
+          ],
+          "action": [
+            "raise",
+            1000
+          ],
+          "leave_one_out_wc_improvement_bb": 0.03674990186874999
+        },
+        {
+          "case_index": 117,
+          "type": "depth 3 after raise, all-in raise facing a bet",
+          "path": [
+            [
+              "raise",
+              400
+            ],
+            [
+              "raise",
+              800
+            ],
+            [
+              "raise",
+              2800
+            ]
+          ],
+          "action": [
+            "raise",
+            9800
+          ],
+          "leave_one_out_wc_improvement_bb": 2.3893908813342546
+        },
+        {
+          "case_index": 121,
+          "type": "depth 3 after check, minimum raise facing a bet",
+          "path": [
+            [
+              "check",
+              0
+            ],
+            [
+              "raise",
+              1250
+            ],
+            [
+              "raise",
+              5000
+            ]
+          ],
+          "action": [
+            "raise",
+            8750
+          ],
+          "leave_one_out_wc_improvement_bb": 0.0002494044828349473
+        },
+        {
+          "case_index": 122,
+          "type": "depth 3 after check, minimum raise facing a bet",
+          "path": [
+            [
+              "check",
+              0
+            ],
+            [
+              "raise",
+              100
+            ],
+            [
+              "raise",
+              1500
+            ]
+          ],
+          "action": [
+            "raise",
+            2900
+          ],
+          "leave_one_out_wc_improvement_bb": 0.06017342449851837
+        },
+        {
+          "case_index": 124,
+          "type": "depth 3 after raise, pot raise facing a bet",
+          "path": [
+            [
+              "raise",
+              100
+            ],
+            [
+              "raise",
+              200
+            ],
+            [
+              "raise",
+              850
+            ]
+          ],
+          "action": [
+            "raise",
+            2800
+          ],
+          "leave_one_out_wc_improvement_bb": 0.018761017832777588
+        },
+        {
+          "case_index": 129,
+          "type": "depth 3 after check, minimum raise facing a bet",
+          "path": [
+            [
+              "check",
+              0
+            ],
+            [
+              "raise",
+              100
+            ],
+            [
+              "raise",
+              500
+            ]
+          ],
+          "action": [
+            "raise",
+            900
+          ],
+          "leave_one_out_wc_improvement_bb": 0.08160669915143537
+        },
+        {
+          "case_index": 142,
+          "type": "depth 3 after check, minimum raise facing a bet",
+          "path": [
+            [
+              "check",
+              0
+            ],
+            [
+              "raise",
+              100
+            ],
+            [
+              "raise",
+              1100
+            ]
+          ],
+          "action": [
+            "raise",
+            2100
+          ],
+          "leave_one_out_wc_improvement_bb": 0.08570117702849789
+        },
+        {
+          "case_index": 145,
+          "type": "depth 3 after raise, pot raise facing a bet",
+          "path": [
+            [
+              "raise",
+              100
+            ],
+            [
+              "raise",
+              200
+            ],
+            [
+              "raise",
+              800
+            ]
+          ],
+          "action": [
+            "raise",
+            2600
+          ],
+          "leave_one_out_wc_improvement_bb": 0.2079143826094317
+        },
+        {
+          "case_index": 146,
+          "type": "depth 3 after raise, pot raise facing a bet",
+          "path": [
+            [
+              "raise",
+              100
+            ],
+            [
+              "raise",
+              200
+            ],
+            [
+              "raise",
+              850
+            ]
+          ],
+          "action": [
+            "raise",
+            2800
+          ],
+          "leave_one_out_wc_improvement_bb": 0.023401354750582914
+        },
+        {
+          "case_index": 149,
+          "type": "depth 3 after check, minimum raise facing a bet",
+          "path": [
+            [
+              "check",
+              0
+            ],
+            [
+              "raise",
+              600
+            ],
+            [
+              "raise",
+              2400
+            ]
+          ],
+          "action": [
+            "raise",
+            4200
+          ],
+          "leave_one_out_wc_improvement_bb": 0.6075305544932087
+        },
+        {
+          "case_index": 160,
+          "type": "depth 3 after raise, pot raise facing a bet",
+          "path": [
+            [
+              "raise",
+              100
+            ],
+            [
+              "raise",
+              200
+            ],
+            [
+              "raise",
+              1350
+            ]
+          ],
+          "action": [
+            "raise",
+            4800
+          ],
+          "leave_one_out_wc_improvement_bb": 0.21997947415581276
+        },
+        {
+          "case_index": 176,
+          "type": "depth 3 after check, minimum raise facing a bet",
+          "path": [
+            [
+              "check",
+              0
+            ],
+            [
+              "raise",
+              100
+            ],
+            [
+              "raise",
+              900
+            ]
+          ],
+          "action": [
+            "raise",
+            1700
+          ],
+          "leave_one_out_wc_improvement_bb": 0.6609963429177292
+        }
+      ],
+      "scope": "overlapping leave-one-out restrictions of fixed profiles; not additive"
+    }
+  },
+  "decision_rule": {
+    "fewer_harms_than_baseline": true,
+    "positive_median_paired_worst_case_change": true,
+    "latency_gate": true
+  },
+  "decision": "retain"
+}
