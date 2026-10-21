@@ -22,6 +22,9 @@ def compact(row):
         'decision_seconds':row['begin']['roundtrip_seconds'],'offline_audit_seconds':row['audit']['roundtrip_seconds'],
         'profile_sha256':a['profile_sha256'],'checked_rows':c['checked_rows'],
         'retained_payload_bytes':session['binding']['retained_payload_bytes'],
+        'timings':r.get('timings',{}),'solver_timing':r.get('solver_timing',{}),
+        'chance':r.get('chance',{}),'solver_memory_bytes':r.get('solver_memory_bytes'),
+        'continuation_seconds':c.get('seconds'),
         'hero_game_seat':a['hero_game_seat'],
         'laws':{law:{'actual':v['actual_deployed_policy'],'produced':v['candidate_profile'],
                      'blueprint_quality':v['blueprint_quality']} for law,v in a['laws'].items()}}
@@ -38,11 +41,16 @@ def arm(rows):
         laws[law]={'hero_worst_case_change_vs_blueprint_bb':describe([a['hero_worst_case_change_bb'] for a in actual]),
             'worse_than_blueprint':sum(a['hero_worst_case_change_bb'] < -1e-8 for a in actual),
             'opponent_deviation_gain_bb':describe([a['quality']['best_response_gains_bb'][1-r['hero_game_seat']] for a,r in zip(actual,rows)])}
+    timing_keys=sorted(set.intersection(*(set(r['timings']) for r in rows)))
+    per_row=[r['continuation_seconds']/r['checked_rows'] for r in rows if r['checked_rows'] and r['continuation_seconds'] is not None]
     return {'attempted':len(rows),'installed':installed,'fallbacks':len(rows)-installed,'declared_quality_met':declared,
         'exact_oracle_quality_met':oracle,'decision_seconds':stats,'latency_gate':stats['median']<=.5 and stats['p95']<=2.,
         'installed_coverage_gate':installed/len(rows)>=.9,'every_decision_declared_quality_gate':declared==len(rows),
         'offline_audit_seconds':describe([r['offline_audit_seconds'] for r in rows]),
         'retained_checked_rows':sum(r['checked_rows'] for r in rows),'retained_payload_bytes':describe([r['retained_payload_bytes'] for r in rows]),
+        'decision_components_seconds':{key:describe([r['timings'][key] for r in rows]) for key in timing_keys},
+        'batched_continuation_seconds_per_checked_row':describe(per_row) if per_row else None,
+        'chance_scalar_rows':describe([r['chance']['scalar_rows'] for r in rows]) if all('scalar_rows' in r['chance'] for r in rows) else None,
         'max_capped_oracle_error_bb':max(r['capped_oracle_error_bb'] for r in rows),'classification_tolerance_bb':1e-8,'laws':laws}
 
 
@@ -112,6 +120,14 @@ def readout(root):
                 if abs(expected_wc-v[key]['hero_worst_case_bb'])>1e-10:raise ValueError('worst-case accounting differs')
             if not r['installed'] and v['actual']['quality']!=v['blueprint_quality']:raise ValueError('actual fallback is not blueprint')
     resources=[json.loads(s) for s in (root/'resources.jsonl').read_text().splitlines()]
+    startups=[]
+    for repetition in ('initial','repeat'):
+        for phase in ('controls','projected','exact'):
+            path=root/repetition/phase/'startup.json'
+            if path.exists():
+                for worker in json.loads(path.read_text()):
+                    if worker['status']!='ready' or worker['model_sha256']!=SHA:raise ValueError('startup model identity differs')
+                    startups.append({'phase':repetition+'-'+phase,**worker})
     return {'format':'river-exact-qualification-readout-v1','status':'settled','source':launch['source'],
         'model_sha256':SHA,'panel_sha256':PANEL_SHA,'scope':'reused engineering panel; no fresh confirmation/whole-hand strength',
         'verification':proof,'parent_pins':pins,'arms':{k:arm(v) for k,v in arms.items()},
@@ -122,10 +138,14 @@ def readout(root):
             'max_quality_error_bb':max(r['result']['max_quality_error_bb'] for r in controls),
             'prefix_64sweep_seconds':describe([r['result']['timings']['prefix_fixed_solve_seconds'] for r in controls]),
             'dense_64sweep_seconds':describe([r['result']['timings']['dense_fixed_solve_seconds'] for r in controls]),
+            'paired_dense_over_prefix_64sweep_ratio':describe([r['result']['timings']['dense_fixed_solve_seconds']/r['result']['timings']['prefix_fixed_solve_seconds'] for r in controls]),
             'per_case':controls,'scope':'fixed-work operator correctness controls, not matched-convergence belief gate passes'},
         'original_misses':[{ 'case_index':i,'arms':{k:{'installed':next(r for r in v if r['case_index']==i)['installed'],
               'checkpoints':next(r for r in raw['exact']+raw['projected'] if r['case_index']==i and r['menu']==v[0]['menu'] and r['backend']==v[0]['backend'])['begin']['result']['checkpoints']} for k,v in arms.items()}} for i in (137,195)],
         'costs':{'stages':costs,'wall_seconds':sum(r['wall_seconds'] for r in costs),
+            'model_load_instances':len(startups),'startups':startups,
+            'summed_worker_startup_seconds':sum(r['model_and_k50_load_seconds'] for r in startups),
+            'summed_worker_policy_load_seconds':sum(r['policy_load_seconds'] for r in startups),
             'child_cpu_seconds':sum(r['user_cpu_seconds']+r['system_cpu_seconds'] for r in costs),
             'sampled_family_peak_rss_bytes':max(r['worker_family_rss_bytes'] for r in resources),
             'min_available_ram_bytes':min(r['available_ram_bytes'] for r in resources),
@@ -141,10 +161,10 @@ def main():
     result=readout(args.root);args.out.mkdir(parents=True);write(args.out/'results.json',result)
     write(args.out/'summary.json',{k:v for k,v in result.items() if k!='per_case'})
     with (args.out/'cases.csv').open('w',newline='') as stream:
-        w=csv.writer(stream,lineterminator='\n');w.writerow(['case','menu','backend','installed','sweeps','decision_seconds','offline_audit_seconds','law','hero_worst_case_bb','hero_worst_case_change_vs_bp_bb','opponent_gain_bb','produced_hero_worst_case_bb','produced_opponent_gain_bb','profile_sha256'])
+        w=csv.writer(stream,lineterminator='\n');w.writerow(['case','menu','backend','installed','sweeps','decision_seconds','offline_audit_seconds','law','hero_worst_case_bb','hero_worst_case_change_vs_bp_bb','opponent_gain_bb','produced_hero_worst_case_bb','produced_opponent_gain_bb','profile_sha256','hero_game_seat','target_bb','capped_player0_gain_bb','capped_player1_gain_bb','capped_exact_player0_gain_bb','capped_exact_player1_gain_bb','actual_player0_value_bb','actual_player1_value_bb','actual_player0_gain_bb','actual_player1_gain_bb','produced_player0_gain_bb','produced_player1_gain_bb'])
         for r in result['per_case']:
             for law,v in r['laws'].items():
-                a=v['actual'];w.writerow([r['case_index'],r['menu'],r['backend'],r['installed'],r['sweeps'],r['decision_seconds'],r['offline_audit_seconds'],law,a['hero_worst_case_bb'],a['hero_worst_case_change_bb'],a['quality']['best_response_gains_bb'][1-r['hero_game_seat']],v['produced']['hero_worst_case_bb'],v['produced']['quality']['best_response_gains_bb'][1-r['hero_game_seat']],r['profile_sha256']])
+                a=v['actual'];w.writerow([r['case_index'],r['menu'],r['backend'],r['installed'],r['sweeps'],r['decision_seconds'],r['offline_audit_seconds'],law,a['hero_worst_case_bb'],a['hero_worst_case_change_bb'],a['quality']['best_response_gains_bb'][1-r['hero_game_seat']],v['produced']['hero_worst_case_bb'],v['produced']['quality']['best_response_gains_bb'][1-r['hero_game_seat']],r['profile_sha256'],r['hero_game_seat'],r['target_bb'],*r['capped_quality']['best_response_gains_bb'],*r['capped_exact_quality']['best_response_gains_bb'],*a['quality']['profile_values_bb'],*a['quality']['best_response_gains_bb'],*v['produced']['quality']['best_response_gains_bb']])
     print(json.dumps({'status':result['status'],'arms':result['arms'],'costs':{k:v for k,v in result['costs'].items() if k!='stages'}},indent=2))
 
 if __name__=='__main__':main()

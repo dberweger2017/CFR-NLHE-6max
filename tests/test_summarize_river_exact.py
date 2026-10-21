@@ -81,3 +81,17 @@ def test_readout_requires_complete_failure_free_verified_unchanged_evidence(tmp_
     write(root/'binary-pin.json',{'binary':'pin'})
     path=root/'initial/exact/records.jsonl';path.write_text(path.read_text()+'{}\n')
     with pytest.raises(ValueError,match='reproduction'):s.readout(root)
+
+
+def test_costs_count_every_worker_load_without_treating_parallel_loads_as_wall(tmp_path):
+    root=tmp_path/'input';fixture(root)
+    for repetition in ('initial','repeat'):
+        for phase,n in [('controls',1),('projected',5),('exact',5)]:
+            write(root/repetition/phase/'startup.json',[{'status':'ready','model_sha256':SHA,
+                'model_and_k50_load_seconds':120.,'policy_load_seconds':115.}]*n)
+    costs=s.readout(root)['costs']
+    assert costs['model_load_instances']==22
+    assert costs['summed_worker_startup_seconds']==2640.
+    assert costs['wall_seconds']==7.
+    write(root/'initial/controls/startup.json',[{'status':'ready','model_sha256':'wrong'}])
+    with pytest.raises(ValueError,match='startup model identity'):s.readout(root)
