@@ -1,0 +1,75 @@
+{
+  "status": "qualified",
+  "source": "895f853f407f6f618fce396f1a5c36c17f778941",
+  "stage_costs": [
+    {
+      "phase": "build",
+      "returncode": 0,
+      "wall_seconds": 16.146715002018027,
+      "user_cpu_seconds": 32.670425,
+      "system_cpu_seconds": 1.6141139999999998
+    },
+    {
+      "phase": "native-tests",
+      "returncode": 0,
+      "wall_seconds": 36.34769913199125,
+      "user_cpu_seconds": 119.51562799999999,
+      "system_cpu_seconds": 38.200587
+    },
+    {
+      "phase": "python-tests",
+      "returncode": 0,
+      "wall_seconds": 2.017957530973945,
+      "user_cpu_seconds": 0.5258969999999863,
+      "system_cpu_seconds": 0.037142000000002895
+    },
+    {
+      "phase": "calibrate",
+      "returncode": 0,
+      "wall_seconds": 159.39967046503443,
+      "user_cpu_seconds": 154.228114,
+      "system_cpu_seconds": 4.033149999999999
+    },
+    {
+      "phase": "quote",
+      "returncode": 0,
+      "wall_seconds": 2.0216903330292553,
+      "user_cpu_seconds": 0.0872669999999971,
+      "system_cpu_seconds": 0.020027999999996382
+    }
+  ],
+  "quote": {
+    "status": "quoted",
+    "lower_seconds": 820.562233066623,
+    "upper_seconds": 1474.987419618159,
+    "startup_seconds": 120.18996102,
+    "capture_prior_seconds": 91.51424895017408,
+    "one_audit_pass_estimate_seconds": 184.23905052822445,
+    "calibration_profile_count": 3,
+    "scope": "24 original-profile reconstructions, two saved-snapshot audit passes, three model starts; squared full-tree node scaling and 2x audit reserve; no unmeasured concurrency",
+    "prior_profile_work_preserved": true,
+    "no_main_started": true
+  },
+  "binary_pin": {
+    "sha256": "ef63eacc2bc26c91105783f8afcad82ce30ed30dba5a9b7bc7f6625dac4d2808"
+  },
+  "calibration_profiles": [
+    {
+      "case": 0,
+      "arm": "reference_projected",
+      "profile_sha256": "e5f1740ea6db54cfa133ed3dd6bebbe98229312e364dc49a5bce7ac180909406"
+    },
+    {
+      "case": 0,
+      "arm": "expanded_projected",
+      "profile_sha256": "0ba73509e49abc2e3f93fb003e3c03f348eed59f802005ec727d0f87dd0d376f"
+    },
+    {
+      "case": 0,
+      "arm": "expanded_exact",
+      "profile_sha256": "2927f021494cf46933d164eb2ad6f5078e9a14481871b54a77b4229e5832e740"
+    }
+  ],
+  "native_test_tail": ":streamed_exports_equal_sorted_ones_and_unordered_checkpoints_fall_back ... ok\ntest multi_tests::fast_mode_converges_like_the_production_recipe ... ok\n\ntest result: ok. 107 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 10.38s\n\n",
+  "python_test_tail": ".......                                                                  [100%]\n7 passed in 0.44s\n"
+}
