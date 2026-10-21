@@ -11,6 +11,12 @@ from src.blueprint.river_cfr import RiverCFR, profile_quality
 native = pytest.mark.skipif(not BINARY.is_file(), reason='build --example river_prepared')
 
 
+def test_first_divergent_row_has_exactly_zero_rational_regrets():
+    from scripts.diagnose_river_numerics import exact_first_sweep_row
+    game,ranges=fixture(2)
+    assert exact_first_sweep_row(game,ranges,9,2)==['0','0']
+
+
 def test_adapter_refuses_correlated_law_even_when_label_is_unchanged():
     game, ranges = fixture()
     original = game.joint.copy()
@@ -48,6 +54,21 @@ def test_fixed_policy_matches_reference_and_normalized_average():
     for node,p in profiles(game,result['average']).items():
         np.testing.assert_allclose(p,expected.average[node],atol=1e-10,rtol=1e-10)
     assert result['quality']['exploitability_bb']==pytest.approx(profile_quality(game,expected.average)['exploitability_bb'],abs=1e-10)
+
+
+@native
+def test_scalar_review_control_agrees_under_identical_supplied_profiles():
+    game, ranges = fixture(2)
+    reference = RiverCFR(game).solve(max_sweeps=16)
+    request = prepared_request(game,ranges,2,fixed_profile=reference.average)
+    with NativeRiver() as worker:
+        linear = worker.solve(request)
+        scalar = worker.solve(dict(request,scalar_control=True))
+    assert scalar['leaf_evaluation_mode'] == 'scalar-review-control'
+    for field in ('last_deltas','average_numer','average_denom'):
+        for a,b in zip(linear[field],scalar[field]):
+            np.testing.assert_allclose(a,b,rtol=1e-10,atol=1e-10)
+    assert scalar['quality']['exploitability_bb'] == pytest.approx(linear['quality']['exploitability_bb'],abs=1e-10)
 
 
 @native

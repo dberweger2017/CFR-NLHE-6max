@@ -191,6 +191,19 @@ best responses and fixed-work timing. [Protocol and limits](native-river-prototy
 include the retained small-range quality-screen misses. No blueprint/model load,
 training or search strength study is part of this example.
 
+### Legal river decision pilot
+
+The opt-in `river_live K50 POLICY SHA256` worker loads one frozen N-player
+blueprint and handles strict public-history requests. The immutable-observation
+adapter is `src/blueprint/live_river.py`. It returns legal root action
+distributions and support/quality/latency diagnostics, without applying actions
+or installing a search player. `scripts.benchmark_live_river` runs six fixed
+engineering states and stops; `scripts.diagnose_river_numerics` retains the
+zero-regret rational oracle and scalar review control. [Protocol](live-river-pilot.md)
+and [measured results/conditional quote](reports/live-river-pilot/results.md)
+describe allocation rejections, zero reach, belief projection and the remaining
+retained-profile/strength-study work. These commands do not start an arena.
+
 ### Exact native inference derivatives
 
 The optional [binary inference reader](nplayer-binary-inference.md) converts a

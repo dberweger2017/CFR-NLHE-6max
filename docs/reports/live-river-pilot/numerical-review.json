@@ -1,0 +1,162 @@
+{
+  "status": "review-complete",
+  "first_divergence": {
+    "sweep": 2,
+    "node": 9,
+    "holding": 2,
+    "holding_cards": [
+      "3h",
+      "6d"
+    ],
+    "native_previous_regrets": [
+      0.0,
+      0.0
+    ],
+    "python_previous_regrets": [
+      6.938893903907228e-18,
+      -1.3877787807814457e-17
+    ],
+    "native_strategy": [
+      0.5,
+      0.5
+    ],
+    "python_strategy": [
+      1.0,
+      0.0
+    ],
+    "max_probability_difference": 0.5
+  },
+  "same_profile_delta_max_absolute_error_bb": 1.7763568394002505e-15,
+  "identical_profile_checks": 16,
+  "curves": [
+    {
+      "sweeps": 16,
+      "python": {
+        "profile_values_bb": [
+          0.17024954818445948,
+          -0.1702495481844586
+        ],
+        "best_response_gains_bb": [
+          1.0001904312226884,
+          1.247984621647791
+        ],
+        "exploitability_bb": 1.1240875264352397,
+        "exploitability_root_pot": 0.09445327801161331,
+        "zero_sum_error_bb": 8.881784197001252e-16
+      },
+      "linear": {
+        "best_response_gains_bb": [
+          0.9505721809050678,
+          1.2571826366986767
+        ],
+        "exploitability_bb": 1.1038774088018721,
+        "exploitability_root_pot": 0.09275509009067312,
+        "profile_values_bb": [
+          0.21489063066269143,
+          -0.21489063066269143
+        ],
+        "zero_sum_error_bb": 0.0
+      },
+      "scalar": {
+        "best_response_gains_bb": [
+          0.9319517597956164,
+          1.2626469163506675
+        ],
+        "exploitability_bb": 1.097299338073142,
+        "exploitability_root_pot": 0.0922023570261126,
+        "profile_values_bb": [
+          0.21950717886124105,
+          -0.21950717886124105
+        ],
+        "zero_sum_error_bb": 0.0
+      }
+    },
+    {
+      "sweeps": 64,
+      "python": {
+        "profile_values_bb": [
+          0.06796725690161975,
+          -0.0679672569016192
+        ],
+        "best_response_gains_bb": [
+          0.4481979870777012,
+          0.5888969930542618
+        ],
+        "exploitability_bb": 0.5185474900659814,
+        "exploitability_root_pot": 0.043571794090402766,
+        "zero_sum_error_bb": 5.551115123125783e-16
+      },
+      "linear": {
+        "best_response_gains_bb": [
+          0.4624954933156853,
+          0.6885719654008406
+        ],
+        "exploitability_bb": 0.575533729358263,
+        "exploitability_root_pot": 0.048360155295494645,
+        "profile_values_bb": [
+          0.018662806470655102,
+          -0.01866280647065599
+        ],
+        "zero_sum_error_bb": 8.881784197001252e-16
+      },
+      "scalar": {
+        "best_response_gains_bb": [
+          0.37660259534376506,
+          0.6549828472246029
+        ],
+        "exploitability_bb": 0.515792721284184,
+        "exploitability_root_pot": 0.043340320174461384,
+        "profile_values_bb": [
+          0.07029917656489237,
+          -0.07029917656489326
+        ],
+        "zero_sum_error_bb": 8.881784197001252e-16
+      }
+    },
+    {
+      "sweeps": 256,
+      "python": {
+        "profile_values_bb": [
+          -0.08146805140814062,
+          0.08146805140814095
+        ],
+        "best_response_gains_bb": [
+          0.2027416863737811,
+          0.17633603508094342
+        ],
+        "exploitability_bb": 0.18953886072736226,
+        "exploitability_root_pot": 0.015926310260785014,
+        "zero_sum_error_bb": 3.3306690738754696e-16
+      },
+      "linear": {
+        "best_response_gains_bb": [
+          0.13047742539696427,
+          0.2130679379820175
+        ],
+        "exploitability_bb": 0.1717726816894909,
+        "exploitability_root_pot": 0.01443347824512361,
+        "profile_values_bb": [
+          -0.09348725644032063,
+          0.09348725644032019
+        ],
+        "zero_sum_error_bb": 4.440892098500626e-16
+      },
+      "scalar": {
+        "best_response_gains_bb": [
+          0.2208540645021384,
+          0.1376289498035943
+        ],
+        "exploitability_bb": 0.17924150715286635,
+        "exploitability_root_pot": 0.0150610584213307,
+        "profile_values_bb": [
+          -0.08675325027612546,
+          0.08675325027612502
+        ],
+        "zero_sum_error_bb": 4.440892098500626e-16
+      }
+    }
+  ],
+  "binary_sha256": "53b3ec6af31ede7125c0fa8126226b180c821d8113d55756871ed1f9369cc1e2",
+  "original_screen_preserved": true,
+  "interpretation": "near-zero regret matching can amplify roundoff; same-profile math agrees; finite-work policies need not agree"
+}
