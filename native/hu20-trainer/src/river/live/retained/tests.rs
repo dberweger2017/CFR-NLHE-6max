@@ -444,3 +444,84 @@ fn exact_backend_installs_its_own_law_and_retains_original_rows_without_resolvin
     assert!(audit["checked_rows"].as_u64().unwrap() > 1);
     assert_eq!(audit["profile_sha256"], ctx["binding"]["profile_sha256"]);
 }
+
+#[test]
+fn snapshot_roundtrip_checks_bits_model_root_work_and_quality_bindings() {
+    let table = table();
+    let tables = fixture_tables();
+    let root = super::super::tests::root();
+    let mut original = original(&root);
+    original["mode"] = json!("solve");
+    original["algorithm"] = json!("dcfr-1.5-0-2");
+    original["search_menu"] = json!("pot-jam-cap3-root-check-min-v1");
+    original["checkpoints"] = json!([1]);
+    original["target"] = json!({"pot_fraction":1e-15,"cap_bb":1e-15});
+    let mut store = SessionStore::new(&"a".repeat(64)).unwrap();
+    let begin = store
+        .request(
+            &json!({"mode":"retained-begin","hand_id":"snapshot","observation":original}),
+            &table,
+            &tables,
+        )
+        .unwrap();
+    let export=store.request(&json!({"mode":"retained-export-profile","hand_id":"snapshot","handle":begin["session"]["handle"]}),&table,&tables).unwrap();
+    let bytes = serde_json::to_vec(&export).unwrap();
+    let parsed: Value = serde_json::from_slice(&bytes).unwrap();
+    let cap = Captured::restore(&parsed, &"a".repeat(64), &table, &tables).unwrap();
+    assert_eq!(
+        cap.metadata["profile_sha256"],
+        export["binding"]["profile_sha256"]
+    );
+    assert_eq!(cap.snapshot(&"a".repeat(64)), export);
+    assert!(Captured::restore(&parsed, &"b".repeat(64), &table, &tables).is_err());
+    let mut bad = parsed.clone();
+    bad["installed_search"] = json!(!cap.installed);
+    assert!(Captured::restore(&bad, &"a".repeat(64), &table, &tables).is_err());
+    let mut bad = parsed.clone();
+    bad["binding"]["root_sha256"] = json!("changed");
+    assert!(Captured::restore(&bad, &"a".repeat(64), &table, &tables).is_err());
+    let mut bad = parsed.clone();
+    bad["binding"]["work"]["sweeps"] = json!(2);
+    assert!(Captured::restore(&bad, &"a".repeat(64), &table, &tables).is_err());
+    let mut bad = parsed;
+    bad["profile"][0][0] = json!(0.1234);
+    assert!(Captured::restore(&bad, &"a".repeat(64), &table, &tables).is_err());
+}
+
+#[test]
+fn exact_response_audit_preserves_profile_and_actual_blueprint_fallback() {
+    let table = table();
+    let tables = fixture_tables();
+    let root = super::super::tests::root();
+    let pairs = vec![[21, 22], [23, 24], [25, 26], [27, 28], [29, 30], [30, 31]];
+    let mut tree = Tree::new(
+        &root.hand,
+        root.live,
+        SearchMenu::RootCheckMinOpen,
+        SUPPORTED_NODES,
+    );
+    tree.compile(&mut root.hand.clone()).unwrap();
+    let profile: Vec<_> = tree
+        .menus
+        .iter()
+        .map(|m| {
+            if m.is_empty() {
+                vec![]
+            } else {
+                (0..pairs.len())
+                    .flat_map(|_| (0..m.len()).map(|j| if j == 0 { 1. } else { 0. }))
+                    .collect()
+            }
+        })
+        .collect();
+    let before = profile_digest(&profile);
+    let out = harms::diagnose(&root, &pairs, &tree, &profile, false, &table, &tables).unwrap();
+    assert_eq!(before, profile_digest(&profile));
+    assert_eq!(out["solver_advances"], 0);
+    assert_eq!(out["actual"]["metrics"], out["blueprint"]);
+    assert!(!out["actual"]["responses"].as_array().unwrap().is_empty());
+    for r in out["actual"]["responses"].as_array().unwrap() {
+        assert_eq!(r["hero_blueprint_after_entry_changed_rows"], 0);
+        assert!(r["leave_one_out_wc_improvement_bb"].as_f64().unwrap() >= -1e-8);
+    }
+}

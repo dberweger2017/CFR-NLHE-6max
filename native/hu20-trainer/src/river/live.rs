@@ -11,6 +11,7 @@ use serde_json::{json, Value};
 use std::{collections::HashMap, time::Instant};
 
 mod exact;
+mod harms;
 
 pub const LAW: &str = "three-product-action-posterior-active-marginal-projection-v1";
 

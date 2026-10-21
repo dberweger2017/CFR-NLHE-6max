@@ -56,7 +56,7 @@ pub(super) fn ranges(
 ) -> [Vec<Holding>; 2] {
     original_ranges(pairs, weights, live)
 }
-fn make(
+pub(super) fn make(
     root: &PublicRoot,
     pairs: &[[u8; 2]],
     weights: &[Vec<f64>; 3],

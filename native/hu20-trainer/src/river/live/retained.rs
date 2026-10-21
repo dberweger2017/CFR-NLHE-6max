@@ -36,6 +36,83 @@ pub(super) struct Captured {
     installed: bool,
 }
 impl Captured {
+    fn snapshot(&self, model: &str) -> Value {
+        json!({"format":"river-retained-profile-snapshot-v1","model_sha256":model,
+            "observation":self.original,"binding":self.metadata,
+            "installed_search":self.installed,"profile":self.profile})
+    }
+
+    fn restore(
+        snapshot: &Value,
+        model: &str,
+        table: &PolicyTable,
+        tables: &EquityTables,
+    ) -> Result<Self, String> {
+        fields(
+            snapshot,
+            &[
+                "format",
+                "model_sha256",
+                "observation",
+                "binding",
+                "installed_search",
+                "profile",
+            ],
+        )?;
+        if snapshot["format"] != "river-retained-profile-snapshot-v1"
+            || snapshot["model_sha256"] != model
+        {
+            return Err("saved profile format/model mismatch".into());
+        }
+        let original = &snapshot["observation"];
+        let root = reconstruct(original, table.config())?;
+        let cards: Vec<_> = (0..52).filter(|c| !root.board.contains(c)).collect();
+        let pairs: Vec<_> = (0..cards.len())
+            .flat_map(|i| (i + 1..cards.len()).map(move |j| (i, j)))
+            .map(|(i, j)| [cards[i], cards[j]])
+            .collect();
+        let menu = SearchMenu::parse(original.get("search_menu"))?;
+        let backend = exact::Backend::parse(original.get("belief_backend"))?;
+        if backend == exact::Backend::Dense {
+            return Err("saved profile backend unsupported".into());
+        }
+        let mut tree = Tree::new(&root.hand, root.live, menu, SUPPORTED_NODES);
+        tree.compile(&mut root.hand.clone())?;
+        let profile: Vec<Vec<f64>> =
+            serde_json::from_value(snapshot["profile"].clone()).map_err(|e| e.to_string())?;
+        if profile_digest(&profile)
+            != snapshot["binding"]["profile_sha256"]
+                .as_str()
+                .ok_or("saved profile digest missing")?
+        {
+            return Err("saved profile digest mismatch".into());
+        }
+        let (weights, _) = likelihoods(&root, &pairs, |obs| blueprint_row(obs, table, tables))?;
+        let mut solver = Solver::new(
+            exact::make(&root, &pairs, &weights, tree.nodes.clone(), backend)?,
+            vec![None; tree.nodes.len()],
+        )?;
+        let quality = solver.quality(&profile)?;
+        let target = quality_target(original.get("target"), root.hand.pot() as f64 / 100.)?;
+        let met = gains(&quality).iter().all(|g| *g <= target);
+        let work = &snapshot["binding"]["work"];
+        let sweeps = uint(&work["sweeps"])?;
+        if sweeps == 0
+            || sweeps > uint(&original["sweeps"])?
+            || !array(&original["checkpoints"])?.contains(&json!(sweeps))
+        {
+            return Err("saved profile work mismatch".into());
+        }
+        let result = json!({"checkpoints":[{"target_met":met}],"algorithm":original["algorithm"],
+            "law":{"law":if backend==exact::Backend::Prefix{exact::EXACT_LAW}else{LAW}},
+            "sweeps":sweeps,"requested_sweeps":original["sweeps"],"target_bb":target});
+        let cap = Self::new(root, tree, pairs, profile, original.clone(), &result)?;
+        if cap.metadata != snapshot["binding"] || cap.installed != snapshot["installed_search"] {
+            return Err("saved profile binding/quality mismatch".into());
+        }
+        Ok(cap)
+    }
+
     pub(super) fn new(
         root: PublicRoot,
         tree: Tree,
@@ -401,6 +478,60 @@ impl SessionStore {
                 Ok(
                     json!({"installed_search":true,"checked_rows":count,"solver_advances":0,"rows_sha256":format!("{:x}",h.finalize()),
                     "seconds":tick.elapsed().as_secs_f64(),"profile_sha256":cap.metadata["profile_sha256"]}),
+                )
+            }
+            Some("retained-export-profile") => {
+                fields(v, &["mode", "hand_id", "handle"])?;
+                let active = self.check(v)?;
+                if active.off_tree {
+                    return Err("export requires original retained root".into());
+                }
+                let cap = active
+                    .captured
+                    .as_ref()
+                    .or(active.fallback_root.as_ref())
+                    .unwrap();
+                if cap.profile.is_empty() {
+                    return Err("root has no saved solver profile".into());
+                }
+                Ok(cap.snapshot(&self.model))
+            }
+            Some("diagnose-saved-profile") => {
+                fields(v, &["mode", "snapshot_path", "snapshot_sha256"])?;
+                let path = std::path::Path::new(
+                    v["snapshot_path"]
+                        .as_str()
+                        .ok_or("snapshot path required")?,
+                );
+                if !path.is_absolute() {
+                    return Err("absolute saved profile path required".into());
+                }
+                let mut file = File::open(path).map_err(|e| e.to_string())?;
+                let mut bytes = Vec::new();
+                std::io::Read::by_ref(&mut file)
+                    .take(16 * 1024 * 1024 + 1)
+                    .read_to_end(&mut bytes)
+                    .map_err(|e| e.to_string())?;
+                if bytes.len() > 16 * 1024 * 1024 {
+                    return Err("saved profile exceeds 16 MiB".into());
+                }
+                if digest(&bytes)
+                    != v["snapshot_sha256"]
+                        .as_str()
+                        .ok_or("snapshot SHA256 required")?
+                {
+                    return Err("saved snapshot SHA256 mismatch".into());
+                }
+                let snapshot: Value = serde_json::from_slice(&bytes).map_err(|e| e.to_string())?;
+                let cap = Captured::restore(&snapshot, &self.model, table, tables)?;
+                harms::diagnose(
+                    &cap.root,
+                    &cap.pairs,
+                    &cap.tree,
+                    &cap.profile,
+                    cap.installed,
+                    table,
+                    tables,
                 )
             }
             Some("retained-full-menu-audit") => {
