@@ -205,3 +205,50 @@ fn all_small_full_menu_leaves_match_engine_settlement_in_both_orientations() {
         }
     }
 }
+
+fn short_stack_river(stack: u64) -> (Hand, [usize; 2]) {
+    let config = Config::new(&[stack; 3], 50, 100).unwrap();
+    let mut hand = representative(config, 0, [0, 5, 10, 15, 20]).unwrap();
+    while hand.street() != Street::River {
+        let actor = hand.actor().unwrap();
+        let legal = hand.legal().unwrap();
+        let kind = if actor == 0 && hand.street() == Street::Preflop {
+            Kind::Fold
+        } else if legal.check {
+            Kind::Check
+        } else {
+            Kind::Call
+        };
+        hand.apply_mut(Action { kind, raise_to: 0 }).unwrap();
+    }
+    (hand, [1, 2])
+}
+
+#[test]
+fn counted_tree_matches_the_compiled_tree_and_stops_at_its_cap() {
+    for stack in [300, 600, 1000] {
+        let (hand, live) = short_stack_river(stack);
+        let (mut nodes, mut rows) = (0, 0);
+        assert!(count_tree(&mut hand.clone(), live, 100_000, &mut nodes, &mut rows).unwrap());
+        let mut tree = Tree {
+            nodes: Vec::new(),
+            menus: Vec::new(),
+            live,
+            stacks: live.map(|s| hand.players()[s].stack),
+            pot: hand.pot(),
+            bb: 100.,
+        };
+        tree.compile(&mut hand.clone()).unwrap();
+        assert_eq!(nodes, tree.nodes.len());
+        assert_eq!(rows, tree.menus.iter().map(Vec::len).sum::<usize>());
+        let (mut capped, mut capped_rows) = (0, 0);
+        assert!(!count_tree(
+            &mut hand.clone(),
+            live,
+            nodes - 1,
+            &mut capped,
+            &mut capped_rows
+        )
+        .unwrap());
+    }
+}

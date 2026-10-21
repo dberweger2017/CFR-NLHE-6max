@@ -78,7 +78,7 @@ fn reconstruct(v: &Value, config: Config) -> Result<PublicRoot, String> {
         v,
         &[
             "format", "button", "board", "seat", "hole", "actions", "players", "legal", "sweeps",
-            "debug",
+            "debug", "mode",
         ],
     )?;
     if v["format"] != "nplayer-live-river-v1"
@@ -449,6 +449,141 @@ impl Tree {
     }
 }
 
+/// Full production-menu tree size, counted without allocating terminals.
+/// Counting stops once `cap` nodes are reached; a stopped count is a lower bound.
+fn count_tree(
+    hand: &mut Hand,
+    live: [usize; 2],
+    cap: usize,
+    nodes: &mut usize,
+    action_rows: &mut usize,
+) -> Result<bool, String> {
+    *nodes += 1;
+    if *nodes > cap {
+        return Ok(false);
+    }
+    if hand.finished() {
+        return Ok(true);
+    }
+    let actor = hand.actor().ok_or("no actor in unfinished hand")?;
+    if !live.contains(&actor) {
+        return Err("unexpected live actor".into());
+    }
+    let menu = multi_holdem::menu(&hand.observe(actor)?);
+    *action_rows += menu.len();
+    for (_, action) in &menu {
+        let saved = hand.save();
+        hand.apply_mut(*action)?;
+        let complete = count_tree(hand, live, cap, nodes, action_rows);
+        hand.restore(saved);
+        if !complete? {
+            return Ok(false);
+        }
+    }
+    Ok(true)
+}
+
+pub const CLASSIFY_NODE_CAP: usize = 100_000;
+// The existing solver's support limits (`Tree::compile` and `Game::new`).
+const SUPPORTED_NODES: usize = 4096;
+const SUPPORTED_CELLS: usize = 2_000_000;
+
+/// Support and belief diagnostics for one legal root, without solving.
+/// Every rejection reason that applies is reported, not only the first.
+fn classify(
+    root: &PublicRoot,
+    pairs: &[[u8; 2]],
+    table: &PolicyTable,
+    tables: &EquityTables,
+) -> Result<Value, String> {
+    let tick = Instant::now();
+    let mut rejections = Vec::new();
+    let beliefs = likelihoods(root, pairs, |obs| blueprint_row(obs, table, tables));
+    let likelihood_seconds = tick.elapsed().as_secs_f64();
+    let (mut law, mut coverage, mut own_reach) = (Value::Null, Value::Null, Value::Null);
+    match beliefs {
+        // Corrupt model rows stay fatal, exactly as in a solve request.
+        Err(error)
+            if error.contains("invalid blueprint") || error.contains("blueprint key/menu") =>
+        {
+            return Err(error)
+        }
+        Err(error) => rejections.push(json!({"reason":"likelihood","detail":error})),
+        Ok((likelihood, counts)) => {
+            coverage = json!(counts.map(|c| c.json()));
+            match project(pairs, &likelihood, root.live) {
+                Err(error) => rejections.push(json!({"reason":"projection","detail":error})),
+                Ok((ranges, projected)) => {
+                    law = projected;
+                    let hero = root.live.iter().position(|&s| s == root.seat).unwrap();
+                    let holding = pairs
+                        .iter()
+                        .position(|h| *h == root.hole)
+                        .ok_or("own hand outside range")?;
+                    let weight = ranges[hero][holding].weight;
+                    let largest = ranges[hero].iter().map(|h| h.weight).fold(0., f64::max);
+                    own_reach = json!(weight / largest);
+                    if weight == 0. {
+                        rejections.push(json!({"reason":"own-zero-reach"}));
+                    }
+                }
+            }
+        }
+    }
+    let tick = Instant::now();
+    let (mut nodes, mut action_rows) = (0, 0);
+    let complete = count_tree(
+        &mut root.hand.clone(),
+        root.live,
+        CLASSIFY_NODE_CAP,
+        &mut nodes,
+        &mut action_rows,
+    )?;
+    let count_seconds = tick.elapsed().as_secs_f64();
+    let cells = action_rows * pairs.len();
+    if !complete || nodes > SUPPORTED_NODES {
+        rejections.push(json!({"reason":"tree-nodes"}));
+    }
+    if !complete || cells > SUPPORTED_CELLS {
+        rejections.push(json!({"reason":"strategy-cells"}));
+    }
+    Ok(
+        json!({"format":"nplayer-live-river-classification-v1","live":root.live,"seat":root.seat,
+        "pot":root.hand.pot(),"stacks":root.live.map(|s| root.hand.players()[s].stack),
+        "full_menu":{"nodes":if complete {json!(nodes)} else {Value::Null},"count_complete":complete,
+            "count_cap":CLASSIFY_NODE_CAP,"action_rows":if complete {json!(action_rows)} else {Value::Null},
+            "strategy_cells":if complete {json!(cells)} else {Value::Null}},
+        "supported_limits":{"nodes":SUPPORTED_NODES,"strategy_cells":SUPPORTED_CELLS},
+        "supported":rejections.is_empty(),"rejections":rejections,"law":law,"coverage":coverage,
+        "own_reach_relative_to_max":own_reach,
+        "timings":{"likelihood_and_projection_seconds":likelihood_seconds,"tree_count_seconds":count_seconds}}),
+    )
+}
+
+fn blueprint_row(
+    obs: &Observation<'_>,
+    table: &PolicyTable,
+    tables: &EquityTables,
+) -> Result<(Vec<f64>, u8), String> {
+    let d = multi_holdem::observation_decision(obs, tables);
+    match table.rows.get(&d.key) {
+        Some(r) => {
+            if (r.owner as usize, r.street as usize, r.code) != (d.owner, d.street, d.code) {
+                return Err("blueprint key/menu identity mismatch".into());
+            }
+            Ok((
+                r.probabilities.to_vec(),
+                match r.original_average_mass {
+                    Some(true) => 1,
+                    Some(false) => 2,
+                    None => 3,
+                },
+            ))
+        }
+        None => Ok((vec![1. / d.len() as f64; d.len()], 0)),
+    }
+}
+
 /// Receives exactly one legal observation request. Table/tables are loaded once
 /// by the worker. No root/profile cache is shared across different histories.
 pub fn request(v: &Value, table: &PolicyTable, tables: &EquityTables) -> Result<Value, String> {
@@ -458,6 +593,22 @@ pub fn request(v: &Value, table: &PolicyTable, tables: &EquityTables) -> Result<
         return Err("full-street average blueprint required".into());
     }
     let reconstruction = started.elapsed().as_secs_f64();
+    let cards: Vec<_> = (0..52).filter(|c| !root.board.contains(c)).collect();
+    let pairs: Vec<_> = (0..cards.len())
+        .flat_map(|i| (i + 1..cards.len()).map(move |j| (i, j)))
+        .map(|(i, j)| [cards[i], cards[j]])
+        .collect();
+    match v.get("mode").map(|m| m.as_str()) {
+        None | Some(Some("solve")) => (),
+        Some(Some("classify")) => {
+            let mut out = classify(&root, &pairs, table, tables)?;
+            out["timings"]["reconstruction_seconds"] = json!(reconstruction);
+            out["timings"]["native_before_serialization_seconds"] =
+                json!(started.elapsed().as_secs_f64());
+            return Ok(out);
+        }
+        _ => return Err("mode must be solve or classify".into()),
+    }
     let sweeps = uint(&v["sweeps"])?;
     if !(1..=1024).contains(&sweeps) {
         return Err("pilot supports fixed 1..1024 sweeps".into());
@@ -466,31 +617,9 @@ pub fn request(v: &Value, table: &PolicyTable, tables: &EquityTables) -> Result<
         Some(x) => x.as_bool().ok_or("debug must be boolean")?,
         None => false,
     };
-    let cards: Vec<_> = (0..52).filter(|c| !root.board.contains(c)).collect();
-    let pairs: Vec<_> = (0..cards.len())
-        .flat_map(|i| (i + 1..cards.len()).map(move |j| (i, j)))
-        .map(|(i, j)| [cards[i], cards[j]])
-        .collect();
     let tick = Instant::now();
-    let (likelihood, coverage) = likelihoods(&root, &pairs, |obs| {
-        let d = multi_holdem::observation_decision(obs, tables);
-        match table.rows.get(&d.key) {
-            Some(r) => {
-                if (r.owner as usize, r.street as usize, r.code) != (d.owner, d.street, d.code) {
-                    return Err("blueprint key/menu identity mismatch".into());
-                }
-                Ok((
-                    r.probabilities.to_vec(),
-                    match r.original_average_mass {
-                        Some(true) => 1,
-                        Some(false) => 2,
-                        None => 3,
-                    },
-                ))
-            }
-            None => Ok((vec![1. / d.len() as f64; d.len()], 0)),
-        }
-    })?;
+    let (likelihood, coverage) =
+        likelihoods(&root, &pairs, |obs| blueprint_row(obs, table, tables))?;
     let likelihood_seconds = tick.elapsed().as_secs_f64();
     let tick = Instant::now();
     let (ranges, law) = project(&pairs, &likelihood, root.live)?;
