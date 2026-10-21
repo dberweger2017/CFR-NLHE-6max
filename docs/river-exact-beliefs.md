@@ -1,6 +1,8 @@
 # Efficient exact modeled river beliefs and deployment-profile audits
 
-Owner-authorized October21,2026, following PR380. This is a bounded engineering
+Owner-authorized October21,2026, following PR380.
+[Proposal381](https://github.com/dberweger2017/CFR-NLHE-6max/issues/381) ·
+[PR382](https://github.com/dberweger2017/CFR-NLHE-6max/pull/382). This is a bounded engineering
 round with two linked deliverables, not a strength study. Estimated completion
 6–10hours, including roughly1–2hours of bb128 measurements; first correctness
 and speed checkpoint after2–3engineering hours. Calibration precedes the fixed

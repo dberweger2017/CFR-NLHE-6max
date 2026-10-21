@@ -67,7 +67,7 @@ fn fixture(reverse: bool, holding: usize, installed: bool) -> (SessionStore, Arc
             vec![[30, 31], [32, 33]],
             profile,
             original,
-            &json!({"checkpoints":[{"target_met":installed}],"algorithm":"fixture"}),
+            &json!({"checkpoints":[{"target_met":installed}],"algorithm":"fixture","law":{"law":LAW}}),
         )
         .unwrap(),
     );
@@ -343,4 +343,104 @@ fn begin_nonconvergence_and_zero_reach_fallback_keep_real_blueprint_semantics() 
     );
     assert!(out["session"]["binding"]["profile_sha256"].is_null());
     assert_eq!(out["lookup_tag"], 0);
+}
+
+#[test]
+fn offline_full_menu_audit_keeps_the_captured_profile_and_fallback_policy_separate() {
+    let table = table();
+    let tables = fixture_tables();
+    // A nonconverged root must audit the actual blueprint fallback, while
+    // preserving the produced unconverged strategy as a separate diagnostic.
+    let mut store = SessionStore::new(&"a".repeat(64)).unwrap();
+    // Expand the fixture's likelihood support to all legal holdings to match
+    // the live loader; the two-holding synthetic session is not a real solve.
+    let r = super::super::tests::root();
+    let obs = original(&r);
+    let mut observation = obs.clone();
+    observation["mode"] = json!("solve");
+    observation["sweeps"] = json!(1);
+    observation["algorithm"] = json!("dcfr-1.5-0-2");
+    observation["stop_at_target"] = json!(true);
+    observation["target"] = json!({"pot_fraction":1e-12,"cap_bb":1e-12});
+    observation["search_menu"] = json!("pot-jam-cap3-root-check-min-v1");
+    store.active = None;
+    let begin = store
+        .request(
+            &json!({"mode":"retained-begin","hand_id":"audit-fixture","observation":observation}),
+            &table,
+            &tables,
+        )
+        .unwrap();
+    let ctx = &begin["session"];
+    let digest = ctx["binding"]["profile_sha256"].clone();
+    let audit=store.request(&json!({"mode":"retained-full-menu-audit","hand_id":"audit-fixture","handle":ctx["handle"]}),&table,&tables).unwrap();
+    assert_eq!(audit["profile_sha256"], digest);
+    assert_eq!(audit["solver_advances"], 0);
+    assert_eq!(audit["profile_unchanged"], true);
+    assert_eq!(audit["installed_search"], false);
+    for law in ["projected", "exact_modeled"] {
+        assert_eq!(
+            audit["laws"][law]["actual_deployed_policy"]["quality"],
+            audit["laws"][law]["blueprint_quality"]
+        );
+        assert_eq!(
+            audit["laws"][law]["actual_deployed_policy"]["hero_worst_case_change_bb"],
+            0.
+        );
+    }
+    assert!(
+        audit["capped_exact_oracle"]["max_error_bb"]
+            .as_f64()
+            .unwrap()
+            < 1e-8
+    );
+    assert_eq!(
+        store
+            .active
+            .as_ref()
+            .unwrap()
+            .fallback_root
+            .as_ref()
+            .unwrap()
+            .metadata["profile_sha256"],
+        digest
+    );
+}
+
+#[test]
+fn exact_backend_installs_its_own_law_and_retains_original_rows_without_resolving() {
+    let table = table();
+    let tables = fixture_tables();
+    let root = super::super::tests::root();
+    let mut observation = original(&root);
+    observation["mode"] = json!("solve");
+    observation["belief_backend"] = json!("exact-folded-prefix-v1");
+    observation["algorithm"] = json!("dcfr-1.5-0-2");
+    observation["sweeps"] = json!(1);
+    observation["stop_at_target"] = json!(true);
+    // Deliberately loose fixture target installs a known one-sweep profile.
+    observation["target"] = json!({"pot_fraction":1000.,"cap_bb":1000.});
+    observation["search_menu"] = json!("pot-jam-cap3-root-check-min-v1");
+    let mut store = SessionStore::new(&"a".repeat(64)).unwrap();
+    let begin = store
+        .request(
+            &json!({"mode":"retained-begin","hand_id":"exact-fixture","observation":observation}),
+            &table,
+            &tables,
+        )
+        .unwrap();
+    let ctx = &begin["session"];
+    assert_eq!(ctx["installed_search"], true);
+    assert_eq!(ctx["binding"]["belief_law"], exact::EXACT_LAW);
+    assert_eq!(begin["law"]["projection_applied"], false);
+    let audit = store
+        .request(
+            &json!({"mode":"retained-audit","hand_id":"exact-fixture","handle":ctx["handle"]}),
+            &table,
+            &tables,
+        )
+        .unwrap();
+    assert_eq!(audit["solver_advances"], 0);
+    assert!(audit["checked_rows"].as_u64().unwrap() > 1);
+    assert_eq!(audit["profile_sha256"], ctx["binding"]["profile_sha256"]);
 }
