@@ -26,6 +26,16 @@ def observation_request(view: Observation, sweeps: int, *, debug=False):
         raise ValueError('acting first-river three-seat observation required')
     if type(sweeps) is not int or not 1 <= sweeps <= 1024 or type(debug) is not bool:
         raise ValueError('fixed pilot sweeps/debug required')
+    return {**public_observation(view), 'sweeps': sweeps, 'debug': debug}
+
+
+def public_observation(view: Observation):
+    """Public betting state and the acting owner's cards, including later rivers."""
+    if not isinstance(view, Observation):
+        raise TypeError('legal immutable Observation required')
+    if (view.street != Street.RIVER or view.actor != view.seat or len(view.players) != 3
+            or len(view.board) != 5 or len(view.hole_cards) != 2):
+        raise ValueError('acting three-seat river observation required')
     bounds = view.legal_actions
     return dict(format='nplayer-live-river-v1', button=view.button,
                 board=[card_id(c) for c in view.board], seat=view.seat,
@@ -36,8 +46,7 @@ def observation_request(view: Observation, sweeps: int, *, debug=False):
                 players=[[p.stack, p.street_bet, p.contributed, p.folded] for p in view.players],
                 legal=dict(check=ActionKind.CHECK in bounds.kinds, call_amount=bounds.call_amount,
                            raise_to=[bounds.min_raise_to, bounds.max_raise_to]
-                           if ActionKind.RAISE in bounds.kinds else None),
-                sweeps=sweeps, debug=debug)
+                           if ActionKind.RAISE in bounds.kinds else None))
 
 
 class LiveRiver:

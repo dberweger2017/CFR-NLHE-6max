@@ -130,6 +130,9 @@ model once. One exact-joint worker may use the existing 16-thread leaf path.
 No speculative concurrency speedup is assumed. Alternate menu order by case;
 do not flush global caches. Compare all deterministic numeric outputs, strategy
 digests and status/reason fields; timing samples are excluded from identity.
+Opaque, random per-process session handles are also excluded: they invalidate
+stale state after restart and never enter solving. Public IDs, root/profile
+digests, all probability rows, quality results and status reasons must reproduce.
 
 ## Gates and interpretation
 

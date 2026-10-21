@@ -97,6 +97,7 @@ fn reconstruct(v: &Value, config: Config) -> Result<PublicRoot, String> {
             "target",
             "search_menu",
             "omitted",
+            "matched_accuracy",
         ],
     )?;
     if v["format"] != "nplayer-live-river-v1"
@@ -1050,6 +1051,7 @@ fn belief_control(
     checkpoints: &[u64],
     reference_checkpoints: &[u64],
     tolerance: f64,
+    matched_accuracy: bool,
 ) -> Result<Value, String> {
     let (ranges, law, joint) = project_with_joint(pairs, likelihood, root.live, true)?;
     let hero = root.live.iter().position(|&s| s == root.seat).unwrap();
@@ -1063,7 +1065,14 @@ fn belief_control(
     let mut tree = Tree::new(&root.hand, root.live, menu, SUPPORTED_NODES);
     tree.compile(&mut root.hand.clone())?;
     let pot = root.hand.pot() as f64 / 100.;
-    let target = (0.01 * pot).min(0.1);
+    // Keep the historical control unchanged unless matched accuracy is
+    // explicitly requested. The comparison then uses the reference tolerance
+    // for both solves, not the looser deployment threshold.
+    let target = if matched_accuracy {
+        tolerance
+    } else {
+        (0.01 * pot).min(0.1)
+    };
     let projected = Game::new(root.board, ranges.clone(), tree.nodes.clone(), pot)?;
     let (_, deployed) = run_dcfr(projected, checkpoints, target)?;
     let exact = Game::new(root.board, ranges, tree.nodes, pot)?.with_joint(joint.unwrap())?;
@@ -1074,21 +1083,40 @@ fn belief_control(
         .zip(gains(&reference.quality))
         .map(|(d, r)| d - r)
         .collect();
+    let solver_residual = gains(&deployed.quality);
+    let reference_residual = gains(&reference.quality);
+    let law_shift: Vec<_> = gains(&in_exact)
+        .iter()
+        .zip(&solver_residual)
+        .map(|(a, b)| a - b)
+        .collect();
     Ok(
         json!({"format":"nplayer-live-river-belief-control-v1","search_menu":menu.name(),"law":law,
+        "matched_accuracy":matched_accuracy,
         "pot_bb":pot,"target_bb":target,"nodes":tree.menus.len(),
         "deployed":{"sweeps":deployed.sweeps,"seconds":deployed.seconds,"target_met":deployed.met,
             "projected_game_quality":deployed.quality,"exact_game_quality":in_exact},
         "reference":{"sweeps":reference.sweeps,"seconds":reference.seconds,"qualified":reference.met,
             "tolerance_bb":tolerance,"exact_game_quality":reference.quality},
         "excess_gain_bb":excess,"belief_tolerance_bb":0.05,
-        "passes":reference.met && excess.iter().all(|x| *x <= 0.05)}),
+        "decomposition":{"solver_residual_bb":solver_residual,"same_profile_law_shift_bb":law_shift,
+            "reference_residual_bb":reference_residual,"identity":"E = D + S - R"},
+        "qualified":reference.met && (!matched_accuracy || deployed.met),
+        "passes":reference.met && (!matched_accuracy || deployed.met) && excess.iter().all(|x| *x <= 0.05)}),
     )
 }
 
 /// Receives exactly one legal observation request. Table/tables are loaded once
 /// by the worker. No root/profile cache is shared across different histories.
 pub fn request(v: &Value, table: &PolicyTable, tables: &EquityTables) -> Result<Value, String> {
+    request_impl(v, table, tables, None)
+}
+fn request_impl(
+    v: &Value,
+    table: &PolicyTable,
+    tables: &EquityTables,
+    capture: Option<&mut Option<retained::Captured>>,
+) -> Result<Value, String> {
     let started = Instant::now();
     let root = reconstruct(v, table.config())?;
     if table.mode != crate::multi_policy::Mode::Average || table.scope != 3 {
@@ -1117,6 +1145,10 @@ pub fn request(v: &Value, table: &PolicyTable, tables: &EquityTables) -> Result<
                 .as_f64()
                 .filter(|x| x.is_finite() && *x > 0.)
                 .ok_or("reference_tolerance_bb must be positive")?;
+            let matched_accuracy = match v.get("matched_accuracy") {
+                None => false,
+                Some(x) => x.as_bool().ok_or("matched_accuracy must be boolean")?,
+            };
             let (likelihood, _) =
                 likelihoods(&root, &pairs, |obs| blueprint_row(obs, table, tables))?;
             let mut out = belief_control(
@@ -1127,6 +1159,7 @@ pub fn request(v: &Value, table: &PolicyTable, tables: &EquityTables) -> Result<
                 &checkpoints,
                 &reference,
                 tolerance,
+                matched_accuracy,
             )?;
             out["timings"] =
                 json!({"native_before_serialization_seconds":started.elapsed().as_secs_f64()});
@@ -1279,8 +1312,22 @@ pub fn request(v: &Value, table: &PolicyTable, tables: &EquityTables) -> Result<
         out["prepared_game"] = json!({"board":root.board,"root_pot_bb":root.hand.pot() as f64/100.,"ranges":std::array::from_fn::<_,2,_>(|s|solver.game.hands[s].iter().map(|h|json!([h.cards[0],h.cards[1],h.weight])).collect::<Vec<_>>()),"nodes":solver.game.nodes.iter().map(|n|match n{Node::Leaf(t)=>json!({"terminal":[t.base,t.win0,t.tie0]}),Node::Decision{actor,children}=>json!({"actor":actor,"children":children})}).collect::<Vec<_>>()});
     }
     out["timings"]["native_before_serialization_seconds"] = json!(started.elapsed().as_secs_f64());
+    if let Some(slot) = capture {
+        tree.nodes = solver.game.nodes.clone();
+        *slot = Some(retained::Captured::new(
+            root,
+            tree,
+            pairs,
+            average,
+            v.clone(),
+            &out,
+        )?);
+    }
     Ok(out)
 }
+
+mod retained;
+pub use retained::SessionStore;
 
 #[cfg(test)]
 mod tests;
