@@ -812,9 +812,9 @@ fn sweep_list(v: Option<&Value>) -> Result<Vec<u64>, String> {
     if list.is_empty()
         || list[0] == 0
         || list.windows(2).any(|w| w[0] >= w[1])
-        || *list.last().unwrap() > 4096
+        || *list.last().unwrap() > 8192
     {
-        return Err("checkpoints must increase within 1..4096".into());
+        return Err("checkpoints must increase within 1..8192".into());
     }
     Ok(list)
 }
