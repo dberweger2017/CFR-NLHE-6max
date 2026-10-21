@@ -1,3 +1,23 @@
+## PR386 — retaining the opponent's minimum raise after a root bet: retained
+
+[PR386](https://github.com/dberweger2017/CFR-NLHE-6max/pull/386). It compares `pot-jam-cap3-root-check-min-v1` with `pot-jam-cap3-root-min-responses-v1`, a single added response, on PR380's frozen 200-root development panel.
+- **Shared settings:** the frozen v0.6 seed 2026101935003 10B, DCFR, the raise cap and the blueprint fallback.
+- **Phases:** projected and exact beliefs at the deployment target, projected beliefs at the strict target, and a response diagnosis.
+- **Verification:** every phase was reproduced exactly; source `daf39a62`.
+
+Frozen-rule verdict on projected deployment profiles, measured under the exact full-menu law:
+- **Harms:** decisions worse than the blueprint fall from **23 to 10**.
+- **Median paired worst-case change:** **+0.128 BB** (164 better / 34 worse).
+- **Latency:** median 0.474 s and p95 1.751 s, within the gates.
+
+The other views:
+- **Strict (199 matched pairs):** harms 28 → 13, median +0.127 BB.
+- **Exact beliefs:** they change neither harm count and cost about 10× the latency.
+- **Diagnosis:** the minimum-raise exposure is gone, and the remaining exposure moves one level deeper, to the opponent's minimum re-raises. Case 21, at −7.7 BB, shows the mechanism.
+
+[Report](docs/reports/river-root-min-responses/results.md) · [per-case table](docs/reports/river-root-min-responses/cases.csv) · [summary](docs/reports/river-root-min-responses/summary.json) · [protocol](docs/river-root-min-responses.md).
+**Archive:** `bb128:/research/PR-386-river-root-min-responses/`. It holds all records, logs, calibration, quote, temperatures and a source bundle; the rebuildable `source/` and `target/` are not included. ZIP `PR-386-river-root-min-responses.zip` is 270,136,649 bytes (68 files), SHA256 `3e76500fc9762c6ecc549f72fc0a8a5f8984c86ce8b3f2dcb5bf4c1d7f86d2f8`, uploaded to Drive with a receipt.
+
 ## PR384 — saved-profile river harm diagnosis verified
 
 [PR384](https://github.com/dberweger2017/CFR-NLHE-6max/pull/384), proposal383. Measured runtime `895f853f407f6f618fce396f1a5c36c17f778941`; later rebase onto mergedPR382 has a byte-identical tree. Frozen v0.6 seed2026101935003; eight selected prior development cases0/53/69/75/79/113/137/195, not fresh confirmation. All24 original profile digests, root/work/quality/statuses reconstruct exactly. Two saved-snapshot exact-law audit passes reproduce all strategic quantities and profile hashes with zero advances; all four stages return0.

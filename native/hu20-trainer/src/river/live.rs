@@ -420,6 +420,9 @@ pub enum SearchMenu {
     Full,
     Capped(usize),
     RootCheckMinOpen,
+    // RootCheckMinOpen plus the opponent's minimum raise as the first
+    // response to a root bet.
+    RootMinResponses,
 }
 impl SearchMenu {
     fn parse(v: Option<&Value>) -> Result<Self, String> {
@@ -428,6 +431,7 @@ impl SearchMenu {
             Some(Some("pot-jam-cap2-v1")) => Ok(Self::Capped(2)),
             Some(Some("pot-jam-cap3-v1")) => Ok(Self::Capped(3)),
             Some(Some("pot-jam-cap3-root-check-min-v1")) => Ok(Self::RootCheckMinOpen),
+            Some(Some("pot-jam-cap3-root-min-responses-v1")) => Ok(Self::RootMinResponses),
             _ => Err("unknown declared search_menu".into()),
         }
     }
@@ -436,6 +440,7 @@ impl SearchMenu {
             Self::Full => "full".into(),
             Self::Capped(cap) => format!("pot-jam-cap{cap}-v1"),
             Self::RootCheckMinOpen => "pot-jam-cap3-root-check-min-v1".into(),
+            Self::RootMinResponses => "pot-jam-cap3-root-min-responses-v1".into(),
         }
     }
     fn actions(self, hand: &Hand, root: bool) -> Result<Vec<Action>, String> {
@@ -444,7 +449,7 @@ impl SearchMenu {
         let full = multi_holdem::menu(&observation);
         let cap = match self {
             Self::Capped(cap) if !root => cap,
-            Self::RootCheckMinOpen if !root => 3,
+            Self::RootCheckMinOpen | Self::RootMinResponses if !root => 3,
             _ => return Ok(full.into_iter().map(|(_, a)| a).collect()),
         };
         // This arm adds exactly the first opponent's minimum opening bet after
@@ -457,9 +462,15 @@ impl SearchMenu {
             } => Some(action),
             _ => None,
         });
-        let minimum_open = self == Self::RootCheckMinOpen
-            && river.next().is_some_and(|a| a.kind == Kind::Check)
-            && river.next().is_none();
+        // The first river action is the root's; a minimum is added only at the
+        // single decision right after it.
+        let first = river.next().map(|a| a.kind);
+        let first_response = river.next().is_none();
+        let minimum_open = matches!(self, Self::RootCheckMinOpen | Self::RootMinResponses)
+            && first == Some(Kind::Check)
+            && first_response;
+        let minimum_raise =
+            self == Self::RootMinResponses && first == Some(Kind::Raise) && first_response;
         let raises = hand
             .history()
             .iter()
@@ -480,7 +491,7 @@ impl SearchMenu {
                     || (raises < cap
                         && legal.raise_to.is_some_and(|(low, high)| {
                             *label == 5
-                                || (minimum_open && *label == 3)
+                                || ((minimum_open || minimum_raise) && *label == 3)
                                 || a.raise_to == (matched + after_call).clamp(low, high)
                         }))
             })
