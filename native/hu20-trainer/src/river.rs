@@ -3,6 +3,7 @@
 //! The chance law is w0(h0) w1(h1) / Z on disjoint holdings. Sorted rank
 //! prefixes and per-card sums replace dense holding-by-holding leaf products.
 use hu20_buckets::evaluate;
+use rayon::prelude::*;
 use serde_json::{json, Value};
 use std::{collections::HashSet, time::Instant};
 
@@ -35,6 +36,9 @@ pub struct Game {
     sorted: [Vec<usize>; 2],
     same: [Vec<Option<usize>>; 2],
     z: f64,
+    // Optional exact pairwise chance law (seat 0 row-major, and its transpose),
+    // replacing the product of range weights. Used for belief controls only.
+    joint: Option<(Vec<f64>, Vec<f64>)>,
     nodes: Vec<Node>,
     root_pot_bb: f64,
     scalar_control: bool,
@@ -191,7 +195,37 @@ impl Game {
             nodes,
             root_pot_bb,
             scalar_control: false,
+            joint: None,
         })
+    }
+
+    /// Replaces the product law w0(h0) w1(h1) / Z with an explicit joint law
+    /// over (seat 0, seat 1) holdings. Blocked pairs must have zero mass.
+    pub fn with_joint(mut self, mut joint: Vec<f64>) -> Result<Self, String> {
+        let (n0, n1) = (self.hands[0].len(), self.hands[1].len());
+        if joint.len() != n0 * n1 || joint.iter().any(|x| !x.is_finite() || *x < 0.) {
+            return Err("joint law shape or values invalid".into());
+        }
+        for (i, a) in self.hands[0].iter().enumerate() {
+            for (j, b) in self.hands[1].iter().enumerate() {
+                if a.mask & b.mask != 0 && joint[i * n1 + j] != 0. {
+                    return Err("joint law puts mass on blocked holdings".into());
+                }
+            }
+        }
+        let total: f64 = joint.iter().sum();
+        if total <= 0. {
+            return Err("joint law has no mass".into());
+        }
+        joint.iter_mut().for_each(|x| *x /= total);
+        let mut transposed = vec![0.; n0 * n1];
+        for i in 0..n0 {
+            for j in 0..n1 {
+                transposed[j * n0 + i] = joint[i * n1 + j];
+            }
+        }
+        self.joint = Some((joint, transposed));
+        Ok(self)
     }
 
     pub fn node_count(&self) -> usize {
@@ -206,6 +240,28 @@ impl Game {
 
     fn leaf_into(&self, t: Terminal, seat: usize, reach: &[f64], out: &mut [f64]) {
         let other = 1 - seat;
+        if let Some((joint, transposed)) = &self.joint {
+            // Exact joint law: dense pairwise sums, parallel over own holdings.
+            let law = if seat == 0 { joint } else { transposed };
+            let n = self.hands[other].len();
+            out.par_iter_mut().enumerate().for_each(|(i, value)| {
+                let h = &self.hands[seat][i];
+                let row = &law[i * n..(i + 1) * n];
+                let mut sum = 0.;
+                for (j, o) in self.hands[other].iter().enumerate() {
+                    if row[j] == 0. {
+                        continue;
+                    }
+                    let (a, b) = if seat == 0 { (h, o) } else { (o, h) };
+                    let u = t.base
+                        + t.win0 * (if a.rank > b.rank { 1. } else { 0. })
+                        + t.tie0 * (if a.rank == b.rank { 1. } else { 0. });
+                    sum += row[j] * reach[j] * u;
+                }
+                *value = if seat == 0 { sum } else { -sum };
+            });
+            return;
+        }
         // Inclusion-exclusion loses relative accuracy when almost all chance
         // mass is blocked. Preserve values with an explicit allocation-free
         // scalar fallback; report this mode rather than claim linear cost.

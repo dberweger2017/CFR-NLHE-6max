@@ -92,6 +92,8 @@ fn reconstruct(v: &Value, config: Config) -> Result<PublicRoot, String> {
             "checkpoints",
             "stop_at_target",
             "profile",
+            "reference_checkpoints",
+            "reference_tolerance_bb",
             "search_menu",
             "omitted",
         ],
@@ -329,6 +331,17 @@ fn project(
     weights: &[Vec<f64>; 3],
     live: [usize; 2],
 ) -> Result<([Vec<Holding>; 2], Value), String> {
+    project_with_joint(pairs, weights, live, false).map(|(r, v, _)| (r, v))
+}
+
+/// As `project`; with `keep_joint`, also returns the original active joint law
+/// (row-major over `pairs` x `pairs`) that the product projection replaces.
+fn project_with_joint(
+    pairs: &[[u8; 2]],
+    weights: &[Vec<f64>; 3],
+    live: [usize; 2],
+    keep_joint: bool,
+) -> Result<([Vec<Holding>; 2], Value, Option<Vec<f64>>), String> {
     let folded = (0..3).find(|s| !live.contains(s)).unwrap();
     let removal = FoldRemoval::new(pairs, &weights[folded]);
     let mut marginal: [Vec<f64>; 2] = std::array::from_fn(|_| vec![0.; pairs.len()]);
@@ -364,12 +377,17 @@ fn project(
         return Err("empty projected range law".into());
     }
     let mut tv = 0.;
+    let n = pairs.len();
+    let mut joint = keep_joint.then(|| vec![0.; n * n]);
     for (i, &a) in pairs.iter().enumerate() {
         for (j, &b) in pairs.iter().enumerate() {
             if disjoint(a, b) {
                 let p = weights[live[0]][i] * weights[live[1]][j] * removal.compatible(a, b) / z;
                 let q = marginal[0][i] * marginal[1][j] / projected_z;
                 tv += (p - q).abs() / 2.;
+                if let Some(joint) = &mut joint {
+                    joint[i * n + j] = p;
+                }
             }
         }
     }
@@ -383,6 +401,7 @@ fn project(
     Ok((
         ranges,
         json!({"law":LAW,"three_seat_compatible_mass":z,"projection_total_variation":tv,"folded_seat":folded,"exact_posterior":false}),
+        joint,
     ))
 }
 
@@ -785,6 +804,120 @@ fn deployed_quality(
     )
 }
 
+fn sweep_list(v: Option<&Value>) -> Result<Vec<u64>, String> {
+    let list: Vec<u64> = array(v.ok_or("checkpoint list required")?)?
+        .iter()
+        .map(uint)
+        .collect::<Result<_, _>>()?;
+    if list.is_empty()
+        || list[0] == 0
+        || list.windows(2).any(|w| w[0] >= w[1])
+        || *list.last().unwrap() > 4096
+    {
+        return Err("checkpoints must increase within 1..4096".into());
+    }
+    Ok(list)
+}
+
+fn gains(quality: &Value) -> Vec<f64> {
+    quality["best_response_gains_bb"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|g| g.as_f64().unwrap())
+        .collect()
+}
+
+struct Run {
+    average: Vec<Vec<f64>>,
+    quality: Value,
+    sweeps: u64,
+    seconds: f64,
+    met: bool,
+}
+
+/// DCFR with quality checks at each checkpoint, stopping once both players'
+/// gains are within `tolerance` or the checkpoints run out.
+fn run_dcfr(game: Game, checkpoints: &[u64], tolerance: f64) -> Result<(Solver, Run), String> {
+    let n = game.node_count();
+    let mut solver = Solver::new(game, vec![None; n])?;
+    solver.set_algorithm(DCFR)?;
+    let tick = Instant::now();
+    let mut done = 0;
+    let mut last = None;
+    for &checkpoint in checkpoints {
+        solver.advance(checkpoint - done)?;
+        done = checkpoint;
+        let average = solver.average();
+        let quality = solver.quality(&average)?;
+        let met = gains(&quality).iter().all(|g| *g <= tolerance);
+        last = Some((average, quality, met));
+        if met {
+            break;
+        }
+    }
+    let (average, quality, met) = last.unwrap();
+    let seconds = tick.elapsed().as_secs_f64();
+    Ok((
+        solver,
+        Run {
+            average,
+            quality,
+            sweeps: done,
+            seconds,
+            met,
+        },
+    ))
+}
+
+/// Belief control on one root: the deployed solve under the projected product
+/// law, a DCFR reference under the original active joint law it replaces, and
+/// the deployed strategy's best-response gains in the joint game. The
+/// reference qualifies only if both its gains reach `tolerance` within budget.
+fn belief_control(
+    root: &PublicRoot,
+    pairs: &[[u8; 2]],
+    likelihood: &[Vec<f64>; 3],
+    menu: SearchMenu,
+    checkpoints: &[u64],
+    reference_checkpoints: &[u64],
+    tolerance: f64,
+) -> Result<Value, String> {
+    let (ranges, law, joint) = project_with_joint(pairs, likelihood, root.live, true)?;
+    let hero = root.live.iter().position(|&s| s == root.seat).unwrap();
+    let holding = pairs
+        .iter()
+        .position(|h| *h == root.hole)
+        .ok_or("own hand outside range")?;
+    if ranges[hero][holding].weight == 0. {
+        return Err("own holding has zero modeled root reach".into());
+    }
+    let mut tree = Tree::new(&root.hand, root.live, menu, SUPPORTED_NODES);
+    tree.compile(&mut root.hand.clone())?;
+    let pot = root.hand.pot() as f64 / 100.;
+    let target = (0.01 * pot).min(0.1);
+    let projected = Game::new(root.board, ranges.clone(), tree.nodes.clone(), pot)?;
+    let (_, deployed) = run_dcfr(projected, checkpoints, target)?;
+    let exact = Game::new(root.board, ranges, tree.nodes, pot)?.with_joint(joint.unwrap())?;
+    let (mut reference_solver, reference) = run_dcfr(exact, reference_checkpoints, tolerance)?;
+    let in_exact = reference_solver.quality(&deployed.average)?;
+    let excess: Vec<f64> = gains(&in_exact)
+        .iter()
+        .zip(gains(&reference.quality))
+        .map(|(d, r)| d - r)
+        .collect();
+    Ok(
+        json!({"format":"nplayer-live-river-belief-control-v1","search_menu":menu.name(),"law":law,
+        "pot_bb":pot,"target_bb":target,"nodes":tree.menus.len(),
+        "deployed":{"sweeps":deployed.sweeps,"seconds":deployed.seconds,"target_met":deployed.met,
+            "projected_game_quality":deployed.quality,"exact_game_quality":in_exact},
+        "reference":{"sweeps":reference.sweeps,"seconds":reference.seconds,"qualified":reference.met,
+            "tolerance_bb":tolerance,"exact_game_quality":reference.quality},
+        "excess_gain_bb":excess,"belief_tolerance_bb":0.05,
+        "passes":reference.met && excess.iter().all(|x| *x <= 0.05)}),
+    )
+}
+
 /// Receives exactly one legal observation request. Table/tables are loaded once
 /// by the worker. No root/profile cache is shared across different histories.
 pub fn request(v: &Value, table: &PolicyTable, tables: &EquityTables) -> Result<Value, String> {
@@ -809,7 +942,29 @@ pub fn request(v: &Value, table: &PolicyTable, tables: &EquityTables) -> Result<
                 json!(started.elapsed().as_secs_f64());
             return Ok(out);
         }
-        _ => return Err("mode must be solve or classify".into()),
+        Some(Some("belief-control")) => {
+            let checkpoints = sweep_list(v.get("checkpoints"))?;
+            let reference = sweep_list(v.get("reference_checkpoints"))?;
+            let tolerance = v["reference_tolerance_bb"]
+                .as_f64()
+                .filter(|x| x.is_finite() && *x > 0.)
+                .ok_or("reference_tolerance_bb must be positive")?;
+            let (likelihood, _) =
+                likelihoods(&root, &pairs, |obs| blueprint_row(obs, table, tables))?;
+            let mut out = belief_control(
+                &root,
+                &pairs,
+                &likelihood,
+                menu,
+                &checkpoints,
+                &reference,
+                tolerance,
+            )?;
+            out["timings"] =
+                json!({"native_before_serialization_seconds":started.elapsed().as_secs_f64()});
+            return Ok(out);
+        }
+        _ => return Err("mode must be solve, classify or belief-control".into()),
     }
     let sweeps = uint(&v["sweeps"])?;
     if !(1..=4096).contains(&sweeps) {

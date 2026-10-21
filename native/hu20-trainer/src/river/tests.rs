@@ -331,3 +331,50 @@ fn dcfr_discounts_its_first_sweep_and_converges() {
     let mut s = solve(DCFR, 1);
     assert!(s.set_algorithm(Algorithm::Linear).is_err());
 }
+
+#[test]
+fn product_joint_law_matches_product_leaves_and_refuses_blocked_mass() {
+    for full in [false, true] {
+        let product = sample(full, false);
+        let (n0, n1) = (product.holdings(0), product.holdings(1));
+        let mut joint = vec![0.; n0 * n1];
+        for (i, a) in product.hands[0].iter().enumerate() {
+            for (j, b) in product.hands[1].iter().enumerate() {
+                if a.mask & b.mask == 0 {
+                    joint[i * n1 + j] = a.weight * b.weight;
+                }
+            }
+        }
+        let exact = sample(full, false).with_joint(joint.clone()).unwrap();
+        for seat in 0..2 {
+            let reach: Vec<_> = (0..product.holdings(1 - seat))
+                .map(|i| ((i * 17) % 23) as f64 / 23.)
+                .collect();
+            for t in [
+                Terminal {
+                    base: -7.005,
+                    win0: 15.01,
+                    tie0: 7.51,
+                },
+                Terminal {
+                    base: 1.17,
+                    win0: 0.,
+                    tie0: 0.,
+                },
+            ] {
+                let a = product.leaf(t, seat, &reach).unwrap();
+                let b = exact.leaf(t, seat, &reach).unwrap();
+                for (x, y) in a.iter().zip(&b) {
+                    assert!((x - y).abs() < 1e-12, "{x} != {y}");
+                }
+            }
+        }
+        let blocked = (0..n0)
+            .flat_map(|i| (0..n1).map(move |j| (i, j)))
+            .find(|&(i, j)| product.hands[0][i].mask & product.hands[1][j].mask != 0)
+            .unwrap();
+        let mut bad = joint;
+        bad[blocked.0 * n1 + blocked.1] = 1.;
+        assert!(sample(full, false).with_joint(bad).is_err());
+    }
+}
