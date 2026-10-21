@@ -414,6 +414,7 @@ fn project_with_joint(
 pub enum SearchMenu {
     Full,
     Capped(usize),
+    RootCheckMinOpen,
 }
 impl SearchMenu {
     fn parse(v: Option<&Value>) -> Result<Self, String> {
@@ -421,13 +422,15 @@ impl SearchMenu {
             None | Some(Some("full")) => Ok(Self::Full),
             Some(Some("pot-jam-cap2-v1")) => Ok(Self::Capped(2)),
             Some(Some("pot-jam-cap3-v1")) => Ok(Self::Capped(3)),
-            _ => Err("search_menu must be full, pot-jam-cap2-v1 or pot-jam-cap3-v1".into()),
+            Some(Some("pot-jam-cap3-root-check-min-v1")) => Ok(Self::RootCheckMinOpen),
+            _ => Err("unknown declared search_menu".into()),
         }
     }
     fn name(self) -> String {
         match self {
             Self::Full => "full".into(),
             Self::Capped(cap) => format!("pot-jam-cap{cap}-v1"),
+            Self::RootCheckMinOpen => "pot-jam-cap3-root-check-min-v1".into(),
         }
     }
     fn actions(self, hand: &Hand, root: bool) -> Result<Vec<Action>, String> {
@@ -436,8 +439,22 @@ impl SearchMenu {
         let full = multi_holdem::menu(&observation);
         let cap = match self {
             Self::Capped(cap) if !root => cap,
+            Self::RootCheckMinOpen if !root => 3,
             _ => return Ok(full.into_iter().map(|(_, a)| a).collect()),
         };
+        // This arm adds exactly the first opponent's minimum opening bet after
+        // a root check. It does not restore later minimum-raise ladders.
+        let mut river = hand.history().iter().filter_map(|e| match e {
+            Event::Action {
+                street: Street::River,
+                action,
+                ..
+            } => Some(action),
+            _ => None,
+        });
+        let minimum_open = self == Self::RootCheckMinOpen
+            && river.next().is_some_and(|a| a.kind == Kind::Check)
+            && river.next().is_none();
         let raises = hand
             .history()
             .iter()
@@ -457,7 +474,9 @@ impl SearchMenu {
                 a.kind != Kind::Raise
                     || (raises < cap
                         && legal.raise_to.is_some_and(|(low, high)| {
-                            *label == 5 || a.raise_to == (matched + after_call).clamp(low, high)
+                            *label == 5
+                                || (minimum_open && *label == 3)
+                                || a.raise_to == (matched + after_call).clamp(low, high)
                         }))
             })
             .map(|(_, a)| a)

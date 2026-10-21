@@ -1,0 +1,23 @@
+{
+  "format": "river-search-round2-comparison-config-v1",
+  "diagnostic_set_sha256": "a58f433b54eff144df65a843d6d59d4a0a171be79a605964096ca07817570e5b",
+  "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+  "cases": 20,
+  "menus": ["pot-jam-cap3-v1", "pot-jam-cap3-root-check-min-v1"],
+  "algorithm": "dcfr-1.5-0-2",
+  "workers": 5,
+  "strict": {
+    "target": {"pot_fraction": 0.002, "cap_bb": 0.02},
+    "checkpoints": [64, 128, 256, 512, 1024, 2048, 4096, 8192]
+  },
+  "deployment": {
+    "target": {"pot_fraction": 0.01, "cap_bb": 0.1},
+    "checkpoints": [8, 16, 32, 64, 128, 256, 512, 1024, 2048]
+  },
+  "primary": "Paired reduction in opponent best-response gain against hero in the full production-menu game, under identical projected beliefs; positive favors expansion.",
+  "qualification": "Both strict solves must reach the same target within the unchanged budget; otherwise that pair remains inconclusive. Preserve every case.",
+  "secondary": "Regressions against the unchanged blueprint on the qualified cohort; maximum player gain; nodes; solver f64-array bytes; complete decision latency at both strict and deployment accuracy.",
+  "timing": "Model loading separate; strict roundtrip minus offline full-menu audit; deployment roundtrip has no offline audit. Five concurrent loaded workers, alternating arm order by case, ordinary cache.",
+  "interpretation": "Exploratory selected cases, no population or strength claim. Recommend retention for fresh validation only if median paired opponent gain decreases and the regression count against blueprint does not rise; disclose per-case harms and latency. No automatic arena or additional menu arms.",
+  "resources": "bb128 only; existing CPU90/Thermistor15 100C hard stops and missing/nonfinite sensor stop. No disk, RSS, swap or elapsed-time cutoff. Inspect these manually. Expected comparison including builds/loading: 10-20 minutes. No retries on scientific failure."
+}
