@@ -432,7 +432,9 @@ impl SessionStore {
                 let (hand, path) = cap.replay(observation)?;
                 let node = cap.tree.paths.iter().position(|p| *p == path);
                 let mut off_tree_entry = Value::Null;
-                if node.is_none() && cap.installed && !a.off_tree {
+                // Repeated requests for the same public history must return the
+                // same diagnostics, even after fallback has already latched.
+                if node.is_none() && cap.installed {
                     off_tree_entry = first_off_tree(&cap.root.hand, &cap.tree, &path)?;
                 }
                 if node.is_none() && cap.installed {
