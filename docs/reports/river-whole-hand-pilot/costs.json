@@ -1,0 +1,293 @@
+{
+  "main_stage_costs": [
+    {
+      "phase": "measure",
+      "returncode": 0,
+      "wall_seconds": 726.2046056970139,
+      "user_cpu_seconds": 892.430113,
+      "system_cpu_seconds": 14.120017
+    },
+    {
+      "phase": "readout",
+      "returncode": 0,
+      "wall_seconds": 2.0222362840431742,
+      "user_cpu_seconds": 2.8593689999999015,
+      "system_cpu_seconds": 1.0115759999999998
+    }
+  ],
+  "batch_costs": {
+    "initial": {
+      "wall_seconds": 360.613891039975,
+      "manifest_sha256": "fa32e0e718ec0ab2e8a262bd262bf0d97c45b31d24965d7773e2f2db5c4925da",
+      "startup": {
+        "model_and_k50_load_seconds": 234.908161262,
+        "model_pins": [
+          {
+            "average_scope": 3,
+            "policy_load_seconds": 115.20653316,
+            "sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+            "source_checkpoint_sha256": "788e75acf8b98d88518faf3da683048ec05604ba001c8a59bb1ec5f740b52b80",
+            "strategy": "average"
+          },
+          {
+            "average_scope": 3,
+            "policy_load_seconds": 114.800444489,
+            "sha256": "23599816cf632a51cace45f25d70ed4918fe5e75875c33136d8629052a8a2a70",
+            "source_checkpoint_sha256": "d03db22316af0e8bd04e76f5303603709bd77b2bf13dcc13ea07482ca10170ca",
+            "strategy": "average"
+          }
+        ],
+        "resident_models": 2,
+        "shared_read_only_tables": true,
+        "threads": 4
+      },
+      "play_and_write_seconds": 125.545553115,
+      "trace_bytes": 33034464
+    },
+    "repeat": {
+      "wall_seconds": 361.25582434399985,
+      "manifest_sha256": "fd5a952fd5b953b2bb0340f140ea0e06f47bdfda06c8ad3ecd3d75b6a93fc5f7",
+      "startup": {
+        "model_and_k50_load_seconds": 235.155754629,
+        "model_pins": [
+          {
+            "average_scope": 3,
+            "policy_load_seconds": 115.291447405,
+            "sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+            "source_checkpoint_sha256": "788e75acf8b98d88518faf3da683048ec05604ba001c8a59bb1ec5f740b52b80",
+            "strategy": "average"
+          },
+          {
+            "average_scope": 3,
+            "policy_load_seconds": 114.945051054,
+            "sha256": "23599816cf632a51cace45f25d70ed4918fe5e75875c33136d8629052a8a2a70",
+            "source_checkpoint_sha256": "d03db22316af0e8bd04e76f5303603709bd77b2bf13dcc13ea07482ca10170ca",
+            "strategy": "average"
+          }
+        ],
+        "resident_models": 2,
+        "shared_read_only_tables": true,
+        "threads": 4
+      },
+      "play_and_write_seconds": 125.93913239599999,
+      "trace_bytes": 33034464
+    }
+  },
+  "case_costs_seconds": {
+    "initial": {
+      "trained-off": 0.025267836,
+      "trained-on": 29.164703144,
+      "trained-pressure-on": 22.467891211,
+      "trained-pressure-off": 0.021615004,
+      "pressure-off": 0.016021197,
+      "pressure-on": 12.697765766,
+      "call-on": 0.032455556,
+      "call-off": 0.029252758,
+      "call-pressure-off": 0.025511356,
+      "call-pressure-on": 46.973744306,
+      "random-tag-on": 14.06880329,
+      "random-tag-off": 0.022521691
+    },
+    "repeat": {
+      "trained-off": 0.023652053,
+      "trained-on": 29.222417796,
+      "trained-pressure-on": 22.377245626,
+      "trained-pressure-off": 0.023289817,
+      "pressure-off": 0.016647157,
+      "pressure-on": 12.852777245,
+      "call-on": 0.032248882,
+      "call-off": 0.030232654,
+      "call-pressure-off": 0.025890042,
+      "call-pressure-on": 47.298473605,
+      "random-tag-on": 14.013678417,
+      "random-tag-off": 0.022579102
+    }
+  },
+  "independent_verify_including_pairing_seconds": 2.8810366460238583,
+  "resources": {
+    "qualification-v1": {
+      "samples": 405,
+      "first": {
+        "utc": "2026-10-21T21:20:08Z",
+        "phase": "build",
+        "cpu_c": 40.0,
+        "thermistor15_c": 31.0,
+        "worker_family_rss_bytes": 16384000,
+        "live_family_cpu_seconds": 0.01,
+        "available_ram_bytes": 131699408896,
+        "swap_used_bytes": 367697920,
+        "nvme_free_bytes": 258944532480,
+        "hdd_free_bytes": 530867216384
+      },
+      "last": {
+        "utc": "2026-10-21T21:33:43Z",
+        "phase": "fixture",
+        "cpu_c": 54.0,
+        "thermistor15_c": 60.0,
+        "worker_family_rss_bytes": 28482883584,
+        "live_family_cpu_seconds": 230.60999999999999,
+        "available_ram_bytes": 103203831808,
+        "swap_used_bytes": 367697920,
+        "nvme_free_bytes": 258818015232,
+        "hdd_free_bytes": 530867216384
+      },
+      "max_cpu_c": 65.0,
+      "max_t15_c": 60.0,
+      "max_family_rss_bytes": 29722218496,
+      "min_available_ram_bytes": 101971730432,
+      "swap_growth_bytes": 0,
+      "min_nvme_free_bytes": 258812489728,
+      "min_hdd_free_bytes": 530867216384
+    },
+    "calibration-v1": {
+      "samples": 359,
+      "first": {
+        "utc": "2026-10-21T21:33:47Z",
+        "phase": "calibrate",
+        "cpu_c": 46.0,
+        "thermistor15_c": 59.0,
+        "worker_family_rss_bytes": 18067456,
+        "live_family_cpu_seconds": 0.01,
+        "available_ram_bytes": 131623751680,
+        "swap_used_bytes": 367697920,
+        "nvme_free_bytes": 258817183744,
+        "hdd_free_bytes": 530867216384
+      },
+      "last": {
+        "utc": "2026-10-21T21:45:49Z",
+        "phase": "calibrate",
+        "cpu_c": 60.0,
+        "thermistor15_c": 61.0,
+        "worker_family_rss_bytes": 29740085248,
+        "live_family_cpu_seconds": 241.64,
+        "available_ram_bytes": 101950005248,
+        "swap_used_bytes": 367697920,
+        "nvme_free_bytes": 258813534208,
+        "hdd_free_bytes": 530867216384
+      },
+      "max_cpu_c": 62.0,
+      "max_t15_c": 61.0,
+      "max_family_rss_bytes": 29740085248,
+      "min_available_ram_bytes": 101950005248,
+      "swap_growth_bytes": 0,
+      "min_nvme_free_bytes": 258813534208,
+      "min_hdd_free_bytes": 530867216384
+    },
+    "supplement-v1": {
+      "samples": 60,
+      "first": {
+        "utc": "2026-10-21T21:46:49Z",
+        "cpu_c": 39.0,
+        "thermistor15_c": 44.5,
+        "worker_family_rss_bytes": 15446016,
+        "live_family_cpu_seconds": 0.01,
+        "available_ram_bytes": 131785576448,
+        "swap_used_bytes": 367697920,
+        "nvme_free_bytes": 258813206528,
+        "hdd_free_bytes": 530867216384
+      },
+      "last": {
+        "utc": "2026-10-21T21:48:48Z",
+        "cpu_c": 53.0,
+        "thermistor15_c": 56.5,
+        "worker_family_rss_bytes": 14329085952,
+        "live_family_cpu_seconds": 118.99,
+        "available_ram_bytes": 117448744960,
+        "swap_used_bytes": 367697920,
+        "nvme_free_bytes": 258813181952,
+        "hdd_free_bytes": 530867216384
+      },
+      "max_cpu_c": 55.0,
+      "max_t15_c": 56.5,
+      "max_family_rss_bytes": 14329085952,
+      "min_available_ram_bytes": 117448744960,
+      "swap_growth_bytes": 0,
+      "min_nvme_free_bytes": 258813181952,
+      "min_hdd_free_bytes": 530867216384
+    },
+    "main-v1": {
+      "samples": 361,
+      "first": {
+        "utc": "2026-10-21T21:48:51Z",
+        "phase": "measure",
+        "cpu_c": 44.0,
+        "thermistor15_c": 56.5,
+        "worker_family_rss_bytes": 17620992,
+        "live_family_cpu_seconds": 0.0,
+        "available_ram_bytes": 131697504256,
+        "swap_used_bytes": 367697920,
+        "nvme_free_bytes": 258812407808,
+        "hdd_free_bytes": 530867216384
+      },
+      "last": {
+        "utc": "2026-10-21T22:00:57Z",
+        "phase": "readout",
+        "cpu_c": 42.0,
+        "thermistor15_c": 61.0,
+        "worker_family_rss_bytes": 17588224,
+        "live_family_cpu_seconds": 0.01,
+        "available_ram_bytes": 131693162496,
+        "swap_used_bytes": 367697920,
+        "nvme_free_bytes": 258742411264,
+        "hdd_free_bytes": 530867216384
+      },
+      "max_cpu_c": 65.0,
+      "max_t15_c": 64.0,
+      "max_family_rss_bytes": 29737742336,
+      "min_available_ram_bytes": 101970165760,
+      "swap_growth_bytes": 0,
+      "min_nvme_free_bytes": 258742411264,
+      "min_hdd_free_bytes": 530867216384
+    }
+  },
+  "artifact_bytes": {
+    "trace": 66068928,
+    "metrics": 3463735,
+    "summary": 4549
+  },
+  "qualification_stage_costs": [
+    {
+      "phase": "build",
+      "returncode": 0,
+      "wall_seconds": 18.169871594000142,
+      "user_cpu_seconds": 51.580191,
+      "system_cpu_seconds": 1.919972
+    },
+    {
+      "phase": "native-tests",
+      "returncode": 0,
+      "wall_seconds": 36.35137369396398,
+      "user_cpu_seconds": 119.155686,
+      "system_cpu_seconds": 38.297611
+    },
+    {
+      "phase": "python-tests",
+      "returncode": 0,
+      "wall_seconds": 2.022269147040788,
+      "user_cpu_seconds": 0.037751999999983354,
+      "system_cpu_seconds": 0.015989999999995064
+    },
+    {
+      "phase": "fixture",
+      "returncode": 0,
+      "wall_seconds": 760.5850535389618,
+      "user_cpu_seconds": 693.298628,
+      "system_cpu_seconds": 21.446690000000004
+    }
+  ],
+  "calibration_stage_costs": [
+    {
+      "phase": "calibrate",
+      "returncode": 0,
+      "wall_seconds": 724.2366900610505,
+      "user_cpu_seconds": 710.5251360000001,
+      "system_cpu_seconds": 19.111556
+    }
+  ],
+  "supplement_status": {
+    "status": "complete",
+    "returncode": 0,
+    "wall_seconds": 121.03054834302748
+  },
+  "accounting_limit": "Play/solve/write components are partly inclusive; parallel per-request times are summed worker time, not additional wall time. Native play_and_write includes serialization/write/flush but not a separately measured fsync durability time. No model conversion/save or training in this study."
+}

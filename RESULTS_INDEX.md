@@ -1,3 +1,38 @@
+## PR388 — whole-hand river integration qualifies; strength remains inconclusive
+
+[PR388](https://github.com/dberweger2017/CFR-NLHE-6max/pull/388), proposal387.
+Frozen runtime `46caeceb88d24733f393f567c2b1e2fd6300cc4d`; focal 10B seed 2026101935003,
+fixed peer 10B seed 202610200601. Six declared pairs ×128 six-permutation blocks ×two arms;
+all 9,216 initial hand instances independently replay and all 9,216 fresh reproductions
+match byte-for-byte. No model, menu, default, training or confirmatory strength change.
+
+- Search attempts 384/4,608 search-on hands; 381 install (8.27%). Three declared-game quality misses
+  remain blueprint; 97 retained decisions use zero new solves, one continuation repeats a quality
+  fallback and one encounters an omitted 3,700-chip raise (neither all-in nor cap boundary).
+  Saved cap/all-in cases 21/91 separately qualify as public-path controls. Check-call/check-call
+  has no intervention, so its zero sample variance is uninformative.
+- Root mean0.559s/median0.430s/p951.367s/p993.057s/max3.094s. Main728.23s/12.14min,
+  910.42childCPU-s; two batches load shared models/K50 for470.06s and play/write for251.48s.
+  Sampled27.70GiB peak, CPU65/Thermistor15 64°C, zero swap growth. Four workers selected only
+  from measured1/2/4worker cost and strategic parity. All main stage return codes 0.
+- Trained-pair contrast+2.90BB/100, exploratory95%[−24.68,+30.48]; all nonzero lineup intervals
+  cross zero. Rare blocks dominate squared contrasts; no pooled strength verdict. Conditional
+  three-lineage primary-only5BB/100 effect scenarios take4.8–14.0h,2BB/100 takes27.7–82.6h;
+  unmeasured seed variance, safeguards and qualification excluded. No automatic continuation.
+- 111 native + 4 Python tests pass; 144 fixture + 144 fresh reproductions and 12 ordinary-arena parity
+  hands qualify. Retained original diagnostic-idempotence preflight failure, new-clone Git
+  setup failure and archive setup/receipt plumbing findings; no final hand retried.
+
+[Report](docs/reports/river-whole-hand-pilot/results.md) · [settled readout/proofs](docs/reports/river-whole-hand-pilot/results.json) · [lineups](docs/reports/river-whole-hand-pilot/lineups.csv) · [seat coverage](docs/reports/river-whole-hand-pilot/seat-coverage.csv) · [operational analysis](docs/reports/river-whole-hand-pilot/operational.json) · [costs/resources](docs/reports/river-whole-hand-pilot/costs.json) · [provenance](docs/reports/river-whole-hand-pilot/provenance.json) · [pre-main calibration](docs/reports/river-whole-hand-pilot/calibration.json) · [conditional next-study scenarios](docs/reports/river-whole-hand-pilot/future-cost-scenarios.json).
+
+Originals retained at `bb128:/home/dberweger/river-whole-hand-pilot-20261021{,-v2}/`,
+including all failures, traces, timings, sources/build/environment and dependency pins.
+Only compact reports were retrieved locally. External PR367/361 models, K50 and other
+PR Git/environment dependencies remain read-only, outside the archive. No deletion.
+[Archive coverage, manifest/input pins and both retrieval routes](docs/reports/river-whole-hand-pilot/archive.json).
+
+**Drive acceptance verified October22:** main ZIP10,009,536bytes, SHA256`b97d6ee5f0269a2eda0d86105f14eb1bd2cbd8d6292e1ad12c8e4fa024e0798a`, manifestSHA256`e8361a1780d40d03029194e4fe39d44b387c94c7be9569903659fcdbae07edc3`, DriveID`1dZU0DTq2tpV7Hg5eDShKyqbEUwh5zRhT`, MD5`5616038add90cf72b033a25c9baf66bd`. CloseoutZIP7,292bytes, SHA256`50d2b8ec57e67413d75aba17431e0e08d8ccd37dfae74605c5adbe6a8b75c16b`, DriveID`1RFrA8Rm7d7EkqoZMXIjBimRAl5IemSdL`, MD5`c421c4f3468e6c01f5c5273f83fa7883`. All 387 local files covered with matching size/mtime; no uncovered files. Local ZIP/member SHA256 readback and remote MD5/size acceptance are distinct. KEEP and originals retained; no deletion.
+
 ## PR386 — retaining the opponent's minimum raise after a root bet: retained
 
 [PR386](https://github.com/dberweger2017/CFR-NLHE-6max/pull/386). It compares `pot-jam-cap3-root-check-min-v1` with `pot-jam-cap3-root-min-responses-v1`, a single added response, on PR380's frozen 200-root development panel.
