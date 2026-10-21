@@ -56,6 +56,8 @@ def run(args):
             calibration=root/'calibration-v1'
             if (calibration/'failure.json').exists() or read(calibration/'status.json')['status']!='complete':
                 raise RuntimeError('successful calibration required')
+            if read(calibration/'source-manifest.json')!=pins or read(calibration/'launch.json')['config_sha256']!=config_sha:
+                raise RuntimeError('calibrated source/config changed')
             quote=calibration/'calibrate/quote.json'
             if not read(quote)['main_admitted'] or read(quote)['upper_seconds']>10800:
                 raise RuntimeError('quoted upper cost exceeds accepted pilot')

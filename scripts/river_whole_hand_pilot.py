@@ -120,7 +120,6 @@ def verify_pass(initial, repeat, independent=True):
         proofs.append({'case': x['name'], 'sha256': digest, 'independent_replay': proof})
     pairing = {}
     for name, _ in LINEUPS:
-        paths = {c['search']: c['trace'] for c in a['cases'] if c['name'].startswith(name + '-')}
         # Match by full case name; call must not include call-pressure.
         paths = {c['search']: c['trace'] for c in a['cases'] if c['name'] in (name+'-on', name+'-off')}
         pairing[name] = pair_proof(paths[False], paths[True])

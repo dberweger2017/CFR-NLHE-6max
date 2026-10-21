@@ -49,7 +49,8 @@ fn block(
     let mut metrics = Vec::new();
     let button = index as usize % 3;
     for (permutation, ids) in PERMUTATIONS.iter().enumerate() {
-        let hand_id = format!("{root}/{index}/{permutation}");
+        // Public ordinal only: the deal seed never enters search context.
+        let hand_id = format!("hand/{index}/{permutation}");
         let mut players = vec![Player::Focal(WholeHandPolicy::new(
             models[0].table.clone(),
             models[0].pin["sha256"].as_str().unwrap(),

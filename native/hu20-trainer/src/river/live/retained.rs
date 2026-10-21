@@ -285,7 +285,8 @@ pub(super) fn first_off_tree(root: &Hand, tree: &Tree, path: &[Action]) -> Resul
             return Ok(
                 json!({"path":path[..i].iter().map(|a|json!([a.kind.name(),a.raise_to])).collect::<Vec<_>>(),
                 "actor":actor,"action":[action.kind.name(),action.raise_to],"raises_before":raises,
-                "cap_reached":raises>=3,"all_in":action.kind==Kind::Raise&&action.raise_to==player.stack+player.street_bet}),
+                "cap_reached":match tree.menu {SearchMenu::Capped(cap)=>raises>=cap,
+                    SearchMenu::RootCheckMinOpen|SearchMenu::RootMinResponses=>raises>=3,SearchMenu::Full=>false},"all_in":action.kind==Kind::Raise&&action.raise_to==player.stack+player.street_bet}),
             );
         }
         before.apply_mut(*action)?;
