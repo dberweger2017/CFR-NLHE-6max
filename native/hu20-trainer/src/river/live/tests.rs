@@ -253,6 +253,18 @@ fn minimum_open_expansion_changes_only_the_response_to_the_first_check() {
 }
 
 #[test]
+fn solve_and_checkpoint_budgets_accept_the_same_declared_endpoints() {
+    let endpoints = json!([64, 128, 256, 512, 1024, 2048, 4096, 8192]);
+    for endpoint in sweep_list(Some(&endpoints)).unwrap() {
+        assert_eq!(fixed_sweeps(&json!(endpoint)).unwrap(), endpoint);
+    }
+    for invalid in [0, 8193] {
+        assert!(fixed_sweeps(&json!(invalid)).is_err());
+        assert!(sweep_list(Some(&json!([invalid]))).is_err());
+    }
+}
+
+#[test]
 fn counted_tree_matches_the_compiled_tree_and_stops_at_its_cap() {
     for stack in [300, 600, 1000] {
         let (hand, live) = short_stack_river(stack);

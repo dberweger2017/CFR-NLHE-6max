@@ -962,6 +962,16 @@ fn quality_target(v: Option<&Value>, pot_bb: f64) -> Result<f64, String> {
     Ok((positive("pot_fraction")? * pot_bb).min(positive("cap_bb")?))
 }
 
+const MAX_LIVE_SWEEPS: u64 = 8192;
+
+fn fixed_sweeps(v: &Value) -> Result<u64, String> {
+    let count = uint(v)?;
+    if !(1..=MAX_LIVE_SWEEPS).contains(&count) {
+        return Err("supports fixed 1..8192 sweeps".into());
+    }
+    Ok(count)
+}
+
 fn sweep_list(v: Option<&Value>) -> Result<Vec<u64>, String> {
     let list: Vec<u64> = array(v.ok_or("checkpoint list required")?)?
         .iter()
@@ -970,7 +980,7 @@ fn sweep_list(v: Option<&Value>) -> Result<Vec<u64>, String> {
     if list.is_empty()
         || list[0] == 0
         || list.windows(2).any(|w| w[0] >= w[1])
-        || *list.last().unwrap() > 8192
+        || *list.last().unwrap() > MAX_LIVE_SWEEPS
     {
         return Err("checkpoints must increase within 1..8192".into());
     }
@@ -1158,10 +1168,7 @@ pub fn request(v: &Value, table: &PolicyTable, tables: &EquityTables) -> Result<
         }
         _ => return Err("mode must be solve, classify, belief-control or diagnose".into()),
     }
-    let sweeps = uint(&v["sweeps"])?;
-    if !(1..=4096).contains(&sweeps) {
-        return Err("supports fixed 1..4096 sweeps".into());
-    }
+    let sweeps = fixed_sweeps(&v["sweeps"])?;
     let debug = match v.get("debug") {
         Some(x) => x.as_bool().ok_or("debug must be boolean")?,
         None => false,
