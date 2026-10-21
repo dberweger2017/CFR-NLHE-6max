@@ -1,6 +1,7 @@
 """Review the preserved case2 trajectory, without altering its original screen."""
 import argparse
 from hashlib import sha256
+from fractions import Fraction
 import json
 from pathlib import Path
 import numpy as np
@@ -8,6 +9,43 @@ import numpy as np
 from scripts.benchmark_native_river import fixture
 from src.blueprint.native_river import NativeRiver, BINARY, prepared_request, profiles
 from src.blueprint.river_cfr import RiverCFR, profile_quality, _visit
+from src.game.showdown import hand_value
+
+
+def exact_first_sweep_row(game, ranges, node_id, holding):
+    """Rational oracle for the uniform first sweep of these integer-chip fixtures."""
+    seat=game.nodes[node_id].actor
+    side=game.seats.index(seat)
+    weights=[[Fraction(str(w)) for _,w in ranges[s]] for s in game.seats]
+    z=sum(weights[0][i]*weights[1][j] for i,a in enumerate(game.holdings[0])
+          for j,b in enumerate(game.holdings[1]) if not set(a)&set(b))
+    own=game.holdings[side][holding]
+    parent={c:(n.id,len(n.menu)) for n in game.nodes for c in n.children}
+    prefix=Fraction(1);current=node_id
+    while current:
+        p,k=parent[current]
+        if game.nodes[p].actor!=seat:prefix/=k
+        current=p
+    node=game.nodes[node_id]
+    values=[Fraction(0) for _ in node.children]
+    for j,other in enumerate(game.holdings[1-side]):
+        if set(own)&set(other):continue
+        a,b=(own,other) if side==0 else (other,own)
+        ra,rb=hand_value(a+game.board),hand_value(b+game.board)
+        def visit(i):
+            n=game.nodes[i]
+            if n.terminal is not None:
+                t=n.terminal
+                # Inputs are integer-chip/BB quotients; recover that exact
+                # fixture ledger, rather than round decimal regrets to zero.
+                parts=[Fraction(x).limit_denominator(game.big_blind*2) for x in (t.base,t.win0,t.tie0)]
+                u=parts[0]+parts[1]*(ra>rb)+parts[2]*(ra==rb)
+                return u if side==0 else -u
+            return sum(visit(c) for c in n.children)/len(n.children)
+        mass=weights[side][holding]*weights[1-side][j]/z*prefix
+        for i,c in enumerate(node.children):values[i]+=mass*visit(c)
+    average=sum(values)/len(values)
+    return [str(v-average) for v in values]
 
 
 def diagnose(binary):
@@ -61,6 +99,10 @@ def diagnose(binary):
             curves.append(row)
     if first is None:
         raise AssertionError('original divergence was not reproduced')
+    exact=exact_first_sweep_row(game,ranges,first['node'],first['holding'])
+    if first['sweep']!=2 or any(Fraction(x)!=0 for x in exact):
+        raise AssertionError('first-sweep rational tie diagnosis did not reproduce')
+    first['rational_first_sweep_regrets']=exact
     return dict(status='review-complete', first_divergence=first,
                 same_profile_delta_max_absolute_error_bb=maximum_same_profile_delta_error,
                 identical_profile_checks=16, curves=curves,

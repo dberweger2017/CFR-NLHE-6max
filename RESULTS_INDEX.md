@@ -1,3 +1,31 @@
+## PR375 — legal river pilot: numerical cause identified; complete decisions remain costly
+
+[PR375](https://github.com/dberweger2017/CFR-NLHE-6max/pull/375), issue374.
+Measured source `bc1bb630f64918483b23928b843bf2ce82dfa244`, frozen v0.6.0
+seed2026101935003, six synthetic roots, 16/64/256 sweeps with three repetitions
+and one1024-sweep reference per supported root. All stages return0; 331.54s
+including260.91s model+K50 load. Sampled family peak14.81GiB; CPU64 C/Thermistor15
+55.5 C maximum. Three roots supported; two allocation rejections and one zero
+modeled own-reach state retained. The801-node full-menu tree costs1.92s at64
+and7.45s at256; small near-all-in controls cost114–141ms at64. No arena/defaults.
+The exact rational oracle proves the first divergent prepared regret row is a
+tie; float64 reduction noise changes later regret-matched strategies. Original
+PR37334/36 quality screen remains unchanged. Folded histories/removal enter an
+explicit projected belief law; measured projection TV4.05–8.07% is not safety.
+
+[Report/conditional quote](docs/reports/live-river-pilot/results.md) ·
+[Measurements](docs/reports/live-river-pilot/measurements.csv) ·
+[Compact data/code/model pins](docs/reports/live-river-pilot/results.json) ·
+[Numerical review](docs/reports/live-river-pilot/numerical-review.json) ·
+[Rational proof](docs/reports/live-river-pilot/rational-proof.json) ·
+[Stage/resource proof](docs/reports/live-river-pilot/verification.json).
+Originals: `bb128:/home/dberweger/live-river-pilot-20261020/`. Model/K50 inputs
+remain read-only at their existing PR367/qualification paths. Setup/source
+prerequisite refusals and the stale-module test import failure are retained;
+no frozen-model science was retried. At-rest/archive coverage is recorded by
+an additional retention receipt; Drive upload/acceptance is pending while the
+separate v0.6.0 publication transfer continues. No deletion or other job changes.
+
 ## PR373 — prepared native river prototype, numerical checks pass; quality screen34/36
 
 [PR373](https://github.com/dberweger2017/CFR-NLHE-6max/pull/373), issue372.

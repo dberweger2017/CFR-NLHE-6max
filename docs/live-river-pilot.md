@@ -68,6 +68,17 @@ before running it. Only existing authorized CPU90 C/Thermistor15100 C thermal
 stops apply to the measured pilot; correctness and owner STOP remain terminal.
 Disk and swap are observed manually. All original inputs/partials remain.
 
+## Completed pilot
+
+[PR375 results](reports/live-river-pilot/results.md): the original two numerical
+misses trace to an exact zero-regret tie perturbed by floating-point reduction.
+Three of six fixed roots are supported. The 801-node full-menu decision costs
+1.92 s at 64 sweeps and 7.45 s at 256; two small-tree controls cost 114–141 ms at
+64 sweeps. Two roots hit allocation support limits and one has zero modeled own
+reach. The full pilot finishes in 5.53 minutes including one 4.35-minute model
+load. No arena continuation ran. The report quotes conditional serial costs and
+identifies missing coverage, retained-profile and variance evidence.
+
 The final quote must distinguish measured per-decision cost from assumptions
 about eligible-river frequency, paired-return variance and statistical counts.
 A fixed-state pilot cannot supply empirical whole-hand power or pass chances.
