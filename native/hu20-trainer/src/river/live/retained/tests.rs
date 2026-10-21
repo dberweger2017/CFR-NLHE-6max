@@ -246,6 +246,67 @@ fn off_tree_and_unconverged_use_labeled_blueprint_without_solving() {
     assert_eq!(out["solver_advances"], 0);
 }
 
+#[test]
+fn evaluation_branches_share_profile_bytes_but_isolate_fallback_and_history() {
+    let table = table();
+    let tables = fixture_tables();
+    let (base, cap) = fixture(false, 0, true);
+    let mut omitted = None;
+    for prefix in &cap.tree.paths {
+        let mut h = cap.root.hand.clone();
+        for a in prefix {
+            h.apply_mut(*a).unwrap();
+        }
+        let Some(actor) = h.actor() else {
+            continue;
+        };
+        if actor == cap.root.seat {
+            continue;
+        }
+        for (_, action) in multi_holdem::menu(&h.observe(actor).unwrap()) {
+            let mut path = prefix.clone();
+            path.push(action);
+            if !cap.tree.paths.contains(&path)
+                && observation_after(&cap, &path)
+                    .ok()
+                    .is_some_and(|o| cap.replay(&o).is_ok())
+            {
+                omitted = Some(path);
+                break;
+            }
+        }
+        if omitted.is_some() {
+            break;
+        }
+    }
+    let root_request = request(observation_after(&cap, &[]).unwrap());
+    let mut off = base.evaluation_fork();
+    assert!(Arc::ptr_eq(
+        base.active.as_ref().unwrap().captured.as_ref().unwrap(),
+        off.active.as_ref().unwrap().captured.as_ref().unwrap()
+    ));
+    let fallback = off
+        .request(
+            &request(observation_after(&cap, &omitted.unwrap()).unwrap()),
+            &table,
+            &tables,
+        )
+        .unwrap();
+    assert_eq!(fallback["installed_search"], false);
+    assert_eq!(fallback["solver_advances"], 0);
+    assert!(off.request(&root_request, &table, &tables).is_err());
+    let mut sibling = base.evaluation_fork();
+    let root = sibling.request(&root_request, &table, &tables).unwrap();
+    assert_eq!(root["installed_search"], true);
+    assert_eq!(root["solver_advances"], 0);
+    assert_eq!(root["profile_sha256"], cap.metadata["profile_sha256"]);
+    assert!(!base.active.as_ref().unwrap().off_tree);
+    assert_eq!(
+        base.active.as_ref().unwrap().last_actions,
+        array(&cap.original["actions"]).unwrap().clone()
+    );
+}
+
 fn fixture_tables() -> EquityTables {
     let keys = std::array::from_fn(|s| {
         let board = &[0, 5, 10, 15, 20][..s + 3];

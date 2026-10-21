@@ -32,6 +32,10 @@ game tree. After the first omitted action, use the existing blueprint for the
 remainder of that branch. Quality-fallback roots have identical policies and
 therefore exactly zero expected contrast; retain them explicitly.
 
+Identical-policy quality fallbacks may cancel symbolically, with an explicit
+method label and zero contrast. This does not claim an absolute expected return
+was enumerated; no nonzero contrast is inferred from a partial traversal.
+
 Reconstruct original profiles at their original work settings and require their
 saved profile hashes, installation/fallback status and actual root distributions
 to match before evaluating. No additional convergence or configuration tuning.
@@ -43,7 +47,9 @@ payloads and separately owned session progress. Never sample a clairvoyant hero.
 1. A native chance-free expectation walker uses the existing integer-chip engine
    for transitions and terminal net returns. It accepts policy rows through an
    acting-observation-only callback and returns explicit complete/incomplete
-   status. Never turn partial enumeration into a point estimate.
+   status. It supports two-live three-player rivers, 50/100 blinds and initial
+   stacks at most 100BB (including smaller/unequal-stack fixtures). Never turn
+   partial enumeration into a point estimate.
 2. Compare with an independently enumerated small-fixture leaf list, including
    ties, folds, refunds/unequal stacks and stochastic opponent branches. Require
    values within 1e-10 BB on these fixtures, legal action probability mass,
@@ -107,6 +113,11 @@ ratio below one suggests reduced compute for the same precision; reduced varianc
 alone does not establish that. Zero-variance no-intervention panels have no
 defined variance ratio. Block pairing/covariance means a per-hand reduction is
 not automatically the same block-level reduction.
+
+Separate saved-data reconstruction cost from the future end-to-end pipeline.
+Fresh comparisons still need common-prefix generation and verification; include
+that cost (or a measured conservative allowance), never treat already saved roots
+as free fresh hands.
 
 If complete values are available, a fixed 10,000 paired block bootstrap with
 analysis RNG seed2026102239001 may describe sensitivity of variance ratios.
