@@ -25,9 +25,9 @@ def control_request(row, config, reference_checkpoints, tolerance):
             "reference_tolerance_bb": tolerance}
 
 
-def run_controls(worker, rows, config, reference_checkpoints, tolerance, out):
+def run_controls(worker, rows, config, reference_checkpoints, tolerance, out, mode="w"):
     results = []
-    with out.open("w") as stream:
+    with out.open(mode) as stream:
         for row in rows:
             tick = monotonic()
             response = worker.ask(control_request(row, config, reference_checkpoints, tolerance))
@@ -38,6 +38,7 @@ def run_controls(worker, rows, config, reference_checkpoints, tolerance, out):
                 record["reason"] = response.get("reason")
             results.append(record)
             stream.write(json.dumps(record, separators=(",", ":")) + "\n")
+            stream.flush()
     return results
 
 
@@ -89,15 +90,24 @@ def frozen(args):
 
 
 def controls(args):
-    args.out.mkdir(parents=True, exist_ok=False)
     config, panels = frozen(args)
     # Frozen rule: the first control_count / 2 roots of each held-out panel, in panel order.
     half = config["control_count"] // 2
     rows = [row for panel in panels for row in panel[:half]]
+    path = args.out / "controls.jsonl"
+    previous = []
+    if args.resume:
+        # An interrupted run keeps its completed controls; only the rest are run,
+        # unchanged, after checking the kept ones are the frozen rule's prefix.
+        previous = [json.loads(line) for line in path.open()]
+        if [r["hand"] for r in previous] != [row["hand"] for row in rows[:len(previous)]]:
+            raise ValueError("kept controls are not the frozen rule's prefix")
+    else:
+        args.out.mkdir(parents=True, exist_ok=False)
     worker = Worker(args.binary, args.k50, args.model, args.sha256)
     try:
-        results = run_controls(worker, rows, config, config["reference_checkpoints"],
-                               config["reference_tolerance_bb"], args.out / "controls.jsonl")
+        results = previous + run_controls(worker, rows[len(previous):], config, config["reference_checkpoints"],
+                                          config["reference_tolerance_bb"], path, "a" if args.resume else "w")
     finally:
         worker.close()
     summary = {"format": "river-search-belief-controls-v1", "config_sha256":
@@ -168,6 +178,8 @@ def main():
         p.add_argument("--k50", type=Path, required=True)
         p.add_argument("--model", type=Path, required=True)
         p.add_argument("--sha256", required=True)
+        if name == "controls":
+            p.add_argument("--resume", action="store_true")
         if name == "pilot":
             p.add_argument("--dev", type=Path, required=True)
             p.add_argument("--count", type=int, default=6)
