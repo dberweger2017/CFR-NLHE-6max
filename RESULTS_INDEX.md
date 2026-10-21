@@ -1,3 +1,16 @@
+## PR377 — one minimum opening bet reduces selected-case river vulnerability
+
+[PR377](https://github.com/dberweger2017/CFR-NLHE-6max/pull/377), measured source `a8078b9d14addc721d1567ff15230cc47c7049cc`, frozen comparison SHA256 `efb768b8fc128ec9c41b3ef2e6a9b53c42ef7e6785e3f8f493faed596b88ee50`. Twenty selected diagnostic observations, unchanged v0.6 seed 2026101935003, cap3 versus only the opponent's minimum opening bet immediately after hero's root check. Same projected beliefs, DCFR, raise cap and blueprint fallback.
+
+- Nineteen matched-accuracy pairs qualify; one remains inconclusive. Opponent full-menu gain improves on 14 and worsens on five; paired median reduction 0.4163 BB. Regressions versus blueprint-only fall 9→4 (six removed, one new). This is selected-case engineering evidence, not population benefit or strength.
+- Deployment-target median latency 0.300→0.380 s, p95 1.951→2.692 s; each arm reaches that quality target on 18/20. Strict-target median latency 1.135→2.285 s. Maximum tree size 39→51 nodes. No arena, training or defaults.
+- Successful run: 173.78 s wall including 129.82 s loading/startup, 14.09 child CPU-minutes, sampled family RSS 72.94 GiB, CPU/Thermistor15 peaks 71/73.5 C. All 40 strict and 40 deployment records verify; the baseline reproduces the prior diagnosis exactly. Native88/Python3 qualification and release build pass.
+- Preserve the pre-solve 4,096-versus-8,192 validation refusal (131.34 s including load), its source/binary/logs, and the corrected successful attempt; no scientific outcome was retried or target extended.
+
+[Report](docs/reports/river-search-round2/results.md) · [frozen settings](docs/reports/river-search-round2/comparison-config.json) · [20-row CSV](docs/reports/river-search-round2/comparison.csv) · [compact results](docs/reports/river-search-round2/comparison-summary.json) · [verification](docs/reports/river-search-round2/verification.json) · [cost/failure receipts](docs/reports/river-search-round2/costs.json).
+
+Originals: `bb128:/home/dberweger/river-search-round2-20261021/`. Successful outputs `comparison-v2/`, supervision `comparison-run-v2/`, measured source `comparison-source-a8078b9d/`; failed pre-solve attempt `comparison-v1/`, `comparison-run/`, `comparison-source-1e3581cf/`, with both targets/qualification directories and source bundles retained. Retrieve compact evidence from those paths with `scp`; retain the original frozen PR367 model/K50 inputs at their existing paths. Cache ZIP/Drive upload acceptance is pending: no cloud ID, restoration coverage or deletion is claimed. Existing PR350/355/357/367 inputs and other jobs remain untouched.
+
 ## PR376 — v0.6 river search round 1: capped search solved fast; full menu and beliefs fail
 
 [PR376](https://github.com/dberweger2017/CFR-NLHE-6max/pull/376). This is a partial engineering qualification; concurrency and retained-strategy reuse are deferred, and no strength match was run.

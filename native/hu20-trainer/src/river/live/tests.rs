@@ -211,6 +211,60 @@ fn short_stack_river(stack: u64) -> (Hand, [usize; 2]) {
 }
 
 #[test]
+fn minimum_open_expansion_changes_only_the_response_to_the_first_check() {
+    let (hand, live) = short_stack_river(10000);
+    let base = SearchMenu::Capped(3);
+    let expanded = SearchMenu::RootCheckMinOpen;
+    assert_eq!(
+        base.actions(&hand, true).unwrap(),
+        expanded.actions(&hand, true).unwrap()
+    );
+    let mut tree = Tree::new(&hand, live, expanded, 4096);
+    tree.compile(&mut hand.clone()).unwrap();
+    let mut changed = 0;
+    for (id, path) in tree.paths.iter().enumerate() {
+        if tree.menus[id].is_empty() {
+            continue;
+        }
+        let mut state = hand.clone();
+        for action in path {
+            state.apply_mut(*action).unwrap();
+        }
+        let old = base.actions(&state, id == 0).unwrap();
+        let new = expanded.actions(&state, id == 0).unwrap();
+        if old != new {
+            changed += 1;
+            assert_eq!(path.len(), 1);
+            assert_eq!(path[0].kind, Kind::Check);
+            assert_eq!(new.len(), old.len() + 1);
+            let added: Vec<_> = new.iter().filter(|a| !old.contains(a)).collect();
+            assert_eq!(added[0].kind, Kind::Raise);
+            assert_eq!(
+                added[0].raise_to,
+                state.legal().unwrap().raise_to.unwrap().0
+            );
+        }
+    }
+    assert_eq!(changed, 1);
+    assert_eq!(
+        SearchMenu::parse(Some(&json!(expanded.name()))).unwrap(),
+        expanded
+    );
+}
+
+#[test]
+fn solve_and_checkpoint_budgets_accept_the_same_declared_endpoints() {
+    let endpoints = json!([64, 128, 256, 512, 1024, 2048, 4096, 8192]);
+    for endpoint in sweep_list(Some(&endpoints)).unwrap() {
+        assert_eq!(fixed_sweeps(&json!(endpoint)).unwrap(), endpoint);
+    }
+    for invalid in [0, 8193] {
+        assert!(fixed_sweeps(&json!(invalid)).is_err());
+        assert!(sweep_list(Some(&json!([invalid]))).is_err());
+    }
+}
+
+#[test]
 fn counted_tree_matches_the_compiled_tree_and_stops_at_its_cap() {
     for stack in [300, 600, 1000] {
         let (hand, live) = short_stack_river(stack);

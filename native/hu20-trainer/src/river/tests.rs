@@ -378,3 +378,41 @@ fn product_joint_law_matches_product_leaves_and_refuses_blocked_mass() {
         assert!(sample(full, false).with_joint(bad).is_err());
     }
 }
+
+#[test]
+fn masked_best_responses_agree_with_quality_and_only_restrict() {
+    let g = sample(true, false);
+    let n = g.node_count();
+    let mut s = Solver::new(g, vec![None; n]).unwrap();
+    s.set_algorithm(DCFR).unwrap();
+    s.advance(8).unwrap();
+    let profile = s.average();
+    let quality = s.quality(&profile).unwrap();
+    for seat in 0..2 {
+        let value = s.value(&profile, seat, false, None).unwrap();
+        let best = s.value(&profile, seat, true, None).unwrap();
+        let gain = quality["best_response_gains_bb"][seat].as_f64().unwrap();
+        assert!(((best - value).max(0.) - gain).abs() < 1e-12);
+        let all: Vec<Vec<bool>> = (0..n)
+            .map(|id| match s.node(id) {
+                Node::Decision { children, .. } => vec![true; children.len()],
+                Node::Leaf(_) => Vec::new(),
+            })
+            .collect();
+        assert_eq!(
+            s.value(&profile, seat, true, Some(all.clone())).unwrap(),
+            best
+        );
+        // Allowing only the first action at the responder's own nodes cannot help it.
+        let first: Vec<Vec<bool>> = (0..n)
+            .map(|id| match s.node(id) {
+                Node::Decision { actor, children } if *actor == seat => {
+                    (0..children.len()).map(|a| a == 0).collect()
+                }
+                _ => Vec::new(),
+            })
+            .collect();
+        let restricted = s.value(&profile, seat, true, Some(first)).unwrap();
+        assert!(restricted <= best + 1e-12);
+    }
+}

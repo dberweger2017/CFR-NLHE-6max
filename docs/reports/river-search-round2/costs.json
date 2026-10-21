@@ -1,0 +1,62 @@
+{
+  "successful_launch": {
+    "utc": "2026-10-21T10:32:19.961692+00:00",
+    "source": "a8078b9d14addc721d1567ff15230cc47c7049cc",
+    "config_sha256": "efb768b8fc128ec9c41b3ef2e6a9b53c42ef7e6785e3f8f493faed596b88ee50",
+    "binary_sha256": "39de225d4dfcc37d77d7fc1c72406b48dc7a58a64b8dd9420451a5143965d4e7",
+    "model": "/home/dberweger/nplayer-v06-acceptance-20261020/main-v1/inputs/2026101935003/candidate.bin",
+    "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+    "workers": 5,
+    "thermal_stops": {
+      "cpu": 90,
+      "thermistor15": 100
+    },
+    "resource_policy": "thermal-only automatic resource stops; manual disk/RAM/swap inspection",
+    "nvme_free_bytes": 43150979072,
+    "sensors": {
+      "Thermistor 15": 42.0,
+      "Package id 0": 32.0
+    }
+  },
+  "successful_finish": {
+    "state": "complete",
+    "returncode": 0,
+    "utc": "2026-10-21T10:35:13.743196+00:00",
+    "wall_seconds": 173.778530296986,
+    "children_user_cpu_seconds": 820.912224,
+    "children_system_cpu_seconds": 24.530725,
+    "peak_sampled_family_rss_bytes": 78318198784,
+    "peak_sensors": {
+      "Thermistor 15": 73.5,
+      "Package id 0": 71.0
+    }
+  },
+  "preserved_pre_solve_failure": {
+    "returncode": 1,
+    "failure": null,
+    "utc": "2026-10-21T10:29:06.468665+00:00"
+  },
+  "preserved_pre_solve_finish": {
+    "state": "failed",
+    "returncode": 1,
+    "utc": "2026-10-21T10:29:06.469741+00:00",
+    "wall_seconds": 131.3412399009685,
+    "children_user_cpu_seconds": 625.996121,
+    "children_system_cpu_seconds": 21.038327,
+    "peak_sampled_family_rss_bytes": 77031395328,
+    "peak_sensors": {
+      "Thermistor 15": 66.0,
+      "Package id 0": 63.0
+    }
+  },
+  "qualification": {
+    "status": "complete",
+    "source": "a8078b9d14addc721d1567ff15230cc47c7049cc",
+    "returncodes": {
+      "native-tests": 0,
+      "build": 0,
+      "python-tests": 0
+    }
+  },
+  "archive_status": "Pending; originals retained. No deletion or other-job changes."
+}
