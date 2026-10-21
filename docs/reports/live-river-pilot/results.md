@@ -171,8 +171,9 @@ additional seed, training or automatic continuation was started.
 ## Verification, provenance and retention
 
 81 native library tests and 18 focused Python tests pass on the measured code;
-full game/session checks (20 six-player hands/30 session hands) pass. The subsequent
-rational-oracle regression and report-only changes are recorded separately.
+full game/session checks (20 six-player hands/30 session hands) pass. The final source, including the added rational-oracle regression, passes all
+19 focused Python tests in 2.26 seconds (`ffb21e97`). The measured native/adapter
+file hashes still match the final tree exactly; no model pilot is rerun.
 Source/model/native binary hashes, exact stage costs and maximum temperatures are
 in the linked JSON receipts. The model and K50 inputs are existing read-only
 PR367/qualification assets; none was copied, changed or removed. This is one
@@ -188,3 +189,10 @@ module and failed import; its standalone rational proof passed, and the final
 source tests are recorded separately. No successful/failed science was restarted.
 Research archive/Drive acceptance remains pending; no release or research payload
 was uploaded by this PR, and no original, partial or unrelated input was deleted.
+
+
+The [retention receipt](retention.json) records 50 owned files with local
+SHA256 copy/ZIP-member readback at `/mnt/data2tb/research-cloud/PR-375-live-river-pilot`.
+Archive SHA256: `6ba0de79aa8f33e0ac5f15c98a57e19f44efa267edb3348e942c2b55bfd535ea`.
+No research upload competes with the active release. Drive acceptance is pending;
+local at-rest and NVMe originals remain the available retrieval paths.

@@ -23,8 +23,15 @@ Originals: `bb128:/home/dberweger/live-river-pilot-20261020/`. Model/K50 inputs
 remain read-only at their existing PR367/qualification paths. Setup/source
 prerequisite refusals and the stale-module test import failure are retained;
 no frozen-model science was retried. At-rest/archive coverage is recorded by
-an additional retention receipt; Drive upload/acceptance is pending while the
-separate v0.6.0 publication transfer continues. No deletion or other job changes.
+[retention receipt](docs/reports/live-river-pilot/retention.json). Verified at-rest
+copy: `/mnt/data2tb/research-cloud/PR-375-live-river-pilot`; 50 files / 179,355,124 bytes.
+ZIP `live-river-pilot-evidence.zip` is 178,276,486 bytes, SHA256
+`6ba0de79aa8f33e0ac5f15c98a57e19f44efa267edb3348e942c2b55bfd535ea`; embedded manifest SHA256
+`17efb51965b464708d8f1405866cf2a6c0490f0654a844c4e17be1a6b1c96504`. Every copied file and ZIP member passes
+local SHA256 readback. Drive upload/acceptance is pending while the separate
+v0.6.0 publication transfer continues; no cloud object ID or retrieval success
+is claimed. Retrieve from the at-rest path or retained NVMe root until an actual
+Drive receipt exists. No deletion or other job changes.
 
 ## PR373 — prepared native river prototype, numerical checks pass; quality screen34/36
 
