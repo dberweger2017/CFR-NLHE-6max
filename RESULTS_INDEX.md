@@ -1,3 +1,11 @@
+## PR382 — exact modeled river beliefs: qualification and measured quote
+
+[PR382](https://github.com/dberweger2017/CFR-NLHE-6max/pull/382), proposal381. Runtime source `e2a91181f77d9c5b0a4de545bccbe498391875fe`; existing PR380 panel/model are protected read-only inputs. Weighted rank-prefix law and separate unchanged-profile full-menu audits are implemented. Calibration on fixed cases0/79/137/195 completes all seven stages:103 native and6 focused Python tests pass; dense-oracle and original projected-strategy checks pass. [Calibration, source/binary pins and cost quote](docs/reports/river-exact-beliefs/calibration.json).
+
+The pre-main measured quote is48.60–81.01minutes including startup, both fixed passes and verification/reserve. This is a cost/correctness calibration, not final latency or strength evidence. Full200-root development measurements and independent reproduction are authorized within that scope; no fresh confirmation, arena, training, extra menu, defaults or automatic pilot.
+
+New owned root `bb128:/home/dberweger/river-exact-beliefs-20261021/`, calibration-v1 and setup-v1 failure retained (bundle exposed HEAD rather than a branch ref; repaired before any build/science). The source Git object store at PR380's `source/`, PR380 main-v1 panel/deployment/proofs, original PR367 model and K50 path remain protected dependencies. No previous inputs or other jobs modified. Originals retained; cache/Drive acceptance pending. Final compact results/report will follow verification.
+
 ## PR380 — fresh river panel, exact retained continuation, belief gate failure
 
 [PR380](https://github.com/dberweger2017/CFR-NLHE-6max/pull/380), proposal379. Measured source `0bb9c621cbf5f4d89bed9fc92d0419fb9825ea66`, readout-only `dfa8da42c4c6a0f40cc1d70c8a8280a529ddc00b`. Frozen v0.6 seed2026101935003; two fresh5,000-hand traces,200 sampled first-river roots,20 preselected pot-stratified controls. No arena, training or defaults.

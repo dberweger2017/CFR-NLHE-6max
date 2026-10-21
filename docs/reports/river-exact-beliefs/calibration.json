@@ -1,0 +1,103 @@
+{
+  "status": "calibration-complete",
+  "measured_source": "e2a91181f77d9c5b0a4de545bccbe498391875fe",
+  "root": "bb128:/home/dberweger/river-exact-beliefs-20261021/calibration-v1",
+  "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+  "panel_sha256": "f5b6b2706a0b6ee8912a52961b6b8e2795158bd982bea18fa43227f74924b919",
+  "native_tests": 103,
+  "focused_python_tests": 6,
+  "stages": [
+    {
+      "phase": "build",
+      "returncode": 0,
+      "wall_seconds": 16.161045950022526
+    },
+    {
+      "phase": "native-tests",
+      "returncode": 0,
+      "wall_seconds": 34.337012470001355
+    },
+    {
+      "phase": "python-tests",
+      "returncode": 0,
+      "wall_seconds": 2.0205684099928476
+    },
+    {
+      "phase": "controls",
+      "returncode": 0,
+      "wall_seconds": 131.1675958709675
+    },
+    {
+      "phase": "projected",
+      "returncode": 0,
+      "wall_seconds": 155.3369341630023
+    },
+    {
+      "phase": "exact",
+      "returncode": 0,
+      "wall_seconds": 181.57825366099132
+    },
+    {
+      "phase": "quote",
+      "returncode": 0,
+      "wall_seconds": 2.0225014410098083
+    }
+  ],
+  "quote": {
+    "status": "quoted",
+    "fixed_source_panel_sha256": "f5b6b2706a0b6ee8912a52961b6b8e2795158bd982bea18fa43227f74924b919",
+    "seconds": {
+      "controls": [
+        2.350197735999245,
+        2.262611137004569,
+        2.341086214000825,
+        2.58419495401904
+      ],
+      "projected": [
+        4.0495852250023745,
+        4.157046325970441,
+        3.781494190043304,
+        3.7635458210133947,
+        4.353891208011191,
+        3.5738143479684368,
+        4.777178141986951,
+        3.9668516470119357
+      ],
+      "exact": [
+        7.001432968070731,
+        5.826807198987808,
+        21.13123389799148,
+        25.952561416022945
+      ]
+    },
+    "observed_startup_seconds": [
+      120.698150282,
+      121.729868192,
+      121.02992559
+    ],
+    "lower_seconds": 2915.928693707857,
+    "upper_seconds": 4860.812513329785,
+    "scope": "two complete fixed passes, five ordinary workers per panel phase; dense controls one16-thread worker; loading/replay/verification included by reserve, builds/tests separate",
+    "no_science_started": true
+  },
+  "binary_pins": {
+    "river_live_sha256": "b072dc11ba863863bffdba7b93cd96e74dda27c6cc1959c75a5df37af76b66d3",
+    "protocol_sha256": "ef9bb0b0e4b107b38e51edabc7d0ff049ac0da903f822fe4bb5d89515af5a1ee"
+  },
+  "environment": {
+    "python": "3.11.17 (main, Oct 14 2026, 01:05:33) [Clang 23.1.3 ]",
+    "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)\nbinary: rustc\ncommit-hash: b940084d7eb6a299eb4bfeb8e34901bc051e7ac4\ncommit-date: 2026-09-28\nhost: x86_64-unknown-linux-gnu\nrelease: 1.99.0\nLLVM version: 23.1.1",
+    "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)",
+    "ordinary_rayon_threads": 1,
+    "control_rayon_threads": 16
+  },
+  "setup_failure": {
+    "phase": "git-bundle-fetch",
+    "error": "bundle advertises HEAD rather than branch ref",
+    "science_or_build_started": false,
+    "preserved_at": "bb128:/home/dberweger/river-exact-beliefs-20261021/setup-v1-failure.json"
+  },
+  "scope": "four fixed development cases; cost and correctness only, not final panel results; no main work started when quote produced",
+  "originals_retained": true,
+  "drive_acceptance": "pending"
+}
