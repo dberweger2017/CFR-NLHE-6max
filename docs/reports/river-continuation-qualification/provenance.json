@@ -1,0 +1,250 @@
+{
+  "utc": "2026-10-21T14:27:52Z",
+  "source_pins": {
+    "source": "0bb9c621cbf5f4d89bed9fc92d0419fb9825ea66",
+    "files": {
+      "target/release/examples/river_live": "478c551c93656f1970687244e8af2f882be697cdf28c9e415b59b9941fddee0f",
+      "target/release/examples/nplayer_policy": "a6846d9c8190639d3074fdefe03392f51dae54d20ea44a1ca8fbd45fcf188c66",
+      "source/docs/river-continuation-qualification.md": "78c39ea48c271ab3bbc9334a0d40cfcfe0a0da640ce7b83199a6b212b2b528ac"
+    },
+    "quoted_seconds_range": [
+      4500,
+      6600
+    ],
+    "quote_before_fresh_observations": true
+  },
+  "launch": {
+    "pid": 791126,
+    "source": "0bb9c621cbf5f4d89bed9fc92d0419fb9825ea66",
+    "mode": "main",
+    "launched_utc": "2026-10-21T11:25:29Z",
+    "model": "/home/dberweger/nplayer-v06-acceptance-20261020/main-v1/inputs/2026101935003/candidate.bin",
+    "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+    "k50": "/home/dberweger/cygnus-qualification-20261014/tables",
+    "cpu_stop_c": 90,
+    "thermistor15_stop_c": 100,
+    "no_other_resource_stops": true,
+    "source_files": 5434
+  },
+  "source_files": 5434,
+  "calibration_quote": {
+    "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+    "development_cases": 2,
+    "worker_ready": {
+      "model_and_k50_load_seconds": 118.558957074,
+      "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+      "policy_load_seconds": 113.710064678,
+      "rows": 250000475,
+      "status": "ready"
+    },
+    "seconds": {
+      "strict": [
+        2.2187011659843847,
+        2.5501470110029913,
+        4.282617330958601,
+        4.7612098380341195
+      ],
+      "deployment": [
+        0.26526427699718624,
+        0.34865756798535585,
+        0.24144595704274252,
+        0.3049641330144368
+      ],
+      "belief": [
+        48.171517416019924
+      ]
+    },
+    "measurement_work_estimate_seconds": 2548.987626582384,
+    "scope": "two complete passes; five ordinary workers, one serial 16-thread exact worker; excludes trace generation/replay, startup phases and build",
+    "fresh_observations_read": false
+  },
+  "calibration_costs": [
+    {
+      "phase": "build",
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "--manifest-path",
+        "native/hu20-trainer/Cargo.toml",
+        "--example",
+        "river_live",
+        "--example",
+        "nplayer_policy"
+      ],
+      "returncode": 0,
+      "wall_seconds": 12.112985976971686,
+      "user_cpu_seconds": 25.533488,
+      "system_cpu_seconds": 0.456773
+    },
+    {
+      "phase": "native-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "--manifest-path",
+        "native/hu20-trainer/Cargo.toml",
+        "--lib"
+      ],
+      "returncode": 0,
+      "wall_seconds": 32.297300958947744,
+      "user_cpu_seconds": 106.83379699999999,
+      "system_cpu_seconds": 38.001579
+    },
+    {
+      "phase": "python-tests",
+      "command": [
+        "/home/dberweger/river-continuation-qualification-20261021/venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_live_river.py",
+        "tests/test_retained_river.py",
+        "tests/test_qualify_river_continuation.py"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0254157240269706,
+      "user_cpu_seconds": 0.39588900000001104,
+      "system_cpu_seconds": 0.9750670000000028
+    },
+    {
+      "phase": "calibration",
+      "command": [
+        "/home/dberweger/river-continuation-qualification-20261021/venv/bin/python",
+        "-m",
+        "scripts.qualify_river_continuation",
+        "calibrate",
+        "--inputs",
+        "/home/dberweger/river-search-round1-20261021/stage1/panel-2026102101/panel.jsonl",
+        "--out",
+        "/home/dberweger/river-continuation-qualification-20261021/calibration-v2/calibration",
+        "--binary",
+        "/home/dberweger/river-continuation-qualification-20261021/target/release/examples/river_live",
+        "--k50",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "--model",
+        "/home/dberweger/nplayer-v06-acceptance-20261020/main-v1/inputs/2026101935003/candidate.bin"
+      ],
+      "returncode": 0,
+      "wall_seconds": 183.68165722803678,
+      "user_cpu_seconds": 795.125942,
+      "system_cpu_seconds": 20.934727000000002
+    }
+  ],
+  "prior_setup_failure": {
+    "error": "[Errno 2] No such file or directory: 'cargo'",
+    "utc": "2026-10-21T11:19:15Z"
+  },
+  "eligible_by_actor_seat": {
+    "2": 963,
+    "0": 970,
+    "1": 1028
+  },
+  "lookup_counts_by_seat": [
+    {
+      "positive_mass": 8547451,
+      "zero_mass": 13637,
+      "missing": 432,
+      "mass_unknown": 0,
+      "public_decisions": 7920
+    },
+    {
+      "positive_mass": 8605357,
+      "zero_mass": 13494,
+      "missing": 2124,
+      "mass_unknown": 0,
+      "public_decisions": 7975
+    },
+    {
+      "positive_mass": 8470728,
+      "zero_mass": 12106,
+      "missing": 1935,
+      "mass_unknown": 0,
+      "public_decisions": 7849
+    }
+  ],
+  "deployment_misses": {
+    "pot-jam-cap3-v1": [
+      {
+        "case_index": 137,
+        "sweeps": 2048,
+        "target_bb": 0.1,
+        "gains_bb": [
+          0.11025367925175367,
+          0.1842346559269945
+        ]
+      },
+      {
+        "case_index": 195,
+        "sweeps": 2048,
+        "target_bb": 0.1,
+        "gains_bb": [
+          0.10843074718179668,
+          0.1208799380972696
+        ]
+      }
+    ],
+    "pot-jam-cap3-root-check-min-v1": [
+      {
+        "case_index": 137,
+        "sweeps": 2048,
+        "target_bb": 0.1,
+        "gains_bb": [
+          0.11453175837461593,
+          0.19426105041078934
+        ]
+      },
+      {
+        "case_index": 195,
+        "sweeps": 2048,
+        "target_bb": 0.1,
+        "gains_bb": [
+          0.10639111940685009,
+          0.1120859144618116
+        ]
+      }
+    ]
+  },
+  "thermal_peaks": {
+    "cpu_c": {
+      "utc": "2026-10-21T12:26:45Z",
+      "phase": "repeat-belief",
+      "cpu_c": 74.0,
+      "thermistor15_c": 89.0,
+      "worker_family_rss_bytes": 15572226048,
+      "live_family_cpu_seconds": 2551.7400000000002,
+      "available_ram_bytes": 116219961344,
+      "swap_used_bytes": 367697920,
+      "nvme_free_bytes": 42495164416,
+      "hdd_free_bytes": 531602010112
+    },
+    "thermistor15_c": {
+      "utc": "2026-10-21T12:06:16Z",
+      "phase": "initial-belief",
+      "cpu_c": 64.0,
+      "thermistor15_c": 95.5,
+      "worker_family_rss_bytes": 15583117312,
+      "live_family_cpu_seconds": 13639.49,
+      "available_ram_bytes": 116219666432,
+      "swap_used_bytes": 367697920,
+      "nvme_free_bytes": 42498613248,
+      "hdd_free_bytes": 531602010112
+    },
+    "worker_family_rss_bytes": {
+      "utc": "2026-10-21T12:15:17Z",
+      "phase": "repeat-strict",
+      "cpu_c": 66.0,
+      "thermistor15_c": 81.5,
+      "worker_family_rss_bytes": 78847123456,
+      "live_family_cpu_seconds": 1694.04,
+      "available_ram_bytes": 51733647360,
+      "swap_used_bytes": 367697920,
+      "nvme_free_bytes": 42497576960,
+      "hdd_free_bytes": 531602010112
+    }
+  },
+  "analysis_sha256": "fa873376a521abb46460130fea16ef222686a2dde21d0a9dff91db39465ff9ad"
+}
