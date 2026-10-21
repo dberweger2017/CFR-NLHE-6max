@@ -94,6 +94,37 @@ Open tasks for contributors, grouped by the compute they need. Comment on or ope
 - **Search.** Turn and flop search at 100 BB, building on the [HU20 turn-search diagnosis](docs/reports/hu20-search-stackoff-diagnosis.md).
 - **Three-player search (v0.6.5).** Multiway search on top of the [Phase 2 blueprints](docs/reports/nplayer-blueprint-phase2.md).
 
+## Immediate river-search priorities
+
+Keep the v0.6 model frozen. [PR382's verified results](docs/reports/river-exact-beliefs/results.md)
+qualify the exact modeled-belief evaluator and confirm the menu benefit on the
+reused development panel, while leaving specific full-menu harms and runtime
+limits. The next work follows this order:
+
+1. **Diagnose remaining full-menu harms.** Use the saved, unchanged profiles and
+   the exact evaluator to identify the opponent responses exposing cases79/113
+   and the largest exact-versus-projected regressions, including cases75/53.
+   Report absolute hero worst-case value and deviation gains separately, with
+   response/path identities and blueprint comparisons. Attribute the weaknesses
+   before choosing another menu change; do not treat overlapping response gains
+   as an additive breakdown.
+2. **Profile exact solving within a bounded task.** Solve work accounts for about
+   96% of complete mean decision time. Measure traversal, prefix accumulation,
+   blocker corrections and scalar repair separately, distinguishing inclusive
+   and exclusive time to avoid double counting. Check that instrumentation
+   preserves profile identity and numerical results. Use measured attribution
+   to choose an optimization rather than assuming which component dominates.
+3. **Then consider the whole-hand cost/variance pilot.** Its current conditional
+   exact-backend quote is **90–180 compute minutes, plus integration work**.
+   Reassess that quote against the resulting implementation and actual call
+   frequency before a separately approved pilot. A cost/variance pilot would
+   not be a strength verdict.
+
+These priorities schedule no automatic compute. Keep the historical harms,
+convergence misses and gates intact. Fresh confirmation remains later work;
+reusing this development panel cannot establish population benefit or stronger
+whole-hand play.
+
 ## Current position
 
 - **Exact modeled river beliefs qualified; latency fails ([PR382](https://github.com/dberweger2017/CFR-NLHE-6max/pull/382), proposal381):** weighted prefixes preserve folded-card correlations and agree with the dense oracle (leaf error1.64e-14 BB, quality error3.80e-12 BB); all seven stages and deterministic reproduction pass. Actual deployment-profile/full-menu audits confirm the menu improves absolute hero worst-case value on175/200 cases under the exact modeled law, with23 harms and two blueprint fallbacks. Exact solving meets capped quality on198/200 versus147/200 for projected profiles under the exact law, but complete median3.567 s/p9513.229 s fails speed; original cases137/195 still fail quality. Exact versus projected gives105 improvements/93 harms and retains23 blueprint regressions. Main39.21 min, peak74.80 GiB, CPU71/Thermistor15 81.5°C, no swap growth. Keep as research tooling; address measured solve cost before any separately approved pilot. No arena/default change; originals retained, Drive pending. [Results, harms, misses and conditional pilot quote](docs/reports/river-exact-beliefs/results.md).
