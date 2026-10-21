@@ -1,3 +1,18 @@
+## PR376 — v0.6 river search round 1: capped search solved fast; full menu and beliefs fail
+
+[PR376](https://github.com/dberweger2017/CFR-NLHE-6max/pull/376). This is a partial engineering qualification; concurrency and retained-strategy reuse are deferred, and no strength match was run.
+
+- **Setup:** frozen v0.6.0 seed 2026101935003 10B. Panels come from three fresh 10,000-hand self-play traces (one dev, two held-out).
+- **Frozen configuration:** cap-3 search menu, DCFR (1.5, 0, 2) stopping at the quality target by 2,048 sweeps, committed before the held-out run.
+- **Held-out coverage:** 5,580 / 5,580.
+- **Latency:** median 0.278 s, p95 0.979 s.
+- **Capped-game quality:** 598 / 600 (fail).
+- **Beliefs:** 23 / 40 exact-joint controls within 0.05 BB (fail). The excess is about 0.6% of the pot.
+- **Full menu, reported separately:** the deployed policy is more exploitable than the blueprint on 143 / 600 decisions.
+
+[Report](docs/reports/river-search-round1/results.md) · [Frozen configuration](docs/reports/river-search-round1/frozen-config.json) · stage summaries in the same folder.
+Originals and at-rest copy: `bb128:/research/PR-376-river-search-round1/` (traces, every per-decision record, launch scripts, logs, temperatures, the interrupted control file). ZIP `PR-376-river-search-round1.zip` is 8,673,018 bytes, SHA256 `8ae4a961e89c08849ff23d306b9af92c31a258bcb811134ebede3efa103e04ff`, uploaded to Drive with a receipt.
+
 ## PR375 — legal river pilot: numerical cause identified; complete decisions remain costly
 
 [PR375](https://github.com/dberweger2017/CFR-NLHE-6max/pull/375), issue374.

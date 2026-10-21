@@ -1,0 +1,60 @@
+{
+  "format": "river-search-belief-pilot-v1",
+  "dev": "/home/dberweger/river-search-round1-20261021/stage1/panel-2026102101",
+  "count": 6,
+  "reference_checkpoints": [
+    64,
+    128,
+    256,
+    512,
+    1024,
+    2048,
+    4096
+  ],
+  "tolerance_bb": 0.01,
+  "controls": 6,
+  "unsupported": 0,
+  "references_qualified": 4,
+  "passes": 2,
+  "verdict": "inconclusive",
+  "max_excess_gain_bb": {
+    "p50": 0.06151752373898289,
+    "p90": 0.11035153342362403,
+    "p100": 0.11035153342362403
+  },
+  "reference_error_bb": {
+    "p50": 0.009461089835860692,
+    "p90": 0.031516841499659165,
+    "p100": 0.031516841499659165
+  },
+  "reference_sweeps": {
+    "p50": 2048,
+    "p90": 4096,
+    "p100": 4096
+  },
+  "reference_seconds": {
+    "p50": 32.961025474,
+    "p90": 67.020826394,
+    "p100": 67.020826394
+  },
+  "projection_total_variation": {
+    "p50": 0.026958910556430373,
+    "p90": 0.04542375318355018,
+    "p100": 0.04542375318355018
+  },
+  "deployed_gain_projected_vs_exact_bb": {
+    "projected": {
+      "p50": 0.07168490480790268,
+      "p90": 0.09121974192849436
+    },
+    "exact": {
+      "p50": 0.11823681352754023,
+      "p90": 0.2715182353847023
+    }
+  },
+  "roundtrip_seconds": {
+    "p50": 33.26642808795441,
+    "p90": 68.01041849900503,
+    "p100": 68.01041849900503
+  }
+}
