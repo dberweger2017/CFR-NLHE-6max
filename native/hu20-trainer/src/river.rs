@@ -3,8 +3,9 @@
 //! The chance law is w0(h0) w1(h1) / Z on disjoint holdings. Sorted rank
 //! prefixes and per-card sums replace dense holding-by-holding leaf products.
 use hu20_buckets::evaluate;
+use rayon::prelude::*;
 use serde_json::{json, Value};
-use std::collections::HashSet;
+use std::{collections::HashSet, time::Instant};
 
 #[derive(Clone, Debug)]
 pub struct Holding {
@@ -35,6 +36,9 @@ pub struct Game {
     sorted: [Vec<usize>; 2],
     same: [Vec<Option<usize>>; 2],
     z: f64,
+    // Optional exact pairwise chance law (seat 0 row-major, and its transpose),
+    // replacing the product of range weights. Used for belief controls only.
+    joint: Option<(Vec<f64>, Vec<f64>)>,
     nodes: Vec<Node>,
     root_pot_bb: f64,
     scalar_control: bool,
@@ -48,12 +52,34 @@ fn finite(x: f64) -> Result<f64, String> {
     }
 }
 
+pub const MAX_NODES: usize = 4096;
+pub const MAX_STRATEGY_CELLS: usize = 2_000_000;
+
 impl Game {
     pub fn new(
         board: [u8; 5],
         ranges: [Vec<Holding>; 2],
         nodes: Vec<Node>,
         root_pot_bb: f64,
+    ) -> Result<Self, String> {
+        Self::with_limits(
+            board,
+            ranges,
+            nodes,
+            root_pot_bb,
+            MAX_NODES,
+            MAX_STRATEGY_CELLS,
+        )
+    }
+
+    /// Larger limits are for offline evaluation games, not live decisions.
+    pub fn with_limits(
+        board: [u8; 5],
+        ranges: [Vec<Holding>; 2],
+        nodes: Vec<Node>,
+        root_pot_bb: f64,
+        max_nodes: usize,
+        max_cells: usize,
     ) -> Result<Self, String> {
         let board_set: HashSet<_> = board.iter().copied().collect();
         if board_set.len() != 5 || board.iter().any(|&c| c >= 52) {
@@ -62,7 +88,7 @@ impl Game {
         if !root_pot_bb.is_finite() || root_pot_bb <= 0. {
             return Err("positive finite root pot required".into());
         }
-        if nodes.is_empty() || nodes.len() > 4096 {
+        if nodes.is_empty() || nodes.len() > max_nodes {
             return Err("public tree size outside prototype bounds".into());
         }
         let mut parents = vec![0; nodes.len()];
@@ -95,7 +121,7 @@ impl Game {
                 }
             }
         }
-        if parents.iter().skip(1).any(|&p| p != 1) || cells > 2_000_000 {
+        if parents.iter().skip(1).any(|&p| p != 1) || cells > max_cells {
             return Err("unreachable node or excessive strategy cells".into());
         }
         let mut hands: [Vec<Hand>; 2] = [Vec::new(), Vec::new()];
@@ -169,9 +195,42 @@ impl Game {
             nodes,
             root_pot_bb,
             scalar_control: false,
+            joint: None,
         })
     }
 
+    /// Replaces the product law w0(h0) w1(h1) / Z with an explicit joint law
+    /// over (seat 0, seat 1) holdings. Blocked pairs must have zero mass.
+    pub fn with_joint(mut self, mut joint: Vec<f64>) -> Result<Self, String> {
+        let (n0, n1) = (self.hands[0].len(), self.hands[1].len());
+        if joint.len() != n0 * n1 || joint.iter().any(|x| !x.is_finite() || *x < 0.) {
+            return Err("joint law shape or values invalid".into());
+        }
+        for (i, a) in self.hands[0].iter().enumerate() {
+            for (j, b) in self.hands[1].iter().enumerate() {
+                if a.mask & b.mask != 0 && joint[i * n1 + j] != 0. {
+                    return Err("joint law puts mass on blocked holdings".into());
+                }
+            }
+        }
+        let total: f64 = joint.iter().sum();
+        if total <= 0. {
+            return Err("joint law has no mass".into());
+        }
+        joint.iter_mut().for_each(|x| *x /= total);
+        let mut transposed = vec![0.; n0 * n1];
+        for i in 0..n0 {
+            for j in 0..n1 {
+                transposed[j * n0 + i] = joint[i * n1 + j];
+            }
+        }
+        self.joint = Some((joint, transposed));
+        Ok(self)
+    }
+
+    pub fn node_count(&self) -> usize {
+        self.nodes.len()
+    }
     pub fn holdings(&self, seat: usize) -> usize {
         self.hands[seat].len()
     }
@@ -181,6 +240,28 @@ impl Game {
 
     fn leaf_into(&self, t: Terminal, seat: usize, reach: &[f64], out: &mut [f64]) {
         let other = 1 - seat;
+        if let Some((joint, transposed)) = &self.joint {
+            // Exact joint law: dense pairwise sums, parallel over own holdings.
+            let law = if seat == 0 { joint } else { transposed };
+            let n = self.hands[other].len();
+            out.par_iter_mut().enumerate().for_each(|(i, value)| {
+                let h = &self.hands[seat][i];
+                let row = &law[i * n..(i + 1) * n];
+                let mut sum = 0.;
+                for (j, o) in self.hands[other].iter().enumerate() {
+                    if row[j] == 0. {
+                        continue;
+                    }
+                    let (a, b) = if seat == 0 { (h, o) } else { (o, h) };
+                    let u = t.base
+                        + t.win0 * (if a.rank > b.rank { 1. } else { 0. })
+                        + t.tie0 * (if a.rank == b.rank { 1. } else { 0. });
+                    sum += row[j] * reach[j] * u;
+                }
+                *value = if seat == 0 { sum } else { -sum };
+            });
+            return;
+        }
         // Inclusion-exclusion loses relative accuracy when almost all chance
         // mass is blocked. Preserve values with an explicit allocation-free
         // scalar fallback; report this mode rather than claim linear cost.
@@ -208,6 +289,20 @@ impl Game {
             total += v;
             cards[h.cards[0] as usize] += v;
             cards[h.cards[1] as usize] += v;
+        }
+        if t.win0 == 0. && t.tie0 == 0. {
+            // A fold terminal depends only on blocker-adjusted mass, so the
+            // showdown rank pass is skipped. The arithmetic is the same as below.
+            for (i, h) in self.hands[seat].iter().enumerate() {
+                let identical =
+                    self.same[seat][i].map_or(0., |j| self.hands[other][j].weight * reach[j]);
+                let mass = (total - cards[h.cards[0] as usize] - cards[h.cards[1] as usize]
+                    + identical)
+                    .max(0.);
+                let value = (t.base * mass) * (h.weight / self.z);
+                out[i] = if seat == 0 { value } else { -value };
+            }
+            return;
         }
         let (mut low, mut high) = (0, 0);
         let (mut below, mut through) = (0., 0.);
@@ -290,15 +385,26 @@ impl Game {
     }
 }
 
+/// Opt-in leaf timing; per-leaf clocks are off in ordinary solves.
+#[derive(Clone, Copy, Default)]
+struct LeafTiming {
+    fold_seconds: f64,
+    showdown_seconds: f64,
+    folds: u64,
+    showdowns: u64,
+}
+
 struct Workspace {
     value: Vec<Vec<f64>>,
     reach: Vec<Vec<f64>>,
+    timing: Option<LeafTiming>,
 }
 impl Workspace {
     fn new(game: &Game, seat: usize) -> Self {
         Self {
             value: vec![vec![0.; game.holdings(seat)]; game.nodes.len()],
             reach: vec![vec![0.; game.holdings(1 - seat)]; game.nodes.len()],
+            timing: None,
         }
     }
     fn start(&mut self) {
@@ -318,7 +424,22 @@ fn visit(
     work: &mut Workspace,
 ) {
     match &game.nodes[id] {
-        Node::Leaf(t) => game.leaf_into(*t, seat, &work.reach[id], &mut work.value[id]),
+        Node::Leaf(t) => match work.timing {
+            None => game.leaf_into(*t, seat, &work.reach[id], &mut work.value[id]),
+            Some(mut timing) => {
+                let tick = Instant::now();
+                game.leaf_into(*t, seat, &work.reach[id], &mut work.value[id]);
+                let elapsed = tick.elapsed().as_secs_f64();
+                if t.win0 == 0. && t.tie0 == 0. {
+                    timing.fold_seconds += elapsed;
+                    timing.folds += 1;
+                } else {
+                    timing.showdown_seconds += elapsed;
+                    timing.showdowns += 1;
+                }
+                work.timing = Some(timing);
+            }
+        },
         Node::Decision { actor, children } => {
             let k = children.len();
             for (action, &child) in children.iter().enumerate() {
@@ -360,7 +481,39 @@ fn visit(
     }
 }
 
+/// Regret and averaging rule. `Linear` weights iteration t by t; `Discounted`
+/// is DCFR: after iteration t, accumulated positive regrets are multiplied by
+/// t^alpha/(t^alpha+1), negative ones by t^beta/(t^beta+1), and the average
+/// strategy's accumulated contributions by (t/(t+1))^gamma.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum Algorithm {
+    Linear,
+    Discounted { alpha: f64, beta: f64, gamma: f64 },
+}
+pub const DCFR: Algorithm = Algorithm::Discounted {
+    alpha: 1.5,
+    beta: 0.,
+    gamma: 2.,
+};
+impl Algorithm {
+    pub fn name(self) -> &'static str {
+        match self {
+            Self::Linear => "linear-cfr",
+            Self::Discounted { .. } if self == DCFR => "dcfr-1.5-0-2",
+            Self::Discounted { .. } => "dcfr-custom",
+        }
+    }
+}
+
+#[derive(Default)]
+struct SolverTiming {
+    traversal_seconds: f64,
+    update_seconds: f64,
+}
+
 pub struct Solver {
+    algorithm: Algorithm,
+    timing: SolverTiming,
     game: Game,
     regrets: Vec<Vec<f64>>,
     numer: Vec<Vec<f64>>,
@@ -404,6 +557,8 @@ impl Solver {
         let work = std::array::from_fn(|s| Workspace::new(&game, s));
         let own_reach = std::array::from_fn(|s| vec![vec![0.; game.holdings(s)]; game.nodes.len()]);
         Ok(Self {
+            algorithm: Algorithm::Linear,
+            timing: SolverTiming::default(),
             game,
             regrets: shape.clone(),
             numer: shape.clone(),
@@ -417,12 +572,59 @@ impl Solver {
         })
     }
 
+    pub fn set_algorithm(&mut self, algorithm: Algorithm) -> Result<(), String> {
+        if self.sweeps != 0 {
+            return Err("the algorithm is fixed before the first sweep".into());
+        }
+        self.algorithm = algorithm;
+        Ok(())
+    }
+
+    /// Per-leaf clocks for profiling; sweep-level phase timing is always kept.
+    pub fn profile_leaves(&mut self) {
+        for work in &mut self.work {
+            work.timing = Some(LeafTiming::default());
+        }
+    }
+
+    pub fn timing(&self) -> Value {
+        let leaves =
+            self.work
+                .iter()
+                .filter_map(|w| w.timing)
+                .fold(None, |sum: Option<LeafTiming>, t| {
+                    let s = sum.unwrap_or_default();
+                    Some(LeafTiming {
+                        fold_seconds: s.fold_seconds + t.fold_seconds,
+                        showdown_seconds: s.showdown_seconds + t.showdown_seconds,
+                        folds: s.folds + t.folds,
+                        showdowns: s.showdowns + t.showdowns,
+                    })
+                });
+        let mut out = json!({"algorithm":self.algorithm.name(),"sweeps":self.sweeps,
+            "traversal_seconds":self.timing.traversal_seconds,"update_seconds":self.timing.update_seconds});
+        if let Some(l) = leaves {
+            out["fold_leaf_seconds"] = json!(l.fold_seconds);
+            out["showdown_leaf_seconds"] = json!(l.showdown_seconds);
+            out["fold_leaf_evaluations"] = json!(l.folds);
+            out["showdown_leaf_evaluations"] = json!(l.showdowns);
+            out["traversal_excluding_leaves_seconds"] =
+                json!(self.timing.traversal_seconds - l.fold_seconds - l.showdown_seconds);
+        }
+        out
+    }
+
     pub fn advance(&mut self, count: u64) -> Result<(), String> {
         if count == 0 || self.sweeps.checked_add(count).is_none_or(|s| s > 1_000_000) {
             return Err("positive fixed work up to one million cumulative sweeps required".into());
         }
         for _ in 0..count {
-            let weight = (self.sweeps + 1) as f64;
+            let started = Instant::now();
+            let t = (self.sweeps + 1) as f64;
+            let weight = match self.algorithm {
+                Algorithm::Linear => t,
+                Algorithm::Discounted { .. } => 1.,
+            };
             for (id, node) in self.game.nodes.iter().enumerate() {
                 if let Node::Decision { children, .. } = node {
                     let k = children.len();
@@ -446,6 +648,7 @@ impl Solver {
                     self.deltas[id].fill(0.);
                 }
             }
+            let traversal = Instant::now();
             for seat in 0..2 {
                 self.work[seat].start();
                 visit(
@@ -460,6 +663,7 @@ impl Solver {
                     &mut self.work[seat],
                 );
             }
+            let traversal = traversal.elapsed().as_secs_f64();
             // Reject numerical failure before changing either player's stored
             // regrets or averages. This prepared API has no partial-sweep mode.
             for workspace in &self.work {
@@ -509,7 +713,24 @@ impl Solver {
                     }
                 }
             }
+            if let Algorithm::Discounted { alpha, beta, gamma } = self.algorithm {
+                let positive = t.powf(alpha) / (t.powf(alpha) + 1.);
+                let negative = t.powf(beta) / (t.powf(beta) + 1.);
+                let average = (t / (t + 1.)).powf(gamma);
+                for id in 0..self.game.nodes.len() {
+                    if self.fixed[id].is_none() {
+                        for r in &mut self.regrets[id] {
+                            *r *= if *r > 0. { positive } else { negative };
+                        }
+                    }
+                    for x in self.numer[id].iter_mut().chain(self.denom[id].iter_mut()) {
+                        *x *= average;
+                    }
+                }
+            }
             self.sweeps += 1;
+            self.timing.traversal_seconds += traversal;
+            self.timing.update_seconds += started.elapsed().as_secs_f64() - traversal;
         }
         Ok(())
     }

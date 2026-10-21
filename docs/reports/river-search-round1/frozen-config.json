@@ -1,0 +1,56 @@
+{
+  "format": "river-search-round1-frozen-v1",
+  "status": "frozen before any held-out run, from dev results only (stage 3 and the stage 6 dev pilot)",
+  "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+  "menu": "pot-jam-cap3-v1",
+  "algorithm": "dcfr-1.5-0-2",
+  "checkpoints": [
+    8,
+    16,
+    32,
+    64,
+    128,
+    256,
+    512,
+    1024,
+    2048
+  ],
+  "stop_at_target": true,
+  "quality_target": "each player's best-response gain <= min(1% of the root pot, 0.1 BB), in the declared capped, projected search game",
+  "belief_tolerance_bb": 0.05,
+  "control_count": 40,
+  "reference_checkpoints": [
+    64,
+    128,
+    256,
+    512,
+    1024,
+    2048,
+    4096,
+    8192
+  ],
+  "reference_tolerance_bb": 0.01,
+  "control_rule": "the first control_count / 2 roots of each held-out panel, in panel order",
+  "gate_reading": "quality and belief gates apply to every evaluated held-out decision or control; coverage needs at least 90% of eligible held-out decisions; latency needs median <= 0.5 s and p95 <= 2 s",
+  "dev_panel": {
+    "directory": "panel-2026102101",
+    "sha256": "4df89ecb4be2617af915a91bac5e677a974fe90826f021ecf3496ef618537513"
+  },
+  "held_out_panels": [
+    {
+      "directory": "panel-2026102102",
+      "sha256": "98af327b350ac257eed54d2c6b214b3f354319d6441b333d73a942987d435cdc"
+    },
+    {
+      "directory": "panel-2026102103",
+      "sha256": "eeab1729fd2f6aa7b391e65391687fc01d8a3b42c82e883f637e90c4e4824840"
+    }
+  ],
+  "reference_rule": "a reference qualifies when each player's gain in the exact-joint game is at most reference_tolerance_bb within reference_checkpoints; an unqualified reference makes that control, and the belief verdict, inconclusive",
+  "dev_pilot": {
+    "roots": 6,
+    "qualified_within_4096": 4,
+    "median_control_seconds": 33.3,
+    "budget_reason": "two dev references missed 0.01 BB at 4096 sweeps (0.011 and 0.032 BB, in 44.5 and 108 BB pots)"
+  }
+}

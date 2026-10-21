@@ -109,14 +109,7 @@ fn likelihoods_use_every_seat_and_never_representative_holes() {
 #[test]
 fn complete_menu_has_explicit_support_limit_instead_of_raise_truncation() {
     let mut r = root();
-    let mut tree = Tree {
-        nodes: Vec::new(),
-        menus: Vec::new(),
-        live: r.live,
-        stacks: r.live.map(|s| r.hand.players()[s].stack),
-        pot: r.hand.pot(),
-        bb: 100.,
-    };
+    let mut tree = Tree::new(&r.hand, r.live, SearchMenu::Full, 4096);
     let error = tree.compile(&mut r.hand).unwrap_err();
     assert!(error.contains("no menu truncation"));
 }
@@ -160,14 +153,7 @@ fn all_small_full_menu_leaves_match_engine_settlement_in_both_orientations() {
                 .filter_map(|(s, p)| (!p.folded).then_some(s))
                 .collect();
             for live in [[live[0], live[1]], [live[1], live[0]]] {
-                let mut tree = Tree {
-                    nodes: Vec::new(),
-                    menus: Vec::new(),
-                    live,
-                    stacks: live.map(|s| hand.players()[s].stack),
-                    pot: hand.pot(),
-                    bb: 100.,
-                };
+                let mut tree = Tree::new(&hand, live, SearchMenu::Full, 4096);
                 tree.compile(&mut hand.clone()).unwrap();
                 fn verify(tree: &Tree, mut h: Hand, id: usize) {
                     match &tree.nodes[id] {
@@ -203,5 +189,97 @@ fn all_small_full_menu_leaves_match_engine_settlement_in_both_orientations() {
                 verify(&tree, hand.clone(), 0);
             }
         }
+    }
+}
+
+fn short_stack_river(stack: u64) -> (Hand, [usize; 2]) {
+    let config = Config::new(&[stack; 3], 50, 100).unwrap();
+    let mut hand = representative(config, 0, [0, 5, 10, 15, 20]).unwrap();
+    while hand.street() != Street::River {
+        let actor = hand.actor().unwrap();
+        let legal = hand.legal().unwrap();
+        let kind = if actor == 0 && hand.street() == Street::Preflop {
+            Kind::Fold
+        } else if legal.check {
+            Kind::Check
+        } else {
+            Kind::Call
+        };
+        hand.apply_mut(Action { kind, raise_to: 0 }).unwrap();
+    }
+    (hand, [1, 2])
+}
+
+#[test]
+fn counted_tree_matches_the_compiled_tree_and_stops_at_its_cap() {
+    for stack in [300, 600, 1000] {
+        let (hand, live) = short_stack_river(stack);
+        let (mut nodes, mut rows) = (0, 0);
+        assert!(count_tree(
+            &mut hand.clone(),
+            live,
+            SearchMenu::Full,
+            100_000,
+            &mut nodes,
+            &mut rows
+        )
+        .unwrap());
+        let mut tree = Tree::new(&hand, live, SearchMenu::Full, 100_000);
+        tree.compile(&mut hand.clone()).unwrap();
+        assert_eq!(nodes, tree.nodes.len());
+        assert_eq!(rows, tree.menus.iter().map(Vec::len).sum::<usize>());
+        let (mut capped, mut capped_rows) = (0, 0);
+        assert!(!count_tree(
+            &mut hand.clone(),
+            live,
+            SearchMenu::Full,
+            nodes - 1,
+            &mut capped,
+            &mut capped_rows
+        )
+        .unwrap());
+    }
+}
+
+#[test]
+fn capped_search_menus_keep_the_root_and_cap_river_raises() {
+    let r = root();
+    let full_root = SearchMenu::Full.actions(&r.hand, true).unwrap();
+    for cap in [2, 3] {
+        let menu = SearchMenu::Capped(cap);
+        assert_eq!(menu.actions(&r.hand, true).unwrap(), full_root);
+        let mut tree = Tree::new(&r.hand, r.live, menu, 4096);
+        tree.compile(&mut r.hand.clone()).unwrap();
+        let mut full = Tree::new(&r.hand, r.live, SearchMenu::Full, 100_000);
+        full.compile(&mut r.hand.clone()).unwrap();
+        let full_paths: std::collections::HashSet<_> =
+            full.paths.iter().map(|p| path_key(p)).collect();
+        for (id, path) in tree.paths.iter().enumerate() {
+            assert!(full_paths.contains(&path_key(path)));
+            assert!(path.iter().filter(|a| a.kind == Kind::Raise).count() <= cap);
+            if id == 0 || tree.menus[id].is_empty() {
+                continue;
+            }
+            let mut hand = r.hand.clone();
+            for a in path {
+                hand.apply_mut(*a).unwrap();
+            }
+            let obs = hand.observe(hand.actor().unwrap()).unwrap();
+            let production = multi_holdem::menu(&obs);
+            for a in &tree.menus[id] {
+                // Below the root, no minimum raise unless it is also the pot raise or all-in.
+                let label = production.iter().find(|(_, b)| b == a).unwrap().0;
+                assert!(
+                    a.kind != Kind::Raise || label != 3 || {
+                        let legal = obs.legal.unwrap();
+                        let matched = obs.players[obs.seat].street_bet + legal.call_amount;
+                        let pot: u64 = obs.players.iter().map(|p| p.contributed).sum();
+                        let (low, high) = legal.raise_to.unwrap();
+                        a.raise_to == (matched + pot + legal.call_amount).clamp(low, high)
+                    }
+                );
+            }
+        }
+        assert!(tree.nodes.len() < full.nodes.len());
     }
 }
