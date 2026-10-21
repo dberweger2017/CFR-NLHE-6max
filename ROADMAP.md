@@ -121,6 +121,8 @@ whole-hand play.
 
 ## Current position
 
+- **Frozen river whole-hand pilot in progress ([PR388](https://github.com/dberweger2017/CFR-NLHE-6max/pull/388), proposal387):** owner approved integrating PR386's retained root-min-response menu and projected backend into legal whole-hand play, then a separately quoted fixed six-lineup cost/variance pilot. One focal10B lineage,128 six-permutation paired blocks per lineup,9,216 initial hand instances plus fresh reproduction/independent replay. Qualification and the published quote precede main; no strength/default claim. Next investigate off-tree continuation separately with consistent beliefs and retained policies, including cap-excluded all-ins. Exact-runtime optimization and further menu expansion are deprioritized; keep the exact backend as an audit oracle. [Frozen scope and gates](docs/river-whole-hand-pilot.md).
+
 - **Remaining full-menu river harms diagnosed ([PR384](https://github.com/dberweger2017/CFR-NLHE-6max/pull/384), proposal383):** eight deliberately selected cases,24 original profile hashes/work/statuses reproduced and two zero-advance exact-law audits verified. Minimum raises after hero's opening bets dominate the identified omitted replies: leave-one-out WC effects2.512BB in79 and4.510BB in113; restricting the same1→2BB response changes75's exact-versus-projected WC gap from−1.335 to+0.022BB. Overlapping effects are nonadditive and are not a policy-improvement estimate. Both original failures still play blueprint. Main14.32min/14.28CPU-min,14.81GiB sampled peak, CPU60/Thermistor15 59.5°C, no swap growth. Model stays frozen; exact-runtime profiling next, focused menu candidate and whole-hand pilot deferred. [Report and response tables](docs/reports/river-harm-diagnosis/results.md).
 
 
