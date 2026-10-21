@@ -4,7 +4,7 @@
 //! prefixes and per-card sums replace dense holding-by-holding leaf products.
 use hu20_buckets::evaluate;
 use serde_json::{json, Value};
-use std::collections::HashSet;
+use std::{collections::HashSet, time::Instant};
 
 #[derive(Clone, Debug)]
 pub struct Holding {
@@ -234,6 +234,20 @@ impl Game {
             cards[h.cards[0] as usize] += v;
             cards[h.cards[1] as usize] += v;
         }
+        if t.win0 == 0. && t.tie0 == 0. {
+            // A fold terminal depends only on blocker-adjusted mass, so the
+            // showdown rank pass is skipped. The arithmetic is the same as below.
+            for (i, h) in self.hands[seat].iter().enumerate() {
+                let identical =
+                    self.same[seat][i].map_or(0., |j| self.hands[other][j].weight * reach[j]);
+                let mass = (total - cards[h.cards[0] as usize] - cards[h.cards[1] as usize]
+                    + identical)
+                    .max(0.);
+                let value = (t.base * mass) * (h.weight / self.z);
+                out[i] = if seat == 0 { value } else { -value };
+            }
+            return;
+        }
         let (mut low, mut high) = (0, 0);
         let (mut below, mut through) = (0., 0.);
         let (mut low_cards, mut high_cards) = ([0.; 52], [0.; 52]);
@@ -315,15 +329,26 @@ impl Game {
     }
 }
 
+/// Opt-in leaf timing; per-leaf clocks are off in ordinary solves.
+#[derive(Clone, Copy, Default)]
+struct LeafTiming {
+    fold_seconds: f64,
+    showdown_seconds: f64,
+    folds: u64,
+    showdowns: u64,
+}
+
 struct Workspace {
     value: Vec<Vec<f64>>,
     reach: Vec<Vec<f64>>,
+    timing: Option<LeafTiming>,
 }
 impl Workspace {
     fn new(game: &Game, seat: usize) -> Self {
         Self {
             value: vec![vec![0.; game.holdings(seat)]; game.nodes.len()],
             reach: vec![vec![0.; game.holdings(1 - seat)]; game.nodes.len()],
+            timing: None,
         }
     }
     fn start(&mut self) {
@@ -343,7 +368,22 @@ fn visit(
     work: &mut Workspace,
 ) {
     match &game.nodes[id] {
-        Node::Leaf(t) => game.leaf_into(*t, seat, &work.reach[id], &mut work.value[id]),
+        Node::Leaf(t) => match work.timing {
+            None => game.leaf_into(*t, seat, &work.reach[id], &mut work.value[id]),
+            Some(mut timing) => {
+                let tick = Instant::now();
+                game.leaf_into(*t, seat, &work.reach[id], &mut work.value[id]);
+                let elapsed = tick.elapsed().as_secs_f64();
+                if t.win0 == 0. && t.tie0 == 0. {
+                    timing.fold_seconds += elapsed;
+                    timing.folds += 1;
+                } else {
+                    timing.showdown_seconds += elapsed;
+                    timing.showdowns += 1;
+                }
+                work.timing = Some(timing);
+            }
+        },
         Node::Decision { actor, children } => {
             let k = children.len();
             for (action, &child) in children.iter().enumerate() {
@@ -385,7 +425,39 @@ fn visit(
     }
 }
 
+/// Regret and averaging rule. `Linear` weights iteration t by t; `Discounted`
+/// is DCFR: after iteration t, accumulated positive regrets are multiplied by
+/// t^alpha/(t^alpha+1), negative ones by t^beta/(t^beta+1), and the average
+/// strategy's accumulated contributions by (t/(t+1))^gamma.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum Algorithm {
+    Linear,
+    Discounted { alpha: f64, beta: f64, gamma: f64 },
+}
+pub const DCFR: Algorithm = Algorithm::Discounted {
+    alpha: 1.5,
+    beta: 0.,
+    gamma: 2.,
+};
+impl Algorithm {
+    pub fn name(self) -> &'static str {
+        match self {
+            Self::Linear => "linear-cfr",
+            Self::Discounted { .. } if self == DCFR => "dcfr-1.5-0-2",
+            Self::Discounted { .. } => "dcfr-custom",
+        }
+    }
+}
+
+#[derive(Default)]
+struct SolverTiming {
+    traversal_seconds: f64,
+    update_seconds: f64,
+}
+
 pub struct Solver {
+    algorithm: Algorithm,
+    timing: SolverTiming,
     game: Game,
     regrets: Vec<Vec<f64>>,
     numer: Vec<Vec<f64>>,
@@ -429,6 +501,8 @@ impl Solver {
         let work = std::array::from_fn(|s| Workspace::new(&game, s));
         let own_reach = std::array::from_fn(|s| vec![vec![0.; game.holdings(s)]; game.nodes.len()]);
         Ok(Self {
+            algorithm: Algorithm::Linear,
+            timing: SolverTiming::default(),
             game,
             regrets: shape.clone(),
             numer: shape.clone(),
@@ -442,12 +516,59 @@ impl Solver {
         })
     }
 
+    pub fn set_algorithm(&mut self, algorithm: Algorithm) -> Result<(), String> {
+        if self.sweeps != 0 {
+            return Err("the algorithm is fixed before the first sweep".into());
+        }
+        self.algorithm = algorithm;
+        Ok(())
+    }
+
+    /// Per-leaf clocks for profiling; sweep-level phase timing is always kept.
+    pub fn profile_leaves(&mut self) {
+        for work in &mut self.work {
+            work.timing = Some(LeafTiming::default());
+        }
+    }
+
+    pub fn timing(&self) -> Value {
+        let leaves =
+            self.work
+                .iter()
+                .filter_map(|w| w.timing)
+                .fold(None, |sum: Option<LeafTiming>, t| {
+                    let s = sum.unwrap_or_default();
+                    Some(LeafTiming {
+                        fold_seconds: s.fold_seconds + t.fold_seconds,
+                        showdown_seconds: s.showdown_seconds + t.showdown_seconds,
+                        folds: s.folds + t.folds,
+                        showdowns: s.showdowns + t.showdowns,
+                    })
+                });
+        let mut out = json!({"algorithm":self.algorithm.name(),"sweeps":self.sweeps,
+            "traversal_seconds":self.timing.traversal_seconds,"update_seconds":self.timing.update_seconds});
+        if let Some(l) = leaves {
+            out["fold_leaf_seconds"] = json!(l.fold_seconds);
+            out["showdown_leaf_seconds"] = json!(l.showdown_seconds);
+            out["fold_leaf_evaluations"] = json!(l.folds);
+            out["showdown_leaf_evaluations"] = json!(l.showdowns);
+            out["traversal_excluding_leaves_seconds"] =
+                json!(self.timing.traversal_seconds - l.fold_seconds - l.showdown_seconds);
+        }
+        out
+    }
+
     pub fn advance(&mut self, count: u64) -> Result<(), String> {
         if count == 0 || self.sweeps.checked_add(count).is_none_or(|s| s > 1_000_000) {
             return Err("positive fixed work up to one million cumulative sweeps required".into());
         }
         for _ in 0..count {
-            let weight = (self.sweeps + 1) as f64;
+            let started = Instant::now();
+            let t = (self.sweeps + 1) as f64;
+            let weight = match self.algorithm {
+                Algorithm::Linear => t,
+                Algorithm::Discounted { .. } => 1.,
+            };
             for (id, node) in self.game.nodes.iter().enumerate() {
                 if let Node::Decision { children, .. } = node {
                     let k = children.len();
@@ -471,6 +592,7 @@ impl Solver {
                     self.deltas[id].fill(0.);
                 }
             }
+            let traversal = Instant::now();
             for seat in 0..2 {
                 self.work[seat].start();
                 visit(
@@ -485,6 +607,7 @@ impl Solver {
                     &mut self.work[seat],
                 );
             }
+            let traversal = traversal.elapsed().as_secs_f64();
             // Reject numerical failure before changing either player's stored
             // regrets or averages. This prepared API has no partial-sweep mode.
             for workspace in &self.work {
@@ -534,7 +657,24 @@ impl Solver {
                     }
                 }
             }
+            if let Algorithm::Discounted { alpha, beta, gamma } = self.algorithm {
+                let positive = t.powf(alpha) / (t.powf(alpha) + 1.);
+                let negative = t.powf(beta) / (t.powf(beta) + 1.);
+                let average = (t / (t + 1.)).powf(gamma);
+                for id in 0..self.game.nodes.len() {
+                    if self.fixed[id].is_none() {
+                        for r in &mut self.regrets[id] {
+                            *r *= if *r > 0. { positive } else { negative };
+                        }
+                    }
+                    for x in self.numer[id].iter_mut().chain(self.denom[id].iter_mut()) {
+                        *x *= average;
+                    }
+                }
+            }
             self.sweeps += 1;
+            self.timing.traversal_seconds += traversal;
+            self.timing.update_seconds += started.elapsed().as_secs_f64() - traversal;
         }
         Ok(())
     }

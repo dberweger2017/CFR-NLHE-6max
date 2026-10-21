@@ -296,3 +296,38 @@ fn nearly_blocked_chance_law_uses_stable_explicit_scalar_fallback() {
         }
     }
 }
+
+#[test]
+fn dcfr_discounts_its_first_sweep_and_converges() {
+    let solve = |algorithm: Algorithm, sweeps: u64| {
+        let g = sample(true, false);
+        let n = g.node_count();
+        let mut s = Solver::new(g, vec![None; n]).unwrap();
+        s.set_algorithm(algorithm).unwrap();
+        s.advance(sweeps).unwrap();
+        s
+    };
+    // At t = 1 both regret factors are 1/2 and the average is only rescaled.
+    let (linear, discounted) = (solve(Algorithm::Linear, 1), solve(DCFR, 1));
+    for (a, b) in linear
+        .regrets
+        .iter()
+        .flatten()
+        .zip(discounted.regrets.iter().flatten())
+    {
+        assert_eq!(*b, 0.5 * *a);
+    }
+    assert_eq!(linear.average(), discounted.average());
+    let mut last = f64::INFINITY;
+    for sweeps in [16, 64, 256] {
+        let mut s = solve(DCFR, sweeps);
+        let average = s.average();
+        let e = s.quality(&average).unwrap()["exploitability_bb"]
+            .as_f64()
+            .unwrap();
+        assert!(e < last, "{sweeps}: {e} >= {last}");
+        last = e;
+    }
+    let mut s = solve(DCFR, 1);
+    assert!(s.set_algorithm(Algorithm::Linear).is_err());
+}

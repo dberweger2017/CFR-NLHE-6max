@@ -1,5 +1,5 @@
 //! Opt-in legal public-history adapter. No deck or other private hand input.
-use super::{Game, Holding, Node, Solver, Terminal};
+use super::{Algorithm, Game, Holding, Node, Solver, Terminal, DCFR};
 use crate::{
     cards::EquityTables,
     game::{Kind, Street},
@@ -88,6 +88,10 @@ fn reconstruct(v: &Value, config: Config) -> Result<PublicRoot, String> {
             "sweeps",
             "debug",
             "mode",
+            "algorithm",
+            "checkpoints",
+            "stop_at_target",
+            "profile",
             "search_menu",
             "omitted",
         ],
@@ -808,8 +812,8 @@ pub fn request(v: &Value, table: &PolicyTable, tables: &EquityTables) -> Result<
         _ => return Err("mode must be solve or classify".into()),
     }
     let sweeps = uint(&v["sweeps"])?;
-    if !(1..=1024).contains(&sweeps) {
-        return Err("pilot supports fixed 1..1024 sweeps".into());
+    if !(1..=4096).contains(&sweeps) {
+        return Err("supports fixed 1..4096 sweeps".into());
     }
     let debug = match v.get("debug") {
         Some(x) => x.as_bool().ok_or("debug must be boolean")?,
@@ -850,14 +854,54 @@ pub fn request(v: &Value, table: &PolicyTable, tables: &EquityTables) -> Result<
     )?;
     let menus = &tree.menus;
     let mut solver = Solver::new(game, vec![None; nodes])?;
+    solver.set_algorithm(match v.get("algorithm").map(|a| a.as_str()) {
+        None | Some(Some("linear-cfr")) => Algorithm::Linear,
+        Some(Some("dcfr-1.5-0-2")) => DCFR,
+        _ => return Err("algorithm must be linear-cfr or dcfr-1.5-0-2".into()),
+    })?;
+    if v.get("profile") == Some(&json!(true)) {
+        solver.profile_leaves();
+    }
+    // Quality is checked at each checkpoint; elapsed time includes the checks.
+    let checkpoints: Vec<u64> = match v.get("checkpoints") {
+        None => vec![sweeps],
+        Some(c) => array(c)?.iter().map(uint).collect::<Result<_, _>>()?,
+    };
+    if checkpoints.is_empty()
+        || checkpoints.windows(2).any(|w| w[0] >= w[1])
+        || checkpoints[0] == 0
+        || *checkpoints.last().unwrap() != sweeps
+    {
+        return Err("checkpoints must increase and end at sweeps".into());
+    }
+    let stop_at_target = v.get("stop_at_target") == Some(&json!(true));
+    // The frozen quality gate: each player's gain within min(1% of the pot, 0.1 BB).
+    let target = (0.01 * root.hand.pot() as f64 / 100.).min(0.1);
     let preparation = tick.elapsed().as_secs_f64();
     let tick = Instant::now();
-    solver.advance(sweeps)?;
-    let solve = tick.elapsed().as_secs_f64();
-    let tick = Instant::now();
-    let average = solver.average();
-    let quality = solver.quality(&average)?;
-    let quality_seconds = tick.elapsed().as_secs_f64();
+    let (mut done, mut quality_seconds, mut curve) = (0, 0., Vec::new());
+    let (mut average, mut quality) = (Vec::new(), Value::Null);
+    for &checkpoint in &checkpoints {
+        solver.advance(checkpoint - done)?;
+        done = checkpoint;
+        let check = Instant::now();
+        average = solver.average();
+        quality = solver.quality(&average)?;
+        quality_seconds += check.elapsed().as_secs_f64();
+        let met = quality["best_response_gains_bb"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .all(|g| g.as_f64().unwrap() <= target);
+        curve.push(
+            json!({"sweeps":checkpoint,"elapsed_seconds":tick.elapsed().as_secs_f64(),
+            "best_response_gains_bb":quality["best_response_gains_bb"],"target_met":met}),
+        );
+        if met && stop_at_target {
+            break;
+        }
+    }
+    let solve = tick.elapsed().as_secs_f64() - quality_seconds;
     let k = menus[0].len();
     let probabilities = &average[0][holding * k..(holding + 1) * k];
     let actions: Vec<_> = menus[0]
@@ -874,7 +918,8 @@ pub fn request(v: &Value, table: &PolicyTable, tables: &EquityTables) -> Result<
         }
         None => Value::Null,
     };
-    let mut out = json!({"format":"nplayer-live-river-result-v1","sweeps":sweeps,"search_menu":menu.name(),"omitted_raise_evaluation":deployed,"actions":actions,"probabilities":probabilities,"live":root.live,"nodes":nodes,"holdings":pairs.len(),"law":law,"coverage":coverage.map(|c|c.json()),"quality":quality,"timings":{"reconstruction_seconds":reconstruction,"likelihood_seconds":likelihood_seconds,"projection_seconds":projection_seconds,"tree_and_solver_preparation_seconds":preparation,"solve_seconds":solve,"quality_seconds":quality_seconds,"native_before_serialization_seconds":started.elapsed().as_secs_f64()}});
+    let mut out = json!({"format":"nplayer-live-river-result-v1","sweeps":done,"requested_sweeps":sweeps,
+        "algorithm":solver.timing()["algorithm"],"target_bb":target,"checkpoints":curve,"solver_timing":solver.timing(),"search_menu":menu.name(),"omitted_raise_evaluation":deployed,"actions":actions,"probabilities":probabilities,"live":root.live,"nodes":nodes,"holdings":pairs.len(),"law":law,"coverage":coverage.map(|c|c.json()),"quality":quality,"timings":{"reconstruction_seconds":reconstruction,"likelihood_seconds":likelihood_seconds,"projection_seconds":projection_seconds,"tree_and_solver_preparation_seconds":preparation,"solve_seconds":solve,"quality_seconds":quality_seconds,"native_before_serialization_seconds":started.elapsed().as_secs_f64()}});
     if debug {
         out["average"] = json!(average);
         out["prepared_game"] = json!({"board":root.board,"root_pot_bb":root.hand.pot() as f64/100.,"ranges":std::array::from_fn::<_,2,_>(|s|solver.game.hands[s].iter().map(|h|json!([h.cards[0],h.cards[1],h.weight])).collect::<Vec<_>>()),"nodes":solver.game.nodes.iter().map(|n|match n{Node::Leaf(t)=>json!({"terminal":[t.base,t.win0,t.tie0]}),Node::Decision{actor,children}=>json!({"actor":actor,"children":children})}).collect::<Vec<_>>()});
