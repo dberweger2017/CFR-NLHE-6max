@@ -391,3 +391,20 @@ fn capped_search_menus_keep_the_root_and_cap_river_raises() {
         assert!(tree.nodes.len() < full.nodes.len());
     }
 }
+
+#[test]
+fn exact_modeled_backend_matches_existing_dense_oracle_on_a_legal_root() {
+    let r = root();
+    let pairs = [[21, 22], [23, 24], [25, 26], [27, 28], [29, 30], [30, 31]];
+    let likelihood = [
+        vec![0.1, 0.2, 0.1, 0.2, 0.1, 0.3],
+        vec![1. / 6.; 6],
+        vec![1. / 6.; 6],
+    ];
+    let q = exact::qualify(&r, &pairs, &likelihood, SearchMenu::RootCheckMinOpen).unwrap();
+    assert_eq!(q["fixed_sweeps"], 64);
+    assert!(q["max_leaf_error_bb"].as_f64().unwrap() < 1e-10);
+    assert!(q["max_quality_error_bb"].as_f64().unwrap() < 1e-8);
+    assert_eq!(q["law"], exact::EXACT_LAW);
+    assert!(exact::Backend::parse(Some(&json!("unknown"))).is_err());
+}

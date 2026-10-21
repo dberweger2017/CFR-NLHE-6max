@@ -31,7 +31,11 @@ struct Hand {
     rank: u32,
 }
 
+mod correlated;
+
 pub struct Game {
+    board_mask: u64,
+    folded: Option<correlated::FoldedLaw>,
     hands: [Vec<Hand>; 2],
     sorted: [Vec<usize>; 2],
     same: [Vec<Option<usize>>; 2],
@@ -188,6 +192,8 @@ impl Game {
             return Err("ranges have no representable compatible joint mass".into());
         }
         Ok(Self {
+            board_mask: board.iter().fold(0, |m, c| m | (1u64 << c)),
+            folded: None,
             hands,
             sorted,
             same,
@@ -202,6 +208,9 @@ impl Game {
     /// Replaces the product law w0(h0) w1(h1) / Z with an explicit joint law
     /// over (seat 0, seat 1) holdings. Blocked pairs must have zero mass.
     pub fn with_joint(mut self, mut joint: Vec<f64>) -> Result<Self, String> {
+        if self.folded.is_some() {
+            return Err("chance law already replaced".into());
+        }
         let (n0, n1) = (self.hands[0].len(), self.hands[1].len());
         if joint.len() != n0 * n1 || joint.iter().any(|x| !x.is_finite() || *x < 0.) {
             return Err("joint law shape or values invalid".into());
@@ -239,6 +248,10 @@ impl Game {
     }
 
     fn leaf_into(&self, t: Terminal, seat: usize, reach: &[f64], out: &mut [f64]) {
+        if let Some(law) = &self.folded {
+            law.leaf_into(self, t, seat, reach, out);
+            return;
+        }
         let other = 1 - seat;
         if let Some((joint, transposed)) = &self.joint {
             // Exact joint law: dense pairwise sums, parallel over own holdings.

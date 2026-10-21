@@ -10,6 +10,8 @@ use crate::{
 use serde_json::{json, Value};
 use std::{collections::HashMap, time::Instant};
 
+mod exact;
+
 pub const LAW: &str = "three-product-action-posterior-active-marginal-projection-v1";
 
 fn fields(v: &Value, names: &[&str]) -> Result<(), String> {
@@ -98,6 +100,7 @@ fn reconstruct(v: &Value, config: Config) -> Result<PublicRoot, String> {
             "search_menu",
             "omitted",
             "matched_accuracy",
+            "belief_backend",
         ],
     )?;
     if v["format"] != "nplayer-live-river-v1"
@@ -1129,6 +1132,15 @@ fn request_impl(
         .map(|(i, j)| [cards[i], cards[j]])
         .collect();
     let menu = SearchMenu::parse(v.get("search_menu"))?;
+    let backend = exact::Backend::parse(v.get("belief_backend"))?;
+    if backend != exact::Backend::Projected
+        && !matches!(
+            v["mode"].as_str(),
+            None | Some("solve") | Some("exact-qualification")
+        )
+    {
+        return Err("exact backend is supported only for solve or exact-qualification".into());
+    }
     match v.get("mode").map(|m| m.as_str()) {
         None | Some(Some("solve")) => (),
         Some(Some("classify")) => {
@@ -1137,6 +1149,11 @@ fn request_impl(
             out["timings"]["native_before_serialization_seconds"] =
                 json!(started.elapsed().as_secs_f64());
             return Ok(out);
+        }
+        Some(Some("exact-qualification")) => {
+            let (likelihood, _) =
+                likelihoods(&root, &pairs, |obs| blueprint_row(obs, table, tables))?;
+            return exact::qualify(&root, &pairs, &likelihood, menu);
         }
         Some(Some("belief-control")) => {
             let checkpoints = sweep_list(v.get("checkpoints"))?;
@@ -1206,12 +1223,15 @@ fn request_impl(
         Some(x) => x.as_bool().ok_or("debug must be boolean")?,
         None => false,
     };
+    if backend != exact::Backend::Projected && debug {
+        return Err("exact debug prepared-game export is unsupported".into());
+    }
     let tick = Instant::now();
     let (likelihood, coverage) =
         likelihoods(&root, &pairs, |obs| blueprint_row(obs, table, tables))?;
     let likelihood_seconds = tick.elapsed().as_secs_f64();
     let tick = Instant::now();
-    let (ranges, law) = project(&pairs, &likelihood, root.live)?;
+    let (mut ranges, mut law) = project(&pairs, &likelihood, root.live)?;
     let projection_seconds = tick.elapsed().as_secs_f64();
     let hero = root.live.iter().position(|&s| s == root.seat).unwrap();
     let holding = pairs
@@ -1229,7 +1249,15 @@ fn request_impl(
     if omitted && menu == SearchMenu::Full {
         return Err("omitted-raise evaluation needs a capped search menu".into());
     }
+    if backend != exact::Backend::Projected && omitted {
+        return Err("exact solves use retained-full-menu-audit outside decision timing".into());
+    }
     let evaluation_ranges = omitted.then(|| ranges.clone());
+    if backend != exact::Backend::Projected {
+        ranges = exact::ranges(&pairs, &likelihood, root.live);
+        law["law"] = json!(exact::EXACT_LAW);
+        law["projection_applied"] = json!(false);
+    }
     let mut tree = Tree::new(&root.hand, root.live, menu, SUPPORTED_NODES);
     tree.compile(&mut root.hand.clone())?;
     let nodes = tree.nodes.len();
@@ -1239,6 +1267,14 @@ fn request_impl(
         std::mem::take(&mut tree.nodes),
         root.hand.pot() as f64 / 100.,
     )?;
+    let game = match backend {
+        exact::Backend::Projected => game,
+        exact::Backend::Prefix => exact::prefix(game, &pairs, &likelihood, root.live)?,
+        exact::Backend::Dense => {
+            let (_, _, joint) = project_with_joint(&pairs, &likelihood, root.live, true)?;
+            game.with_joint(joint.unwrap())?
+        }
+    };
     let menus = &tree.menus;
     let mut solver = Solver::new(game, vec![None; nodes])?;
     solver.set_algorithm(match v.get("algorithm").map(|a| a.as_str()) {
@@ -1307,6 +1343,9 @@ fn request_impl(
     };
     let mut out = json!({"format":"nplayer-live-river-result-v1","sweeps":done,"requested_sweeps":sweeps,
         "algorithm":solver.timing()["algorithm"],"target_bb":target,"solver_memory_bytes":solver.memory_bytes(),"checkpoints":curve,"solver_timing":solver.timing(),"search_menu":menu.name(),"omitted_raise_evaluation":deployed,"actions":actions,"probabilities":probabilities,"live":root.live,"nodes":nodes,"holdings":pairs.len(),"law":law,"coverage":coverage.map(|c|c.json()),"quality":quality,"timings":{"reconstruction_seconds":reconstruction,"likelihood_seconds":likelihood_seconds,"projection_seconds":projection_seconds,"tree_and_solver_preparation_seconds":preparation,"solve_seconds":solve,"quality_seconds":quality_seconds,"native_before_serialization_seconds":started.elapsed().as_secs_f64()}});
+    if backend != exact::Backend::Projected {
+        out["chance"] = solver.game.chance_stats();
+    }
     if debug {
         out["average"] = json!(average);
         out["prepared_game"] = json!({"board":root.board,"root_pot_bb":root.hand.pot() as f64/100.,"ranges":std::array::from_fn::<_,2,_>(|s|solver.game.hands[s].iter().map(|h|json!([h.cards[0],h.cards[1],h.weight])).collect::<Vec<_>>()),"nodes":solver.game.nodes.iter().map(|n|match n{Node::Leaf(t)=>json!({"terminal":[t.base,t.win0,t.tie0]}),Node::Decision{actor,children}=>json!({"actor":actor,"children":children})}).collect::<Vec<_>>()});

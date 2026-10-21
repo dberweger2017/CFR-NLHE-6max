@@ -15,7 +15,7 @@ fn public(v: &Value) -> Value {
     }
     Value::Object(x)
 }
-fn profile_digest(profile: &[Vec<f64>]) -> String {
+pub(super) fn profile_digest(profile: &[Vec<f64>]) -> String {
     let mut h = Sha256::new();
     for row in profile {
         h.update((row.len() as u64).to_le_bytes());
@@ -66,7 +66,7 @@ impl Captured {
             + pairs.len() * 2;
         let metadata = json!({"root_sha256":digest(&serde_json::to_vec(&public(&original)).unwrap()),
             "profile_sha256":profile_digest(&profile), "search_menu":tree.menu.name(),
-            "belief_law":LAW,"algorithm":result["algorithm"],"work":{
+            "belief_law":result["law"]["law"],"algorithm":result["algorithm"],"work":{
                 "requested_sweeps":result["requested_sweeps"],"sweeps":result["sweeps"],
                 "target_bb":result["target_bb"],"checkpoints":original["checkpoints"]},
             "game":"three-player-100bb-50-100-v1", "production_menu":"min-pot-conditional-jam-v1",
@@ -284,6 +284,11 @@ impl SessionStore {
                     }
                     Err(e) => return Err(e),
                 };
+                out["produced_root_strategy"] = if cap.profile.is_empty() {
+                    Value::Null
+                } else {
+                    json!({"actions":out["actions"],"probabilities":out["probabilities"]})
+                };
                 // Nonconverged root must play the actual blueprint, never its unconverged profile.
                 if reason.is_some() {
                     let mut obs = cap.root.hand.observe(cap.root.seat)?;
@@ -396,6 +401,28 @@ impl SessionStore {
                 Ok(
                     json!({"installed_search":true,"checked_rows":count,"solver_advances":0,"rows_sha256":format!("{:x}",h.finalize()),
                     "seconds":tick.elapsed().as_secs_f64(),"profile_sha256":cap.metadata["profile_sha256"]}),
+                )
+            }
+            Some("retained-full-menu-audit") => {
+                fields(v, &["mode", "hand_id", "handle"])?;
+                let active = self.check(v)?;
+                let cap = active
+                    .captured
+                    .as_ref()
+                    .or(active.fallback_root.as_ref())
+                    .unwrap();
+                if active.off_tree {
+                    return Err("offline root audit requires original retained root".into());
+                }
+                exact::audit(
+                    &cap.root,
+                    &cap.pairs,
+                    &cap.tree,
+                    &cap.profile,
+                    &cap.original,
+                    cap.installed,
+                    table,
+                    tables,
                 )
             }
             Some("retained-release") => {
