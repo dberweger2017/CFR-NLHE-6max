@@ -398,6 +398,8 @@ struct Workspace {
     value: Vec<Vec<f64>>,
     reach: Vec<Vec<f64>>,
     timing: Option<LeafTiming>,
+    // Best responses only: per node, the actions the responder may use (empty = all).
+    mask: Option<Vec<Vec<bool>>>,
 }
 impl Workspace {
     fn new(game: &Game, seat: usize) -> Self {
@@ -405,6 +407,7 @@ impl Workspace {
             value: vec![vec![0.; game.holdings(seat)]; game.nodes.len()],
             reach: vec![vec![0.; game.holdings(1 - seat)]; game.nodes.len()],
             timing: None,
+            mask: None,
         }
     }
     fn start(&mut self) {
@@ -459,9 +462,12 @@ fn visit(
                 let value = if *actor != seat {
                     children.iter().map(|&c| work.value[c][h]).sum()
                 } else if best {
+                    let allowed = work.mask.as_ref().map(|m| &m[id]).filter(|m| !m.is_empty());
                     children
                         .iter()
-                        .map(|&c| work.value[c][h])
+                        .enumerate()
+                        .filter(|(a, _)| allowed.is_none_or(|m| m[*a]))
+                        .map(|(_, &c)| work.value[c][h])
                         .fold(f64::NEG_INFINITY, f64::max)
                 } else {
                     children
@@ -733,6 +739,59 @@ impl Solver {
             self.timing.update_seconds += started.elapsed().as_secs_f64() - traversal;
         }
         Ok(())
+    }
+
+    /// Root value for `seat`: of `profile`, or with `best` of its best response,
+    /// where a non-empty `mask[node]` lists the only actions the responder may use.
+    pub fn value(
+        &mut self,
+        profile: &[Vec<f64>],
+        seat: usize,
+        best: bool,
+        mask: Option<Vec<Vec<bool>>>,
+    ) -> Result<f64, String> {
+        if profile.len() != self.game.nodes.len()
+            || mask
+                .as_ref()
+                .is_some_and(|m| m.len() != self.game.nodes.len())
+        {
+            return Err("profile or mask node count differs".into());
+        }
+        self.work[seat].mask = mask;
+        self.work[seat].start();
+        visit(
+            &self.game,
+            0,
+            seat,
+            profile,
+            &mut self.deltas,
+            0.,
+            best,
+            false,
+            &mut self.work[seat],
+        );
+        self.work[seat].mask = None;
+        finite(self.work[seat].value[0].iter().sum())
+    }
+
+    pub fn node(&self, id: usize) -> &Node {
+        &self.game.nodes[id]
+    }
+
+    /// Approximate resident bytes of the solver state (f64 arrays only).
+    pub fn memory_bytes(&self) -> usize {
+        let rows = |v: &Vec<Vec<f64>>| v.iter().map(Vec::len).sum::<usize>();
+        8 * (rows(&self.regrets)
+            + rows(&self.numer)
+            + rows(&self.denom)
+            + rows(&self.profile)
+            + rows(&self.deltas)
+            + self
+                .work
+                .iter()
+                .map(|w| rows(&w.value) + rows(&w.reach))
+                .sum::<usize>()
+            + self.own_reach.iter().map(rows).sum::<usize>())
     }
 
     pub fn average(&self) -> Vec<Vec<f64>> {

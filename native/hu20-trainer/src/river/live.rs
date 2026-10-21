@@ -94,6 +94,7 @@ fn reconstruct(v: &Value, config: Config) -> Result<PublicRoot, String> {
             "profile",
             "reference_checkpoints",
             "reference_tolerance_bb",
+            "target",
             "search_menu",
             "omitted",
         ],
@@ -721,10 +722,19 @@ fn blueprint_row(
     }
 }
 
-/// Quality of the policy a capped search actually deploys, in the full-menu
-/// game: the capped solution on its own histories, and the blueprint after
-/// any omitted raise. Both players' best-response gains are measured there.
-fn deployed_quality(
+/// The deployed policy in the full-menu game: the capped solution on its own
+/// histories, and the blueprint after any omitted raise. The blueprint alone is
+/// the no-search baseline in the same game.
+struct FullMenu {
+    tree: Tree,
+    // The capped node each full-menu node maps to, if it is on the capped tree.
+    capped_of: Vec<Option<usize>>,
+    deployed: Vec<Vec<f64>>,
+    blueprint: Vec<Vec<f64>>,
+    solver: Solver,
+}
+
+fn full_menu(
     root: &PublicRoot,
     pairs: &[[u8; 2]],
     ranges: [Vec<Holding>; 2],
@@ -732,7 +742,7 @@ fn deployed_quality(
     average: &[Vec<f64>],
     table: &PolicyTable,
     tables: &EquityTables,
-) -> Result<Value, String> {
+) -> Result<FullMenu, String> {
     let mut full = Tree::new(&root.hand, root.live, SearchMenu::Full, EVALUATION_NODES);
     full.compile(&mut root.hand.clone())?;
     let index: HashMap<_, _> = capped
@@ -741,8 +751,11 @@ fn deployed_quality(
         .enumerate()
         .map(|(i, p)| (path_key(p), i))
         .collect();
-    let (mut on_tree, mut fallback) = (0usize, 0usize);
-    // The deployed policy, and the blueprint alone as the no-search baseline.
+    let capped_of: Vec<_> = full
+        .paths
+        .iter()
+        .map(|p| index.get(&path_key(p)).copied())
+        .collect();
     let mut deployed = Vec::with_capacity(full.nodes.len());
     let mut blueprint = Vec::with_capacity(full.nodes.len());
     for (id, node) in full.nodes.iter().enumerate() {
@@ -766,8 +779,7 @@ fn deployed_quality(
             }
             baseline[h * k..(h + 1) * k].copy_from_slice(&p);
         }
-        if let Some(&c) = index.get(&path_key(&full.paths[id])) {
-            on_tree += 1;
+        if let Some(c) = capped_of[id] {
             let mut row = vec![0.; pairs.len() * k];
             let kc = capped.menus[c].len();
             for (j, a) in capped.menus[c].iter().enumerate() {
@@ -781,7 +793,6 @@ fn deployed_quality(
             }
             deployed.push(row);
         } else {
-            fallback += 1;
             deployed.push(baseline.clone());
         }
         blueprint.push(baseline);
@@ -790,18 +801,146 @@ fn deployed_quality(
     let game = Game::with_limits(
         root.board,
         ranges,
-        full.nodes,
+        std::mem::take(&mut full.nodes),
         root.hand.pot() as f64 / 100.,
         EVALUATION_NODES,
         EVALUATION_CELLS,
     )?;
-    let mut solver = Solver::new(game, vec![None; nodes])?;
-    let quality = solver.quality(&deployed)?;
-    let blueprint_quality = solver.quality(&blueprint)?;
+    let solver = Solver::new(game, vec![None; nodes])?;
+    Ok(FullMenu {
+        tree: full,
+        capped_of,
+        deployed,
+        blueprint,
+        solver,
+    })
+}
+
+fn deployed_quality(
+    root: &PublicRoot,
+    pairs: &[[u8; 2]],
+    ranges: [Vec<Holding>; 2],
+    capped: &Tree,
+    average: &[Vec<f64>],
+    table: &PolicyTable,
+    tables: &EquityTables,
+) -> Result<Value, String> {
+    let mut f = full_menu(root, pairs, ranges, capped, average, table, tables)?;
+    let decisions = f.deployed.iter().filter(|r| !r.is_empty()).count();
+    let on_tree = (0..f.capped_of.len())
+        .filter(|&i| !f.deployed[i].is_empty() && f.capped_of[i].is_some())
+        .count();
+    let quality = f.solver.quality(&f.deployed)?;
+    let blueprint_quality = f.solver.quality(&f.blueprint)?;
     Ok(
-        json!({"full_menu_nodes":nodes,"capped_decisions":on_tree,"blueprint_fallback_decisions":fallback,
+        json!({"full_menu_nodes":f.capped_of.len(),"capped_decisions":on_tree,
+        "blueprint_fallback_decisions":decisions - on_tree,
+        "hero_game_seat":root.live.iter().position(|&s| s == root.seat),
         "quality":quality,"blueprint_only_quality":blueprint_quality}),
     )
+}
+
+/// Where the deployed policy's full-menu vulnerability comes from. For each
+/// player, the best-response gain with only the capped actions, and with the
+/// capped actions plus one omitted action at one on-tree node (an entry). Each
+/// gain is a full reach-weighted value in the full-menu game.
+fn diagnose(
+    root: &PublicRoot,
+    pairs: &[[u8; 2]],
+    ranges: [Vec<Holding>; 2],
+    capped: &Tree,
+    average: &[Vec<f64>],
+    table: &PolicyTable,
+    tables: &EquityTables,
+) -> Result<Value, String> {
+    let mut f = full_menu(root, pairs, ranges, capped, average, table, tables)?;
+    let nodes = f.capped_of.len();
+    let mut players = Vec::new();
+    for seat in 0..2 {
+        let value = f.solver.value(&f.deployed, seat, false, None)?;
+        let full = f.solver.value(&f.deployed, seat, true, None)? - value;
+        let blueprint = f.solver.value(&f.blueprint, seat, true, None)?
+            - f.solver.value(&f.blueprint, seat, false, None)?;
+        // Capped-only mask: on the capped tree, this player may use only capped actions.
+        let mut mask = vec![Vec::new(); nodes];
+        let mut entries = Vec::new();
+        for id in 0..nodes {
+            let (Some(c), false) = (f.capped_of[id], f.deployed[id].is_empty()) else {
+                continue;
+            };
+            let k = f.tree.menus[id].len();
+            if actor_of(&f, id) != seat {
+                continue;
+            }
+            mask[id] = f.tree.menus[id]
+                .iter()
+                .map(|a| capped.menus[c].contains(a))
+                .collect();
+            for j in 0..k {
+                if !mask[id][j] {
+                    entries.push((id, j));
+                }
+            }
+        }
+        let capped_only = f
+            .solver
+            .value(&f.deployed, seat, true, Some(mask.clone()))?
+            - value;
+        let mut rows = Vec::new();
+        for (id, j) in entries {
+            let mut m = mask.clone();
+            m[id][j] = true;
+            let gain = f.solver.value(&f.deployed, seat, true, Some(m))? - value;
+            let mut hand = root.hand.clone();
+            for a in &f.tree.paths[id] {
+                hand.apply_mut(*a)?;
+            }
+            let obs = hand.observe(root.live[seat])?;
+            let legal = obs.legal.ok_or("entry without legal actions")?;
+            let action = f.tree.menus[id][j];
+            let label = multi_holdem::menu(&obs)
+                .iter()
+                .find(|(_, a)| *a == action)
+                .map(|(l, _)| *l)
+                .ok_or("omitted action outside the production menu")?;
+            let raises = f.tree.paths[id]
+                .iter()
+                .filter(|a| a.kind == Kind::Raise)
+                .count();
+            rows.push(json!({"node":id,"path":f.tree.paths[id].iter().map(|a|json!([a.kind.name(),a.raise_to])).collect::<Vec<_>>(),
+                "action":[action.kind.name(),action.raise_to],"label":label,"river_raises_before":raises,
+                "facing_bet":legal.call_amount > 0,"gain_bb":gain,"increment_over_capped_bb":gain - capped_only}));
+        }
+        players.push(json!({"game_seat":seat,"live_seat":root.live[seat],"hero":root.live[seat] == root.seat,
+            "full_menu_gain_bb":full,"capped_actions_only_gain_bb":capped_only,"blueprint_only_gain_bb":blueprint,
+            "entries":rows}));
+    }
+    Ok(
+        json!({"format":"nplayer-live-river-diagnosis-v1","full_menu_nodes":nodes,
+        "pot_bb":root.hand.pot() as f64 / 100.,"players":players}),
+    )
+}
+
+fn actor_of(f: &FullMenu, id: usize) -> usize {
+    match f.solver.node(id) {
+        Node::Decision { actor, .. } => *actor,
+        Node::Leaf(_) => usize::MAX,
+    }
+}
+
+/// The quality target: each player's gain within min(fraction of the pot, cap).
+/// The default is the frozen deployment target, min(1% of the pot, 0.1 BB).
+fn quality_target(v: Option<&Value>, pot_bb: f64) -> Result<f64, String> {
+    let Some(v) = v else {
+        return Ok((0.01 * pot_bb).min(0.1));
+    };
+    let positive = |name: &str| {
+        v[name]
+            .as_f64()
+            .filter(|x| x.is_finite() && *x > 0.)
+            .ok_or_else(|| format!("target.{name} must be positive"))
+    };
+    Ok((positive("pot_fraction")? * pot_bb).min(positive("cap_bb")?))
 }
 
 fn sweep_list(v: Option<&Value>) -> Result<Vec<u64>, String> {
@@ -964,7 +1103,41 @@ pub fn request(v: &Value, table: &PolicyTable, tables: &EquityTables) -> Result<
                 json!({"native_before_serialization_seconds":started.elapsed().as_secs_f64()});
             return Ok(out);
         }
-        _ => return Err("mode must be solve, classify or belief-control".into()),
+        Some(Some("diagnose")) => {
+            let pot = root.hand.pot() as f64 / 100.;
+            let checkpoints = sweep_list(v.get("checkpoints"))?;
+            let target = quality_target(v.get("target"), pot)?;
+            let (likelihood, _) =
+                likelihoods(&root, &pairs, |obs| blueprint_row(obs, table, tables))?;
+            let (ranges, law) = project(&pairs, &likelihood, root.live)?;
+            let hero = root.live.iter().position(|&s| s == root.seat).unwrap();
+            let holding = pairs
+                .iter()
+                .position(|h| *h == root.hole)
+                .ok_or("own hand outside range")?;
+            if ranges[hero][holding].weight == 0. {
+                return Err("own holding has zero modeled root reach".into());
+            }
+            let mut tree = Tree::new(&root.hand, root.live, menu, SUPPORTED_NODES);
+            tree.compile(&mut root.hand.clone())?;
+            let nodes = tree.nodes.len();
+            let game = Game::new(
+                root.board,
+                ranges.clone(),
+                std::mem::take(&mut tree.nodes),
+                pot,
+            )?;
+            let (solver, run) = run_dcfr(game, &checkpoints, target)?;
+            let memory = solver.memory_bytes();
+            let mut out = diagnose(&root, &pairs, ranges, &tree, &run.average, table, tables)?;
+            out["search"] = json!({"menu":menu.name(),"nodes":nodes,"sweeps":run.sweeps,"converged":run.met,
+                "target_bb":target,"quality":run.quality,"solve_seconds":run.seconds,"solver_memory_bytes":memory});
+            out["law"] = law;
+            out["timings"] =
+                json!({"native_before_serialization_seconds":started.elapsed().as_secs_f64()});
+            return Ok(out);
+        }
+        _ => return Err("mode must be solve, classify, belief-control or diagnose".into()),
     }
     let sweeps = uint(&v["sweeps"])?;
     if !(1..=4096).contains(&sweeps) {
@@ -1031,7 +1204,7 @@ pub fn request(v: &Value, table: &PolicyTable, tables: &EquityTables) -> Result<
     }
     let stop_at_target = v.get("stop_at_target") == Some(&json!(true));
     // The frozen quality gate: each player's gain within min(1% of the pot, 0.1 BB).
-    let target = (0.01 * root.hand.pot() as f64 / 100.).min(0.1);
+    let target = quality_target(v.get("target"), root.hand.pot() as f64 / 100.)?;
     let preparation = tick.elapsed().as_secs_f64();
     let tick = Instant::now();
     let (mut done, mut quality_seconds, mut curve) = (0, 0., Vec::new());
@@ -1074,7 +1247,7 @@ pub fn request(v: &Value, table: &PolicyTable, tables: &EquityTables) -> Result<
         None => Value::Null,
     };
     let mut out = json!({"format":"nplayer-live-river-result-v1","sweeps":done,"requested_sweeps":sweeps,
-        "algorithm":solver.timing()["algorithm"],"target_bb":target,"checkpoints":curve,"solver_timing":solver.timing(),"search_menu":menu.name(),"omitted_raise_evaluation":deployed,"actions":actions,"probabilities":probabilities,"live":root.live,"nodes":nodes,"holdings":pairs.len(),"law":law,"coverage":coverage.map(|c|c.json()),"quality":quality,"timings":{"reconstruction_seconds":reconstruction,"likelihood_seconds":likelihood_seconds,"projection_seconds":projection_seconds,"tree_and_solver_preparation_seconds":preparation,"solve_seconds":solve,"quality_seconds":quality_seconds,"native_before_serialization_seconds":started.elapsed().as_secs_f64()}});
+        "algorithm":solver.timing()["algorithm"],"target_bb":target,"solver_memory_bytes":solver.memory_bytes(),"checkpoints":curve,"solver_timing":solver.timing(),"search_menu":menu.name(),"omitted_raise_evaluation":deployed,"actions":actions,"probabilities":probabilities,"live":root.live,"nodes":nodes,"holdings":pairs.len(),"law":law,"coverage":coverage.map(|c|c.json()),"quality":quality,"timings":{"reconstruction_seconds":reconstruction,"likelihood_seconds":likelihood_seconds,"projection_seconds":projection_seconds,"tree_and_solver_preparation_seconds":preparation,"solve_seconds":solve,"quality_seconds":quality_seconds,"native_before_serialization_seconds":started.elapsed().as_secs_f64()}});
     if debug {
         out["average"] = json!(average);
         out["prepared_game"] = json!({"board":root.board,"root_pot_bb":root.hand.pot() as f64/100.,"ranges":std::array::from_fn::<_,2,_>(|s|solver.game.hands[s].iter().map(|h|json!([h.cards[0],h.cards[1],h.weight])).collect::<Vec<_>>()),"nodes":solver.game.nodes.iter().map(|n|match n{Node::Leaf(t)=>json!({"terminal":[t.base,t.win0,t.tie0]}),Node::Decision{actor,children}=>json!({"actor":actor,"children":children})}).collect::<Vec<_>>()});
