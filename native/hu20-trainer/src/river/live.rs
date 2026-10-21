@@ -8,7 +8,7 @@ use crate::{
     nplayer::{Action, Config, Event, Hand, Observation},
 };
 use serde_json::{json, Value};
-use std::time::Instant;
+use std::{collections::HashMap, time::Instant};
 
 pub const LAW: &str = "three-product-action-posterior-active-marginal-projection-v1";
 
@@ -77,8 +77,19 @@ fn reconstruct(v: &Value, config: Config) -> Result<PublicRoot, String> {
     fields(
         v,
         &[
-            "format", "button", "board", "seat", "hole", "actions", "players", "legal", "sweeps",
-            "debug", "mode",
+            "format",
+            "button",
+            "board",
+            "seat",
+            "hole",
+            "actions",
+            "players",
+            "legal",
+            "sweeps",
+            "debug",
+            "mode",
+            "search_menu",
+            "omitted",
         ],
     )?;
     if v["format"] != "nplayer-live-river-v1"
@@ -371,20 +382,104 @@ fn project(
     ))
 }
 
+/// The declared search game's action menu. `Full` is the production menu at
+/// every node. A capped menu keeps the production menu at the root; below it,
+/// only fold, check or call, the pot-size raise and the production all-in,
+/// and no raise once the river already has `cap` raises, the root's included.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum SearchMenu {
+    Full,
+    Capped(usize),
+}
+impl SearchMenu {
+    fn parse(v: Option<&Value>) -> Result<Self, String> {
+        match v.map(|x| x.as_str()) {
+            None | Some(Some("full")) => Ok(Self::Full),
+            Some(Some("pot-jam-cap2-v1")) => Ok(Self::Capped(2)),
+            Some(Some("pot-jam-cap3-v1")) => Ok(Self::Capped(3)),
+            _ => Err("search_menu must be full, pot-jam-cap2-v1 or pot-jam-cap3-v1".into()),
+        }
+    }
+    fn name(self) -> String {
+        match self {
+            Self::Full => "full".into(),
+            Self::Capped(cap) => format!("pot-jam-cap{cap}-v1"),
+        }
+    }
+    fn actions(self, hand: &Hand, root: bool) -> Result<Vec<Action>, String> {
+        let actor = hand.actor().ok_or("no actor in unfinished hand")?;
+        let observation = hand.observe(actor)?;
+        let full = multi_holdem::menu(&observation);
+        let cap = match self {
+            Self::Capped(cap) if !root => cap,
+            _ => return Ok(full.into_iter().map(|(_, a)| a).collect()),
+        };
+        let raises = hand
+            .history()
+            .iter()
+            .filter(|e| {
+                matches!(e, Event::Action { street: Street::River, action, .. } if action.kind == Kind::Raise)
+            })
+            .count();
+        let legal = observation
+            .legal
+            .ok_or("acting observation has no legal actions")?;
+        let matched = observation.players[actor].street_bet + legal.call_amount;
+        let pot: u64 = observation.players.iter().map(|p| p.contributed).sum();
+        let after_call = pot + legal.call_amount;
+        Ok(full
+            .into_iter()
+            .filter(|(label, a)| {
+                a.kind != Kind::Raise
+                    || (raises < cap
+                        && legal.raise_to.is_some_and(|(low, high)| {
+                            *label == 5 || a.raise_to == (matched + after_call).clamp(low, high)
+                        }))
+            })
+            .map(|(_, a)| a)
+            .collect())
+    }
+}
+
+fn path_key(path: &[Action]) -> Vec<(u8, u64)> {
+    path.iter().map(|a| (a.kind as u8, a.raise_to)).collect()
+}
+
 struct Tree {
     nodes: Vec<Node>,
     menus: Vec<Vec<Action>>,
+    // River actions from the root to each node; maps one tree onto another.
+    paths: Vec<Vec<Action>>,
+    path: Vec<Action>,
+    menu: SearchMenu,
+    max_nodes: usize,
     live: [usize; 2],
     stacks: [u64; 2],
     pot: u64,
     bb: f64,
 }
 impl Tree {
+    fn new(hand: &Hand, live: [usize; 2], menu: SearchMenu, max_nodes: usize) -> Self {
+        Self {
+            nodes: Vec::new(),
+            menus: Vec::new(),
+            paths: Vec::new(),
+            path: Vec::new(),
+            menu,
+            max_nodes,
+            live,
+            stacks: live.map(|s| hand.players()[s].stack),
+            pot: hand.pot(),
+            bb: 100.,
+        }
+    }
     fn compile(&mut self, hand: &mut Hand) -> Result<usize, String> {
-        if self.nodes.len() >= 4096 {
-            return Err(
-                "unsupported full production tree exceeds 4096 nodes; no menu truncation".into(),
-            );
+        if self.nodes.len() >= self.max_nodes {
+            return Err(format!(
+                "unsupported {} tree exceeds {} nodes; no menu truncation",
+                self.menu.name(),
+                self.max_nodes
+            ));
         }
         let id = self.nodes.len();
         self.nodes.push(Node::Leaf(Terminal {
@@ -393,6 +488,7 @@ impl Tree {
             tie0: 0.,
         }));
         self.menus.push(Vec::new());
+        self.paths.push(self.path.clone());
         if hand.finished() {
             let first = self.live[0];
             let settled = hand.settlement().ok_or("no terminal ledger")?;
@@ -430,16 +526,18 @@ impl Tree {
                 .iter()
                 .position(|&s| s == actor)
                 .ok_or("unexpected live actor")?;
-            let menu = multi_holdem::menu(&hand.observe(actor)?);
+            let menu = self.menu.actions(hand, id == 0)?;
             let mut children = Vec::new();
-            for (_, action) in &menu {
+            for action in &menu {
                 let saved = hand.save();
                 hand.apply_mut(*action)?;
+                self.path.push(*action);
                 let child = self.compile(hand);
+                self.path.pop();
                 hand.restore(saved);
                 children.push(child?);
             }
-            self.menus[id] = menu.into_iter().map(|(_, a)| a).collect();
+            self.menus[id] = menu;
             self.nodes[id] = Node::Decision {
                 actor: seat,
                 children,
@@ -454,10 +552,12 @@ impl Tree {
 fn count_tree(
     hand: &mut Hand,
     live: [usize; 2],
+    menu: SearchMenu,
     cap: usize,
     nodes: &mut usize,
     action_rows: &mut usize,
 ) -> Result<bool, String> {
+    let root = *nodes == 0;
     *nodes += 1;
     if *nodes > cap {
         return Ok(false);
@@ -469,12 +569,12 @@ fn count_tree(
     if !live.contains(&actor) {
         return Err("unexpected live actor".into());
     }
-    let menu = multi_holdem::menu(&hand.observe(actor)?);
-    *action_rows += menu.len();
-    for (_, action) in &menu {
+    let actions = menu.actions(hand, root)?;
+    *action_rows += actions.len();
+    for action in &actions {
         let saved = hand.save();
         hand.apply_mut(*action)?;
-        let complete = count_tree(hand, live, cap, nodes, action_rows);
+        let complete = count_tree(hand, live, menu, cap, nodes, action_rows);
         hand.restore(saved);
         if !complete? {
             return Ok(false);
@@ -484,15 +584,19 @@ fn count_tree(
 }
 
 pub const CLASSIFY_NODE_CAP: usize = 100_000;
-// The existing solver's support limits (`Tree::compile` and `Game::new`).
-const SUPPORTED_NODES: usize = 4096;
-const SUPPORTED_CELLS: usize = 2_000_000;
+// The live solver's support limits (`Tree::compile` and `Game::new`).
+const SUPPORTED_NODES: usize = super::MAX_NODES;
+const SUPPORTED_CELLS: usize = super::MAX_STRATEGY_CELLS;
+// Offline omitted-raise evaluation games may exceed the live limits.
+const EVALUATION_NODES: usize = 20_000;
+const EVALUATION_CELLS: usize = 50_000_000;
 
 /// Support and belief diagnostics for one legal root, without solving.
 /// Every rejection reason that applies is reported, not only the first.
 fn classify(
     root: &PublicRoot,
     pairs: &[[u8; 2]],
+    menu: SearchMenu,
     table: &PolicyTable,
     tables: &EquityTables,
 ) -> Result<Value, String> {
@@ -531,28 +635,38 @@ fn classify(
         }
     }
     let tick = Instant::now();
-    let (mut nodes, mut action_rows) = (0, 0);
-    let complete = count_tree(
-        &mut root.hand.clone(),
-        root.live,
-        CLASSIFY_NODE_CAP,
-        &mut nodes,
-        &mut action_rows,
-    )?;
+    let count = |menu: SearchMenu| -> Result<Value, String> {
+        let (mut nodes, mut action_rows) = (0, 0);
+        let complete = count_tree(
+            &mut root.hand.clone(),
+            root.live,
+            menu,
+            CLASSIFY_NODE_CAP,
+            &mut nodes,
+            &mut action_rows,
+        )?;
+        let cells = action_rows * pairs.len();
+        Ok(
+            json!({"menu":menu.name(),"nodes":if complete {json!(nodes)} else {Value::Null},"count_complete":complete,
+            "count_cap":CLASSIFY_NODE_CAP,"action_rows":if complete {json!(action_rows)} else {Value::Null},
+            "strategy_cells":if complete {json!(cells)} else {Value::Null},
+            "within_limits":complete && nodes <= SUPPORTED_NODES && cells <= SUPPORTED_CELLS}),
+        )
+    };
+    let full = count(SearchMenu::Full)?;
+    let searched = count(menu)?;
     let count_seconds = tick.elapsed().as_secs_f64();
-    let cells = action_rows * pairs.len();
-    if !complete || nodes > SUPPORTED_NODES {
+    let complete = searched["count_complete"] == true;
+    if !complete || searched["nodes"].as_u64().unwrap() as usize > SUPPORTED_NODES {
         rejections.push(json!({"reason":"tree-nodes"}));
     }
-    if !complete || cells > SUPPORTED_CELLS {
+    if !complete || searched["strategy_cells"].as_u64().unwrap() as usize > SUPPORTED_CELLS {
         rejections.push(json!({"reason":"strategy-cells"}));
     }
     Ok(
         json!({"format":"nplayer-live-river-classification-v1","live":root.live,"seat":root.seat,
         "pot":root.hand.pot(),"stacks":root.live.map(|s| root.hand.players()[s].stack),
-        "full_menu":{"nodes":if complete {json!(nodes)} else {Value::Null},"count_complete":complete,
-            "count_cap":CLASSIFY_NODE_CAP,"action_rows":if complete {json!(action_rows)} else {Value::Null},
-            "strategy_cells":if complete {json!(cells)} else {Value::Null}},
+        "full_menu":full,"search_menu":searched,
         "supported_limits":{"nodes":SUPPORTED_NODES,"strategy_cells":SUPPORTED_CELLS},
         "supported":rejections.is_empty(),"rejections":rejections,"law":law,"coverage":coverage,
         "own_reach_relative_to_max":own_reach,
@@ -584,6 +698,89 @@ fn blueprint_row(
     }
 }
 
+/// Quality of the policy a capped search actually deploys, in the full-menu
+/// game: the capped solution on its own histories, and the blueprint after
+/// any omitted raise. Both players' best-response gains are measured there.
+fn deployed_quality(
+    root: &PublicRoot,
+    pairs: &[[u8; 2]],
+    ranges: [Vec<Holding>; 2],
+    capped: &Tree,
+    average: &[Vec<f64>],
+    table: &PolicyTable,
+    tables: &EquityTables,
+) -> Result<Value, String> {
+    let mut full = Tree::new(&root.hand, root.live, SearchMenu::Full, EVALUATION_NODES);
+    full.compile(&mut root.hand.clone())?;
+    let index: HashMap<_, _> = capped
+        .paths
+        .iter()
+        .enumerate()
+        .map(|(i, p)| (path_key(p), i))
+        .collect();
+    let (mut on_tree, mut fallback) = (0usize, 0usize);
+    // The deployed policy, and the blueprint alone as the no-search baseline.
+    let mut deployed = Vec::with_capacity(full.nodes.len());
+    let mut blueprint = Vec::with_capacity(full.nodes.len());
+    for (id, node) in full.nodes.iter().enumerate() {
+        let Node::Decision { actor, children } = node else {
+            deployed.push(Vec::new());
+            blueprint.push(Vec::new());
+            continue;
+        };
+        let k = children.len();
+        let mut hand = root.hand.clone();
+        for a in &full.paths[id] {
+            hand.apply_mut(*a)?;
+        }
+        let mut observation = hand.observe(root.live[*actor])?;
+        let mut baseline = vec![0.; pairs.len() * k];
+        for (h, &pair) in pairs.iter().enumerate() {
+            observation.hole = pair;
+            let (p, _) = blueprint_row(&observation, table, tables)?;
+            if p.len() != k {
+                return Err("blueprint row differs from the full menu".into());
+            }
+            baseline[h * k..(h + 1) * k].copy_from_slice(&p);
+        }
+        if let Some(&c) = index.get(&path_key(&full.paths[id])) {
+            on_tree += 1;
+            let mut row = vec![0.; pairs.len() * k];
+            let kc = capped.menus[c].len();
+            for (j, a) in capped.menus[c].iter().enumerate() {
+                let f = full.menus[id]
+                    .iter()
+                    .position(|b| b == a)
+                    .ok_or("capped action outside the full menu")?;
+                for h in 0..pairs.len() {
+                    row[h * k + f] = average[c][h * kc + j];
+                }
+            }
+            deployed.push(row);
+        } else {
+            fallback += 1;
+            deployed.push(baseline.clone());
+        }
+        blueprint.push(baseline);
+    }
+    let nodes = full.nodes.len();
+    let game = Game::with_limits(
+        root.board,
+        ranges,
+        full.nodes,
+        root.hand.pot() as f64 / 100.,
+        EVALUATION_NODES,
+        EVALUATION_CELLS,
+    )?;
+    let mut solver = Solver::new(game, vec![None; nodes])?;
+    let quality = solver.quality(&deployed)?;
+    let blueprint_quality = solver.quality(&blueprint)?;
+    Ok(
+        json!({"full_menu_nodes":nodes,"capped_decisions":on_tree,"blueprint_fallback_decisions":fallback,
+        "quality":quality,"blueprint_only_quality":blueprint_quality}),
+    )
+}
+
 /// Receives exactly one legal observation request. Table/tables are loaded once
 /// by the worker. No root/profile cache is shared across different histories.
 pub fn request(v: &Value, table: &PolicyTable, tables: &EquityTables) -> Result<Value, String> {
@@ -598,10 +795,11 @@ pub fn request(v: &Value, table: &PolicyTable, tables: &EquityTables) -> Result<
         .flat_map(|i| (i + 1..cards.len()).map(move |j| (i, j)))
         .map(|(i, j)| [cards[i], cards[j]])
         .collect();
+    let menu = SearchMenu::parse(v.get("search_menu"))?;
     match v.get("mode").map(|m| m.as_str()) {
         None | Some(Some("solve")) => (),
         Some(Some("classify")) => {
-            let mut out = classify(&root, &pairs, table, tables)?;
+            let mut out = classify(&root, &pairs, menu, table, tables)?;
             out["timings"]["reconstruction_seconds"] = json!(reconstruction);
             out["timings"]["native_before_serialization_seconds"] =
                 json!(started.elapsed().as_secs_f64());
@@ -633,23 +831,24 @@ pub fn request(v: &Value, table: &PolicyTable, tables: &EquityTables) -> Result<
         return Err("own holding has zero modeled root reach".into());
     }
     let tick = Instant::now();
-    let mut tree = Tree {
-        nodes: Vec::new(),
-        menus: Vec::new(),
-        live: root.live,
-        stacks: root.live.map(|s| root.hand.players()[s].stack),
-        pot: root.hand.pot(),
-        bb: 100.,
+    let omitted = match v.get("omitted") {
+        Some(x) => x.as_bool().ok_or("omitted must be boolean")?,
+        None => false,
     };
+    if omitted && menu == SearchMenu::Full {
+        return Err("omitted-raise evaluation needs a capped search menu".into());
+    }
+    let evaluation_ranges = omitted.then(|| ranges.clone());
+    let mut tree = Tree::new(&root.hand, root.live, menu, SUPPORTED_NODES);
     tree.compile(&mut root.hand.clone())?;
-    let menus = tree.menus;
     let nodes = tree.nodes.len();
     let game = Game::new(
         root.board,
         ranges,
-        tree.nodes,
+        std::mem::take(&mut tree.nodes),
         root.hand.pot() as f64 / 100.,
     )?;
+    let menus = &tree.menus;
     let mut solver = Solver::new(game, vec![None; nodes])?;
     let preparation = tick.elapsed().as_secs_f64();
     let tick = Instant::now();
@@ -665,7 +864,17 @@ pub fn request(v: &Value, table: &PolicyTable, tables: &EquityTables) -> Result<
         .iter()
         .map(|a| json!([a.kind.name(), a.raise_to]))
         .collect();
-    let mut out = json!({"format":"nplayer-live-river-result-v1","sweeps":sweeps,"actions":actions,"probabilities":probabilities,"live":root.live,"nodes":nodes,"holdings":pairs.len(),"law":law,"coverage":coverage.map(|c|c.json()),"quality":quality,"timings":{"reconstruction_seconds":reconstruction,"likelihood_seconds":likelihood_seconds,"projection_seconds":projection_seconds,"tree_and_solver_preparation_seconds":preparation,"solve_seconds":solve,"quality_seconds":quality_seconds,"native_before_serialization_seconds":started.elapsed().as_secs_f64()}});
+    let deployed = match evaluation_ranges {
+        Some(ranges) => {
+            let tick = Instant::now();
+            let mut value =
+                deployed_quality(&root, &pairs, ranges, &tree, &average, table, tables)?;
+            value["seconds"] = json!(tick.elapsed().as_secs_f64());
+            value
+        }
+        None => Value::Null,
+    };
+    let mut out = json!({"format":"nplayer-live-river-result-v1","sweeps":sweeps,"search_menu":menu.name(),"omitted_raise_evaluation":deployed,"actions":actions,"probabilities":probabilities,"live":root.live,"nodes":nodes,"holdings":pairs.len(),"law":law,"coverage":coverage.map(|c|c.json()),"quality":quality,"timings":{"reconstruction_seconds":reconstruction,"likelihood_seconds":likelihood_seconds,"projection_seconds":projection_seconds,"tree_and_solver_preparation_seconds":preparation,"solve_seconds":solve,"quality_seconds":quality_seconds,"native_before_serialization_seconds":started.elapsed().as_secs_f64()}});
     if debug {
         out["average"] = json!(average);
         out["prepared_game"] = json!({"board":root.board,"root_pot_bb":root.hand.pot() as f64/100.,"ranges":std::array::from_fn::<_,2,_>(|s|solver.game.hands[s].iter().map(|h|json!([h.cards[0],h.cards[1],h.weight])).collect::<Vec<_>>()),"nodes":solver.game.nodes.iter().map(|n|match n{Node::Leaf(t)=>json!({"terminal":[t.base,t.win0,t.tie0]}),Node::Decision{actor,children}=>json!({"actor":actor,"children":children})}).collect::<Vec<_>>()});

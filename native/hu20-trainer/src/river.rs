@@ -48,12 +48,34 @@ fn finite(x: f64) -> Result<f64, String> {
     }
 }
 
+pub const MAX_NODES: usize = 4096;
+pub const MAX_STRATEGY_CELLS: usize = 2_000_000;
+
 impl Game {
     pub fn new(
         board: [u8; 5],
         ranges: [Vec<Holding>; 2],
         nodes: Vec<Node>,
         root_pot_bb: f64,
+    ) -> Result<Self, String> {
+        Self::with_limits(
+            board,
+            ranges,
+            nodes,
+            root_pot_bb,
+            MAX_NODES,
+            MAX_STRATEGY_CELLS,
+        )
+    }
+
+    /// Larger limits are for offline evaluation games, not live decisions.
+    pub fn with_limits(
+        board: [u8; 5],
+        ranges: [Vec<Holding>; 2],
+        nodes: Vec<Node>,
+        root_pot_bb: f64,
+        max_nodes: usize,
+        max_cells: usize,
     ) -> Result<Self, String> {
         let board_set: HashSet<_> = board.iter().copied().collect();
         if board_set.len() != 5 || board.iter().any(|&c| c >= 52) {
@@ -62,7 +84,7 @@ impl Game {
         if !root_pot_bb.is_finite() || root_pot_bb <= 0. {
             return Err("positive finite root pot required".into());
         }
-        if nodes.is_empty() || nodes.len() > 4096 {
+        if nodes.is_empty() || nodes.len() > max_nodes {
             return Err("public tree size outside prototype bounds".into());
         }
         let mut parents = vec![0; nodes.len()];
@@ -95,7 +117,7 @@ impl Game {
                 }
             }
         }
-        if parents.iter().skip(1).any(|&p| p != 1) || cells > 2_000_000 {
+        if parents.iter().skip(1).any(|&p| p != 1) || cells > max_cells {
             return Err("unreachable node or excessive strategy cells".into());
         }
         let mut hands: [Vec<Hand>; 2] = [Vec::new(), Vec::new()];
@@ -172,6 +194,9 @@ impl Game {
         })
     }
 
+    pub fn node_count(&self) -> usize {
+        self.nodes.len()
+    }
     pub fn holdings(&self, seat: usize) -> usize {
         self.hands[seat].len()
     }
