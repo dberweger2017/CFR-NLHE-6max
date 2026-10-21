@@ -267,6 +267,33 @@ struct Active {
 }
 
 /// Single-owner session state. Opaque handles are transport metadata only.
+/// First omitted public edge, including overlap between cap and all-in causes.
+pub(super) fn first_off_tree(root: &Hand, tree: &Tree, path: &[Action]) -> Result<Value, String> {
+    let mut before = root.clone();
+    for (i, action) in path.iter().enumerate() {
+        if !tree.paths.iter().any(|p| p == &path[..=i]) {
+            let actor = before.actor().ok_or("off-tree actor missing")?;
+            let player = &before.players()[actor];
+            let raises = before
+                .history()
+                .iter()
+                .filter(|e| {
+                    matches!(e,
+                Event::Action{street:Street::River,action,..} if action.kind==Kind::Raise)
+                })
+                .count();
+            return Ok(
+                json!({"path":path[..i].iter().map(|a|json!([a.kind.name(),a.raise_to])).collect::<Vec<_>>(),
+                "actor":actor,"action":[action.kind.name(),action.raise_to],"raises_before":raises,
+                "cap_reached":match tree.menu {SearchMenu::Capped(cap)=>raises>=cap,
+                    SearchMenu::RootCheckMinOpen|SearchMenu::RootMinResponses=>raises>=3,SearchMenu::Full=>false},"all_in":action.kind==Kind::Raise&&action.raise_to==player.stack+player.street_bet}),
+            );
+        }
+        before.apply_mut(*action)?;
+    }
+    Ok(Value::Null)
+}
+
 pub struct SessionStore {
     model: String,
     nonce: String,
@@ -404,6 +431,12 @@ impl SessionStore {
                 }
                 let (hand, path) = cap.replay(observation)?;
                 let node = cap.tree.paths.iter().position(|p| *p == path);
+                let mut off_tree_entry = Value::Null;
+                // Repeated requests for the same public history must return the
+                // same diagnostics, even after fallback has already latched.
+                if node.is_none() && cap.installed {
+                    off_tree_entry = first_off_tree(&cap.root.hand, &cap.tree, &path)?;
+                }
                 if node.is_none() && cap.installed {
                     a.off_tree = true;
                     a.fallback_reason = Some("off-tree action; blueprint for rest of river".into());
@@ -427,7 +460,7 @@ impl SessionStore {
                 a.last_actions = actions_json(observation)?;
                 let out = json!({"probabilities":p,"actions":actions.iter().map(|a|json!([a.kind.name(),a.raise_to])).collect::<Vec<_>>(),
                     "installed_search":cap.installed&&!a.off_tree,"fallback_reason":a.fallback_reason,"lookup_tag":tag,
-                    "profile_sha256":cap.metadata["profile_sha256"],"solver_advances":0});
+                    "profile_sha256":cap.metadata["profile_sha256"],"solver_advances":0,"off_tree_entry":off_tree_entry});
                 self.active = Some(a);
                 Ok(out)
             }

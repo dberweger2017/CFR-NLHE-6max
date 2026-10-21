@@ -1,5 +1,40 @@
 use super::*;
 
+#[test]
+fn omitted_short_all_in_is_also_at_the_raise_cap() {
+    let config = Config::new(&[10000; 3], 50, 100).unwrap();
+    let mut hand = representative(config, 0, [36, 33, 48, 44, 42]).unwrap();
+    for (kind, to) in [
+        (Kind::Raise, 200),
+        (Kind::Call, 0),
+        (Kind::Fold, 0),
+        (Kind::Raise, 100),
+        (Kind::Call, 0),
+        (Kind::Raise, 100),
+        (Kind::Call, 0),
+    ] {
+        hand.apply_mut(Action { kind, raise_to: to }).unwrap();
+    }
+    assert_eq!(hand.street(), Street::River);
+    assert_eq!(hand.pot(), 900);
+    let live = [0, 1];
+    let mut tree = Tree::new(&hand, live, SearchMenu::RootMinResponses, SUPPORTED_NODES);
+    tree.compile(&mut hand.clone()).unwrap();
+    let path: Vec<_> = [900, 1800, 6300, 9600]
+        .into_iter()
+        .map(|to| Action {
+            kind: Kind::Raise,
+            raise_to: to,
+        })
+        .collect();
+    let entry = retained::first_off_tree(&hand, &tree, &path).unwrap();
+    assert_eq!(entry["path"].as_array().unwrap().len(), 3);
+    assert_eq!(entry["action"], json!(["raise", 9600]));
+    assert_eq!(entry["cap_reached"], true);
+    assert_eq!(entry["all_in"], true);
+    assert_eq!(entry["raises_before"], 3);
+}
+
 pub(super) fn root() -> PublicRoot {
     let config = Config::new(&[10000; 3], 50, 100).unwrap();
     let mut hand = representative(config, 0, [0, 5, 10, 15, 20]).unwrap();

@@ -1379,6 +1379,7 @@ fn request_impl(
 
 mod retained;
 pub use retained::SessionStore;
+pub mod whole_hand;
 
 #[cfg(test)]
 mod tests;

@@ -1,0 +1,71 @@
+{
+  "status": "drive-accepted-complete-cache-coverage",
+  "cache": "bb128:/mnt/data2tb/research-cloud/PR-388-river-whole-hand-pilot/",
+  "symlink_cache": "bb128:/research/PR-388-river-whole-hand-pilot/",
+  "drive_folder": "gdrive:PR-388-river-whole-hand-pilot/",
+  "archives": [
+    {
+      "status": "local-member-readback-passed",
+      "archive": "/research/PR-388-river-whole-hand-pilot/whole-hand-evidence-20261022.zip",
+      "bytes": 10009536,
+      "sha256": "b97d6ee5f0269a2eda0d86105f14eb1bd2cbd8d6292e1ad12c8e4fa024e0798a",
+      "manifest_sha256": "e8361a1780d40d03029194e4fe39d44b387c94c7be9569903659fcdbae07edc3",
+      "member_count": 376,
+      "uncompressed_payload_bytes": 78007267,
+      "originals_retained": true,
+      "drive_acceptance": "accepted by deployed tool, remote object MD5/size and local member CRC/size",
+      "drive": {
+        "id": "1dZU0DTq2tpV7Hg5eDShKyqbEUwh5zRhT",
+        "md5": "5616038add90cf72b033a25c9baf66bd",
+        "size": 10009536
+      },
+      "remote_path": "gdrive:PR-388-river-whole-hand-pilot/whole-hand-evidence-20261022.zip",
+      "drive_download": "https://drive.google.com/file/d/1dZU0DTq2tpV7Hg5eDShKyqbEUwh5zRhT/view"
+    },
+    {
+      "archive": "/mnt/data2tb/research-cloud/PR-388-river-whole-hand-pilot/closeout-20261022.zip",
+      "bytes": 7292,
+      "sha256": "50d2b8ec57e67413d75aba17431e0e08d8ccd37dfae74605c5adbe6a8b75c16b",
+      "manifest_sha256": "cebe2a9e1726318c4c2dbc359d3ab5afc0cfe604085d3ec6d37dc9f620d91cc0",
+      "member_count": 9,
+      "local_member_readback": true,
+      "drive": {
+        "id": "1RFrA8Rm7d7EkqoZMXIjBimRAl5IemSdL",
+        "md5": "c421c4f3468e6c01f5c5273f83fa7883",
+        "size": 7292
+      },
+      "remote_path": "gdrive:PR-388-river-whole-hand-pilot/closeout-20261022.zip",
+      "drive_download": "https://drive.google.com/file/d/1RFrA8Rm7d7EkqoZMXIjBimRAl5IemSdL/view",
+      "drive_acceptance": "accepted by deployed tool, remote object MD5/size and local member CRC/size"
+    }
+  ],
+  "receipt_sha256": "d0946959ea3d8c20a983a150c6bfde93322a41efcbac015d365075e286b94218",
+  "receipt_updated_utc": "2026-10-21T22:09:44Z",
+  "covered_local_files": 387,
+  "uncovered_local_files": 0,
+  "current_local_size_mtime_match": true,
+  "verification_limit": "Local ZIP SHA256 and full member SHA256 readback; Drive object acceptance uses remote MD5/size, not remote SHA256/member readback.",
+  "manifest_members": [
+    "ARCHIVE-MANIFEST.json",
+    "closeout/ARCHIVE-MANIFEST.json"
+  ],
+  "inputs": "Models/K50 and protected source/Git/environment dependencies remain external read-only inputs; model SHA256/path pins in provenance.json and archived v2/control.json/main-v1/launch.json. No model bytes copied.",
+  "important_members": [
+    "river-whole-hand-pilot-20261021/qualification-v1/failure.json",
+    "river-whole-hand-pilot-20261021-v2/main-v1/readout/results.json",
+    "river-whole-hand-pilot-20261021-v2/main-v1/measure/verified.json",
+    "river-whole-hand-pilot-20261021-v2/operational-v1/operational.json",
+    "river-whole-hand-pilot-20261021-v2/source-v3.bundle",
+    "river-whole-hand-pilot-20261021-v2/main-v1/source-manifest.json",
+    "STORAGE-SCOPE.json"
+  ],
+  "retrieval": {
+    "cached": "Copy the named uncompressed member from /research/PR-388-river-whole-hand-pilot/ into a fresh ignored directory; verify its manifest SHA256.",
+    "drive_fallback": "rclone copy 'gdrive:PR-388-river-whole-hand-pilot/' FRESH_IGNORED_DIRECTORY; verify ZIP SHA256 and embedded manifests, then extract selected named members and verify member hashes. Restore external pinned model/K50 inputs separately without overwriting active inputs."
+  },
+  "originals_retained": true,
+  "keep_marker": true,
+  "deleted_files": 0,
+  "deployed_tool_unchanged": true,
+  "receipt_path_failure": "Initial immutable upload succeeded; deployed receipt rejected /research symlink spelling. Canonical-path receipt recovered without reupload. Retained in closeout ZIP."
+}

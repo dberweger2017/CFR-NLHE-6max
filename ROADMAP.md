@@ -96,30 +96,38 @@ Open tasks for contributors, grouped by the compute they need. Comment on or ope
 
 ## Immediate river-search priorities
 
-Keep the v0.6 model frozen. [PR382's verified results](docs/reports/river-exact-beliefs/results.md)
-qualify the exact modeled-belief evaluator and confirm the menu benefit on the
-reused development panel, while leaving specific full-menu harms and runtime
-limits. The next work follows this order:
+Keep the v0.6 blueprint frozen. [PR388's whole-hand pilot](docs/reports/river-whole-hand-pilot/results.md)
+qualifies the projected-menu adapter, retained continuation and legal replay at
+practical cost: 12.14 minutes for 9,216 initial hands plus reproduction/readout.
+Search installs in 8.27% of search-on hands; all nonzero exploratory return
+intervals cross zero, with fragile sparse-tail variance. This is engineering
+qualification, not a strength or release decision.
 
-1. **Saved-profile harm diagnosis — complete ([PR384](https://github.com/dberweger2017/CFR-NLHE-6max/pull/384)).** All 24 original profiles in eight selected cases reproduce. The leading omitted reply in the six installed-search cases is a minimum raise after hero's own root bet:1→2BB exposes79/75/53, while8→16BB exposes113. These are fixed-profile response restrictions, not demonstrated gains from a menu expansion. Blueprint continuation swaps are not a blanket cure. Keep one first-response minimum-raise rule as a candidate for a later measured experiment; the diagnostic cases cannot estimate population benefit. [Mechanisms, counterfactuals and limits](docs/reports/river-harm-diagnosis/results.md).
-2. **Profile exact solving within a bounded task — next.** Solve work accounts for about
-   96% of complete mean decision time. Measure traversal, prefix accumulation,
-   blocker corrections and scalar repair separately, distinguishing inclusive
-   and exclusive time to avoid double counting. Check that instrumentation
-   preserves profile identity and numerical results. Use measured attribution
-   to choose an optimization rather than assuming which component dominates.
-3. **Then consider the whole-hand cost/variance pilot.** Its current conditional
-   exact-backend quote is **90–180 compute minutes, plus integration work**.
-   Reassess that quote against the resulting implementation and actual call
-   frequency before a separately approved pilot. A cost/variance pilot would
-   not be a strength verdict.
+1. **Off-tree continuation: a small correctness-first prototype.** Preserve the
+   saved cap/all-in cases 21/91 and the pilot's omitted 3,700-chip response.
+   Treat consistent beliefs and retained hero policy as requirements;
+   re-solving is a candidate, not an established repair. One observed off-tree
+   hand does not settle adversarial full-menu vulnerability.
+2. **Design and separately quote strength confirmation before more hands.**
+   Declare primary opponents, families/margins and effect size. The pilot's
+   conditional three-lineage trained-pair scenarios take 4.8–14.0 hours for a
+   stipulated 5 BB/100 effect, 27.7–82.6 hours for 2 BB/100, excluding safeguards
+   and across-seed variance calibration. Do not promise a short precise verdict
+   from this sparse pilot or extend it using observed scores.
+3. **Keep exact-runtime optimization secondary.** PR386's projected menu is the
+   measured live backend; exact modeled beliefs remain an audit oracle.
+   Preserve the full-menu harms, historical belief findings and convergence
+   misses; this pilot does not supersede those tests.
 
-These priorities schedule no automatic compute. Keep the historical harms,
-convergence misses and gates intact. Fresh confirmation remains later work;
-reusing this development panel cannot establish population benefit or stronger
-whole-hand play.
+No additional science, training, menu expansion or default change starts
+automatically. [The frozen pilot protocol](docs/river-whole-hand-pilot.md),
+[cost/variance report](docs/reports/river-whole-hand-pilot/results.md) and
+[conditional scenarios](docs/reports/river-whole-hand-pilot/future-cost-scenarios.json)
+separate the completed experiment from proposed next work.
 
 ## Current position
+
+- **Frozen river whole-hand pilot complete ([PR388](https://github.com/dberweger2017/CFR-NLHE-6max/pull/388), proposal387):** 9,216 initial hands independently replay and 9,216 fresh reproductions match byte-for-byte. Projected search installs 381/4,608 hands (8.27%); 97 retained decisions use zero new solves, three roots retain quality fallbacks and one hand falls off-tree. Root median0.430s/mean0.559s/p951.367s/max3.094s. Main12.14min,27.70GiB sampled RSS, CPU65/Thermistor15 64°C, no swap growth. All nonzero exploratory intervals cross zero; check-call has no intervention, not a zero-effect verdict. Keep the model frozen; separately qualify off-tree continuation and budget confirmation using fragile tail variance. [Report, coverage, costs and future scenarios](docs/reports/river-whole-hand-pilot/results.md).
 
 - **Remaining full-menu river harms diagnosed ([PR384](https://github.com/dberweger2017/CFR-NLHE-6max/pull/384), proposal383):** eight deliberately selected cases,24 original profile hashes/work/statuses reproduced and two zero-advance exact-law audits verified. Minimum raises after hero's opening bets dominate the identified omitted replies: leave-one-out WC effects2.512BB in79 and4.510BB in113; restricting the same1→2BB response changes75's exact-versus-projected WC gap from−1.335 to+0.022BB. Overlapping effects are nonadditive and are not a policy-improvement estimate. Both original failures still play blueprint. Main14.32min/14.28CPU-min,14.81GiB sampled peak, CPU60/Thermistor15 59.5°C, no swap growth. Model stays frozen; exact-runtime profiling next, focused menu candidate and whole-hand pilot deferred. [Report and response tables](docs/reports/river-harm-diagnosis/results.md).
 
