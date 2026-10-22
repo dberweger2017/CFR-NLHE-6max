@@ -1,0 +1,48 @@
+{
+  "status": "accepted",
+  "cache": "/mnt/data2tb/research-cloud/PR-396-river-fresh-screen",
+  "archive": "/mnt/data2tb/research-cloud/PR-396-river-fresh-screen/fresh-screen-evidence-20261022.zip",
+  "zip_bytes": 17691383,
+  "zip_sha256": "0fa30a928c46e18f517aad994a398deb7adbea9ede1e605a5545e70337ecda74",
+  "manifest_sha256": "d63cebffeb581ed07296cad2477df95d67e248a28d53ef0b483b526053181cb1",
+  "payload_members": 130,
+  "payload_bytes": 221518797,
+  "local_member_readback": true,
+  "originals_retained": true,
+  "external_inputs_copied": false,
+  "pr_state_before_copy": {
+    "isDraft": true,
+    "state": "OPEN",
+    "url": "https://github.com/dberweger2017/CFR-NLHE-6max/pull/396"
+  },
+  "upload_returncode": 0,
+  "drive": {
+    "fresh-screen-evidence-20261022.zip": {
+      "id": "1jc1IVetp3cFzm8vSbOk10BCJOndyWOTZ",
+      "md5": "25e0882eb93f29079b57dfbc7994bb51",
+      "size": 17691383,
+      "url": "https://drive.google.com/file/d/1jc1IVetp3cFzm8vSbOk10BCJOndyWOTZ/view"
+    }
+  },
+  "updated_utc": "2026-10-22T04:51:54Z",
+  "receipt_sha256": "291e3382a4927202af84d08019c31de646f543fa0af9b267ac44030a3ae91121",
+  "covered_local_files": 132,
+  "uncovered_or_changed": [],
+  "acceptance_scope": "Local ZIP and embedded member SHA256 readback; deployed tool Drive object MD5/size and local CRC/size acceptance, with current local size/mtime coverage. No remote SHA256/member audit.",
+  "keep_marker": true,
+  "deleted_files": 0,
+  "retrieval": {
+    "fast_cache": "/research/PR-396-river-fresh-screen/",
+    "drive_fallback_command": "rclone copy 'gdrive:PR-396-river-fresh-screen/' FRESH_IGNORED_DIRECTORY",
+    "zip": "fresh-screen-evidence-20261022.zip",
+    "manifest": "ARCHIVE-MANIFEST.json",
+    "source_bundle": "evidence/source-v2.bundle",
+    "binary": "bin/nplayer_river_arena",
+    "main_proof": "evidence/main-v1/screen/verified.json",
+    "readout": "evidence/main-v1/readout/results.json",
+    "raw_traces_and_expectations": "evidence/main-v1/screen/{initial,repeat}/",
+    "offline_summary_input": "publication/retrieval.json",
+    "restore_rule": "Verify ZIP SHA256/embedded manifest and selected members in a fresh directory. Source bundle requires public8288ca7f. Models/K50/Git/environment inputs are external protected references, restored separately without overwriting active paths."
+  },
+  "excluded_post_archive_metadata": "Final archive summary and upload administrative logs remain in NVMe original; all scientific/qualification/source/binary/compact-retrieval evidence covered."
+}

@@ -1,3 +1,55 @@
+## PR396 — fresh frozen river screen is inconclusive on both panels
+
+[PR396](https://github.com/dberweger2017/CFR-NLHE-6max/pull/396), proposal395;
+[analysis](docs/reports/river-fresh-screen/results.md).
+Frozen source `6145e4d4f774afb7e0af09d3098143547ed05808`, unchanged qualified
+native binary/player, focal003/peer601. Fresh roots2026102239601/02,1,024
+six-permutation blocks per lineup,24,576 initial hands independently replayed
+plus24,576 byte-identical reproductions. All2,065 root values/profiles/work
+reproduce, no exclusions/incomplete roots/extra solves/reconstructions/retry.
+
+Trained peers−1.11[−6.30,+4.08], check-call/pressure+2.50[−6.98,+11.99]BB/100
+(simultaneous two-panel family95), both inconclusive. The old scripted adverse
+point estimate does not recur; no benefit or−5 non-inferiority is established.
+Neither predeclared clear-unacceptable-harm flag fires. Largest peer block18.1%
+of centered variation/top3 39.9%; scripted8.2%/20.5%. Variance ratios0.218/0.558,
+with sampled means+7.39/−0.99 preserved, no favorable-estimator selection.
+
+All five stages0;19 focused Python checks,73 unchanged native files/prior120
+native tests, known-deal96+96 qualification passes. Fresh screen/readout1,668.46s;
+all stages2,144.61s/3,222.34childCPU-s,27.70GiB sampled, CPU67/Thermistor15 66°C,
+no swap growth. One quality fallback and two peer off-tree events retained.
+
+[Unaltered readout/tail examples](docs/reports/river-fresh-screen/results.json) ·
+[lineups](docs/reports/river-fresh-screen/lineups.csv) ·
+[selected blocks](docs/reports/river-fresh-screen/tails.csv) ·
+[quality/off-tree/work](docs/reports/river-fresh-screen/diagnostics.json) ·
+[costs/resources](docs/reports/river-fresh-screen/costs.json) ·
+[pins](docs/reports/river-fresh-screen/provenance.json).
+
+[One prospective proposal](docs/reports/river-fresh-screen/followup-proposal.md):
+three frozen lineages,2,048 peer/4,096 check-call-pressure blocks per lineage,
+442,368 initial/reproduction instances, separate primary3/safeguard3 families,
+proposed−5 margin.4.01h central/10.72h reserve in proposed12h budget; no80h-design
+joint-power/broad-script/release guarantee and no automatic launch. Exact
+[count/power/cost arithmetic](docs/reports/river-fresh-screen/followup-proposal.json).
+
+All originals remain `bb128:/home/dberweger/river-fresh-screen-20261022/`,
+including setup bundles/logs, native/source identities and every raw trace/value.
+Protected external models/K50/env/Git stores stay read-only and uncopied.
+[Accepted archive/restoration](docs/reports/river-fresh-screen/archive.json):
+`/research/PR-396-river-fresh-screen/`,
+[fresh-screen-evidence-20261022.zip](https://drive.google.com/file/d/1jc1IVetp3cFzm8vSbOk10BCJOndyWOTZ/view),
+17,691,383bytes, SHA256`0fa30a928c46e18f517aad994a398deb7adbea9ede1e605a5545e70337ecda74`,
+manifestSHA256`d63cebffeb581ed07296cad2477df95d67e248a28d53ef0b483b526053181cb1`.
+All130 payload members plus manifest read back locally; deployed-tool receipt
+accepts Drive MD5`25e0882eb93f29079b57dfbc7994bb51`/size and covers132 unchanged
+local files. Updated04:51:54UTC. No remote SHA256/member audit claimed. Raw
+qualification/screen traces/values, partial/setup logs, both source bundles,
+qualified owned binary and offline summary input preserved. External models/
+K50/env/Git stores referenced only; KEEP/all originals retained, zero deletion.
+No cleanup, other jobs, new machine or timer.
+
 ## PR394 — full inline expectations pass, evaluation engineering complete
 
 [PR394](https://github.com/dberweger2017/CFR-NLHE-6max/pull/394), proposal392;

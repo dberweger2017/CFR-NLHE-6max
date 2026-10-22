@@ -1,0 +1,119 @@
+{
+  "quality_fallbacks": [
+    {
+      "lineup": "trained",
+      "root_id": "trained/5953/0011",
+      "hand": 5953,
+      "decision": 11,
+      "expected": {
+        "fallback_reason": "declared-game quality target not met",
+        "installed": false,
+        "nodes": 54,
+        "profile_sha256": "730b672e051552c4fe4d1be0aedffa939f351ff6dcc4f4e86a65970041a12bab",
+        "quality": {
+          "best_response_gains_bb": [
+            0.1835976042381695,
+            0.12719832510797424
+          ],
+          "exploitability_bb": 0.15539796467307188,
+          "exploitability_root_pot": 0.002679275252983998,
+          "profile_values_bb": [
+            -15.527344917185008,
+            15.527344917184985
+          ],
+          "zero_sum_error_bb": 2.3092638912203256e-14
+        },
+        "solver_memory_bytes": 4799640,
+        "sweeps": 2048
+      }
+    }
+  ],
+  "off_tree_entries": [
+    {
+      "hand": 1011,
+      "block": 168,
+      "permutation": 3,
+      "decision": 12,
+      "fallback_reason": "off-tree action; blueprint for rest of river",
+      "off_tree_entry": {
+        "action": [
+          "raise",
+          2600
+        ],
+        "actor": 0,
+        "all_in": false,
+        "cap_reached": false,
+        "path": [
+          [
+            "check",
+            0
+          ],
+          [
+            "raise",
+            100
+          ],
+          [
+            "raise",
+            1350
+          ]
+        ],
+        "raises_before": 2
+      },
+      "chosen_action": [
+        "raise",
+        8850
+      ]
+    },
+    {
+      "hand": 3735,
+      "block": 622,
+      "permutation": 3,
+      "decision": 13,
+      "fallback_reason": "off-tree action; blueprint for rest of river",
+      "off_tree_entry": {
+        "action": [
+          "raise",
+          9500
+        ],
+        "actor": 0,
+        "all_in": true,
+        "cap_reached": true,
+        "path": [
+          [
+            "raise",
+            100
+          ],
+          [
+            "raise",
+            1300
+          ],
+          [
+            "raise",
+            4900
+          ]
+        ],
+        "raises_before": 3
+      },
+      "chosen_action": [
+        "call",
+        0
+      ]
+    }
+  ],
+  "work": {
+    "initial": {
+      "roots": 2065,
+      "total_evaluation_seconds": 1.302522824,
+      "max_root_evaluation_seconds": 0.00589625,
+      "total_visited": 837205,
+      "max_arm_visited": 3661
+    },
+    "repeat": {
+      "roots": 2065,
+      "total_evaluation_seconds": 1.31062378,
+      "max_root_evaluation_seconds": 0.005944315,
+      "total_visited": 837205,
+      "max_arm_visited": 3661
+    }
+  }
+}

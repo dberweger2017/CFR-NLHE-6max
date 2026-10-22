@@ -1,0 +1,1608 @@
+{
+  "status": "settled",
+  "screening_only": true,
+  "lineups": [
+    {
+      "lineup": "trained",
+      "integrated": {
+        "blocks": 1024,
+        "mean_bb100": -1.1103110715933011,
+        "sd_bb100": 74.02887538219831,
+        "pointwise95_bb100": [
+          -5.6498672466291575,
+          3.429245103442555
+        ],
+        "family95_bb100": [
+          -6.30322154793048,
+          4.082599404743878
+        ],
+        "centered_square_concentration": {
+          "1": 0.18060876557872535,
+          "3": 0.3992995772574205,
+          "5": 0.4734436237179627
+        },
+        "uncentered_square_concentration": {
+          "1": 0.18096680755917086,
+          "3": 0.39977669367312096,
+          "5": 0.4735440844451315
+        },
+        "zero_variance_is_not_a_pass": false
+      },
+      "sampled": {
+        "blocks": 1024,
+        "mean_bb100": 7.393391927083333,
+        "sd_bb100": 158.58121050950854,
+        "pointwise95_bb100": [
+          -2.331033976949942,
+          17.117817831116607
+        ],
+        "family95_bb100": [
+          -3.7306191449946935,
+          18.51740299916136
+        ],
+        "centered_square_concentration": {
+          "1": 0.12959668309316935,
+          "3": 0.3591438270151034,
+          "5": 0.5142324350066523
+        },
+        "uncentered_square_concentration": {
+          "1": 0.1303646641729488,
+          "3": 0.3595048028200791,
+          "5": 0.5141377650136534
+        },
+        "zero_variance_is_not_a_pass": false
+      },
+      "variance_ratio": 0.21792088115026167,
+      "clear_unacceptable_harm_flag": false,
+      "adverse_direction_clears_zero": false,
+      "peer_promising_signal": false,
+      "tails": [
+        {
+          "block": 829,
+          "contrast_bb100": 540.6646786608446,
+          "centered_square_share": 0.052355217465509675,
+          "uncentered_square_share": 0.05212910636081837,
+          "examples": [
+            {
+              "root_id": "trained/4979/0011",
+              "hand": 4979,
+              "decision": 11,
+              "board": [
+                22,
+                11,
+                26,
+                43,
+                5
+              ],
+              "pot_bb": 44.0,
+              "focal_hole": [
+                47,
+                49
+              ],
+              "actions": [
+                [
+                  "check",
+                  0
+                ],
+                [
+                  "raise",
+                  100
+                ],
+                [
+                  "raise",
+                  4400
+                ],
+                [
+                  "raise",
+                  7800
+                ]
+              ],
+              "search_probabilities": [
+                0.9611442292192263,
+                0.03885575983749555,
+                9.060256174361175e-09,
+                1.8830198062325035e-09
+              ],
+              "blueprint_probabilities": [
+                0.14488551648316408,
+                0.21674271392336583,
+                0.15791771464944668,
+                0.4804540549440234
+              ],
+              "chosen_action": [
+                "check",
+                0
+              ],
+              "blueprint_action": [
+                "check",
+                0
+              ],
+              "installed": true,
+              "fallback_reason": null,
+              "expected_on_minus_off_bb": 35.990052774047015,
+              "explanation_scope": "Recorded mixes and fixed-deal expected continuation; descriptive, not causal attribution."
+            },
+            {
+              "root_id": "trained/4977/0009",
+              "hand": 4977,
+              "decision": 9,
+              "board": [
+                22,
+                11,
+                26,
+                43,
+                5
+              ],
+              "pot_bb": 10.0,
+              "focal_hole": [
+                47,
+                49
+              ],
+              "actions": [
+                [
+                  "check",
+                  0
+                ],
+                [
+                  "raise",
+                  100
+                ],
+                [
+                  "raise",
+                  1000
+                ]
+              ],
+              "search_probabilities": [
+                0.9230794522615907,
+                0.07605740355699926,
+                0.0008631441814095951
+              ],
+              "blueprint_probabilities": [
+                0.8529667934133582,
+                0.13682553231092154,
+                0.010207674275720235
+              ],
+              "chosen_action": [
+                "check",
+                0
+              ],
+              "blueprint_action": [
+                "check",
+                0
+              ],
+              "installed": true,
+              "fallback_reason": null,
+              "expected_on_minus_off_bb": -3.550172054396343,
+              "explanation_scope": "Recorded mixes and fixed-deal expected continuation; descriptive, not causal attribution."
+            }
+          ]
+        },
+        {
+          "block": 512,
+          "contrast_bb100": 481.6105580975612,
+          "centered_square_share": 0.041563701034101515,
+          "uncentered_square_share": 0.04136340494720011,
+          "examples": [
+            {
+              "root_id": "trained/3076/0007",
+              "hand": 3076,
+              "decision": 7,
+              "board": [
+                42,
+                17,
+                8,
+                16,
+                40
+              ],
+              "pot_bb": 19.5,
+              "focal_hole": [
+                48,
+                18
+              ],
+              "actions": [
+                [
+                  "check",
+                  0
+                ],
+                [
+                  "raise",
+                  100
+                ],
+                [
+                  "raise",
+                  1950
+                ]
+              ],
+              "search_probabilities": [
+                0.3133041298313367,
+                0.686672893975864,
+                2.297619279903517e-05
+              ],
+              "blueprint_probabilities": [
+                0.018122655680915988,
+                0.0036770433858147817,
+                0.9782003009332693
+              ],
+              "chosen_action": [
+                "check",
+                0
+              ],
+              "blueprint_action": [
+                "raise",
+                1950
+              ],
+              "installed": true,
+              "fallback_reason": null,
+              "expected_on_minus_off_bb": 20.12403552120388,
+              "explanation_scope": "Recorded mixes and fixed-deal expected continuation; descriptive, not causal attribution."
+            },
+            {
+              "root_id": "trained/3074/0011",
+              "hand": 3074,
+              "decision": 11,
+              "board": [
+                42,
+                17,
+                8,
+                16,
+                40
+              ],
+              "pot_bb": 27.5,
+              "focal_hole": [
+                48,
+                18
+              ],
+              "actions": [
+                [
+                  "check",
+                  0
+                ],
+                [
+                  "raise",
+                  100
+                ],
+                [
+                  "raise",
+                  2750
+                ]
+              ],
+              "search_probabilities": [
+                0.3992382713635376,
+                0.46561814004366564,
+                0.1351435885927966
+              ],
+              "blueprint_probabilities": [
+                0.008949163222064772,
+                0.9510375523771117,
+                0.04001328440082358
+              ],
+              "chosen_action": [
+                "raise",
+                2750
+              ],
+              "blueprint_action": [
+                "raise",
+                2750
+              ],
+              "installed": true,
+              "fallback_reason": null,
+              "expected_on_minus_off_bb": 8.772597964649794,
+              "explanation_scope": "Recorded mixes and fixed-deal expected continuation; descriptive, not causal attribution."
+            }
+          ]
+        },
+        {
+          "block": 841,
+          "contrast_bb100": 426.27226346880093,
+          "centered_square_share": 0.03258034542644073,
+          "uncentered_square_share": 0.03240398582481047,
+          "examples": [
+            {
+              "root_id": "trained/5049/0008",
+              "hand": 5049,
+              "decision": 8,
+              "board": [
+                22,
+                32,
+                36,
+                30,
+                21
+              ],
+              "pot_bb": 39.0,
+              "focal_hole": [
+                47,
+                51
+              ],
+              "actions": [
+                [
+                  "check",
+                  0
+                ],
+                [
+                  "raise",
+                  100
+                ],
+                [
+                  "raise",
+                  3900
+                ]
+              ],
+              "search_probabilities": [
+                0.004041980041367043,
+                0.017675222143276537,
+                0.9782827978153569
+              ],
+              "blueprint_probabilities": [
+                0.4611239485816882,
+                0.4425689516140101,
+                0.09630709980430167
+              ],
+              "chosen_action": [
+                "raise",
+                3900
+              ],
+              "blueprint_action": [
+                "raise",
+                100
+              ],
+              "installed": true,
+              "fallback_reason": null,
+              "expected_on_minus_off_bb": 25.576335808128057,
+              "explanation_scope": "Recorded mixes and fixed-deal expected continuation; descriptive, not causal attribution."
+            }
+          ]
+        },
+        {
+          "block": 400,
+          "contrast_bb100": -1007.3660744368921,
+          "centered_square_share": 0.18060876557872535,
+          "uncentered_square_share": 0.18096680755917086,
+          "examples": [
+            {
+              "root_id": "trained/2403/0011",
+              "hand": 2403,
+              "decision": 11,
+              "board": [
+                49,
+                36,
+                45,
+                13,
+                28
+              ],
+              "pot_bb": 42.0,
+              "focal_hole": [
+                47,
+                15
+              ],
+              "actions": [
+                [
+                  "check",
+                  0
+                ],
+                [
+                  "raise",
+                  100
+                ],
+                [
+                  "raise",
+                  4200
+                ],
+                [
+                  "raise",
+                  7900
+                ]
+              ],
+              "search_probabilities": [
+                0.9968865593512953,
+                0.003113353384479071,
+                7.179925066130004e-08,
+                1.5464975592895308e-08
+              ],
+              "blueprint_probabilities": [
+                0.37502788956245287,
+                0.5859117309437519,
+                0.03894711432919174,
+                0.00011326516460340039
+              ],
+              "chosen_action": [
+                "check",
+                0
+              ],
+              "blueprint_action": [
+                "check",
+                0
+              ],
+              "installed": true,
+              "fallback_reason": null,
+              "expected_on_minus_off_bb": -30.22098223310676,
+              "explanation_scope": "Recorded mixes and fixed-deal expected continuation; descriptive, not causal attribution."
+            },
+            {
+              "root_id": "trained/2405/0011",
+              "hand": 2405,
+              "decision": 11,
+              "board": [
+                49,
+                36,
+                45,
+                13,
+                28
+              ],
+              "pot_bb": 42.0,
+              "focal_hole": [
+                47,
+                15
+              ],
+              "actions": [
+                [
+                  "check",
+                  0
+                ],
+                [
+                  "raise",
+                  100
+                ],
+                [
+                  "raise",
+                  4200
+                ],
+                [
+                  "raise",
+                  7900
+                ]
+              ],
+              "search_probabilities": [
+                0.9968865593512953,
+                0.003113353384479071,
+                7.179925066130004e-08,
+                1.5464975592895308e-08
+              ],
+              "blueprint_probabilities": [
+                0.37502788956245287,
+                0.5859117309437519,
+                0.03894711432919174,
+                0.00011326516460340039
+              ],
+              "chosen_action": [
+                "check",
+                0
+              ],
+              "blueprint_action": [
+                "check",
+                0
+              ],
+              "installed": true,
+              "fallback_reason": null,
+              "expected_on_minus_off_bb": -30.22098223310676,
+              "explanation_scope": "Recorded mixes and fixed-deal expected continuation; descriptive, not causal attribution."
+            }
+          ]
+        },
+        {
+          "block": 666,
+          "contrast_bb100": -966.7865949294949,
+          "centered_square_share": 0.1663355942131855,
+          "uncentered_square_share": 0.16668077975313175,
+          "examples": [
+            {
+              "root_id": "trained/4000/0009",
+              "hand": 4000,
+              "decision": 9,
+              "board": [
+                25,
+                38,
+                26,
+                41,
+                40
+              ],
+              "pot_bb": 30.0,
+              "focal_hole": [
+                34,
+                30
+              ],
+              "actions": [
+                [
+                  "check",
+                  0
+                ],
+                [
+                  "raise",
+                  100
+                ],
+                [
+                  "raise",
+                  3000
+                ]
+              ],
+              "search_probabilities": [
+                0.779375635919155,
+                0.19644722516986773,
+                0.02417713891097828
+              ],
+              "blueprint_probabilities": [
+                0.024251557629664158,
+                0.9087379887595924,
+                0.06701045361074336
+              ],
+              "chosen_action": [
+                "check",
+                0
+              ],
+              "blueprint_action": [
+                "raise",
+                100
+              ],
+              "installed": true,
+              "fallback_reason": null,
+              "expected_on_minus_off_bb": -48.00647081626954,
+              "explanation_scope": "Recorded mixes and fixed-deal expected continuation; descriptive, not causal attribution."
+            },
+            {
+              "root_id": "trained/3998/0009",
+              "hand": 3998,
+              "decision": 9,
+              "board": [
+                25,
+                38,
+                26,
+                41,
+                40
+              ],
+              "pot_bb": 12.0,
+              "focal_hole": [
+                34,
+                30
+              ],
+              "actions": [
+                [
+                  "check",
+                  0
+                ],
+                [
+                  "raise",
+                  100
+                ],
+                [
+                  "raise",
+                  1200
+                ]
+              ],
+              "search_probabilities": [
+                0.04251457481855862,
+                0.08744736763291397,
+                0.8700380575485273
+              ],
+              "blueprint_probabilities": [
+                0.3264303574034459,
+                0.15891822549834128,
+                0.5146514170982129
+              ],
+              "chosen_action": [
+                "raise",
+                1200
+              ],
+              "blueprint_action": [
+                "check",
+                0
+              ],
+              "installed": true,
+              "fallback_reason": null,
+              "expected_on_minus_off_bb": -10.000724879500149,
+              "explanation_scope": "Recorded mixes and fixed-deal expected continuation; descriptive, not causal attribution."
+            }
+          ]
+        },
+        {
+          "block": 838,
+          "contrast_bb100": -391.4210182302186,
+          "centered_square_share": 0.027173338137166013,
+          "uncentered_square_share": 0.027322005105302048,
+          "examples": [
+            {
+              "root_id": "trained/5031/0009",
+              "hand": 5031,
+              "decision": 9,
+              "board": [
+                20,
+                30,
+                1,
+                22,
+                49
+              ],
+              "pot_bb": 18.0,
+              "focal_hole": [
+                40,
+                41
+              ],
+              "actions": [
+                [
+                  "check",
+                  0
+                ],
+                [
+                  "raise",
+                  100
+                ],
+                [
+                  "raise",
+                  1800
+                ]
+              ],
+              "search_probabilities": [
+                0.7642382256652905,
+                0.2357583241289125,
+                3.450205796981356e-06
+              ],
+              "blueprint_probabilities": [
+                0.7418212461962529,
+                0.25814269007019003,
+                3.6063733557142855e-05
+              ],
+              "chosen_action": [
+                "check",
+                0
+              ],
+              "blueprint_action": [
+                "check",
+                0
+              ],
+              "installed": true,
+              "fallback_reason": null,
+              "expected_on_minus_off_bb": -11.742630546906557,
+              "explanation_scope": "Recorded mixes and fixed-deal expected continuation; descriptive, not causal attribution."
+            },
+            {
+              "root_id": "trained/5033/0009",
+              "hand": 5033,
+              "decision": 9,
+              "board": [
+                20,
+                30,
+                1,
+                22,
+                49
+              ],
+              "pot_bb": 18.0,
+              "focal_hole": [
+                40,
+                41
+              ],
+              "actions": [
+                [
+                  "check",
+                  0
+                ],
+                [
+                  "raise",
+                  100
+                ],
+                [
+                  "raise",
+                  1800
+                ]
+              ],
+              "search_probabilities": [
+                0.7642382256652905,
+                0.2357583241289125,
+                3.450205796981356e-06
+              ],
+              "blueprint_probabilities": [
+                0.7418212461962529,
+                0.25814269007019003,
+                3.6063733557142855e-05
+              ],
+              "chosen_action": [
+                "check",
+                0
+              ],
+              "blueprint_action": [
+                "check",
+                0
+              ],
+              "installed": true,
+              "fallback_reason": null,
+              "expected_on_minus_off_bb": -11.742630546906557,
+              "explanation_scope": "Recorded mixes and fixed-deal expected continuation; descriptive, not causal attribution."
+            }
+          ]
+        }
+      ],
+      "counts": {
+        "mode/blueprint": 12237,
+        "blueprint_found/True": 13025,
+        "mode/root": 582,
+        "root_installed": 581,
+        "mode/continuation": 213,
+        "off_tree_hands": 2,
+        "blueprint_found/False": 7,
+        "root_fallback_reason/declared-game quality target not met": 1,
+        "root_quality_fallback": 1
+      },
+      "per_seat_counts": {
+        "0": {
+          "mode/blueprint": 4144,
+          "mode/root": 177,
+          "mode/continuation": 63
+        },
+        "1": {
+          "mode/blueprint": 4014,
+          "mode/root": 203,
+          "mode/continuation": 77
+        },
+        "2": {
+          "mode/blueprint": 4079,
+          "mode/root": 202,
+          "mode/continuation": 73
+        }
+      },
+      "root_latency_seconds": {
+        "n": 582,
+        "mean": 0.619690705290378,
+        "median": 0.444054417,
+        "p95": 1.5437925799999999,
+        "p99": 3.030872908,
+        "max": 3.132213723
+      }
+    },
+    {
+      "lineup": "call-pressure",
+      "integrated": {
+        "blocks": 1024,
+        "mean_bb100": 2.503757552815359,
+        "sd_bb100": 135.18255827994673,
+        "pointwise95_bb100": [
+          -5.785829639055522,
+          10.793344744686241
+        ],
+        "family95_bb100": [
+          -6.978906063047217,
+          11.986421168677936
+        ],
+        "centered_square_concentration": {
+          "1": 0.08189543091646295,
+          "3": 0.2050296695025037,
+          "5": 0.28267624538110736
+        },
+        "uncentered_square_concentration": {
+          "1": 0.0815363373945914,
+          "3": 0.2051995583567357,
+          "5": 0.28327632746772924
+        },
+        "zero_variance_is_not_a_pass": false
+      },
+      "sampled": {
+        "blocks": 1024,
+        "mean_bb100": -0.9928385416666656,
+        "sd_bb100": 180.9476026977235,
+        "pointwise95_bb100": [
+          -12.088803500522605,
+          10.103126417189273
+        ],
+        "family95_bb100": [
+          -13.6857870278605,
+          11.700109944527167
+        ],
+        "centered_square_concentration": {
+          "1": 0.05929823038077118,
+          "3": 0.16169887620794982,
+          "5": 0.24888316597573323
+        },
+        "uncentered_square_concentration": {
+          "1": 0.059212926873766565,
+          "3": 0.16145530990330587,
+          "5": 0.2486379015806152
+        },
+        "zero_variance_is_not_a_pass": false
+      },
+      "variance_ratio": 0.5581303699240342,
+      "clear_unacceptable_harm_flag": false,
+      "adverse_direction_clears_zero": false,
+      "peer_promising_signal": false,
+      "tails": [
+        {
+          "block": 0,
+          "contrast_bb100": 1193.6865619124972,
+          "centered_square_share": 0.07589966779210161,
+          "uncentered_square_share": 0.07619290879708078,
+          "examples": [
+            {
+              "root_id": "call-pressure/0003/0008",
+              "hand": 3,
+              "decision": 8,
+              "board": [
+                20,
+                9,
+                11,
+                17,
+                6
+              ],
+              "pot_bb": 67.5,
+              "focal_hole": [
+                47,
+                42
+              ],
+              "actions": [
+                [
+                  "check",
+                  0
+                ],
+                [
+                  "raise",
+                  100
+                ],
+                [
+                  "raise",
+                  6650
+                ]
+              ],
+              "search_probabilities": [
+                0.928507585860282,
+                0.01890613548410462,
+                0.05258627865561345
+              ],
+              "blueprint_probabilities": [
+                0.005038157348067841,
+                0.01039006952296356,
+                0.9845717731289687
+              ],
+              "chosen_action": [
+                "check",
+                0
+              ],
+              "blueprint_action": [
+                "raise",
+                6650
+              ],
+              "installed": true,
+              "fallback_reason": null,
+              "expected_on_minus_off_bb": 61.96851931651699,
+              "explanation_scope": "Recorded mixes and fixed-deal expected continuation; descriptive, not causal attribution."
+            },
+            {
+              "root_id": "call-pressure/0004/0007",
+              "hand": 4,
+              "decision": 7,
+              "board": [
+                20,
+                9,
+                11,
+                17,
+                6
+              ],
+              "pot_bb": 18.0,
+              "focal_hole": [
+                38,
+                27
+              ],
+              "actions": [
+                [
+                  "check",
+                  0
+                ],
+                [
+                  "raise",
+                  100
+                ],
+                [
+                  "raise",
+                  1800
+                ]
+              ],
+              "search_probabilities": [
+                0.9679725454682148,
+                0.0059565532552416,
+                0.02607090127654412
+              ],
+              "blueprint_probabilities": [
+                0.4359889094614457,
+                0.0014289679545942571,
+                0.56258212258396
+              ],
+              "chosen_action": [
+                "check",
+                0
+              ],
+              "blueprint_action": [
+                "raise",
+                1800
+              ],
+              "installed": true,
+              "fallback_reason": null,
+              "expected_on_minus_off_bb": 9.652674398232834,
+              "explanation_scope": "Recorded mixes and fixed-deal expected continuation; descriptive, not causal attribution."
+            }
+          ]
+        },
+        {
+          "block": 727,
+          "contrast_bb100": 942.2021082509675,
+          "centered_square_share": 0.04723457079393914,
+          "uncentered_square_share": 0.04747031216506352,
+          "examples": [
+            {
+              "root_id": "call-pressure/4365/0007",
+              "hand": 4365,
+              "decision": 7,
+              "board": [
+                10,
+                13,
+                5,
+                39,
+                21
+              ],
+              "pot_bb": 36.0,
+              "focal_hole": [
+                32,
+                0
+              ],
+              "actions": [
+                [
+                  "check",
+                  0
+                ],
+                [
+                  "raise",
+                  100
+                ],
+                [
+                  "raise",
+                  3600
+                ]
+              ],
+              "search_probabilities": [
+                0.9842157675436102,
+                0.003143819005728709,
+                0.012640413450661374
+              ],
+              "blueprint_probabilities": [
+                0.03585189345599529,
+                0.0028561197761075084,
+                0.9612919867678973
+              ],
+              "chosen_action": [
+                "check",
+                0
+              ],
+              "blueprint_action": [
+                "raise",
+                3600
+              ],
+              "installed": true,
+              "fallback_reason": null,
+              "expected_on_minus_off_bb": 34.15116894019087,
+              "explanation_scope": "Recorded mixes and fixed-deal expected continuation; descriptive, not causal attribution."
+            },
+            {
+              "root_id": "call-pressure/4362/0010",
+              "hand": 4362,
+              "decision": 10,
+              "board": [
+                10,
+                13,
+                5,
+                39,
+                21
+              ],
+              "pot_bb": 108.0,
+              "focal_hole": [
+                25,
+                33
+              ],
+              "actions": [
+                [
+                  "check",
+                  0
+                ],
+                [
+                  "raise",
+                  100
+                ],
+                [
+                  "raise",
+                  4800
+                ]
+              ],
+              "search_probabilities": [
+                0.038437454523462394,
+                0.03142703676986421,
+                0.9301355087066744
+              ],
+              "blueprint_probabilities": [
+                0.5243856365035733,
+                0.011330118042667566,
+                0.4642842454537592
+              ],
+              "chosen_action": [
+                "raise",
+                4800
+              ],
+              "blueprint_action": [
+                "raise",
+                4800
+              ],
+              "installed": true,
+              "fallback_reason": null,
+              "expected_on_minus_off_bb": 22.38095755486718,
+              "explanation_scope": "Recorded mixes and fixed-deal expected continuation; descriptive, not causal attribution."
+            }
+          ]
+        },
+        {
+          "block": 966,
+          "contrast_bb100": 868.3499042675506,
+          "centered_square_share": 0.04010185859576014,
+          "uncentered_square_share": 0.04032027317004969,
+          "examples": [
+            {
+              "root_id": "call-pressure/5798/0008",
+              "hand": 5798,
+              "decision": 8,
+              "board": [
+                41,
+                29,
+                42,
+                39,
+                44
+              ],
+              "pot_bb": 45.0,
+              "focal_hole": [
+                43,
+                36
+              ],
+              "actions": [
+                [
+                  "check",
+                  0
+                ],
+                [
+                  "raise",
+                  100
+                ],
+                [
+                  "raise",
+                  4500
+                ],
+                [
+                  "raise",
+                  7800
+                ]
+              ],
+              "search_probabilities": [
+                0.06217690661676697,
+                0.02570581918455555,
+                0.0017148382342837632,
+                0.9104024359643922
+              ],
+              "blueprint_probabilities": [
+                0.40724751002251275,
+                0.27781641410493,
+                0.12597799347718702,
+                0.1889580823953702
+              ],
+              "chosen_action": [
+                "raise",
+                7800
+              ],
+              "blueprint_action": [
+                "raise",
+                100
+              ],
+              "installed": true,
+              "fallback_reason": null,
+              "expected_on_minus_off_bb": 50.428706997532665,
+              "explanation_scope": "Recorded mixes and fixed-deal expected continuation; descriptive, not causal attribution."
+            },
+            {
+              "root_id": "call-pressure/5800/0007",
+              "hand": 5800,
+              "decision": 7,
+              "board": [
+                41,
+                29,
+                42,
+                39,
+                44
+              ],
+              "pot_bb": 18.0,
+              "focal_hole": [
+                43,
+                36
+              ],
+              "actions": [
+                [
+                  "check",
+                  0
+                ],
+                [
+                  "raise",
+                  100
+                ],
+                [
+                  "raise",
+                  1800
+                ]
+              ],
+              "search_probabilities": [
+                0.02945588535066476,
+                0.16028362183943298,
+                0.8102604928099024
+              ],
+              "blueprint_probabilities": [
+                0.16682192815735178,
+                0.11320706231002141,
+                0.7199710095326267
+              ],
+              "chosen_action": [
+                "raise",
+                1800
+              ],
+              "blueprint_action": [
+                "raise",
+                1800
+              ],
+              "installed": true,
+              "fallback_reason": null,
+              "expected_on_minus_off_bb": 1.6722872585203776,
+              "explanation_scope": "Recorded mixes and fixed-deal expected continuation; descriptive, not causal attribution."
+            }
+          ]
+        },
+        {
+          "block": 242,
+          "contrast_bb100": -1234.8341379568355,
+          "centered_square_share": 0.08189543091646295,
+          "uncentered_square_share": 0.0815363373945914,
+          "examples": [
+            {
+              "root_id": "call-pressure/1453/0008",
+              "hand": 1453,
+              "decision": 8,
+              "board": [
+                51,
+                38,
+                36,
+                17,
+                7
+              ],
+              "pot_bb": 81.0,
+              "focal_hole": [
+                48,
+                29
+              ],
+              "actions": [
+                [
+                  "check",
+                  0
+                ],
+                [
+                  "raise",
+                  100
+                ],
+                [
+                  "raise",
+                  6000
+                ]
+              ],
+              "search_probabilities": [
+                0.43518985276500166,
+                0.5529229938070032,
+                0.01188715342799413
+              ],
+              "blueprint_probabilities": [
+                0.29911401712269253,
+                0.016290527747978276,
+                0.6845954551293292
+              ],
+              "chosen_action": [
+                "check",
+                0
+              ],
+              "blueprint_action": [
+                "raise",
+                6000
+              ],
+              "installed": true,
+              "fallback_reason": null,
+              "expected_on_minus_off_bb": -39.825865636021106,
+              "explanation_scope": "Recorded mixes and fixed-deal expected continuation; descriptive, not causal attribution."
+            },
+            {
+              "root_id": "call-pressure/1452/0007",
+              "hand": 1452,
+              "decision": 7,
+              "board": [
+                51,
+                38,
+                36,
+                17,
+                7
+              ],
+              "pot_bb": 54.0,
+              "focal_hole": [
+                48,
+                29
+              ],
+              "actions": [
+                [
+                  "check",
+                  0
+                ],
+                [
+                  "raise",
+                  100
+                ],
+                [
+                  "raise",
+                  5400
+                ],
+                [
+                  "raise",
+                  7300
+                ]
+              ],
+              "search_probabilities": [
+                0.2651991085120612,
+                0.7244563278486468,
+                0.01012319917600887,
+                0.0002213644632822182
+              ],
+              "blueprint_probabilities": [
+                0.024925436569495012,
+                0.40940955532418644,
+                0.32376335876440543,
+                0.24190164934191308
+              ],
+              "chosen_action": [
+                "raise",
+                100
+              ],
+              "blueprint_action": [
+                "raise",
+                100
+              ],
+              "installed": true,
+              "fallback_reason": null,
+              "expected_on_minus_off_bb": -34.26418264138903,
+              "explanation_scope": "Recorded mixes and fixed-deal expected continuation; descriptive, not causal attribution."
+            }
+          ]
+        },
+        {
+          "block": 637,
+          "contrast_bb100": -687.2804458011096,
+          "centered_square_share": 0.025451274387115832,
+          "uncentered_square_share": 0.025258172200129634,
+          "examples": [
+            {
+              "root_id": "call-pressure/3822/0008",
+              "hand": 3822,
+              "decision": 8,
+              "board": [
+                32,
+                30,
+                47,
+                16,
+                13
+              ],
+              "pot_bb": 67.5,
+              "focal_hole": [
+                31,
+                45
+              ],
+              "actions": [
+                [
+                  "check",
+                  0
+                ],
+                [
+                  "raise",
+                  100
+                ],
+                [
+                  "raise",
+                  6650
+                ]
+              ],
+              "search_probabilities": [
+                0.0963659548982938,
+                0.8800032212348509,
+                0.023630823866854073
+              ],
+              "blueprint_probabilities": [
+                0.05839025493644249,
+                0.29771061315441777,
+                0.6438991319091398
+              ],
+              "chosen_action": [
+                "raise",
+                100
+              ],
+              "blueprint_action": [
+                "raise",
+                6650
+              ],
+              "installed": true,
+              "fallback_reason": null,
+              "expected_on_minus_off_bb": -40.66554987673161,
+              "explanation_scope": "Recorded mixes and fixed-deal expected continuation; descriptive, not causal attribution."
+            },
+            {
+              "root_id": "call-pressure/3825/0007",
+              "hand": 3825,
+              "decision": 7,
+              "board": [
+                32,
+                30,
+                47,
+                16,
+                13
+              ],
+              "pot_bb": 8.0,
+              "focal_hole": [
+                24,
+                41
+              ],
+              "actions": [
+                [
+                  "check",
+                  0
+                ],
+                [
+                  "raise",
+                  100
+                ],
+                [
+                  "raise",
+                  800
+                ]
+              ],
+              "search_probabilities": [
+                0.7679063727730967,
+                0.06845130528211026,
+                0.16364232194479295
+              ],
+              "blueprint_probabilities": [
+                0.8444786306385718,
+                0.06255113505513347,
+                0.0929702343062948
+              ],
+              "chosen_action": [
+                "raise",
+                100
+              ],
+              "blueprint_action": [
+                "check",
+                0
+              ],
+              "installed": true,
+              "fallback_reason": null,
+              "expected_on_minus_off_bb": -0.5712768713349612,
+              "explanation_scope": "Recorded mixes and fixed-deal expected continuation; descriptive, not causal attribution."
+            }
+          ]
+        },
+        {
+          "block": 207,
+          "contrast_bb100": -652.7124509741881,
+          "centered_square_share": 0.022964252256464514,
+          "uncentered_square_share": 0.022781259905709915,
+          "examples": [
+            {
+              "root_id": "call-pressure/1245/0009",
+              "hand": 1245,
+              "decision": 9,
+              "board": [
+                50,
+                19,
+                21,
+                31,
+                16
+              ],
+              "pot_bb": 96.0,
+              "focal_hole": [
+                44,
+                36
+              ],
+              "actions": [
+                [
+                  "check",
+                  0
+                ],
+                [
+                  "raise",
+                  100
+                ],
+                [
+                  "raise",
+                  5400
+                ]
+              ],
+              "search_probabilities": [
+                6.4348658677450866e-06,
+                0.007985960615723039,
+                0.9920076045184092
+              ],
+              "blueprint_probabilities": [
+                0.5417426893618957,
+                0.18686189117411767,
+                0.2713954194639866
+              ],
+              "chosen_action": [
+                "raise",
+                5400
+              ],
+              "blueprint_action": [
+                "raise",
+                5400
+              ],
+              "installed": true,
+              "fallback_reason": null,
+              "expected_on_minus_off_bb": -38.73418206238043,
+              "explanation_scope": "Recorded mixes and fixed-deal expected continuation; descriptive, not causal attribution."
+            },
+            {
+              "root_id": "call-pressure/1246/0007",
+              "hand": 1246,
+              "decision": 7,
+              "board": [
+                50,
+                19,
+                21,
+                31,
+                16
+              ],
+              "pot_bb": 8.0,
+              "focal_hole": [
+                25,
+                22
+              ],
+              "actions": [
+                [
+                  "check",
+                  0
+                ],
+                [
+                  "raise",
+                  100
+                ],
+                [
+                  "raise",
+                  800
+                ]
+              ],
+              "search_probabilities": [
+                0.5390506606389692,
+                0.4609398050711313,
+                9.534289899367479e-06
+              ],
+              "blueprint_probabilities": [
+                0.15939262545302438,
+                0.8336111315592315,
+                0.006996242987743987
+              ],
+              "chosen_action": [
+                "raise",
+                100
+              ],
+              "blueprint_action": [
+                "raise",
+                100
+              ],
+              "installed": true,
+              "fallback_reason": null,
+              "expected_on_minus_off_bb": -0.4285649960708571,
+              "explanation_scope": "Recorded mixes and fixed-deal expected continuation; descriptive, not causal attribution."
+            }
+          ]
+        }
+      ],
+      "counts": {
+        "mode/blueprint": 15268,
+        "blueprint_found/True": 16692,
+        "mode/root": 1483,
+        "root_installed": 1483,
+        "blueprint_found/False": 59
+      },
+      "per_seat_counts": {
+        "0": {
+          "mode/blueprint": 5191,
+          "mode/root": 493
+        },
+        "1": {
+          "mode/blueprint": 5093,
+          "mode/root": 503
+        },
+        "2": {
+          "mode/blueprint": 4984,
+          "mode/root": 487
+        }
+      },
+      "root_latency_seconds": {
+        "n": 1483,
+        "mean": 0.5169773435488874,
+        "median": 0.430738607,
+        "p95": 0.97020006,
+        "p99": 1.816160185,
+        "max": 3.115789842
+      }
+    }
+  ],
+  "proof_sha256": "d4be7ca3020faa8dd0f133cecda1138b15a3e6df1298593ae11c41d90810eafe",
+  "costs": {
+    "wall_seconds": 1664.4730152420234,
+    "batches": {
+      "initial": {
+        "wall_seconds": 829.347588345001,
+        "startup": {
+          "model_and_k50_load_seconds": 234.134572343,
+          "model_pins": [
+            {
+              "average_scope": 3,
+              "policy_load_seconds": 114.697108627,
+              "sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+              "source_checkpoint_sha256": "788e75acf8b98d88518faf3da683048ec05604ba001c8a59bb1ec5f740b52b80",
+              "strategy": "average"
+            },
+            {
+              "average_scope": 3,
+              "policy_load_seconds": 114.544123958,
+              "sha256": "23599816cf632a51cace45f25d70ed4918fe5e75875c33136d8629052a8a2a70",
+              "source_checkpoint_sha256": "d03db22316af0e8bd04e76f5303603709bd77b2bf13dcc13ea07482ca10170ca",
+              "strategy": "average"
+            }
+          ],
+          "resident_models": 2,
+          "shared_read_only_tables": true,
+          "threads": 4
+        },
+        "play_and_write_seconds": 594.834969279,
+        "case_play_seconds": {
+          "trained-off": 0.184154888,
+          "trained-on": 261.88068918,
+          "call-pressure-off": 0.192700427,
+          "call-pressure-on": 332.577424784
+        },
+        "manifest_sha256": "db7543cb2d5df4e517ba1149861bab985b951933077d633c275fcfdf1d97338a"
+      },
+      "repeat": {
+        "wall_seconds": 823.6491781179793,
+        "startup": {
+          "model_and_k50_load_seconds": 231.120350839,
+          "model_pins": [
+            {
+              "average_scope": 3,
+              "policy_load_seconds": 113.352110378,
+              "sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+              "source_checkpoint_sha256": "788e75acf8b98d88518faf3da683048ec05604ba001c8a59bb1ec5f740b52b80",
+              "strategy": "average"
+            },
+            {
+              "average_scope": 3,
+              "policy_load_seconds": 112.933014683,
+              "sha256": "23599816cf632a51cace45f25d70ed4918fe5e75875c33136d8629052a8a2a70",
+              "source_checkpoint_sha256": "d03db22316af0e8bd04e76f5303603709bd77b2bf13dcc13ea07482ca10170ca",
+              "strategy": "average"
+            }
+          ],
+          "resident_models": 2,
+          "shared_read_only_tables": true,
+          "threads": 4
+        },
+        "play_and_write_seconds": 592.1549898139999,
+        "case_play_seconds": {
+          "trained-off": 0.179424592,
+          "trained-on": 261.075246991,
+          "call-pressure-off": 0.20163196,
+          "call-pressure-on": 330.698686271
+        },
+        "manifest_sha256": "25357a96e2c37f90b2e268b373e68e111c4a1b3f910d3da85a276f5194517a06"
+      }
+    },
+    "verification_seconds": 11.204711091995705,
+    "binary_sha256": "aaa1308888998f6013d88c21c556dd802617143f79504ad51d5b52b9157bb886"
+  },
+  "harm_flag_margin_bb100": -5,
+  "interval_family": "two lineup means, simultaneous two-sided Bonferroni family95",
+  "no_automatic_extension": true,
+  "no_followup_started": true
+}
