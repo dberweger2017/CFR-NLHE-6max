@@ -119,10 +119,68 @@ def verified_pair(a,b,repeat_a,repeat_b,proof_a,proof_b):
         no_strength_claim=True)
 
 
+def audit_lookup_labels(traces,catalog):
+    """Qualify tags independently by streaming original exports and audited mass.
+
+    This is a qualification tool for gzip fixture exports, not a requirement to
+    reparse mature weights for every production batch.
+    """
+    import gzip
+    import mmap
+    wanted={};pins={};lookups=0
+    for trace in traces:
+        stream=rows(trace);header=next(stream)
+        for pin in header['policies']:
+            if 'sha256' in pin:
+                old=pins.setdefault(pin['sha256'],pin)
+                if old!=pin:raise ValueError('same policy has differing mass pins')
+        for row in stream:
+            for lookup in row['lookups']:
+                if lookup['status']=='not_applicable':continue
+                digest=header['policies'][lookup['identity']]['sha256']
+                group=wanted.setdefault(digest,{})
+                labels=group.setdefault(lookup['key'],set());labels.add(lookup['status']);lookups+=1
+    by_digest={v['sha256']:v for v in catalog.values()}
+    counts={label:0 for label in LABELS[:3]}
+    for digest,queries in wanted.items():
+        spec=by_digest[digest];policy=Path(spec['path']);receipt=Path(spec['mass'])/'receipt.json'
+        if sha(policy)!=digest or sha(receipt)!=spec['mass_sha256'] or pins[digest]['mass_sha256']!=spec['mass_sha256']:raise ValueError('coverage source/mass pin changed')
+        mass=json.loads(receipt.read_text());zeros=receipt.parent/'zero-keys.bin'
+        if sha(zeros)!=mass['zero_keys_sha256'] or zeros.stat().st_size!=16*mass['zero_mass_rows']:raise ValueError('coverage zero keys changed')
+        def contains(data,key):
+            lo=0;hi=len(data)//16
+            while lo<hi:
+                mid=(lo+hi)//2
+                if data[mid*16:(mid+1)*16]<key:lo=mid+1
+                else:hi=mid
+            return lo<len(data)//16 and data[lo*16:(lo+1)*16]==key
+        found=set()
+        with zeros.open('rb') as z,gzip.open(policy,'rt') as f:
+            data=mmap.mmap(z.fileno(),0,access=mmap.ACCESS_READ) if zeros.stat().st_size else b''
+            try:
+                header=json.loads(next(f))
+                if header['source_checkpoint_sha256']!=mass['checkpoint_sha256'] or mass['policy_sha256']!=digest or header['entries']!=mass['rows']:raise ValueError('coverage source lineage/counts')
+                count=0
+                for line in f:
+                    record=json.loads(line);count+=1;key=record[0]
+                    if key not in queries:continue
+                    status='zero_mass' if contains(data,bytes.fromhex(key)) else 'positive_mass'
+                    if queries[key]!={status}:raise ValueError('independent mass classification differs')
+                    found.add(key);counts[status]+=1
+                if count!=header['entries']:raise ValueError('coverage export incomplete')
+                for key in queries.keys()-found:
+                    if queries[key]!={'missing'}:raise ValueError('key incorrectly classified as found')
+                    counts['missing']+=1
+            finally:
+                if hasattr(data,'close'):data.close()
+    return dict(status='passed',decision_tags=lookups,distinct_queried_keys_by_status=counts,source_policies=len(wanted),no_uniform_probability_inference=True)
+
+
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('mode',choices=('replay','pair'));p.add_argument('paths',nargs='+',type=Path);a=p.parse_args()
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('mode',choices=('replay','pair','coverage'));p.add_argument('paths',nargs='+',type=Path);a=p.parse_args()
     if a.mode=='replay' and len(a.paths)==1:value=replay(a.paths[0])
     elif a.mode=='pair' and len(a.paths)==6:value=verified_pair(*a.paths)
+    elif a.mode=='coverage' and len(a.paths)>1:value=audit_lookup_labels(a.paths[1:],json.loads(a.paths[0].read_text()))
     else:raise ValueError('replay TRACE or pair A B REPEAT_A REPEAT_B PROOF_A PROOF_B')
     print(json.dumps(value,indent=2,allow_nan=False))
 

@@ -78,5 +78,43 @@ class PairedEvidenceTests(unittest.TestCase):
             bad=deepcopy(row);bad['lookups'][0][key]=value
             with self.assertRaises(ValueError):evidence.validate_row(bad,0,h,4,evidence.seating(4))
 
+    def test_independent_mass_audit_does_not_confuse_positive_uniform_with_zero(self):
+        import gzip
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);policy=root/'policy.gz';zero=root/'zero-keys.bin';receipt=root/'receipt.json'
+            header=dict(source_checkpoint_sha256='a'*64,entries=2)
+            with gzip.open(policy,'wt') as f:
+                for row in (header,['1'*32,0,0,6,[.5,.5]],['2'*32,0,0,6,[.5,.5]]):f.write(json.dumps(row)+'\n')
+            zero.write_bytes(bytes.fromhex('2'*32));digest=evidence.sha(policy)
+            receipt.write_text(json.dumps(dict(zero_keys_sha256=evidence.sha(zero),zero_mass_rows=1,checkpoint_sha256='a'*64,policy_sha256=digest,rows=2)))
+            pin=dict(sha256=digest,mass_sha256=evidence.sha(receipt));catalog={'model':dict(path=str(policy),mass=str(root),**pin)}
+            trace=root/'trace';data=[dict(policies=[pin]),dict(lookups=[dict(identity=0,key=k,status=status) for k,status in [('1'*32,'positive_mass'),('2'*32,'zero_mass'),('3'*32,'missing')]])]
+            trace.write_text('\n'.join(json.dumps(v) for v in data)+'\n')
+            result=evidence.audit_lookup_labels([trace],catalog)
+            self.assertEqual(result['distinct_queried_keys_by_status'],dict(positive_mass=1,zero_mass=1,missing=1))
+            data[1]['lookups'][0]['status']='zero_mass';trace.write_text('\n'.join(json.dumps(v) for v in data)+'\n')
+            with self.assertRaisesRegex(ValueError,'classification'):evidence.audit_lookup_labels([trace],catalog)
+
+    def test_fixed_qualification_counts_roots_and_focal_fields(self):
+        from scripts import qualify_nplayer_paired_arena as qualification
+        roots=[]
+        for size,expected in [('tiny',480),('cap',120)]:
+            m=qualification.manifest(Path('/unused'),dict(tables='k50',models={}),size,'initial')
+            self.assertEqual(sum(c['blocks']*c['players']*2 for c in m['cases']),expected)
+            for c in m['cases']:
+                roots.append(c['root']);self.assertEqual(len(c['opponents']),c['players']-1)
+                self.assertIn('bot=pot-pressure',c['opponents'])
+                self.assertEqual(c['focals'][0],c['opponents'][0]);self.assertNotIn('nplayer_train',str(m))
+        self.assertEqual(len(roots),len(set(roots)))
+
+    def test_duplicate_qualification_cannot_touch_completed_evidence(self):
+        from scripts import qualify_nplayer_paired_arena as qualification
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);(root/'launch.json').write_text('preserve')
+            with patch.object(qualification,'validate') as validate:
+                with self.assertRaises(ValueError):qualification.run(root,1800)
+                validate.assert_not_called()
+            self.assertEqual((root/'launch.json').read_text(),'preserve')
+
 
 if __name__=='__main__':unittest.main()
