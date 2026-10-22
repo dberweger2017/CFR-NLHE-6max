@@ -267,3 +267,15 @@ One short entry per active line of work; details live in the linked reports. Sto
 - **HU200 frozen three-seed blend ([#297](https://github.com/dberweger2017/CFR-NLHE-6max/pull/297)), capacity stop, owner-authorized merge:** all three raw 20B checkpoints verify and reproduce their released averages exactly. The unchanged sequence-form rule yields 156,208,331 union keys; the first disk gate requires 74.47 GB free versus 63.33 GB available, an 11.14 GB shortfall. No full blend, cache or evaluation ran; the normalized-export stop remains preserved. Evidence archives, resource traces, failures and cleanup receipts are accepted and indexed. M4 released October 16 at 01:19 Madrid. No strength, release or default change; continuation needs a new owner decision. [Report](docs/reports/hu200-v055-blend.md).
 
 *Updated October 18, 2026.* Earlier entries, including storage receipts, are in [roadmap history](docs/roadmap-history.md#superseded-current-position-through-october-16-2026).
+
+## Proposed bounded four-player100BB M4 feasibility
+
+[Proposal405](https://github.com/dberweger2017/CFR-NLHE-6max/issues/405),
+[protocol](docs/nplayer-four-player-feasibility.md): owner proposes a parallel
+v0.7 preparation pilot, not a prerequisite or replacement for PR404. Existing
+generic2–6player trainer/export/replay need no game/regret changes. Fresh single
+seed, fixed25M/50M endpoints,20Mkeythreshold on16GiBM4; measure growth/cost, not
+strength or saturation. Source-bound four-player correctness and a1Mcost fixture
+precede measured one-hour/memory admission. Main not started; decline if the
+conditional complete reserved quote does not fit. No other jobs/defaults/releases,
+new timers, automatic long continuation, cleanup or uploads.
