@@ -1,5 +1,9 @@
 # Roadmap
 
+## Active bounded river assessment
+
+[PR398](https://github.com/dberweger2017/CFR-NLHE-6max/pull/398), [proposal397](https://github.com/dberweger2017/CFR-NLHE-6max/issues/397): owner accepts the final frozen three-lineage comparison,2,048 peer/4,096 check-call-pressure blocks each, initial/reproduction/replay and inline expectations. Two separate three-test families; no training/player/menu/work changes. CLI count-limit amendment qualified before final hands.12h allocation (4.01h central/10.72h reserved), preflight costs can refuse main. Mixed/near-zero final evidence supports deferral and blueprint progress, not more hands/tuning. [Frozen protocol and closeout](docs/river-three-lineage-assessment.md). No final outcomes yet.
+
 ## Goal
 
 Build a strong no-limit Texas Hold'em agent that plays by the selected table rules and sees exactly what a human in its seat would see. Six-handed play is the main target; four- and five-handed tables, changing lineups and unequal stacks are part of the design.

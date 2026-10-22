@@ -6626,3 +6626,8 @@ cloud transport copies are retained and excluded from canonical reconstruction;
 exactIDs/status in`transfer-scheduling-20261018.json`. The transient403 and bounded
 successful same-part upload after backoff are in`drive-upload-rate-limit-20261018.json`.
 Other model archives, final metadata/unpacked-copy receipts and task retirement pending.
+
+
+## PR398 — final bounded three-lineage frozen river assessment (preflight)
+
+[Protocol](docs/river-three-lineage-assessment.md), [proposal397](https://github.com/dberweger2017/CFR-NLHE-6max/issues/397), [PR398](https://github.com/dberweger2017/CFR-NLHE-6max/pull/398). Owner accepted the12h allocation and final closeout rule. Existing three100BB10B models,2,048 peer/4,096 check-call-pressure blocks per lineage; no player/training changes or automatic extension. Owned bb128 root `/home/dberweger/river-three-lineage-assessment-20261022`, frozen execution source930843ba, initial bundleSHA25610c437522a0eb6efaf05d8b279d77fa3815912f88affb40f17927e2340e8db4e. Preparation824391, native count-only input-limit rebuild/tests and three-alias qualification before cost admission. No final results at this entry. Keep every partial/source/model/trace and earlier protected inputs. Archive pending; no deletion or Drive acceptance claim. Intended per-PR cache/Drive name `PR-398-river-three-lineage-assessment`; actual receipt and both restoration paths to follow at terminal closeout.
