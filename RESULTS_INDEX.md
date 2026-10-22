@@ -1,12 +1,44 @@
-## Full inline arena measurement — accepted and running, no results yet
+## PR394 — full inline expectations pass, evaluation engineering complete
 
-Owner accepted the unchanged all384-root allocation following merged PR393.
-[Admission/source/config/binary/quote pins](docs/reports/river-arena-expectation/measurement-admission.md).
-Fresh `bb128:/home/dberweger/river-arena-expectation-20261022/measurement-v1`,
-supervisor821371, launched2026-10-22 at02:52:51UTC. Fixed9,216 initial hands plus
-reproduction, original deals only,4workers, same frozen dc58d519 source.
-Quote11m03s central/35m11s planning reserve; no time cutoff or fresh strength.
-Results and archive acceptance pending; all originals/inputs retained.
+[PR394](https://github.com/dberweger2017/CFR-NLHE-6max/pull/394), proposal392;
+[report](docs/reports/river-arena-expectation/measurement.md).
+Owner-accepted unchanged source `dc58d5192ebae768a14ead940a05ff86220128af`;
+`bb128:/home/dberweger/river-arena-expectation-20261022/measurement-v1` completes
+October22,03:04:52UTC. Both passes match all384 original float64/profile/work
+records with zero new solves/reconstructions;381 enumerations and3 identical-policy
+quality cancellations each.9,216 initial hands independently replay/match PR388;
+9,216 fresh reproductions identical. No exclusions, failure, retry or new deal.
+
+Complete720.26s wall/901.42childCPU-s; loading465.81s, play/write251.20s including
+0.634s expectations, proof2.20s. Sampled27.70GiB, CPU65/Thermistor15 63°C,
+zero swap growth. Old separate workflow1,627.97s→720.26s,2.26× speedup;
+sampled-only728.23s difference is ordinary one-job variation. Preserve PR391
+variance/adverse means; primary variance × wall ratio0.409 cold/0.408 amortized.
+No strength verdict. [Proof/costs/resources/work](docs/reports/river-arena-expectation/measurement-results.json) ·
+[lineups](docs/reports/river-arena-expectation/measurement-lineups.csv) ·
+[pins/admission](docs/reports/river-arena-expectation/measurement-provenance.json).
+
+Engineering complete; [one concrete fresh strength proposal](docs/reports/river-arena-expectation/strength-study-proposal.md)
+awaits owner choice: fixed three lineages, proposed+5 primary effect/−5 safeguard
+margin, separate primary3/safeguard12 families,3,437,568 total hand instances,
+26.16h central/76.99h reserve, proposed80h budget. Normal-model nominal80% joint
+power is conditional on zero safeguard harm, not an empirical pass prediction;
+old check-call/pressure−14.81 remains adverse. No campaign/other engineering
+authorized. [Exact sizing/cost metadata](docs/reports/river-arena-expectation/strength-proposal.json).
+All originals/partial logs/protected inputs retained. [Accepted archive and restoration](docs/reports/river-arena-expectation/archive.json):
+`/research/PR-394-river-arena-expectation/`,
+[main ZIP](https://drive.google.com/file/d/1kQPBCsiOBTBcFColNfB9JLrbwn5F8ziU/view)
+6,635,240bytes, SHA256`f3dfb5ed4b08478aa891c65aa884d0c9e4a8d18845a641d2a0f915842fdc134c`,
+manifestSHA256`558077cf0c22d0865ff7be493c5188ffe47c63aa60578e0ec19dc1ca9a0b396c`;
+[closeout retrieval/administrative receipts](https://drive.google.com/file/d/1LRs38uRGTEVY-flwPYApH4tcB50TzCIv/view)
+9,995bytes, SHA256`f446514aabfd62b6f21cd6ea2b97bd6cf363ad0215481c9f06959ed40ec3b4e5`,
+manifestSHA256`39c6dfd6c4ae08c09708e635712d4596d294fdf597fc61480a38bd1598507045`.
+All payload/member SHA256 readback passes; deployed tool accepts Drive MD5/size
+and covers266 local files with no missing/changed entry. Receipt updated
+03:19:43UTC; no remote SHA256/member audit claimed. Raw qualification/calibration/
+full traces/sidecars and local partials, source bundle, qualified binary and
+offline reporting input preserved. Models/K50/env/Git dependencies external
+and uncopied; KEEP/all originals retained, zero deletion.
 
 ## PR393 — inline arena expectations: small calibration passes, subsequent full measurement admitted above
 

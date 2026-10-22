@@ -35,8 +35,9 @@ Thermistor15 29°C; NVMe257,596,923,904bytes free, HDD530,768,900,096bytes;
 MemAvailable128,687,924kB, swap367,697,920bytes. Resources inspected manually.
 `quote-accepted.json` and `measure-launch.json` preserve admission on host.
 
-The first launch is in progress; no full-panel result is claimed here. On
-completion, report actual complete wall/CPU/load/play/write/verification costs,
+This records the original admission; the [subsequent complete report](measurement.md)
+contains the verified full-panel result. The admitted reporting scope is actual
+complete wall/CPU/load/play/write/verification costs,
 sampled resources and original384-root parity, keeping rare tails and adverse
 PR391 panels. Compare full-cost efficiency without refitting outcome variance.
 Then publish one concrete fresh peer-and-scripted strength-study proposal with

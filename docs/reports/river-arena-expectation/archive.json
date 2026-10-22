@@ -1,0 +1,69 @@
+{
+  "status": "accepted",
+  "cache": "/mnt/data2tb/research-cloud/PR-394-river-arena-expectation",
+  "main": {
+    "status": "local-member-readback-passed",
+    "cache": "/mnt/data2tb/research-cloud/PR-394-river-arena-expectation",
+    "archive": "/mnt/data2tb/research-cloud/PR-394-river-arena-expectation/river-arena-expectation-evidence-20261022.zip",
+    "zip_bytes": 6635240,
+    "zip_sha256": "f3dfb5ed4b08478aa891c65aa884d0c9e4a8d18845a641d2a0f915842fdc134c",
+    "manifest_sha256": "558077cf0c22d0865ff7be493c5188ffe47c63aa60578e0ec19dc1ca9a0b396c",
+    "payload_members": 257,
+    "payload_bytes": 76573894,
+    "originals_retained": true,
+    "protected_inputs_copied": false,
+    "local_member_readback": true,
+    "owning_pr_status_before_copy": {
+      "isDraft": true,
+      "state": "OPEN",
+      "url": "https://github.com/dberweger2017/CFR-NLHE-6max/pull/394"
+    }
+  },
+  "closeout": {
+    "archive": "/mnt/data2tb/research-cloud/PR-394-river-arena-expectation/closeout-receipts-20261022.zip",
+    "zip_bytes": 9995,
+    "zip_sha256": "f446514aabfd62b6f21cd6ea2b97bd6cf363ad0215481c9f06959ed40ec3b4e5",
+    "manifest_sha256": "39c6dfd6c4ae08c09708e635712d4596d294fdf597fc61480a38bd1598507045",
+    "payload_members": 5,
+    "local_member_readback": true
+  },
+  "drive": {
+    "closeout-receipts-20261022.zip": {
+      "id": "1LRs38uRGTEVY-flwPYApH4tcB50TzCIv",
+      "md5": "b75cd619070de1aad1608c7dac162eab",
+      "size": 9995,
+      "url": "https://drive.google.com/file/d/1LRs38uRGTEVY-flwPYApH4tcB50TzCIv/view"
+    },
+    "river-arena-expectation-evidence-20261022.zip": {
+      "id": "1kQPBCsiOBTBcFColNfB9JLrbwn5F8ziU",
+      "md5": "81c73a59d42cc0d917e2547d0aedcd1d",
+      "size": 6635240,
+      "url": "https://drive.google.com/file/d/1kQPBCsiOBTBcFColNfB9JLrbwn5F8ziU/view"
+    }
+  },
+  "updated_utc": "2026-10-22T03:19:43Z",
+  "receipt_sha256": "820484b4d74dda25a5e59aa0ac400dd2a9a0d8faa857dde580eca3d76973c934",
+  "covered_local_files": 266,
+  "uncovered_or_changed": [],
+  "originals_retained": true,
+  "protected_inputs_copied": false,
+  "retrieval": {
+    "fast_cache": "/research/PR-394-river-arena-expectation/",
+    "drive_fallback_command": "rclone copy 'gdrive:PR-394-river-arena-expectation/' FRESH_IGNORED_DIRECTORY",
+    "main_zip": "river-arena-expectation-evidence-20261022.zip",
+    "closeout_zip": "closeout-receipts-20261022.zip",
+    "runtime_source_bundle": "evidence/source-v1.bundle",
+    "binary": "bin/nplayer_river_arena",
+    "main_proof": "evidence/measurement-v1/measure/verified.json",
+    "raw_expectations": "evidence/measurement-v1/measure/{initial,repeat}/*.expectations.jsonl",
+    "raw_traces": "evidence/measurement-v1/measure/{initial,repeat}/*.jsonl",
+    "offline_summary_input": "closeout/measurement-retrieval.json",
+    "manifest": "ARCHIVE-MANIFEST.json",
+    "closeout_manifest": "closeout/ARCHIVE-MANIFEST.json",
+    "restore_rule": "Verify ZIP/embedded manifest and selected member SHA256 in a fresh directory; restore externally pinned models/K50/Git prerequisites separately without overwriting active input."
+  },
+  "acceptance_scope": "Local ZIP/member SHA256 readback, then deployed tool Drive object MD5/size and local CRC/size acceptance. Complete current local size/mtime coverage; remote payload not downloaded, no remote SHA256/member audit.",
+  "keep_marker": true,
+  "deleted_files": 0,
+  "excluded_post_archive_metadata": "Final archival summary and closeout-upload administrative logs stay in the NVMe original; all scientific outputs and source/binary/initial upload evidence are archived."
+}

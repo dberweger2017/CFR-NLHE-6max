@@ -113,10 +113,15 @@ qualification, not a strength or release decision.
    288 initial plus288 reproduced hands match original play. Complete small
    calibration7m50s, including7m42s model loading; no extra solves or profile
    reconstruction. The fixed all384-root measurement quote is11m03s centrally,
-   35m11s planning reserve; [accepted full measurement](docs/reports/river-arena-expectation/measurement-admission.md)
-   launched October22 at02:52:51UTC, with no result yet. Then choose a separately
-   priced fresh fixed strength study or defer search expansion; do not add another
-   engineering round automatically.
+   [PR394's full measurement](docs/reports/river-arena-expectation/measurement.md)
+   now passes all384 roots and9,216 initial plus9,216 reproduced hands in12m00s.
+   Inline expectations remove duplicate work:2.26× faster than the separate
+   workflow, primary full-cost efficiency ratio0.409 versus sampled-only.
+   Engineering is complete. [Choose the concrete fixed strength proposal](docs/reports/river-arena-expectation/strength-study-proposal.md)
+   or defer: proposed+5 primary/−5 safeguard margin, three lineages,26.16h
+   central/76.99h reserve within proposed80h allocation. Tight check-call/pressure
+   safeguards dominate cost; no campaign, margin change or further engineering
+   starts automatically.
 2. **Off-tree continuation: a small correctness-first prototype.** Preserve the
    saved cap/all-in cases 21/91 and the pilot's omitted 3,700-chip response.
    Treat consistent beliefs and retained hero policy as requirements;
@@ -140,6 +145,8 @@ automatically. [The frozen pilot protocol](docs/river-whole-hand-pilot.md),
 separate the completed experiment from proposed next work.
 
 ## Current position
+
+- **Full inline river expectation measurement completes ([PR394](https://github.com/dberweger2017/CFR-NLHE-6max/pull/394), proposal392):** all384 original expected float64/profile/work values match in both passes, all9,216 initial hands independently replay and match PR388 bytes, all9,216 reproductions identical. Zero extra solves/reconstructions, no failure or new deal. Complete720.26s/901.42childCPU-s; loading465.81s, play/write251.20s including0.634s expectation evaluation, proof2.20s; sampled27.70GiB, CPU65/Thermistor15 63°C, zero swap growth.2.26× faster than the separate old workflow; primary variance × cold/amortized wall ratios0.409/0.408, preserving sparse tails/adverse means. Evaluation engineering closes. One proposed fixed three-lineage strength design uses+5 primary effect,−5 non-inferiority margin and nominal80% joint normal-model power,3,437,568 initial/reproduction instances,26.16h central/76.99h reserve, proposed80h budget. No launch authorization; existing check-call/pressure adverse mean remains a likely failed safeguard if repeated. [Report and explicit campaign/deferral decision](docs/reports/river-arena-expectation/measurement.md). Archive acceptance passed,266 covered files; originals/KEEP retained.
 
 - **Inline river expectation integration calibrated ([PR393](https://github.com/dberweger2017/CFR-NLHE-6max/pull/393), proposal392):** frozen source dc58d519 passes120 optimized native tests and14 focused Python checks. All288 initial hands independently replay and match PR388 bytes; fresh288-hand reproduction and all12 encountered root/profile/float64/work comparisons pass. No additional solve, profile reconstruction or new deal. Supervised470.05s/476.23childCPU-s; loading462.24s, play/write6.11s including16.42ms expectation work; sampled27.70GiB, CPU60/Thermistor15 59.5°C, zero swap growth. Full384-root cost/parity remains unmeasured: published11m03s central/35m11s reserve quote awaits acceptance. Preserve PR391 variance/adverse panels; no fresh strength, policy/default change or automatic follow-up. Raw originals retained, archive pending. [Calibration, scope and quote](docs/reports/river-arena-expectation/calibration.md).
 
