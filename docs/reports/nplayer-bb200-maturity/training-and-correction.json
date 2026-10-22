@@ -1,0 +1,255 @@
+{
+  "failure.json": {
+    "error": "RuntimeError('main terminal failure; no retry')",
+    "epoch": 1792693859.1664362,
+    "originals_retained": true,
+    "no_automatic_retry": true
+  },
+  "controller-exit.json": {
+    "returncode": 1,
+    "epoch": 1792693859.1654215
+  },
+  "completion-controller-launch.json": {
+    "pid": 842477,
+    "epoch": 1792694078.5585501,
+    "source": "a6ff4cce162c1a5a04322475cce11177f7131215",
+    "bundle_sha256": "e37c8950902e19d3b65e45a8b0078b9b10af6b9ee10f82d8fde0d1e222976352",
+    "root": "/home/dberweger/nplayer-bb200-maturity-20261022/completion-v1",
+    "training_repeated": false,
+    "scope": "only originally unstarted export/audit/coverage/replay/reproduction",
+    "tests": 13
+  },
+  "main-v1/failure.json": {
+    "error": "ValueError('incomplete continuation or invalid capacity/timing')",
+    "epoch": 1792693858.1853712,
+    "resource_sample": null,
+    "originals_retained": true,
+    "no_automatic_retry": true
+  },
+  "main-v1/stage-costs.json": [
+    {
+      "phase": "continuation-1b",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/build-v1/target/release/examples/nplayer_train",
+        "--players",
+        "3",
+        "--stack-bb",
+        "200",
+        "--small-blind",
+        "50",
+        "--big-blind",
+        "100",
+        "--fast",
+        "--threads",
+        "16",
+        "--roots-per-seat",
+        "8",
+        "--seed",
+        "2026102240001",
+        "--nodes",
+        "1000000000",
+        "--last-average-street",
+        "3",
+        "--max-entries",
+        "250000000",
+        "--freeze-at-cap",
+        "--fast-gzip",
+        "--max-seconds",
+        "1e100",
+        "--card-buckets",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "--out",
+        "/home/dberweger/nplayer-bb200-maturity-20261022/main-v1/continuation-1b.gz",
+        "--telemetry",
+        "/home/dberweger/nplayer-bb200-maturity-20261022/main-v1/continuation-1b.gz.progress.jsonl",
+        "--resume",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/pilot-500000000.gz",
+        "--resume-sha256",
+        "704e35dd04d8290fc49c9d4505f6371bf0e8a50200e185c8881807ce727af625"
+      ],
+      "returncode": 0,
+      "wall_seconds": 467.20207598397974,
+      "user_cpu_seconds": 3038.150873,
+      "system_cpu_seconds": 63.238475,
+      "sampled_peak_rss_bytes": 22262452224
+    }
+  ],
+  "main-v1/continuation-1b-summary.json": {
+    "checkpoint": "/home/dberweger/nplayer-bb200-maturity-20261022/main-v1/continuation-1b.gz",
+    "counts": {
+      "decisions": [
+        24086885,
+        59465456,
+        143728252,
+        339574916
+      ],
+      "discarded_keys": 6536832,
+      "discarded_visits": 2560884,
+      "missing": [
+        3902618,
+        15041459,
+        53848877,
+        183752770
+      ],
+      "nodes": 1000008098,
+      "terminals": 433152589,
+      "traverser": [
+        64685843,
+        64524290,
+        64682352,
+        0,
+        0,
+        0
+      ]
+    },
+    "elapsed_seconds": 244.067157425,
+    "entries": 250002537,
+    "frozen_at": 38253,
+    "identity": {
+      "big_blind": 100,
+      "card_tables": [
+        "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+        "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+        "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+      ],
+      "game": "nlhe-cash",
+      "menu": "min-pot-conditional-jam-v1",
+      "players": 3,
+      "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+      "small_blind": 50,
+      "stacks": [
+        20000,
+        20000,
+        20000
+      ],
+      "utility_unit": "big-blind"
+    },
+    "iteration": 40028,
+    "save_seconds": 129.264498869,
+    "sha256": "55d89c553ba1756eac1af117847b30e8b18e4f901afba942ee5a906bc00249ad",
+    "stop_reason": "nodes",
+    "checkpoint_bytes": 8788049377,
+    "stage_wall_seconds": 467.20207598397974,
+    "active_training_seconds": 114.80265855600001
+  },
+  "freeze_observation": {
+    "last_unfrozen": {
+      "counts": {
+        "decisions": [
+          23202218,
+          57255947,
+          138099102,
+          325705799
+        ],
+        "discarded_keys": 0,
+        "discarded_visits": 0,
+        "missing": [
+          3832612,
+          14733084,
+          52594110,
+          178646146
+        ],
+        "nodes": 959894619,
+        "terminals": 415631553,
+        "traverser": [
+          62046175,
+          61944762,
+          62054642,
+          0,
+          0,
+          0
+        ]
+      },
+      "elapsed_seconds": 106.928461115,
+      "entries": 249799660,
+      "frozen_at": null,
+      "iteration": 38200
+    },
+    "first_frozen": {
+      "counts": {
+        "decisions": [
+          23250370,
+          57378374,
+          138410985,
+          326478616
+        ],
+        "discarded_keys": 176364,
+        "discarded_visits": 68450,
+        "missing": [
+          3836471,
+          14751227,
+          52665718,
+          178931778
+        ],
+        "nodes": 962122371,
+        "terminals": 416604026,
+        "traverser": [
+          62200715,
+          62078172,
+          62202252,
+          0,
+          0,
+          0
+        ]
+      },
+      "elapsed_seconds": 107.369654869,
+      "entries": 250002537,
+      "frozen_at": 38253,
+      "iteration": 38300
+    },
+    "frozen_samples": 19,
+    "all_later_sampled_entries_equal": true,
+    "scope": "100-iteration telemetry brackets freeze nodes; exact freeze iteration from checkpoint"
+  },
+  "training_resources": {
+    "samples": 231,
+    "peak_rss_bytes": 22262452224,
+    "cpu_max_c": 73.0,
+    "thermistor15_max_c": 84.0,
+    "swap_growth_bytes": 0,
+    "min_available_ram_bytes": 109363777536
+  },
+  "metadata_sha256s": {
+    "failure.json": "70fe5aae9df48186a02dd6cee25dd21df207b410356792c9a7ee14815da5f89e",
+    "controller-exit.json": "e1c73dfdb64bd44b4ebae4d79002f6fb8dd21f523c0981e99bcf0378489b9ae9",
+    "completion-controller-launch.json": "72aa377f7db9e42b1a0728a8f150f9f96c63ca03a20d312dbd512501726ef220",
+    "main-v1/failure.json": "727c1d8db4580146d910fcfbab9935959ab97bb61c21c34b2c338f312f6a7ccd",
+    "main-v1/stage-costs.json": "55ea5fb89fb11ce5d2bef5a77330e9c645cd9967542ed3b908e82265b77ae091",
+    "main-v1/continuation-1b-summary.json": "b5232c2124346ba7fb84ce54934a93922a25e15b6060d802b858bfcc5a4a808b"
+  },
+  "completion_startup": {
+    "launch.json": {
+      "epoch": 1792694104.6946745,
+      "pid": 842477,
+      "source": "a6ff4cce162c1a5a04322475cce11177f7131215",
+      "original_source": "b0af16114d1e608159ed2a17118860e4a9414fe4",
+      "original_root": "/home/dberweger/nplayer-bb200-maturity-20261022/main-v1",
+      "original_failure_preserved": true,
+      "saved_checkpoint_sha256": "55d89c553ba1756eac1af117847b30e8b18e4f901afba942ee5a906bc00249ad",
+      "accepted_planning_seconds": 5400,
+      "training_repeated": false
+    },
+    "status.json": {
+      "status": "running",
+      "phase": "final-1b-export",
+      "completed_stages": 0
+    },
+    "failure.json": null,
+    "last_resource": {
+      "phase": "final-1b-export",
+      "utc": "2026-10-22T18:35:32Z",
+      "cpu_c": 51.0,
+      "thermistor15_c": 49.0,
+      "worker_family_rss_bytes": 3481600,
+      "live_family_cpu_seconds": 28.24,
+      "available_ram_bytes": 131790258176,
+      "swap_used_bytes": 388407296,
+      "nvme_free_bytes": 213004922880,
+      "hdd_free_bytes": 422150062080
+    },
+    "supervisor_identity": "    PID    PPID     ELAPSED COMMAND\n 842477       1       00:55 /home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python -m scripts.nplayer_bb200_maturity finish-saved-endpoint --root /home/dberweger/nplayer-bb200-maturity-20261022/completion-v1 --original /home/dberweger/nplayer-bb200-maturity-20261022/main-v1 --accepted-planning-seconds 5400\n"
+  },
+  "status": "training-complete-postprocessing-running",
+  "no_strength_readout": true,
+  "original_failure_preserved": true
+}

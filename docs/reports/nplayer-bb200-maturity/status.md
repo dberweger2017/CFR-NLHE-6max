@@ -1,40 +1,36 @@
-# PR402: fixed 200 BB maturity continuation running
+# PR402: training complete, planned post-processing running
 
-[Protocol](../../nplayer-bb200-maturity.md), [proposal401](https://github.com/dberweger2017/CFR-NLHE-6max/issues/401), [launch/source/input/resource receipts](launch.json).
+[Protocol and transparent controller correction](../../nplayer-bb200-maturity.md),
+[launch receipts](launch.json), [training/correction/source/resources](training-and-correction.json).
 
-Owner-approved continuation launches **October22 18:22:56UTC /20:22:56Madrid**,
-from the preserved PR400500,027,427node checkpoint to one fixed1B endpoint.
-At18:23:26UTC it is loading that parent; no new training progress is available.
-CPU56°C/Thermistor15 44°C, no failure and no observed swap growth.
-Central complete-workflow forecast remains31m27s, calculated reserve69m39s,
-within the approved90minute allocation. These are estimates, not an elapsed kill.
+Training successfully reaches **1,000,008,098 nodes**, retaining **250,002,537 entries**.
+It exits0:467.20sprocesswall,114.80sactive traversal,129.26ssave,
+223.13sload/hash/other. Added499,980,671nodes imply4.355Mnodes/s.
+CheckpointSHA256`55d89c553ba1756eac1af117847b30e8b18e4f901afba942ee5a906bc00249ad`,8,788,049,377bytes.
+Peak20.73GiBsampledRSS,CPU73/Thermistor15 84°C, zeroobservedswapgrowth.
 
-Execution source `b0af16114d1e608159ed2a17118860e4a9414fe4`,
-config `4c5b60e14c87dae33689b9ff7364ca183609c4dcd9382ce5bda5f221a6059b65`.
-Supervisor842044; owned root `/home/dberweger/nplayer-bb200-maturity-20261022`.
-The665source/script hashes, all qualified native source bytes, prior build/test/
-readback receipts, managed Python, binaries, K50 inputs and exact parent hash pass.
-All11 focused tests pass on bb128. No native rebuild or repeated500M science.
+The new controller incorrectly required exactly250Mentries and stopped before
+export. Existing native semantics merge one whole iteration before freezing at
+>=250M; the checkpoint reader accepts that overshoot.2,537extraentries are0.001015%
+of the threshold. Freezeiteration38,253 is bracketed by telemetry at959.895M and
+962.122Mnodes; all19later frozen samples retain exactly the same entrycount.
+Finaldiscardedkeys6,536,832/discardedvisits2,560,884 are censored update counts,
+not distinct unreached states or held-out fallback frequency.
 
-All later stages advance automatically: one save/export, full-row audit, four
-128-block descriptive coverage fields, independent replay and byte-identical
-reproduction. No strength readout or further cost pilot. Stop at1B even if table
-membership remains unfrozen. The report must address250M capacity and coverage
-before proposing the actual training/checkpoint/acceptance campaign.
+**No training retry.** Originalcontrollerfailure/source/status/costs/checkpoint
+remain under `main-v1`. Correctionsource`a6ff4cce162c1a5a04322475cce11177f7131215`
+adds native-consistent validation and13passingfocusedtests, including exact
+overshoot and invalidfreeze cases. A one-use completion-only command consumes
+that exact successful checkpoint and pins the oldconfig/error/nativeinputs.
+It cannot invoke training and refuses any prior export/audit/coverage attempt.
 
-A passive completion observer waits only for this owned bootstrap; no new timer.
-No full training, extra seed, extension, retry, search/default/release/merge action.
-Raw models/traces/source/failures remain in the owned NVMe root; prior PR400/398
-inputs stay read-only. Cloud archival is pending; no remote acceptance or deletion.
+At18:35:32UTC /20:35:32Madrid, supervisor842477 is running **final-1b-export** in
+fresh `/home/dberweger/nplayer-bb200-maturity-20261022/completion-v1`;
+CPU51/Thermistor15 49°C, no newfailure. Originalsave/export/full-rowaudit/four
+128-block descriptivecoverage/replay/reproduction scope stays unchanged.
+Forecast15–25minremaining, conditional on measured costs; no elapsedkill.
 
-## Training complete; controller cap-check bug preserved
-
-Training exits0 at1,000,008,098nodes after467.20sprocesswall,
-114.80sactive traversal and129.26ssaving.250,002,537entries freeze atiteration38,253.
-The controller then stops before export on an incorrect exact250M assertion.
-Native semantics freeze after a whole iteration; existing checkpoint validation
-accepts >=cap. [Protocol amendment](../../nplayer-bb200-maturity.md#preserved-controller-failure-and-completion-only-correction-october22)
-preserves the error and permits only unstarted planned post-processing from the
-exact successful checkpoint; no training retry or changedplayer. Export/audit/
-coverage are not complete yet. Training peaks20.73GiB,CPU73/T1584°C, zeroobserved
-swapgrowth. Checkpoint and every originalreceipt remain atmain-v1.
+Finalcoverage/capacityjudgment and completeworkflowcosts remain pending. No
+strengthreadout/furthercostpilot/fulltraining/seeds/search/default/release/merge.
+Alloriginals/protectedinputs retained. Archivepending; no copy/upload/deletion.
+A passive completionobserver waits for this exactpostprocessPID; no newtimer.

@@ -13,7 +13,11 @@ river42.3%missing and33.15%storedzero-average-mass rows preclude a coverage or
 strength conclusion. [PR402 fixed500M→1B capped continuation](docs/nplayer-bb200-maturity.md)
 is owner-authorized and [running](docs/reports/nplayer-bb200-maturity/status.md):
 31m27s central/69m39s corrected reserve within90min. One fixed1B endpoint,
-then a capacity/coverage decision and actual campaign proposal; no further cost pilot. No automatic3B/10B
+then a capacity/coverage decision and actual campaign proposal; no further cost pilot.
+Training now reaches1,000,008,098nodes/250,002,537entries and freezesnear961M.
+A controller exact-cap assertion failed after successful saving; failure preserved,
+native whole-iteration threshold semantics corrected. Only unstarted post-processing
+is running from the samecheckpoint; training is never repeated. No automatic3B/10B
 campaign. Three independent200BB lineages still require unchanged scripted-profit,
 own-checkpoint and cyclic confirmation before release. Archivepending, originals
 and prior398source/venv/K50dependencies protected. No search/default/merge action.
