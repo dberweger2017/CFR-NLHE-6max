@@ -307,6 +307,305 @@ fn evaluation_branches_share_profile_bytes_but_isolate_fallback_and_history() {
     );
 }
 
+#[test]
+fn live_evaluation_view_shares_payload_and_preserves_root_after_all_queries() {
+    use crate::river::live::whole_hand::EvaluationPolicy;
+    let table = Arc::new(table());
+    let tables = fixture_tables();
+    for installed in [true, false] {
+        let (base, cap) = fixture(false, 0, installed);
+        let context = json!({"hand_id":"public-hand","handle":"fixture-handle"});
+        let before = Arc::strong_count(&cap);
+        let view = EvaluationPolicy::capture(table.clone(), &base, &context).unwrap();
+        assert_eq!(Arc::strong_count(&cap), before + 1);
+        assert_eq!(view.binding()["installed"], installed);
+        assert_eq!(
+            view.binding()["profile_sha256"],
+            cap.metadata["profile_sha256"]
+        );
+        let root_progress = base.active.as_ref().unwrap().last_actions.clone();
+        let mut count = 0;
+        for path in &cap.tree.paths {
+            let mut hand = cap.root.hand.clone();
+            for action in path {
+                hand.apply_mut(*action).unwrap();
+            }
+            if hand.actor() != Some(cap.root.seat) {
+                continue;
+            }
+            let mut o = hand.observe(cap.root.seat).unwrap();
+            o.hole = cap.root.hole;
+            // The retained-row fixture has short-stack simulator scaffolding;
+            // direct validated blueprint queries use the table's game identity.
+            o.config = table.config();
+            let actual = view.row(&o, &tables, true).unwrap();
+            let mut independent = base.evaluation_fork();
+            let expected = independent
+                .request(
+                    &request(observation_after(&cap, path).unwrap()),
+                    &table,
+                    &tables,
+                )
+                .unwrap();
+            let p: Vec<f64> = serde_json::from_value(expected["probabilities"].clone()).unwrap();
+            assert_eq!(
+                actual
+                    .probabilities
+                    .iter()
+                    .map(|p| p.to_bits())
+                    .collect::<Vec<_>>(),
+                p.iter().map(|p| p.to_bits()).collect::<Vec<_>>()
+            );
+            let off = view.row(&o, &tables, false).unwrap();
+            assert_eq!(off.source, "blueprint");
+            assert_eq!(
+                off.probabilities,
+                table.distribution(&o, &tables).unwrap().0
+            );
+            count += 1;
+        }
+        assert!(count > 1);
+        if installed {
+            let mut omitted = None;
+            for prefix in &cap.tree.paths {
+                let mut h = cap.root.hand.clone();
+                for a in prefix {
+                    h.apply_mut(*a).unwrap();
+                }
+                let Some(actor) = h.actor() else {
+                    continue;
+                };
+                if actor == cap.root.seat {
+                    continue;
+                }
+                for (_, action) in multi_holdem::menu(&h.observe(actor).unwrap()) {
+                    let mut path = prefix.clone();
+                    path.push(action);
+                    if !cap.tree.paths.contains(&path)
+                        && observation_after(&cap, &path)
+                            .ok()
+                            .is_some_and(|o| cap.replay(&o).is_ok())
+                    {
+                        omitted = Some(path);
+                        break;
+                    }
+                }
+                if omitted.is_some() {
+                    break;
+                }
+            }
+            let mut h = cap.root.hand.clone();
+            for a in omitted.expect("omitted response") {
+                h.apply_mut(a).unwrap();
+            }
+            let mut o = h.observe(cap.root.seat).unwrap();
+            o.hole = cap.root.hole;
+            o.config = table.config();
+            let row = view.row(&o, &tables, true).unwrap();
+            assert_eq!(row.source, "off-tree-blueprint");
+            assert_eq!(
+                row.probabilities,
+                table.distribution(&o, &tables).unwrap().0
+            );
+            let mut root = cap.root.hand.observe(cap.root.seat).unwrap();
+            root.hole = cap.root.hole;
+            assert_eq!(view.row(&root, &tables, true).unwrap().source, "retained");
+        }
+        assert_eq!(base.active.as_ref().unwrap().last_actions, root_progress);
+        assert!(!base.active.as_ref().unwrap().off_tree);
+        assert_eq!(Arc::strong_count(&cap), before + 1);
+        let mut wrong = context.clone();
+        wrong["handle"] = json!("wrong");
+        assert!(EvaluationPolicy::capture(table.clone(), &base, &wrong).is_err());
+    }
+}
+
+#[test]
+fn live_evaluation_capture_rejects_a_progressed_session() {
+    use crate::river::live::whole_hand::EvaluationPolicy;
+    let table = Arc::new(table());
+    let tables = fixture_tables();
+    let (mut base, cap) = fixture(false, 0, true);
+    let context = json!({"hand_id":"public-hand","handle":"fixture-handle"});
+    let path = cap
+        .tree
+        .paths
+        .iter()
+        .find(|path| {
+            !path.is_empty()
+                && observation_after(&cap, path)
+                    .ok()
+                    .is_some_and(|o| cap.replay(&o).is_ok())
+        })
+        .unwrap();
+    base.request(
+        &request(observation_after(&cap, path).unwrap()),
+        &table,
+        &tables,
+    )
+    .unwrap();
+    assert!(EvaluationPolicy::capture(table, &base, &context).is_err());
+}
+
+#[test]
+fn inline_expected_values_match_independent_terminal_enumeration() {
+    use crate::river::live::whole_hand::{observation_request, EvaluationPolicy};
+    let table = Arc::new(table());
+    let tables = fixture_tables();
+    for installed in [true, false] {
+        let mut root = super::super::tests::root();
+        root.hand =
+            representative(Config::new(&[10000; 3], 50, 100).unwrap(), 0, root.board).unwrap();
+        // A small remaining river stack in a genuinely100BB-identity hand.
+        for (kind, raise_to) in [(Kind::Raise, 9699), (Kind::Call, 0), (Kind::Fold, 0)] {
+            root.hand.apply_mut(Action { kind, raise_to }).unwrap();
+        }
+        while root.hand.street() != Street::River {
+            root.hand
+                .apply_mut(Action {
+                    kind: Kind::Check,
+                    raise_to: 0,
+                })
+                .unwrap();
+        }
+        root.seat = root.hand.actor().unwrap();
+        root.live = root
+            .hand
+            .players()
+            .iter()
+            .enumerate()
+            .filter_map(|(i, p)| (!p.folded).then_some(i))
+            .collect::<Vec<_>>()
+            .try_into()
+            .unwrap();
+        root.hole = root.hand.observe(root.seat).unwrap().hole;
+        root.hole.sort_unstable();
+        let mut tree = Tree::new(
+            &root.hand,
+            root.live,
+            SearchMenu::RootCheckMinOpen,
+            SUPPORTED_NODES,
+        );
+        tree.compile(&mut root.hand.clone()).unwrap();
+        let profile = tree
+            .menus
+            .iter()
+            .map(|m| {
+                if m.is_empty() {
+                    vec![]
+                } else {
+                    vec![1. / m.len() as f64; m.len()]
+                }
+            })
+            .collect();
+        let original = original(&root);
+        let pair = root.hole;
+        let cap=Arc::new(Captured::new(root,tree,vec![pair],profile,original,
+            &json!({"checkpoints":[{"target_met":installed}],"algorithm":"fixture","law":{"law":LAW}})).unwrap());
+        let mut base = SessionStore::new(&"a".repeat(64)).unwrap();
+        base.active = Some(Active {
+            hand_id: "public-hand".into(),
+            handle: "fixture-handle".into(),
+            captured: installed.then(|| cap.clone()),
+            fallback_root: (!installed).then(|| cap.clone()),
+            last_actions: array(&cap.original["actions"]).unwrap().clone(),
+            off_tree: false,
+            fallback_reason: (!installed).then(|| "nonconverged fixture".into()),
+        });
+        let context = json!({"hand_id":"public-hand","handle":"fixture-handle"});
+        let view = EvaluationPolicy::capture(table.clone(), &base, &context).unwrap();
+        let mut ids = [1, 2, 1];
+        let mut wrong = cap.root.hand.observe(cap.root.seat).unwrap();
+        wrong.hole = [30, 31];
+        assert!(view.validate_root(&wrong).is_err());
+        ids[cap.root.seat] = 0;
+        // The folded seat's identity is arbitrary; assign a real permutation.
+        let mut next = 1;
+        for (seat, id) in ids.iter_mut().enumerate() {
+            if seat != cap.root.seat {
+                *id = next;
+                next += 1;
+            }
+        }
+        let value = crate::arena_expectation::root(
+            &cap.root.hand,
+            &ids,
+            &["peer".into(), "peer".into()],
+            &view,
+            &table,
+            &tables,
+            0,
+        )
+        .unwrap();
+        assert_eq!(value["complete_contrast"], true);
+        assert_eq!(value["solver_advances"], 0);
+        assert_eq!(value["profile_reconstructions"], 0);
+        if !installed {
+            assert_eq!(value["contrast_chips"], 0.);
+            assert!(value["on"].is_null());
+            continue;
+        }
+        let mut expected = [0., 0.];
+        for enabled in [false, true] {
+            let mut queue = std::collections::VecDeque::from([(cap.root.hand.clone(), 1.)]);
+            let mut leaves = Vec::new();
+            while let Some((h, mass)) = queue.pop_front() {
+                if let Some(s) = h.settlement() {
+                    leaves.push(mass * s.rewards[cap.root.seat] as f64);
+                    continue;
+                }
+                let o = h.observe(h.actor().unwrap()).unwrap();
+                let (actions, probabilities) = if ids[o.seat] == 0 && enabled {
+                    let mut branch = base.evaluation_fork();
+                    let response = branch
+                        .request(&request(observation_request(&o).unwrap()), &table, &tables)
+                        .unwrap();
+                    let actions = array(&response["actions"])
+                        .unwrap()
+                        .iter()
+                        .map(|v| Action {
+                            kind: kind(&v[0]).unwrap(),
+                            raise_to: uint(&v[1]).unwrap(),
+                        })
+                        .collect::<Vec<_>>();
+                    (
+                        actions,
+                        serde_json::from_value::<Vec<f64>>(response["probabilities"].clone())
+                            .unwrap(),
+                    )
+                } else {
+                    (
+                        multi_holdem::menu(&o).into_iter().map(|(_, a)| a).collect(),
+                        table.distribution(&o, &tables).unwrap().0,
+                    )
+                };
+                for (action, p) in actions.iter().zip(probabilities) {
+                    if p > 0. {
+                        let mut n = h.clone();
+                        n.apply_mut(*action).unwrap();
+                        queue.push_back((n, mass * p));
+                    }
+                }
+                assert!(queue.len() < 100000);
+            }
+            expected[enabled as usize] = leaves.iter().sum();
+            let arm = if enabled { "on" } else { "off" };
+            assert!(
+                (value[arm]["expected_chips"].as_f64().unwrap() - expected[enabled as usize]).abs()
+                    < 1e-8
+            );
+        }
+        assert!(
+            (value["contrast_chips"].as_f64().unwrap() - (expected[1] - expected[0])).abs() < 1e-8
+        );
+        assert!(!base.active.as_ref().unwrap().off_tree);
+        assert_eq!(
+            base.active.as_ref().unwrap().last_actions,
+            *array(&cap.original["actions"]).unwrap()
+        );
+    }
+}
+
 fn fixture_tables() -> EquityTables {
     let keys = std::array::from_fn(|s| {
         let board = &[0, 5, 10, 15, 20][..s + 3];

@@ -1,3 +1,33 @@
+## PR393 — inline arena expectations: small calibration passes, full cost measurement awaiting budget
+
+[PR393](https://github.com/dberweger2017/CFR-NLHE-6max/pull/393), proposal392;
+[report](docs/reports/river-arena-expectation/calibration.md).
+Frozen source `dc58d5192ebae768a14ead940a05ff86220128af`; all120 optimized native
+library tests and14 focused Python checks pass. Fixed first4 original blocks
+across12 on/off cases:288 initial hands independently replay and match PR388
+bytes;288 fresh reproductions match byte-for-byte. Both passes'12 encountered
+roots match PR391 expected float64 values, original profile hashes and work,
+with no new solver advances/profile reconstruction, exclusions or new deals.
+
+Supervised calibration470.05s/476.23childCPU-s; driver468.63s, model/K50 loading
+462.24s, play/write6.11s including inline expectations16.42ms. Sampled27.70GiB,
+CPU60/Thermistor15 59.5°C, no swap growth. Full384-root cost/parity is not yet
+measured; fixed128-block quote11m03s central/35m11s reserve requires explicit
+acceptance and has not started. This is engineering qualification, not strength.
+
+[Verification](docs/reports/river-arena-expectation/calibration-verification.json) ·
+[costs/resources/work](docs/reports/river-arena-expectation/calibration-costs.json) ·
+[CSV](docs/reports/river-arena-expectation/calibration-costs.csv) ·
+[quote](docs/reports/river-arena-expectation/full-measurement-quote.json) ·
+[source/input/binary pins](docs/reports/river-arena-expectation/provenance.json).
+
+Raw original traces/sidecars/logs/source/binary retained at
+`bb128:/home/dberweger/river-arena-expectation-20261022/`; local test partials and
+retrieved compact receipts retained in ignored `planning/arena-expectation/`.
+Archive/Drive acceptance pending. PR388/391 traces, original models/K50 and
+Git/environment dependencies remain read-only, uncopied and protected.
+No cleanup, new timer, strength launch or default change.
+
 ## PR391 — complete river action-expectation assessment: variance falls, primary wall efficiency is marginal
 
 [PR391](https://github.com/dberweger2017/CFR-NLHE-6max/pull/391), proposal389;

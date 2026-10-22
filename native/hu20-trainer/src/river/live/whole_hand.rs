@@ -77,7 +77,93 @@ pub struct WholeHandPolicy {
     context: Option<Value>,
     off_tree: bool,
 }
+
+/// Evaluator-owned view. No Hand/deck, action RNG, solve or profile restoration.
+/// Each row forks session progress while sharing immutable model/profile bytes.
+pub struct EvaluationPolicy {
+    table: Arc<PolicyTable>,
+    store: SessionStore,
+    context: Value,
+    binding: Value,
+}
+impl EvaluationPolicy {
+    pub(super) fn capture(
+        table: Arc<PolicyTable>,
+        store: &SessionStore,
+        context: &Value,
+    ) -> Result<Self, String> {
+        Ok(Self {
+            binding: store.evaluation_root_binding(context)?,
+            table,
+            store: store.evaluation_fork(),
+            context: context.clone(),
+        })
+    }
+    pub fn binding(&self) -> &Value {
+        &self.binding
+    }
+    pub fn validate_root(&self, observation: &Observation<'_>) -> Result<(), String> {
+        use sha2::{Digest, Sha256};
+        let bytes =
+            serde_json::to_vec(&observation_request(observation)?).map_err(|e| e.to_string())?;
+        if format!("{:x}", Sha256::digest(bytes))
+            != self.binding["root_sha256"]
+                .as_str()
+                .ok_or("missing root digest")?
+        {
+            return Err("evaluation hand/observation differs from captured root".into());
+        }
+        Ok(())
+    }
+    pub fn row(
+        &self,
+        observation: &Observation<'_>,
+        tables: &EquityTables,
+        enabled: bool,
+    ) -> Result<crate::policy_expectation::Row, String> {
+        use crate::policy_expectation::Row;
+        if !enabled {
+            let (probabilities, _) = self.table.distribution(observation, tables)?;
+            return Ok(Row {
+                actions: multi_holdem::menu(observation)
+                    .into_iter()
+                    .map(|(_, a)| a)
+                    .collect(),
+                probabilities,
+                source: "blueprint",
+            });
+        }
+        let mut branch = self.store.evaluation_fork();
+        let mut request = self.context.clone();
+        request["mode"] = json!("retained-continue");
+        request["observation"] = observation_request(observation)?;
+        let response = branch.request(&request, &self.table, tables)?;
+        if response["solver_advances"] != 0 {
+            return Err("evaluation advanced solver".into());
+        }
+        Ok(Row {
+            actions: parse_actions(&response["actions"])?,
+            probabilities: serde_json::from_value(response["probabilities"].clone())
+                .map_err(|e| e.to_string())?,
+            source: if response["installed_search"] == true {
+                "retained"
+            } else {
+                "off-tree-blueprint"
+            },
+        })
+    }
+}
 impl WholeHandPolicy {
+    /// Called by the privileged host after choose returns a root ledger and
+    /// before the sampled action is applied. Borrowing self cannot advance RNG.
+    pub fn evaluation_view(&self) -> Result<EvaluationPolicy, String> {
+        EvaluationPolicy::capture(
+            self.table.clone(),
+            self.store.as_ref().ok_or("search disabled")?,
+            self.context.as_ref().ok_or("no solved root")?,
+        )
+    }
+
     pub fn new(
         table: Arc<PolicyTable>,
         model: &str,

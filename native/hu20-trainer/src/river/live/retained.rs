@@ -301,6 +301,24 @@ pub struct SessionStore {
     active: Option<Active>,
 }
 impl SessionStore {
+    /// Capture only a validated root, before the played continuation progresses.
+    /// This returns public binding metadata, never a mutable profile payload.
+    pub(super) fn evaluation_root_binding(&self, context: &Value) -> Result<Value, String> {
+        let active = self.check(context)?;
+        let cap = active
+            .captured
+            .as_ref()
+            .or(active.fallback_root.as_ref())
+            .ok_or("missing retained root")?;
+        if active.off_tree || active.last_actions != *array(&cap.original["actions"])? {
+            return Err("evaluation capture requires the original retained root".into());
+        }
+        Ok(
+            json!({"profile_sha256":cap.metadata["profile_sha256"],"root_sha256":cap.metadata["root_sha256"],
+            "installed":active.captured.is_some(),"fallback_reason":active.fallback_reason}),
+        )
+    }
+
     /// Offline counterfactual branch: immutable profile bytes are shared, while
     /// history progress and the sticky fallback latch belong to this copy.
     /// No solver work or action RNG is advanced by copying a validated session.
