@@ -103,14 +103,14 @@ Search installs in 8.27% of search-on hands; all nonzero exploratory return
 intervals cross zero, with fragile sparse-tail variance. This is engineering
 qualification, not a strength or release decision.
 
-1. **Qualify evaluation efficiency before sizing confirmation.**
-   [PR390's action-expectation prototype](docs/reports/river-conditional-evaluation/results.md)
-   passes fixtures and13/13 saved calibration roots. Enumeration takes0.012s;
-   model/K50 startup takes234.2s. All384 roots plus reproduction are quoted at
-   21.67min centrally, with3h42m59s conservative reserve, awaiting an accepted
-   budget. No variance-reduction or strength verdict yet. Compare whole-hand
-   block variance times total cost, keeping unchanged actions, quality fallbacks
-   and noneligible-hand zeros. Fresh confirmation still needs a separate quote.
+1. **Evaluation efficiency is qualified, with a mixed cost result.**
+   [PR391's all384-root assessment](docs/reports/river-conditional-evaluation/assessment.md)
+   reproduces all profiles/values. Variance falls, but the trained primary's
+   full-cost ratio is0.925 cold/1.104 amortized; no material wall-time saving is
+   established. Several scripted panels improve much more. Keep the player
+   frozen; a bounded direct-arena integration/cost test could avoid duplicate
+   loading/reconstruction before quoting fresh strength work. It is a proposed
+   next allocation, not an automatic run or a promised speedup.
 2. **Off-tree continuation: a small correctness-first prototype.** Preserve the
    saved cap/all-in cases 21/91 and the pilot's omitted 3,700-chip response.
    Treat consistent beliefs and retained hero policy as requirements;
@@ -135,7 +135,9 @@ separate the completed experiment from proposed next work.
 
 ## Current position
 
-- **River action-expectation prototype calibrated ([PR390](https://github.com/dberweger2017/CFR-NLHE-6max/pull/390), proposal389):** 116 native library tests, one script-law test and seven Python tests pass on bb128. All13 predeclared roots reproduce original profiles; ten installed profiles enumerate both arms within200K states/arm/root, and three original quality fallbacks cancel identical policies explicitly. Calibration250.17s/27.67GiB, CPU58/Thermistor15 56.5°C, no swap growth. All384-root execution, reproduction and block readout are prepared but unstarted pending the published budget decision. Variance efficiency remains unknown; no fresh strength campaign. [Report and quote](docs/reports/river-conditional-evaluation/results.md).
+- **River action expectation completes ([PR391](https://github.com/dberweger2017/CFR-NLHE-6max/pull/391), proposal389):** all384 roots and fresh reproduction match every original profile/float64 strategic field, no incomplete roots. Main15.00min/14.97CPU-min,27.68GiB sampled peak, CPU59/Thermistor15 58.5°C, no swap growth; enumeration0.587s versus468.66s loading and414.68s reconstruction. The trained primary variance ratio0.414 gives full-cost ratios0.925 cold/1.104 amortized; scripts/mixed panels improve unevenly and one block still supplies80.5% of primary residual squared variation. Keep the player frozen; no automatic large strength campaign, menu change, off-tree resolving or training. Direct-arena reuse is the next bounded engineering candidate, not a measured fresh-pipeline gain. Raw evidence archived with acceptance; originals retained. [Report, per-lineup means/variance/cost and limits](docs/reports/river-conditional-evaluation/assessment.md).
+
+- **River action-expectation prototype calibrated ([PR390](https://github.com/dberweger2017/CFR-NLHE-6max/pull/390), proposal389):** 116 native library tests, one script-law test and seven Python tests pass on bb128. All13 predeclared roots reproduce original profiles; ten installed profiles enumerate both arms within200K states/arm/root, and three original quality fallbacks cancel identical policies explicitly. Calibration250.17s/27.67GiB, CPU58/Thermistor15 56.5°C, no swap growth. The later [all384-root assessment](docs/reports/river-conditional-evaluation/assessment.md) completes in PR391; this entry records the preceding calibration. No fresh strength campaign. [Report and quote](docs/reports/river-conditional-evaluation/results.md).
 
 - **Frozen river whole-hand pilot complete ([PR388](https://github.com/dberweger2017/CFR-NLHE-6max/pull/388), proposal387):** 9,216 initial hands independently replay and 9,216 fresh reproductions match byte-for-byte. Projected search installs 381/4,608 hands (8.27%); 97 retained decisions use zero new solves, three roots retain quality fallbacks and one hand falls off-tree. Root median0.430s/mean0.559s/p951.367s/max3.094s. Main12.14min,27.70GiB sampled RSS, CPU65/Thermistor15 64°C, no swap growth. All nonzero exploratory intervals cross zero; check-call has no intervention, not a zero-effect verdict. Keep the model frozen; separately qualify off-tree continuation and budget confirmation using fragile tail variance. [Report, coverage, costs and future scenarios](docs/reports/river-whole-hand-pilot/results.md).
 

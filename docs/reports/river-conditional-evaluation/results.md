@@ -1,5 +1,9 @@
 # River action-expectation qualification: fixtures and calibration pass
 
+Later completion: [PR391 all384-root assessment and cost/variance analysis](assessment.md).
+The calibration facts below remain unchanged; its pending-allocation/archive status
+is historical and superseded by that later report.
+
 PR390, proposal389. October22,2026. Runtime source
 `9998501a4a6794d7c682d39e4edb436b69e04d29`; evidence commits do not change it.
 
