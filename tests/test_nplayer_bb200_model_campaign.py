@@ -79,13 +79,15 @@ class CampaignTests(unittest.TestCase):
             c=dict(format='nplayer-bb200-model-campaign-v1',accepted_seconds=64800,smoke=True,
                 proposal_sha256=io.sha(study.SOURCE/study.PROPOSAL),cases=study.matrix(True),seeds=list(study.FIXTURE_SEEDS),
                 targets=[100000,200000],max_entries=10000,resource_policy=study.acceptance.thermal.RESOURCE_POLICY,
-                source_files={'pin':'same'},source='source',stack_bb=200,threads=16,
+                source_files={'pin':'same'},source='source',stack_bb=200,threads=16,roots_per_seat=8,
+                last_average_street=3,freeze_at_cap=True,fast_gzip=True,pruning=False,
                 cleanup_staging_uploads='owner-vacuum-cleaner-only',build_receipt=str(build),build_receipt_sha256=io.sha(build),
                 binaries=binaries,python=str(binary),python_sha256=io.sha(binary),environment={'engine':'same'},
                 tables=str(tables),table_sha256s={'k50':io.sha(tables/'k50')})
             with patch.object(study,'source_pins',return_value={'pin':'same'}),patch.object(study,'committed',return_value='source'),patch.object(study.acceptance.thermal,'python_environment',return_value=(binary,{'engine':'same'})):
                 study.validate_config(c)
                 for key,value in [('accepted_seconds',43200),('targets',[3000000000]),('stack_bb',100),('threads',8),
+                        ('roots_per_seat',4),('last_average_street',2),('pruning',True),('freeze_at_cap',False),
                         ('cases',[]),('max_entries',10001),('cleanup_staging_uploads','automatic'),('source_files',{})]:
                     bad=deepcopy(c);bad[key]=value
                     with self.subTest(key=key),self.assertRaises(ValueError):study.validate_config(bad)

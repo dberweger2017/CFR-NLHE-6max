@@ -119,6 +119,8 @@ def validate_config(c):
             or c['max_entries']!=(10000 if c['smoke'] else 250000000)
             or c['resource_policy']!=acceptance.thermal.RESOURCE_POLICY or c['source_files']!=source_pins()
             or c['source']!=committed() or c['stack_bb']!=200 or c['threads']!=16
+            or c['roots_per_seat']!=8 or c['last_average_street']!=3
+            or c['freeze_at_cap'] is not True or c['fast_gzip'] is not True or c['pruning'] is not False
             or c['cleanup_staging_uploads']!='owner-vacuum-cleaner-only'):
         raise ValueError('accepted fixed campaign configuration/source differs')
     build=io.load(c['build_receipt'])

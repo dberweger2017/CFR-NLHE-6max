@@ -1,6 +1,6 @@
-# Proposed three-lineage 200 BB model campaign and acceptance
+# Accepted three-lineage 200 BB model campaign and acceptance
 
-[Research proposal403](https://github.com/dberweger2017/CFR-NLHE-6max/issues/403), following merged [PR402](https://github.com/dberweger2017/CFR-NLHE-6max/pull/402). **Planning only: no new main run, training-cost pilot or confirming hand has started.** The owner supports moving to a fixed model campaign; this document makes the complete proposed allocation reviewable before launch.
+[Research proposal403](https://github.com/dberweger2017/CFR-NLHE-6max/issues/403), following merged [PR402](https://github.com/dberweger2017/CFR-NLHE-6max/pull/402). **Owner accepted the full 18-hour allocation and fixed confirming counts.** The source-pinned controller is implemented; build and full 200 BB fixture qualification precede main. Main also waits for 360 GiB actual free NVMe, prepared by the owner’s vacuum-cleaner agent.
 
 The recommended allocation is **18 hours of planning allowance**, with a central scenario of **7h51m** and component reserves totaling **17h33m**. This is not an8–12-hour completion promise or an elapsed-time kill guard. Runtime, memory and trace sizes remain conditional scenarios, not guarantees. Cleanup, movement, staging and uploads belong to the owner's vacuum-cleaner agent; this campaign agent performs none of them.
 
@@ -20,7 +20,7 @@ Keep three players/200BB,50/100blinds, K50, current menu/schema, unpruned fast m
 4. **Fresh fixed acceptance.** Execute the declared counts below with eight arena workers sharing read-only loaded policy tables; lineages sequential. Every initial hand independently replays. Reproduction must match bytes. Freeze the six model hashes before confirming hands. No global payoff readout until all lineages, source/input/mass/count/zero-sum and replay/reproduction barriers pass.
 5. **Readout and closeout.** Publish every gate, ordinary descriptive intervals, physical seats/positions, street/lookup/fallback coverage, tail behavior, complete cost/RAM/thermal/source/proof/failure records. Retain adverse and inconclusive results. Owner decides release and any next work; no automatic extra hands, tuning or release.
 
-Before main launch, a committed, source-pinned controller must implement these phases and pass end-to-end qualification with all36case shapes, independent reproduction/replay and deliberate mutation/failure fixtures. This PR initially supplies the fixed proposal and reproducible pricing/sizing, not a launch-ready controller. No runtime plan may silently inherit a past campaign's hardcoded100BB source, seed, count or staging authority.
+Before main launch, a committed, source-pinned controller must implement these phases and pass end-to-end qualification with all36case shapes, independent reproduction/replay and deliberate mutation/failure fixtures. This PR supplies the controller, fixed proposal and reproducible pricing/sizing; actual fixture qualification is required before main. No runtime plan may silently inherit a past campaign's hardcoded100BB source, seed, count or staging authority.
 
 ## Acceptance question and fixed counts
 
@@ -83,7 +83,7 @@ Before launch, inspect actual disk/RAM/swap and check the normal bb128 mutex plu
 
 ## Admission and remaining work
 
-The owner has accepted the direction and fixed model endpoints. **The complete18h allocation,30-row confirming counts and storage preparation remain proposed for review**, not silently authorized by the old model-only estimate. Main science also requires the completed, source-pinned controller and successful qualification described above. No new run is launched by generating this proposal.
+The owner has accepted the direction and fixed model endpoints. **The complete 18-hour allocation and 30-row confirming counts are accepted.** The owner confirmed that the vacuum-cleaner agent will prepare 360 GiB; actual free space is checked before main. Main science also requires the completed, source-pinned controller and successful qualification described above. No new run is launched by generating this proposal.
 
 Reproduce pricing/counts without any host access or poker execution:
 
