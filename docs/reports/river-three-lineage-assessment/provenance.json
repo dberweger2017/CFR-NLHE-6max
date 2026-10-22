@@ -1,0 +1,850 @@
+{
+  "source": "930843ba019f067cf64343b1bdd6cea7b0040199",
+  "receipt_sha256": "5a671ee3de57191994e1ba8a5f48b03b67693de4ba2899bb3c67f6b189ad5d38",
+  "source_manifest_sha256": "7735b82b47387b885f738df436100441203c3c54018573f82583e69fed024f31",
+  "file_sha256s": {
+    "control.json": "138a431c26331b3d0551b7a2fd58a681182a88209d6e385314a9b081c87a003c",
+    "owner-budget-approval-20261022.json": "fca9077ca6ffca4e08b8996260ac7eefe4fea9e89d5ccb73bcf17d36263b1398",
+    "preparation/launch.json": "df88e97c5fa46e941a9e77a6a3d7ef1182456ba6b38f619370a128403a04cb04",
+    "preparation/status.json": "7ed34bf841e6ecafd928a6d1ec42f7f3100fff0e00b2b65968a1d7b891484e01",
+    "preparation/stage-costs.json": "96c2c23f2599038b65dd5880ba4627cc80d9e811892930705959cd77065e5fa5",
+    "preparation/model-staging.json": "0e79e47431f83024e248969cd31084dc523177e34e809e5650c3891674bf1edf",
+    "preparation/build-receipt.json": "24e24a0082057aee5d07274c32ed3a3421ee416c5e71251f70eb6744261489f9",
+    "preparation/controller-launch.json": "52e6754844acc7a0d5a80c97de85da2446c6e60a464804a328266d335afe8e7b",
+    "preparation/controller-completion.json": "eb9e18fc46335649bc533b8c0d882db672eaa506b05191f414cd25f9f07ace8b",
+    "budget-bridge/launch.json": "4a4081847a796f4467b323f10bf40757a19df7de7e6ce6bc44db0d153129f61b",
+    "budget-bridge/status.json": "2cc4f5c913c9e5b99d817b8cee73e66cb27248840973f30f5c5c7b8fe931aa24",
+    "main-v1/launch.json": "0b56d775aad958f27c64060ef8ce772dbfa265adfb41964a680ab3af75f9491a",
+    "main-v1/status.json": "8e0cf834e28e110f0c233b389537f9ead024e2cb80311c30d5d9d87ebbfe0765",
+    "main-v1/main-admission.json": "2ed4fe46f5af5c9abd05f912500b777decf4251ba5991c105231e767496e5bd7",
+    "main-v1/stage-costs.json": "b2b0724118b990e7c823927b7bb456d1d6bdb581614b9976fc16485ac8beb97e",
+    "main-v1/model-pins.json": "136dfcbe579dfe6f19d6a476f1d2d98f4d6caefe7fed99fb875f5b040a29b06c",
+    "main-v1/native-identity.json": "5a38582010b5ddbce04176cd3a34ce5bdbdb657ce532a95e75d2a10c3c9e1773",
+    "main-v1/readout/results.json": "da6b03fef6b636873841de430d54b68f534c1d1f114a4402c1a11a6c62dee202",
+    "main-v1/qualification/2026101935003/verified.json": "e6d7ff7abcf9d2335bf396c9d5f0d1a8342a8c0f868e7b3471c30b0d2891c93a",
+    "main-v1/qualification/2026101935003/costs.json": "c2bcd1ae62b70992fb45445553e44b0e180aec4b8140cc1eab7d4dccea2fb35b",
+    "main-v1/qualification/202610200601/verified.json": "93b00d10443411d79058570960badf31d87167ef9fd48384438aec3ee3f6fc25",
+    "main-v1/qualification/202610200601/costs.json": "b0479d53aa3190f3afe70ec34009a94082e8fe9ec589fc14cb64ef16abbdc759",
+    "main-v1/qualification/202610200602/verified.json": "6a19de1479860769d9a49c56be135462fb8b49499d8d9757a72421a0b4a0cd2b",
+    "main-v1/qualification/202610200602/costs.json": "22fd5de732dc4bbf3b4f48e739578ab0ed77ad01bfaa409fc206d90734013ba8",
+    "main-v1/measurement/2026101935003/verified.json": "194cd07a5b69309c3be10c548885a1be8bc32e240acf741d93273d34132070f1",
+    "main-v1/measurement/2026101935003/costs.json": "dfa257e39b8a09a308f55828f35f5bfb6c6e9dddd204a355714d302db99a957e",
+    "main-v1/measurement/202610200601/verified.json": "3b7b82139252f614e448b3decf347d7e3369d83136331ff53e537822c77ede16",
+    "main-v1/measurement/202610200601/costs.json": "6fd6219e59fb3edc857a6103fac02ddcff52b0deeffabb1827adfc002d90c07b",
+    "main-v1/measurement/202610200602/verified.json": "b41bf13379f5f8d19f5379b78131e138910fc8d2036be64dd398164ab8d71d99",
+    "main-v1/measurement/202610200602/costs.json": "c487ff78dfd4d988464f6e7430ffcfa4fa5233c80ccb9dad22fbb49805a7d2db"
+  },
+  "launch": {
+    "pid": 828966,
+    "source": "930843ba019f067cf64343b1bdd6cea7b0040199",
+    "config_sha256": "138a431c26331b3d0551b7a2fd58a681182a88209d6e385314a9b081c87a003c",
+    "utc": "2026-10-22T09:08:34Z",
+    "cpu_stop_c": 90,
+    "thermistor15_stop_c": 100,
+    "planning_allowance_seconds": 43200,
+    "no_other_resource_stops": true,
+    "fresh_roots": [
+      2026102239701,
+      2026102239702,
+      2026102239703,
+      2026102239704,
+      2026102239705,
+      2026102239706
+    ],
+    "blocks": {
+      "trained": 2048,
+      "call-pressure": 4096
+    },
+    "initial_hands": 221184,
+    "reproduction_hands": 221184,
+    "final_assessment_no_extension": true
+  },
+  "model_pins": [
+    {
+      "seed": 2026101935003,
+      "path": "/home/dberweger/river-three-lineage-assessment-20261022/inputs/2026101935003.bin",
+      "sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+      "bytes": 14149208746
+    },
+    {
+      "seed": 202610200601,
+      "path": "/home/dberweger/river-three-lineage-assessment-20261022/inputs/202610200601.bin",
+      "sha256": "23599816cf632a51cace45f25d70ed4918fe5e75875c33136d8629052a8a2a70",
+      "bytes": 14148446930
+    },
+    {
+      "seed": 202610200602,
+      "path": "/home/dberweger/river-three-lineage-assessment-20261022/inputs/202610200602.bin",
+      "sha256": "2911937c047c644324d7a78a944949192f19d44eda373ca333d94a0dcaec8984",
+      "bytes": 14148348082
+    }
+  ],
+  "native_identity": {
+    "status": "passed",
+    "changed_files": [
+      "native/hu20-trainer/examples/nplayer_river_arena.rs"
+    ],
+    "amendment": "CLI blocks upper bound1024->4096 only",
+    "player_solver_library_byte_identical": true,
+    "files": {
+      "native/hu20-trainer/.gitignore": "44c92e3a70ad3307b7056871c2bdb096d8bfa9373f5bf06a79bb6324a20ff2fb",
+      "native/hu20-trainer/Cargo.lock": "6e8a903b4164b36f53a234b77d650bb71e5a165919b699615902c0b4924e90a2",
+      "native/hu20-trainer/Cargo.toml": "0f3f3ecb0958e051c31028a955657283791344f0bd6367fa05ff894e0fe8eecd",
+      "native/hu20-trainer/examples/hu200_blend.rs": "2222abb2673a84df3245cce08de2537355390923f78ba4c75906c8f3cf1e6c1d",
+      "native/hu20-trainer/examples/hu_size_reference.rs": "36898104dbb64e7b6eac66a2d11c63257410f556f743169b6a4f9ef64469a074",
+      "native/hu20-trainer/examples/multi_known.rs": "ad7e8af28d93afce2ee38c681221e552975d6c35df80447fad33b2a25b7afa12",
+      "native/hu20-trainer/examples/nplayer_arena.rs": "1e2f69c18c5b910316ce4cb2e27b66ffea2a9b130467ef7b96d3d7b9961e107e",
+      "native/hu20-trainer/examples/nplayer_bounded.rs": "002b0be4c347afe565f24d3be21dcce65b32fe562d96d303ed265fde6d549725",
+      "native/hu20-trainer/examples/nplayer_continuation_arena.rs": "1a6a9be8714f92f15ac5c5139dfe4540c2fab45d1c572201152e40334dae9c4d",
+      "native/hu20-trainer/examples/nplayer_fast_strength.rs": "6626a1f99c5a1e37d3ad12ea287ee36db86055e30570b6f2401087cdfa0ae9fb",
+      "native/hu20-trainer/examples/nplayer_inference.rs": "bc52d66baef9fabe133e9f8ad47d7f9337b51a6a4b245f4be25c506fdf0b2617",
+      "native/hu20-trainer/examples/nplayer_matched_regression.rs": "f3cef8f28d7ca73e767e11c8c6fdb7e07bfca5a98d727c584ec18c80db80b993",
+      "native/hu20-trainer/examples/nplayer_overnight.rs": "05e280a99269fc8fcddad3ae4669dec885ac4792973c11e1dc17719c8be6b5a3",
+      "native/hu20-trainer/examples/nplayer_parity.rs": "424a9b848034949097034b53d7b4715321ddf8a0723f8d0ae3e3662f6e8b8066",
+      "native/hu20-trainer/examples/nplayer_policy.rs": "329a29b92dbaa22292353efa6e090a6fc9e02b7a27e0f97074a4b9e6404aa2c8",
+      "native/hu20-trainer/examples/nplayer_pruning_study.rs": "3875c25871bd61aa453b8146d98f609a452e08dc42b5520da1e341f4afaec888",
+      "native/hu20-trainer/examples/nplayer_river_arena.rs": "f7683c012be14e72f992d144dd1802b9b5ee5198427199a0a306161cabd45f86",
+      "native/hu20-trainer/examples/nplayer_river_expectation.rs": "5d8cb3208930379b33fe871ee9644c805741f432ba7ba157b9bb0c01e7fe48a2",
+      "native/hu20-trainer/examples/nplayer_serve.rs": "9e1e4b5bdcada1a2d6e1fa51ae36f40e7bd7d8a3aa366eb0ccd676631a5ad5ec",
+      "native/hu20-trainer/examples/nplayer_size.rs": "f2aeafdcaba683b73cb292e8e213cd06f12c4cc6b06d508d050ae51b5d178a2c",
+      "native/hu20-trainer/examples/nplayer_storage_bench.rs": "f73641aaad4e1766d637d118d2cad8910ea53ed486f1962b37f341cf8ee31db1",
+      "native/hu20-trainer/examples/nplayer_train.rs": "c6c052e52094622b4768095a22ff3e39b4d7a5c80844e6c417f4e21c964466cb",
+      "native/hu20-trainer/examples/river_live.rs": "43dcea1afe943683a7f529fca804f9cb5d4ffcfc3a3b45148c77fb3b52684611",
+      "native/hu20-trainer/examples/river_prepared.rs": "3c7a6a5fe5a00139d699a65d7804a7b43cabea48778b940ec4de0b52783fb462",
+      "native/hu20-trainer/examples/support/memory.rs": "9ad43a3cbf4a4893d55bcfbc66a7b9c8088da78e0c5fc7c52dd01a0263c4b85d",
+      "native/hu20-trainer/examples/support/nplayer_checkpoint_io.rs": "6ee22a4da1997df9cdc25df5d210abc5af6796adcf26f84481e57e4f47f42fee",
+      "native/hu20-trainer/examples/support/nplayer_mass_metadata.rs": "0ab1968e2473fc48e5a11f9780e48d3d433e19c9c7439495ca4cce0242c8f413",
+      "native/hu20-trainer/examples/support/survey.rs": "52042c862ff32ab2215f8b4989be448655320c653a43f97334e2aea3fe39addd",
+      "native/hu20-trainer/src/arena_expectation.rs": "cbd5b49687e71a56dca7818c127f1298bf6f3cd28fcecaac577b94540a080ef7",
+      "native/hu20-trainer/src/bench.rs": "5ce8904abe56d4b5941cdc686ad547e713e26706691ef2a81e42d8b55b28688e",
+      "native/hu20-trainer/src/cards.rs": "d73ac7b005ab6e95ff2a4e2177b5a041c30caa140bdd818ac1b3220301d62876",
+      "native/hu20-trainer/src/cfr.rs": "6c429e81b49f6ec2b450ae213837c7dba3b1776a6f93ba080bd06135b69460b6",
+      "native/hu20-trainer/src/checkpoint.rs": "67cbe98a182128897cca67356750edbaa00b751f66abf63d1effae2d9ea9f989",
+      "native/hu20-trainer/src/cli.rs": "774ce986959f65eb0e4524c824a5f6fcb8391feddcc57d4d859d3ce5ba51a9a7",
+      "native/hu20-trainer/src/export.rs": "61632c0804235397da5860aabe8eb39f67e618fb0a82b42cd72a5f005190988a",
+      "native/hu20-trainer/src/game.rs": "f08d7ac008b8f3ba3b0776992461b4e23b414a46cbf619fd6e001c632d242ce8",
+      "native/hu20-trainer/src/gz.rs": "3453250d14ac4adce23a6b478a2e1f0ad426601d70a3bb2265c59d39a566581b",
+      "native/hu20-trainer/src/key.rs": "94e6888ba5e81fb33c33c4b65a5feb6263f304767ac619db5a6ee28a31937ec6",
+      "native/hu20-trainer/src/lib.rs": "5a9b4d784cc66dbe66ace7b37c8c6bacd8dbe2bf358bf9e0af8468ad700ab503",
+      "native/hu20-trainer/src/main.rs": "3afe9bb1a2655e4b56a8be879b69b648ae982f9eb9dc5804e3e1d701f699e8e0",
+      "native/hu20-trainer/src/multi_arena.rs": "052124fa707640c054290fca68090c55821c62cc3a1e2afde5e722a218bb103a",
+      "native/hu20-trainer/src/multi_arena_tests.rs": "ecab963ded7f991ceed1c0ab7d5ab01fc961698763da10acd1c2abdb66820936",
+      "native/hu20-trainer/src/multi_binary.rs": "0d20340ed2681909df732eb4471ff5e7c2854aa427cc9ec876ad53c16dcf81b5",
+      "native/hu20-trainer/src/multi_binary_tests.rs": "dacdb40a01bc43bb734e58a90e3bf142d00e873b43cc3882ce3c64024c68f5e5",
+      "native/hu20-trainer/src/multi_cfr.rs": "a398fc147e3447b7faa7e800bdac352ba3a0042fa2848bffb4d7b44c717cd7e2",
+      "native/hu20-trainer/src/multi_checkpoint.rs": "471dfa40515294df0568009685a6e1b0e5a19a52bbdc35fbe3306cec0d4af96f",
+      "native/hu20-trainer/src/multi_counterfactual.rs": "33d6d8bbdcba30e001fadce1e7dab64e253d7d502f28ccf2601542ea8492a5ee",
+      "native/hu20-trainer/src/multi_counterfactual_tests.rs": "4e0be9b35eafae040907230f3fe80acab6195a4135198d7fd027b4af57d12941",
+      "native/hu20-trainer/src/multi_holdem.rs": "cc4f889342864a9e5fe91303a85c19248e3b9dfbe6b90ef99a875defab7529dd",
+      "native/hu20-trainer/src/multi_policy.rs": "2f4dddc39c9dbcffd371d1cc37e6ee3726f7601856f1e6c83597bd237ab97b9b",
+      "native/hu20-trainer/src/multi_tests.rs": "a7f5c85a5e1ca45190b31d03db26faa2e14f6a0907989876a49ab4e326078dfa",
+      "native/hu20-trainer/src/nplayer.rs": "98bdd020004cdc3807c0dbb9a91a76a61ae829506d4fa3e6b7759cc637a1ca0e",
+      "native/hu20-trainer/src/nplayer_tests.rs": "1d201197a42653eb323b90dcacb309bcc27baa736cef1cc7540cb1a6bffc51cf",
+      "native/hu20-trainer/src/parity.rs": "7d77c0f31dd018c717874df554947ba7c303f2ed7448a88aef86d222c1acdcd0",
+      "native/hu20-trainer/src/policy_expectation.rs": "8ecaee99198b6a7f9d0cbb598f66971096c48891b03acee4d0e7de713823e7e9",
+      "native/hu20-trainer/src/river.rs": "00551633722aa01a25934e158ba86f9f02a01b045cc49353c32a7d39b816eedf",
+      "native/hu20-trainer/src/river/correlated.rs": "3fdfb43305a0ed59e79ee1b1bce5c779b1fede433daeea428efc66c8b9eb2920",
+      "native/hu20-trainer/src/river/correlated_tests.rs": "d93a290ef2d9d0e4062c69cabf59f5e15d15ed6d33e2ec10037e04099734288b",
+      "native/hu20-trainer/src/river/live.rs": "d65f0424a24041c2c97fa9a844136b08a1c12ddb30325fff481e975145e00236",
+      "native/hu20-trainer/src/river/live/exact.rs": "67ea25b6c84e9b4b7a0508df054db49adc8f5d9eac41f197102d29dc372dc42f",
+      "native/hu20-trainer/src/river/live/harms.rs": "087294675d874b93f66ee1b0da46efc890f8d31a36d15c881762f6406db70c7f",
+      "native/hu20-trainer/src/river/live/retained.rs": "7d371eb07f2c9d1b9ccdf17c0c0fb268cb3dfd27f5c24d22b3d7acb7120c3803",
+      "native/hu20-trainer/src/river/live/retained/tests.rs": "ccd29237da698f84e6ad00901e674a7690cf534b128d922fb28b70bdffc79bd2",
+      "native/hu20-trainer/src/river/live/tests.rs": "d2dd943629ef04970b9c0769ea3218c24bbd6160ddd1c61de0a5e0eb25827c5f",
+      "native/hu20-trainer/src/river/live/whole_hand.rs": "500ca96c717bb3cc86d9e1db719f5dc5ffa24119c573628a1238625cae07188e",
+      "native/hu20-trainer/src/river/prepared.rs": "8c6ed9264a1856b2ed37769698ae82d4a22ecfba8ef49891d092fed97f2b6e58",
+      "native/hu20-trainer/src/river/tests.rs": "64f16434d012fce33118ba699e7161310afd5f5ac1566663113068662c1d94c0",
+      "native/hu20-trainer/src/small_exact.rs": "acbf9b023b96d2335d1c86828da8e488f9aa2a672169f33aa28be73a0da6cbe8",
+      "native/hu20-trainer/src/small_games.rs": "edbd357fdf65ff8aed44920dbf648e317f04513691ae8032fe374cb8d23020bd",
+      "native/hu20-trainer/src/store.rs": "75ff2a97115251a2606a3eba516ada3b3a21c83e988d41b2839ae0c12ea70427",
+      "native/hu20-trainer/src/streams.rs": "d5207f0ff65cf1fbb5b8723f7ac383765b7a03a5d7b7e55fc36c0e96d47bcdbc",
+      "native/hu20-trainer/src/telemetry.rs": "ca685f7742e53f67c76bf0b1ae8ae9dd464e688d81e08775e6fd6eb105589286",
+      "native/hu20-trainer/src/trainer.rs": "787c31cc6ce736da9549b833ca430218131324441eaef30fe1f505978108d7fb"
+    },
+    "binary_sha256": "d3c9047aa449f14ac5a341443239d714709183d70ed1409e8fc1937db3bff0f3",
+    "prior": "/home/dberweger/river-arena-expectation-20261022/qualification-v1"
+  },
+  "proofs": {
+    "main-v1/qualification/2026101935003/verified.json": {
+      "sha256": "e6d7ff7abcf9d2335bf396c9d5f0d1a8342a8c0f868e7b3471c30b0d2891c93a",
+      "proof": {
+        "status": "passed",
+        "focal_seed": 2026101935003,
+        "records": [
+          {
+            "case": "trained-off",
+            "sha256": "232341b9b2974da8d1bdba66388fb4e106a3eff27e8864ae11eaa2c911b460e5",
+            "blocks": 4,
+            "independent_replay": {
+              "status": "passed",
+              "engine": {
+                "url": "https://github.com/dberweger2017/pokers.git",
+                "vcs_info": {
+                  "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "vcs": "git"
+                }
+              },
+              "hands": 24,
+              "decisions": 195,
+              "players": 3,
+              "trace_sha256": "232341b9b2974da8d1bdba66388fb4e106a3eff27e8864ae11eaa2c911b460e5"
+            }
+          },
+          {
+            "case": "trained-on",
+            "sha256": "3a007e6cbd2528424ffc403dfffc5d70bb0adf1b35af0a35a0f001b566596c76",
+            "blocks": 4,
+            "independent_replay": {
+              "status": "passed",
+              "engine": {
+                "url": "https://github.com/dberweger2017/pokers.git",
+                "vcs_info": {
+                  "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "vcs": "git"
+                }
+              },
+              "hands": 24,
+              "decisions": 195,
+              "players": 3,
+              "trace_sha256": "3a007e6cbd2528424ffc403dfffc5d70bb0adf1b35af0a35a0f001b566596c76"
+            }
+          },
+          {
+            "case": "call-pressure-off",
+            "sha256": "638b1c07416051aa2d41bbc24468dc36301ab02bf5dff212d95c7f7c16ad3b67",
+            "blocks": 4,
+            "independent_replay": {
+              "status": "passed",
+              "engine": {
+                "url": "https://github.com/dberweger2017/pokers.git",
+                "vcs_info": {
+                  "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "vcs": "git"
+                }
+              },
+              "hands": 24,
+              "decisions": 197,
+              "players": 3,
+              "trace_sha256": "638b1c07416051aa2d41bbc24468dc36301ab02bf5dff212d95c7f7c16ad3b67"
+            }
+          },
+          {
+            "case": "call-pressure-on",
+            "sha256": "81496cebb6968f0fd2ea53707d4ad10f3038beaabedba18a8c3604697f67222e",
+            "blocks": 4,
+            "independent_replay": {
+              "status": "passed",
+              "engine": {
+                "url": "https://github.com/dberweger2017/pokers.git",
+                "vcs_info": {
+                  "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "vcs": "git"
+                }
+              },
+              "hands": 24,
+              "decisions": 197,
+              "players": 3,
+              "trace_sha256": "81496cebb6968f0fd2ea53707d4ad10f3038beaabedba18a8c3604697f67222e"
+            }
+          }
+        ],
+        "pairing": {
+          "trained": {
+            "hands": 24,
+            "hands_with_changed_action_path": 2
+          },
+          "call-pressure": {
+            "hands": 24,
+            "hands_with_changed_action_path": 1
+          }
+        },
+        "initial_hands": 96,
+        "reproduction_hands": 96,
+        "no_exclusions": true,
+        "expectation_roots": {
+          "trained": 3,
+          "call-pressure": 7
+        },
+        "all_value_profile_work_reproduced": true,
+        "solver_advances": 0,
+        "profile_reconstructions": 0,
+        "root_inventory_sha256": "4a58774f7e2184e665323672f8a85840deb64c02c1022c11c4b00b79ca09247c",
+        "expectation_records_sha256": "c17f2fabc4fabaa0cff0b8e4411c03fcc07ceeeb9888d13a19ef1d9f2203ebed",
+        "verification_seconds": 0.07431587897008285
+      }
+    },
+    "main-v1/measurement/2026101935003/verified.json": {
+      "sha256": "194cd07a5b69309c3be10c548885a1be8bc32e240acf741d93273d34132070f1",
+      "proof": {
+        "status": "passed",
+        "focal_seed": 2026101935003,
+        "records": [
+          {
+            "case": "trained-off",
+            "sha256": "992d0a57a575be861b84a6e4594d3b27ab53cd997719a903e4fa13feff741402",
+            "blocks": 2048,
+            "independent_replay": {
+              "status": "passed",
+              "engine": {
+                "url": "https://github.com/dberweger2017/pokers.git",
+                "vcs_info": {
+                  "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "vcs": "git"
+                }
+              },
+              "hands": 12288,
+              "decisions": 77637,
+              "players": 3,
+              "trace_sha256": "992d0a57a575be861b84a6e4594d3b27ab53cd997719a903e4fa13feff741402"
+            }
+          },
+          {
+            "case": "trained-on",
+            "sha256": "070489de0093fcc2043d24f94e13822cd5c9c16060e3675c4b5c525fbf13a721",
+            "blocks": 2048,
+            "independent_replay": {
+              "status": "passed",
+              "engine": {
+                "url": "https://github.com/dberweger2017/pokers.git",
+                "vcs_info": {
+                  "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "vcs": "git"
+                }
+              },
+              "hands": 12288,
+              "decisions": 77611,
+              "players": 3,
+              "trace_sha256": "070489de0093fcc2043d24f94e13822cd5c9c16060e3675c4b5c525fbf13a721"
+            }
+          },
+          {
+            "case": "call-pressure-off",
+            "sha256": "69b45b3ada6022c484c0c2f51739a1c0b358d147e3bb368d111105f85d79d78a",
+            "blocks": 4096,
+            "independent_replay": {
+              "status": "passed",
+              "engine": {
+                "url": "https://github.com/dberweger2017/pokers.git",
+                "vcs_info": {
+                  "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "vcs": "git"
+                }
+              },
+              "hands": 24576,
+              "decisions": 227963,
+              "players": 3,
+              "trace_sha256": "69b45b3ada6022c484c0c2f51739a1c0b358d147e3bb368d111105f85d79d78a"
+            }
+          },
+          {
+            "case": "call-pressure-on",
+            "sha256": "3f2b8497897166e8bed46cfa55bc6638effb40fa68a0444d0b1db01102853baf",
+            "blocks": 4096,
+            "independent_replay": {
+              "status": "passed",
+              "engine": {
+                "url": "https://github.com/dberweger2017/pokers.git",
+                "vcs_info": {
+                  "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "vcs": "git"
+                }
+              },
+              "hands": 24576,
+              "decisions": 227963,
+              "players": 3,
+              "trace_sha256": "3f2b8497897166e8bed46cfa55bc6638effb40fa68a0444d0b1db01102853baf"
+            }
+          }
+        ],
+        "pairing": {
+          "trained": {
+            "hands": 12288,
+            "hands_with_changed_action_path": 468
+          },
+          "call-pressure": {
+            "hands": 24576,
+            "hands_with_changed_action_path": 2093
+          }
+        },
+        "initial_hands": 73728,
+        "reproduction_hands": 73728,
+        "no_exclusions": true,
+        "expectation_roots": {
+          "trained": 1105,
+          "call-pressure": 5953
+        },
+        "all_value_profile_work_reproduced": true,
+        "solver_advances": 0,
+        "profile_reconstructions": 0,
+        "root_inventory_sha256": "0455d7608cd476cb250d1953c8a49de686dd8c1a3ee062e620b6c85d77eac60b",
+        "expectation_records_sha256": "842591efe91d8397a60adf6ca5879c4036114b85abefaf0c8dec8e63c48a6e78",
+        "verification_seconds": 36.89640504401177
+      }
+    },
+    "main-v1/qualification/202610200601/verified.json": {
+      "sha256": "93b00d10443411d79058570960badf31d87167ef9fd48384438aec3ee3f6fc25",
+      "proof": {
+        "status": "passed",
+        "focal_seed": 202610200601,
+        "records": [
+          {
+            "case": "trained-off",
+            "sha256": "d6395f3413e24d03a7ffb5aa65da26e1563654a185f0f73041924b017cbab879",
+            "blocks": 4,
+            "independent_replay": {
+              "status": "passed",
+              "engine": {
+                "url": "https://github.com/dberweger2017/pokers.git",
+                "vcs_info": {
+                  "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "vcs": "git"
+                }
+              },
+              "hands": 24,
+              "decisions": 117,
+              "players": 3,
+              "trace_sha256": "d6395f3413e24d03a7ffb5aa65da26e1563654a185f0f73041924b017cbab879"
+            }
+          },
+          {
+            "case": "trained-on",
+            "sha256": "bf2a90d14a7bff245eddb2b5557c82828d9d13003a6dcea596fadfbc9b822706",
+            "blocks": 4,
+            "independent_replay": {
+              "status": "passed",
+              "engine": {
+                "url": "https://github.com/dberweger2017/pokers.git",
+                "vcs_info": {
+                  "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "vcs": "git"
+                }
+              },
+              "hands": 24,
+              "decisions": 117,
+              "players": 3,
+              "trace_sha256": "bf2a90d14a7bff245eddb2b5557c82828d9d13003a6dcea596fadfbc9b822706"
+            }
+          },
+          {
+            "case": "call-pressure-off",
+            "sha256": "c0657f890059ada92ff64e267dbc81b7d7d85f23324951d0e0392494e2ac8444",
+            "blocks": 4,
+            "independent_replay": {
+              "status": "passed",
+              "engine": {
+                "url": "https://github.com/dberweger2017/pokers.git",
+                "vcs_info": {
+                  "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "vcs": "git"
+                }
+              },
+              "hands": 24,
+              "decisions": 227,
+              "players": 3,
+              "trace_sha256": "c0657f890059ada92ff64e267dbc81b7d7d85f23324951d0e0392494e2ac8444"
+            }
+          },
+          {
+            "case": "call-pressure-on",
+            "sha256": "8b4a35055701f04e99a6509aa8a1f122ab2d61d2daba5c1a684d5a7edd23f92d",
+            "blocks": 4,
+            "independent_replay": {
+              "status": "passed",
+              "engine": {
+                "url": "https://github.com/dberweger2017/pokers.git",
+                "vcs_info": {
+                  "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "vcs": "git"
+                }
+              },
+              "hands": 24,
+              "decisions": 227,
+              "players": 3,
+              "trace_sha256": "8b4a35055701f04e99a6509aa8a1f122ab2d61d2daba5c1a684d5a7edd23f92d"
+            }
+          }
+        ],
+        "pairing": {
+          "trained": {
+            "hands": 24,
+            "hands_with_changed_action_path": 0
+          },
+          "call-pressure": {
+            "hands": 24,
+            "hands_with_changed_action_path": 0
+          }
+        },
+        "initial_hands": 96,
+        "reproduction_hands": 96,
+        "no_exclusions": true,
+        "expectation_roots": {
+          "trained": 1,
+          "call-pressure": 4
+        },
+        "all_value_profile_work_reproduced": true,
+        "solver_advances": 0,
+        "profile_reconstructions": 0,
+        "root_inventory_sha256": "bf19d04d1923a3ea7930c717846ce02a735c7174ec1430a0787847a9a4c3f7d8",
+        "expectation_records_sha256": "6b21b08e575afeab42f40f1f74ee1333104811b85572b3c2088796effc1343f6",
+        "verification_seconds": 0.04807604901725426
+      }
+    },
+    "main-v1/measurement/202610200601/verified.json": {
+      "sha256": "3b7b82139252f614e448b3decf347d7e3369d83136331ff53e537822c77ede16",
+      "proof": {
+        "status": "passed",
+        "focal_seed": 202610200601,
+        "records": [
+          {
+            "case": "trained-off",
+            "sha256": "7a5474721f5ca7a3fd68c8ef87bfa2d9019062b6a7198c80eb5f1ace8b82ef73",
+            "blocks": 2048,
+            "independent_replay": {
+              "status": "passed",
+              "engine": {
+                "url": "https://github.com/dberweger2017/pokers.git",
+                "vcs_info": {
+                  "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "vcs": "git"
+                }
+              },
+              "hands": 12288,
+              "decisions": 78346,
+              "players": 3,
+              "trace_sha256": "7a5474721f5ca7a3fd68c8ef87bfa2d9019062b6a7198c80eb5f1ace8b82ef73"
+            }
+          },
+          {
+            "case": "trained-on",
+            "sha256": "f8217e7d0cd4ba5b523925895378c4f2dc82868b7ada8eb1cb4fff09547488f6",
+            "blocks": 2048,
+            "independent_replay": {
+              "status": "passed",
+              "engine": {
+                "url": "https://github.com/dberweger2017/pokers.git",
+                "vcs_info": {
+                  "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "vcs": "git"
+                }
+              },
+              "hands": 12288,
+              "decisions": 78320,
+              "players": 3,
+              "trace_sha256": "f8217e7d0cd4ba5b523925895378c4f2dc82868b7ada8eb1cb4fff09547488f6"
+            }
+          },
+          {
+            "case": "call-pressure-off",
+            "sha256": "ded73b293fc7a03ac5e7dbbf5582c86e9074fc54fb3f633bbfd6a1d070cb4a6e",
+            "blocks": 4096,
+            "independent_replay": {
+              "status": "passed",
+              "engine": {
+                "url": "https://github.com/dberweger2017/pokers.git",
+                "vcs_info": {
+                  "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "vcs": "git"
+                }
+              },
+              "hands": 24576,
+              "decisions": 228027,
+              "players": 3,
+              "trace_sha256": "ded73b293fc7a03ac5e7dbbf5582c86e9074fc54fb3f633bbfd6a1d070cb4a6e"
+            }
+          },
+          {
+            "case": "call-pressure-on",
+            "sha256": "3f061c458030f0194af8ab5164be5486452c91428bfe8a27480edb8d34e615a5",
+            "blocks": 4096,
+            "independent_replay": {
+              "status": "passed",
+              "engine": {
+                "url": "https://github.com/dberweger2017/pokers.git",
+                "vcs_info": {
+                  "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "vcs": "git"
+                }
+              },
+              "hands": 24576,
+              "decisions": 228027,
+              "players": 3,
+              "trace_sha256": "3f061c458030f0194af8ab5164be5486452c91428bfe8a27480edb8d34e615a5"
+            }
+          }
+        ],
+        "pairing": {
+          "trained": {
+            "hands": 12288,
+            "hands_with_changed_action_path": 489
+          },
+          "call-pressure": {
+            "hands": 24576,
+            "hands_with_changed_action_path": 2110
+          }
+        },
+        "initial_hands": 73728,
+        "reproduction_hands": 73728,
+        "no_exclusions": true,
+        "expectation_roots": {
+          "trained": 1098,
+          "call-pressure": 6033
+        },
+        "all_value_profile_work_reproduced": true,
+        "solver_advances": 0,
+        "profile_reconstructions": 0,
+        "root_inventory_sha256": "5a7f8b09735dc602bd85b6d8b81d1d25aa984dc09ea5ee7ad9b749f5a9d6f1d5",
+        "expectation_records_sha256": "33ea5e783a76881296534e3e4b28ec16a6a6d7d8c4c20686206f338fe6ab36de",
+        "verification_seconds": 37.6739593790262
+      }
+    },
+    "main-v1/qualification/202610200602/verified.json": {
+      "sha256": "6a19de1479860769d9a49c56be135462fb8b49499d8d9757a72421a0b4a0cd2b",
+      "proof": {
+        "status": "passed",
+        "focal_seed": 202610200602,
+        "records": [
+          {
+            "case": "trained-off",
+            "sha256": "037ca25effa622768af9ba453cded79dbff29e8632d1923d139968b1557d51c7",
+            "blocks": 4,
+            "independent_replay": {
+              "status": "passed",
+              "engine": {
+                "url": "https://github.com/dberweger2017/pokers.git",
+                "vcs_info": {
+                  "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "vcs": "git"
+                }
+              },
+              "hands": 24,
+              "decisions": 142,
+              "players": 3,
+              "trace_sha256": "037ca25effa622768af9ba453cded79dbff29e8632d1923d139968b1557d51c7"
+            }
+          },
+          {
+            "case": "trained-on",
+            "sha256": "3d69cc0f31d4e0b7250e42c21fb04b4f24f3562ff8553b9148874d24c57eb9da",
+            "blocks": 4,
+            "independent_replay": {
+              "status": "passed",
+              "engine": {
+                "url": "https://github.com/dberweger2017/pokers.git",
+                "vcs_info": {
+                  "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "vcs": "git"
+                }
+              },
+              "hands": 24,
+              "decisions": 142,
+              "players": 3,
+              "trace_sha256": "3d69cc0f31d4e0b7250e42c21fb04b4f24f3562ff8553b9148874d24c57eb9da"
+            }
+          },
+          {
+            "case": "call-pressure-off",
+            "sha256": "bd32582fc11c057ac6955e645d65e7ec1609fa835f17ae71ec6f01b8979c6af3",
+            "blocks": 4,
+            "independent_replay": {
+              "status": "passed",
+              "engine": {
+                "url": "https://github.com/dberweger2017/pokers.git",
+                "vcs_info": {
+                  "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "vcs": "git"
+                }
+              },
+              "hands": 24,
+              "decisions": 233,
+              "players": 3,
+              "trace_sha256": "bd32582fc11c057ac6955e645d65e7ec1609fa835f17ae71ec6f01b8979c6af3"
+            }
+          },
+          {
+            "case": "call-pressure-on",
+            "sha256": "90aac154c646a5e771dc7eacd61f6df9b3417840b9610cf5b32d72569bd3c9b7",
+            "blocks": 4,
+            "independent_replay": {
+              "status": "passed",
+              "engine": {
+                "url": "https://github.com/dberweger2017/pokers.git",
+                "vcs_info": {
+                  "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "vcs": "git"
+                }
+              },
+              "hands": 24,
+              "decisions": 233,
+              "players": 3,
+              "trace_sha256": "90aac154c646a5e771dc7eacd61f6df9b3417840b9610cf5b32d72569bd3c9b7"
+            }
+          }
+        ],
+        "pairing": {
+          "trained": {
+            "hands": 24,
+            "hands_with_changed_action_path": 1
+          },
+          "call-pressure": {
+            "hands": 24,
+            "hands_with_changed_action_path": 4
+          }
+        },
+        "initial_hands": 96,
+        "reproduction_hands": 96,
+        "no_exclusions": true,
+        "expectation_roots": {
+          "trained": 2,
+          "call-pressure": 6
+        },
+        "all_value_profile_work_reproduced": true,
+        "solver_advances": 0,
+        "profile_reconstructions": 0,
+        "root_inventory_sha256": "7f7605d75cf7fe75af4363a286d17663fa1fd6fc30b8825b77bfcd3c007f0281",
+        "expectation_records_sha256": "b4d0950842e35185b4b558f1d16b16e1bcd6d6d37018140d251fc6e1f86b43d5",
+        "verification_seconds": 0.05055058200377971
+      }
+    },
+    "main-v1/measurement/202610200602/verified.json": {
+      "sha256": "b41bf13379f5f8d19f5379b78131e138910fc8d2036be64dd398164ab8d71d99",
+      "proof": {
+        "status": "passed",
+        "focal_seed": 202610200602,
+        "records": [
+          {
+            "case": "trained-off",
+            "sha256": "81880cf2460677ad64b88008b4177a7ddb7e48e520e8ee61a8843ac37b837af8",
+            "blocks": 2048,
+            "independent_replay": {
+              "status": "passed",
+              "engine": {
+                "url": "https://github.com/dberweger2017/pokers.git",
+                "vcs_info": {
+                  "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "vcs": "git"
+                }
+              },
+              "hands": 12288,
+              "decisions": 76882,
+              "players": 3,
+              "trace_sha256": "81880cf2460677ad64b88008b4177a7ddb7e48e520e8ee61a8843ac37b837af8"
+            }
+          },
+          {
+            "case": "trained-on",
+            "sha256": "68a21510447607b6b762f86f3b19483af4aa4230774e0e5ed2304c71dc401b76",
+            "blocks": 2048,
+            "independent_replay": {
+              "status": "passed",
+              "engine": {
+                "url": "https://github.com/dberweger2017/pokers.git",
+                "vcs_info": {
+                  "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "vcs": "git"
+                }
+              },
+              "hands": 12288,
+              "decisions": 76850,
+              "players": 3,
+              "trace_sha256": "68a21510447607b6b762f86f3b19483af4aa4230774e0e5ed2304c71dc401b76"
+            }
+          },
+          {
+            "case": "call-pressure-off",
+            "sha256": "1776759b8e3a699f20d609cf7164204394f6645002089fdea2db0966c0ebcade",
+            "blocks": 4096,
+            "independent_replay": {
+              "status": "passed",
+              "engine": {
+                "url": "https://github.com/dberweger2017/pokers.git",
+                "vcs_info": {
+                  "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "vcs": "git"
+                }
+              },
+              "hands": 24576,
+              "decisions": 228466,
+              "players": 3,
+              "trace_sha256": "1776759b8e3a699f20d609cf7164204394f6645002089fdea2db0966c0ebcade"
+            }
+          },
+          {
+            "case": "call-pressure-on",
+            "sha256": "5e018db3e6d11b9a9e176bcd51da0ee9ed17c186f9a409e165cbddf8003c8868",
+            "blocks": 4096,
+            "independent_replay": {
+              "status": "passed",
+              "engine": {
+                "url": "https://github.com/dberweger2017/pokers.git",
+                "vcs_info": {
+                  "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+                  "vcs": "git"
+                }
+              },
+              "hands": 24576,
+              "decisions": 228466,
+              "players": 3,
+              "trace_sha256": "5e018db3e6d11b9a9e176bcd51da0ee9ed17c186f9a409e165cbddf8003c8868"
+            }
+          }
+        ],
+        "pairing": {
+          "trained": {
+            "hands": 12288,
+            "hands_with_changed_action_path": 477
+          },
+          "call-pressure": {
+            "hands": 24576,
+            "hands_with_changed_action_path": 2249
+          }
+        },
+        "initial_hands": 73728,
+        "reproduction_hands": 73728,
+        "no_exclusions": true,
+        "expectation_roots": {
+          "trained": 1084,
+          "call-pressure": 5988
+        },
+        "all_value_profile_work_reproduced": true,
+        "solver_advances": 0,
+        "profile_reconstructions": 0,
+        "root_inventory_sha256": "159cce87c91fc87de6de211002ac1cf2c2f7537337dd7b424e44e2efb36e9c2a",
+        "expectation_records_sha256": "e7d41f3947117d3cd590422efa54b86dda221b71ec7f82d2e0c2c59b86d658dc",
+        "verification_seconds": 37.016762604005635
+      }
+    }
+  },
+  "controller_completion": {
+    "returncode": 0,
+    "utc": "2026-10-22T13:06:59Z"
+  },
+  "budget_bridge": {
+    "status": "not-needed-original-complete",
+    "no_continuation_launched": true
+  },
+  "originals_retained": true
+}

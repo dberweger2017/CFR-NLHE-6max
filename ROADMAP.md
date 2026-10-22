@@ -1,5 +1,9 @@
 # Roadmap
 
+## Final frozen river assessment: defer candidate
+
+[PR398](https://github.com/dberweger2017/CFR-NLHE-6max/pull/398), [proposal397](https://github.com/dberweger2017/CFR-NLHE-6max/issues/397), [verified results](docs/reports/river-three-lineage-assessment/results.md): all three frozen100BB10B lineages complete fixed2,048 peer/4,096 call-pressure blocks,221,184 independently replayed initial hands and221,184 byte-identical reproductions. Peer deltas+2.75/+1.36/+5.69 BB/100: only602 passes improvement. Scripted−3.41/−0.73/−2.18: no−5 safeguard passes, and no material harm is established. Predeclared decision: **defer frozen candidate and resume blueprint depth/player-count progress**; no extra hands/tuning or automatic follow-up.4h53m total,27.70GiB sampled RSS, CPU68/Thermistor15 70°C; no scientific failure. Owner budget continuation unused. Archive blocked before copying (`gh` absent onbb128); originals retained, acceptance pending.30-minute supervision ends at result handoff. No deployment/default/merge authorization.
+
 ## Goal
 
 Build a strong no-limit Texas Hold'em agent that plays by the selected table rules and sees exactly what a human in its seat would see. Six-handed play is the main target; four- and five-handed tables, changing lineups and unequal stacks are part of the design.
