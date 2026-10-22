@@ -39,7 +39,8 @@ fn block(
     models: &[Model; 2],
     opponents: &[String; 2],
     enabled: bool,
-) -> Result<(Vec<u8>, Vec<u8>), String> {
+    expectation_lineup: Option<&str>,
+) -> Result<(Vec<u8>, Vec<u8>, Vec<u8>), String> {
     let config = Config::new(&[10000; 3], 50, 100)?;
     let mut deck: Vec<u8> = (0..52).collect();
     deck.shuffle(&mut rand::rngs::StdRng::seed_from_u64(stream_seed(
@@ -47,6 +48,7 @@ fn block(
     )));
     let mut trace = Vec::new();
     let mut metrics = Vec::new();
+    let mut expectations = Vec::new();
     let button = index as usize % 3;
     for (permutation, ids) in PERMUTATIONS.iter().enumerate() {
         // Public ordinal only: the deal seed never enters search context.
@@ -84,6 +86,49 @@ fn block(
             let (action, ledger) = match &mut players[id] {
                 Player::Focal(p) => {
                     let (a, mut l, seconds) = p.choose(&o, tables)?;
+                    if let Some(lineup) = expectation_lineup {
+                        if l["mode"] == "root" {
+                            let tick = Instant::now();
+                            let view = p.evaluation_view()?;
+                            view.validate_root(&o)?;
+                            let root_row = view.row(&o, tables, true)?;
+                            if json!(root_row
+                                .actions
+                                .iter()
+                                .map(|a| json!([a.kind.name(), a.raise_to]))
+                                .collect::<Vec<_>>())
+                                != l["actions"]
+                                || json!(root_row.probabilities) != l["probabilities"]
+                            {
+                                return Err(
+                                    "evaluation view differs from actual played root row".into()
+                                );
+                            }
+                            if view.binding()["profile_sha256"] != l["search"]["profile_sha256"]
+                                || view.binding()["installed"] != l["search"]["installed"]
+                                || view.binding()["fallback_reason"]
+                                    != l["search"]["fallback_reason"]
+                            {
+                                return Err("live capture/played binding differs".into());
+                            }
+                            let mut value = hu20_trainer::arena_expectation::root(
+                                &hand,
+                                ids,
+                                opponents,
+                                &view,
+                                &models[1].table,
+                                tables,
+                                index * 6 + permutation as u64,
+                            )?;
+                            value["id"] = json!(format!(
+                                "{lineup}/{:04}/{:04}",
+                                index * 6 + permutation as u64,
+                                actions.len()
+                            ));
+                            value["total_seconds"] = json!(tick.elapsed().as_secs_f64());
+                            writeln!(&mut expectations, "{value}").map_err(|e| e.to_string())?;
+                        }
+                    }
                     let detail = l
                         .as_object_mut()
                         .unwrap()
@@ -139,7 +184,7 @@ fn block(
             "settlement":{"contributions":settled.contributions[..3],"refunds":settled.refunds[..3],
             "pots":settled.pots().iter().map(|p|json!([p.amount,p.eligible])).collect::<Vec<_>>()}})).map_err(|e|e.to_string())?;
     }
-    Ok((trace, metrics))
+    Ok((trace, metrics, expectations))
 }
 fn output(path: &str) -> Result<std::io::BufWriter<std::fs::File>, String> {
     Ok(std::io::BufWriter::new(
@@ -198,6 +243,24 @@ fn run() -> Result<(), String> {
         }
         let root = c["root"].as_u64().ok_or("root")?;
         let enabled = c["search"].as_bool().ok_or("explicit search switch")?;
+        let expectation_path = match c.get("expectations") {
+            None => None,
+            Some(v) => Some(v.as_str().ok_or("expectation output path")?),
+        };
+        if expectation_path.is_some() && !enabled {
+            return Err("expectations require the original search-on prefix".into());
+        }
+        let expectation_lineup = if expectation_path.is_some() {
+            Some(
+                c["name"]
+                    .as_str()
+                    .ok_or("case name")?
+                    .strip_suffix("-on")
+                    .ok_or("search-on case name")?,
+            )
+        } else {
+            None
+        };
         let opponents: Vec<_> = c["opponents"]
             .as_array()
             .ok_or("opponents")?
@@ -221,6 +284,7 @@ fn run() -> Result<(), String> {
         let trace_path = c["trace"].as_str().ok_or("trace output")?;
         let mut trace = output(trace_path)?;
         let mut metrics = output(c["metrics"].as_str().ok_or("metrics output")?)?;
+        let mut expectations = expectation_path.map(output).transpose()?;
         let header = json!({"format":"nplayer-privileged-policy-replay-v1","harness":"nplayer-duplicate-v1",
             "identity":models[0].table.identity,"blocks":blocks,"hands":blocks*6,"seed":root,"policies":pins,"distinct_policy_instances":3,
             "search_enabled":enabled,"search_menu":hu20_trainer::river::live::whole_hand::MENU,"loaded_weight_tables":2,
@@ -231,12 +295,25 @@ fn run() -> Result<(), String> {
             let end = (start + threads as u64).min(blocks);
             let out: Vec<_> = (start..end)
                 .into_par_iter()
-                .map(|i| block(i, root, tables, &models, &opponents, enabled))
+                .map(|i| {
+                    block(
+                        i,
+                        root,
+                        tables,
+                        &models,
+                        &opponents,
+                        enabled,
+                        expectation_lineup,
+                    )
+                })
                 .collect();
             for r in out {
-                let (t, m) = r?;
+                let (t, m, e) = r?;
                 trace.write_all(&t).map_err(|e| e.to_string())?;
                 metrics.write_all(&m).map_err(|e| e.to_string())?;
+                if let Some(file) = &mut expectations {
+                    file.write_all(&e).map_err(|e| e.to_string())?;
+                }
             }
             println!(
                 "{}",
@@ -246,6 +323,9 @@ fn run() -> Result<(), String> {
         }
         trace.flush().map_err(|e| e.to_string())?;
         metrics.flush().map_err(|e| e.to_string())?;
+        if let Some(file) = &mut expectations {
+            file.flush().map_err(|e| e.to_string())?;
+        }
         let summary = json!({"status":"complete","name":c["name"],"blocks":blocks,"hands":blocks*6,
             "play_and_write_seconds":tick.elapsed().as_secs_f64(),"trace_sha256":sha256_file(Path::new(trace_path))});
         let mut s = output(c["summary"].as_str().ok_or("summary output")?)?;
