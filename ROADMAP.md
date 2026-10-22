@@ -267,3 +267,19 @@ One short entry per active line of work; details live in the linked reports. Sto
 - **HU200 frozen three-seed blend ([#297](https://github.com/dberweger2017/CFR-NLHE-6max/pull/297)), capacity stop, owner-authorized merge:** all three raw 20B checkpoints verify and reproduce their released averages exactly. The unchanged sequence-form rule yields 156,208,331 union keys; the first disk gate requires 74.47 GB free versus 63.33 GB available, an 11.14 GB shortfall. No full blend, cache or evaluation ran; the normalized-export stop remains preserved. Evidence archives, resource traces, failures and cleanup receipts are accepted and indexed. M4 released October 16 at 01:19 Madrid. No strength, release or default change; continuation needs a new owner decision. [Report](docs/reports/hu200-v055-blend.md).
 
 *Updated October 18, 2026.* Earlier entries, including storage receipts, are in [roadmap history](docs/roadmap-history.md#superseded-current-position-through-october-16-2026).
+
+## Four-player100BB M4 feasibility complete — future v0.7 allocation evidence
+
+[PR406](https://github.com/dberweger2017/CFR-NLHE-6max/pull/406),
+[results](docs/reports/nplayer-four-player-feasibility/results.md),
+[protocol](docs/nplayer-four-player-feasibility.md), proposal405: fixed25M/50M
+pilot passes all correctness/audit/replay/reproduction gates on M4. Main takes
+2m51s and3.21GiBsampled peak; thermal state nominal, no swapgrowth.25.01Mnodes
+retain13.69Mkeys;50.02Mretain20.008M, freezing atiteration1933 (telemetry37.03–38.99M).
+Capcensored growth is not saturation; active7.07/6.58Mnodes/s windows are only3–4s,
+not mature-table forecasts or a matched3-versus4player effect. No strength claim,
+long continuation, release/default change or auto-follow-up. Use this to prepare
+one separately priced four-playerbb128 campaign after PR404, preserving early
+coverage/capacity uncertainty. Main128initial+128repeat hands and all33.70Mexport
+rows verified;121nativetests/128enginefixtures/byte thread-resume parity pass.
+BothM4researchlocks released; ownedrawfiles retained, archival owner-managed pending.
