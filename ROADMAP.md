@@ -113,7 +113,8 @@ qualification, not a strength or release decision.
    288 initial plus288 reproduced hands match original play. Complete small
    calibration7m50s, including7m42s model loading; no extra solves or profile
    reconstruction. The fixed all384-root measurement quote is11m03s centrally,
-   35m11s planning reserve, awaiting explicit acceptance. Then choose a separately
+   35m11s planning reserve; [accepted full measurement](docs/reports/river-arena-expectation/measurement-admission.md)
+   launched October22 at02:52:51UTC, with no result yet. Then choose a separately
    priced fresh fixed strength study or defer search expansion; do not add another
    engineering round automatically.
 2. **Off-tree continuation: a small correctness-first prototype.** Preserve the

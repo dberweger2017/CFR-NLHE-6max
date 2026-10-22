@@ -1,4 +1,14 @@
-## PR393 — inline arena expectations: small calibration passes, full cost measurement awaiting budget
+## Full inline arena measurement — accepted and running, no results yet
+
+Owner accepted the unchanged all384-root allocation following merged PR393.
+[Admission/source/config/binary/quote pins](docs/reports/river-arena-expectation/measurement-admission.md).
+Fresh `bb128:/home/dberweger/river-arena-expectation-20261022/measurement-v1`,
+supervisor821371, launched2026-10-22 at02:52:51UTC. Fixed9,216 initial hands plus
+reproduction, original deals only,4workers, same frozen dc58d519 source.
+Quote11m03s central/35m11s planning reserve; no time cutoff or fresh strength.
+Results and archive acceptance pending; all originals/inputs retained.
+
+## PR393 — inline arena expectations: small calibration passes, subsequent full measurement admitted above
 
 [PR393](https://github.com/dberweger2017/CFR-NLHE-6max/pull/393), proposal392;
 [report](docs/reports/river-arena-expectation/calibration.md).
