@@ -8,8 +8,9 @@ Owner prioritizes200BB blueprint after PR398 and defers v0.6.5 search adoption.
 play/save-resume/export, then one fixed100M/200M/500M-node cost-only lineage,
 current unpruned fast16/K50/all-street-average/250Mfreeze recipe. Report growth,
 coverage, training/I/O/audit costs and a proposed later fixed training allocation.
-Proposed30–45min central/90min reserve quote awaits acceptance; no pilot or full
-training launched. Three independent200BB lineages still require unchanged
+Owner accepted30–45min central/90min reserve on October22; source735e3d3b
+is in isolated bb128 build/qualification preparation, followed automatically by
+the fixed pilot. No full training allocation. Three independent200BB lineages still require unchanged
 scripted-profit/own-checkpoint/cyclic gates before release. No search/default change.
 
 ## Final frozen river assessment: defer candidate

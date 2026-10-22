@@ -101,11 +101,12 @@ A generous manual disk allowance is50GB; actual bytes/RAM may differ. There is n
 50GB floor or RSS kill guard. Inspect current disk/RAM/swap before allocation;
 128GiB installed RAM is not all available to this worker.
 
-The owner authorized this bounded direction and implementation, but has not yet
-accepted this concrete90minute quote. `prepare` never starts science. `run`
+The owner accepted this concrete90minute pilot allocation in this thread with
+“yes” on October22, after the implementation and quote were published. `prepare` never starts science. `run`
 requires the operator to pass `--accepted-planning-seconds 5400` **only after the
 owner accepts this quote**; a CLI flag alone is not evidence of owner permission.
-No compute launched as part of this PR's preparation. Existing earlier-campaign
+Execution is frozen to735e3d3b; later commits record evidence only. Owner approval
+and exact source/bundle pins are recorded before launch in the owned root. Existing earlier-campaign
 permission cannot be reused to launch a full200BB campaign.
 
 ## Execution and preservation
@@ -164,7 +165,8 @@ until a concrete evidence-supported improvement hypothesis warrants new work.
 
 Local source checks pass: six focused Python tests;121 optimized native library
 tests; the new200BB scripted-arena example test. The existing real-K50 resource
-example remains explicitly ignored without its on-host tables. No real-K50
-save/resume/export qualification, bb128 pilot, throughput/memory/coverage result
-or v0.6.1 acceptance result is claimed yet. The unchanged engine and recipe stay
+example remains explicitly ignored without its on-host tables. Owner-approved bb128 preparation has started under the existing durable
+supervisor; real-K50 save/resume/export qualification and the fixed pilot follow
+automatically after build/tests. No completed pilot or v0.6.1 acceptance result
+is claimed at this update. The unchanged engine and recipe stay
 subject to the prospective host qualification above.

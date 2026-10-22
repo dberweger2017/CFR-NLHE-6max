@@ -1,0 +1,71 @@
+{
+  "status": "preparation-running",
+  "owner_authorization": {
+    "pr": 400,
+    "proposal": 399,
+    "approved": true,
+    "approval_text": "yes",
+    "approval_context": "Owner accepted the concrete30\u201345min central/90min planning-reserve bb128 pilot quote in this thread.",
+    "accepted_planning_seconds": 5400,
+    "source": "735e3d3b5f32de5913f50686cb3a861c18734037",
+    "bundle_sha256": "40b8343cbd3225f48434cbd8f8685489c0a2a2558d537a695e01f122da488536",
+    "bundle_bytes": 354568,
+    "targets": [
+      100000000,
+      200000000,
+      500000000
+    ],
+    "seed": 2026102240001,
+    "no_full_training_or_extra_samples": true,
+    "recorded_epoch": 1792688091.761201
+  },
+  "root": "/home/dberweger/nplayer-bb200-feasibility-20261022",
+  "supervisor": {
+    "pid": 838575,
+    "command": [
+      "/usr/bin/python3",
+      "/home/dberweger/nplayer-bb200-feasibility-20261022/bootstrap.py"
+    ],
+    "utc": "2026-10-22T16:56:09Z",
+    "source": "735e3d3b5f32de5913f50686cb3a861c18734037",
+    "bootstrap_sha256": "455b58772bb81bf656dd207d6692113a63b14302ba13149fb639fc635e9387e9"
+  },
+  "snapshot_utc": "2026-10-22T16:57:06Z",
+  "preparation": {
+    "status": "running",
+    "phase": "build-tests",
+    "completed_stages": 4,
+    "source": "735e3d3b5f32de5913f50686cb3a861c18734037"
+  },
+  "build": {
+    "status": "running",
+    "phase": "native-tests",
+    "completed_stages": 1
+  },
+  "last_resource_sample": {
+    "phase": "native-tests",
+    "utc": "2026-10-22T16:57:04Z",
+    "cpu_c": 62.0,
+    "thermistor15_c": 47.5,
+    "worker_family_rss_bytes": 651218944,
+    "live_family_cpu_seconds": 52.190000000000005,
+    "available_ram_bytes": 131015548928,
+    "swap_used_bytes": 380280832,
+    "nvme_free_bytes": 236099149824,
+    "hdd_free_bytes": 422150062080
+  },
+  "failures": {
+    "preparation": null,
+    "build": null,
+    "pilot": null
+  },
+  "read_only_dependencies": [
+    "/home/dberweger/river-three-lineage-assessment-20261022/source",
+    "/home/dberweger/river-three-lineage-assessment-20261022/venv",
+    "/home/dberweger/cygnus-qualification-20261014/tables"
+  ],
+  "nonfatal_git_warning": "Borrowed historical Git object stores report alternate nesting too deep; bundle/source verification, checkout and source-bound build succeed. No other stores modified.",
+  "no_completed_pilot_or_strength_result": true,
+  "archive_status": "pending-originals-retained",
+  "no_full_training_authority": true
+}
