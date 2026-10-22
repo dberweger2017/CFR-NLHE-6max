@@ -238,7 +238,7 @@ fn run() -> Result<(), String> {
     startup_file.flush().map_err(|e| e.to_string())?;
     for c in m["cases"].as_array().ok_or("cases")? {
         let blocks = c["blocks"].as_u64().ok_or("blocks")?;
-        if !(1..=1024).contains(&blocks) {
+        if !(1..=4096).contains(&blocks) {
             return Err("block bound".into());
         }
         let root = c["root"].as_u64().ok_or("root")?;
