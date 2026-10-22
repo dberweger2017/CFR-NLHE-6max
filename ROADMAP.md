@@ -99,6 +99,8 @@ One short entry per active line of work; details live in the linked reports. Sto
 
 - **Open PRs:** [#301](https://github.com/dberweger2017/CFR-NLHE-6max/pull/301) tests whether a larger HU200 table gives a stronger 20B player.
 
+- **HU200 river search ([#317](https://github.com/dberweger2017/CFR-NLHE-6max/pull/317)) complete for owner review:** all145,408 blocks /319,488 primary hands pass replay, reproduction and verified transfer. Direct gain over the frozen blend is +32.05 [27.32,36.78] BB/100; scripted uncertainty and selected range-model counterexamples remain limitations. Predeclared diagnostics and independent validation complete; M4 science released October22 at10:01:58Madrid. The owner explicitly takes cloud closeout and approves finishing this PR without that step. [Report](docs/reports/hu200-river-search.md), [owner handoff](docs/artifacts/pr317-owner-handoff-20261022.md). No default, release or Slumbot change; owner decides merge.
+
 - **v0.5.5 acceptance, version 2 (October 16):** the owner approved [a new protocol](docs/hu200-v055-acceptance-protocol-v2.md) for the three-seed blend (#306) before any of its Slumbot hands: 30,000 fresh hands across three accounts, pooled lower bound above −50 to qualify, "beats Slumbot" only above 0. Pass chances are stated in advance; the first protocol's failure stands. Exploratory blend hands are allowed after this merge and never count.
 
 - **v0.5.3 published and verified:** [stable Latest](https://github.com/dberweger2017/CFR-NLHE-6max/releases/tag/v0.5.3) since October 16, tag at #302's merge `74f1be71`; the twelve assets (three model parts, three K50 tables) verify byte for byte from the draft and from the public URLs ([publication record](docs/releases/v0.5.3/PUBLICATION.md)).

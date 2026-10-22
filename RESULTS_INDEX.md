@@ -1,15 +1,22 @@
-## PR317 — HU200 river search, primary complete; final closeout pending
+## PR317 — HU200 river search complete; cloud closeout owner-managed
 
 **October22:** the fixed primary run completed October21 at09:14:52Madrid.
 All145,408blocks/319,488hands passed the global barrier; direct gain is
 +32.05[27.32,36.78]BB/100. The predeclared20 losing contexts and five direct
 conditioning audits complete on guarded M4 with unchanged pinned requests;
 independent validation passes. M4 science was released October22 at10:01:58Madrid;
-final BB/ZIP/Drive acceptance remains pending.
+final BB/ZIP/Drive work is handed to the owner under the explicit October22
+instruction approving completion of the PR without its cloud step.
 [Final primary summary](docs/reports/hu200-river-search-artifacts/final-primary-summary.json),
 [barrier](docs/reports/hu200-river-search-artifacts/final-all-hands-verified.json),
 [interpretation and timing limitation](docs/reports/hu200-river-search.md).
-No final-review or cleanup claim; all open-PR inputs remain protected.
+[Owner handoff, exact storage paths and outstanding acceptance criteria](docs/artifacts/pr317-owner-handoff-20261022.md).
+Scientific review is ready under that scope change; final Drive acceptance is
+not claimed. All open-PR inputs and remaining originals stay protected; cleanup
+authorization and verification requirements are unchanged.
+
+The chronological records below retain the earlier incomplete states; the
+completed scientific report and owner handoff above supersede their forecasts.
 
 **October18 recorded-state recovery:** the16GiB disk guard stopped the original
 attempt at05:09:16Madrid after26,842 retired blocks. The interrupted hand was
@@ -35,7 +42,8 @@ and consistent SQLite backup, passes every-file size/SHA256 verification under
 `1e2751455ec17b4516dfc7fb08a5c80f5419bad97e979a05d6a2dc1d3f475f1b`.
 These new files are **IN_PROGRESS**, with final ZIP/Drive coverage pending.
 No active input, live SQLite copy, other PR or synced folder was removed.
-End-of-PR cleanup remains unchanged; final research and diagnostics are pending.
+End-of-PR cleanup remains unchanged. Research and diagnostics subsequently
+completed as recorded above; cloud work is owner-managed.
 
 Latest: evidence-retention source `5b6b2f6c` passes the same24 parity and amended
 10 s gate at p95 **9.834 s**, with two/three-worker parity/memory measurements.

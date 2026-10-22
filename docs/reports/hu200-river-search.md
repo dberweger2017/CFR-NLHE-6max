@@ -1,7 +1,7 @@
 # HU200 river search: direct gain; scripted range-model limitations
 
 [PR #317](https://github.com/dberweger2017/CFR-NLHE-6max/pull/317), October 22, 2026.
-**Scientific work complete; final evidence closeout in progress.**
+**Scientific work complete; review handoff approved, cloud closeout owner-managed.**
 The fixed primary run completed October 21 at **09:14:52 Madrid**, before the
 original October 22 at21:52:03 safety deadline. All **145,408 blocks /319,488
 primary hands** passed independent replay, fresh-player reproduction and every-file
@@ -134,8 +134,16 @@ three diagnostic/validation guards completed without breaches. Peak diagnostic
 family RSS is2,480,586,752bytes. Original lock files and source remain intact;
 source/control/diagnostic preservation is storage work only. The
 [release receipt](hu200-river-search-artifacts/final-m4-science-release.json)
-keeps the original deadline. Final uncompressed bb128 and ZIP/Drive acceptance
-remain in progress. **The PR remains draft until evidence closeout is accepted.**
+keeps the original deadline. On October22 the owner explicitly authorized
+finishing this PR without the cloud step: “I will handle cloud, fyou can finish
+the pr without that step, owner approved”. Final evidence preservation and
+ZIP/Drive acceptance are handed to the owner, with their current status and
+exact paths in the [owner handoff](../artifacts/pr317-owner-handoff-20261022.md).
+The administration copy already passes every-file size/SHA256 verification;
+diagnostic-copy verification and block ZIP construction remain in progress at
+handoff. No final Drive acceptance or cleanup is claimed. **The scientific PR is
+ready for owner review under that explicit scope change.** The monitor ends at
+this handoff; merge remains the owner's decision.
 
 ## Historical forecasts, failures and recovery
 
