@@ -1,0 +1,112 @@
+{
+  "status": "proposal-only-not-authorized",
+  "lineups": [
+    {
+      "lineup": "trained",
+      "family": "primary3",
+      "blocks_per_lineage": 10112,
+      "normal_model_sd_upper_bb100": 115.61518581296693,
+      "lower_bound_must_exceed_bb100": 0,
+      "one_sided_alpha": 0.016666666666666666,
+      "conditional_power_by_true_effect_bb100": {
+        "0": 0.01666666666666672,
+        "2": 0.3488199423146612,
+        "5": 0.9868176432436452
+      },
+      "play_seconds_per_block_per_pass": 0.228801002671875
+    },
+    {
+      "lineup": "trained-pressure",
+      "family": "safeguards12",
+      "blocks_per_lineage": 2432,
+      "normal_model_sd_upper_bb100": 50.15256728581238,
+      "lower_bound_must_exceed_bb100": -5,
+      "one_sided_alpha": 0.004166666666666667,
+      "conditional_power_by_true_effect_bb100": {
+        "-10": 2.098321516541546e-14,
+        "-5": 0.004166666666666652,
+        "0": 0.9886448085701053
+      },
+      "play_seconds_per_block_per_pass": 0.17584325721875002
+    },
+    {
+      "lineup": "pressure",
+      "family": "safeguards12",
+      "blocks_per_lineage": 768,
+      "normal_model_sd_upper_bb100": 28.286427880534685,
+      "lower_bound_must_exceed_bb100": -5,
+      "one_sided_alpha": 0.004166666666666667,
+      "conditional_power_by_true_effect_bb100": {
+        "-10": 2.4091839634365897e-14,
+        "-5": 0.004166666666666652,
+        "0": 0.9881001911770544
+      },
+      "play_seconds_per_block_per_pass": 0.099889184046875
+    },
+    {
+      "lineup": "call",
+      "blocks_per_lineage": 256,
+      "family": "no-intervention control",
+      "play_seconds_per_block_per_pass": 0.0004879815625
+    },
+    {
+      "lineup": "call-pressure",
+      "family": "safeguards12",
+      "blocks_per_lineage": 32896,
+      "normal_model_sd_upper_bb100": 186.680531948498,
+      "lower_bound_must_exceed_bb100": -5,
+      "one_sided_alpha": 0.004166666666666667,
+      "conditional_power_by_true_effect_bb100": {
+        "-10": 3.2862601528904634e-14,
+        "-5": 0.004166666666666652,
+        "0": 0.9867761865583435
+      },
+      "play_seconds_per_block_per_pass": 0.36895807633593747
+    },
+    {
+      "lineup": "random-tag",
+      "family": "safeguards12",
+      "blocks_per_lineage": 1280,
+      "normal_model_sd_upper_bb100": 35.82617218298814,
+      "lower_bound_must_exceed_bb100": -5,
+      "one_sided_alpha": 0.004166666666666667,
+      "conditional_power_by_true_effect_bb100": {
+        "-10": 1.1601830607332886e-14,
+        "-5": 0.004166666666666652,
+        "0": 0.9907359638527484
+      },
+      "play_seconds_per_block_per_pass": 0.11069941259375
+    }
+  ],
+  "lineages": [
+    2026101935003,
+    202610200601,
+    202610200602
+  ],
+  "primary_opponents": "Cyclic next frozen10B lineage duplicated in the two opponent seats; two resident policies, sequential focal lineages.",
+  "families": {
+    "primary": 3,
+    "script_and_mixed_noninferiority": 12,
+    "check_call_controls": 3
+  },
+  "primary_design_true_gain_bb100": 5,
+  "safeguard_design_true_gain_bb100": 0,
+  "proposed_safeguard_margin_bb100": -5,
+  "nominal_power_per_test": 0.9866666666666667,
+  "nominal_joint_power_union_bound": 0.8,
+  "normal_model_sd_multiplier": 1.140139376526409,
+  "total_initial_plus_reproduction_hand_instances": 3437568,
+  "central_seconds": 94189.72618243047,
+  "reserved_seconds": 277161.85127167497,
+  "proposed_planning_budget_seconds": 288000,
+  "cost_components": {
+    "play_both_passes_all_lineages_seconds": 90582.39890681399,
+    "six_process_startup_seconds": 1397.42433057,
+    "scaled_verification_seconds": 409.90294504648773,
+    "qualification_readout_archive_allowance_seconds": 1800
+  },
+  "cost_limits": "All three lineages assumed to share measured per-lineup cost/variance. Other two focal lineages unmeasured; no guaranteed bound.3x play/2x loads+verification reserve; 30min fixed qualification/readout/archive allowance. Cold inputs already present; no model conversion/download included.",
+  "statistic": "Mean focal singleton on-minus-off contrast, future river action expectation at every eligible root, six-permutation block as independent unit; reproduction adds no samples.",
+  "no_automatic_launch": true,
+  "decision_caveat": "80% joint power is only a normal-model design scenario at +5 primary and zero safeguard effects, not the empirical pass chance. Existing check-call/pressure mean is adverse(-14.81); if repeated, the proposed-5 safeguard should fail. Heavy tails and other focal seeds can invalidate forecast."
+}
