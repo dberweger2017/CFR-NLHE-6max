@@ -15,6 +15,7 @@ pub mod multi_holdem;
 pub mod multi_policy;
 pub mod multi_binary;
 pub mod multi_arena;
+pub mod policy_expectation;
 #[cfg(test)]
 mod multi_tests;
 pub mod key;

@@ -1,3 +1,35 @@
+## PR390 — river action-expectation fixtures and cost calibration pass
+
+[PR390](https://github.com/dberweger2017/CFR-NLHE-6max/pull/390), proposal389.
+Runtime `9998501a4a6794d7c682d39e4edb436b69e04d29`; source bundle SHA256
+`1beceaf020a3a997191f426fd12ad3d0eed60a0d5631d6bd9f6b9fbc13422142`.
+All116 native library tests, one native script-law test and seven focused Python
+tests pass. Qualification60.58s; calibration250.17s wall/249.01childCPU-s.
+All13 predeclared calibration root/profile identities match: ten installed
+profiles enumerate20 continuations,9,652 states in0.01155s; three original quality
+fallbacks cancel identical policies symbolically. Model/K50 startup234.20s,
+profile reconstruction14.07s, sampled peak27.67GiB, CPU58/Thermistor15 56.5°C,
+zero swap growth. No failure, extra convergence, policy/default change or new deal.
+
+The frozen full inventory is384 roots,381 installations,3 quality fallbacks,
+including unchanged sampled actions and all original six-permutation blocks.
+The published all384 plus reproduction quote is21.67min centrally,3h42m59s
+conservative reserve, **not admitted or started**. All-root verification/readout
+code is prepared, with11 focused local tests passing; original runtime unchanged.
+No variance-reduction, compute-efficiency or strength verdict yet.
+
+[Report](docs/reports/river-conditional-evaluation/results.md) ·
+[inventory/quote/work metadata](docs/reports/river-conditional-evaluation/calibration.json) ·
+[root work table](docs/reports/river-conditional-evaluation/calibration.csv) ·
+[costs/resources](docs/reports/river-conditional-evaluation/costs.json) ·
+[provenance](docs/reports/river-conditional-evaluation/provenance.json) ·
+[protocol](docs/river-conditional-evaluation.md).
+
+Originals remain `bb128:/home/dberweger/river-conditional-evaluation-20261022/`,
+including privileged inventory/values, source/build and raw logs/receipts.
+PR388 traces, PR367/361 models, K50 and Git/environment dependencies are read-only
+and retained. Archive/Drive acceptance pending; no deletion or external input copy.
+
 ## PR388 — whole-hand river integration qualifies; strength remains inconclusive
 
 [PR388](https://github.com/dberweger2017/CFR-NLHE-6max/pull/388), proposal387.

@@ -301,6 +301,17 @@ pub struct SessionStore {
     active: Option<Active>,
 }
 impl SessionStore {
+    /// Offline counterfactual branch: immutable profile bytes are shared, while
+    /// history progress and the sticky fallback latch belong to this copy.
+    /// No solver work or action RNG is advanced by copying a validated session.
+    pub fn evaluation_fork(&self) -> Self {
+        Self {
+            model: self.model.clone(),
+            nonce: self.nonce.clone(),
+            generation: self.generation,
+            active: self.active.clone(),
+        }
+    }
     pub fn new(model: &str) -> Result<Self, String> {
         if model.len() != 64 || !model.bytes().all(|x| x.is_ascii_hexdigit()) {
             return Err("invalid verified model digest".into());

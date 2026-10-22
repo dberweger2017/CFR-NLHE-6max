@@ -1,0 +1,60 @@
+{
+  "root": "/home/dberweger/river-conditional-evaluation-20261022",
+  "runtime_source": "9998501a4a6794d7c682d39e4edb436b69e04d29",
+  "setup": {
+    "status": "setup-complete",
+    "source": "9998501a4a6794d7c682d39e4edb436b69e04d29",
+    "bundle_sha256": "1beceaf020a3a997191f426fd12ad3d0eed60a0d5631d6bd9f6b9fbc13422142",
+    "source_dependencies": 8,
+    "environment": "Read-only reuse of PR388 own CPython3.11 environment; no install or changes",
+    "new_output_only": true,
+    "utc": "2026-10-21T23:19:22Z"
+  },
+  "launches": {
+    "qualification-v1": {
+      "pid": 816126,
+      "source": "9998501a4a6794d7c682d39e4edb436b69e04d29",
+      "config_sha256": "f9a415c9e1de31e49a92101696eb08bf96a62f30d65b1f46f462d2ca534792a3",
+      "mode": "qualify",
+      "utc": "2026-10-21T23:20:42Z",
+      "cpu_stop_c": 90,
+      "thermistor15_stop_c": 100,
+      "no_other_resource_stops": true,
+      "new_deals": false,
+      "training": false,
+      "main_inventory_started": false
+    },
+    "calibration-v1": {
+      "pid": 817991,
+      "source": "9998501a4a6794d7c682d39e4edb436b69e04d29",
+      "config_sha256": "f9a415c9e1de31e49a92101696eb08bf96a62f30d65b1f46f462d2ca534792a3",
+      "mode": "calibrate",
+      "utc": "2026-10-21T23:21:44Z",
+      "cpu_stop_c": 90,
+      "thermistor15_stop_c": 100,
+      "no_other_resource_stops": true,
+      "new_deals": false,
+      "training": false,
+      "main_inventory_started": false
+    }
+  },
+  "binary_sha256": "5351380efd82e52f381d5c2197c349e29ffac9be9bee969b2cb82aa0eb5ef282",
+  "inventory_sha256": "e003c039d8a32eca48d1dd7bcc32bb82734401371490c82bd358c728899855d4",
+  "quote_sha256": "86f9226fd8e194e029a9a175f732e17fc295a66b234a5b7f7cbf1adf1fef9c98",
+  "retrieved_utc": "2026-10-21T23:26:24Z",
+  "tests": {
+    "native_lib": 116,
+    "native_script_law": 1,
+    "focused_python": 7,
+    "passed": true
+  },
+  "raw_root_values": "Retained only on bb128; no values used or retrieved for calibration selection/readout.",
+  "archive_status": "pending; originals and source/environment/Git/model dependencies retained; no deletion",
+  "protected_inputs": {
+    "pilot_root": "/home/dberweger/river-whole-hand-pilot-20261021-v2/main-v1",
+    "focal_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+    "peer_sha256": "23599816cf632a51cace45f25d70ed4918fe5e75875c33136d8629052a8a2a70",
+    "k50": "/home/dberweger/cygnus-qualification-20261014/tables"
+  },
+  "failures": []
+}
