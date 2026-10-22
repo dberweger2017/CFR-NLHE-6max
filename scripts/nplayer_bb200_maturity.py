@@ -90,15 +90,77 @@ def validate_config(config):
 def continuation_metrics(row,parent):
     added=row['counts']['nodes']-parent['counts']['nodes']
     active=row['active_training_seconds']
+    frozen=row['frozen_at']
+    # Native apply() merges one whole iteration before testing the threshold.
+    # Its checkpoint loader requires frozen entries >= cap, not exactly cap.
+    invalid_membership=(row['entries']<parent['entries']
+        or frozen is None and (row['entries']>=pilot.CAP or row['counts']['discarded_keys'] or row['counts']['discarded_visits'])
+        or frozen is not None and (row['entries']<pilot.CAP or not parent['iteration']<frozen<=row['iteration']))
     if (added<=0 or active<=0 or not math.isfinite(active) or row['counts']['nodes']<TARGET
-            or not parent['entries']<=row['entries']<=pilot.CAP
-            or row['frozen_at'] is not None and row['entries']!=pilot.CAP):
+            or invalid_membership):
         raise ValueError('incomplete continuation or invalid capacity/timing')
     return {'added_nodes':added,'added_entries':row['entries']-parent['entries'],
         'active_training_seconds':active,'active_nodes_per_second':added/active,
         'marginal_retained_keys_per_node':(row['entries']-parent['entries'])/added,
         'frozen_at':row['frozen_at'],'retained_capacity_fraction':row['entries']/pilot.CAP,
+        'iteration_boundary_entry_overshoot':max(0,row['entries']-pilot.CAP),
         'growth_after_freeze_is_censored':row['frozen_at'] is not None}
+
+
+def finish_saved_endpoint(root, original, accepted_seconds):
+    """One-use unstarted post-processing only; never invokes training."""
+    if root.exists():raise ValueError('completion output already exists; no retry')
+    if (original/'completion-claim.json').exists():raise ValueError('post-processing already claimed; no retry')
+    if accepted_seconds!=5400:raise ValueError('same owner-approved allocation required')
+    config=pilot.read(original/'config.json');validate_config(config)
+    if (pilot.sha(original/'config.json')!='4c5b60e14c87dae33689b9ff7364ca183609c4dcd9382ce5bda5f221a6059b65'
+            or pilot.read(original/'failure.json')['error']!="ValueError('incomplete continuation or invalid capacity/timing')"):
+        raise ValueError('only the recorded controller cap-check failure is eligible')
+    costs=pilot.read(original/'stage-costs.json')
+    if len(costs)!=1 or costs[0]['phase']!='continuation-1b' or costs[0]['returncode']!=0:
+        raise ValueError('one successfully completed training stage required')
+    if any((original/'measurements'/name).exists() for name in ('final-1b-export','final-1b-audit','final-1b-initial','final-1b-repeat')):
+        raise ValueError('post-processing already attempted')
+    locks=[]
+    try:
+        for name in ('/tmp/cfr-cygnus-exclusive.lock','/tmp/cfr-nplayer-bb200-maturity.lock'):
+            lock=open(name,'a+');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB);locks.append(lock)
+        if subprocess.check_output(['git','status','--porcelain'],cwd=SOURCE,text=True).strip():
+            raise ValueError('committed completion source required')
+        old,parent=check_prior(Path(config['prior_root']))
+        if old['binary_sha256s']!=config['binary_sha256s'] or parent!=config['parent']:
+            raise ValueError('original native inputs or parent differ')
+        row=pilot.read(original/'continuation-1b-summary.json')
+        if row['sha256']!='55d89c553ba1756eac1af117847b30e8b18e4f901afba942ee5a906bc00249ad':
+            raise ValueError('not the saved successful1B endpoint')
+        pilot.validate_checkpoint(row,Path(row['checkpoint']),TARGET,pilot.SEED,pilot.CAP)
+        metrics=continuation_metrics(row,parent)
+        source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=SOURCE,text=True).strip()
+        with (original/'completion-claim.json').open('x') as claim:
+            import json
+            json.dump({'root':str(root),'source':source,'epoch':time.time(),'training_repeated':False},claim)
+        root.mkdir(parents=True,exist_ok=False)
+        pilot.write(root/'launch.json',{'epoch':time.time(),'pid':os.getpid(),'source':source,
+            'original_source':config['source'],'original_root':str(original),'original_failure_preserved':True,
+            'saved_checkpoint_sha256':row['sha256'],'accepted_planning_seconds':5400,
+            'training_repeated':False,'source_files':pilot.source_pins()})
+        env={**os.environ,'PYTHONPATH':str(SOURCE),'RAYON_NUM_THREADS':'16','OMP_NUM_THREADS':'1',
+            'OPENBLAS_NUM_THREADS':'1','MKL_NUM_THREADS':'1','NPLAYER_STOP_FILE':str(root/'STOP')}
+        supervisor=pilot.Supervisor(root,env)
+        policy,digest,audit=pilot.export_model(root,config,supervisor.stage,'final-1b',row)
+        coverage=pilot.measure_coverage(root,config,supervisor.stage,'final-1b',policy,digest,128,ROOTS[0])
+        pilot.write(root/'results.json',{'status':'complete-cost-only','parent':parent,'endpoint':row,
+            'interval':metrics,'audit':audit,'coverage':coverage,'initial_hands':3072,'reproduction_hands':3072,
+            'original_root':str(original),'original_controller_failure_preserved':True,'training_repeated':False,
+            'stopped_at_fixed_endpoint':True,'no_strength_readout':True,'no_followup_started':True,
+            'full_training_admitted':False,'no_further_cost_pilot_authorized':True})
+        pilot.write(root/'status.json',{'status':'complete-cost-only','epoch':time.time(),'source':source,
+            'stages':len(supervisor.costs),'original_controller_failure_preserved':True,'training_repeated':False})
+    except BaseException as error:
+        if root.exists():pilot.write(root/'failure.json',{'error':repr(error),'epoch':time.time(),'no_automatic_retry':True})
+        raise
+    finally:
+        for lock in locks:lock.close()
 
 
 def run(root, accepted_seconds):
@@ -151,9 +213,12 @@ def main():
     a=sub.add_parser('prepare');a.add_argument('--root',type=Path,required=True);a.add_argument('--prior',type=Path,required=True)
     a=sub.add_parser('run');a.add_argument('--root',type=Path,required=True)
     a.add_argument('--accepted-planning-seconds',type=int,required=True)
+    a=sub.add_parser('finish-saved-endpoint');a.add_argument('--root',type=Path,required=True)
+    a.add_argument('--original',type=Path,required=True);a.add_argument('--accepted-planning-seconds',type=int,required=True)
     args=p.parse_args()
     if args.command=='prepare':prepare(args.root.absolute(),args.prior.absolute())
-    else:run(args.root.absolute(),args.accepted_planning_seconds)
+    elif args.command=='run':run(args.root.absolute(),args.accepted_planning_seconds)
+    else:finish_saved_endpoint(args.root.absolute(),args.original.absolute(),args.accepted_planning_seconds)
 
 
 if __name__=='__main__':main()

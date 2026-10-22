@@ -26,3 +26,15 @@ A passive completion observer waits only for this owned bootstrap; no new timer.
 No full training, extra seed, extension, retry, search/default/release/merge action.
 Raw models/traces/source/failures remain in the owned NVMe root; prior PR400/398
 inputs stay read-only. Cloud archival is pending; no remote acceptance or deletion.
+
+## Training complete; controller cap-check bug preserved
+
+Training exits0 at1,000,008,098nodes after467.20sprocesswall,
+114.80sactive traversal and129.26ssaving.250,002,537entries freeze atiteration38,253.
+The controller then stops before export on an incorrect exact250M assertion.
+Native semantics freeze after a whole iteration; existing checkpoint validation
+accepts >=cap. [Protocol amendment](../../nplayer-bb200-maturity.md#preserved-controller-failure-and-completion-only-correction-october22)
+preserves the error and permits only unstarted planned post-processing from the
+exact successful checkpoint; no training retry or changedplayer. Export/audit/
+coverage are not complete yet. Training peaks20.73GiB,CPU73/T1584°C, zeroobserved
+swapgrowth. Checkpoint and every originalreceipt remain atmain-v1.

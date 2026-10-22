@@ -32,11 +32,29 @@ class MaturityTests(unittest.TestCase):
     def test_only_added_nodes_count_as_continuation_throughput(self):
         parent=self.parent();row=copy.deepcopy(parent)
         row['counts']['nodes']=1000000017;row['entries']=250000000;row['frozen_at']=31000
+        row['iteration']=40028
         row['active_training_seconds']=100
         result=study.continuation_metrics(row,parent)
         self.assertAlmostEqual(result['active_nodes_per_second'],(1000000017-study.PARENT_NODES)/100)
         self.assertTrue(result['growth_after_freeze_is_censored'])
         self.assertEqual(result['retained_capacity_fraction'],1)
+
+    def test_native_iteration_boundary_overshoot_is_valid_but_not_unfrozen_or_under_cap(self):
+        parent=self.parent();row=copy.deepcopy(parent)
+        row.update(entries=250002537,frozen_at=38253,iteration=40028,active_training_seconds=114.802658556)
+        row['counts']['nodes']=1000008098
+        result=study.continuation_metrics(row,parent)
+        self.assertEqual(result['iteration_boundary_entry_overshoot'],2537)
+        self.assertGreater(result['retained_capacity_fraction'],1)
+        row['frozen_at']=None
+        with self.assertRaises(ValueError):study.continuation_metrics(row,parent)
+        row['frozen_at']=38253;row['entries']=249999999
+        with self.assertRaises(ValueError):study.continuation_metrics(row,parent)
+
+    def test_completion_never_overwrites_outputs(self):
+        with tempfile.TemporaryDirectory() as directory:
+            with self.assertRaisesRegex(ValueError,'completion output already exists'):
+                study.finish_saved_endpoint(Path(directory),Path('/unused'),5400)
 
     def test_incomplete_nonfinite_or_lost_membership_cannot_pass(self):
         parent=self.parent();row=copy.deepcopy(parent);row['active_training_seconds']=10

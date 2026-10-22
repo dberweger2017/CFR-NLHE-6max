@@ -56,7 +56,7 @@ Preparation only pins inputs; a separate explicit `run` consumes approval.
 
 A fresh owned output is mandatory. Verify parent/path/hash, fixed config and
 source pins again at launch. Continuation must reach1B, retain at least the
-parent's entry count and at most250M, keep the200BB identity/seed/cap/recipe,
+parent's entry count and obey the native250M freeze threshold, keep the200BB identity/seed/cap/recipe,
 report freeze/discards truthfully and pass export/audit/replay/reproduction.
 Never bypass a failed input, numerical, legality, accounting or proof check.
 
@@ -92,3 +92,27 @@ Propose the training/cap/checkpoint/acceptance design from these results, rather
 than launching another cost pilot automatically. Three independent200BB lineages
 must still pass unchanged absolute-scripted-profit/own-checkpoint/cyclic acceptance
 on prospectively sized fresh deals. Search adoption remains deferred.
+
+## Preserved controller failure and completion-only correction (October22)
+
+The original science succeeds:1,000,008,098nodes,250,002,537entries,
+frozen_at iteration38,253; checkpointSHA256
+`55d89c553ba1756eac1af117847b30e8b18e4f901afba942ee5a906bc00249ad`.
+The controller then fails before export because its new metrics check incorrectly
+requires exact250Mentries. Existing native `multi_cfr.rs::apply` merges the full
+iteration before freezing at >=cap; `multi_checkpoint.rs` explicitly accepts a
+frozen table at or above the threshold. The2,537entry overshoot (0.001015%)
+is native semantics, not a changed cap or failed training. The original protocol's
+"at most250M" phrasing was therefore incorrect and is corrected transparently.
+No training or input/player/recipe/source rerun is permitted.
+
+Preserve original failure/status/costs/checkpoint/source. The separate one-use
+`finish-saved-endpoint` accepts only this configSHA, exact saved endpointSHA,
+one successful training stage and this precise controller error, with no prior
+export/audit/coverage attempt. Revalidate checkpoint bytes/recipe and original
+qualified inputs. Use a fresh completion output/source, atomically claim it in
+a new metadata file, then execute only the originally declared, unstarted
+export/full-rowaudit/coverage/replay/reproduction. No new endpoints, hands or
+roots. Any new failure remains terminal. Both execution sources and the failure
+remain in the final report. This is a bookkeeping correction and completion of
+unstarted planned stages; successful or failed science is never repeated.
