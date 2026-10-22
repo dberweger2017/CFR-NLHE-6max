@@ -1,5 +1,7 @@
 # Combined five/six-player 100 BB M4 feasibility
 
+**Completed:** [results, costs and limitations](reports/nplayer-five-six-feasibility/results.md). Both sizes pass; main5m59s, qualification3m18s, peak3.06GiB, nominal thermal state/no swap growth. Execution source37cf758f remains frozen; later changes clarify reports only.
+
 Proposal [407](https://github.com/dberweger2017/CFR-NLHE-6max/issues/407), following merged [406](https://github.com/dberweger2017/CFR-NLHE-6max/pull/406). The owner recommends continuing the four-to-six-player sprint. This task tests the existing five/six-player train/resume/export/play workflow and early cost/capacity. No strength verdict, release/default change or long continuation.
 
 ## Fixed design
@@ -20,6 +22,6 @@ The M4 normal research lock and owned five/six lock cover qualification/main. Ap
 
 ## Evidence and interpretation
 
-Keep per-street pre-freeze growth/visits, zero-average-mass rows, played misses/zero/positive mass separately; report freeze/discard/censored growth. Capture active traversal, save/load/hash/wall, exports/audits/play/replay costs, CPU, sampled family RAM, swap/pressure/storage and thermal states, source/config/build/K50/binary/engine/proof pins. Full-row audits and all initial hands must pass replay and identical reproduction before a complete result. Small correctness samples cannot establish coverage adequacy or playing strength; table mass is not played fallback frequency. Very short traversal windows are not steady-state throughput. Cap censoring is not natural saturation.
+Keep per-street pre-freeze growth/visits and played missingness separately from table-wide zero-average-mass rows; the reused generic policy-play tool does not distinguish reached positive-mass from zero-mass rows, and no new instrumentation is claimed; report freeze/discard/censored growth. Capture active traversal, save/load/hash/wall, exports/audits/play/replay costs, CPU, sampled family RAM, swap/pressure/storage and thermal states, source/config/build/K50/binary/engine/proof pins. Full-row audits and all initial hands must pass replay and identical reproduction before a complete result. Small correctness samples cannot establish coverage adequacy or playing strength; table mass is not played fallback frequency. Very short traversal windows are not steady-state throughput. Cap censoring is not natural saturation.
 
 Raw evidence remains in the owned M4 root. Only compact reports/CSV/JSON enter Git. Archival and Drive acceptance are owner-managed pending; originals retained, no deletion or claimed acceptance. The [four-player campaign draft](nplayer-four-player-campaign-plan.md) is preparation only; PR404 must release bb128 before any separate authorized campaign.

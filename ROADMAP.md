@@ -283,3 +283,20 @@ one separately priced four-playerbb128 campaign after PR404, preserving early
 coverage/capacity uncertainty. Main128initial+128repeat hands and all33.70Mexport
 rows verified;121nativetests/128enginefixtures/byte thread-resume parity pass.
 BothM4researchlocks released; ownedrawfiles retained, archival owner-managed pending.
+
+## Five/six-player100BB M4 feasibility complete
+
+[PR408](https://github.com/dberweger2017/CFR-NLHE-6max/pull/408),
+[results](docs/reports/nplayer-five-six-feasibility/results.md), proposal407:
+both fixed25M/50M pilots pass on M4, main5m59s plus3m18s qualification,
+3.06GiBsampled peak, nominal thermal state/no swap growth. Five-player25M
+retains14.75Mkeys; six-player25M15.52M; both reach20Mcap by50M and freeze
+around34–36M/31–33Mnodes. Cap-censored growth and3.8–4.3second traversal
+windows establish neither saturation nor mature forecasts. All70.28Mexport
+rows/240initial+240reproduced hands verify,256enginefixtures and thread/resume
+byte parity pass. Existing native behavior unchanged; no strength or release
+claim. [Four-player campaign draft](docs/nplayer-four-player-campaign-plan.md)
+reserves a proposed3B/10B lineage and bounded250Mcapacity with paired development
+requirements. Qualify that arena and price the complete allocation after PR404
+releasesbb128; no further tiny four-player pilot ladder or automatic launch.
+M4 locks released; raw evidence retained, archival owner-managed pending.
