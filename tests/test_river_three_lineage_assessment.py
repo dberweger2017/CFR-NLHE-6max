@@ -10,7 +10,7 @@ from scripts.river_three_lineage_assessment import (
     ALLOWANCE, BLOCKS, FINAL_ROOTS, LINEUPS, POLICY_SHA, QUAL_ROOTS, SEEDS,
     bounds, decision, make_manifest, native_identity, preflight_quote, summarize_lineup, validate_cases,
 )
-from scripts.run_river_three_lineage_assessment import validate_config
+from scripts.run_river_three_lineage_assessment import admit_quote, execution_authorization, validate_config
 from scripts.river_whole_hand_pilot import manifest, read
 from types import SimpleNamespace
 
@@ -129,6 +129,28 @@ class ThreeLineageTests(unittest.TestCase):
             self.assertTrue(native_identity(a,b,[name])['player_solver_library_byte_identical'])
             (a/name).write_text('if !(1..=4096).contains(&blocks) { change_player(); }')
             with self.assertRaises(ValueError):native_identity(a,b,[name])
+
+    def test_explicit_owner_override_is_source_bound_and_does_not_change_counts(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d)
+            self.assertIsNone(execution_authorization(root,'same','same'))
+            with self.assertRaises(RuntimeError):execution_authorization(root,'old','new')
+            quote={'status':'quote-exceeds-allowance','reserved_seconds':50000}
+            with self.assertRaises(RuntimeError):admit_quote(quote,None)
+            path=root/'owner-budget-authorization.json'
+            approval={'pr':398,'approved':True,'fixed_counts_unchanged':True,'bootstrap_source':'old',
+                'execution_source':'new','proceed_regardless_of_preflight_quote':True,
+                'approval_text':'Owner is sleeping: run the fixed run regardless.'}
+            path.write_text(json.dumps(approval))
+            authorization=execution_authorization(root,'old','new')
+            admitted=admit_quote(quote,authorization)
+            self.assertEqual(admitted['status'],'admitted-owner-override')
+            self.assertEqual(admitted['reserved_seconds'],50000)
+            self.assertFalse(admitted['within_original_planning_allowance'])
+            self.assertEqual(BLOCKS,{'trained':2048,'call-pressure':4096})
+            for field,value in [('execution_source','other'),('fixed_counts_unchanged',False),('approved',False)]:
+                path.write_text(json.dumps({**approval,field:value}))
+                with self.assertRaises(RuntimeError):execution_authorization(root,'old','new')
 
     def test_cost_only_admission_uses_slowest_lineage_and_refuses_overbudget(self):
         p=read(Path(__file__).resolve().parents[1]/'docs/reports/river-fresh-screen/followup-proposal.json')

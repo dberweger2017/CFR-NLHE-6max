@@ -30,6 +30,33 @@ def validate_config(config):
         raise ValueError('three distinct model paths required')
 
 
+def execution_authorization(root, requested_source, actual_source):
+    """Honor only the owner's explicit, source-bound pre-main budget amendment."""
+    path=root/'owner-budget-authorization.json'
+    if not path.exists():
+        if requested_source != actual_source:
+            raise RuntimeError('source differs without an explicit owner amendment')
+        return None
+    authorization=read(path)
+    required={'pr':398,'approved':True,'fixed_counts_unchanged':True,
+        'bootstrap_source':requested_source,'execution_source':actual_source,
+        'proceed_regardless_of_preflight_quote':True}
+    if any(authorization.get(k)!=v for k,v in required.items()) or not authorization.get('approval_text'):
+        raise RuntimeError('owner budget/source amendment differs')
+    return {'path':str(path),'sha256':sha(path),'authorization':authorization}
+
+
+def admit_quote(quote, authorization):
+    if authorization:
+        quote={**quote,'original_quote_status':quote['status'],
+            'status':'admitted-owner-override', 'owner_authorization_sha256':authorization['sha256'],
+            'proceed_without_further_budget_approval':True,
+            'within_original_planning_allowance':quote['reserved_seconds']<=ALLOWANCE}
+    elif quote['status']!='admitted':
+        raise RuntimeError('revised quote exceeds accepted12h before final hands; no automatic resize/retry')
+    return quote
+
+
 def run(args):
     args.out.mkdir(parents=True,exist_ok=False)
     root=args.root.resolve(); source=root/'source'; python=root/'venv/bin/python'; binary=root/'bin/nplayer_river_arena'
@@ -38,7 +65,8 @@ def run(args):
     for name in ('/tmp/cfr-cygnus-exclusive.lock','/tmp/cfr-pr398-three-lineage.lock'):
         f=open(name,'a+'); fcntl.flock(f,fcntl.LOCK_EX|fcntl.LOCK_NB); locks.append(f)
     actual=subprocess.check_output(['git','rev-parse','HEAD'],cwd=source,text=True).strip()
-    if actual != args.source or subprocess.check_output(['git','status','--porcelain'],cwd=source,text=True).strip():
+    authorization=execution_authorization(root,args.source,actual)
+    if subprocess.check_output(['git','status','--porcelain'],cwd=source,text=True).strip():
         raise RuntimeError('clean exact frozen source required')
     if sha(binary) != binary_sha:
         raise RuntimeError('qualified native binary differs')
@@ -65,7 +93,8 @@ def run(args):
         'utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'cpu_stop_c':90,'thermistor15_stop_c':100,
         'planning_allowance_seconds':ALLOWANCE,'no_other_resource_stops':True,
         'fresh_roots':list(FINAL_ROOTS),'blocks':BLOCKS,'initial_hands':221184,'reproduction_hands':221184,
-        'final_assessment_no_extension':True})
+        'final_assessment_no_extension':True,'bootstrap_source':args.source,
+        'owner_budget_authorization':authorization})
     common=[str(python),'-m','scripts.river_three_lineage_assessment','--config',str(root/'control.json')]
     stages=[('python-tests',[str(python),'-m','unittest','tests.test_river_three_lineage_assessment',
         'tests.test_river_fresh_screen','tests.test_river_arena_expectation','tests.test_river_conditional_evaluation',
@@ -90,8 +119,10 @@ def run(args):
             proposal=read(source/'docs/reports/river-fresh-screen/followup-proposal.json')
             quote=preflight_quote(proposal,qualifications,time.monotonic()-args.preparation_start)
             write(args.out/'main-admission.json',quote)
-            if quote['status']!='admitted':
-                raise RuntimeError('revised quote exceeds accepted12h before final hands; no automatic resize/retry')
+            quote=admit_quote(quote,authorization)
+            write(args.out/'main-admission.json',quote)
+        if authorization and sha(authorization['path'])!=authorization['sha256']:
+            raise RuntimeError('owner amendment changed after freeze')
         if (pins != {p:sha(source/p) for p in pins} or sha(root/'control.json') != config_sha or sha(binary) != binary_sha):
             raise RuntimeError('frozen source/config/binary changed')
         write(args.out/'status.json',{'status':'running','phase':phase,'completed_stages':len(costs),'total_stages':len(stages)})
@@ -114,6 +145,8 @@ def run(args):
             'user_cpu_seconds':after.ru_utime-before.ru_utime,'system_cpu_seconds':after.ru_stime-before.ru_stime})
         write(args.out/'stage-costs.json',costs)
         if child.returncode:raise RuntimeError(f'{phase} failed with code{child.returncode}')
+    if authorization and sha(authorization['path'])!=authorization['sha256']:
+        raise RuntimeError('owner amendment changed after freeze')
     if pins != {p:sha(source/p) for p in pins} or sha(root/'control.json')!=config_sha or sha(binary)!=binary_sha:
         raise RuntimeError('frozen source/config/binary changed')
     write(args.out/'status.json',{'status':'complete','source':actual,'stages':len(stages)})

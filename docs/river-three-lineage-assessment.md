@@ -24,3 +24,10 @@ Focal003 reuses exactly the prior known four-block qualification deals and requi
 Research proposal [#397](https://github.com/dberweger2017/CFR-NLHE-6max/issues/397) records the owner-approved scope before implementation and final hands.
 
 Preflight plumbing amendment before final hands: the qualified native arena executable caps each case at1,024 blocks. This PR changes only that CLI upper bound to4,096. Every other tracked native byte, including the player/solver libraries, must match the qualified prior source. Rebuild with native library tests and require exact original four-block trace/profile/value parity before any final deal. Record new binary/source checksums; the player remains frozen. This amendment does not change counts, roots, work limits, menus or budget.
+
+
+## Owner amendment before final hands — proceed while owner sleeps
+
+October22, owner explicitly instructed: “I’m going to sleep now and won’t be able to approve, please run the run regardless.” This supersedes the preflight budget-confirmation pause: record the revised quote, then proceed with the same fixed run even if its forecast exceeds the original12h planning allowance. No elapsed-time stop is added. Counts, roots, player, statistics and thermal/correctness/mutex/owner-STOP checks remain unchanged. It does not authorize extra samples, scientific retries or a follow-up campaign.
+
+A source-bound `owner-budget-authorization.json` records the exact approval and the bootstrap/execution snapshots before the main controller starts. Existing preparation and successful model copies are preserved; only the controller's budget admission changes. All three correctness qualifications still must pass. The owner also requests T3 checks every30minutes in this thread through final result publication, disabled at terminal handoff/owner stop/PR closure.
