@@ -17,3 +17,12 @@ The receipt binds per-asset sizes/SHA256s, actual asset IDs/URLs, source-approve
 All outputs, transfer partials/failures and private runtime journals remain on bb128 under `/mnt/data2tb/research-cloud/PR-369-v060-release/publication-v1`. No cleanup/deletion or research ZIP/Drive archive acceptance is claimed. Runtime journals/support are excluded from public uploads.
 
 Publication stopped: HTTPError: HTTP Error 404: Not Found. Completed checks remain valid; remaining stages are pending.
+
+
+## October22 follow-up: upload complete, final verification still blocked
+
+The release is public and all55assets remain present. Fresh GitHub metadata confirms every asset ID/size/SHA256 digest against the recorded upload receipt. Anonymous downloads of `RELEASE_NOTES.md`, `INSTALL.md` and `MODEL_CARD.md` from current `v0.6.0` URLs match their pinned hashes. [Follow-up receipt](verification/closeout-status-20261022.json). These small checks do not verify the other52payloads or a reconstructed model.
+
+The original publisher retained draft asset URLs (`untagged-…`) after publishing. The unfinished public-download stage must refresh canonical URLs from current release metadata, bind them to the same asset IDs/names/sizes/digests, then resume only unverified work. Do not restart the original empty-release uploader, re-upload existing assets, overwrite the terminal failure or infer complete publication from green CI.
+
+Remaining:52public payload SHA readbacks, all3public reconstruction/native integration/replay checks, three whole-model Drive uploads/public readbacks and final release/install status. The original publication inputs and receipts stay retained. Runtime checks require the normal bb128 mutex, currently used by PR404; no bypass, new native job, large transfer or duplicate publication coordinator was started during this review. Keep this PR draft until final proofs settle; no new strength study or model change is needed.
