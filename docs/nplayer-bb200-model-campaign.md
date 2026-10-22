@@ -93,3 +93,9 @@ python3.11 -m scripts.plan_nplayer_bb200_model_campaign \
 ```
 
 The generator reads only committed PR402 and PR367 metadata, pins their SHA256s, and refuses to overwrite its output. No model, raw trace or binary payload is added to Git. Results from PR400/402 remain feasibility evidence, not200BBacceptance.
+
+## Owner acceptance and controller implementation
+
+Owner accepted the full proposal with "accepted, lets ggooo" after reviewing the18hallocation. No further budget confirmation is required for this fixed scope. The controller is implemented in `scripts.nplayer_bb200_model_campaign.py`, with one-use clean-source/config/build/input/fixture/model-freeze barriers, fixed targets/counts, scoped thermal-only stages, no staging/cleanup/upload paths, and the existing block-statistic/readout code. Main still waits for real qualification and the agreed storage preparation; those are factual admission prerequisites, not another approval flow.
+
+The diagnostic arena previously fixed100BB; its manifest now accepts explicit100/200BB while preserving the legacy100BB default and rejecting malformed depths. The cross replay verifier now respects declared manifest depth, default100. No game transition, regret rule or policy information changes. Native library/example tests and the36-case real200BB fixture precede main. The exact-cap controller error fromPR402 cannot recur through this path: freeze consistency follows the native threshold/iteration semantics, with canonical keyset checks.

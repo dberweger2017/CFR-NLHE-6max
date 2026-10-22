@@ -166,6 +166,15 @@ fn block(
     }
     Ok((bytes, decisions, misses, counts))
 }
+fn campaign_config(m: &Value) -> Result<Config, String> {
+    let bb = match m.get("stack_bb") {
+        None => 100,
+        Some(value) => value.as_u64().ok_or("integer stack_bb required")?,
+    };
+    if !matches!(bb, 100 | 200) { return Err("stack_bb must be100 or200".into()); }
+    Config::new(&[bb * 100; 3], 50, 100)
+}
+
 fn run() -> Result<(), String> {
     let a: Vec<String> = std::env::args().collect();
     if a.len() != 3 || a[1] != "batch" {
@@ -212,9 +221,9 @@ fn run() -> Result<(), String> {
     {
         return Err("model identities or memberships differ".into());
     }
-    let config = Config::new(&[10000; 3], 50, 100)?;
+    let config = campaign_config(&m)?;
     if models.iter().any(|v| v.table.config() != config) {
-        return Err("requires100BB three-player identity".into());
+        return Err("model differs from declared three-player stack depth".into());
     }
     let tables = EquityTables::load(Path::new(m["tables"].as_str().ok_or("tables")?), false)?;
     let mut load_seconds = loading.elapsed().as_secs_f64();
@@ -312,5 +321,18 @@ fn main() {
     if let Err(error) = run() {
         eprintln!("nplayer_continuation_arena: {error}");
         std::process::exit(2);
+    }
+}
+
+#[cfg(test)]
+mod depth_tests {
+    use super::*;
+    #[test]
+    fn explicit_depth_keeps_legacy_default_and_rejects_bad_values() {
+        assert_eq!(campaign_config(&json!({})).unwrap(), Config::new(&[10000;3],50,100).unwrap());
+        assert_eq!(campaign_config(&json!({"stack_bb":200})).unwrap(), Config::new(&[20000;3],50,100).unwrap());
+        for value in [json!(0),json!(20),json!(201),json!(200.5),json!("200"),json!(null)] {
+            assert!(campaign_config(&json!({"stack_bb":value})).is_err());
+        }
     }
 }
