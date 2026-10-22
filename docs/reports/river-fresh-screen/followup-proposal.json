@@ -1,0 +1,98 @@
+{
+  "status": "proposal-only-not-authorized",
+  "planning_budget_seconds": 43200,
+  "lineages": [
+    2026101935003,
+    202610200601,
+    202610200602
+  ],
+  "primary_peer_schedule": "003 versus601/601;601 versus602/602;602 versus003/003; two resident policies, sequential focal lineages",
+  "fresh_roots_by_focal_then_lineup": [
+    2026102239701,
+    2026102239702,
+    2026102239703,
+    2026102239704,
+    2026102239705,
+    2026102239706
+  ],
+  "design": [
+    {
+      "lineup": "trained",
+      "blocks_per_lineage": 2048,
+      "family": "primary3",
+      "gate_lower_bound_must_exceed_bb100": 0,
+      "one_sided_alpha": 0.016666666666666666,
+      "fresh_block_sd_bb100": 74.02887538219831,
+      "conservative_planning_sd_bb100": 115.61518581296693,
+      "family_one_sided_error_allowance_bb100": {
+        "fresh_sd": 3.4811042608906217,
+        "conservative_sd": 5.436642308549261
+      },
+      "conditional_power_by_true_effect": {
+        "0": {
+          "fresh_sd": 0.01666666666666672,
+          "conservative_sd": 0.01666666666666672
+        },
+        "2": {
+          "fresh_sd": 0.18262180865807565,
+          "conservative_sd": 0.08928154392005588
+        },
+        "5": {
+          "fresh_sd": 0.8234313421000796,
+          "conservative_sd": 0.43214596166987446
+        },
+        "10": {
+          "fresh_sd": 0.9999662723651475,
+          "conservative_sd": 0.9629680643026083
+        }
+      },
+      "measured_play_seconds_per_block_per_pass": 0.25592269928515626
+    },
+    {
+      "lineup": "call-pressure",
+      "blocks_per_lineage": 4096,
+      "family": "check_call_pressure_safeguards3",
+      "gate_lower_bound_must_exceed_bb100": -5,
+      "one_sided_alpha": 0.016666666666666666,
+      "fresh_block_sd_bb100": 135.18255827994673,
+      "conservative_planning_sd_bb100": 186.680531948498,
+      "family_one_sided_error_allowance_bb100": {
+        "fresh_sd": 4.494915607696476,
+        "conservative_sd": 6.207259630126855
+      },
+      "conditional_power_by_true_effect": {
+        "-10": {
+          "fresh_sd": 3.4749922295240765e-06,
+          "conservative_sd": 6.096730470250833e-05
+        },
+        "-5": {
+          "fresh_sd": 0.01666666666666672,
+          "conservative_sd": 0.01666666666666672
+        },
+        "0": {
+          "fresh_sd": 0.5944953040842884,
+          "conservative_sd": 0.33947848934862845
+        },
+        "5": {
+          "fresh_sd": 0.9954235980800143,
+          "conservative_sd": 0.9032460414615575
+        }
+      },
+      "measured_play_seconds_per_block_per_pass": 0.3249708254013672
+    }
+  ],
+  "total_initial_plus_reproduction_hand_instances": 442368,
+  "central_seconds": 14427.868303253961,
+  "reserved_seconds": 38585.312940732,
+  "components": {
+    "six_process_model_k50_load_seconds": 1395.764769546,
+    "both_passes_all_lineage_play_seconds": 11131.26113388,
+    "scaled_replay_proof_seconds": 100.84239982796134,
+    "qualification_readout_archive_allowance_seconds": 1800
+  },
+  "assumptions": "Use slower observed fresh pass by lineup; other two focal lineages unmeasured.3x play/2x model load+verification,>=600s proof reserve. No model conversion/download. No guarantee against unseen cost/variance tails.",
+  "guarantee_limit": "Two separate nominal95% one-sided Bonferroni families(3primary,3single-lineup safeguards); no80% joint-power promise, no broad-scripted or release acceptance claim. Reproduction adds no samples.",
+  "outcome_rule": "Require all3 primary lower bounds>0 and all3 safeguard lower bounds>-5 for this limited declared verdict; otherwise failed/inconclusive, no automatic extension. Report every lineage and adverse result.",
+  "no_automatic_launch": true,
+  "source_player_menu_work_fallback_frozen": true
+}

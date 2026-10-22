@@ -1,0 +1,396 @@
+{
+  "status": "calibration-complete-only",
+  "inventory": {
+    "status": "frozen",
+    "roots": 384,
+    "installed": 381,
+    "quality_fallbacks": 3,
+    "root_counts": {
+      "trained": 74,
+      "trained-pressure": 56,
+      "pressure": 26,
+      "call-pressure": 195,
+      "random-tag": 33
+    },
+    "calibration_ids": [
+      "trained/0003/0008",
+      "trained/0013/0008",
+      "trained/0183/0009",
+      "trained-pressure/0003/0008",
+      "trained-pressure/0048/0007",
+      "pressure/0117/0008",
+      "pressure/0156/0007",
+      "call-pressure/0003/0007",
+      "call-pressure/0004/0007",
+      "call-pressure/0074/0011",
+      "call-pressure/0344/0013",
+      "random-tag/0004/0008",
+      "random-tag/0034/0007"
+    ],
+    "inventory_sha256": "e003c039d8a32eca48d1dd7bcc32bb82734401371490c82bd358c728899855d4",
+    "no_new_deals": true
+  },
+  "quote": {
+    "status": "calibrated",
+    "calibration_roots": 13,
+    "profile_identities_passed": true,
+    "complete_roots": 13,
+    "incomplete_ids": [],
+    "visited_states": 9652,
+    "enumeration_seconds": 0.011554824000000002,
+    "wall_seconds": 248.33781326102326,
+    "startup": {
+      "binary_sha256": "5351380efd82e52f381d5c2197c349e29ffac9be9bee969b2cb82aa0eb5ef282",
+      "model_and_k50_seconds": 234.199573471,
+      "model_pins": [
+        {
+          "alias": "focal",
+          "load_seconds": 114.835925072,
+          "sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189"
+        },
+        {
+          "alias": "peer",
+          "load_seconds": 114.444500766,
+          "sha256": "23599816cf632a51cace45f25d70ed4918fe5e75875c33136d8629052a8a2a70"
+        }
+      ]
+    },
+    "all384_two_pass_mean_extrapolation_seconds": 1300.4739612878461,
+    "all384_two_pass_reserved_upper_seconds": 13378.681089182908,
+    "method_qualified_at_fixed_limit": true,
+    "full_inventory_started": false,
+    "scope": "Fixed200K states/arm/root; worst measured seconds/node and max profile work, two cold passes,3x work/2x load reserves plus600s each pass. Not a completion guarantee or admitted budget.",
+    "no_outcomes_used_for_selection": true,
+    "next_action": "Owner budget decision before larger saved-data work; no strength run."
+  },
+  "work_only_roots": [
+    {
+      "complete_contrast": true,
+      "id": "trained/0003/0008",
+      "identity_verified": true,
+      "method": "full-positive-support-enumeration",
+      "prepare_seconds": 0.909456367,
+      "profile_sha256": "2bcc6ef7f5c39ae2844c92696224a788fb68ccfa944b87338c059211d9ee7569",
+      "total_seconds": 0.910913126,
+      "on": {
+        "complete": true,
+        "policy_rows": {
+          "blueprint": 18,
+          "off-tree-blueprint": 9,
+          "retained": 11
+        },
+        "seconds": 0.000344532,
+        "terminals": 70,
+        "visited": 108
+      },
+      "off": {
+        "complete": true,
+        "policy_rows": {
+          "blueprint": 315
+        },
+        "seconds": 0.001101574,
+        "terminals": 613,
+        "visited": 928
+      }
+    },
+    {
+      "complete_contrast": true,
+      "id": "trained/0013/0008",
+      "identity_verified": true,
+      "method": "full-positive-support-enumeration",
+      "prepare_seconds": 0.910846466,
+      "profile_sha256": "27f1dddcb7dc50037395c5b31fa7b92a0169db562ac8c854ea51be8d924dbde7",
+      "total_seconds": 0.912460963,
+      "on": {
+        "complete": true,
+        "policy_rows": {
+          "blueprint": 18,
+          "off-tree-blueprint": 9,
+          "retained": 11
+        },
+        "seconds": 0.000506579,
+        "terminals": 72,
+        "visited": 110
+      },
+      "off": {
+        "complete": true,
+        "policy_rows": {
+          "blueprint": 297
+        },
+        "seconds": 0.001096338,
+        "terminals": 577,
+        "visited": 874
+      }
+    },
+    {
+      "complete_contrast": true,
+      "id": "trained/0183/0009",
+      "identity_verified": true,
+      "method": "identical-blueprint-policy-cancellation",
+      "prepare_seconds": 2.865940348,
+      "profile_sha256": "cb1696b8d05bf901e5abc6ff3dbdfcc3d8415fd4695bb3ac5b2c44cf8c25c839",
+      "total_seconds": 2.865942342,
+      "on": null,
+      "off": null
+    },
+    {
+      "complete_contrast": true,
+      "id": "trained-pressure/0003/0008",
+      "identity_verified": true,
+      "method": "full-positive-support-enumeration",
+      "prepare_seconds": 0.435232373,
+      "profile_sha256": "edfbe057338afc3aac9b7b5c5a86fc85e8765006e7605025190bdec7778d0bc8",
+      "total_seconds": 0.436939859,
+      "on": {
+        "complete": true,
+        "policy_rows": {
+          "blueprint": 16,
+          "off-tree-blueprint": 7,
+          "retained": 9
+        },
+        "seconds": 0.000285893,
+        "terminals": 57,
+        "visited": 89
+      },
+      "off": {
+        "complete": true,
+        "policy_rows": {
+          "blueprint": 398
+        },
+        "seconds": 0.001409213,
+        "terminals": 762,
+        "visited": 1160
+      }
+    },
+    {
+      "complete_contrast": true,
+      "id": "trained-pressure/0048/0007",
+      "identity_verified": true,
+      "method": "full-positive-support-enumeration",
+      "prepare_seconds": 0.43198577,
+      "profile_sha256": "ce2d496f15e1bd1de3c26c63e2504e9d7692b10a480dd3f08e17cdaa7ced7b3f",
+      "total_seconds": 0.433053795,
+      "on": {
+        "complete": true,
+        "policy_rows": {
+          "blueprint": 32,
+          "off-tree-blueprint": 25,
+          "retained": 9
+        },
+        "seconds": 0.00066895,
+        "terminals": 122,
+        "visited": 188
+      },
+      "off": {
+        "complete": true,
+        "policy_rows": {
+          "blueprint": 156
+        },
+        "seconds": 0.000386764,
+        "terminals": 288,
+        "visited": 444
+      }
+    },
+    {
+      "complete_contrast": true,
+      "id": "pressure/0117/0008",
+      "identity_verified": true,
+      "method": "full-positive-support-enumeration",
+      "prepare_seconds": 0.43406246,
+      "profile_sha256": "a36de5c9bfa14b0fc88fed9d999e13810c8bf260eae95390d4b2ffc4cdc2aafc",
+      "total_seconds": 0.434162294,
+      "on": {
+        "complete": true,
+        "policy_rows": {
+          "retained": 3,
+          "script": 5
+        },
+        "seconds": 5.2238e-05,
+        "terminals": 9,
+        "visited": 17
+      },
+      "off": {
+        "complete": true,
+        "policy_rows": {
+          "blueprint": 5,
+          "script": 8
+        },
+        "seconds": 3.5391e-05,
+        "terminals": 14,
+        "visited": 27
+      }
+    },
+    {
+      "complete_contrast": true,
+      "id": "pressure/0156/0007",
+      "identity_verified": true,
+      "method": "full-positive-support-enumeration",
+      "prepare_seconds": 0.386613904,
+      "profile_sha256": "190429b3676e93d680595dc5c54018bf2f653db13af1a85b517af8d10201110c",
+      "total_seconds": 0.386686989,
+      "on": {
+        "complete": true,
+        "policy_rows": {
+          "retained": 2,
+          "script": 4
+        },
+        "seconds": 3.6314e-05,
+        "terminals": 6,
+        "visited": 12
+      },
+      "off": {
+        "complete": true,
+        "policy_rows": {
+          "blueprint": 4,
+          "script": 8
+        },
+        "seconds": 2.7561e-05,
+        "terminals": 14,
+        "visited": 26
+      }
+    },
+    {
+      "complete_contrast": true,
+      "id": "call-pressure/0003/0007",
+      "identity_verified": true,
+      "method": "full-positive-support-enumeration",
+      "prepare_seconds": 0.388516912,
+      "profile_sha256": "587046274487a0eb072e4ee15baaaa2c132615c905bf656dad090ea3b6775394",
+      "total_seconds": 0.388553003,
+      "on": {
+        "complete": true,
+        "policy_rows": {
+          "retained": 1,
+          "script": 3
+        },
+        "seconds": 1.8111e-05,
+        "terminals": 3,
+        "visited": 7
+      },
+      "off": {
+        "complete": true,
+        "policy_rows": {
+          "blueprint": 1,
+          "script": 3
+        },
+        "seconds": 8.695e-06,
+        "terminals": 3,
+        "visited": 7
+      }
+    },
+    {
+      "complete_contrast": true,
+      "id": "call-pressure/0004/0007",
+      "identity_verified": true,
+      "method": "full-positive-support-enumeration",
+      "prepare_seconds": 0.429838105,
+      "profile_sha256": "c684de3a233efca175631209a2cdb10fb8304b0f5f5bedf2fbb2a494b8950942",
+      "total_seconds": 0.429874609,
+      "on": {
+        "complete": true,
+        "policy_rows": {
+          "retained": 1,
+          "script": 3
+        },
+        "seconds": 1.9297e-05,
+        "terminals": 3,
+        "visited": 7
+      },
+      "off": {
+        "complete": true,
+        "policy_rows": {
+          "blueprint": 1,
+          "script": 3
+        },
+        "seconds": 7.39e-06,
+        "terminals": 3,
+        "visited": 7
+      }
+    },
+    {
+      "complete_contrast": true,
+      "id": "call-pressure/0074/0011",
+      "identity_verified": true,
+      "method": "identical-blueprint-policy-cancellation",
+      "prepare_seconds": 3.025714504,
+      "profile_sha256": "c4f3265b1fdf4917ec0100b5d853b80904870e99c5857d84b389705c8258a9ca",
+      "total_seconds": 3.02571587,
+      "on": null,
+      "off": null
+    },
+    {
+      "complete_contrast": true,
+      "id": "call-pressure/0344/0013",
+      "identity_verified": true,
+      "method": "identical-blueprint-policy-cancellation",
+      "prepare_seconds": 3.051575402,
+      "profile_sha256": "c139fd3a273c10b010290b7fdf7d597b973c1c4c5947d79f7abad5b3b8667e18",
+      "total_seconds": 3.051576865,
+      "on": null,
+      "off": null
+    },
+    {
+      "complete_contrast": true,
+      "id": "random-tag/0004/0008",
+      "identity_verified": true,
+      "method": "full-positive-support-enumeration",
+      "prepare_seconds": 0.410898837,
+      "profile_sha256": "5672aa5b536095e500b5c23f22ba480862e3eb66a170c305e6be0ae878f248cd",
+      "total_seconds": 0.41211625,
+      "on": {
+        "complete": true,
+        "policy_rows": {
+          "off-tree-blueprint": 16,
+          "retained": 9,
+          "script": 24
+        },
+        "seconds": 0.000445541,
+        "terminals": 92,
+        "visited": 141
+      },
+      "off": {
+        "complete": true,
+        "policy_rows": {
+          "blueprint": 184,
+          "script": 182
+        },
+        "seconds": 0.000760369,
+        "terminals": 712,
+        "visited": 1078
+      }
+    },
+    {
+      "complete_contrast": true,
+      "id": "random-tag/0034/0007",
+      "identity_verified": true,
+      "method": "full-positive-support-enumeration",
+      "prepare_seconds": 0.392247448,
+      "profile_sha256": "9c7179851259e69e562cc3d805acf5eb1e6e2317e0a2f5bfce953a1553b99a91",
+      "total_seconds": 0.396603757,
+      "on": {
+        "complete": true,
+        "policy_rows": {
+          "off-tree-blueprint": 82,
+          "retained": 9,
+          "script": 87
+        },
+        "seconds": 0.001685958,
+        "terminals": 353,
+        "visited": 531
+      },
+      "off": {
+        "complete": true,
+        "policy_rows": {
+          "blueprint": 649,
+          "script": 649
+        },
+        "seconds": 0.002658116,
+        "terminals": 2593,
+        "visited": 3891
+      }
+    }
+  ],
+  "no_root_returns_retrieved": true,
+  "all_inventory_or_variance_verdict": null,
+  "qualification_scope": "13 cost-calibration roots only; full-inventory completeness and variance efficiency are unmeasured."
+}

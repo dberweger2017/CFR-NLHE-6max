@@ -1,0 +1,67 @@
+{
+  "all_originals_retained": true,
+  "binary_sha256": "a1eb95920b0ca00695d729b0fd747c1026647eb5cbae7a4f4b2f005a1f980df8",
+  "cache": "/mnt/data2tb/research-cloud/PR-373-native-river-prototype/",
+  "copy_manifest": "COPY-MANIFEST.json",
+  "copy_manifest_sha256": "01bf4f76aebff55032d186733a6b0c92354b22d2aa05e8efe23210e1dec4deb0",
+  "cpu_model": "Intel Core i7-10700KF @ 3.80GHz",
+  "drive_archive_acceptance": "pending",
+  "format": "native-river-prototype-verification-v1",
+  "full_range_quality_agreement": 18,
+  "full_range_quality_total": 18,
+  "limitations": [
+    "prepared product-compatible law only",
+    "no mature blueprint load or belief construction",
+    "no live search or strength claim",
+    "shared-host warm timing; no p95 or isolated-host claim",
+    "overall symmetric finite-work quality screen remains unmet"
+  ],
+  "llvm": "23.1.1",
+  "native_library_tests": {
+    "failed": 0,
+    "log": "native-final-tests.log",
+    "passed": 75,
+    "seconds": 135.12,
+    "sha256": "05f1b391fa3ef5a0f95eeab3914b085a6a1d73041009664a3f3c58985c122aa2"
+  },
+  "numerical_correctness": "passed",
+  "originals": "bb128:/home/dberweger/native-river-prototype-20261020/",
+  "python_focused_tests": {
+    "failed": 0,
+    "log": "python-final-tests.log",
+    "passed": 58,
+    "seconds": 33.59,
+    "sha256": "5c04fd7c90c2f2cee5bc979a7ca44018e3658b548792cb6b6a4882f07e682ca4",
+    "warnings": "two existing pytest parametrization deprecations"
+  },
+  "quality_agreement_endpoints": 34,
+  "quality_status": "quality-threshold-not-met",
+  "quality_total_endpoints": 36,
+  "results_sha256": "27846c3e24fa17807ca7d4fd30fd1c705a98ddebb75a01a09a32d9873bffd1cc",
+  "retained_failures": [
+    {
+      "path": "qualification-v1/results.json",
+      "reason": "second-sweep learned accumulator comparison; overly strict across rounding-sensitive paths",
+      "sha256": "5015e52fcc25fa36d28563cf36b410dd6879230bea9bdf73b319f943df77e87c"
+    },
+    {
+      "path": "qualification-v2/results.json",
+      "reason": "same over-strict second-sweep comparison on small case2",
+      "sha256": "aa7de363f9800406c89c60e5f2747f4f7f50d56feb59805e9e6a8a9fa9fd1e9c"
+    },
+    {
+      "path": "qualification-v3/results.json",
+      "reason": "5% quality screen miss; complete v4 preserves unchanged threshold and original grid",
+      "sha256": "72a4c01f7707878b9b36c94fdd3f59bb6f77611591b1ee2c6a6ce5e5afa0d969"
+    }
+  ],
+  "rustc": "1.99.0 (b940084d7 2026-09-28)",
+  "setup_notes": [
+    "Initial broad legacy test collection required unavailable Torch; focused environment created independently, old environments unchanged.",
+    "One targeted diagnostic command had a shell-quoting SyntaxError before computation; corrected diagnostic-case2-v1.json retained."
+  ],
+  "source_commit": "7e905da4be0c640e6518f2b68eaf330104e81788",
+  "source_worktree_dirty": false,
+  "verified_cached_bytes": 954965,
+  "verified_cached_files": 18
+}

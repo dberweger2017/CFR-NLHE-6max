@@ -1,0 +1,23 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/dberweger/hu200-capacity-20261015/repo-evaluation-single-seed-20261018/scripts/evaluate_hu200_capacity.py", line 305, in <module>
+    main()
+  File "/home/dberweger/hu200-capacity-20261015/repo-evaluation-single-seed-20261018/scripts/evaluate_hu200_capacity.py", line 288, in main
+    global_barrier(args.configs, args.out, owner_single_seed=args.phase == 'barrier-single-seed-1302')
+  File "/home/dberweger/hu200-capacity-20261015/repo-evaluation-single-seed-20261018/scripts/evaluate_hu200_capacity.py", line 208, in global_barrier
+    raise ValueError('All selected seed/model groups must verify' if owner_single_seed else
+ValueError: All selected seed/model groups must verify
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/dberweger/hu200-capacity-20261015/repo-evaluation-single-seed-20261018/scripts/finish_hu200_capacity_single_seed.py", line 177, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/dberweger/hu200-capacity-20261015/repo-evaluation-single-seed-20261018/scripts/finish_hu200_capacity_single_seed.py", line 167, in main
+    if a.mode=='step':worker(a.base,a.name,a.base/PHASE/(a.name+'.stop'));return
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dberweger/hu200-capacity-20261015/repo-evaluation-single-seed-20261018/scripts/finish_hu200_capacity_single_seed.py", line 102, in worker
+    if proc.returncode:raise RuntimeError(f'{name} failed exit{proc.returncode}; no automatic retry')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: global-barrier failed exit1; no automatic retry

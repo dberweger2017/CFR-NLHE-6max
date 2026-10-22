@@ -1,0 +1,142 @@
+{
+  "runtime_launch": {
+    "at": "2026-10-20T11:03:25.018956+00:00",
+    "root": "/home/dberweger/nplayer-v06-acceptance-20261020/main-v1",
+    "launch": {
+      "pid": 649076,
+      "at": 1792494157.4055555,
+      "config_sha256": "3c711be0c8d05e3750498a59bff8b80887594decf52f3295c010333894b898a9",
+      "source": "7f36a93aae7d43d1912d9a93eddd78ca0d4430c5"
+    },
+    "admission": {
+      "at": 1792494157.4072423,
+      "phase": "admission",
+      "target": 0,
+      "temperatures_c": {
+        "Thermistor 15": 42.5,
+        "Package id 0": 39.0
+      },
+      "elapsed_seconds": 0.004365886969026178,
+      "rss_bytes": 0
+    },
+    "status": {
+      "status": "running",
+      "phase": "restore-2026101935003-baseline",
+      "at": 1792494165.3250313
+    },
+    "failure": null,
+    "qualification": {
+      "status": "passed",
+      "native_source_identical": true,
+      "reused_native_qualification": "/home/dberweger/nplayer-v06-acceptance-20261020/qualification-build-v1",
+      "fixture": "/home/dberweger/nplayer-v06-acceptance-20261020/fixture-v2",
+      "result_sha256": "65db8ecc1183975e59048cd43c3a299b03a93c10c663e2016b6a0f075855deff"
+    },
+    "config_sha256": "3c711be0c8d05e3750498a59bff8b80887594decf52f3295c010333894b898a9",
+    "source_commit": "7f36a93aae7d43d1912d9a93eddd78ca0d4430c5",
+    "source_files": 769,
+    "binaries": {
+      "nplayer_inference": {
+        "path": "/home/dberweger/nplayer-v06-acceptance-20261020/target-v1/release/examples/nplayer_inference",
+        "sha256": "56cc60694e74bcdf206698ced2a5f2afe3ddeb8220ba6b3da830bdf1c8eeed7e"
+      },
+      "nplayer_continuation_arena": {
+        "path": "/home/dberweger/nplayer-v06-acceptance-20261020/target-v1/release/examples/nplayer_continuation_arena",
+        "sha256": "0ddb4be65f1c36009e5733b8d2193f4303d69eaedfc12f92e0ecd974beda1ffc"
+      },
+      "nplayer_arena": {
+        "path": "/home/dberweger/nplayer-v06-acceptance-20261020/target-v1/release/examples/nplayer_arena",
+        "sha256": "72c48c89eda19589bc1ce7141bbd1e2ba8a05dd0e7e90d73fc2130a65263fb55"
+      }
+    },
+    "initial_hands": 2635776,
+    "cases": 36,
+    "supervisor": "649076       00:48 /home/dberweger/nplayer-fast-strength-20261018-main-v5/venv/bin/python -m scripts.nplayer_v06_acceptance run /home/dberweger/nplayer-v06-acceptance-20261020/main-v1",
+    "disks": {
+      "/home/dberweger": {
+        "total": 475921072128,
+        "used": 399156547584,
+        "free": 52513796096
+      },
+      "/mnt/data2tb": {
+        "total": 1967845998592,
+        "used": 1167726784512,
+        "free": 800102436864
+      }
+    },
+    "memory": [
+      "MemAvailable:   129008704 kB",
+      "SwapTotal:      25787388 kB",
+      "SwapFree:       25485712 kB"
+    ],
+    "stage_progress": null,
+    "stage_failure": null,
+    "last_resource": {
+      "at": 1792494204.7989645,
+      "phase": "startup",
+      "target": 0,
+      "temperatures_c": {
+        "Thermistor 15": 41.5,
+        "Package id 0": 29.0
+      },
+      "elapsed_seconds": 47.394172590982635,
+      "rss_bytes": 69500928,
+      "read_bytes": 2946498560,
+      "write_bytes": 2940207104,
+      "rchar": 2946434885,
+      "wchar": 2940207104
+    }
+  },
+  "qualification": {
+    "status": "passed",
+    "fixture_root": "/home/dberweger/nplayer-v06-acceptance-20261020/fixture-v2",
+    "fixture_result_sha256": "65db8ecc1183975e59048cd43c3a299b03a93c10c663e2016b6a0f075855deff",
+    "initial_hands": 432,
+    "reproduction_hands": 432,
+    "gates": 30,
+    "verified_cases": 36,
+    "stages": 70,
+    "all_stage_returncodes_zero": true,
+    "failure": false,
+    "native_library_tests": 63,
+    "arena_tests": 4,
+    "python_tests": 7,
+    "engine_parity": {
+      "engine": {
+        "url": "https://github.com/dberweger2017/pokers.git",
+        "vcs_info": {
+          "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+          "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+          "vcs": "git"
+        }
+      },
+      "players": 3,
+      "seed": 20261020367999,
+      "requested_hands": 216,
+      "binary_sha256": "8a0ba892758283b0d702832175b323ad9484281e12ab802182dbcb4a61e3fe3c",
+      "status": "passed",
+      "mismatches": 0,
+      "hands": 216,
+      "decisions": 1318,
+      "forced_all_in_hands": 27,
+      "unequal_stack_hands": 161,
+      "side_pot_hands": 59,
+      "refund_hands": 62,
+      "multiway_showdowns": 86,
+      "preflop_decisions": 644,
+      "flop_decisions": 331,
+      "turn_decisions": 210,
+      "river_decisions": 133,
+      "elapsed_seconds": 0.07767514599254355,
+      "checked_trace_sha256": "7c7cc107c988051d19204940dbf6ec644cc671ff588e88878e29b69673401ae2"
+    }
+  },
+  "source_bundle": {
+    "path": "/home/dberweger/nplayer-v06-acceptance-20261020/source-v2.tar.gz",
+    "sha256": "179b6bb78270133182c9a45b7877c42747ccf338c5c424aec5933b4a54a4eada"
+  },
+  "original_inputs_read_only": true,
+  "archive_status": "pending; all originals/partials retained",
+  "planned_hands": 2635776,
+  "release_or_default_change": false
+}

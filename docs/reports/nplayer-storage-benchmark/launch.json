@@ -1,0 +1,203 @@
+{
+  "status": "main-baseline-started",
+  "run_root": "bb128:/home/dberweger/nplayer-storage-benchmark-20261018-v2",
+  "launch": {
+    "pid": 213705,
+    "utc": "2026-10-18T09:10:07.617800+00:00",
+    "source_commit": "ce6a3b5a640da020f4cfb1e9172ddc0cc30eef6b",
+    "command": [
+      "python3",
+      "/home/dberweger/nplayer-storage-benchmark-20261018-v2/run.py",
+      "/home/dberweger/nplayer-storage-benchmark-20261018-v2"
+    ]
+  },
+  "toolchain": {
+    "utc": "2026-10-18T09:10:07.617800+00:00",
+    "bundle_sha256": "bcfe54aa621c806fac86e5d38bb0dc4856dc942596e5bc63dad6577e165f99fd",
+    "verified_source_files": 141,
+    "source_commit": "ce6a3b5a640da020f4cfb1e9172ddc0cc30eef6b",
+    "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)\nbinary: rustc\ncommit-hash: b940084d7eb6a299eb4bfeb8e34901bc051e7ac4\ncommit-date: 2026-09-28\nhost: x86_64-unknown-linux-gnu\nrelease: 1.99.0\nLLVM version: 23.1.1\n",
+    "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)\n"
+  },
+  "admission": {
+    "pid": 213705,
+    "config": {
+      "arms": [
+        "baseline",
+        "compact",
+        "parallel"
+      ],
+      "input": "/home/dberweger/nplayer-blueprint-phase2-20261015/training/2026101541/1000m.gz",
+      "input_sha256": "262334b77373c7f418078861ea57fbce181d126c5dda032aa2ff22758a876f21",
+      "tables": "/home/dberweger/nplayer-blueprint-phase2-20261015/tables",
+      "source_commit": "ce6a3b5a640da020f4cfb1e9172ddc0cc30eef6b",
+      "previous_setup_root": "/home/dberweger/nplayer-storage-benchmark-20261018",
+      "api_adapter": "parallel arm passes Gzip::Compatible; no algorithm/format changes"
+    },
+    "initial_sample": {
+      "at": 1792314607.6601624,
+      "phase": "admission",
+      "target": 0,
+      "temperatures_c": {
+        "Thermistor 15": 30.0,
+        "Package id 0": 31.0
+      },
+      "available_ram_bytes": 132228988928,
+      "fan1_rpm": 480,
+      "swap_growth_bytes": 0,
+      "free_disk_bytes": 102429708288,
+      "remaining_output_reservation_bytes": 20000000000,
+      "rss_bytes": 0
+    },
+    "cpus": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "rayon_threads": 4,
+    "lock": "/tmp/cfr-cygnus-exclusive.lock"
+  },
+  "input_stat": {
+    "path": "/home/dberweger/nplayer-blueprint-phase2-20261015/training/2026101541/1000m.gz",
+    "bytes": 1199517402,
+    "mtime_ns": 1792070096498663955,
+    "inode": 9460307
+  },
+  "setup_history": [
+    {
+      "root": "bb128:/home/dberweger/nplayer-storage-benchmark-20261018",
+      "lock_refusal": "admission-refused-lock.json",
+      "failure": "failure.json",
+      "detail": "Baseline and compact library tests passed; PR333 harness failed compilation because save requires an explicit gzip argument. No 1B input load/training ran. Failed setup retained."
+    }
+  ],
+  "cloud_archive_status": "pending; active run and failed setup remain retained on bb128 NVMe",
+  "qualification_receipt": {
+    "observed_utc": "2026-10-18T09:13:26Z",
+    "qualification": {
+      "status": "passed",
+      "fixture_targets": [
+        200000,
+        300000,
+        400000,
+        500000
+      ]
+    },
+    "native_tests_passed": {
+      "baseline": 42,
+      "compact": 44,
+      "parallel": 44
+    },
+    "qualification_identity": {
+      "baseline": {
+        "returncode": 0,
+        "verified": [
+          {
+            "event": "verified",
+            "seconds": 0.017399822,
+            "sha256": "d41f1120ce7687b22144dd01f6c56e786c92ac378607528fb412405673b5e707",
+            "target": 300000
+          },
+          {
+            "event": "verified",
+            "seconds": 0.023057973,
+            "sha256": "f99e256d9c05ad388a58d4d7257f0766d8aaf88bc596ec057576223d7a4c3ce4",
+            "target": 400000
+          },
+          {
+            "event": "verified",
+            "seconds": 0.028313408,
+            "sha256": "d8b786001ad0ce08115d43a26b5f17a67a79c61a555e5c71279c83e07a9a0d84",
+            "target": 500000
+          }
+        ]
+      },
+      "compact": {
+        "returncode": 0,
+        "verified": [
+          {
+            "event": "verified",
+            "seconds": 0.017647794,
+            "sha256": "d41f1120ce7687b22144dd01f6c56e786c92ac378607528fb412405673b5e707",
+            "target": 300000
+          },
+          {
+            "event": "verified",
+            "seconds": 0.022688034,
+            "sha256": "f99e256d9c05ad388a58d4d7257f0766d8aaf88bc596ec057576223d7a4c3ce4",
+            "target": 400000
+          },
+          {
+            "event": "verified",
+            "seconds": 0.028188143,
+            "sha256": "d8b786001ad0ce08115d43a26b5f17a67a79c61a555e5c71279c83e07a9a0d84",
+            "target": 500000
+          }
+        ]
+      },
+      "parallel": {
+        "returncode": 0,
+        "verified": [
+          {
+            "event": "verified",
+            "seconds": 0.017468288,
+            "sha256": "d41f1120ce7687b22144dd01f6c56e786c92ac378607528fb412405673b5e707",
+            "target": 300000
+          },
+          {
+            "event": "verified",
+            "seconds": 0.022939585,
+            "sha256": "f99e256d9c05ad388a58d4d7257f0766d8aaf88bc596ec057576223d7a4c3ce4",
+            "target": 400000
+          },
+          {
+            "event": "verified",
+            "seconds": 0.028268804,
+            "sha256": "d8b786001ad0ce08115d43a26b5f17a67a79c61a555e5c71279c83e07a9a0d84",
+            "target": 500000
+          }
+        ]
+      }
+    },
+    "main_started": {
+      "arm": "baseline",
+      "command": {
+        "command": [
+          "/home/dberweger/nplayer-storage-benchmark-20261018-v2/binaries/baseline/nplayer_storage_bench",
+          "/home/dberweger/nplayer-blueprint-phase2-20261015/tables",
+          "/home/dberweger/nplayer-blueprint-phase2-20261015/training/2026101541/1000m.gz",
+          "262334b77373c7f418078861ea57fbce181d126c5dda032aa2ff22758a876f21",
+          "/home/dberweger/nplayer-storage-benchmark-20261018-v2/outputs/baseline",
+          "1100000000,1200000000,1300000000"
+        ],
+        "cwd": "/home/dberweger/nplayer-storage-benchmark-20261018-v2",
+        "rayon_threads": "4"
+      },
+      "latest_progress": {
+        "event": "phase",
+        "phase": "load",
+        "target": 0
+      },
+      "last_resource_sample": {
+        "at": 1792314806.1204252,
+        "phase": "load",
+        "target": 0,
+        "temperatures_c": {
+          "Thermistor 15": 54.0,
+          "Package id 0": 50.0
+        },
+        "available_ram_bytes": 125481250816,
+        "fan1_rpm": 674,
+        "swap_growth_bytes": 0,
+        "free_disk_bytes": 102209830912,
+        "remaining_output_reservation_bytes": 19774310062,
+        "rss_bytes": 6014201856,
+        "read_bytes": 0,
+        "write_bytes": 0,
+        "rchar": 5006756742,
+        "wchar": 44
+      }
+    }
+  }
+}

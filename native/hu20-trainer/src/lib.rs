@@ -13,14 +13,22 @@ pub mod small_exact;
 pub mod multi_checkpoint;
 pub mod multi_holdem;
 pub mod multi_policy;
+pub mod multi_binary;
 pub mod multi_arena;
+pub mod policy_expectation;
+pub mod arena_expectation;
 #[cfg(test)]
 mod multi_tests;
 pub mod key;
 pub mod parity;
 pub mod store;
+pub mod gz;
 pub mod streams;
 pub mod trainer;
 
 pub mod checkpoint;
 pub mod telemetry;
+
+pub mod multi_counterfactual;
+
+pub mod river;

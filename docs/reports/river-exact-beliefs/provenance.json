@@ -1,0 +1,101 @@
+{
+  "status": "complete-verified",
+  "root": "bb128:/home/dberweger/river-exact-beliefs-20261021",
+  "main": "main-v1",
+  "readout": "readout-v3",
+  "measured_source": "e2a91181f77d9c5b0a4de545bccbe498391875fe",
+  "analysis": {
+    "analysis_commit": "49f49fc3a481386d588a92a9a991c54ebedb2177",
+    "sha256": "515cae5184317de066219dcfe19a54fdf22cd1e8ec5249c6eaf1123393aa5fa6",
+    "measured_source": "e2a91181f77d9c5b0a4de545bccbe498391875fe",
+    "scope": "saved-data readout only; adds startup and component accounting, no science rerun"
+  },
+  "original_analysis": {
+    "analysis_commit": "8f85a1763e92797a5f38f07e1bbc5ad3da912d52",
+    "sha256": "4fa83e780cbff3866d710da9e114eab59418fc11a194181f665ceccae3701c79",
+    "measured_source": "e2a91181f77d9c5b0a4de545bccbe498391875fe"
+  },
+  "binary": {
+    "river_live_sha256": "b072dc11ba863863bffdba7b93cd96e74dda27c6cc1959c75a5df37af76b66d3",
+    "protocol_sha256": "ef9bb0b0e4b107b38e51edabc7d0ff049ac0da903f822fe4bb5d89515af5a1ee"
+  },
+  "launch": {
+    "pid": 797069,
+    "source": "e2a91181f77d9c5b0a4de545bccbe498391875fe",
+    "mode": "main",
+    "utc": "2026-10-21T15:46:33Z",
+    "model": "/home/dberweger/nplayer-v06-acceptance-20261020/main-v1/inputs/2026101935003/candidate.bin",
+    "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+    "parent_panel_sha256": "f5b6b2706a0b6ee8912a52961b6b8e2795158bd982bea18fa43227f74924b919",
+    "cpu_stop_c": 90,
+    "thermistor15_stop_c": 100,
+    "no_other_resource_stops": true
+  },
+  "parent_pins": {
+    "root": "/home/dberweger/river-continuation-qualification-20261021/main-v1",
+    "panel_sha256": "f5b6b2706a0b6ee8912a52961b6b8e2795158bd982bea18fa43227f74924b919",
+    "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+    "controls": [
+      52,
+      56,
+      124,
+      129,
+      47,
+      185,
+      77,
+      157,
+      53,
+      38,
+      75,
+      143,
+      73,
+      88,
+      33,
+      154,
+      72,
+      136,
+      123,
+      108
+    ],
+    "original_deployment_sha256": "0a1562b2698af8ffb3eda7dbd5be52d59e5a53cad6ce727b87666f7972927cb3",
+    "parent_verification_sha256": "dce3de58b51c5d6a9beffd6e31a771f320da93e8a58fbb931ec5534090336d00"
+  },
+  "environment": {
+    "python": "3.11.17 (main, Oct 14 2026, 01:05:33) [Clang 23.1.3 ]",
+    "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)\nbinary: rustc\ncommit-hash: b940084d7eb6a299eb4bfeb8e34901bc051e7ac4\ncommit-date: 2026-09-28\nhost: x86_64-unknown-linux-gnu\nrelease: 1.99.0\nLLVM version: 23.1.1",
+    "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)",
+    "ordinary_rayon_threads": 1,
+    "control_rayon_threads": 16
+  },
+  "all_seven_main_returncodes": 0,
+  "reporting_wrapper_failure": {
+    "stage": "reporting-wrapper",
+    "exit_code": 127,
+    "error": "/usr/bin/time missing; analysis never started; measurements complete",
+    "replacement": "readout-v2 Python resource accounting"
+  },
+  "recovery": "saved-data analysis only, readout-v2 succeeded; readout-v3 adds components/startup accounting; no measurement repeated",
+  "source_git_alternate_dependency": "bb128:/home/dberweger/river-continuation-qualification-20261021/source/.git/objects",
+  "setup_failure_preserved": "setup-v1-failure.json; bundle advertised HEAD, repaired before any build/science",
+  "originals_retained": true,
+  "cache_and_drive_acceptance": "pending; open PR root and protected inputs retained, no archival or deletion performed",
+  "local_compact_retrieval": "results/exact-complete-20261021T162638Z",
+  "compact_files": {
+    "results.json": {
+      "bytes": 101249,
+      "sha256": "f48ce5efb5b9ab9259cf16e62a6e5d8a38578acd44fa53f95520931a254d1cc1"
+    },
+    "cases.csv": {
+      "bytes": 569254,
+      "sha256": "387e44dea229e7e935258baf1c6ebc2c0a24f9d7d7aacbc8f013018d040defa6"
+    },
+    "verification.json": {
+      "bytes": 819,
+      "sha256": "88b814261ac687f0f02354d026fc2939005260f9a09c06f7528fde0b8ea534df"
+    },
+    "costs.json": {
+      "bytes": 13160,
+      "sha256": "77e9eecd6c2fafdefa08c832d0738a8c41276ab86a5d795577f132674da487da"
+    }
+  }
+}

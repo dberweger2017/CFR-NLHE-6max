@@ -1,0 +1,854 @@
+{
+  "status": "complete",
+  "seed": "2026101935003",
+  "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+  "shared_host": true,
+  "scope": "six synthetic public roots; first four deeper roots, last two near-all-in support controls",
+  "binary_sha256": "7eef25e07e7564b740a0c391248cba27c22533740965ee170b8201a78cf80701",
+  "fixture_request_sha256": "710b6aa08c238f3ef7dbd5458102981219d3936df32095d34ecfe245fb99d521",
+  "source_files": {
+    "native/hu20-trainer/src/river.rs": "d365a586ef78b2ac4a248662cb1d9d2d8dfafb0b36e4d3a6db1a51570937ee84",
+    "native/hu20-trainer/src/river/live.rs": "5f8a9544523f78ff20086c90a5eb80736bf52fa245450506d9eb22e81f9cce08",
+    "native/hu20-trainer/src/river/prepared.rs": "8c6ed9264a1856b2ed37769698ae82d4a22ecfba8ef49891d092fed97f2b6e58",
+    "native/hu20-trainer/examples/river_live.rs": "b835f1dd90f754cb4a48456517ab7cf1c318cb94151316d7454f485597f0b6ea",
+    "src/blueprint/live_river.py": "cc4297f2873ac96fce21a379becd78b4d9eb31b9bea9d7d5061224cde362f322",
+    "scripts/live_river_fixtures.py": "8510b97c0055fb7f888d1e3127259bbee84db546edbd057a8f066842aa7dcd8d",
+    "scripts/benchmark_live_river.py": "5bf3acb6652fbbc2fb6a23e50dfd48fc2ddd7bd79408928a43c61f33463bcc1c"
+  },
+  "cases": [
+    {
+      "case": 0,
+      "board": [
+        "3c",
+        "Jc",
+        "Ks",
+        "Kc",
+        "6d"
+      ],
+      "seat": 1,
+      "pot_bb": 2.0,
+      "stack_bb": [
+        100.0,
+        99.0,
+        99.0
+      ],
+      "records": [],
+      "status": "unsupported",
+      "reason": "unsupported full production tree exceeds 4096 nodes; no menu truncation",
+      "decision_seconds": [
+        0.023069115995895118,
+        0.02108285902068019,
+        0.020495482021942735
+      ]
+    },
+    {
+      "case": 1,
+      "board": [
+        "9s",
+        "8h",
+        "2s",
+        "Ah",
+        "5h"
+      ],
+      "seat": 0,
+      "pot_bb": 2.5,
+      "stack_bb": [
+        99.0,
+        99.0,
+        99.5
+      ],
+      "records": [],
+      "status": "unsupported",
+      "reason": "unreachable node or excessive strategy cells",
+      "decision_seconds": [
+        0.022081885021179914,
+        0.02214734099106863,
+        0.022392166021745652
+      ]
+    },
+    {
+      "case": 2,
+      "board": [
+        "8h",
+        "Qh",
+        "8s",
+        "8d",
+        "Qd"
+      ],
+      "seat": 1,
+      "pot_bb": 67.5,
+      "stack_bb": [
+        99.5,
+        66.5,
+        66.5
+      ],
+      "records": [
+        {
+          "sweeps": 16,
+          "quality": {
+            "best_response_gains_bb": [
+              3.204884974823152,
+              5.401955124215707
+            ],
+            "exploitability_bb": 4.3034200495194295,
+            "exploitability_root_pot": 0.06375437110399154,
+            "profile_values_bb": [
+              29.209237202581413,
+              -29.2092372025814
+            ],
+            "zero_sum_error_bb": 1.4210854715202004e-14
+          },
+          "probabilities": [
+            0.4014236194501025,
+            0.07054018013014855,
+            0.528036200419749
+          ],
+          "complete_decision_seconds": [
+            0.5479394900030456,
+            0.547582843049895,
+            0.5467957920045592
+          ],
+          "native_timings": [
+            {
+              "likelihood_seconds": 0.007463609,
+              "native_before_serialization_seconds": 0.544612284,
+              "projection_seconds": 0.014337532,
+              "quality_seconds": 0.041522588,
+              "reconstruction_seconds": 7.528e-06,
+              "solve_seconds": 0.459438244,
+              "tree_and_solver_preparation_seconds": 0.021830424
+            },
+            {
+              "likelihood_seconds": 0.008103908,
+              "native_before_serialization_seconds": 0.544184572,
+              "projection_seconds": 0.013997655,
+              "quality_seconds": 0.041773346,
+              "reconstruction_seconds": 1.3422e-05,
+              "solve_seconds": 0.459873383,
+              "tree_and_solver_preparation_seconds": 0.020410141
+            },
+            {
+              "likelihood_seconds": 0.008031795,
+              "native_before_serialization_seconds": 0.543472003,
+              "projection_seconds": 0.014163246,
+              "quality_seconds": 0.042610243,
+              "reconstruction_seconds": 9.702e-06,
+              "solve_seconds": 0.457989835,
+              "tree_and_solver_preparation_seconds": 0.02065454
+            }
+          ]
+        },
+        {
+          "sweeps": 64,
+          "quality": {
+            "best_response_gains_bb": [
+              0.3249562733893505,
+              0.33701503474704353
+            ],
+            "exploitability_bb": 0.330985654068197,
+            "exploitability_root_pot": 0.004903491171380696,
+            "profile_values_bb": [
+              31.158611197839658,
+              -31.158611197839633
+            ],
+            "zero_sum_error_bb": 2.4868995751603507e-14
+          },
+          "probabilities": [
+            0.028833475199393024,
+            0.006169266711469143,
+            0.9649972580891378
+          ],
+          "complete_decision_seconds": [
+            1.9213535659946501,
+            1.9250253170030192,
+            1.9179302079719491
+          ],
+          "native_timings": [
+            {
+              "likelihood_seconds": 0.008054274,
+              "native_before_serialization_seconds": 1.918013129,
+              "projection_seconds": 0.014096923,
+              "quality_seconds": 0.042345591,
+              "reconstruction_seconds": 9.092e-06,
+              "solve_seconds": 1.833019804,
+              "tree_and_solver_preparation_seconds": 0.020475468
+            },
+            {
+              "likelihood_seconds": 0.007803162,
+              "native_before_serialization_seconds": 1.92168385,
+              "projection_seconds": 0.01406619,
+              "quality_seconds": 0.042170254,
+              "reconstruction_seconds": 1.3679e-05,
+              "solve_seconds": 1.8370673069999999,
+              "tree_and_solver_preparation_seconds": 0.020550944
+            },
+            {
+              "likelihood_seconds": 0.007904936,
+              "native_before_serialization_seconds": 1.913795285,
+              "projection_seconds": 0.014100249,
+              "quality_seconds": 0.042506266,
+              "reconstruction_seconds": 1.4603e-05,
+              "solve_seconds": 1.828652318,
+              "tree_and_solver_preparation_seconds": 0.020605614
+            }
+          ]
+        },
+        {
+          "sweeps": 256,
+          "quality": {
+            "best_response_gains_bb": [
+              0.036471324102844704,
+              0.03378574663600631
+            ],
+            "exploitability_bb": 0.035128535369425506,
+            "exploitability_root_pot": 0.0005204227462137113,
+            "profile_values_bb": [
+              31.131643125389157,
+              -31.131643125389196
+            ],
+            "zero_sum_error_bb": 3.907985046680551e-14
+          },
+          "probabilities": [
+            0.0018231282956814655,
+            0.0003900800936240217,
+            0.9977867916106945
+          ],
+          "complete_decision_seconds": [
+            7.422092333028559,
+            7.449516286025755,
+            7.459670255018864
+          ],
+          "native_timings": [
+            {
+              "likelihood_seconds": 0.00790738,
+              "native_before_serialization_seconds": 7.4180544600000005,
+              "projection_seconds": 0.014014704,
+              "quality_seconds": 0.042162975,
+              "reconstruction_seconds": 1.392e-05,
+              "solve_seconds": 7.333217912,
+              "tree_and_solver_preparation_seconds": 0.020726253
+            },
+            {
+              "likelihood_seconds": 0.007863645,
+              "native_before_serialization_seconds": 7.445516832,
+              "projection_seconds": 0.014006737,
+              "quality_seconds": 0.042608373,
+              "reconstruction_seconds": 1.0574e-05,
+              "solve_seconds": 7.360166008,
+              "tree_and_solver_preparation_seconds": 0.020849747
+            },
+            {
+              "likelihood_seconds": 0.008007862,
+              "native_before_serialization_seconds": 7.455658895,
+              "projection_seconds": 0.014220437,
+              "quality_seconds": 0.04240336,
+              "reconstruction_seconds": 1.0397e-05,
+              "solve_seconds": 7.370220219,
+              "tree_and_solver_preparation_seconds": 0.020784475
+            }
+          ]
+        }
+      ],
+      "status": "supported",
+      "nodes": 801,
+      "law": {
+        "exact_posterior": false,
+        "folded_seat": 0,
+        "law": "three-product-action-posterior-active-marginal-projection-v1",
+        "projection_total_variation": 0.06524090675154443,
+        "three_seat_compatible_mass": 0.7123367898342403
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 0,
+          "positive_mass": 1081,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 0,
+          "positive_mass": 3243,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 0,
+          "positive_mass": 3243,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "reference_1024": {
+        "quality": {
+          "best_response_gains_bb": [
+            0.0018765833983565017,
+            0.004897341705710545
+          ],
+          "exploitability_bb": 0.0033869625520335234,
+          "exploitability_root_pot": 5.0177222993089235e-05,
+          "profile_values_bb": [
+            31.125570095950934,
+            -31.125570095950934
+          ],
+          "zero_sum_error_bb": 0.0
+        },
+        "complete_decision_seconds": 29.718673566996586,
+        "scalar_quality": {
+          "best_response_gains_bb": [
+            0.0018765833983600544,
+            0.004897341705721203
+          ],
+          "exploitability_bb": 0.003386962552040629,
+          "exploitability_root_pot": 5.01772229931945e-05,
+          "profile_values_bb": [
+            31.125570095950938,
+            -31.125570095950955
+          ],
+          "zero_sum_error_bb": 1.7763568394002505e-14
+        }
+      },
+      "quality_gap_vs_1024": [
+        4.300033086967396,
+        0.3275986915161635,
+        0.03174157281739198
+      ]
+    },
+    {
+      "case": 3,
+      "board": [
+        "Qs",
+        "4c",
+        "Qc",
+        "Jh",
+        "3h"
+      ],
+      "seat": 2,
+      "pot_bb": 187.5,
+      "stack_bb": [
+        6.5,
+        99.5,
+        6.5
+      ],
+      "records": [],
+      "status": "unsupported",
+      "reason": "own holding has zero modeled root reach",
+      "decision_seconds": [
+        0.025875016988720745,
+        0.023273501021321863,
+        0.022730590018909425
+      ]
+    },
+    {
+      "case": 4,
+      "board": [
+        "2s",
+        "Jh",
+        "2h",
+        "Qd",
+        "Jc"
+      ],
+      "seat": 0,
+      "pot_bb": 198.5,
+      "stack_bb": [
+        1.0,
+        1.0,
+        99.5
+      ],
+      "records": [
+        {
+          "sweeps": 16,
+          "quality": {
+            "best_response_gains_bb": [
+              0.0755545025951676,
+              0.580532693715412
+            ],
+            "exploitability_bb": 0.32804359815528983,
+            "exploitability_root_pot": 0.0016526125851651881,
+            "profile_values_bb": [
+              -58.64798599741019,
+              58.64798599741022
+            ],
+            "zero_sum_error_bb": 2.842170943040401e-14
+          },
+          "probabilities": [
+            0.003676470588235294,
+            0.9963235294117647
+          ],
+          "complete_decision_seconds": [
+            0.10257062205346301,
+            0.10114455997245386,
+            0.10010082897497341
+          ],
+          "native_timings": [
+            {
+              "likelihood_seconds": 0.080573459,
+              "native_before_serialization_seconds": 0.102320744,
+              "projection_seconds": 0.013991179,
+              "quality_seconds": 0.000407587,
+              "reconstruction_seconds": 1.9958e-05,
+              "solve_seconds": 0.004486269,
+              "tree_and_solver_preparation_seconds": 0.0028312
+            },
+            {
+              "likelihood_seconds": 0.079434258,
+              "native_before_serialization_seconds": 0.100891891,
+              "projection_seconds": 0.01406281,
+              "quality_seconds": 0.000381871,
+              "reconstruction_seconds": 1.9924e-05,
+              "solve_seconds": 0.004248778,
+              "tree_and_solver_preparation_seconds": 0.002735355
+            },
+            {
+              "likelihood_seconds": 0.078209585,
+              "native_before_serialization_seconds": 0.099854793,
+              "projection_seconds": 0.014044782,
+              "quality_seconds": 0.000434063,
+              "reconstruction_seconds": 1.8156e-05,
+              "solve_seconds": 0.004439362,
+              "tree_and_solver_preparation_seconds": 0.002700256
+            }
+          ]
+        },
+        {
+          "sweeps": 64,
+          "quality": {
+            "best_response_gains_bb": [
+              0.004892533582626868,
+              0.03804116913858735
+            ],
+            "exploitability_bb": 0.02146685136060711,
+            "exploitability_root_pot": 0.00010814534690482171,
+            "profile_values_bb": [
+              -59.12144999135882,
+              59.12144999135884
+            ],
+            "zero_sum_error_bb": 1.4210854715202004e-14
+          },
+          "probabilities": [
+            0.0002403846153846154,
+            0.9997596153846153
+          ],
+          "complete_decision_seconds": [
+            0.11370232101762667,
+            0.11609431001124904,
+            0.11391724803252146
+          ],
+          "native_timings": [
+            {
+              "likelihood_seconds": 0.078408903,
+              "native_before_serialization_seconds": 0.113449651,
+              "projection_seconds": 0.014019605,
+              "quality_seconds": 0.000401103,
+              "reconstruction_seconds": 1.8567e-05,
+              "solve_seconds": 0.017885752,
+              "tree_and_solver_preparation_seconds": 0.002706441
+            },
+            {
+              "likelihood_seconds": 0.080413127,
+              "native_before_serialization_seconds": 0.115836145,
+              "projection_seconds": 0.014015421,
+              "quality_seconds": 0.000401175,
+              "reconstruction_seconds": 1.8934e-05,
+              "solve_seconds": 0.018196663,
+              "tree_and_solver_preparation_seconds": 0.002781202
+            },
+            {
+              "likelihood_seconds": 0.078941811,
+              "native_before_serialization_seconds": 0.113661077,
+              "projection_seconds": 0.014189261,
+              "quality_seconds": 0.000390645,
+              "reconstruction_seconds": 1.8458e-05,
+              "solve_seconds": 0.017355066,
+              "tree_and_solver_preparation_seconds": 0.002756182
+            }
+          ]
+        },
+        {
+          "sweeps": 256,
+          "quality": {
+            "best_response_gains_bb": [
+              0.0010276990663342644,
+              0.0019115923819157388
+            ],
+            "exploitability_bb": 0.0014696457241250016,
+            "exploitability_root_pot": 7.403756796599504e-06,
+            "profile_values_bb": [
+              -59.1515444619682,
+              59.15154446196822
+            ],
+            "zero_sum_error_bb": 2.1316282072803006e-14
+          },
+          "probabilities": [
+            0.7864405099451659,
+            0.21355949005483407
+          ],
+          "complete_decision_seconds": [
+            0.17079561296850443,
+            0.16804683697409928,
+            0.1691609260160476
+          ],
+          "native_timings": [
+            {
+              "likelihood_seconds": 0.081045165,
+              "native_before_serialization_seconds": 0.170532324,
+              "projection_seconds": 0.014193241,
+              "quality_seconds": 0.000400467,
+              "reconstruction_seconds": 1.9349e-05,
+              "solve_seconds": 0.072100611,
+              "tree_and_solver_preparation_seconds": 0.002762111
+            },
+            {
+              "likelihood_seconds": 0.079505426,
+              "native_before_serialization_seconds": 0.167782247,
+              "projection_seconds": 0.013969985,
+              "quality_seconds": 0.00039887,
+              "reconstruction_seconds": 1.9437e-05,
+              "solve_seconds": 0.071177614,
+              "tree_and_solver_preparation_seconds": 0.002700701
+            },
+            {
+              "likelihood_seconds": 0.080197118,
+              "native_before_serialization_seconds": 0.168875803,
+              "projection_seconds": 0.013937835,
+              "quality_seconds": 0.000400839,
+              "reconstruction_seconds": 1.8389e-05,
+              "solve_seconds": 0.071605314,
+              "tree_and_solver_preparation_seconds": 0.002705895
+            }
+          ]
+        }
+      ],
+      "status": "supported",
+      "nodes": 9,
+      "law": {
+        "exact_posterior": false,
+        "folded_seat": 2,
+        "law": "three-product-action-posterior-active-marginal-projection-v1",
+        "projection_total_variation": 0.04053093544579553,
+        "three_seat_compatible_mass": 0.711095144547095
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 20037,
+          "positive_mass": 6605,
+          "public_decisions": 25,
+          "zero_mass": 383
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 20080,
+          "positive_mass": 5926,
+          "public_decisions": 25,
+          "zero_mass": 1019
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 0,
+          "positive_mass": 1081,
+          "public_decisions": 1,
+          "zero_mass": 0
+        }
+      ],
+      "reference_1024": {
+        "quality": {
+          "best_response_gains_bb": [
+            0.00013348951799940778,
+            7.623765533537608e-05
+          ],
+          "exploitability_bb": 0.00010486358666739193,
+          "exploitability_root_pot": 5.282800335888762e-07,
+          "profile_values_bb": [
+            -59.15164173875851,
+            59.151641738758535
+          ],
+          "zero_sum_error_bb": 2.842170943040401e-14
+        },
+        "complete_decision_seconds": 0.3858812489779666,
+        "scalar_quality": {
+          "best_response_gains_bb": [
+            0.00013348951799940778,
+            7.623765530695437e-05
+          ],
+          "exploitability_bb": 0.00010486358665318107,
+          "exploitability_root_pot": 5.28280033517285e-07,
+          "profile_values_bb": [
+            -59.151641738758514,
+            59.1516417387585
+          ],
+          "zero_sum_error_bb": 1.4210854715202004e-14
+        }
+      },
+      "quality_gap_vs_1024": [
+        0.32793873456862244,
+        0.021361987773939717,
+        0.0013647821374576097
+      ]
+    },
+    {
+      "case": 5,
+      "board": [
+        "3h",
+        "5c",
+        "9c",
+        "Jd",
+        "9h"
+      ],
+      "seat": 1,
+      "pot_bb": 196.5,
+      "stack_bb": [
+        99.5,
+        2.0,
+        2.0
+      ],
+      "records": [
+        {
+          "sweeps": 16,
+          "quality": {
+            "best_response_gains_bb": [
+              0.3413728804452738,
+              0.2683343076989182
+            ],
+            "exploitability_bb": 0.304853594072096,
+            "exploitability_root_pot": 0.0015514177815373843,
+            "profile_values_bb": [
+              21.95341144087665,
+              -21.9534114408766
+            ],
+            "zero_sum_error_bb": 4.973799150320701e-14
+          },
+          "probabilities": [
+            0.0024509803921568627,
+            0.03721217171403377,
+            0.9603368478938095
+          ],
+          "complete_decision_seconds": [
+            0.11122659302782267,
+            0.10899462195811793,
+            0.10884457197971642
+          ],
+          "native_timings": [
+            {
+              "likelihood_seconds": 0.081410249,
+              "native_before_serialization_seconds": 0.110962334,
+              "projection_seconds": 0.014013577,
+              "quality_seconds": 0.001070079,
+              "reconstruction_seconds": 2.3411e-05,
+              "solve_seconds": 0.011604985,
+              "tree_and_solver_preparation_seconds": 0.002829561
+            },
+            {
+              "likelihood_seconds": 0.080111194,
+              "native_before_serialization_seconds": 0.108722907,
+              "projection_seconds": 0.014091785,
+              "quality_seconds": 0.000974587,
+              "reconstruction_seconds": 2.0449e-05,
+              "solve_seconds": 0.010678891,
+              "tree_and_solver_preparation_seconds": 0.002835998
+            },
+            {
+              "likelihood_seconds": 0.079679276,
+              "native_before_serialization_seconds": 0.108579092,
+              "projection_seconds": 0.014206028,
+              "quality_seconds": 0.000987223,
+              "reconstruction_seconds": 1.9748e-05,
+              "solve_seconds": 0.010859469,
+              "tree_and_solver_preparation_seconds": 0.002816458
+            }
+          ]
+        },
+        {
+          "sweeps": 64,
+          "quality": {
+            "best_response_gains_bb": [
+              0.022696520298374878,
+              0.020416674766376985
+            ],
+            "exploitability_bb": 0.021556597532375932,
+            "exploitability_root_pot": 0.00010970278642430499,
+            "profile_values_bb": [
+              21.971873190029,
+              -21.971873190029044
+            ],
+            "zero_sum_error_bb": 4.263256414560601e-14
+          },
+          "probabilities": [
+            0.0894769201079043,
+            0.03449985827154944,
+            0.8760232216205462
+          ],
+          "complete_decision_seconds": [
+            0.14022569102235138,
+            0.14194264897378162,
+            0.14104175800457597
+          ],
+          "native_timings": [
+            {
+              "likelihood_seconds": 0.079406313,
+              "native_before_serialization_seconds": 0.139960129,
+              "projection_seconds": 0.014039306,
+              "quality_seconds": 0.000966064,
+              "reconstruction_seconds": 1.938e-05,
+              "solve_seconds": 0.042641157,
+              "tree_and_solver_preparation_seconds": 0.002877345
+            },
+            {
+              "likelihood_seconds": 0.078153129,
+              "native_before_serialization_seconds": 0.141680053,
+              "projection_seconds": 0.013936818,
+              "quality_seconds": 0.001024901,
+              "reconstruction_seconds": 1.9205e-05,
+              "solve_seconds": 0.045643345,
+              "tree_and_solver_preparation_seconds": 0.002892195
+            },
+            {
+              "likelihood_seconds": 0.078119712,
+              "native_before_serialization_seconds": 0.140778857,
+              "projection_seconds": 0.013995577,
+              "quality_seconds": 0.001010208,
+              "reconstruction_seconds": 1.9874e-05,
+              "solve_seconds": 0.044874541,
+              "tree_and_solver_preparation_seconds": 0.002749058
+            }
+          ]
+        },
+        {
+          "sweeps": 256,
+          "quality": {
+            "best_response_gains_bb": [
+              0.0023528903159437675,
+              0.0018325998357120454
+            ],
+            "exploitability_bb": 0.0020927450758279065,
+            "exploitability_root_pot": 1.0650102167063138e-05,
+            "profile_values_bb": [
+              21.972123191594346,
+              -21.972123191594385
+            ],
+            "zero_sum_error_bb": 3.907985046680551e-14
+          },
+          "probabilities": [
+            0.005657587360908345,
+            0.0021814112720337678,
+            0.9921610013670579
+          ],
+          "complete_decision_seconds": [
+            0.2763330860179849,
+            0.2677283820230514,
+            0.27557776699541137
+          ],
+          "native_timings": [
+            {
+              "likelihood_seconds": 0.077301484,
+              "native_before_serialization_seconds": 0.276049377,
+              "projection_seconds": 0.01426322,
+              "quality_seconds": 0.001012799,
+              "reconstruction_seconds": 2.1331e-05,
+              "solve_seconds": 0.180501733,
+              "tree_and_solver_preparation_seconds": 0.002938364
+            },
+            {
+              "likelihood_seconds": 0.078557958,
+              "native_before_serialization_seconds": 0.267452142,
+              "projection_seconds": 0.014045576,
+              "quality_seconds": 0.000953603,
+              "reconstruction_seconds": 2.0864e-05,
+              "solve_seconds": 0.171108419,
+              "tree_and_solver_preparation_seconds": 0.002754039
+            },
+            {
+              "likelihood_seconds": 0.078798193,
+              "native_before_serialization_seconds": 0.275264103,
+              "projection_seconds": 0.014018494,
+              "quality_seconds": 0.000960175,
+              "reconstruction_seconds": 2.2488e-05,
+              "solve_seconds": 0.178639225,
+              "tree_and_solver_preparation_seconds": 0.002814555
+            }
+          ]
+        }
+      ],
+      "status": "supported",
+      "nodes": 21,
+      "law": {
+        "exact_posterior": false,
+        "folded_seat": 0,
+        "law": "three-product-action-posterior-active-marginal-projection-v1",
+        "projection_total_variation": 0.08074988936043101,
+        "three_seat_compatible_mass": 0.6673662869650258
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 0,
+          "positive_mass": 1081,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 19162,
+          "positive_mass": 6483,
+          "public_decisions": 24,
+          "zero_mass": 299
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 19525,
+          "positive_mass": 6170,
+          "public_decisions": 25,
+          "zero_mass": 1330
+        }
+      ],
+      "reference_1024": {
+        "quality": {
+          "best_response_gains_bb": [
+            0.0003726146884481807,
+            0.00024305198206064915
+          ],
+          "exploitability_bb": 0.0003078333352544149,
+          "exploitability_root_pot": 1.5665818588010937e-06,
+          "profile_values_bb": [
+            21.972501899323216,
+            -21.97250189932322
+          ],
+          "zero_sum_error_bb": 3.552713678800501e-15
+        },
+        "complete_decision_seconds": 0.7886307730223052,
+        "scalar_quality": {
+          "best_response_gains_bb": [
+            0.0003726146884552861,
+            0.00024305198206775458
+          ],
+          "exploitability_bb": 0.00030783333526152035,
+          "exploitability_root_pot": 1.5665818588372537e-06,
+          "profile_values_bb": [
+            21.972501899323206,
+            -21.972501899323206
+          ],
+          "zero_sum_error_bb": 0.0
+        }
+      },
+      "quality_gap_vs_1024": [
+        0.3045457607368416,
+        0.021248764197121517,
+        0.0017849117405734916
+      ]
+    }
+  ],
+  "arena_launched": false,
+  "loading": {
+    "model_and_k50_load_seconds": 260.911932113,
+    "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+    "policy_load_seconds": 255.611351971,
+    "rows": 250000475,
+    "status": "ready",
+    "roundtrip_startup_seconds": 260.91273359401384
+  },
+  "total_wall_seconds": 331.5439187090378,
+  "child_high_water_rss_bytes": 15644438528,
+  "supported_roots": 3
+}

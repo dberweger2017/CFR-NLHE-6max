@@ -1,0 +1,17 @@
+# Owner-authorized checkpoint thermal handoff
+
+**Terminal update,20:46:30UTC:** the original95°C guard stopped the first seed before20B. The100°C handoff never started or activated. Both supervisors exited; no automatic restart. The10B checkpoint, raw logs and failure receipts remain in the original root and owned cache. See [terminal stop](terminal-stop.md). The arming record below is historical.
+
+October18,2026: the owner requested Thermistor15 stop100°C instead of95°C and explicitly approved applying it “on the next completed checkpoint.” CPU90°C and all other campaign settings remain. No MSI-approved continuous temperature rating is claimed.
+
+The next boundary is seed2026101541 at20B nodes. The first10B save already completed before this authorization. The one-shot helper was launched at20:39:30UTC and confirmed armed at20:40:03UTC, while training was at15.65B nodes. Activation is **pending**: the old95°C supervisor remains active until the20B checkpoint has closed and emitted its SHA256 event. A failure before then aborts the handoff without retry.
+
+- Original supervisor358105 and native binary/source4cd199a5fef18b24cac188617d767b3f49a422de stay unchanged until the boundary.
+- One-shot helper369905: `/home/dberweger/nplayer-fast-strength-20261018-main-v5/venv/bin/python /tmp/nplayer-overnight-20261018/owner-thermal-amendment/handoff.py /tmp/nplayer-overnight-20261018`.
+- Helper SHA256: `b97031be902a186336353650d2e3cd8c33ee9b0c3d9c8b153146d193c887bd18`; repository source: `scripts/nplayer_overnight_thermal_handoff.py`. The deployment is separate from the frozen source tree.
+- `thermal-handoff-launch.json` and `thermal-handoff-armed.json` record the pending authorization. `thermal-handoff-started.json`, `thermal-handoff-interruption.json`, `thermal-handoff-active.json` and continuation measurements record the actual transition; `thermal-handoff-failure.json` records any refusal/error. Never infer activation from the launch alone.
+- After verifying exact process identities, the helper terminates the original processes at the completed checkpoint, verifies its SHA256 and reacquires both locks. The original stage remains owner-interrupted, not a successful returncode0 stage. Original stdout/resources and10B/20B models remain, including any briefly executed unsaved work after20B.
+- The same native binary resumes20B→30B with only25B/30B probes; previous monitoring points remain. Other seeds and final evaluation are unchanged. TensorBoard gets a new event file in the same run with cumulative active/monitor seconds for the resumed seed.
+- Original deadline1792387148.4860098 (October19 05:19:08UTC/07:19Madrid) remains. All existing owned bytes are charged in full after restart, so disk growth allowances are not reset; zero original swap usage is required. CPU90°C, missing sensors, RAM, swap, address-space and affinity limits remain.
+
+Seven focused Python tests pass: original matrix/preservation/TensorBoard checks plus boundary selection/refusal, continuation points,100°C thermal/90°C CPU boundaries and existing event-file preservation. No new poker experiment, fan/driver/OS change, recurring schedule or model adoption is introduced. The helper becomes the continuing supervisor after the boundary. Raw models/logs remain onbb128, with owned retained copies under `/mnt/data2tb/research-cloud/PR-346-nplayer-overnight-blueprint`; Drive archival/acceptance remains pending. This report records arming, not completed activation or final scientific results.

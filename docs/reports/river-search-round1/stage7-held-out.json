@@ -1,0 +1,59 @@
+{
+  "format": "river-search-heldout-v1",
+  "config_sha256": "2ac3d6f03f3a44bf5d79def504c78ccc7b235c7e82e5baa3b017d50d2ac44376",
+  "concurrent_workers": 6,
+  "coverage": {
+    "eligible_decisions": 5580,
+    "supported": 5580,
+    "share": 1.0,
+    "share_95ci": [
+      0.9993120148680434,
+      1.0
+    ],
+    "panel_solved": 600,
+    "panel_roots": 600,
+    "gate": "pass"
+  },
+  "latency": {
+    "median": 0.2782430179676505,
+    "p95": 0.978882539050355,
+    "mean": 0.3633427486251233,
+    "max": 1.9787388550176466,
+    "gate": "pass"
+  },
+  "search_game_quality": {
+    "target_met": 598,
+    "roots": 600,
+    "share_95ci": [
+      0.9879283904323899,
+      0.9990854224615877
+    ],
+    "sweeps": {
+      "p50": 256,
+      "p90": 512,
+      "p100": 2048
+    },
+    "gate": "fail"
+  },
+  "full_menu_reported_separately": {
+    "deployed_gate_met": 3,
+    "deployed_max_gain_bb": {
+      "p50": 0.9734743253827076,
+      "p90": 4.080452057970883,
+      "p95": 6.204472099336018,
+      "p99": 13.875202600351464
+    },
+    "blueprint_only_max_gain_bb": {
+      "p50": 1.9657528265227404,
+      "p90": 7.554432978779321,
+      "p95": 13.023234856372575,
+      "p99": 23.756728894673262
+    },
+    "deployed_worse_than_blueprint": 143,
+    "paired_improvement_bb": {
+      "p10": -0.6534182522297858,
+      "p50": 0.6858306403269783,
+      "p90": 4.749503080330754
+    }
+  }
+}

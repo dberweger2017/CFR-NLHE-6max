@@ -1,0 +1,85 @@
+{
+  "source": {
+    "at": 1792527133.4664702,
+    "pid": 710431,
+    "source": "bc1bb630f64918483b23928b843bf2ce82dfa244",
+    "model": "/home/dberweger/nplayer-v06-acceptance-20261020/main-v1/inputs/2026101935003/candidate.bin",
+    "cpu_stop_c": 90,
+    "thermistor15_stop_c": 100,
+    "scope": "qualification and six fixed decision fixtures only; no arena"
+  },
+  "supervisor_live": false,
+  "supervisor": null,
+  "stages": {
+    "complete-decision-pilot": {
+      "returncode": 0,
+      "wall_seconds": 331.68981066695414,
+      "cpu_seconds": 211.700909,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 15900213248
+      }
+    },
+    "focused-python": {
+      "returncode": 0,
+      "wall_seconds": 0.236450971045997,
+      "cpu_seconds": 0.23593399999999998,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 13316096
+      }
+    },
+    "numerical-review": {
+      "returncode": 0,
+      "wall_seconds": 0.5459316270425916,
+      "cpu_seconds": 0.543274,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 61624320
+      }
+    }
+  },
+  "max_temperature_c": {
+    "Thermistor 15": 55.5,
+    "Package id 0": 64.0
+  },
+  "status": {
+    "status": "complete",
+    "at": 1792527465.9442117
+  },
+  "failure": false,
+  "measured_source_file_hashes_match_final_tree": {
+    "native/hu20-trainer/src/river.rs": true,
+    "native/hu20-trainer/src/river/live.rs": true,
+    "native/hu20-trainer/src/river/prepared.rs": true,
+    "native/hu20-trainer/examples/river_live.rs": true,
+    "src/blueprint/live_river.py": true,
+    "scripts/live_river_fixtures.py": true,
+    "scripts/benchmark_live_river.py": true
+  },
+  "tests": {
+    "native_library": {
+      "passed": 81,
+      "seconds": 9.91,
+      "profile": "release",
+      "log": "native-full-tests.log"
+    },
+    "python_final_source": {
+      "passed": 19,
+      "seconds": 2.26,
+      "source": "ffb21e97",
+      "log": "python-final-source.log"
+    },
+    "game": {
+      "players": 6,
+      "hands": 20,
+      "log": "game-check.log"
+    },
+    "session": {
+      "hands": 30,
+      "log": "session-check.log"
+    }
+  },
+  "retained_setup_failures": [
+    "initial shell cargo PATH was missing before compilation",
+    "first shallow source bundle lacked prerequisite9ca629; fetched into own source checkout",
+    "added rational regression initially imported the older measured module; final exact source tests pass"
+  ]
+}

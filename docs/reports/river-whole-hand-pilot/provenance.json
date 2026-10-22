@@ -1,0 +1,53 @@
+{
+  "root": "/home/dberweger/river-whole-hand-pilot-20261021-v2",
+  "runtime_source": "46caeceb88d24733f393f567c2b1e2fd6300cc4d",
+  "main_launch": {
+    "pid": 815084,
+    "source": "46caeceb88d24733f393f567c2b1e2fd6300cc4d",
+    "config_sha256": "e6f79e35bc23f6d997fa5a1181526bf3254c398deaccee76b07266a942962fd7",
+    "mode": "main",
+    "utc": "2026-10-21T21:48:51Z",
+    "cpu_stop_c": 90,
+    "thermistor15_stop_c": 100,
+    "no_other_resource_stops": true,
+    "focal_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+    "peer_sha256": "23599816cf632a51cace45f25d70ed4918fe5e75875c33136d8629052a8a2a70"
+  },
+  "result_sha256": "f4d254f896c8ed73305746fee4b1e278eec40c20d80e997a807b5a9fe60c51c9",
+  "source_manifest_sha256": "aaf658818f6ed2c6e3979d80b6ba35dad2574c41be6956101c24f51712bd1576",
+  "config": {
+    "sha256": "e6f79e35bc23f6d997fa5a1181526bf3254c398deaccee76b07266a942962fd7",
+    "value": {
+      "focal": "/home/dberweger/nplayer-v06-acceptance-20261020/main-v1/inputs/2026101935003/candidate.bin",
+      "peer": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/inputs/candidate.bin",
+      "k50": "/home/dberweger/cygnus-qualification-20261014/tables"
+    }
+  },
+  "binary": {
+    "sha256": "e67b0357e2eb16f66b1c6829cc7194e40c3a51533a9dbfd7446e2ea6c31ca472",
+    "value": {
+      "sha256": "6d7254057afb76d81640fb22caa7c5a6bb7fee6d8373cc44730f2e7bd854b5ba"
+    }
+  },
+  "published_quote_receipt": {
+    "sha256": "e830d01e092e7707644ee13788d612bfc62507b36516c2620499f40bf9ad1c29",
+    "value": {
+      "source": "46caeceb88d24733f393f567c2b1e2fd6300cc4d",
+      "quote_sha256": "995948f4969e25ea94ffa5ab1029e958e3f961069d13691b5d1809764fa7aead",
+      "supplement_proof_sha256": "ef7fd072b5b0abdafd0bea4bac19db3582fd938356645b82f8e86acf95441ec1",
+      "published_here_and_pr": 388,
+      "utc": "2026-10-21T21:48:51Z"
+    }
+  },
+  "retrieved_utc": "2026-10-21T22:01:30Z",
+  "local_retrieval": "/Users/dberweger/Local/cfr-river-whole-hand-pilot-20261021/results/river-whole-hand-pilot-20261022",
+  "original_failure_root": "/home/dberweger/river-whole-hand-pilot-20261021",
+  "failures": [
+    "Original native qualification caught non-idempotent diagnostic metadata before real fixture/final hands; fixed and fresh qualification passed.",
+    "v2 Git alternate/prerequisite setup failed before build/hands; only new owned clone plumbing repaired.",
+    "Archive setup had no gh executable on bb128 before copying; current PR state retrieved with local gh instead.",
+    "Immutable ZIP upload succeeded, but deployed receipt rejected the /research symlink path. Canonical /mnt/data2tb/research-cloud path recovered acceptance without reupload, tool modification or repeated science."
+  ],
+  "retention": "All original evidence and external model/K50/Git/environment inputs retained; no other job modified; no scientific retry.",
+  "csv_representation": "Git CSV line endings normalized to LF; numeric values unchanged; original generated CSV retained in owned archive."
+}

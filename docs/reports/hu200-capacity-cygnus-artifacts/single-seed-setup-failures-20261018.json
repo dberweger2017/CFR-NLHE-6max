@@ -1,0 +1,17 @@
+{
+  "scientific_attempts_launched": false,
+  "failures": [
+    {
+      "stage": "new inactive checkout",
+      "error": "Git alternate object nesting too deep, unable to read tree",
+      "effect": "Checkout only; no models or source dependencies altered"
+    },
+    {
+      "stage": "flatten new checkout alternates",
+      "error": "Conservative owned-only assertion found pre-existing qualified repo-main object-store dependency; second .venv command absent",
+      "effect": "No scientific process launched; no dependency altered"
+    }
+  ],
+  "resolution": "New inactive checkout references its existing object stores directly, terminal qualified store first, preventing recursive nesting. Only new checkout Git metadata changed; same pinned42acb483 source clean. Original failed logs and helpers retained.",
+  "source": "42acb48339b9347e19eab3754a5c26f145d7291b"
+}

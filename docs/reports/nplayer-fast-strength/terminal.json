@@ -1,0 +1,171 @@
+{
+  "format": "nplayer-fast-strength-terminal-v1",
+  "status": "terminal-thermal-stop",
+  "observation": {
+    "observed_utc": "2026-10-18T12:18:30Z",
+    "root": "/home/dberweger/nplayer-fast-strength-20261018-main-v4",
+    "launch": {
+      "pid": 294450,
+      "utc": "2026-10-18T11:59:06.114575+00:00",
+      "command": [
+        "python3",
+        "-m",
+        "scripts.run_nplayer_fast_study",
+        "/home/dberweger/nplayer-fast-strength-20261018-main-v4"
+      ],
+      "source_commit": "2ff320d483b0219165518d75d2d92389f48d182a",
+      "bundle_sha256": "525a6291fc1757be00119906bf9cdb185cab6c84cf6bf8c92cab99995f89ec81",
+      "verified_source_files": 720,
+      "native_files_identical_to_qualification": 47,
+      "selected_threads": 16
+    },
+    "admission": {
+      "pid": 294450,
+      "initial_sample": {
+        "at": 1792324746.1559904,
+        "phase": "admission",
+        "target": 0,
+        "temperatures_c": {
+          "Thermistor 15": 37,
+          "Package id 0": 39
+        },
+        "available_ram_bytes": 131962732544,
+        "fan1_rpm": 496,
+        "swap_growth_bytes": 0,
+        "free_disk_bytes": 84066648064,
+        "remaining_output_reservation_bytes": 32000000000,
+        "rss_bytes": 0
+      },
+      "threads": 16,
+      "qualification_sha256": "a587a9ec0987f35e24998f290c4b861b5b2be0461a94b2b00efc84e8f8e9e407",
+      "legacy_holder": null,
+      "original_deadline_epoch": 1792348292.676534,
+      "projected_seconds": 7200,
+      "source_commit": "2ff320d483b0219165518d75d2d92389f48d182a"
+    },
+    "pretraining-freeze": {
+      "status": "qualified",
+      "seed_order": [
+        2026101541,
+        2026101542,
+        2026101543
+      ],
+      "threads": 16,
+      "roots_per_seat": 8,
+      "training_seconds": 600,
+      "node_target": 1000000000,
+      "source_commit": "2ff320d483b0219165518d75d2d92389f48d182a",
+      "instrumented_cli_identity": "passed",
+      "deadline_epoch": 1792348292.676534
+    },
+    "failure": {
+      "error": "RuntimeError('thermal stop')",
+      "at": 1792325139.0887554
+    },
+    "supervisor": {
+      "alive": false,
+      "command": null
+    },
+    "stages": [
+      {
+        "name": "build",
+        "returncode": 0,
+        "wall_seconds": 15.300231415982125
+      },
+      {
+        "name": "environment-create",
+        "returncode": 0,
+        "wall_seconds": 2.1669692450086586
+      },
+      {
+        "name": "environment-install",
+        "returncode": 0,
+        "wall_seconds": 4.541949751001084
+      },
+      {
+        "name": "harness-smoke",
+        "returncode": 0,
+        "wall_seconds": 10.73593068899936
+      },
+      {
+        "name": "smoke-audit-clock",
+        "returncode": 0,
+        "wall_seconds": 3.4715752420015633
+      },
+      {
+        "name": "smoke-audit-nodes",
+        "returncode": 0,
+        "wall_seconds": 7.981966306018876
+      },
+      {
+        "name": "smoke-evaluation",
+        "returncode": 0,
+        "wall_seconds": 28.11109728302108
+      },
+      {
+        "name": "smoke-export-clock",
+        "returncode": 0,
+        "wall_seconds": 1.3512646690069232
+      },
+      {
+        "name": "smoke-export-nodes",
+        "returncode": 0,
+        "wall_seconds": 3.2378030639956705
+      },
+      {
+        "name": "thermal-soak",
+        "returncode": 0,
+        "wall_seconds": 211.3446663049981
+      },
+      {
+        "name": "train-fast-2026101541",
+        "progress": {
+          "entries": 21137855,
+          "event": "progress",
+          "nodes": 420956111,
+          "training_seconds": 87.498238722
+        },
+        "last_resource": {
+          "at": 1792325138.4455252,
+          "phase": "train",
+          "target": 0,
+          "temperatures_c": {
+            "Thermistor 15": 84.5,
+            "Package id 0": 68
+          },
+          "available_ram_bytes": 128336330752,
+          "fan1_rpm": 1044,
+          "swap_growth_bytes": 0,
+          "free_disk_bytes": 82588454912,
+          "remaining_output_reservation_bytes": 30465617820,
+          "rss_bytes": 3227455488,
+          "read_bytes": 950272,
+          "write_bytes": 0,
+          "rchar": 2768100502,
+          "wchar": 977
+        },
+        "failure": {
+          "error": "RuntimeError('thermal stop')",
+          "phase": "train",
+          "target": 0
+        }
+      }
+    ]
+  },
+  "scientific_source": "2ff320d483b0219165518d75d2d92389f48d182a",
+  "tested_pr335_head": "b9923248cb97bc52c7db34491d9ff70e2845b4ec",
+  "final_strength_results_available": false,
+  "final_evaluation_started": false,
+  "restarted": false,
+  "triggering_sensor_reading_recorded": false,
+  "last_resource_is_pre_stop_sample": true,
+  "schedule": {
+    "id": "scheduled-task:command:mcp:06311a8e-31cc-4297-8468-0c0afd3d0f52:schedule-task:pr340-pr335-fast-strength-study-10min-20261018-v1",
+    "enabled": false
+  },
+  "archive": {
+    "status": "pending",
+    "originals_retained": true,
+    "open_pr_roots_protected": true
+  }
+}

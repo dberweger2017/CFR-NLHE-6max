@@ -1,0 +1,31 @@
+{
+  "scope": "prospective single-seed continuation; not a measured full-job ETA or kill budget",
+  "active_training_seconds": 1449.2712503413884,
+  "components_seconds": {
+    "active_training": 1449.2712503413884,
+    "one_endpoint_processing": 689.66061239499,
+    "checkpoint_reload": 400.0,
+    "two_full_audits_with_metadata": 1019.1249816930213,
+    "two_policy_load_and_mass_tags": 488.74999999999994,
+    "native_nonload_and_replay": 300.0,
+    "final_hashes_lookup_checks_readout": 180.0
+  },
+  "estimate_seconds": 4526.8068444293995,
+  "planning_allowance_seconds": 5658.50855553675,
+  "predicted_output_bytes": 25107046572.0,
+  "predicted_trace_bytes": 7243341824.0,
+  "mass_metadata_upper_bytes": 2551336480,
+  "observed_historical_two_model_rss_gib": 66.03,
+  "inference_row_size_increase_bytes": 0,
+  "initial_hands": 884736,
+  "reproduction_hands": 884736,
+  "assumptions": [
+    "one endpoint uses half of historical two-endpoint nontraining overhead; cadence differs",
+    "checkpoint reload400s and native/replay/readout allowances are estimates",
+    "audits add30% and model loading15% for mass metadata; not a mature benchmark",
+    "trace bytes scale small qualification traces; reached paths may differ at3B/10B",
+    "disk/swap remain manual observations; forecast never stops a running job"
+  ],
+  "historical_source": "docs/reports/nplayer-pruning-strength/results.json",
+  "qualification": "/home/dberweger/nplayer-bb100-10b-20261019/qualification-v1/qualification.json"
+}

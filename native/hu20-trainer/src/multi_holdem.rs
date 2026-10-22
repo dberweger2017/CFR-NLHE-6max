@@ -3,7 +3,6 @@ use crate::cards::EquityTables;
 use crate::game::Kind;
 use crate::multi_cfr::{Decision, Game, State};
 use crate::nplayer::{Action, Config, Event, Hand, Observation, Saved};
-use blake2::digest::{Update, VariableOutput};
 use rand::{seq::SliceRandom, Rng};
 use serde_json::{json, Value};
 
@@ -171,10 +170,7 @@ fn observation_decision_with_tables(
     let choices = menu(observation);
     let card_class = card_class(observation, tables);
     let bytes = payload(observation, &card_class, &choices);
-    let mut hash = blake2::Blake2bVar::new(16).unwrap();
-    hash.update(&bytes);
-    let mut key = [0; 16];
-    hash.finalize_variable(&mut key).unwrap();
+    let key = crate::key::digest16(&bytes);
     let n = observation.config.players();
     Decision {
         key,
@@ -189,6 +185,7 @@ pub struct CashGame {
     pub config: Config,
     pub tables: &'static EquityTables,
 }
+#[derive(Clone)]
 pub struct CashState {
     pub hand: Hand,
     tables: Option<&'static EquityTables>,
@@ -276,7 +273,7 @@ mod tests {
                 assert_eq!(state.decision().unwrap(), d);
                 let mut table = crate::multi_cfr::Table::default();
                 table.insert(d.key, crate::multi_cfr::Entry::new(d, 3));
-                table[&d.key].check(d);
+                table.get(&d.key).unwrap().check(d);
             }
         }
     }

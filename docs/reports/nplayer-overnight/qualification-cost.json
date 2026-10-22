@@ -1,0 +1,191 @@
+{
+  "launch": {
+    "epoch": 1792351148.4860098,
+    "source_commit": "4cd199a5fef18b24cac188617d767b3f49a422de",
+    "bundle_sha256": "fe16e3e8d36122fc655b620d4cf8298bd1e2956503d1847a853d9eb86cb1acd1",
+    "source_files": 722,
+    "deadline_epoch": 1792387148.4860106,
+    "owner_authorization": "small run then long run; October18"
+  },
+  "admission": {
+    "source_commit": "4cd199a5fef18b24cac188617d767b3f49a422de",
+    "initial_sample": {
+      "at": 1792351148.5351903,
+      "phase": "admission",
+      "target": 0,
+      "temperatures_c": {
+        "Thermistor 15": 31.5,
+        "Package id 0": 43.0
+      },
+      "available_ram_bytes": 132234399744,
+      "fan1_rpm": 485,
+      "swap_growth_bytes": 0,
+      "free_disk_bytes": 67399434240,
+      "remaining_output_reservation_bytes": 51539607552,
+      "rss_bytes": 0,
+      "nvme_free_bytes": 55702700032,
+      "hdd_free_bytes": 1233583243264
+    },
+    "deadline": 1792387148.4860098
+  },
+  "native-binary": {
+    "path": "/tmp/nplayer-overnight-20261018/target/release/examples/nplayer_overnight",
+    "sha256": "54d2bc7b727737fdd5e92aecc4464583ea3c374a92e3f9b0f8485e64ba652d84"
+  },
+  "cost-quote": {
+    "projected_remaining_seconds": 30161.42526991971,
+    "nodes_per_second": 4850141.783105803,
+    "active_seconds": 16728.604151040767,
+    "monitoring_seconds": 0.530641524,
+    "save_allowance_seconds": 4520.005423371,
+    "final_allowance_seconds": 3600,
+    "remaining_seconds": 35300.01458668709
+  },
+  "stages": {
+    "build": {
+      "returncode": 0,
+      "wall_seconds": 12.298308456985978,
+      "cpu_seconds": 28.718644,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 1258909696
+      },
+      "events": []
+    },
+    "native-tests": {
+      "returncode": 0,
+      "wall_seconds": 28.94136243898538,
+      "cpu_seconds": 71.701974,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 521216000
+      },
+      "events": []
+    },
+    "qualification-control": {
+      "returncode": 0,
+      "wall_seconds": 255.47411447099876,
+      "cpu_seconds": 787.40918,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 5615603712
+      },
+      "events": [
+        {
+          "checkpoint": "/tmp/nplayer-overnight-20261018/qualification-control.gz",
+          "counts": {
+            "decisions": [
+              153152867,
+              275401178,
+              541477247,
+              896944848
+            ],
+            "discarded_keys": 0,
+            "discarded_visits": 0,
+            "missing": [
+              723588,
+              2709582,
+              9825983,
+              32538914
+            ],
+            "nodes": 3149727814,
+            "terminals": 1282751674,
+            "traverser": [
+              202772927,
+              202848517,
+              202768678,
+              0,
+              0,
+              0
+            ]
+          },
+          "elapsed_seconds": 192.403996716,
+          "entries": 45796661,
+          "frozen_at": null,
+          "identity": {
+            "big_blind": 100,
+            "card_tables": [
+              "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+              "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+              "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+            ],
+            "game": "nlhe-cash",
+            "menu": "min-pot-conditional-jam-v1",
+            "players": 3,
+            "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+            "small_blind": 50,
+            "stacks": [
+              2000,
+              2000,
+              2000
+            ],
+            "utility_unit": "big-blind"
+          },
+          "iteration": 598645,
+          "save_seconds": 153.096736486,
+          "sha256": "7d60d9f9a260e9451a9234bc29abad4bff53f4af28e2a7aa342fa7d8b053af05",
+          "stop_reason": "nodes"
+        }
+      ]
+    },
+    "qualification-monitored": {
+      "returncode": 0,
+      "wall_seconds": 321.1337118980009,
+      "cpu_seconds": 876.3859130000001,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 1389297664,
+        "load/0": 10043371520,
+        "train/3149726632": 10616700928,
+        "save/3149726632": 10616627200,
+        "hash/3149726632": 10616700928
+      },
+      "events": [
+        {
+          "active_seconds": 41.236151631000084,
+          "counts": {
+            "decisions": [
+              153152867,
+              275401178,
+              541477247,
+              896944848
+            ],
+            "discarded_keys": 0,
+            "discarded_visits": 0,
+            "missing": [
+              723588,
+              2709582,
+              9825983,
+              32538914
+            ],
+            "nodes": 3149727814,
+            "terminals": 1282751674,
+            "traverser": [
+              202772927,
+              202848517,
+              202768678,
+              0,
+              0,
+              0
+            ]
+          },
+          "entries": 45796661,
+          "event": "trained",
+          "iteration": 598645,
+          "monitor_seconds": 0.025268644,
+          "nodes": 3149727814,
+          "target": 3149726632
+        },
+        {
+          "event": "checkpoint",
+          "path": "/tmp/nplayer-overnight-20261018/qualification-monitored/3149726632.gz",
+          "save_seconds": 167.407608273,
+          "sha256": "7d60d9f9a260e9451a9234bc29abad4bff53f4af28e2a7aa342fa7d8b053af05",
+          "target": 3149726632
+        },
+        {
+          "active_seconds": 41.236151631000084,
+          "event": "complete",
+          "monitor_seconds": 0.025268644,
+          "nodes": 3149727814
+        }
+      ]
+    }
+  }
+}

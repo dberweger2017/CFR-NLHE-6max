@@ -1,0 +1,93 @@
+{
+  "source": "dc58d5192ebae768a14ead940a05ff86220128af",
+  "upstream": "7b5dad0b46ca98805fe2e4e1ba3839533bf44fda",
+  "bundle_sha256": "994e182f1b0f84e1742dcedcae407e092a3c92d8246777ead406f6d0f3b0c7aa",
+  "config": {
+    "pilot": "/home/dberweger/river-whole-hand-pilot-20261021-v2/main-v1",
+    "reference": "/home/dberweger/river-conditional-evaluation-20261022",
+    "focal": "/home/dberweger/nplayer-v06-acceptance-20261020/main-v1/inputs/2026101935003/candidate.bin",
+    "peer": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/inputs/candidate.bin",
+    "k50": "/home/dberweger/cygnus-qualification-20261014/tables"
+  },
+  "config_sha256": "c11b85a2a9a8677945dc55023002739bfdfe254bee64b396615985627fb672cc",
+  "binary_sha256": "aaa1308888998f6013d88c21c556dd802617143f79504ad51d5b52b9157bb886",
+  "root": "bb128:/home/dberweger/river-arena-expectation-20261022",
+  "qualification_launch": {
+    "pid": 819222,
+    "source": "dc58d5192ebae768a14ead940a05ff86220128af",
+    "config_sha256": "c11b85a2a9a8677945dc55023002739bfdfe254bee64b396615985627fb672cc",
+    "mode": "qualify",
+    "utc": "2026-10-22T01:55:24Z",
+    "cpu_stop_c": 90,
+    "thermistor15_stop_c": 100,
+    "no_other_resource_stops": true,
+    "no_new_deals": true,
+    "no_strength_run": true
+  },
+  "calibration_launch": {
+    "pid": 820978,
+    "source": "dc58d5192ebae768a14ead940a05ff86220128af",
+    "config_sha256": "c11b85a2a9a8677945dc55023002739bfdfe254bee64b396615985627fb672cc",
+    "mode": "calibrate",
+    "utc": "2026-10-22T01:56:21Z",
+    "cpu_stop_c": 90,
+    "thermistor15_stop_c": 100,
+    "no_other_resource_stops": true,
+    "no_new_deals": true,
+    "no_strength_run": true
+  },
+  "tests": {
+    "native-tests": [
+      "running 120 tests",
+      "test result: ok. 120 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 9.87s"
+    ],
+    "python-tests": [
+      "Ran 14 tests in 0.011s",
+      "OK"
+    ]
+  },
+  "remote_file_sha256": {
+    "qualification-v1/status.json": "36452c9d94fd7fa63e0df024f778bfc22ee3a64fecbf949d2680e8d3c9d810aa",
+    "qualification-v1/launch.json": "2a2b674eab81264f9ea3f26674aa1ae69b37f12d111163b7acdb704b8b0d17be",
+    "qualification-v1/stage-costs.json": "645f56322068ea0fe789b9591b940a5175b2a39b633cf870956ebff965b13231",
+    "qualification-v1/binary-pin.json": "2189df30a11a37efb136a1363be7ef41f7683faf08f56202452a22682eca843f",
+    "calibration-v1/status.json": "2fa77e83c81dbb782950e952651a0a007597d8e3105bfa6ddfe517e07b227876",
+    "calibration-v1/launch.json": "fd1faa12df431c8436ca2fe649a7157e55a0f940404e4af4336567bee1fa32ef",
+    "calibration-v1/stage-costs.json": "11b5d910eae6a3764afa77373faaf74a967fee9833666ac78b6165e2a8a979b9",
+    "calibration-v1/binary-pin.json": "2189df30a11a37efb136a1363be7ef41f7683faf08f56202452a22682eca843f",
+    "calibration-v1/calibrate/verified.json": "6de37255576976a0f9f1ad20cc13b44cdea4a66afad2823e93f5d987568c3048",
+    "calibration-v1/calibrate/costs.json": "12e3cc775ab1a0b71474a300764fb76ba9e7cc7dc54a4cec0cf3a26bf71c6ce8",
+    "calibration-v1/calibrate/quote.json": "dc5290c02e32a065455825c27c52e52c2214b69f5a2fe62710d4a514e5160c54",
+    "calibration-v1/calibrate/initial/costs.json": "ec2946908feab5d26acd5c028fc721ec7f42cc258dfb6d2805dcdb0037e75d2f",
+    "calibration-v1/calibrate/repeat/costs.json": "d259f153767f9220245879dfda5db73f59b0da3f4c2bf0e800b5a3c0dd3de020",
+    "control.json": "c11b85a2a9a8677945dc55023002739bfdfe254bee64b396615985627fb672cc",
+    "source-dependencies.json": "68cff7088f60f1cb07c8f4495015155d8e66fbadbd05803a0c67c65d579b21ff"
+  },
+  "protected_dependencies": {
+    "object_stores": [
+      "/home/dberweger/river-conditional-evaluation-20261022/assessment-source-aff3228b/.git/objects",
+      "/home/dberweger/river-whole-hand-pilot-20261021/source/.git/objects",
+      "/home/dberweger/river-harm-diagnosis-20261021/source/.git/objects",
+      "/home/dberweger/river-exact-beliefs-20261021/source/.git/objects",
+      "/home/dberweger/river-continuation-qualification-20261021/source/.git/objects",
+      "/home/dberweger/river-search-round2-20261021/comparison-source-a8078b9d/.git/objects",
+      "/home/dberweger/river-search-round2-20261021/comparison-source-1e3581cf/.git/objects",
+      "/home/dberweger/river-search-round1-20261021/src/.git/objects",
+      "/home/dberweger/river-whole-hand-pilot-20261021-v2/source/.git/objects",
+      "/home/dberweger/river-conditional-evaluation-20261022/source/.git/objects"
+    ],
+    "environment": "/home/dberweger/river-whole-hand-pilot-20261021/venv",
+    "external_inputs": {
+      "pilot": "/home/dberweger/river-whole-hand-pilot-20261021-v2/main-v1",
+      "reference": "/home/dberweger/river-conditional-evaluation-20261022",
+      "focal": "/home/dberweger/nplayer-v06-acceptance-20261020/main-v1/inputs/2026101935003/candidate.bin",
+      "peer": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/inputs/candidate.bin",
+      "k50": "/home/dberweger/cygnus-qualification-20261014/tables"
+    },
+    "originals_read_only": true
+  },
+  "full_measurement_started": false,
+  "strength_started": false,
+  "archive_status": "pending; all originals retained; no Drive acceptance claimed",
+  "local_partial_debug_test_status": "Stopped only owned debug-suite process; partial logs retained. Complete optimized suite subsequently passed on bb128."
+}

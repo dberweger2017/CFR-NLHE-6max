@@ -1,0 +1,41 @@
+{
+  "status": "terminal-thermal-stop",
+  "source_commit": "4cd199a5fef18b24cac188617d767b3f49a422de",
+  "root": "bb128:/tmp/nplayer-overnight-20261018",
+  "stop_epoch": 1792356390.129741,
+  "crossing_sample_epoch": 1792356389.853608,
+  "stop_utc": "2026-10-18T20:46:30Z",
+  "cpu_c": 70.0,
+  "thermistor15_c": 95.0,
+  "effective_thermistor15_limit_c": 95,
+  "last_reported_nodes": 17473051336,
+  "last_reported_active_seconds": 3066.025954390878,
+  "last_reported_entries": 88429517,
+  "last_reported_nodes_per_second": 4736856.41284316,
+  "rss_bytes_at_crossing": 8930054144,
+  "swap_growth_bytes": 0,
+  "recoverable_checkpoint": {
+    "target": 10000000000,
+    "bytes": 3046730955,
+    "path": "training-2026101541/10000000000.gz",
+    "sha256": "36b61a8848fd30aec0e83086ede3f8ac3e4681e7c6afb99c4c0b99780f79d5a1",
+    "save_seconds": 255.392962596
+  },
+  "checkpoint20b_exists": false,
+  "thermal100_activated": false,
+  "handoff_status": "aborted-before-checkpoint",
+  "handoff_error": "ValueError('process identity changed; refusing signal')",
+  "supervisors_358105_and_369905_running": false,
+  "preservation_failure": null,
+  "retained_original_and_cache_matching_sizes": [
+    "training-2026101541/10000000000.gz",
+    "measurements/training-2026101541/stdout.log",
+    "measurements/training-2026101541/resources.jsonl",
+    "failure.json",
+    "thermal-handoff-failure.json"
+  ],
+  "cache": "bb128:/mnt/data2tb/research-cloud/PR-346-nplayer-overnight-blueprint",
+  "cloud_acceptance": "pending",
+  "automatic_retry": false,
+  "limits": "Node count is last periodic progress, not an exact stop count; size checks are not new file hash audits."
+}

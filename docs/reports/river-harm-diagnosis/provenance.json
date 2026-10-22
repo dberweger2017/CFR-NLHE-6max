@@ -1,0 +1,105 @@
+{
+  "status": "complete-verified",
+  "root": "bb128:/home/dberweger/river-harm-diagnosis-20261021",
+  "measured_source": "895f853f407f6f618fce396f1a5c36c17f778941",
+  "main": "main-v1",
+  "readout": "readout-v1",
+  "qualification": "calibration-v1",
+  "binary": {
+    "sha256": "ef63eacc2bc26c91105783f8afcad82ce30ed30dba5a9b7bc7f6625dac4d2808"
+  },
+  "source_bundle_sha256": "ee81f74ee25e9c20b58e284a320bfdc94e62901c6a18da67a9f8758dca26938e",
+  "rebased_tree_equivalence": "69ff55b1caeaa1703c8681a27b8e198a08ca4925 tree equals pre-rebase00bd6b72fe7147aad2a1fb392fe0842f8bef789f; remote source untouched",
+  "parent_pr382_merge": "75f2864ef6f881c058403c7903b0803ac18ac8c1",
+  "model_path": "bb128:/home/dberweger/nplayer-v06-acceptance-20261020/main-v1/inputs/2026101935003/candidate.bin",
+  "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+  "panel_path": "bb128:/home/dberweger/river-continuation-qualification-20261021/main-v1/panel/cases.json",
+  "panel_sha256": "f5b6b2706a0b6ee8912a52961b6b8e2795158bd982bea18fa43227f74924b919",
+  "original_profile_records": "bb128:/home/dberweger/river-exact-beliefs-20261021/main-v1/initial/{projected,exact}/records.jsonl",
+  "original_profile_source": "e2a91181f77d9c5b0a4de545bccbe498391875fe",
+  "verification": {
+    "status": "passed",
+    "profiles": 24,
+    "initial_sha256": "c5ef1a22e0ba386c745fb073f38c496db60f82bac89a17dc0fb029b12edb63a3",
+    "repeat_sha256": "373e5d71b8552932a6b2ed8099e126f564e461385f5290750daf9407792107a3",
+    "snapshot_manifest_sha256": "a72d1e8d7d5200a2f7d4282cc4db410916a65a4a2ae9c254b3a3506e8a609e9c",
+    "scope": "strategic fields identical, clocks only excluded; repeat imports snapshots and advances zero sweeps"
+  },
+  "parent_pr382_verification": {
+    "status": "passed",
+    "counts": {
+      "controls": {
+        "records": 20,
+        "initial_sha256": "976ce9ff5652f5c1ea082937dd033d313a38b137e67fec7e5bf2ee00a0db2aaf",
+        "repeat_sha256": "85502deb1b2d898e5edc82216d3db946ae8fe0fac9388341bea4cb34b2120c6b"
+      },
+      "projected": {
+        "records": 400,
+        "initial_sha256": "f9a717bd764837eb6fa2c0c6a23b33029ca272d243c9ba9f48f21fbe2f306614",
+        "repeat_sha256": "9ed5733763d2370c1cf574e93fc95aaa1a5643b736c205aa99cef9a9216aa07c"
+      },
+      "exact": {
+        "records": 200,
+        "initial_sha256": "fffa30a5380451c496bf70659a97509f9149f8b2775f79869ae999266f06f3c3",
+        "repeat_sha256": "0ef1c0208eaaf5e0142ca285a38268a451316f5d0e792ed762d3fdf856acd0e6"
+      }
+    },
+    "excluded": "timing counters and opaque process-local handles only; no strategic fields"
+  },
+  "setup": {
+    "status": "qualified-source-environment",
+    "source": "895f853f407f6f618fce396f1a5c36c17f778941",
+    "bundle_sha256": "ee81f74ee25e9c20b58e284a320bfdc94e62901c6a18da67a9f8758dca26938e",
+    "protected_git_alternate": "/home/dberweger/river-exact-beliefs-20261021/source/.git/objects",
+    "utc": "2026-10-21T16:58:11Z"
+  },
+  "python_environment": "iniconfig==2.3.1\npackaging==26.3\npluggy==1.7.0\nPygments==2.21.0\npytest==9.1.1\n",
+  "local_retrieval": "results/harms-complete-20261021T171953Z",
+  "snapshot_count": 24,
+  "snapshot_bytes": 26435977,
+  "raw_readout_files": {
+    "results.json": {
+      "bytes": 603924,
+      "sha256": "6650ac2e72349f34d3cbd2646f0b8f4e718446d2c35f6094339777aea567e36f"
+    },
+    "responses.csv": {
+      "bytes": 135406,
+      "sha256": "f6a4eb490af80ef24f902efea780070aa84060272060e29886401c43e9442e03"
+    }
+  },
+  "compact_transform": "Equal installed produced/actual policies use same_as; identical ranked response rows deduplicated with index rankings. Exact structural expansion checked against full raw readout; no numeric fields changed.",
+  "diagnostic_response_rows": 1118,
+  "failures": [],
+  "originals_retained": true,
+  "protected_git_object_dependencies": [
+    "bb128:/home/dberweger/river-exact-beliefs-20261021/source/.git/objects",
+    "bb128:/home/dberweger/river-continuation-qualification-20261021/source/.git/objects"
+  ],
+  "archive_and_drive_acceptance": "pending; open-PR originals/dependencies retained; no archive copied/uploaded or deletion performed",
+  "files": {
+    "results.json": {
+      "bytes": 298662,
+      "sha256": "86ec5af99ce1e0ac01522a7172f7e8cb118fd067549a288fca6fc71016cf29b8"
+    },
+    "responses.csv": {
+      "bytes": 135406,
+      "sha256": "f6a4eb490af80ef24f902efea780070aa84060272060e29886401c43e9442e03"
+    },
+    "cases.csv": {
+      "bytes": 2643,
+      "sha256": "17c2be2af899e194b38876de53f7419e11cbafd71a85cdfd17693e9bafbd8012"
+    },
+    "snapshot-pins.csv": {
+      "bytes": 8204,
+      "sha256": "36485abdf923d1941cb93127e8fbeee6a832457b4565af054cf3acbe65d7ace9"
+    },
+    "verification.json": {
+      "bytes": 430,
+      "sha256": "d051ecb2a7b0a1ff929cc26d6973b9bbf6754c1f6ca388b6c9b8c75101999e9f"
+    },
+    "costs.json": {
+      "bytes": 2709,
+      "sha256": "f9f4164e9769ffc6de748a1e3c4884f5e1a552e3ddde53419ff2a7470297aff8"
+    }
+  }
+}

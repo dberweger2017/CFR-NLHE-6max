@@ -1,4 +1,4 @@
-"""Loopback-only HTTP entrypoint for fixed HU20 and explicit HU100 research tables."""
+"""Loopback-only HTTP entrypoint for fixed HU20, HU100 and HU200 tables."""
 
 import argparse
 import hmac
@@ -48,7 +48,7 @@ def token_file(path):
     return token
 
 
-def handler_for(service, token, port):
+def handler_for(service, token, port, assets=ASSET_TYPES):
     allowed_host = f"127.0.0.1:{port}"
     allowed_origin = f"http://{allowed_host}"
 
@@ -104,8 +104,8 @@ def handler_for(service, token, port):
             try:
                 self._guard()
                 path = urlsplit(self.path).path
-                if path in ASSET_TYPES and self.path == path:
-                    name, kind = ASSET_TYPES[path]
+                if path in assets and self.path == path:
+                    name, kind = assets[path]
                     asset = ASSETS / name
                     if asset.is_symlink() or not asset.is_file():
                         raise PlayError("Asset unavailable", 404)
@@ -136,7 +136,8 @@ def handler_for(service, token, port):
                 elif match := BENCHMARK_EXPORT.fullmatch(path):
                     report = service.benchmark_result(match[1])
                     stack_bb = report['table']['stack'] // report['table']['big_blind']
-                    self._send(200, report, download_name=f'hu{stack_bb}-benchmark-{report["benchmarkId"]}.json')
+                    game = f"{report['players']}seat-{stack_bb}bb" if 'players' in report else f'hu{stack_bb}'
+                    self._send(200, report, download_name=f'{game}-benchmark-{report["benchmarkId"]}.json')
                 elif match := DIAGNOSTICS.fullmatch(path):
                     self._send(200, service.diagnostics(match[1], match[2]))
                 else:
@@ -177,12 +178,16 @@ def handler_for(service, token, port):
 
 
 def single_table(args):
-    if getattr(args, 'hu100_research', None) or getattr(args, 'hu100_release', None):
+    if (getattr(args, 'hu100_research', None) or getattr(args, 'hu100_release', None)
+            or getattr(args, 'hu200_release', None)):
         from src.policies.hu100_research import load_policy, VERSION_ID
         from src.play_api.versions import VersionedTables
         from src.play_api.spectator import SpectatorService
         from src.play_api.service import _model_info
-        if getattr(args, 'hu100_release', None):
+        if getattr(args, 'hu200_release', None):
+            from src.policies.hu200_release import load_policy as load_release
+            VERSION_ID, policy = load_release(args.hu200_release)
+        elif getattr(args, 'hu100_release', None):
             from src.policies.hu100_release import load_policy as load_release
             VERSION_ID, policy = load_release(args.hu100_release)
         else:
@@ -228,9 +233,11 @@ def main():
                           help='Explicit hash-pinned PR207 terminal HU100 average; no release/default change')
     opponent.add_argument('--hu100-release', type=Path,
                           help='Verified HU100 release bundle directory (v0.5.0 or later); translation 512/128 is fixed')
+    opponent.add_argument('--hu200-release', type=Path,
+                          help='Verified HU200 v0.5.5 bundle; fixed 200 BB and translation 512/128')
     parser.add_argument('--translate-off-menu', action='store_true',
                         help='Explicit HU100 public-history translation; recorded in every session')
-    parser.add_argument('--stack-bb', type=int, choices=(20, 100),
+    parser.add_argument('--stack-bb', type=int, choices=(20, 100, 200),
                         help='Optional table assertion; must match the selected policy')
     parser.add_argument("--data-dir", type=Path, default=Path("results/play-web"))
     parser.add_argument("--port", type=int, default=8765)
@@ -241,10 +248,10 @@ def main():
         parser.error("Port must be 1–65535")
     if args.translate_off_menu and not args.hu100_research:
         parser.error('--translate-off-menu requires --hu100-research')
-    if args.stack_bb is not None and args.stack_bb != (100 if args.hu100_research or args.hu100_release else 20):
+    if args.stack_bb is not None and args.stack_bb != (200 if args.hu200_release else 100 if args.hu100_research or args.hu100_release else 20):
         parser.error('Model and table stack configuration differ')
     os.umask(0o077)
-    if args.models_dir or not (args.policy or args.o_candidate or args.shield_policy or args.uniform_random or args.hu100_research or args.hu100_release):
+    if args.models_dir or not (args.policy or args.o_candidate or args.shield_policy or args.uniform_random or args.hu100_research or args.hu100_release or args.hu200_release):
         from src.play_api.versions import load_tables
         service = load_tables(args.models_dir or Path("models"), args.data_dir, args.source_version)
     else:
