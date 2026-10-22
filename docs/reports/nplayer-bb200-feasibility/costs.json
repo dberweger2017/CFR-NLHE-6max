@@ -1,0 +1,1209 @@
+{
+  "whole_elapsed_seconds": 1419.997287273407,
+  "whole_child_cpu_seconds": 6528.500313,
+  "main_stages": [
+    {
+      "phase": "environment",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-c",
+        "import sys; assert sys.version_info[:2]==(3,11); from scripts.check_nplayer_parity import engine_identity; print(engine_identity())"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0147101559559815,
+      "user_cpu_seconds": 0.033889,
+      "system_cpu_seconds": 0.011345000000000001,
+      "sampled_peak_rss_bytes": 14643200
+    },
+    {
+      "phase": "fixture-one",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/build-v1/target/release/examples/nplayer_train",
+        "--players",
+        "3",
+        "--stack-bb",
+        "200",
+        "--small-blind",
+        "50",
+        "--big-blind",
+        "100",
+        "--fast",
+        "--threads",
+        "1",
+        "--roots-per-seat",
+        "8",
+        "--seed",
+        "2026102240091",
+        "--nodes",
+        "100000",
+        "--last-average-street",
+        "3",
+        "--max-entries",
+        "10000",
+        "--freeze-at-cap",
+        "--fast-gzip",
+        "--max-seconds",
+        "1e100",
+        "--card-buckets",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "--out",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/fixture-one.gz",
+        "--telemetry",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/fixture-one.gz.progress.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 6.050371146004181,
+      "user_cpu_seconds": 4.738134,
+      "system_cpu_seconds": 0.513422,
+      "sampled_peak_rss_bytes": 156950528
+    },
+    {
+      "phase": "fixture-sixteen",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/build-v1/target/release/examples/nplayer_train",
+        "--players",
+        "3",
+        "--stack-bb",
+        "200",
+        "--small-blind",
+        "50",
+        "--big-blind",
+        "100",
+        "--fast",
+        "--threads",
+        "16",
+        "--roots-per-seat",
+        "8",
+        "--seed",
+        "2026102240091",
+        "--nodes",
+        "100000",
+        "--last-average-street",
+        "3",
+        "--max-entries",
+        "10000",
+        "--freeze-at-cap",
+        "--fast-gzip",
+        "--max-seconds",
+        "1e100",
+        "--card-buckets",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "--out",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/fixture-sixteen.gz",
+        "--telemetry",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/fixture-sixteen.gz.progress.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 6.0498153130174614,
+      "user_cpu_seconds": 4.844601000000001,
+      "system_cpu_seconds": 0.47831900000000005,
+      "sampled_peak_rss_bytes": 157052928
+    },
+    {
+      "phase": "fixture-resume",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/build-v1/target/release/examples/nplayer_train",
+        "--players",
+        "3",
+        "--stack-bb",
+        "200",
+        "--small-blind",
+        "50",
+        "--big-blind",
+        "100",
+        "--fast",
+        "--threads",
+        "16",
+        "--roots-per-seat",
+        "8",
+        "--seed",
+        "2026102240091",
+        "--nodes",
+        "200000",
+        "--last-average-street",
+        "3",
+        "--max-entries",
+        "10000",
+        "--freeze-at-cap",
+        "--fast-gzip",
+        "--max-seconds",
+        "1e100",
+        "--card-buckets",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "--out",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/fixture-resume.gz",
+        "--telemetry",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/fixture-resume.gz.progress.jsonl",
+        "--resume",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/fixture-one.gz",
+        "--resume-sha256",
+        "bec2a102c024682359db252b14edfc14415db4f3b12e12b345681b269d6357f0"
+      ],
+      "returncode": 0,
+      "wall_seconds": 6.050434510980267,
+      "user_cpu_seconds": 4.889301,
+      "system_cpu_seconds": 0.5123849999999999,
+      "sampled_peak_rss_bytes": 157138944
+    },
+    {
+      "phase": "fixture-fresh",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/build-v1/target/release/examples/nplayer_train",
+        "--players",
+        "3",
+        "--stack-bb",
+        "200",
+        "--small-blind",
+        "50",
+        "--big-blind",
+        "100",
+        "--fast",
+        "--threads",
+        "16",
+        "--roots-per-seat",
+        "8",
+        "--seed",
+        "2026102240091",
+        "--nodes",
+        "200000",
+        "--last-average-street",
+        "3",
+        "--max-entries",
+        "10000",
+        "--freeze-at-cap",
+        "--fast-gzip",
+        "--max-seconds",
+        "1e100",
+        "--card-buckets",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "--out",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/fixture-fresh.gz",
+        "--telemetry",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/fixture-fresh.gz.progress.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 6.050234213005751,
+      "user_cpu_seconds": 5.044485999999999,
+      "system_cpu_seconds": 0.4681770000000003,
+      "sampled_peak_rss_bytes": 157233152
+    },
+    {
+      "phase": "reject-cross-depth",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/build-v1/target/release/examples/nplayer_train",
+        "--players",
+        "3",
+        "--stack-bb",
+        "100",
+        "--small-blind",
+        "50",
+        "--big-blind",
+        "100",
+        "--fast",
+        "--threads",
+        "16",
+        "--roots-per-seat",
+        "8",
+        "--seed",
+        "2026102240091",
+        "--nodes",
+        "300000",
+        "--last-average-street",
+        "3",
+        "--max-entries",
+        "10000",
+        "--freeze-at-cap",
+        "--fast-gzip",
+        "--max-seconds",
+        "1e100",
+        "--card-buckets",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "--out",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/forbidden-100bb.gz",
+        "--telemetry",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/forbidden-100bb.gz.progress.jsonl",
+        "--resume",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/fixture-fresh.gz",
+        "--resume-sha256",
+        "38b91ccbe5eed9d14c73c14bbeee703714ef9d1ce93258082aed14bdf8ba3ed3"
+      ],
+      "returncode": 2,
+      "wall_seconds": 6.04970037197927,
+      "user_cpu_seconds": 4.6908840000000005,
+      "system_cpu_seconds": 0.44970299999999996,
+      "sampled_peak_rss_bytes": 157265920,
+      "expected_rejection": "resume configuration mismatch"
+    },
+    {
+      "phase": "fixture-resume-export",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/build-v1/target/release/examples/nplayer_policy",
+        "export",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/fixture-resume.gz",
+        "38b91ccbe5eed9d14c73c14bbeee703714ef9d1ce93258082aed14bdf8ba3ed3",
+        "average",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/fixture-resume-average.gz",
+        "--fast-gzip"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0148803800111637,
+      "user_cpu_seconds": 0.08085599999999715,
+      "system_cpu_seconds": 0.006949000000000094,
+      "sampled_peak_rss_bytes": 3645440
+    },
+    {
+      "phase": "fixture-resume-audit",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.audit_nplayer_policy_parallel",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/fixture-resume.gz",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/fixture-resume-average.gz",
+        "--workers",
+        "8",
+        "--lookup-out",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/fixture-resume-mass"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.014711780997459,
+      "user_cpu_seconds": 0.17837300000000056,
+      "system_cpu_seconds": 0.02660299999999971,
+      "sampled_peak_rss_bytes": 14749696
+    },
+    {
+      "phase": "fixture-fresh-export",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/build-v1/target/release/examples/nplayer_policy",
+        "export",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/fixture-fresh.gz",
+        "38b91ccbe5eed9d14c73c14bbeee703714ef9d1ce93258082aed14bdf8ba3ed3",
+        "average",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/fixture-fresh-average.gz",
+        "--fast-gzip"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.015078784956131,
+      "user_cpu_seconds": 0.06357000000000212,
+      "system_cpu_seconds": 0.024354999999999905,
+      "sampled_peak_rss_bytes": 3784704
+    },
+    {
+      "phase": "fixture-fresh-audit",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.audit_nplayer_policy_parallel",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/fixture-fresh.gz",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/fixture-fresh-average.gz",
+        "--workers",
+        "8",
+        "--lookup-out",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/fixture-fresh-mass"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0147606399841607,
+      "user_cpu_seconds": 0.17993900000000096,
+      "system_cpu_seconds": 0.022539999999999782,
+      "sampled_peak_rss_bytes": 14639104
+    },
+    {
+      "phase": "fixture-initial",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/build-v1/target/release/examples/nplayer_arena",
+        "batch",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/fixture-initial.json"
+      ],
+      "returncode": 0,
+      "wall_seconds": 6.048968106973916,
+      "user_cpu_seconds": 4.574027999999998,
+      "system_cpu_seconds": 0.4626349999999997,
+      "sampled_peak_rss_bytes": 158371840
+    },
+    {
+      "phase": "fixture-repeat",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/build-v1/target/release/examples/nplayer_arena",
+        "batch",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/fixture-repeat.json"
+      ],
+      "returncode": 0,
+      "wall_seconds": 6.049415958987083,
+      "user_cpu_seconds": 4.5891889999999975,
+      "system_cpu_seconds": 0.43313500000000005,
+      "sampled_peak_rss_bytes": 158289920
+    },
+    {
+      "phase": "fixture-replay-random",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.check_nplayer_policy_replay",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/fixture-random.jsonl.initial"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0150809659971856,
+      "user_cpu_seconds": 0.057808000000001414,
+      "system_cpu_seconds": 0.007847000000000381,
+      "sampled_peak_rss_bytes": 14589952
+    },
+    {
+      "phase": "fixture-replay-check-call",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.check_nplayer_policy_replay",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/fixture-check-call.jsonl.initial"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.014806640043389,
+      "user_cpu_seconds": 0.05474399999999946,
+      "system_cpu_seconds": 0.006674000000000291,
+      "sampled_peak_rss_bytes": 16236544
+    },
+    {
+      "phase": "fixture-replay-tight-aggressive",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.check_nplayer_policy_replay",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/fixture-tight-aggressive.jsonl.initial"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0146050039911643,
+      "user_cpu_seconds": 0.04822899999999919,
+      "system_cpu_seconds": 0.011355000000000004,
+      "sampled_peak_rss_bytes": 16388096
+    },
+    {
+      "phase": "fixture-replay-pot-pressure",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.check_nplayer_policy_replay",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/fixture-pot-pressure.jsonl.initial"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0156285019475035,
+      "user_cpu_seconds": 0.057023000000000934,
+      "system_cpu_seconds": 0.0038609999999996703,
+      "sampled_peak_rss_bytes": 16687104
+    },
+    {
+      "phase": "pilot-100000000",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/build-v1/target/release/examples/nplayer_train",
+        "--players",
+        "3",
+        "--stack-bb",
+        "200",
+        "--small-blind",
+        "50",
+        "--big-blind",
+        "100",
+        "--fast",
+        "--threads",
+        "16",
+        "--roots-per-seat",
+        "8",
+        "--seed",
+        "2026102240001",
+        "--nodes",
+        "100000000",
+        "--last-average-street",
+        "3",
+        "--max-entries",
+        "250000000",
+        "--freeze-at-cap",
+        "--fast-gzip",
+        "--max-seconds",
+        "1e100",
+        "--card-buckets",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "--out",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/pilot-100000000.gz",
+        "--telemetry",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/pilot-100000000.gz.progress.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 52.72962497198023,
+      "user_cpu_seconds": 519.343025,
+      "system_cpu_seconds": 10.349431,
+      "sampled_peak_rss_bytes": 4986290176
+    },
+    {
+      "phase": "pilot-200000000",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/build-v1/target/release/examples/nplayer_train",
+        "--players",
+        "3",
+        "--stack-bb",
+        "200",
+        "--small-blind",
+        "50",
+        "--big-blind",
+        "100",
+        "--fast",
+        "--threads",
+        "16",
+        "--roots-per-seat",
+        "8",
+        "--seed",
+        "2026102240001",
+        "--nodes",
+        "200000000",
+        "--last-average-street",
+        "3",
+        "--max-entries",
+        "250000000",
+        "--freeze-at-cap",
+        "--fast-gzip",
+        "--max-seconds",
+        "1e100",
+        "--card-buckets",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "--out",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/pilot-200000000.gz",
+        "--telemetry",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/pilot-200000000.gz.progress.jsonl",
+        "--resume",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/pilot-100000000.gz",
+        "--resume-sha256",
+        "b813155b72f49fb2cd358108214a481db0b5874964da5c495bb89032fee482ba"
+      ],
+      "returncode": 0,
+      "wall_seconds": 123.45744029502384,
+      "user_cpu_seconds": 811.145144,
+      "system_cpu_seconds": 12.922153,
+      "sampled_peak_rss_bytes": 7835480064
+    },
+    {
+      "phase": "pilot-500000000",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/build-v1/target/release/examples/nplayer_train",
+        "--players",
+        "3",
+        "--stack-bb",
+        "200",
+        "--small-blind",
+        "50",
+        "--big-blind",
+        "100",
+        "--fast",
+        "--threads",
+        "16",
+        "--roots-per-seat",
+        "8",
+        "--seed",
+        "2026102240001",
+        "--nodes",
+        "500000000",
+        "--last-average-street",
+        "3",
+        "--max-entries",
+        "250000000",
+        "--freeze-at-cap",
+        "--fast-gzip",
+        "--max-seconds",
+        "1e100",
+        "--card-buckets",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "--out",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/pilot-500000000.gz",
+        "--telemetry",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/pilot-500000000.gz.progress.jsonl",
+        "--resume",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/pilot-200000000.gz",
+        "--resume-sha256",
+        "65ac3e0cd63efa2596a186ee015de55d8ff53ed5acd35f1008b95844c2b19f53"
+      ],
+      "returncode": 0,
+      "wall_seconds": 256.9628484870191,
+      "user_cpu_seconds": 1846.3246369999997,
+      "system_cpu_seconds": 32.634365,
+      "sampled_peak_rss_bytes": 14288596992
+    },
+    {
+      "phase": "pilot-final-export",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/build-v1/target/release/examples/nplayer_policy",
+        "export",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/pilot-500000000.gz",
+        "704e35dd04d8290fc49c9d4505f6371bf0e8a50200e185c8881807ce727af625",
+        "average",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/pilot-final-average.gz",
+        "--fast-gzip"
+      ],
+      "returncode": 0,
+      "wall_seconds": 246.53966243803734,
+      "user_cpu_seconds": 892.9376980000002,
+      "system_cpu_seconds": 17.813326999999994,
+      "sampled_peak_rss_bytes": 12901117952
+    },
+    {
+      "phase": "pilot-final-audit",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.audit_nplayer_policy_parallel",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/pilot-500000000.gz",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/pilot-final-average.gz",
+        "--workers",
+        "8",
+        "--lookup-out",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/pilot-final-mass"
+      ],
+      "returncode": 0,
+      "wall_seconds": 252.50077153200982,
+      "user_cpu_seconds": 1727.4579409999997,
+      "system_cpu_seconds": 43.780406,
+      "sampled_peak_rss_bytes": 363888640
+    },
+    {
+      "phase": "pilot-final-initial",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/build-v1/target/release/examples/nplayer_arena",
+        "batch",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/pilot-final-initial.json"
+      ],
+      "returncode": 0,
+      "wall_seconds": 165.43786133098183,
+      "user_cpu_seconds": 158.58614300000045,
+      "system_cpu_seconds": 5.712068000000002,
+      "sampled_peak_rss_bytes": 20541042688
+    },
+    {
+      "phase": "pilot-final-repeat",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/build-v1/target/release/examples/nplayer_arena",
+        "batch",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/pilot-final-repeat.json"
+      ],
+      "returncode": 0,
+      "wall_seconds": 159.381074628036,
+      "user_cpu_seconds": 154.11638800000037,
+      "system_cpu_seconds": 4.9352540000000005,
+      "sampled_peak_rss_bytes": 20541181952
+    },
+    {
+      "phase": "pilot-final-replay-random",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.check_nplayer_policy_replay",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/pilot-final-random.jsonl.initial"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0145466569811106,
+      "user_cpu_seconds": 0.22237799999948038,
+      "system_cpu_seconds": 0.01197300000001178,
+      "sampled_peak_rss_bytes": 15847424
+    },
+    {
+      "phase": "pilot-final-replay-check-call",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.check_nplayer_policy_replay",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/pilot-final-check-call.jsonl.initial"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.014545455982443,
+      "user_cpu_seconds": 0.29999300000054063,
+      "system_cpu_seconds": 0.011105999999983851,
+      "sampled_peak_rss_bytes": 14356480
+    },
+    {
+      "phase": "pilot-final-replay-tight-aggressive",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.check_nplayer_policy_replay",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/pilot-final-tight-aggressive.jsonl.initial"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.014847064972855,
+      "user_cpu_seconds": 0.1567109999996319,
+      "system_cpu_seconds": 0.007064000000013948,
+      "sampled_peak_rss_bytes": 16580608
+    },
+    {
+      "phase": "pilot-final-replay-pot-pressure",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.check_nplayer_policy_replay",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/pilot-final-pot-pressure.jsonl.initial"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.014076298044529,
+      "user_cpu_seconds": 0.16184100000009494,
+      "system_cpu_seconds": 0.011908000000005359,
+      "sampled_peak_rss_bytes": 14180352
+    }
+  ],
+  "build_stages": [
+    {
+      "phase": "build",
+      "command": [
+        "cargo",
+        "build",
+        "--locked",
+        "--manifest-path",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/source/native/hu20-trainer/Cargo.toml",
+        "--release",
+        "--example",
+        "nplayer_train",
+        "--example",
+        "nplayer_policy",
+        "--example",
+        "nplayer_arena"
+      ],
+      "returncode": 0,
+      "wall_seconds": 20.177606549987104,
+      "user_cpu_seconds": 45.72482,
+      "system_cpu_seconds": 2.011405,
+      "sampled_peak_rss_bytes": 1025036288
+    },
+    {
+      "phase": "native-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--manifest-path",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/source/native/hu20-trainer/Cargo.toml",
+        "--release",
+        "--lib"
+      ],
+      "returncode": 0,
+      "wall_seconds": 38.36086018499918,
+      "user_cpu_seconds": 122.462871,
+      "system_cpu_seconds": 38.904756000000006,
+      "sampled_peak_rss_bytes": 785829888
+    },
+    {
+      "phase": "arena-example-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--manifest-path",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/source/native/hu20-trainer/Cargo.toml",
+        "--release",
+        "--example",
+        "nplayer_arena"
+      ],
+      "returncode": 0,
+      "wall_seconds": 4.032497951993719,
+      "user_cpu_seconds": 9.976275999999984,
+      "system_cpu_seconds": 0.20080600000000004,
+      "sampled_peak_rss_bytes": 436695040
+    }
+  ],
+  "outer_preparation_stages": [
+    {
+      "phase": "source-clone",
+      "returncode": 0,
+      "wall_seconds": 1.0007023849757388,
+      "user_cpu_seconds": 0.002031,
+      "system_cpu_seconds": 0.00392
+    },
+    {
+      "phase": "bundle-verify",
+      "returncode": 0,
+      "wall_seconds": 1.0022031199769117,
+      "user_cpu_seconds": 0.015844999999999998,
+      "system_cpu_seconds": 0.0072169999999999995
+    },
+    {
+      "phase": "bundle-import",
+      "returncode": 0,
+      "wall_seconds": 1.002103712002281,
+      "user_cpu_seconds": 0.07358899999999999,
+      "system_cpu_seconds": 0.022913999999999997
+    },
+    {
+      "phase": "source-checkout",
+      "returncode": 0,
+      "wall_seconds": 1.0020001960219815,
+      "user_cpu_seconds": 0.501841,
+      "system_cpu_seconds": 0.157837
+    },
+    {
+      "phase": "build-tests",
+      "returncode": 0,
+      "wall_seconds": 63.01018982403912,
+      "user_cpu_seconds": 178.42015,
+      "system_cpu_seconds": 41.273148
+    },
+    {
+      "phase": "prepare",
+      "returncode": 0,
+      "wall_seconds": 3.002550035016611,
+      "user_cpu_seconds": 2.2616270000000043,
+      "system_cpu_seconds": 0.16376500000000505
+    },
+    {
+      "phase": "pilot",
+      "returncode": 0,
+      "wall_seconds": 1349.3094933429966,
+      "user_cpu_seconds": 6170.986851,
+      "system_cpu_seconds": 134.609578
+    }
+  ],
+  "resources": {
+    "build-v1": {
+      "samples": 31,
+      "first": {
+        "phase": "build",
+        "utc": "2026-10-22T16:56:14Z",
+        "cpu_c": 35.0,
+        "thermistor15_c": 29.5,
+        "worker_family_rss_bytes": 17121280,
+        "live_family_cpu_seconds": 0.01,
+        "available_ram_bytes": 131648413696,
+        "swap_used_bytes": 378445824,
+        "nvme_free_bytes": 236223586304,
+        "hdd_free_bytes": 422150062080
+      },
+      "last": {
+        "phase": "arena-example-tests",
+        "utc": "2026-10-22T16:57:14Z",
+        "cpu_c": 54.0,
+        "thermistor15_c": 51.0,
+        "worker_family_rss_bytes": 436695040,
+        "live_family_cpu_seconds": 5.289999999999999,
+        "available_ram_bytes": 131279437824,
+        "swap_used_bytes": 380280832,
+        "nvme_free_bytes": 236098514944,
+        "hdd_free_bytes": 422150062080
+      },
+      "by_phase": {
+        "arena-example-tests": {
+          "samples": 2,
+          "extrema": {
+            "cpu_c": 54.0,
+            "thermistor15_c": 52.0,
+            "worker_family_rss_bytes": 436695040,
+            "swap_used_bytes": 380280832,
+            "available_ram_bytes": 131279437824,
+            "nvme_free_bytes": 236098514944,
+            "hdd_free_bytes": 422150062080
+          }
+        },
+        "build": {
+          "samples": 10,
+          "extrema": {
+            "cpu_c": 53.0,
+            "thermistor15_c": 39.5,
+            "worker_family_rss_bytes": 1025036288,
+            "swap_used_bytes": 380280832,
+            "available_ram_bytes": 131069091840,
+            "nvme_free_bytes": 236095868928,
+            "hdd_free_bytes": 422150062080
+          }
+        },
+        "native-tests": {
+          "samples": 19,
+          "extrema": {
+            "cpu_c": 63.0,
+            "thermistor15_c": 53.0,
+            "worker_family_rss_bytes": 785829888,
+            "swap_used_bytes": 380280832,
+            "available_ram_bytes": 130862698496,
+            "nvme_free_bytes": 236091904000,
+            "hdd_free_bytes": 422150062080
+          }
+        }
+      },
+      "extrema": {
+        "cpu_c": 63.0,
+        "thermistor15_c": 53.0,
+        "worker_family_rss_bytes": 1025036288,
+        "swap_used_bytes": 380280832,
+        "available_ram_bytes": 130862698496,
+        "nvme_free_bytes": 236091904000,
+        "hdd_free_bytes": 422150062080
+      }
+    },
+    "main-v1": {
+      "samples": 656,
+      "first": {
+        "phase": "environment",
+        "utc": "2026-10-22T16:57:22Z",
+        "cpu_c": 41.0,
+        "thermistor15_c": 49.5,
+        "worker_family_rss_bytes": 14643200,
+        "live_family_cpu_seconds": 0.0,
+        "available_ram_bytes": 131610136576,
+        "swap_used_bytes": 380280832,
+        "nvme_free_bytes": 236097318912,
+        "hdd_free_bytes": 422150062080
+      },
+      "last": {
+        "phase": "pilot-final-replay-pot-pressure",
+        "utc": "2026-10-22T17:19:47Z",
+        "cpu_c": 37.0,
+        "thermistor15_c": 58.5,
+        "worker_family_rss_bytes": 14180352,
+        "live_family_cpu_seconds": 0.0,
+        "available_ram_bytes": 131639853056,
+        "swap_used_bytes": 388669440,
+        "nvme_free_bytes": 222390599680,
+        "hdd_free_bytes": 422150062080
+      },
+      "by_phase": {
+        "environment": {
+          "samples": 1,
+          "extrema": {
+            "cpu_c": 41.0,
+            "thermistor15_c": 49.5,
+            "worker_family_rss_bytes": 14643200,
+            "swap_used_bytes": 380280832,
+            "available_ram_bytes": 131610136576,
+            "nvme_free_bytes": 236097318912,
+            "hdd_free_bytes": 422150062080
+          }
+        },
+        "fixture-fresh": {
+          "samples": 3,
+          "extrema": {
+            "cpu_c": 53.0,
+            "thermistor15_c": 48.5,
+            "worker_family_rss_bytes": 157233152,
+            "swap_used_bytes": 386834432,
+            "available_ram_bytes": 131494051840,
+            "nvme_free_bytes": 236095877120,
+            "hdd_free_bytes": 422150062080
+          }
+        },
+        "fixture-fresh-audit": {
+          "samples": 1,
+          "extrema": {
+            "cpu_c": 35.0,
+            "thermistor15_c": 46.0,
+            "worker_family_rss_bytes": 14639104,
+            "swap_used_bytes": 386834432,
+            "available_ram_bytes": 131647123456,
+            "nvme_free_bytes": 236094529536,
+            "hdd_free_bytes": 422150062080
+          }
+        },
+        "fixture-fresh-export": {
+          "samples": 1,
+          "extrema": {
+            "cpu_c": 35.0,
+            "thermistor15_c": 47.0,
+            "worker_family_rss_bytes": 3784704,
+            "swap_used_bytes": 386834432,
+            "available_ram_bytes": 131645841408,
+            "nvme_free_bytes": 236094894080,
+            "hdd_free_bytes": 422150062080
+          }
+        },
+        "fixture-initial": {
+          "samples": 3,
+          "extrema": {
+            "cpu_c": 52.0,
+            "thermistor15_c": 46.0,
+            "worker_family_rss_bytes": 158371840,
+            "swap_used_bytes": 386834432,
+            "available_ram_bytes": 131505983488,
+            "nvme_free_bytes": 236094423040,
+            "hdd_free_bytes": 422150062080
+          }
+        },
+        "fixture-one": {
+          "samples": 3,
+          "extrema": {
+            "cpu_c": 54.0,
+            "thermistor15_c": 48.5,
+            "worker_family_rss_bytes": 156950528,
+            "swap_used_bytes": 380280832,
+            "available_ram_bytes": 131456081920,
+            "nvme_free_bytes": 236097302528,
+            "hdd_free_bytes": 422150062080
+          }
+        },
+        "fixture-repeat": {
+          "samples": 3,
+          "extrema": {
+            "cpu_c": 52.0,
+            "thermistor15_c": 47.0,
+            "worker_family_rss_bytes": 158289920,
+            "swap_used_bytes": 386834432,
+            "available_ram_bytes": 131523166208,
+            "nvme_free_bytes": 236094242816,
+            "hdd_free_bytes": 422150062080
+          }
+        },
+        "fixture-replay-check-call": {
+          "samples": 1,
+          "extrema": {
+            "cpu_c": 34.0,
+            "thermistor15_c": 46.5,
+            "worker_family_rss_bytes": 16236544,
+            "swap_used_bytes": 386834432,
+            "available_ram_bytes": 131659911168,
+            "nvme_free_bytes": 236093997056,
+            "hdd_free_bytes": 422150062080
+          }
+        },
+        "fixture-replay-pot-pressure": {
+          "samples": 1,
+          "extrema": {
+            "cpu_c": 31.0,
+            "thermistor15_c": 45.0,
+            "worker_family_rss_bytes": 16687104,
+            "swap_used_bytes": 386834432,
+            "available_ram_bytes": 131666911232,
+            "nvme_free_bytes": 236093976576,
+            "hdd_free_bytes": 422150062080
+          }
+        },
+        "fixture-replay-random": {
+          "samples": 1,
+          "extrema": {
+            "cpu_c": 36.0,
+            "thermistor15_c": 47.5,
+            "worker_family_rss_bytes": 14589952,
+            "swap_used_bytes": 386834432,
+            "available_ram_bytes": 131665793024,
+            "nvme_free_bytes": 236094058496,
+            "hdd_free_bytes": 422150062080
+          }
+        },
+        "fixture-replay-tight-aggressive": {
+          "samples": 1,
+          "extrema": {
+            "cpu_c": 34.0,
+            "thermistor15_c": 45.5,
+            "worker_family_rss_bytes": 16388096,
+            "swap_used_bytes": 386834432,
+            "available_ram_bytes": 131670327296,
+            "nvme_free_bytes": 236093984768,
+            "hdd_free_bytes": 422150062080
+          }
+        },
+        "fixture-resume": {
+          "samples": 3,
+          "extrema": {
+            "cpu_c": 51.0,
+            "thermistor15_c": 48.5,
+            "worker_family_rss_bytes": 157138944,
+            "swap_used_bytes": 386834432,
+            "available_ram_bytes": 131473338368,
+            "nvme_free_bytes": 236096352256,
+            "hdd_free_bytes": 422150062080
+          }
+        },
+        "fixture-resume-audit": {
+          "samples": 1,
+          "extrema": {
+            "cpu_c": 36.0,
+            "thermistor15_c": 48.0,
+            "worker_family_rss_bytes": 14749696,
+            "swap_used_bytes": 386834432,
+            "available_ram_bytes": 131648217088,
+            "nvme_free_bytes": 236095004672,
+            "hdd_free_bytes": 422150062080
+          }
+        },
+        "fixture-resume-export": {
+          "samples": 1,
+          "extrema": {
+            "cpu_c": 35.0,
+            "thermistor15_c": 48.5,
+            "worker_family_rss_bytes": 3645440,
+            "swap_used_bytes": 386834432,
+            "available_ram_bytes": 131650961408,
+            "nvme_free_bytes": 236095381504,
+            "hdd_free_bytes": 422150062080
+          }
+        },
+        "fixture-sixteen": {
+          "samples": 3,
+          "extrema": {
+            "cpu_c": 53.0,
+            "thermistor15_c": 48.0,
+            "worker_family_rss_bytes": 157052928,
+            "swap_used_bytes": 386834432,
+            "available_ram_bytes": 131470077952,
+            "nvme_free_bytes": 236096827392,
+            "hdd_free_bytes": 422150062080
+          }
+        },
+        "pilot-100000000": {
+          "samples": 26,
+          "extrema": {
+            "cpu_c": 67.0,
+            "thermistor15_c": 65.0,
+            "worker_family_rss_bytes": 4986290176,
+            "swap_used_bytes": 388669440,
+            "available_ram_bytes": 126662955008,
+            "nvme_free_bytes": 234634121216,
+            "hdd_free_bytes": 422150062080
+          }
+        },
+        "pilot-200000000": {
+          "samples": 61,
+          "extrema": {
+            "cpu_c": 68.0,
+            "thermistor15_c": 74.5,
+            "worker_family_rss_bytes": 7835480064,
+            "swap_used_bytes": 388669440,
+            "available_ram_bytes": 123205021696,
+            "nvme_free_bytes": 231993270272,
+            "hdd_free_bytes": 422150062080
+          }
+        },
+        "pilot-500000000": {
+          "samples": 127,
+          "extrema": {
+            "cpu_c": 71.0,
+            "thermistor15_c": 82.0,
+            "worker_family_rss_bytes": 14288596992,
+            "swap_used_bytes": 388669440,
+            "available_ram_bytes": 117270515712,
+            "nvme_free_bytes": 226535276544,
+            "hdd_free_bytes": 422150062080
+          }
+        },
+        "pilot-final-audit": {
+          "samples": 125,
+          "extrema": {
+            "cpu_c": 74.0,
+            "thermistor15_c": 86.0,
+            "worker_family_rss_bytes": 363888640,
+            "swap_used_bytes": 388669440,
+            "available_ram_bytes": 131014758400,
+            "nvme_free_bytes": 222416338944,
+            "hdd_free_bytes": 422150062080
+          }
+        },
+        "pilot-final-export": {
+          "samples": 122,
+          "extrema": {
+            "cpu_c": 70.0,
+            "thermistor15_c": 78.0,
+            "worker_family_rss_bytes": 12901117952,
+            "swap_used_bytes": 388669440,
+            "available_ram_bytes": 118679015424,
+            "nvme_free_bytes": 223253938176,
+            "hdd_free_bytes": 422150062080
+          }
+        },
+        "pilot-final-initial": {
+          "samples": 82,
+          "extrema": {
+            "cpu_c": 57.0,
+            "thermistor15_c": 82.0,
+            "worker_family_rss_bytes": 20541042688,
+            "swap_used_bytes": 388669440,
+            "available_ram_bytes": 111143424000,
+            "nvme_free_bytes": 222399516672,
+            "hdd_free_bytes": 422150062080
+          }
+        },
+        "pilot-final-repeat": {
+          "samples": 79,
+          "extrema": {
+            "cpu_c": 56.0,
+            "thermistor15_c": 63.5,
+            "worker_family_rss_bytes": 20541181952,
+            "swap_used_bytes": 388669440,
+            "available_ram_bytes": 111093002240,
+            "nvme_free_bytes": 222390632448,
+            "hdd_free_bytes": 422150062080
+          }
+        },
+        "pilot-final-replay-check-call": {
+          "samples": 1,
+          "extrema": {
+            "cpu_c": 38.0,
+            "thermistor15_c": 60.5,
+            "worker_family_rss_bytes": 14356480,
+            "swap_used_bytes": 388669440,
+            "available_ram_bytes": 131643518976,
+            "nvme_free_bytes": 222390620160,
+            "hdd_free_bytes": 422150062080
+          }
+        },
+        "pilot-final-replay-pot-pressure": {
+          "samples": 1,
+          "extrema": {
+            "cpu_c": 37.0,
+            "thermistor15_c": 58.5,
+            "worker_family_rss_bytes": 14180352,
+            "swap_used_bytes": 388669440,
+            "available_ram_bytes": 131639853056,
+            "nvme_free_bytes": 222390599680,
+            "hdd_free_bytes": 422150062080
+          }
+        },
+        "pilot-final-replay-random": {
+          "samples": 1,
+          "extrema": {
+            "cpu_c": 39.0,
+            "thermistor15_c": 61.5,
+            "worker_family_rss_bytes": 15847424,
+            "swap_used_bytes": 388669440,
+            "available_ram_bytes": 131662938112,
+            "nvme_free_bytes": 222390628352,
+            "hdd_free_bytes": 422150062080
+          }
+        },
+        "pilot-final-replay-tight-aggressive": {
+          "samples": 1,
+          "extrema": {
+            "cpu_c": 39.0,
+            "thermistor15_c": 59.5,
+            "worker_family_rss_bytes": 16580608,
+            "swap_used_bytes": 388669440,
+            "available_ram_bytes": 131634421760,
+            "nvme_free_bytes": 222390607872,
+            "hdd_free_bytes": 422150062080
+          }
+        },
+        "reject-cross-depth": {
+          "samples": 3,
+          "extrema": {
+            "cpu_c": 52.0,
+            "thermistor15_c": 48.5,
+            "worker_family_rss_bytes": 157265920,
+            "swap_used_bytes": 386834432,
+            "available_ram_bytes": 131483746304,
+            "nvme_free_bytes": 236095393792,
+            "hdd_free_bytes": 422150062080
+          }
+        }
+      },
+      "extrema": {
+        "cpu_c": 74.0,
+        "thermistor15_c": 86.0,
+        "worker_family_rss_bytes": 20541181952,
+        "swap_used_bytes": 388669440,
+        "available_ram_bytes": 111093002240,
+        "nvme_free_bytes": 222390599680,
+        "hdd_free_bytes": 422150062080
+      }
+    }
+  },
+  "active_training_seconds": 102.281601504,
+  "checkpoint_save_seconds": 138.90404406300001,
+  "training_process_wall_seconds": 433.14991375402315,
+  "export_wall_seconds": 246.53966243803734,
+  "audit_wall_seconds": 252.50077153200982,
+  "coverage_native_wall_seconds": 324.81893595901784,
+  "coverage_native_load_seconds": 276.59048340600003,
+  "coverage_native_play_seconds": 0.12609657500000002,
+  "cpu_accounting": "Whole outer child CPU includes nested build/worker CPU; do not add inner CPU again. Excludes later publication/readback.",
+  "qualification_counts": {
+    "initial_hands": 48,
+    "reproduced_hands": 48
+  },
+  "final_coverage_counts": {
+    "initial_hands": 3072,
+    "reproduced_hands": 3072
+  }
+}
