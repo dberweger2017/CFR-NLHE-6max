@@ -108,9 +108,14 @@ qualification, not a strength or release decision.
    reproduces all profiles/values. Variance falls, but the trained primary's
    full-cost ratio is0.925 cold/1.104 amortized; no material wall-time saving is
    established. Several scripted panels improve much more. Keep the player
-   frozen; a bounded direct-arena integration/cost test could avoid duplicate
-   loading/reconstruction before quoting fresh strength work. It is a proposed
-   next allocation, not an automatic run or a promised speedup.
+   frozen. [PR393's inline integration](docs/reports/river-arena-expectation/calibration.md)
+   passes120 native/14 Python tests and exact parity on12 encountered roots;
+   288 initial plus288 reproduced hands match original play. Complete small
+   calibration7m50s, including7m42s model loading; no extra solves or profile
+   reconstruction. The fixed all384-root measurement quote is11m03s centrally,
+   35m11s planning reserve, awaiting explicit acceptance. Then choose a separately
+   priced fresh fixed strength study or defer search expansion; do not add another
+   engineering round automatically.
 2. **Off-tree continuation: a small correctness-first prototype.** Preserve the
    saved cap/all-in cases 21/91 and the pilot's omitted 3,700-chip response.
    Treat consistent beliefs and retained hero policy as requirements;
@@ -134,6 +139,8 @@ automatically. [The frozen pilot protocol](docs/river-whole-hand-pilot.md),
 separate the completed experiment from proposed next work.
 
 ## Current position
+
+- **Inline river expectation integration calibrated ([PR393](https://github.com/dberweger2017/CFR-NLHE-6max/pull/393), proposal392):** frozen source dc58d519 passes120 optimized native tests and14 focused Python checks. All288 initial hands independently replay and match PR388 bytes; fresh288-hand reproduction and all12 encountered root/profile/float64/work comparisons pass. No additional solve, profile reconstruction or new deal. Supervised470.05s/476.23childCPU-s; loading462.24s, play/write6.11s including16.42ms expectation work; sampled27.70GiB, CPU60/Thermistor15 59.5°C, zero swap growth. Full384-root cost/parity remains unmeasured: published11m03s central/35m11s reserve quote awaits acceptance. Preserve PR391 variance/adverse panels; no fresh strength, policy/default change or automatic follow-up. Raw originals retained, archive pending. [Calibration, scope and quote](docs/reports/river-arena-expectation/calibration.md).
 
 - **River action expectation completes ([PR391](https://github.com/dberweger2017/CFR-NLHE-6max/pull/391), proposal389):** all384 roots and fresh reproduction match every original profile/float64 strategic field, no incomplete roots. Main15.00min/14.97CPU-min,27.68GiB sampled peak, CPU59/Thermistor15 58.5°C, no swap growth; enumeration0.587s versus468.66s loading and414.68s reconstruction. The trained primary variance ratio0.414 gives full-cost ratios0.925 cold/1.104 amortized; scripts/mixed panels improve unevenly and one block still supplies80.5% of primary residual squared variation. Keep the player frozen; no automatic large strength campaign, menu change, off-tree resolving or training. Direct-arena reuse is the next bounded engineering candidate, not a measured fresh-pipeline gain. Raw evidence archived with acceptance; originals retained. [Report, per-lineup means/variance/cost and limits](docs/reports/river-conditional-evaluation/assessment.md).
 
