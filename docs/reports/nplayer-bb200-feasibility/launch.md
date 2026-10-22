@@ -32,3 +32,15 @@ dependencies and must remain protected. No old model is copied/resumed.
 
 There is no completed200BB measurement or strength verdict at this update. Raw
 archive/Drive acceptance is pending; originals remain. No new schedule is created.
+
+## Qualification passed; pilot active
+
+At16:58:45UTC the real-K50 qualification is complete:1/16-thread checkpoint
+identity, uninterrupted/resumed checkpoint and export identity, canonical keyset,
+full-row audits, expected cross-depth refusal and48initial+48repeat scripted
+fixture hands with independent replay all pass. [Qualification proof](qualification.json).
+The deliberate mismatch exits2 with the exact expected configuration error and
+produces no forbidden output; it is a successful negative fixture, not a failure.
+All other completed stage return codes are0. The first fixed100M pilot process
+is running; CPU50/Thermistor15 55.5°C,4.21GiB RSS. No completed cost endpoint or
+strength result is claimed at this snapshot.
