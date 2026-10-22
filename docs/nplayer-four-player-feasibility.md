@@ -1,5 +1,7 @@
 # Four-player 100 BB M4 feasibility pilot
 
+**Completed:** [results and limitations](reports/nplayer-four-player-feasibility/results.md). Main finished in2m51s with3.21GiBsampled peak; all correctness and replay proofs pass. This is cost/capacity evidence only; no strength result or automatic longer run. Execution source6637a70e stays frozen; later commits contain reports only.
+
 Proposal [405](https://github.com/dberweger2017/CFR-NLHE-6max/issues/405). The owner proposes a bounded parallel pilot toward v0.7 while PR404 runs unchanged on bb128. Question: how does a fourth player affect key growth, memory/key and traversal/save/export/audit costs? No strength estimate, release/default change, search or long continuation.
 
 ## Fixed scope and qualification

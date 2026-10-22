@@ -268,14 +268,18 @@ One short entry per active line of work; details live in the linked reports. Sto
 
 *Updated October 18, 2026.* Earlier entries, including storage receipts, are in [roadmap history](docs/roadmap-history.md#superseded-current-position-through-october-16-2026).
 
-## Proposed bounded four-player100BB M4 feasibility
+## Four-player100BB M4 feasibility complete — future v0.7 allocation evidence
 
-[Proposal405](https://github.com/dberweger2017/CFR-NLHE-6max/issues/405),
-[protocol](docs/nplayer-four-player-feasibility.md): owner proposes a parallel
-v0.7 preparation pilot, not a prerequisite or replacement for PR404. Existing
-generic2–6player trainer/export/replay need no game/regret changes. Fresh single
-seed, fixed25M/50M endpoints,20Mkeythreshold on16GiBM4; measure growth/cost, not
-strength or saturation. Source-bound four-player correctness and a1Mcost fixture
-precede measured one-hour/memory admission. Main not started; decline if the
-conditional complete reserved quote does not fit. No other jobs/defaults/releases,
-new timers, automatic long continuation, cleanup or uploads.
+[PR406](https://github.com/dberweger2017/CFR-NLHE-6max/pull/406),
+[results](docs/reports/nplayer-four-player-feasibility/results.md),
+[protocol](docs/nplayer-four-player-feasibility.md), proposal405: fixed25M/50M
+pilot passes all correctness/audit/replay/reproduction gates on M4. Main takes
+2m51s and3.21GiBsampled peak; thermal state nominal, no swapgrowth.25.01Mnodes
+retain13.69Mkeys;50.02Mretain20.008M, freezing atiteration1933 (telemetry37.03–38.99M).
+Capcensored growth is not saturation; active7.07/6.58Mnodes/s windows are only3–4s,
+not mature-table forecasts or a matched3-versus4player effect. No strength claim,
+long continuation, release/default change or auto-follow-up. Use this to prepare
+one separately priced four-playerbb128 campaign after PR404, preserving early
+coverage/capacity uncertainty. Main128initial+128repeat hands and all33.70Mexport
+rows verified;121nativetests/128enginefixtures/byte thread-resume parity pass.
+BothM4researchlocks released; ownedrawfiles retained, archival owner-managed pending.
