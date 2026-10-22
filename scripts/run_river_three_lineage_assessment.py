@@ -57,6 +57,42 @@ def admit_quote(quote, authorization):
     return quote
 
 
+def qualified_budget_handoff(previous, config_sha, source):
+    """Reuse completed qualification only after the exact pre-final budget refusal."""
+    failure=read(previous/'failure.json'); status=read(previous/'status.json')
+    reason='revised quote exceeds accepted12h before final hands; no automatic resize/retry'
+    if status.get('status')!='failed' or status.get('reason')!=reason or failure.get('error')!=reason:
+        raise RuntimeError('only a pre-final budget refusal permits this handoff')
+    if (previous/'measurement').exists() or (previous/'readout').exists():
+        raise RuntimeError('final science exists; cannot start another run')
+    launch=read(previous/'launch.json')
+    if launch['config_sha256']!=config_sha or launch['blocks']!=BLOCKS or launch['fresh_roots']!=list(FINAL_ROOTS):
+        raise RuntimeError('previous frozen scope/config differs')
+    costs=read(previous/'stage-costs.json')
+    phases=['python-tests','environment']+[f'qualification-{seed}' for seed in SEEDS]
+    if [r['phase'] for r in costs]!=phases or any(r['returncode'] for r in costs):
+        raise RuntimeError('all original qualification stages must have passed')
+    quote=read(previous/'main-admission.json')
+    if quote['status']!='quote-exceeds-allowance' or quote['main_started'] or not quote['cost_only_no_outcomes']:
+        raise RuntimeError('previous stop was not the frozen cost-only refusal')
+    pins=read(previous/'source-manifest.json')
+    for name,pin in pins.items():
+        if name.startswith(('native/','src/','scripts/')) and name!='scripts/run_river_three_lineage_assessment.py':
+            if sha(source/name)!=pin:
+                raise RuntimeError('player/scientific sources changed across budget handoff')
+    proofs={}
+    for seed in SEEDS:
+        base=previous/'qualification'/str(seed);proof=read(base/'verified.json')
+        if proof['status']!='passed' or (base/'failure.json').exists() or not proof['no_exclusions']:
+            raise RuntimeError('original qualification proof failed')
+        for name,key in [('root-inventory.json','root_inventory_sha256'),('expectation-records.json','expectation_records_sha256')]:
+            if sha(base/name)!=proof[key]:raise RuntimeError('qualified evidence changed')
+        proofs[str(seed)]=sha(base/'verified.json')
+    return {'status':'verified-budget-only-handoff','previous':str(previous),
+        'previous_source':launch['source'],'original_stage_costs':costs,'proof_sha256s':proofs,
+        'no_final_science_restarted':True,'no_qualification_repeated':True}
+
+
 def run(args):
     args.out.mkdir(parents=True,exist_ok=False)
     root=args.root.resolve(); source=root/'source'; python=root/'venv/bin/python'; binary=root/'bin/nplayer_river_arena'
@@ -82,6 +118,11 @@ def run(args):
     if build['binary_sha256']!=binary_sha or build['native_library_tests_returncode']!=0:
         raise RuntimeError('count-limit rebuild/native tests incomplete')
     write(args.out/'native-identity.json',{**identity,'files':native,'binary_sha256':binary_sha,'prior':str(q)})
+    if args.reuse_qualified_old:
+        if not authorization:raise RuntimeError('explicit owner amendment required for budget-only handoff')
+        receipt=qualified_budget_handoff(args.reuse_qualified_old,config_sha,source)
+        write(args.out/'reused-qualification.json',receipt)
+        os.symlink(args.reuse_qualified_old/'qualification',args.out/'qualification')
     models=[]
     for seed,path,pin in zip(SEEDS,config['models'],POLICY_SHA):
         if sha(path)!=pin: raise RuntimeError('frozen policy checksum differs')
@@ -100,9 +141,10 @@ def run(args):
         'tests.test_river_fresh_screen','tests.test_river_arena_expectation','tests.test_river_conditional_evaluation',
         'tests.test_river_whole_hand_pilot','-v']),
         ('environment',[str(python),'-c','import scipy.stats,numpy,pokers; print("Pinned evaluator imports passed")'])]
-    for i,seed in enumerate(SEEDS):
-        stages.append((f'qualification-{seed}',common+['qualify','--focal',str(i),'--binary',str(binary),
-            '--out',str(args.out/'qualification'/str(seed))]))
+    if not args.reuse_qualified_old:
+        for i,seed in enumerate(SEEDS):
+            stages.append((f'qualification-{seed}',common+['qualify','--focal',str(i),'--binary',str(binary),
+                '--out',str(args.out/'qualification'/str(seed))]))
     for i,seed in enumerate(SEEDS):
         stages.append((f'measure-{seed}',common+['measure','--focal',str(i),'--binary',str(binary),
             '--out',str(args.out/'measurement'/str(seed))]))
@@ -155,6 +197,7 @@ def run(args):
 def main():
     p=argparse.ArgumentParser(description=__doc__); p.add_argument('--root',type=Path,required=True)
     p.add_argument('--out',type=Path,required=True); p.add_argument('--source',required=True)
+    p.add_argument('--reuse-qualified-old',type=Path,help='Only exact cost-refused pre-final qualification may be reused.')
     p.add_argument('--preparation-seconds',type=float,default=0,
         help='Recorded owned model staging/source preparation cost, counted in the quote.')
     a=p.parse_args(); a.preparation_start=time.monotonic()-a.preparation_seconds

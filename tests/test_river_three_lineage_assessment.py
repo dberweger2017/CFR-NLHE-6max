@@ -10,7 +10,7 @@ from scripts.river_three_lineage_assessment import (
     ALLOWANCE, BLOCKS, FINAL_ROOTS, LINEUPS, POLICY_SHA, QUAL_ROOTS, SEEDS,
     bounds, decision, make_manifest, native_identity, preflight_quote, summarize_lineup, validate_cases,
 )
-from scripts.run_river_three_lineage_assessment import admit_quote, execution_authorization, validate_config
+from scripts.run_river_three_lineage_assessment import admit_quote, execution_authorization, qualified_budget_handoff, validate_config
 from scripts.river_whole_hand_pilot import manifest, read
 from types import SimpleNamespace
 
@@ -151,6 +151,36 @@ class ThreeLineageTests(unittest.TestCase):
             for field,value in [('execution_source','other'),('fixed_counts_unchanged',False),('approved',False)]:
                 path.write_text(json.dumps({**approval,field:value}))
                 with self.assertRaises(RuntimeError):execution_authorization(root,'old','new')
+
+    def test_budget_handoff_refuses_scientific_failures_partial_science_and_changed_proofs(self):
+        from scripts.river_whole_hand_pilot import write,sha
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);old=root/'old';source=root/'source';old.mkdir();source.mkdir()
+            reason='revised quote exceeds accepted12h before final hands; no automatic resize/retry'
+            write(old/'failure.json',{'error':reason});write(old/'status.json',{'status':'failed','reason':reason})
+            write(old/'launch.json',{'source':'old','config_sha256':'config','blocks':BLOCKS,'fresh_roots':list(FINAL_ROOTS)})
+            costs=[{'phase':x,'returncode':0} for x in ['python-tests','environment']+[f'qualification-{s}' for s in SEEDS]]
+            write(old/'stage-costs.json',costs)
+            write(old/'main-admission.json',{'status':'quote-exceeds-allowance','main_started':False,'cost_only_no_outcomes':True})
+            (source/'src').mkdir();(source/'src/safe.py').write_text('frozen')
+            write(old/'source-manifest.json',{'src/safe.py':sha(source/'src/safe.py')})
+            for seed in SEEDS:
+                b=old/'qualification'/str(seed);b.mkdir(parents=True)
+                write(b/'root-inventory.json',{});write(b/'expectation-records.json',{})
+                write(b/'verified.json',{'status':'passed','no_exclusions':True,
+                    'root_inventory_sha256':sha(b/'root-inventory.json'),'expectation_records_sha256':sha(b/'expectation-records.json')})
+            self.assertTrue(qualified_budget_handoff(old,'config',source)['no_qualification_repeated'])
+            (old/'measurement').mkdir()
+            with self.assertRaises(RuntimeError):qualified_budget_handoff(old,'config',source)
+            (old/'measurement').rmdir()
+            write(old/'failure.json',{'error':'replay failed'})
+            with self.assertRaises(RuntimeError):qualified_budget_handoff(old,'config',source)
+            write(old/'failure.json',{'error':reason})
+            (source/'src/safe.py').write_text('changed')
+            with self.assertRaises(RuntimeError):qualified_budget_handoff(old,'config',source)
+            (source/'src/safe.py').write_text('frozen')
+            write(old/'qualification'/str(SEEDS[1])/'root-inventory.json',{'changed':True})
+            with self.assertRaises(RuntimeError):qualified_budget_handoff(old,'config',source)
 
     def test_cost_only_admission_uses_slowest_lineage_and_refuses_overbudget(self):
         p=read(Path(__file__).resolve().parents[1]/'docs/reports/river-fresh-screen/followup-proposal.json')
