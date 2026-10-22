@@ -1,0 +1,88 @@
+{
+  "source": "6145e4d4f774afb7e0af09d3098143547ed05808",
+  "upstream": "8288ca7fa99922023c1b6a7aad5c28966706f9fc",
+  "root": "bb128:/home/dberweger/river-fresh-screen-20261022",
+  "output": "main-v1",
+  "launch": {
+    "pid": 822430,
+    "source": "6145e4d4f774afb7e0af09d3098143547ed05808",
+    "config_sha256": "c447bb08faf76b1334d8e075ee3e6c1b058ed19f4cbc11e1a285df751d5f3c4b",
+    "utc": "2026-10-22T04:01:54Z",
+    "cpu_stop_c": 90,
+    "thermistor15_stop_c": 100,
+    "planning_allowance_seconds": 7200,
+    "no_other_resource_stops": true,
+    "fresh_roots": [
+      2026102239601,
+      2026102239602
+    ],
+    "blocks_per_lineup": 1024,
+    "initial_hands": 24576,
+    "reproduction_hands": 24576,
+    "no_followup_authorized": true
+  },
+  "config_sha256": "c447bb08faf76b1334d8e075ee3e6c1b058ed19f4cbc11e1a285df751d5f3c4b",
+  "bundle_sha256": "a574af388b5732f79abeaa0caf43dd0cf603f9db83e8fbc162e0ac1cb7513b4d",
+  "binary_sha256": "aaa1308888998f6013d88c21c556dd802617143f79504ad51d5b52b9157bb886",
+  "remote_file_sha256": {
+    "main-v1/status.json": "3d2c64a3e5ecf633052f8f14ab95d3467eeb05881967b653b232fef4c3abba9f",
+    "main-v1/stage-costs.json": "2cf5ffd25d9698babf077c55e4692f06b02b16c7a61865b0c735d98f0ae3948b",
+    "main-v1/launch.json": "0bad26067ddfc55914737e21b4d3fbd9606024106d2ac9ab52099aee634a09aa",
+    "main-v1/main-admission.json": "665385777d5eefa55185d1d55a634dc3aa9d990f1ca53e3d230a1572f7f6d228",
+    "main-v1/qualification/verified.json": "61d929075c2b66f2630a95d6135c33bb7d7bf96adb1636de572c63b62cc8fc2d",
+    "main-v1/qualification/costs.json": "30801cd89da30488232cb6465deedc8d29cf2ebdb649afe42f7b89d513b9ff3e",
+    "main-v1/screen/verified.json": "d4be7ca3020faa8dd0f133cecda1138b15a3e6df1298593ae11c41d90810eafe",
+    "main-v1/screen/costs.json": "a799746169fc97db9ea8587c63fd135381f9d2ce1436a98629158232e8813e71",
+    "main-v1/readout/results.json": "5d1b69c703ad285f2d104a93e9b756173581be8343ae45277698e2d6e3f9d86a",
+    "launch.json": "7bc2098b4e38d0e552ee7d7a8e011dd2c433f743f760bd274db87db1e5606d6a",
+    "control.json": "c447bb08faf76b1334d8e075ee3e6c1b058ed19f4cbc11e1a285df751d5f3c4b",
+    "setup-status.json": "52d45226ee1accea4947c0f3ba54c986cccfefa7e3792b429b95cc75db264f1a",
+    "source-v2-receipt.json": "7f2f90bb766cebae8dc3076c1af3260d73f8917d8667e116298bb7807be45b75",
+    "protected-inputs.json": "1e72d48398b6f8c9a11e4de28130fcf992e2a96bc391bc67c15ddc0b845d65ab"
+  },
+  "summary_script_sha256": "28589ee54da7057fcb86ffddcf6a0fbff6eb2be8725da444e24dbc542319e921",
+  "native_identity": "73 tracked native files identical to prior120-test-qualified source; binary unchanged",
+  "focused_python_tests_passed": 19,
+  "failures": [],
+  "setup_findings": [
+    "Nonfatal Git alternate-store nesting warning; source/native/binary identities passed. No external Git object store changed.",
+    "source-v1 setup completed; source-v2 added cost-only admission before any qualification or fresh main hands. Both bundles/setup logs retained."
+  ],
+  "protected_inputs": {
+    "object_stores": [
+      "/home/dberweger/river-arena-expectation-20261022/source/.git/objects",
+      "/home/dberweger/river-conditional-evaluation-20261022/assessment-source-aff3228b/.git/objects",
+      "/home/dberweger/river-whole-hand-pilot-20261021/source/.git/objects",
+      "/home/dberweger/river-harm-diagnosis-20261021/source/.git/objects",
+      "/home/dberweger/river-exact-beliefs-20261021/source/.git/objects",
+      "/home/dberweger/river-continuation-qualification-20261021/source/.git/objects",
+      "/home/dberweger/river-search-round2-20261021/comparison-source-a8078b9d/.git/objects",
+      "/home/dberweger/river-search-round2-20261021/comparison-source-1e3581cf/.git/objects",
+      "/home/dberweger/river-search-round1-20261021/src/.git/objects",
+      "/home/dberweger/river-whole-hand-pilot-20261021-v2/source/.git/objects",
+      "/home/dberweger/river-conditional-evaluation-20261022/source/.git/objects"
+    ],
+    "environment": "/home/dberweger/river-arena-expectation-20261022/venv",
+    "qualification": "/home/dberweger/river-arena-expectation-20261022/qualification-v1",
+    "models_and_tables": {
+      "qualified_root": "/home/dberweger/river-arena-expectation-20261022",
+      "pilot": "/home/dberweger/river-whole-hand-pilot-20261021-v2/main-v1",
+      "reference": "/home/dberweger/river-conditional-evaluation-20261022",
+      "focal": "/home/dberweger/nplayer-v06-acceptance-20261020/main-v1/inputs/2026101935003/candidate.bin",
+      "peer": "/home/dberweger/nplayer-inference-validation-20261020/main-v1/inputs/candidate.bin",
+      "k50": "/home/dberweger/cygnus-qualification-20261014/tables",
+      "planning_allowance_seconds": 7200,
+      "fresh_roots": [
+        2026102239601,
+        2026102239602
+      ],
+      "blocks_per_lineup": 1024,
+      "threads": 4,
+      "owner_authorization": "Here is a1\u20132h PR for you to do next: fresh screening1024 six-permutation blocks per lineup, same focal/peer, reproduction/replay/inline expectations; report tails and one8\u201312h proposal.",
+      "no_larger_run_authorized": true
+    },
+    "external_inputs_read_only": true,
+    "no_original_changed": true
+  },
+  "archive_status": "accepted; see archive.json; all originals retained"
+}

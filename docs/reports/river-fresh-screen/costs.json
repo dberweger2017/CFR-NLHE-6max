@@ -1,0 +1,317 @@
+{
+  "stages": [
+    {
+      "phase": "python-tests",
+      "returncode": 0,
+      "wall_seconds": 2.0183999339933507,
+      "user_cpu_seconds": 0.046698,
+      "system_cpu_seconds": 0.013170999999999999
+    },
+    {
+      "phase": "environment",
+      "returncode": 0,
+      "wall_seconds": 2.0188150400063023,
+      "user_cpu_seconds": 1.6565979999999998,
+      "system_cpu_seconds": 0.920148
+    },
+    {
+      "phase": "qualification",
+      "returncode": 0,
+      "wall_seconds": 472.1077929220046,
+      "user_cpu_seconds": 465.096273,
+      "system_cpu_seconds": 12.839628999999999
+    },
+    {
+      "phase": "screen",
+      "returncode": 0,
+      "wall_seconds": 1666.4462761969771,
+      "user_cpu_seconds": 2721.1758739999996,
+      "system_cpu_seconds": 16.510922
+    },
+    {
+      "phase": "readout",
+      "returncode": 0,
+      "wall_seconds": 2.0171115300036035,
+      "user_cpu_seconds": 3.1039730000002237,
+      "system_cpu_seconds": 0.9744319999999966
+    }
+  ],
+  "resources": {
+    "environment": {
+      "samples": 1,
+      "first": {
+        "utc": "2026-10-22T04:01:57Z",
+        "phase": "environment",
+        "cpu_c": 38.0,
+        "thermistor15_c": 30.0,
+        "worker_family_rss_bytes": 19382272,
+        "live_family_cpu_seconds": 0.06,
+        "available_ram_bytes": 131780399104,
+        "swap_used_bytes": 367697920,
+        "nvme_free_bytes": 257225469952,
+        "hdd_free_bytes": 530684776448
+      },
+      "last": {
+        "utc": "2026-10-22T04:01:57Z",
+        "phase": "environment",
+        "cpu_c": 38.0,
+        "thermistor15_c": 30.0,
+        "worker_family_rss_bytes": 19382272,
+        "live_family_cpu_seconds": 0.06,
+        "available_ram_bytes": 131780399104,
+        "swap_used_bytes": 367697920,
+        "nvme_free_bytes": 257225469952,
+        "hdd_free_bytes": 530684776448
+      },
+      "maxima": {
+        "cpu_c": 38.0,
+        "thermistor15_c": 30.0,
+        "worker_family_rss_bytes": 19382272,
+        "swap_used_bytes": 367697920
+      },
+      "minima": {
+        "available_ram_bytes": 131780399104,
+        "nvme_free_bytes": 257225469952,
+        "hdd_free_bytes": 530684776448
+      }
+    },
+    "python-tests": {
+      "samples": 1,
+      "first": {
+        "utc": "2026-10-22T04:01:54Z",
+        "phase": "python-tests",
+        "cpu_c": 39.0,
+        "thermistor15_c": 29.5,
+        "worker_family_rss_bytes": 16084992,
+        "live_family_cpu_seconds": 0.01,
+        "available_ram_bytes": 131785019392,
+        "swap_used_bytes": 367697920,
+        "nvme_free_bytes": 257225531392,
+        "hdd_free_bytes": 530684776448
+      },
+      "last": {
+        "utc": "2026-10-22T04:01:54Z",
+        "phase": "python-tests",
+        "cpu_c": 39.0,
+        "thermistor15_c": 29.5,
+        "worker_family_rss_bytes": 16084992,
+        "live_family_cpu_seconds": 0.01,
+        "available_ram_bytes": 131785019392,
+        "swap_used_bytes": 367697920,
+        "nvme_free_bytes": 257225531392,
+        "hdd_free_bytes": 530684776448
+      },
+      "maxima": {
+        "cpu_c": 39.0,
+        "thermistor15_c": 29.5,
+        "worker_family_rss_bytes": 16084992,
+        "swap_used_bytes": 367697920
+      },
+      "minima": {
+        "available_ram_bytes": 131785019392,
+        "nvme_free_bytes": 257225531392,
+        "hdd_free_bytes": 530684776448
+      }
+    },
+    "qualification": {
+      "samples": 234,
+      "first": {
+        "utc": "2026-10-22T04:01:59Z",
+        "phase": "qualification",
+        "cpu_c": 38.0,
+        "thermistor15_c": 30.5,
+        "worker_family_rss_bytes": 15818752,
+        "live_family_cpu_seconds": 0.0,
+        "available_ram_bytes": 131742183424,
+        "swap_used_bytes": 367697920,
+        "nvme_free_bytes": 257225465856,
+        "hdd_free_bytes": 530684776448
+      },
+      "last": {
+        "utc": "2026-10-22T04:09:49Z",
+        "phase": "qualification",
+        "cpu_c": 61.0,
+        "thermistor15_c": 58.5,
+        "worker_family_rss_bytes": 29735981056,
+        "live_family_cpu_seconds": 239.46,
+        "available_ram_bytes": 101968027648,
+        "swap_used_bytes": 367697920,
+        "nvme_free_bytes": 257224495104,
+        "hdd_free_bytes": 530684776448
+      },
+      "maxima": {
+        "cpu_c": 61.0,
+        "thermistor15_c": 58.5,
+        "worker_family_rss_bytes": 29735981056,
+        "swap_used_bytes": 367697920
+      },
+      "minima": {
+        "available_ram_bytes": 101968027648,
+        "nvme_free_bytes": 257224495104,
+        "hdd_free_bytes": 530684776448
+      }
+    },
+    "readout": {
+      "samples": 1,
+      "first": {
+        "utc": "2026-10-22T04:37:39Z",
+        "phase": "readout",
+        "cpu_c": 45.0,
+        "thermistor15_c": 62.5,
+        "worker_family_rss_bytes": 15683584,
+        "live_family_cpu_seconds": 0.01,
+        "available_ram_bytes": 131421642752,
+        "swap_used_bytes": 367697920,
+        "nvme_free_bytes": 257006198784,
+        "hdd_free_bytes": 530684776448
+      },
+      "last": {
+        "utc": "2026-10-22T04:37:39Z",
+        "phase": "readout",
+        "cpu_c": 45.0,
+        "thermistor15_c": 62.5,
+        "worker_family_rss_bytes": 15683584,
+        "live_family_cpu_seconds": 0.01,
+        "available_ram_bytes": 131421642752,
+        "swap_used_bytes": 367697920,
+        "nvme_free_bytes": 257006198784,
+        "hdd_free_bytes": 530684776448
+      },
+      "maxima": {
+        "cpu_c": 45.0,
+        "thermistor15_c": 62.5,
+        "worker_family_rss_bytes": 15683584,
+        "swap_used_bytes": 367697920
+      },
+      "minima": {
+        "available_ram_bytes": 131421642752,
+        "nvme_free_bytes": 257006198784,
+        "hdd_free_bytes": 530684776448
+      }
+    },
+    "screen": {
+      "samples": 826,
+      "first": {
+        "utc": "2026-10-22T04:09:52Z",
+        "phase": "screen",
+        "cpu_c": 43.0,
+        "thermistor15_c": 58.0,
+        "worker_family_rss_bytes": 15687680,
+        "live_family_cpu_seconds": 0.01,
+        "available_ram_bytes": 131658010624,
+        "swap_used_bytes": 367697920,
+        "nvme_free_bytes": 257224220672,
+        "hdd_free_bytes": 530684776448
+      },
+      "last": {
+        "utc": "2026-10-22T04:37:36Z",
+        "phase": "screen",
+        "cpu_c": 58.0,
+        "thermistor15_c": 63.5,
+        "worker_family_rss_bytes": 71606272,
+        "live_family_cpu_seconds": 11.44,
+        "available_ram_bytes": 131367510016,
+        "swap_used_bytes": 367697920,
+        "nvme_free_bytes": 257008095232,
+        "hdd_free_bytes": 530684776448
+      },
+      "maxima": {
+        "cpu_c": 67.0,
+        "thermistor15_c": 66.0,
+        "worker_family_rss_bytes": 29738668032,
+        "swap_used_bytes": 367697920
+      },
+      "minima": {
+        "available_ram_bytes": 101945352192,
+        "nvme_free_bytes": 257008095232,
+        "hdd_free_bytes": 530684776448
+      }
+    }
+  },
+  "total_supervised_wall_seconds": 2144.608395622985,
+  "total_child_cpu_seconds": 3222.3377179999998,
+  "screen_and_readout_wall_seconds": 1668.4633877269807,
+  "screen_and_readout_child_cpu_seconds": 2741.7652009999997,
+  "screen_components": {
+    "wall_seconds": 1664.4730152420234,
+    "batches": {
+      "initial": {
+        "wall_seconds": 829.347588345001,
+        "startup": {
+          "model_and_k50_load_seconds": 234.134572343,
+          "model_pins": [
+            {
+              "average_scope": 3,
+              "policy_load_seconds": 114.697108627,
+              "sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+              "source_checkpoint_sha256": "788e75acf8b98d88518faf3da683048ec05604ba001c8a59bb1ec5f740b52b80",
+              "strategy": "average"
+            },
+            {
+              "average_scope": 3,
+              "policy_load_seconds": 114.544123958,
+              "sha256": "23599816cf632a51cace45f25d70ed4918fe5e75875c33136d8629052a8a2a70",
+              "source_checkpoint_sha256": "d03db22316af0e8bd04e76f5303603709bd77b2bf13dcc13ea07482ca10170ca",
+              "strategy": "average"
+            }
+          ],
+          "resident_models": 2,
+          "shared_read_only_tables": true,
+          "threads": 4
+        },
+        "play_and_write_seconds": 594.834969279,
+        "case_play_seconds": {
+          "trained-off": 0.184154888,
+          "trained-on": 261.88068918,
+          "call-pressure-off": 0.192700427,
+          "call-pressure-on": 332.577424784
+        },
+        "manifest_sha256": "db7543cb2d5df4e517ba1149861bab985b951933077d633c275fcfdf1d97338a"
+      },
+      "repeat": {
+        "wall_seconds": 823.6491781179793,
+        "startup": {
+          "model_and_k50_load_seconds": 231.120350839,
+          "model_pins": [
+            {
+              "average_scope": 3,
+              "policy_load_seconds": 113.352110378,
+              "sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+              "source_checkpoint_sha256": "788e75acf8b98d88518faf3da683048ec05604ba001c8a59bb1ec5f740b52b80",
+              "strategy": "average"
+            },
+            {
+              "average_scope": 3,
+              "policy_load_seconds": 112.933014683,
+              "sha256": "23599816cf632a51cace45f25d70ed4918fe5e75875c33136d8629052a8a2a70",
+              "source_checkpoint_sha256": "d03db22316af0e8bd04e76f5303603709bd77b2bf13dcc13ea07482ca10170ca",
+              "strategy": "average"
+            }
+          ],
+          "resident_models": 2,
+          "shared_read_only_tables": true,
+          "threads": 4
+        },
+        "play_and_write_seconds": 592.1549898139999,
+        "case_play_seconds": {
+          "trained-off": 0.179424592,
+          "trained-on": 261.075246991,
+          "call-pressure-off": 0.20163196,
+          "call-pressure-on": 330.698686271
+        },
+        "manifest_sha256": "25357a96e2c37f90b2e268b373e68e111c4a1b3f910d3da85a276f5194517a06"
+      }
+    },
+    "verification_seconds": 11.204711091995705,
+    "binary_sha256": "aaa1308888998f6013d88c21c556dd802617143f79504ad51d5b52b9157bb886"
+  },
+  "main_admission": {
+    "status": "admitted",
+    "central_seconds": 2766.152820667004,
+    "reserved_seconds": 6280.371227246003,
+    "accepted_planning_allowance_seconds": 7200,
+    "cost_only_no_outcomes": true,
+    "main_started": false,
+    "assumptions": "Max(old full panel rate, first4 fixture rate);3x play/2x startup,1200s proof/readout/report reserve including already-spent stages. No elapsed-time stop."
+  }
+}

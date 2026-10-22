@@ -117,12 +117,16 @@ qualification, not a strength or release decision.
    now passes all384 roots and9,216 initial plus9,216 reproduced hands in12m00s.
    Inline expectations remove duplicate work:2.26× faster than the separate
    workflow, primary full-cost efficiency ratio0.409 versus sampled-only.
-   Engineering is complete. [Choose the concrete fixed strength proposal](docs/reports/river-arena-expectation/strength-study-proposal.md)
-   or defer: proposed+5 primary/−5 safeguard margin, three lineages,26.16h
-   central/76.99h reserve within proposed80h allocation. Tight check-call/pressure
-   safeguards dominate cost; no campaign, margin change or further engineering
-   starts automatically.
-2. **Off-tree continuation: a small correctness-first prototype.** Preserve the
+   Engineering is complete. [PR396's fresh screen](docs/reports/river-fresh-screen/results.md)
+   is now inconclusive: peers−1.11[−6.30,+4.08], check-call/pressure+2.50
+   [−6.98,+11.99]BB/100 (two-panel family95). No clear-harm flag, benefit or
+   −5 non-inferiority established; the old adverse mean remains historical evidence.
+   [Choose one narrower fixed proposal](docs/reports/river-fresh-screen/followup-proposal.md)
+   or defer: all three lineages,2,048 peer/4,096 scripted blocks each,4.01h
+   central/10.72h reserve inside proposed12h. No80h-design joint-power or broad
+   script acceptance promise; no campaign/margin change/engineering starts
+   automatically.
+2. **Off-tree continuation remains deferred pending the strength-budget decision.** Preserve the
    saved cap/all-in cases 21/91 and the pilot's omitted 3,700-chip response.
    Treat consistent beliefs and retained hero policy as requirements;
    re-solving is a candidate, not an established repair. One observed off-tree
@@ -145,6 +149,8 @@ automatically. [The frozen pilot protocol](docs/river-whole-hand-pilot.md),
 separate the completed experiment from proposed next work.
 
 ## Current position
+
+- **Fresh frozen river screen complete ([PR396](https://github.com/dberweger2017/CFR-NLHE-6max/pull/396), proposal395):**1,024 fresh blocks per lineup,24,576 independently replayed initial hands plus identical reproduction,2,065 exact profile/value/work reproductions, all five stages0. Trained peers−1.11[−6.30,+4.08], check-call/pressure+2.50[−6.98,+11.99]BB/100 (simultaneous family95), both inconclusive; no clear-harm/benefit/−5 non-inferiority verdict. Largest peer block18.1%/largest3 39.9% of centered variation; scripted8.2%/20.5%. Variance ratios0.218/0.558. One quality fallback, two peer off-tree events preserved; no tuning, retry or added hands. Fresh screen/readout27m48s; all stages35m45s/53m42childCPU,27.70GiB, CPU67/Thermistor15 66°C, no swap growth. [One proposed bounded cross-lineage comparison](docs/reports/river-fresh-screen/followup-proposal.md):2,048 peer/4,096 single-scripted-safeguard blocks per each of three frozen lineages,442,368 total initial/reproduction instances,4.01h central/10.72h reserve,12h owner decision; no broad-script/joint-power promise or automatic launch. [Results and predeclared tails](docs/reports/river-fresh-screen/results.md). Archive accepted,132 covered files; KEEP/originals retained.
 
 - **Full inline river expectation measurement completes ([PR394](https://github.com/dberweger2017/CFR-NLHE-6max/pull/394), proposal392):** all384 original expected float64/profile/work values match in both passes, all9,216 initial hands independently replay and match PR388 bytes, all9,216 reproductions identical. Zero extra solves/reconstructions, no failure or new deal. Complete720.26s/901.42childCPU-s; loading465.81s, play/write251.20s including0.634s expectation evaluation, proof2.20s; sampled27.70GiB, CPU65/Thermistor15 63°C, zero swap growth.2.26× faster than the separate old workflow; primary variance × cold/amortized wall ratios0.409/0.408, preserving sparse tails/adverse means. Evaluation engineering closes. One proposed fixed three-lineage strength design uses+5 primary effect,−5 non-inferiority margin and nominal80% joint normal-model power,3,437,568 initial/reproduction instances,26.16h central/76.99h reserve, proposed80h budget. No launch authorization; existing check-call/pressure adverse mean remains a likely failed safeguard if repeated. [Report and explicit campaign/deferral decision](docs/reports/river-arena-expectation/measurement.md). Archive acceptance passed,266 covered files; originals/KEEP retained.
 
