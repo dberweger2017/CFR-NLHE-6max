@@ -5,6 +5,7 @@ acceptance. Neither command starts full training or a strength comparison.
 """
 import argparse
 import fcntl
+from functools import partial
 import gzip
 import hashlib
 import json
@@ -187,32 +188,62 @@ class Supervisor:
         return row
 
 
+def train_endpoint(root, config, stage, name,target,*,parent=None,seed=QUAL_SEED,threads=16,cap=10000):
+    checkpoint=root/(name+'.gz')
+    cost=stage(name,train_command(config,checkpoint,target,parent=parent,seed=seed,threads=threads,cap=cap))
+    summary=read(root/'measurements'/name/'stdout.log')
+    validate_checkpoint(summary,checkpoint,target,seed,cap)
+    if parent:
+        if summary['counts']['nodes']<=parent['counts']['nodes']:
+            raise ValueError('resume made no progress')
+        if parent['frozen_at'] is not None and any(summary[k]!=parent[k] for k in ('entries','frozen_at')):
+            raise ValueError('frozen membership count/marker changed')
+    active=summary['elapsed_seconds']-summary['save_seconds']
+    row={**summary,'checkpoint':str(checkpoint),'checkpoint_bytes':checkpoint.stat().st_size,
+        'stage_wall_seconds':cost['wall_seconds'],'active_training_seconds':active}
+    write(root/(name+'-summary.json'),row)
+    return row
+
+def export_model(root, config, stage, name,model):
+    policy=root/(name+'-average.gz')
+    stage(name+'-export',[config['binaries']['nplayer_policy'],'export',model['checkpoint'],model['sha256'],
+        'average',policy,'--fast-gzip'])
+    stage(name+'-audit',[config['python'],'-m','scripts.audit_nplayer_policy_parallel',model['checkpoint'],policy,
+        '--workers','8','--lookup-out',root/(name+'-mass')])
+    audit=read(root/'measurements'/(name+'-audit')/'stdout.log')
+    if audit['status']!='passed' or audit['rows']!=model['entries']:
+        raise ValueError('full-row export audit failed')
+    return policy,sha(policy),audit
+
+def measure_coverage(root, config, stage, name,policy,digest,blocks,base_root):
+    specs=[]
+    for bot_index,bot in enumerate(BOTS):
+        specs.append({'name':bot,'blocks':blocks,'root':base_root+bot_index,
+            'singleton':f'policy={policy}@{digest}','pair':'bot='+bot,
+            'trace':str(root/(name+'-'+bot+'.jsonl')),'summary':str(root/(name+'-'+bot+'.json'))})
+    for suffix in ('initial','repeat'):
+        manifest={'tables':config['tables'],'threads':4,'stack_bb':200,'cases':[
+            {**c,'trace':c['trace']+'.'+suffix,'summary':c['summary']+'.'+suffix} for c in specs]}
+        write(root/(name+'-'+suffix+'.json'),manifest)
+        stage(name+'-'+suffix,[config['binaries']['nplayer_arena'],'batch',root/(name+'-'+suffix+'.json')])
+    summaries=[]
+    for case in specs:
+        initial=Path(case['trace']+'.initial'); repeat=Path(case['trace']+'.repeat')
+        if sha(initial)!=sha(repeat):raise ValueError('coverage trace reproduction differs')
+        stage(name+'-replay-'+case['name'],[config['python'],'-m','scripts.check_nplayer_policy_replay',initial])
+        proof=read(root/'measurements'/(name+'-replay-'+case['name'])/'stdout.log')
+        if proof['status']!='passed' or proof['hands']!=blocks*6:raise ValueError('incomplete replay')
+        summary=read(Path(case['summary']+'.initial'))
+        if summary['hands']!=blocks*6:raise ValueError('incomplete coverage')
+        summaries.append({'bot':case['name'],'root':case['root'],'blocks':blocks,'summary':summary,
+            'independent_replay':proof,'no_strength_readout':True})
+    write(root/(name+'-coverage.json'),summaries)
+    return summaries
+
+
 def execute(root, config, stage):
-    def trained(name,target,*,parent=None,seed=QUAL_SEED,threads=16,cap=10000):
-        checkpoint=root/(name+'.gz')
-        cost=stage(name,train_command(config,checkpoint,target,parent=parent,seed=seed,threads=threads,cap=cap))
-        summary=read(root/'measurements'/name/'stdout.log')
-        validate_checkpoint(summary,checkpoint,target,seed,cap)
-        if parent:
-            if summary['counts']['nodes']<=parent['counts']['nodes']:
-                raise ValueError('resume made no progress')
-            if parent['frozen_at'] is not None and any(summary[k]!=parent[k] for k in ('entries','frozen_at')):
-                raise ValueError('frozen membership count/marker changed')
-        active=summary['elapsed_seconds']-summary['save_seconds']
-        row={**summary,'checkpoint':str(checkpoint),'checkpoint_bytes':checkpoint.stat().st_size,
-            'stage_wall_seconds':cost['wall_seconds'],'active_training_seconds':active}
-        write(root/(name+'-summary.json'),row)
-        return row
-    def exported(name,model):
-        policy=root/(name+'-average.gz')
-        stage(name+'-export',[config['binaries']['nplayer_policy'],'export',model['checkpoint'],model['sha256'],
-            'average',policy,'--fast-gzip'])
-        stage(name+'-audit',[config['python'],'-m','scripts.audit_nplayer_policy_parallel',model['checkpoint'],policy,
-            '--workers','8','--lookup-out',root/(name+'-mass')])
-        audit=read(root/'measurements'/(name+'-audit')/'stdout.log')
-        if audit['status']!='passed' or audit['rows']!=model['entries']:
-            raise ValueError('full-row export audit failed')
-        return policy,sha(policy),audit
+    trained=partial(train_endpoint,root,config,stage)
+    exported=partial(export_model,root,config,stage)
     first=trained('fixture-one',100000,threads=1)
     many=trained('fixture-sixteen',100000)
     resumed=trained('fixture-resume',200000,parent=first)
@@ -229,30 +260,7 @@ def execute(root, config, stage):
     if left_sha!=right_sha or left_audit['keyset_sha256']!=right_audit['keyset_sha256']:
         raise ValueError('resume export/key-set identity differs')
 
-    def coverage(name,policy,digest,blocks,base_root):
-        specs=[]
-        for bot_index,bot in enumerate(BOTS):
-            specs.append({'name':bot,'blocks':blocks,'root':base_root+bot_index,
-                'singleton':f'policy={policy}@{digest}','pair':'bot='+bot,
-                'trace':str(root/(name+'-'+bot+'.jsonl')),'summary':str(root/(name+'-'+bot+'.json'))})
-        for suffix in ('initial','repeat'):
-            manifest={'tables':config['tables'],'threads':4,'stack_bb':200,'cases':[
-                {**c,'trace':c['trace']+'.'+suffix,'summary':c['summary']+'.'+suffix} for c in specs]}
-            write(root/(name+'-'+suffix+'.json'),manifest)
-            stage(name+'-'+suffix,[config['binaries']['nplayer_arena'],'batch',root/(name+'-'+suffix+'.json')])
-        summaries=[]
-        for case in specs:
-            initial=Path(case['trace']+'.initial'); repeat=Path(case['trace']+'.repeat')
-            if sha(initial)!=sha(repeat):raise ValueError('coverage trace reproduction differs')
-            stage(name+'-replay-'+case['name'],[config['python'],'-m','scripts.check_nplayer_policy_replay',initial])
-            proof=read(root/'measurements'/(name+'-replay-'+case['name'])/'stdout.log')
-            if proof['status']!='passed' or proof['hands']!=blocks*6:raise ValueError('incomplete replay')
-            summary=read(Path(case['summary']+'.initial'))
-            if summary['hands']!=blocks*6:raise ValueError('incomplete coverage')
-            summaries.append({'bot':case['name'],'root':case['root'],'blocks':blocks,'summary':summary,
-                'independent_replay':proof,'no_strength_readout':True})
-        write(root/(name+'-coverage.json'),summaries)
-        return summaries
+    coverage=partial(measure_coverage,root,config,stage)
 
     coverage('fixture',right,right_sha,2,2026102240901)
     write(root/'qualification.json',{'status':'passed','checkpoint_sha256':fresh['sha256'],

@@ -1,20 +1,26 @@
 # Roadmap
 
-## Next: qualify capped200BB maturity before the v0.6.1 model campaign
+## Next: decide the fixed 200 BB model campaign toward v0.6.1
 
-Owner prioritizes200BB blueprint and defers v0.6.5 search adoption.
-[PR400](https://github.com/dberweger2017/CFR-NLHE-6max/pull/400)/[proposal399](https://github.com/dberweger2017/CFR-NLHE-6max/issues/399):
-[fixed100M/200M/500M feasibility pilot completes](docs/reports/nplayer-bb200-feasibility/results.md)
-in23m40s. Real-K50 qualification,159.4M-row export audit and3,072initial plus
-3,072reproduced coverage hands pass. Last interval4.77Mnodes/s; sampled19.13GiB
-overall/13.31GiBtraining; CPU74/Thermistor15 86°C, no stop/failure/retry.
-Table growth remains0.267keys/node,159.4Mentries/unfrozen at500M; check-call
-river42.3%missing and33.15%storedzero-average-mass rows preclude a coverage or
-strength conclusion. [Proposed fixed500M→1B capped calibration](docs/reports/nplayer-bb200-feasibility/next-allocation.md)
-is about31mcentral/90minallocation, not authorized/launched. No automatic3B/10B
-campaign. Three independent200BB lineages still require unchanged scripted-profit,
-own-checkpoint and cyclic confirmation before release. Archivepending, originals
-and prior398source/venv/K50dependencies protected. No search/default/merge action.
+Owner prioritizes 200 BB blueprints and defers v0.6.5 search adoption.
+[PR400's 500M feasibility](docs/reports/nplayer-bb200-feasibility/results.md) and
+[PR402's completed 1B maturity continuation](docs/reports/nplayer-bb200-maturity/results.md)
+show affordable training:1,000,008,098 nodes,250,002,537 entries, freeze near961M;
+full-row audit and3,072 initial/reproduced coverage hands pass. The controller's
+exact-cap assertion failed after successful saving and was corrected transparently;
+original failure/source/checkpoint are preserved and training is never repeated.
+Measured stages29m11s; elapsed including correction33m41s,33.68GiB sampled RSS,
+CPU74/Thermistor15 87.5°C, no observed swap growth.
+
+250M is a bounded research capacity candidate, not established coverage sufficiency:
+check-call river27.3%missing and33.4%stored zero-average-mass rows remain distinct
+limitations. [Propose three independent fixed3B/10B lineages](docs/reports/nplayer-bb200-maturity/campaign-proposal.md),
+retaining250M threshold/current recipe and exact within-lineage membership. Model
+training/save/export/audit scenario3h50m central/9h35m reserve **excludes acceptance**;
+not authorized/launched. No more automatic cost pilots. Before fresh confirming
+hands, separately freeze/price the unchanged30-gate200BB acceptance with counts,
+roots, effect/variance assumptions and pass chances. No strength/default/release
+verdict yet. Owned archival pending receipt; originals and PR400/398/K50 protected.
 
 ## Final frozen river assessment: defer candidate
 

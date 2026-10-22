@@ -1,0 +1,483 @@
+{
+  "status": "complete-cost-only",
+  "parent": {
+    "checkpoint": "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/pilot-500000000.gz",
+    "counts": {
+      "decisions": [
+        12792530,
+        31166306,
+        73001222,
+        167755514
+      ],
+      "discarded_keys": 0,
+      "discarded_visits": 0,
+      "missing": [
+        2824540,
+        10405630,
+        35247194,
+        110912083
+      ],
+      "nodes": 500027427,
+      "terminals": 215311855,
+      "traverser": [
+        32121466,
+        32072011,
+        32059716,
+        0,
+        0,
+        0
+      ]
+    },
+    "elapsed_seconds": 141.166943188,
+    "entries": 159384070,
+    "frozen_at": null,
+    "identity": {
+      "big_blind": 100,
+      "card_tables": [
+        "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+        "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+        "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+      ],
+      "game": "nlhe-cash",
+      "menu": "min-pot-conditional-jam-v1",
+      "players": 3,
+      "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+      "small_blind": 50,
+      "stacks": [
+        20000,
+        20000,
+        20000
+      ],
+      "utility_unit": "big-blind"
+    },
+    "iteration": 18435,
+    "save_seconds": 78.273214991,
+    "sha256": "704e35dd04d8290fc49c9d4505f6371bf0e8a50200e185c8881807ce727af625",
+    "stop_reason": "nodes",
+    "checkpoint_bytes": 5457867989,
+    "stage_wall_seconds": 256.9628484870191,
+    "active_training_seconds": 62.893728197
+  },
+  "endpoint": {
+    "checkpoint": "/home/dberweger/nplayer-bb200-maturity-20261022/main-v1/continuation-1b.gz",
+    "counts": {
+      "decisions": [
+        24086885,
+        59465456,
+        143728252,
+        339574916
+      ],
+      "discarded_keys": 6536832,
+      "discarded_visits": 2560884,
+      "missing": [
+        3902618,
+        15041459,
+        53848877,
+        183752770
+      ],
+      "nodes": 1000008098,
+      "terminals": 433152589,
+      "traverser": [
+        64685843,
+        64524290,
+        64682352,
+        0,
+        0,
+        0
+      ]
+    },
+    "elapsed_seconds": 244.067157425,
+    "entries": 250002537,
+    "frozen_at": 38253,
+    "identity": {
+      "big_blind": 100,
+      "card_tables": [
+        "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+        "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+        "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+      ],
+      "game": "nlhe-cash",
+      "menu": "min-pot-conditional-jam-v1",
+      "players": 3,
+      "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+      "small_blind": 50,
+      "stacks": [
+        20000,
+        20000,
+        20000
+      ],
+      "utility_unit": "big-blind"
+    },
+    "iteration": 40028,
+    "save_seconds": 129.264498869,
+    "sha256": "55d89c553ba1756eac1af117847b30e8b18e4f901afba942ee5a906bc00249ad",
+    "stop_reason": "nodes",
+    "checkpoint_bytes": 8788049377,
+    "stage_wall_seconds": 467.20207598397974,
+    "active_training_seconds": 114.80265855600001
+  },
+  "interval": {
+    "added_nodes": 499980671,
+    "added_entries": 90618467,
+    "active_training_seconds": 114.80265855600001,
+    "active_nodes_per_second": 4355131.468981727,
+    "marginal_retained_keys_per_node": 0.18124394052825293,
+    "frozen_at": 38253,
+    "retained_capacity_fraction": 1.000010148,
+    "iteration_boundary_entry_overshoot": 2537,
+    "growth_after_freeze_is_censored": true
+  },
+  "audit": {
+    "by_street": [
+      {
+        "entries": 3834377,
+        "visits": 6130172,
+        "zero_visit_entries": 2116282,
+        "decisions": 24086885,
+        "missing_decisions": 3902618,
+        "missing_decision_share": 0.1620225280271816,
+        "visits_per_key": 1.5987400299970504
+      },
+      {
+        "entries": 14742923,
+        "visits": 18629353,
+        "zero_visit_entries": 8528183,
+        "decisions": 59465456,
+        "missing_decisions": 15041459,
+        "missing_decision_share": 0.2529444825917084,
+        "visits_per_key": 1.2636132604097572
+      },
+      {
+        "entries": 52631900,
+        "visits": 49137586,
+        "zero_visit_entries": 29346924,
+        "decisions": 143728252,
+        "missing_decisions": 53848877,
+        "missing_decision_share": 0.3746575655842527,
+        "visits_per_key": 0.9336084389885222
+      },
+      {
+        "entries": 178793337,
+        "visits": 117434490,
+        "zero_visit_entries": 103350002,
+        "decisions": 339574916,
+        "missing_decisions": 183752770,
+        "missing_decision_share": 0.5411258645500188,
+        "visits_per_key": 0.6568169260132999
+      }
+    ],
+    "status": "passed",
+    "checkpoint_sha256": "55d89c553ba1756eac1af117847b30e8b18e4f901afba942ee5a906bc00249ad",
+    "policy_sha256": "1f745e803c7dd00d1a32a11b35532780ab27091c163df0f26a9fcf3b26ec5dc2",
+    "strategy": "average",
+    "last_average_street": 3,
+    "rows": 250002537,
+    "average_rows": 250002537,
+    "current_rows": 0,
+    "zero_mass_rows": 83545787,
+    "format": "nplayer-average-mass-v1",
+    "keyset_sha256": "c37fdf1c6d0a2e92d6193ae285db4c990e5fbecd859c734a33268ae34d41bb11",
+    "positive_mass_rows": 166456750,
+    "zero_keys_sha256": "f75c748aca93602c151b50ff8b3b186646117b695167cf85249599013b4ab7dc"
+  },
+  "coverage": [
+    {
+      "bot": "random",
+      "root": 2026102240201,
+      "blocks": 128,
+      "summary": {
+        "blocks": 128,
+        "decisions_by_identity_street": [
+          [
+            1127,
+            306,
+            137,
+            45
+          ],
+          [
+            1242,
+            491,
+            232,
+            76
+          ],
+          [
+            1260,
+            473,
+            197,
+            67
+          ]
+        ],
+        "hands": 768,
+        "load_seconds": 216.177393698,
+        "misses_by_identity_street": [
+          [
+            9,
+            7,
+            17,
+            15
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "new_weight_tables": 1,
+        "play_seconds": 0.017684618,
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 1,
+        "status": "passed",
+        "trace_sha256": "260342ac0645c69226fbae432597afc8a2101fcfb7512da8310150a0c014e4e9"
+      },
+      "independent_replay": {
+        "status": "passed",
+        "engine": {
+          "url": "https://github.com/dberweger2017/pokers.git",
+          "vcs_info": {
+            "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "vcs": "git"
+          }
+        },
+        "hands": 768,
+        "decisions": 5653,
+        "players": 3,
+        "trace_sha256": "260342ac0645c69226fbae432597afc8a2101fcfb7512da8310150a0c014e4e9"
+      },
+      "no_strength_readout": true
+    },
+    {
+      "bot": "check-call",
+      "root": 2026102240202,
+      "blocks": 128,
+      "summary": {
+        "blocks": 128,
+        "decisions_by_identity_street": [
+          [
+            768,
+            490,
+            490,
+            490
+          ],
+          [
+            931,
+            887,
+            921,
+            917
+          ],
+          [
+            931,
+            887,
+            921,
+            917
+          ]
+        ],
+        "hands": 768,
+        "load_seconds": 2.997e-06,
+        "misses_by_identity_street": [
+          [
+            0,
+            0,
+            2,
+            134
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "new_weight_tables": 0,
+        "play_seconds": 0.023417815,
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 1,
+        "status": "passed",
+        "trace_sha256": "c85019d2010ea74a5c8631c82aa4aa2c05f1a991b0a1c2a72793fdb7c48b1e6a"
+      },
+      "independent_replay": {
+        "status": "passed",
+        "engine": {
+          "url": "https://github.com/dberweger2017/pokers.git",
+          "vcs_info": {
+            "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "vcs": "git"
+          }
+        },
+        "hands": 768,
+        "decisions": 9550,
+        "players": 3,
+        "trace_sha256": "c85019d2010ea74a5c8631c82aa4aa2c05f1a991b0a1c2a72793fdb7c48b1e6a"
+      },
+      "no_strength_readout": true
+    },
+    {
+      "bot": "tight-aggressive",
+      "root": 2026102240203,
+      "blocks": 128,
+      "summary": {
+        "blocks": 128,
+        "decisions_by_identity_street": [
+          [
+            584,
+            143,
+            77,
+            40
+          ],
+          [
+            671,
+            93,
+            54,
+            32
+          ],
+          [
+            674,
+            88,
+            58,
+            27
+          ]
+        ],
+        "hands": 768,
+        "load_seconds": 2.564e-06,
+        "misses_by_identity_street": [
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "new_weight_tables": 0,
+        "play_seconds": 0.009914195,
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 1,
+        "status": "passed",
+        "trace_sha256": "bf0b21fb89e4e3c89e03e3de16ebd4a954878eb210c460d1e1986dc6cb2d0c24"
+      },
+      "independent_replay": {
+        "status": "passed",
+        "engine": {
+          "url": "https://github.com/dberweger2017/pokers.git",
+          "vcs_info": {
+            "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "vcs": "git"
+          }
+        },
+        "hands": 768,
+        "decisions": 2541,
+        "players": 3,
+        "trace_sha256": "bf0b21fb89e4e3c89e03e3de16ebd4a954878eb210c460d1e1986dc6cb2d0c24"
+      },
+      "no_strength_readout": true
+    },
+    {
+      "bot": "pot-pressure",
+      "root": 2026102240204,
+      "blocks": 128,
+      "summary": {
+        "blocks": 128,
+        "decisions_by_identity_street": [
+          [
+            661,
+            193,
+            83,
+            44
+          ],
+          [
+            707,
+            133,
+            51,
+            21
+          ],
+          [
+            697,
+            134,
+            61,
+            29
+          ]
+        ],
+        "hands": 768,
+        "load_seconds": 2.301e-06,
+        "misses_by_identity_street": [
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "new_weight_tables": 0,
+        "play_seconds": 0.011677226,
+        "resident_card_table_sets": 1,
+        "resident_weight_tables": 1,
+        "status": "passed",
+        "trace_sha256": "7be7a6e69f45a68f3367a33aa15ab03b8b9d47b356588905a5e6e2b6058f96db"
+      },
+      "independent_replay": {
+        "status": "passed",
+        "engine": {
+          "url": "https://github.com/dberweger2017/pokers.git",
+          "vcs_info": {
+            "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "vcs": "git"
+          }
+        },
+        "hands": 768,
+        "decisions": 2814,
+        "players": 3,
+        "trace_sha256": "7be7a6e69f45a68f3367a33aa15ab03b8b9d47b356588905a5e6e2b6058f96db"
+      },
+      "no_strength_readout": true
+    }
+  ],
+  "initial_hands": 3072,
+  "reproduction_hands": 3072,
+  "original_root": "/home/dberweger/nplayer-bb200-maturity-20261022/main-v1",
+  "original_controller_failure_preserved": true,
+  "training_repeated": false,
+  "stopped_at_fixed_endpoint": true,
+  "no_strength_readout": true,
+  "no_followup_started": true,
+  "full_training_admitted": false,
+  "no_further_cost_pilot_authorized": true
+}

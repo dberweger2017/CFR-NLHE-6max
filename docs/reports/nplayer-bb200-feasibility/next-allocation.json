@@ -28,7 +28,12 @@
     "metadata_and_verification_allowance": 120
   },
   "central_seconds": 1887.2245272685075,
-  "reserved_seconds": 3939.263974015036,
+  "reserved_seconds": 4179.263974015036,
+  "reserve_correction": {
+    "previous_reserved_seconds": 3939.263974015036,
+    "added_seconds": 240,
+    "reason": "Include metadata in all non-training components, matching the written formula."
+  },
   "proposed_planning_allocation_seconds": 5400,
   "not_a_time_stop": true,
   "assumptions": "Current minimum interval rate; linear I/O/load scaling to250M entries;2x non-training/3x active reserves plus300s. Not mature measurements or a guarantee.",
