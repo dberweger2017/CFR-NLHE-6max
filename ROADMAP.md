@@ -10,8 +10,10 @@ in23m40s. Real-K50 qualification,159.4M-row export audit and3,072initial plus
 overall/13.31GiBtraining; CPU74/Thermistor15 86°C, no stop/failure/retry.
 Table growth remains0.267keys/node,159.4Mentries/unfrozen at500M; check-call
 river42.3%missing and33.15%storedzero-average-mass rows preclude a coverage or
-strength conclusion. [Proposed fixed500M→1B capped calibration](docs/reports/nplayer-bb200-feasibility/next-allocation.md)
-is about31mcentral/90minallocation, not authorized/launched. No automatic3B/10B
+strength conclusion. [PR402 fixed500M→1B capped continuation](docs/nplayer-bb200-maturity.md)
+is owner-authorized and [running](docs/reports/nplayer-bb200-maturity/status.md):
+31m27s central/69m39s corrected reserve within90min. One fixed1B endpoint,
+then a capacity/coverage decision and actual campaign proposal; no further cost pilot. No automatic3B/10B
 campaign. Three independent200BB lineages still require unchanged scripted-profit,
 own-checkpoint and cyclic confirmation before release. Archivepending, originals
 and prior398source/venv/K50dependencies protected. No search/default/merge action.

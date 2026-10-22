@@ -1,0 +1,133 @@
+{
+  "status": "running-not-a-result",
+  "snapshot": {
+    "utc": "2026-10-22T18:23:26Z",
+    "root": "/home/dberweger/nplayer-bb200-maturity-20261022",
+    "receipts": {
+      "bootstrap-launch.json": {
+        "pid": 841961,
+        "bootstrap_sha256": "c431f34b14763122dd10d7e08360370b333aa3259d86e38977757f7f3fe1fdcb"
+      },
+      "preparation-status.json": {
+        "status": "complete",
+        "epoch": 1792693365.0835493,
+        "source": "b0af16114d1e608159ed2a17118860e4a9414fe4",
+        "native_rebuilt": false
+      },
+      "controller-launch.json": {
+        "pid": 842044,
+        "epoch": 1792693365.0840738,
+        "source": "b0af16114d1e608159ed2a17118860e4a9414fe4"
+      },
+      "failure.json": null,
+      "main-v1/launch.json": {
+        "pid": 842044,
+        "epoch": 1792693376.726505,
+        "source": "b0af16114d1e608159ed2a17118860e4a9414fe4",
+        "config_sha256": "4c5b60e14c87dae33689b9ff7364ca183609c4dcd9382ce5bda5f221a6059b65",
+        "parent_checkpoint_sha256": "704e35dd04d8290fc49c9d4505f6371bf0e8a50200e185c8881807ce727af625",
+        "targets": [
+          1000000000
+        ],
+        "accepted_planning_seconds": 5400,
+        "corrected_reserved_seconds": 4179.263974015036,
+        "native_binaries_reused": {
+          "nplayer_train": "fd15b5676790de0ea02935c0f3b55f945f398690a9290471765ce3d2e58c1eaf",
+          "nplayer_policy": "226a88edf301ecfb0b6b25bc02fd204ebb31936084d72ff0336e85319e810cd7",
+          "nplayer_arena": "c3b1555806482c9f16391232d75590e284e37e8fc9e146cad73071c56fcaf008"
+        },
+        "no_other_resource_stops": true
+      },
+      "main-v1/status.json": {
+        "status": "running",
+        "phase": "continuation-1b",
+        "completed_stages": 0
+      },
+      "main-v1/failure.json": null,
+      "main-v1/stage-costs.json": null
+    },
+    "last_resources": {
+      "phase": "continuation-1b",
+      "utc": "2026-10-22T18:23:24Z",
+      "cpu_c": 56.0,
+      "thermistor15_c": 44.0,
+      "worker_family_rss_bytes": 1771847680,
+      "live_family_cpu_seconds": 28.24,
+      "available_ram_bytes": 129977905152,
+      "swap_used_bytes": 388669440,
+      "nvme_free_bytes": 222091644928,
+      "hdd_free_bytes": 422150062080
+    },
+    "latest_training_progress": null,
+    "disk": {
+      "/home/dberweger": {
+        "total": 475921072128,
+        "used": 229578698752,
+        "free": 222091644928
+      },
+      "/research": {
+        "total": 1967845998592,
+        "used": 1545679159296,
+        "free": 422150062080
+      }
+    },
+    "memory": {
+      "MemAvailable": "126823672 kB",
+      "SwapTotal": "25787388 kB",
+      "SwapFree": "25407828 kB"
+    },
+    "supervisor_identity": "    PID    PPID     ELAPSED COMMAND\n 842044  841961       00:41 /home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python -m scripts.nplayer_bb200_maturity run --root /home/dberweger/nplayer-bb200-maturity-20261022/main-v1 --accepted-planning-seconds 5400\n",
+    "config_sha256": "4c5b60e14c87dae33689b9ff7364ca183609c4dcd9382ce5bda5f221a6059b65",
+    "source_files_count": 665,
+    "binary_sha256s": {
+      "nplayer_train": "fd15b5676790de0ea02935c0f3b55f945f398690a9290471765ce3d2e58c1eaf",
+      "nplayer_policy": "226a88edf301ecfb0b6b25bc02fd204ebb31936084d72ff0336e85319e810cd7",
+      "nplayer_arena": "c3b1555806482c9f16391232d75590e284e37e8fc9e146cad73071c56fcaf008"
+    }
+  },
+  "authorization": {
+    "owner_authorized": true,
+    "scope": "PR402 fixed verified PR400 500M to 1B continuation; stop then report capacity/coverage and propose campaign; no further cost pilot",
+    "planning_allowance_seconds": 5400,
+    "central_seconds": 1887.2245,
+    "corrected_reserved_seconds": 4179.263974015036,
+    "source": "b0af16114d1e608159ed2a17118860e4a9414fe4",
+    "bundle_sha256": "96bb3e95017a1024a1a18afcd194faef93eb7007b3bb77cbe7ec4625adb9ea68",
+    "parent_checkpoint_sha256": "704e35dd04d8290fc49c9d4505f6371bf0e8a50200e185c8881807ce727af625",
+    "no_full_training_strength_or_automatic_retry": true,
+    "resource_stops": "CPU90/Thermistor15 100/missing or nonfinite sensors only; ownerSTOP/mutex/correctness terminal",
+    "originals_retained": true
+  },
+  "pr": "https://github.com/dberweger2017/CFR-NLHE-6max/pull/402",
+  "proposal": 401,
+  "native_recipe_unchanged": true,
+  "source_after_launch_is_evidence_only": true,
+  "focused_tests": {
+    "status": "passed",
+    "tests": 11,
+    "host": "bb128"
+  },
+  "helper_ast_parity": {
+    "trained": {
+      "new_name": "train_endpoint",
+      "body_sha256": "bb8cc15a2a94510ad040a5525a295c0e72ebfd8d4852b92bf9dd4f1af7aff181",
+      "unchanged_body": true
+    },
+    "exported": {
+      "new_name": "export_model",
+      "body_sha256": "47f66c3f2177595e915ac5883e5d77083d00d3cf93b95608e846557d11fd819a",
+      "unchanged_body": true
+    },
+    "coverage": {
+      "new_name": "measure_coverage",
+      "body_sha256": "2064abea8ff2987aed85f3ed4b9aeca7007c93bd70535cf27e42599f43748f97",
+      "unchanged_body": true
+    }
+  },
+  "archive_status": "pending; originals retained; no copy/upload/deletion performed",
+  "passive_completion_observer": {
+    "session": 94121,
+    "scope": "wait only for owned bootstrap termination; return compact closed receipts; no science/timer"
+  },
+  "no_strength_claim": true
+}
