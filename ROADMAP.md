@@ -1,8 +1,8 @@
 # Roadmap
 
-## Active bounded river assessment
+## Final frozen river assessment: defer candidate
 
-[PR398](https://github.com/dberweger2017/CFR-NLHE-6max/pull/398), [proposal397](https://github.com/dberweger2017/CFR-NLHE-6max/issues/397): owner accepts the final frozen three-lineage comparison,2,048 peer/4,096 check-call-pressure blocks each, initial/reproduction/replay and inline expectations. Two separate three-test families; no training/player/menu/work changes. CLI count-limit amendment qualified before final hands.12h allocation (4.01h central/10.72h reserved), owner later waived the preflight budget-confirmation pause while asleep, with unchanged fixed counts and all correctness/thermal checks. A budget-only bridge preserves active science and completed qualification;30-minute T3 supervision is enabled. Mixed/near-zero final evidence supports deferral and blueprint progress, not more hands/tuning. [Frozen protocol and closeout](docs/river-three-lineage-assessment.md). No final outcomes yet.
+[PR398](https://github.com/dberweger2017/CFR-NLHE-6max/pull/398), [proposal397](https://github.com/dberweger2017/CFR-NLHE-6max/issues/397), [verified results](docs/reports/river-three-lineage-assessment/results.md): all three frozen100BB10B lineages complete fixed2,048 peer/4,096 call-pressure blocks,221,184 independently replayed initial hands and221,184 byte-identical reproductions. Peer deltas+2.75/+1.36/+5.69 BB/100: only602 passes improvement. Scripted−3.41/−0.73/−2.18: no−5 safeguard passes, and no material harm is established. Predeclared decision: **defer frozen candidate and resume blueprint depth/player-count progress**; no extra hands/tuning or automatic follow-up.4h53m total,27.70GiB sampled RSS, CPU68/Thermistor15 70°C; no scientific failure. Owner budget continuation unused. Archive blocked before copying (`gh` absent onbb128); originals retained, acceptance pending.30-minute supervision ends at result handoff. No deployment/default/merge authorization.
 
 ## Goal
 
