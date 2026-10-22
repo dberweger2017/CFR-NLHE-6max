@@ -365,6 +365,52 @@ fn live_evaluation_view_shares_payload_and_preserves_root_after_all_queries() {
             count += 1;
         }
         assert!(count > 1);
+        if installed {
+            let mut omitted = None;
+            for prefix in &cap.tree.paths {
+                let mut h = cap.root.hand.clone();
+                for a in prefix {
+                    h.apply_mut(*a).unwrap();
+                }
+                let Some(actor) = h.actor() else {
+                    continue;
+                };
+                if actor == cap.root.seat {
+                    continue;
+                }
+                for (_, action) in multi_holdem::menu(&h.observe(actor).unwrap()) {
+                    let mut path = prefix.clone();
+                    path.push(action);
+                    if !cap.tree.paths.contains(&path)
+                        && observation_after(&cap, &path)
+                            .ok()
+                            .is_some_and(|o| cap.replay(&o).is_ok())
+                    {
+                        omitted = Some(path);
+                        break;
+                    }
+                }
+                if omitted.is_some() {
+                    break;
+                }
+            }
+            let mut h = cap.root.hand.clone();
+            for a in omitted.expect("omitted response") {
+                h.apply_mut(a).unwrap();
+            }
+            let mut o = h.observe(cap.root.seat).unwrap();
+            o.hole = cap.root.hole;
+            o.config = table.config();
+            let row = view.row(&o, &tables, true).unwrap();
+            assert_eq!(row.source, "off-tree-blueprint");
+            assert_eq!(
+                row.probabilities,
+                table.distribution(&o, &tables).unwrap().0
+            );
+            let mut root = cap.root.hand.observe(cap.root.seat).unwrap();
+            root.hole = cap.root.hole;
+            assert_eq!(view.row(&root, &tables, true).unwrap().source, "retained");
+        }
         assert_eq!(base.active.as_ref().unwrap().last_actions, root_progress);
         assert!(!base.active.as_ref().unwrap().off_tree);
         assert_eq!(Arc::strong_count(&cap), before + 1);
