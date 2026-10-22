@@ -278,6 +278,25 @@ mod tests {
         }
     }
     #[test]
+    fn three_player_200bb_depth_is_part_of_the_key() {
+        let deck: Vec<_> = (0..52).collect();
+        let mut keys = Vec::new();
+        for depth in [10000, 20000] {
+            let config = Config::new(&[depth; 3], 50, 100).unwrap();
+            let mut rotated = None;
+            for button in 0..3 {
+                let hand = Hand::from_deck(config, button, &deck).unwrap();
+                let state = CashState { hand, tables: None };
+                let d = state.decision().unwrap();
+                if let Some(key) = rotated { assert_eq!(d.key, key); }
+                rotated = Some(d.key);
+            }
+            keys.push(rotated.unwrap());
+        }
+        assert_ne!(keys[0], keys[1]);
+    }
+
+    #[test]
     fn n_stacks_live_set_and_actor_label_are_in_the_key() {
         let config = Config::new(&[2000, 2000, 2000], 50, 100).unwrap();
         let hand = Hand::from_deck(config, 0, &(0..52).collect::<Vec<_>>()).unwrap();

@@ -122,7 +122,7 @@ fn run_case(a: &[String], cache: &mut HashMap<String,Arc<PolicyTable>>,
     let root: u64 = a[3].parse().map_err(|_| "invalid root")?;
     let stack:u64=if a.len()==9 {a[7].parse().map_err(|_|"invalid stack")?}else{20};
     let threads:usize=if a.len()==9 {a[8].parse().map_err(|_|"invalid threads")?}else{1};
-    if ![20,100].contains(&stack) || !(1..=16).contains(&threads) {return Err("arena stack/thread bounds".into());}
+    if ![20,100,200].contains(&stack) || !(1..=16).contains(&threads) {return Err("arena stack/thread bounds".into());}
     let started = Instant::now();
     let mut pins = Vec::new();
     let mut new_weight_tables=0;
@@ -229,6 +229,23 @@ fn main() {
 #[cfg(test)]
 mod batch_resource_tests {
     use super::*;
+
+    #[test]
+    fn three_player_200bb_script_fixture_keeps_the_requested_depth() {
+        let trace = std::env::temp_dir().join(format!("nplayer-200bb-fixture-{}.jsonl", std::process::id()));
+        let args = ["arena", "unused-for-script-only", "2", "2026102240001",
+                    trace.to_str().unwrap(), "bot=check-call", "bot=pot-pressure", "200", "1"]
+            .map(str::to_owned);
+        let result = run_case(&args, &mut HashMap::new(), &mut None).unwrap();
+        assert_eq!(result["hands"], 12);
+        let text = std::fs::read_to_string(&trace).unwrap();
+        for line in text.lines() {
+            let value: Value = serde_json::from_str(line).unwrap();
+            let identity = value.get("identity").unwrap_or(&value);
+            assert_eq!(identity["stacks"], json!([20000,20000,20000]));
+        }
+        std::fs::remove_file(trace).unwrap();
+    }
 
     #[test]
     #[ignore = "Requires pinned K50 files; run guarded with NPLAYER_K50_TABLES"]

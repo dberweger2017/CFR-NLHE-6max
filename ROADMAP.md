@@ -1,5 +1,17 @@
 # Roadmap
 
+## Next: bounded three-player200BB feasibility for v0.6.1
+
+Owner prioritizes200BB blueprint after PR398 and defers v0.6.5 search adoption.
+[Proposal399](https://github.com/dberweger2017/CFR-NLHE-6max/issues/399) and
+[bounded pilot protocol](docs/nplayer-bb200-feasibility.md): qualify depth/key/legal
+play/save-resume/export, then one fixed100M/200M/500M-node cost-only lineage,
+current unpruned fast16/K50/all-street-average/250Mfreeze recipe. Report growth,
+coverage, training/I/O/audit costs and a proposed later fixed training allocation.
+Proposed30–45min central/90min reserve quote awaits acceptance; no pilot or full
+training launched. Three independent200BB lineages still require unchanged
+scripted-profit/own-checkpoint/cyclic gates before release. No search/default change.
+
 ## Final frozen river assessment: defer candidate
 
 [PR398](https://github.com/dberweger2017/CFR-NLHE-6max/pull/398), [proposal397](https://github.com/dberweger2017/CFR-NLHE-6max/issues/397), [verified results](docs/reports/river-three-lineage-assessment/results.md): all three frozen100BB10B lineages complete fixed2,048 peer/4,096 call-pressure blocks,221,184 independently replayed initial hands and221,184 byte-identical reproductions. Peer deltas+2.75/+1.36/+5.69 BB/100: only602 passes improvement. Scripted−3.41/−0.73/−2.18: no−5 safeguard passes, and no material harm is established. Predeclared decision: **defer frozen candidate and resume blueprint depth/player-count progress**; no extra hands/tuning or automatic follow-up.4h53m total,27.70GiB sampled RSS, CPU68/Thermistor15 70°C; no scientific failure. Owner budget continuation unused. Archive blocked before copying (`gh` absent onbb128); originals retained, acceptance pending.30-minute supervision ends at result handoff. No deployment/default/merge authorization.
@@ -98,7 +110,13 @@ Open tasks for contributors, grouped by the compute they need. Comment on or ope
 - **Search.** Turn and flop search at 100 BB, building on the [HU20 turn-search diagnosis](docs/reports/hu20-search-stackoff-diagnosis.md).
 - **Three-player search (v0.6.5).** Multiway search on top of the [Phase 2 blueprints](docs/reports/nplayer-blueprint-phase2.md).
 
-## Immediate river-search priorities
+## River-search engineering record — adoption deferred
+
+The earlier sequence below is historical context. PR398 completed its fixed
+three-lineage assessment and triggered deferral; owner now prioritizes the200BB
+feasibility pilot above. No new campaign, menu change or optimization is authorized
+by the older cost scenarios. Return to search only with a concrete improvement
+hypothesis supported by the saved evidence.
 
 Keep the v0.6 blueprint frozen. [PR388's whole-hand pilot](docs/reports/river-whole-hand-pilot/results.md)
 qualifies the projected-menu adapter, retained continuation and legal replay at
@@ -125,17 +143,16 @@ qualification, not a strength or release decision.
    is now inconclusive: peers−1.11[−6.30,+4.08], check-call/pressure+2.50
    [−6.98,+11.99]BB/100 (two-panel family95). No clear-harm flag, benefit or
    −5 non-inferiority established; the old adverse mean remains historical evidence.
-   [Choose one narrower fixed proposal](docs/reports/river-fresh-screen/followup-proposal.md)
-   or defer: all three lineages,2,048 peer/4,096 scripted blocks each,4.01h
-   central/10.72h reserve inside proposed12h. No80h-design joint-power or broad
-   script acceptance promise; no campaign/margin change/engineering starts
-   automatically.
-2. **Off-tree continuation remains deferred pending the strength-budget decision.** Preserve the
+   The narrower proposal became [PR398](docs/reports/river-three-lineage-assessment/results.md):
+   all three lineages,2,048 peer/4,096 scripted blocks each,4h53m actual total.
+   One peer gate and zero scripted safeguards pass, no material harm established.
+   The agreed decision is deferral, not more hands or tuning.
+2. **Off-tree continuation remains deferred after PR398.** Preserve the
    saved cap/all-in cases 21/91 and the pilot's omitted 3,700-chip response.
    Treat consistent beliefs and retained hero policy as requirements;
    re-solving is a candidate, not an established repair. One observed off-tree
    hand does not settle adversarial full-menu vulnerability.
-3. **Design and separately quote strength confirmation before more hands.**
+3. **Further strength confirmation is deferred.** Historical scenarios follow; they are not an active allocation.
    Declare primary opponents, families/margins and effect size. The pilot's
    conditional three-lineage trained-pair scenarios take 4.8–14.0 hours for a
    stipulated 5 BB/100 effect, 27.7–82.6 hours for 2 BB/100, excluding safeguards

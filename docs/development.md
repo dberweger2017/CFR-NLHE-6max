@@ -211,3 +211,13 @@ pinned N-player export into a fully validated float64 derivative. The original
 gzip reader stays supported. Build `--example nplayer_inference` for conversion,
 full-row verification, load profiling and fixture benchmarks; no training runs
 through this tool. Mature loading/play qualification is tracked in PR359.
+
+## Three-player200BB feasibility
+
+`scripts.nplayer_bb200_feasibility` prepares and validates a fresh cost-only
+lineage after source-bound build/test receipts; preparation never starts science.
+[Protocol and proposed quote](nplayer-bb200-feasibility.md) define the explicit
+launch boundary,100M/200M/500M endpoints, real-K50 qualification, every-row export
+audit, scripted coverage/replay and preservation. Generic training/policy paths
+already support200BB; the duplicate arena adds200 to its stack whitelist.
+The historical100BB bounded host is not repurposed or silently widened.
