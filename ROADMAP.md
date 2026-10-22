@@ -2,7 +2,7 @@
 
 ## Active bounded river assessment
 
-[PR398](https://github.com/dberweger2017/CFR-NLHE-6max/pull/398), [proposal397](https://github.com/dberweger2017/CFR-NLHE-6max/issues/397): owner accepts the final frozen three-lineage comparison,2,048 peer/4,096 check-call-pressure blocks each, initial/reproduction/replay and inline expectations. Two separate three-test families; no training/player/menu/work changes. CLI count-limit amendment qualified before final hands.12h allocation (4.01h central/10.72h reserved), preflight costs can refuse main. Mixed/near-zero final evidence supports deferral and blueprint progress, not more hands/tuning. [Frozen protocol and closeout](docs/river-three-lineage-assessment.md). No final outcomes yet.
+[PR398](https://github.com/dberweger2017/CFR-NLHE-6max/pull/398), [proposal397](https://github.com/dberweger2017/CFR-NLHE-6max/issues/397): owner accepts the final frozen three-lineage comparison,2,048 peer/4,096 check-call-pressure blocks each, initial/reproduction/replay and inline expectations. Two separate three-test families; no training/player/menu/work changes. CLI count-limit amendment qualified before final hands.12h allocation (4.01h central/10.72h reserved), owner later waived the preflight budget-confirmation pause while asleep, with unchanged fixed counts and all correctness/thermal checks. A budget-only bridge preserves active science and completed qualification;30-minute T3 supervision is enabled. Mixed/near-zero final evidence supports deferral and blueprint progress, not more hands/tuning. [Frozen protocol and closeout](docs/river-three-lineage-assessment.md). No final outcomes yet.
 
 ## Goal
 
