@@ -1,6 +1,6 @@
 # Roadmap
 
-## Next: qualify the fixed 200 BB model campaign toward v0.6.1
+## Running: fixed 200 BB model campaign toward v0.6.1
 
 Owner prioritizes 200 BB blueprints and defers v0.6.5 search adoption.
 [PR400's 500M feasibility](docs/reports/nplayer-bb200-feasibility/results.md) and
@@ -22,7 +22,7 @@ hands, separately freeze/price the unchanged30-gate200BB acceptance with counts,
 roots, effect/variance assumptions and pass chances. No strength/default/release
 verdict yet. Owned archival pending receipt; originals and PR400/398/K50 protected.
 
-## Accepted fixed 200 BB campaign — qualified; storage pending
+## Accepted fixed 200 BB campaign — main running
 
 [PR404](https://github.com/dberweger2017/CFR-NLHE-6max/pull/404),
 [proposal403](https://github.com/dberweger2017/CFR-NLHE-6max/issues/403),
@@ -34,12 +34,13 @@ and the global proof barrier. Central 7h51m / reserve 17h33m includes all phases
 conditional 100 BB power scenarios do not establish 200 BB pass chances.
 Controller implementation, 28 focused Python tests, 121 native library tests and
 six example tests pass. The full 36-case 200 BB fixture passes with 432 initial
-hands, byte-identical reproduction and independent replay. Actual
-360 GiB free NVMe is required before admission; the owner's vacuum-cleaner
-agent prepares space and owns cleanup/staging/uploads. No further budget
-confirmation, training-cost pilot, search/default/release change or automatic
-extension is required or added. Qualification source is `f11edfe52`; main has not started at this update.
-[Qualification and admission status](docs/reports/nplayer-bb200-model-campaign/qualification.md).
+hands, byte-identical reproduction and independent replay. Owner subsequently
+authorized starting now while the vacuum-cleaner prepares space, superseding
+waiting for360GiBfree. Main launched October22 at20:24UTC/22:24Madrid with206.40GiB
+free, qualified source `f11edfe52`, supervisor847775. Cleanup/staging/uploads remain
+owner-managed. Same fixed scientific scope and thermal stops; no additional cost
+pilot, automatic extension, search/default/release change or scientific retry.
+[Launch, owner amendment and initial forecast](docs/reports/nplayer-bb200-model-campaign/launch.md).
 
 ## Final frozen river assessment: defer candidate
 

@@ -1,5 +1,7 @@
 # 200 BB campaign qualification and admission
 
+**Subsequent update:** main started at20:24UTC after the owner authorized starting while cleanup continues. The storage-waiting state below is the dated qualification record; [launch and amendment](launch.md) supersede it.
+
 The owner accepted PR404's complete 18-hour allocation and fixed counts. The controller is implemented and qualified; **main training has not started**, pending the owner's vacuum-cleaner agent preparing the agreed 360 GiB free NVMe. Actual checked free space is **206.40 GiB** at 2026-10-22T20:13:39.345491+00:00. No further budget approval is required.
 
 [Protocol](../../nplayer-bb200-model-campaign.md), [compact qualification/provenance receipt](qualification.json), [PR404](https://github.com/dberweger2017/CFR-NLHE-6max/pull/404).

@@ -4,6 +4,10 @@
 
 The recommended allocation is **18 hours of planning allowance**, with a central scenario of **7h51m** and component reserves totaling **17h33m**. This is not an8–12-hour completion promise or an elapsed-time kill guard. Runtime, memory and trace sizes remain conditional scenarios, not guarantees. Cleanup, movement, staging and uploads belong to the owner's vacuum-cleaner agent; this campaign agent performs none of them.
 
+## October22 launch and owner storage amendment
+
+Full qualification passed, including36real200BBcase shapes,432initial+432reproduced hands and independent replay. The owner subsequently instructed "you can start now, the vacume cleaner is removing files as we speak", superseding the earlier360GiBfree-before-launch prerequisite. Main launched at20:24:20UTC/22:24:20Madrid with206.40GiBfree. [Exact admission/source/process receipt and forecast](reports/nplayer-bb200-model-campaign/launch.md). Cleanup remains exclusively owner-managed; this agent does none. Original storage scenario below retained for provenance. Scientific sourcef11edfe52 and all seeds/targets/counts/roots/threads/guards remain frozen; no repeated qualification, new cost pilot or scientific retry.
+
 ## Frozen candidate family
 
 Continue existing seed `2026102240001` from PR402's1,000,008,098-node checkpoint, SHA256 `55d89c553ba1756eac1af117847b30e8b18e4f901afba942ee5a906bc00249ad`. Add two fresh independent seeds `2026102261001` and `2026102261002`. Each lineage has exactly **3B and10B** cumulative-node endpoints, allowing whole-iteration overshoot. Retain all six checkpoints and averages. This is one candidate family, not checkpoint selection.
