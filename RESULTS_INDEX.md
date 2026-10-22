@@ -1,4 +1,15 @@
-## PR317 — HU200 river search, fixed final running
+## PR317 — HU200 river search, primary complete; final closeout pending
+
+**October22:** the fixed primary run completed October21 at09:14:52Madrid.
+All145,408blocks/319,488hands passed the global barrier; direct gain is
++32.05[27.32,36.78]BB/100. The predeclared20 losing contexts and five direct
+conditioning audits complete on guarded M4 with unchanged pinned requests;
+independent validation passes. M4 science was released October22 at10:01:58Madrid;
+final BB/ZIP/Drive acceptance remains pending.
+[Final primary summary](docs/reports/hu200-river-search-artifacts/final-primary-summary.json),
+[barrier](docs/reports/hu200-river-search-artifacts/final-all-hands-verified.json),
+[interpretation and timing limitation](docs/reports/hu200-river-search.md).
+No final-review or cleanup claim; all open-PR inputs remain protected.
 
 **October18 recorded-state recovery:** the16GiB disk guard stopped the original
 attempt at05:09:16Madrid after26,842 retired blocks. The interrupted hand was

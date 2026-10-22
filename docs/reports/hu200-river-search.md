@@ -1,19 +1,147 @@
-# HU200 river search: amended cost gate passes; strength pending
+# HU200 river search: direct gain; scripted range-model limitations
 
-[PR #317](https://github.com/dberweger2017/CFR-NLHE-6max/pull/317), October 17, 2026.
-**Draft; fixed final running, results pending.** The owner-approved disjoint
-128 direct plus seven by 32 calibration completed under its hard two-hour cap.
-This is a cost/engineering readout, not a final strength result or a release
-recommendation. The original latency failure remains below; the owner-amended
-10-second gate passes. The owner approved 131,072 direct duplicate blocks plus
-2,048 paired blocks per script on the M4 with up to three concurrent searches.
-The [final protocol](../hu200-river-final-protocol.md) and
-[execution declaration](hu200-river-search-artifacts/final-execution-declaration.json)
-are committed before the first final hand. Including qualified block storage,
-the forecast is 100.37 h, upper cost 115.16 h, with a fixed 132 h execution
-safety cap. All 96 admission checks and 448 existing calibration paired-prefix
-audits pass. The owner decides merge; final research and range diagnostics
-remain pending.
+[PR #317](https://github.com/dberweger2017/CFR-NLHE-6max/pull/317), October 22, 2026.
+**Scientific work complete; final evidence closeout in progress.**
+The fixed primary run completed October 21 at **09:14:52 Madrid**, before the
+original October 22 at21:52:03 safety deadline. All **145,408 blocks /319,488
+primary hands** passed independent replay, fresh-player reproduction and every-file
+size/SHA256 transfer verification. Calibration is excluded. No primary hands
+were added or repeated after readout. The owner decides merge; there is no
+Slumbot, default or release change.
+
+The search player gains **+32.05 BB/100 [27.32,36.78]** in the predeclared
+131,072-block direct match against the plain frozen blend. The lower Student-t95%
+bound is above zero. This establishes a direct gain for this one blend and
+independent deal/action blocks, not a training-seed population result, external
+qualification or a heavy-tail guarantee.
+
+## Final primary results
+
+Panel differences are search minus plain on common deals, 2,048 independent
+paired blocks per script. Both arms have 4,096 hands. Direct has 262,144 hands.
+Seven-way intervals are Bonferroni-adjusted95%; nominal intervals are95%.
+
+| Opponent | Search mean | Plain mean | Paired difference | Nominal95% | Seven-way95% |
+|---|---:|---:|---:|---|---|
+|random|143.65|51.39|+92.26|[40.25,144.27]|[20.85,163.67]|
+|check_call|153.72|136.58|+17.14|[-3.79,38.07]|[-11.61,45.88]|
+|tight_aggressive|60.68|76.23|-15.55|[-38.72,7.61]|[-47.36,16.26]|
+|loose_aggressive|79.09|79.63|-0.54|[-38.14,37.06]|[-52.17,51.09]|
+|**pot_pressure (1.5× pot)**|-27.15|-77.69|+50.54|[7.50,93.57]|[-8.55,109.63]|
+|half_pot_pressure|64.70|64.70|+0.00|[-22.70,22.70]|[-31.18,31.18]|
+|matched_pot_pressure|46.83|72.58|-25.76|[-44.95,-6.57]|[-52.10,0.59]|
+
+All figures are BB/100. Random's paired gain clears the adjusted interval;
+none of the seven panels establishes a negative effect after adjustment.
+Matched-pot pressure is adverse evidence: nominal −25.76 [−44.95,−6.57], with
+adjusted [−52.10,0.59]. Tight and loose aggressive also have negative means;
+the required diagnostics therefore include all three and always pot_pressure.
+A material −10 BB/100 regression remains unexcluded for check_call, tight,
+loose, half-pot and matched-pot pressure. It is excluded by the adjusted lower
+bounds for random and pot_pressure. No sample was enlarged or tuned.
+
+**Pot pressure remains a limitation.** Search scores −27.15 [−94.99,40.69]
+versus plain −77.69 [−153.49,−1.88]. The paired improvement is +50.54
+[7.50,93.57] nominal, but adjusted [−8.55,109.63] is inconclusive. The study
+does not establish that search beats this opponent. The prespecified sample is
+exploratory per opponent and permits large residual uncertainty.
+
+Exact arm intervals, SDs, standard errors, counts and telemetry are in the
+[primary summary](hu200-river-search-artifacts/final-primary-summary.json);
+the [global barrier](hu200-river-search-artifacts/final-all-hands-verified.json)
+pins the complete receipt stream.
+
+## Final search telemetry
+
+| Panel | Searched decisions | Changed action | Native p95, s | Complete p95, s | Complete max, s |
+|---|---:|---:|---:|---:|---:|
+|direct|101,180|34,506 (34.10%)|7.267|9.920|16.021|
+|random|274|102 (37.23%)|5.971|8.175|12.640|
+|check_call|3,877|1,206 (31.11%)|7.538|10.398|16.069|
+|tight_aggressive|171|59 (34.50%)|9.787|12.995|13.976|
+|loose_aggressive|885|327 (36.95%)|7.253|9.972|14.309|
+|pot_pressure|306|113 (36.93%)|7.085|10.190|13.552|
+|half_pot_pressure|403|165 (40.94%)|9.463|12.599|15.095|
+|matched_pot_pressure|275|101 (36.73%)|9.540|12.776|13.805|
+
+Every panel records **zero fallbacks, timeouts and successful decisions missing
+model EV**. Model EV and EV delta describe the same solved continuation; they
+are neither realized nor causal action gains. The direct median complete decision
+is4.853s; its p95 is9.920s. Final concurrency timing is distinct from the earlier
+24-spot sequential10s gate. Outer guard peak for the resumed primary attempt is
+13,739,393,024bytes; the evaluator's20ms family sampler reports13,728,727,040bytes,
+minimum host available4,387,405,824bytes. The original13GiB guard did not breach.
+
+**Timing limitation:** one disk-interrupted primary decision has unknown total
+service time. Its saved latency measures only continuation and excludes the
+interruption. It remains in the reported all-decision timing distribution and
+must not be described as a measured whole-service latency. No original stop or
+partial evidence was removed.
+
+## Predeclared range-model diagnosis
+
+Post-barrier attribution covers **16,384 paired hands** in loose aggressive,
+matched-pot pressure, pot_pressure and tight aggressive. Every first difference
+is a hero river action; identical action paths settle identically. Full outcome
+contrasts reconcile to each selected panel's paired mean. Contributions are
+partitioned by first action change, facing price, pot, wager size and immediate
+opposing response; they are whole-hand attributions, not causal action values.
+
+The prescribed five most negative hands with distinct public contexts were
+selected per panel, with block/rotation tie-breaks. All20 cases remain retained.
+Five additional direct contexts, chosen as the first five blocks with searched
+decisions, audit blueprint conditioning and policy consistency without inventing
+a scripted reference. At first difference and each available largest later river
+wager, every recomputed blueprint root range agrees exactly with the saved
+request. Every used profile matches the original numeric hashes and the played
+matrix. There are41 diagnostic-only solves of the same pinned scientific
+requests, with unchanged menus/ranges/locks/50iterations/sixthreads; no new hands.
+
+The reference posterior enumerates all structurally compatible opponent holdings,
+excludes hero and board cards and multiplies the frozen script's public-action
+likelihoods. Its two independent aggression/bluff draws are integrated
+analytically; neither realized RNG draws nor actual hidden opponent cards
+condition the reference.
+
+The retained counterexamples support **mis-modeled value callers and future
+folds**. In matched-pot-pressure block1929/rotation0, the solved response law
+predicts73.35% folds while the frozen public posterior predicts100% calls.
+In loose-aggressive block1228/rotation1 the corresponding figures are64.64%
+folds versus100% calls. These are saved-policy predictions at selected losing
+contexts, not estimates of how often the mechanism occurs across all hands.
+The mismatch includes both the holding law and the continuation strategy.
+
+The range model can also underweight value: matched-pot-pressure block601/rotation1
+assigns33.51% strong mass under the script's fixed raise threshold, versus92.51%
+under its public posterior. The frozen-script support often differs sharply from
+the blueprint-conditioned law. In other cases both have strong holdings but the
+solved continuation still expects folds the frozen caller will not make. These
+findings do not isolate finite-work error or establish a causal decomposition;
+ordinary joint-range CFR has no safe resolving gadget or safety guarantee.
+Terminal played calls/folds have no subsequent opposing response; those cases
+explicitly report that no future-response comparison exists.
+
+[Diagnostic receipt](hu200-river-search-artifacts/final-range-diagnosis-receipt.json)
+and [analysis validation](hu200-river-search-artifacts/final-analysis-validation.json)
+record successful exact-profile/root-range checks, independent primary-interval
+recomputation and1,683 exact script-probability checks. The latter integrate the
+same two random draws and agree with the frozen script implementation.
+[Full telemetry distributions and missing denominators](hu200-river-search-artifacts/final-telemetry.json)
+retain model-EV/EV-delta/native/complete-time/tree-size summaries.
+
+**M4 science reservation released October22 at10:01:58Madrid**, after all
+three diagnostic/validation guards completed without breaches. Peak diagnostic
+family RSS is2,480,586,752bytes. Original lock files and source remain intact;
+source/control/diagnostic preservation is storage work only. The
+[release receipt](hu200-river-search-artifacts/final-m4-science-release.json)
+keeps the original deadline. Final uncompressed bb128 and ZIP/Drive acceptance
+remain in progress. **The PR remains draft until evidence closeout is accepted.**
+
+## Historical forecasts, failures and recovery
+
+The following entries preserve the original engineering chronology; their
+running/pending wording and forecasts are historical, superseded by the final
+readout above.
 
 Declaration `fc5ddce1` was pushed before launch on October17 at09:52:03Madrid.
 The [launch receipt](hu200-river-search-artifacts/final-launch-receipt.json)
