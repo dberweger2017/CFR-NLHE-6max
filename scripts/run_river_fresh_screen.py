@@ -51,6 +51,22 @@ def run(args):
     env={**os.environ,'PYTHONPATH':str(source),'RAYON_NUM_THREADS':'1'};costs=[]
     for phase,command in stages:
         # No outcomes are read by the controller; main runs only after all prior stages passed.
+        if phase=='screen':
+            fixture=read(args.out/'qualification/costs.json')
+            previous=read(source/'docs/reports/river-arena-expectation/measurement-results.json')
+            known_play=2*1024/128*max(sum(previous['work'][label]['cases'][name+'-'+arm]['play_and_write_seconds']
+                for name in ('trained','call-pressure') for arm in ('on','off')) for label in ('initial','repeat'))
+            fixture_play=sum(b['play_and_write_seconds'] for b in fixture['batches'].values())*256
+            projected_play=max(known_play,fixture_play)
+            loads=sum(b['startup']['model_and_k50_load_seconds'] for b in fixture['batches'].values())
+            spent=sum(s['wall_seconds'] for s in costs)
+            central=spent+loads+projected_play+600
+            reserve=spent+2*loads+3*projected_play+1200
+            write(args.out/'main-admission.json',{'status':'admitted' if reserve<=7200 else 'quote-exceeds-allowance',
+                'central_seconds':central,'reserved_seconds':reserve,'accepted_planning_allowance_seconds':7200,
+                'cost_only_no_outcomes':True,'main_started':False,
+                'assumptions':'Max(old full panel rate, first4 fixture rate);3x play/2x startup,1200s proof/readout/report reserve including already-spent stages. No elapsed-time stop.'})
+            if reserve>7200:raise RuntimeError('revised cost quote exceeds accepted planning allowance before fresh hands')
         if pins!={p:sha(source/p) for p in pins} or sha(root/'control.json')!=config_sha or sha(binary)!=BINARY_SHA:
             raise RuntimeError('frozen source/config/binary changed')
         write(args.out/'status.json',{'status':'running','phase':phase,'completed_stages':len(costs),'total_stages':len(stages)})
