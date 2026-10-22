@@ -1,3 +1,58 @@
+## PR391 — complete river action-expectation assessment: variance falls, primary wall efficiency is marginal
+
+[PR391](https://github.com/dberweger2017/CFR-NLHE-6max/pull/391), proposal389;
+[analysis](docs/reports/river-conditional-evaluation/assessment.md). Assessment
+source `aff3228b79268a8b0766874f7fa60c51e6fa148a`, qualified native9998501a;
+all384 original profile/float64 strategic records reproduce in a fresh pass,
+with381 complete enumerated profiles and3 symbolic identical-policy quality
+fallbacks. No incomplete root, exclusion, new deal, scientific retry or player change.
+
+- Trained primary variance ratio0.414; full-supervised variance × wall-cost ratio
+  0.925 cold /1.104 amortized. Its CPU-cost ratio0.822 is a separate metric.
+- Trained-pressure0.050 /0.112 /0.134; pressure0.028 /0.063 /0.075;
+  check-call/pressure0.453 /1.012 /1.209; random/TAG0.059 /0.131 /0.157
+  (variance /cold-wall /amortized-wall). Check-call/check-call has no intervention,
+  so ratios are undefined. Preserve all descriptive means and adverse panels.
+- Main899.75s wall/898.22childCPU-s; loading468.66s, reconstruction414.68s,
+  enumeration0.587s/446,036states, max3,891states/arm versus200K limit.
+  Sampled27.68GiB peak, CPU59/Thermistor15 58.5°C, no swap growth or guard crossing.
+  All stages return0;11 preflight focused tests pass on host.
+- One block contributes80.5% of primary residual centered squared variation.
+  Pressure's bootstrap has61 undefined zero-denominator resamples; finite
+  percentiles condition on9,939 defined replicates. One focal lineage and saved
+  development deals do not establish fresh strength or a shorter campaign.
+
+The cost calculation keeps the whole measured PR388 generate/play/replay cost as
+a conservative future-prefix allowance, plus this assessment. Cold/amortized
+views use a common whole-panel cost basis, not marginal per-lineup timing or an
+implemented fresh pipeline. Raw precomputed ratios and separately derived full
+supervision/CPU accounting are both retained. No automatic strength campaign;
+direct arena reuse of loaded models/captured profiles is a proposed bounded
+engineering task, not a measured gain. Keep the player frozen.
+
+[Accepted allocation](docs/reports/river-conditional-evaluation/assessment-admission.md) ·
+[unaltered readout](docs/reports/river-conditional-evaluation/assessment-results.json) ·
+[derived analysis](docs/reports/river-conditional-evaluation/assessment-analysis.json) ·
+[lineups](docs/reports/river-conditional-evaluation/assessment-lineups.csv) ·
+[verification](docs/reports/river-conditional-evaluation/assessment-verification.json) ·
+[costs/resources/work](docs/reports/river-conditional-evaluation/assessment-costs.json) ·
+[pins](docs/reports/river-conditional-evaluation/assessment-provenance.json) ·
+[archive receipt/restoration](docs/reports/river-conditional-evaluation/assessment-archive.json).
+
+**Accepted archive:** cache `/research/PR-391-river-conditional-efficiency/`,
+[river-conditional-assessment-20261022.zip](https://drive.google.com/file/d/1wSdmfm9U3V2FfYvgPIKD0YMaCKMKDR-b/view),
+1,880,831bytes, SHA256`379c09a81eae8e1edc87e1ef56a83b88de40e686dd1ca859c6efe5f06979c27c`,
+manifestSHA256`c3d568c6fbc020e7c788c8cc7f9e86a1cf6106a94477ac4e0b930f2808801753`.
+All77 payload members plus embedded manifest locally read back; deployed receipt
+accepts Drive MD5`a5c6cc673e186691cb3b7acb619d2cf4`/size and covers79 local files.
+Includes original PR390 qualification/calibration and PR391 raw expected-value
+records/proofs, logs/resources, source bundles and qualified binary. External
+PR388 traces/models/K50/environments/Git stores are referenced only. Both fast
+cache retrieval and Drive fallback are in the receipt. Remote bytes not downloaded;
+no remote SHA256/member audit. KEEP and all originals at
+`bb128:/home/dberweger/river-conditional-evaluation-20261022/` remain. No deletion,
+other-job/environment change, schedule or additional experiment.
+
 ## PR390 — river action-expectation fixtures and cost calibration pass
 
 [PR390](https://github.com/dberweger2017/CFR-NLHE-6max/pull/390), proposal389.

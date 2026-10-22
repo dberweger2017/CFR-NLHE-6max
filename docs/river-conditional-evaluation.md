@@ -157,3 +157,14 @@ and bootstrap. Remove measured model loads only for the separately labeled
 amortized view. This is a cost projection from measured components, not an
 implemented fresh integrated pipeline. Ratios below one remain development
 evidence, subject to sparse-tail and cross-seed limitations.
+
+
+## October22 complete assessment
+
+The owner accepted the published reserve. [PR391's complete readout](reports/river-conditional-evaluation/assessment.md)
+verifies all384 roots plus reproduction, with no incomplete roots, retries or
+player changes. The primary observed variance ratio0.414 yields full-supervised
+cost ratios0.925 cold and1.104 amortized. Scripts/mixed panels improve unevenly;
+rare tails remain. This completes the method/cost assessment, not a strength
+verdict or fresh-study admission. Preserve the original precomputed readout and
+separately labeled supervision/CPU accounting. No automatic campaign follows.
