@@ -1,6 +1,6 @@
 # Roadmap
 
-## Next: decide the fixed 200 BB model campaign toward v0.6.1
+## Next: qualify the fixed 200 BB model campaign toward v0.6.1
 
 Owner prioritizes 200 BB blueprints and defers v0.6.5 search adoption.
 [PR400's 500M feasibility](docs/reports/nplayer-bb200-feasibility/results.md) and
@@ -17,22 +17,29 @@ check-call river27.3%missing and33.4%stored zero-average-mass rows remain distin
 limitations. [Propose three independent fixed3B/10B lineages](docs/reports/nplayer-bb200-maturity/campaign-proposal.md),
 retaining250M threshold/current recipe and exact within-lineage membership. Model
 training/save/export/audit scenario3h50m central/9h35m reserve **excludes acceptance**;
-not authorized/launched. No more automatic cost pilots. Before fresh confirming
+The complete allocation is now accepted below. No more automatic cost pilots. Before fresh confirming
 hands, separately freeze/price the unchanged30-gate200BB acceptance with counts,
 roots, effect/variance assumptions and pass chances. No strength/default/release
 verdict yet. Owned archival pending receipt; originals and PR400/398/K50 protected.
 
-## Proposed fixed 200 BB campaign — full allocation before launch
+## Accepted fixed 200 BB campaign — qualified; storage pending
 
-[Proposal403](https://github.com/dberweger2017/CFR-NLHE-6max/issues/403),
-[full scope/counts/power/cost/storage plan](docs/nplayer-bb200-model-campaign.md):
-existing200BBlineage plus two fresh seeds, fixed3B/10B/current250Mrecipe, no further
-training-cost pilot. Fresh30-gate acceptance proposes4×PR367's declared counts:
-10,543,104initial hands plus reproduction, conditional100BB power scenarios only.
-Complete estimate7h51mcentral/17h33mreserve, proposed18h allocation, rather than
-promising8–12h from a model-only quote.360GiBfreeNVMe scenario; cleanup/staging/
-upload belongs to the owner's vacuum-cleaner agent. Full budget/counts/storage
-and qualified controller remain admission prerequisites; no new run launched.
+[PR404](https://github.com/dberweger2017/CFR-NLHE-6max/pull/404),
+[proposal403](https://github.com/dberweger2017/CFR-NLHE-6max/issues/403),
+[protocol](docs/nplayer-bb200-model-campaign.md): owner accepted the complete
+18-hour allocation and fixed counts. Continue the verified 1B lineage and add
+two fresh seeds, each 3B/10B with the existing 250M freeze recipe. Fresh 30-gate
+acceptance uses 10,543,104 initial hands plus reproduction, independent replay
+and the global proof barrier. Central 7h51m / reserve 17h33m includes all phases;
+conditional 100 BB power scenarios do not establish 200 BB pass chances.
+Controller implementation, 28 focused Python tests, 121 native library tests and
+six example tests pass. The full 36-case 200 BB fixture passes with 432 initial
+hands, byte-identical reproduction and independent replay. Actual
+360 GiB free NVMe is required before admission; the owner's vacuum-cleaner
+agent prepares space and owns cleanup/staging/uploads. No further budget
+confirmation, training-cost pilot, search/default/release change or automatic
+extension is required or added. Qualification source is `f11edfe52`; main has not started at this update.
+[Qualification and admission status](docs/reports/nplayer-bb200-model-campaign/qualification.md).
 
 ## Final frozen river assessment: defer candidate
 
