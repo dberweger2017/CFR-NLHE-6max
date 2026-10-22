@@ -6,6 +6,11 @@ import json
 from pathlib import Path
 
 
+def reserve_seconds(components):
+    """Three times active work, twice every non-training component, plus300s."""
+    return 3*components['active_training']+2*sum(v for k,v in components.items() if k!='active_training')+300
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('receipt',type=Path);parser.add_argument('supplement',type=Path)
@@ -100,7 +105,10 @@ def main():
         'entry_cap':250000000,'same_recipe':True,'new_proposed_coverage_roots':[2026102240201+i for i in range(4)],
         'coverage_blocks_per_script':128,'initial_hands':3072,'reproduction_hands':3072,
         'components_seconds':components,'central_seconds':sum(components.values()),
-        'reserved_seconds':2*sum(v for k,v in components.items() if k not in ('active_training','metadata_and_verification_allowance'))+3*components['active_training']+300,
+        'reserved_seconds':reserve_seconds(components),
+        'reserve_correction':{'previous_reserved_seconds':reserve_seconds(components)-2*components['metadata_and_verification_allowance'],
+            'added_seconds':2*components['metadata_and_verification_allowance'],
+            'reason':'Include metadata in all non-training components, matching the written formula.'},
         'proposed_planning_allocation_seconds':5400,'not_a_time_stop':True,
         'assumptions':'Current minimum interval rate; linear I/O/load scaling to250M entries;2x non-training/3x active reserves plus300s. Not mature measurements or a guarantee.',
         'decision':'Stop at1B even if unfrozen; no automatic extension, full training or strength readout; then quote the model campaign.',
