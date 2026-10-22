@@ -161,12 +161,15 @@ does not reduce its evidence standard. A future3B/10B schedule is a candidate to
 price after measurements, not an automatic choice. Search adoption stays deferred
 until a concrete evidence-supported improvement hypothesis warrants new work.
 
-## Current preparation evidence
+## Completed feasibility evidence
 
-Local source checks pass: six focused Python tests;121 optimized native library
-tests; the new200BB scripted-arena example test. The existing real-K50 resource
-example remains explicitly ignored without its on-host tables. Owner-approved bb128 preparation has started under the existing durable
-supervisor; real-K50 save/resume/export qualification and the fixed pilot follow
-automatically after build/tests. No completed pilot or v0.6.1 acceptance result
-is claimed at this update. The unchanged engine and recipe stay
-subject to the prospective host qualification above.
+The fixed pilot completed in23m40s on October22, with no scientific failure,
+retry or resource stop. All121 optimized native tests,200BB arena example,
+real-K50 thread/resume/export/key-set qualification, independent159.4M-row
+final export audit and3,072initial+3,072reproduced coverage hands pass. No
+strength readout or full training followed. The table has159.4Mentries at500M
+nodes and has not frozen. [Measured costs, coverage and limits](reports/nplayer-bb200-feasibility/results.md).
+
+The next fixed500M→1B mature-table calibration is [proposed separately](reports/nplayer-bb200-feasibility/next-allocation.md),
+about31mcentral/90minallocation; it is not authorized or launched. v0.6.1
+acceptance and a three-lineage full training allocation remain separate.

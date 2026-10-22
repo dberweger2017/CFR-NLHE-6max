@@ -1,17 +1,20 @@
 # Roadmap
 
-## Next: bounded three-player200BB feasibility for v0.6.1
+## Next: qualify capped200BB maturity before the v0.6.1 model campaign
 
-Owner prioritizes200BB blueprint after PR398 and defers v0.6.5 search adoption.
-[Proposal399](https://github.com/dberweger2017/CFR-NLHE-6max/issues/399) and
-[bounded pilot protocol](docs/nplayer-bb200-feasibility.md): qualify depth/key/legal
-play/save-resume/export, then one fixed100M/200M/500M-node cost-only lineage,
-current unpruned fast16/K50/all-street-average/250Mfreeze recipe. Report growth,
-coverage, training/I/O/audit costs and a proposed later fixed training allocation.
-Owner accepted30–45min central/90min reserve on October22; source735e3d3b
-is in isolated bb128 build/qualification preparation, followed automatically by
-the fixed pilot. No full training allocation. Three independent200BB lineages still require unchanged
-scripted-profit/own-checkpoint/cyclic gates before release. No search/default change.
+Owner prioritizes200BB blueprint and defers v0.6.5 search adoption.
+[PR400](https://github.com/dberweger2017/CFR-NLHE-6max/pull/400)/[proposal399](https://github.com/dberweger2017/CFR-NLHE-6max/issues/399):
+[fixed100M/200M/500M feasibility pilot completes](docs/reports/nplayer-bb200-feasibility/results.md)
+in23m40s. Real-K50 qualification,159.4M-row export audit and3,072initial plus
+3,072reproduced coverage hands pass. Last interval4.77Mnodes/s; sampled19.13GiB
+overall/13.31GiBtraining; CPU74/Thermistor15 86°C, no stop/failure/retry.
+Table growth remains0.267keys/node,159.4Mentries/unfrozen at500M; check-call
+river42.3%missing and33.15%storedzero-average-mass rows preclude a coverage or
+strength conclusion. [Proposed fixed500M→1B capped calibration](docs/reports/nplayer-bb200-feasibility/next-allocation.md)
+is about31mcentral/90minallocation, not authorized/launched. No automatic3B/10B
+campaign. Three independent200BB lineages still require unchanged scripted-profit,
+own-checkpoint and cyclic confirmation before release. Archivepending, originals
+and prior398source/venv/K50dependencies protected. No search/default/merge action.
 
 ## Final frozen river assessment: defer candidate
 
