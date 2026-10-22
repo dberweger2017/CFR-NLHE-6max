@@ -116,3 +116,7 @@ export/full-rowaudit/coverage/replay/reproduction. No new endpoints, hands or
 roots. Any new failure remains terminal. Both execution sources and the failure
 remain in the final report. This is a bookkeeping correction and completion of
 unstarted planned stages; successful or failed science is never repeated.
+
+## Completed closeout
+
+[Final results and capacity assessment](reports/nplayer-bb200-maturity/results.md): the fixed endpoint and all originally planned proofs complete October22 at18:56:37UTC. The controller error remains preserved, with no training repeated. [Prospective model campaign](reports/nplayer-bb200-maturity/campaign-proposal.md) is not launched. Archive acceptance is separate/pending receipt.

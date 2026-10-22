@@ -1,0 +1,257 @@
+{
+  "stage_wall_sum_seconds": 1751.3357679089531,
+  "launch_to_complete_seconds": 2020.6624536514282,
+  "outside_measured_stages_seconds": 269.3266857424751,
+  "outside_stage_scope": "controller failure/correction/handoff, validation/hash and interstage overhead; not pure programming or load time",
+  "stage_child_cpu_seconds": 7751.340315,
+  "active_training_seconds": 114.80265855600001,
+  "save_seconds": 129.264498869,
+  "training_process_seconds": 467.20207598397974,
+  "training_load_hash_startup_other_seconds": 223.13491855897973,
+  "export_seconds": 396.01920258795144,
+  "audit_seconds": 375.73362915497273,
+  "coverage_processes_seconds": 504.32180332997814,
+  "coverage_load_seconds": 424.92022806400007,
+  "coverage_play_seconds": 0.123794578,
+  "independent_replay_seconds": 8.05905685207108,
+  "stages": [
+    {
+      "phase": "continuation-1b",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/build-v1/target/release/examples/nplayer_train",
+        "--players",
+        "3",
+        "--stack-bb",
+        "200",
+        "--small-blind",
+        "50",
+        "--big-blind",
+        "100",
+        "--fast",
+        "--threads",
+        "16",
+        "--roots-per-seat",
+        "8",
+        "--seed",
+        "2026102240001",
+        "--nodes",
+        "1000000000",
+        "--last-average-street",
+        "3",
+        "--max-entries",
+        "250000000",
+        "--freeze-at-cap",
+        "--fast-gzip",
+        "--max-seconds",
+        "1e100",
+        "--card-buckets",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "--out",
+        "/home/dberweger/nplayer-bb200-maturity-20261022/main-v1/continuation-1b.gz",
+        "--telemetry",
+        "/home/dberweger/nplayer-bb200-maturity-20261022/main-v1/continuation-1b.gz.progress.jsonl",
+        "--resume",
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/main-v1/pilot-500000000.gz",
+        "--resume-sha256",
+        "704e35dd04d8290fc49c9d4505f6371bf0e8a50200e185c8881807ce727af625"
+      ],
+      "returncode": 0,
+      "wall_seconds": 467.20207598397974,
+      "user_cpu_seconds": 3038.150873,
+      "system_cpu_seconds": 63.238475,
+      "sampled_peak_rss_bytes": 22262452224
+    },
+    {
+      "phase": "final-1b-export",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/build-v1/target/release/examples/nplayer_policy",
+        "export",
+        "/home/dberweger/nplayer-bb200-maturity-20261022/main-v1/continuation-1b.gz",
+        "55d89c553ba1756eac1af117847b30e8b18e4f901afba942ee5a906bc00249ad",
+        "average",
+        "/home/dberweger/nplayer-bb200-maturity-20261022/completion-v1/final-1b-average.gz",
+        "--fast-gzip"
+      ],
+      "returncode": 0,
+      "wall_seconds": 396.01920258795144,
+      "user_cpu_seconds": 1432.393473,
+      "system_cpu_seconds": 30.460524,
+      "sampled_peak_rss_bytes": 20853731328
+    },
+    {
+      "phase": "final-1b-audit",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.audit_nplayer_policy_parallel",
+        "/home/dberweger/nplayer-bb200-maturity-20261022/main-v1/continuation-1b.gz",
+        "/home/dberweger/nplayer-bb200-maturity-20261022/completion-v1/final-1b-average.gz",
+        "--workers",
+        "8",
+        "--lookup-out",
+        "/home/dberweger/nplayer-bb200-maturity-20261022/completion-v1/final-1b-mass"
+      ],
+      "returncode": 0,
+      "wall_seconds": 375.73362915497273,
+      "user_cpu_seconds": 2633.5633099999995,
+      "system_cpu_seconds": 49.854607,
+      "sampled_peak_rss_bytes": 381304832
+    },
+    {
+      "phase": "final-1b-initial",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/build-v1/target/release/examples/nplayer_arena",
+        "batch",
+        "/home/dberweger/nplayer-bb200-maturity-20261022/completion-v1/final-1b-initial.json"
+      ],
+      "returncode": 0,
+      "wall_seconds": 256.1943475769949,
+      "user_cpu_seconds": 246.3586290000003,
+      "system_cpu_seconds": 9.42366299999999,
+      "sampled_peak_rss_bytes": 36167704576
+    },
+    {
+      "phase": "final-1b-repeat",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/build-v1/target/release/examples/nplayer_arena",
+        "batch",
+        "/home/dberweger/nplayer-bb200-maturity-20261022/completion-v1/final-1b-repeat.json"
+      ],
+      "returncode": 0,
+      "wall_seconds": 248.12745575298322,
+      "user_cpu_seconds": 239.07080299999961,
+      "system_cpu_seconds": 7.958880000000008,
+      "sampled_peak_rss_bytes": 36167716864
+    },
+    {
+      "phase": "final-1b-replay-random",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.check_nplayer_policy_replay",
+        "/home/dberweger/nplayer-bb200-maturity-20261022/completion-v1/final-1b-random.jsonl.initial"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0144022960448638,
+      "user_cpu_seconds": 0.20690000000013242,
+      "system_cpu_seconds": 0.018799000000001342,
+      "sampled_peak_rss_bytes": 14618624
+    },
+    {
+      "phase": "final-1b-replay-check-call",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.check_nplayer_policy_replay",
+        "/home/dberweger/nplayer-bb200-maturity-20261022/completion-v1/final-1b-check-call.jsonl.initial"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0151339530129917,
+      "user_cpu_seconds": 0.29203099999995175,
+      "system_cpu_seconds": 0.011167999999997846,
+      "sampled_peak_rss_bytes": 14663680
+    },
+    {
+      "phase": "final-1b-replay-tight-aggressive",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.check_nplayer_policy_replay",
+        "/home/dberweger/nplayer-bb200-maturity-20261022/completion-v1/final-1b-tight-aggressive.jsonl.initial"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.014557202986907,
+      "user_cpu_seconds": 0.15464299999985087,
+      "system_cpu_seconds": 0.011000999999993155,
+      "sampled_peak_rss_bytes": 14602240
+    },
+    {
+      "phase": "final-1b-replay-pot-pressure",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.check_nplayer_policy_replay",
+        "/home/dberweger/nplayer-bb200-maturity-20261022/completion-v1/final-1b-pot-pressure.jsonl.initial"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0149634000263177,
+      "user_cpu_seconds": 0.16147799999998824,
+      "system_cpu_seconds": 0.011058000000005563,
+      "sampled_peak_rss_bytes": 14483456
+    }
+  ],
+  "resources": {
+    "main-v1": {
+      "samples": 231,
+      "first": {
+        "phase": "continuation-1b",
+        "utc": "2026-10-22T18:22:56Z",
+        "cpu_c": 39.0,
+        "thermistor15_c": 39.0,
+        "worker_family_rss_bytes": 3592192,
+        "live_family_cpu_seconds": 0.01,
+        "available_ram_bytes": 131740106752,
+        "swap_used_bytes": 388669440,
+        "nvme_free_bytes": 222091657216,
+        "hdd_free_bytes": 422150062080
+      },
+      "last": {
+        "phase": "continuation-1b",
+        "utc": "2026-10-22T18:30:41Z",
+        "cpu_c": 57.0,
+        "thermistor15_c": 71.0,
+        "worker_family_rss_bytes": 21229105152,
+        "live_family_cpu_seconds": 3099.35,
+        "available_ram_bytes": 110530564096,
+        "swap_used_bytes": 388669440,
+        "nvme_free_bytes": 213303414784,
+        "hdd_free_bytes": 422150062080
+      },
+      "peak_rss_bytes": 22262452224,
+      "cpu_max_c": 73.0,
+      "thermistor15_max_c": 84.0,
+      "min_available_ram_bytes": 109363777536,
+      "min_nvme_free_bytes": 213303414784,
+      "swap_initial_bytes": 388669440,
+      "swap_max_bytes": 388669440,
+      "swap_final_bytes": 388669440
+    },
+    "completion-v1": {
+      "samples": 636,
+      "first": {
+        "phase": "final-1b-export",
+        "utc": "2026-10-22T18:35:04Z",
+        "cpu_c": 38.0,
+        "thermistor15_c": 45.0,
+        "worker_family_rss_bytes": 3481600,
+        "live_family_cpu_seconds": 0.0,
+        "available_ram_bytes": 131753803776,
+        "swap_used_bytes": 388407296,
+        "nvme_free_bytes": 213004935168,
+        "hdd_free_bytes": 422150062080
+      },
+      "last": {
+        "phase": "final-1b-replay-pot-pressure",
+        "utc": "2026-10-22T18:56:35Z",
+        "cpu_c": 37.0,
+        "thermistor15_c": 58.0,
+        "worker_family_rss_bytes": 14483456,
+        "live_family_cpu_seconds": 0.0,
+        "available_ram_bytes": 131727773696,
+        "swap_used_bytes": 388407296,
+        "nvme_free_bytes": 206459035648,
+        "hdd_free_bytes": 422150062080
+      },
+      "peak_rss_bytes": 36167716864,
+      "cpu_max_c": 74.0,
+      "thermistor15_max_c": 87.5,
+      "min_available_ram_bytes": 95454961664,
+      "min_nvme_free_bytes": 206459035648,
+      "swap_initial_bytes": 388407296,
+      "swap_max_bytes": 388407296,
+      "swap_final_bytes": 388407296
+    }
+  },
+  "cpu_scope": "sum of disjoint stage-child CPU, includes their descendant CPU once; excludes controller Python, setup/tests, later publication/archive/readback",
+  "resources_scope": "approximately2s sampled entire stage worker families, not exact high-water bounds; host swap attribution unknown"
+}
