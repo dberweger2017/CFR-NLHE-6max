@@ -186,8 +186,14 @@ impl Captured {
         if actions.len() > 256 || !actions.starts_with(original) {
             return Err("retained history does not extend root".into());
         }
+        // The solved root is the first river decision; the begin request's own river prefix
+        // (the opponent's first action when the hero acts second) is replayed first.
         let mut hand = self.root.hand.clone();
         let mut path = Vec::new();
+        for &a in &self.root.prefix {
+            hand.apply_mut(a)?;
+            path.push(a);
+        }
         for e in &actions[original.len()..] {
             let a = array(e)?;
             if a.len() != 5

@@ -413,6 +413,8 @@ struct Workspace {
     timing: Option<LeafTiming>,
     // Best responses only: per node, the actions the responder may use (empty = all).
     mask: Option<Vec<Vec<bool>>>,
+    // Best responses only: nodes whose profile is fixed (already taken) are not deviated from.
+    fixed: Option<Vec<bool>>,
 }
 impl Workspace {
     fn new(game: &Game, seat: usize) -> Self {
@@ -421,6 +423,7 @@ impl Workspace {
             reach: vec![vec![0.; game.holdings(1 - seat)]; game.nodes.len()],
             timing: None,
             mask: None,
+            fixed: None,
         }
     }
     fn start(&mut self) {
@@ -474,7 +477,7 @@ fn visit(
             for h in 0..game.holdings(seat) {
                 let value = if *actor != seat {
                     children.iter().map(|&c| work.value[c][h]).sum()
-                } else if best {
+                } else if best && !work.fixed.as_ref().is_some_and(|f| f[id]) {
                     let allowed = work.mask.as_ref().map(|m| &m[id]).filter(|m| !m.is_empty());
                     children
                         .iter()
@@ -857,7 +860,9 @@ impl Solver {
         }
         let mut values = [0.; 2];
         let mut gains = [0.; 2];
+        let fixed: Vec<bool> = self.fixed.iter().map(|f| f.is_some()).collect();
         for seat in 0..2 {
+            self.work[seat].fixed = fixed.iter().any(|&f| f).then(|| fixed.clone());
             self.work[seat].start();
             visit(
                 &self.game,

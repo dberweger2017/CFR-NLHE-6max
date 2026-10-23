@@ -478,6 +478,62 @@ fn capped_search_menus_keep_the_root_and_cap_river_raises() {
     }
 }
 
+/// The `root()` history continued with river actions, as a request for the current actor.
+fn river_request(extra: &[Action]) -> (Value, Config) {
+    let config = Config::new(&[10000; 3], 50, 100).unwrap();
+    let r = root();
+    let mut hand = r.hand.clone();
+    let mut actions: Vec<Value> = Vec::new();
+    let mut replay = representative(config, 0, [0, 5, 10, 15, 20]).unwrap();
+    for (_, a) in &r.prior {
+        let actor = replay.actor().unwrap();
+        let (street, before) = (replay.street(), replay.players()[actor].stack);
+        replay.apply_mut(*a).unwrap();
+        actions.push(json!([actor, street as u64, a.kind.name(), a.raise_to, before - replay.players()[actor].stack]));
+    }
+    for a in extra {
+        let actor = hand.actor().unwrap();
+        let (street, before) = (hand.street(), hand.players()[actor].stack);
+        hand.apply_mut(*a).unwrap();
+        actions.push(json!([actor, street as u64, a.kind.name(), a.raise_to, before - hand.players()[actor].stack]));
+    }
+    let legal = hand.legal().unwrap();
+    let hole = if hand.actor() == Some(r.seat) { [30, 31] } else { [32, 33] };
+    (json!({"format":"nplayer-live-river-v1","button":0,"board":[0,5,10,15,20],"seat":hand.actor(),"hole":hole,"actions":actions,
+        "players":hand.players().iter().map(|p|json!([p.stack,p.street_bet,p.contributed,p.folded])).collect::<Vec<_>>(),
+        "legal":{"check":legal.check,"call_amount":legal.call_amount,"raise_to":legal.raise_to},"sweeps":16}), config)
+}
+
+#[test]
+fn second_to_act_roots_keep_the_river_start_and_the_opponent_action() {
+    let first = root();
+    for taken in [Action { kind: Kind::Check, raise_to: 0 }, Action { kind: Kind::Raise, raise_to: 100 }] {
+        let (v, config) = river_request(&[taken]);
+        let r = reconstruct(&v, config).unwrap();
+        assert_eq!(r.prefix, vec![taken]);
+        assert_eq!((r.hand.street(), r.hand.actor()), (Street::River, first.hand.actor()));
+        assert_eq!(r.hand.pot(), first.hand.pot());
+        assert_eq!(r.prior.len(), first.prior.len(), "river actions never enter the belief prior");
+        assert_ne!(r.seat, first.seat);
+    }
+    assert!(first.prefix.is_empty());
+}
+
+#[test]
+fn a_hero_river_action_is_refused() {
+    // First actor checks, second checks: the river is over; first actor bets, second calls: over.
+    // A hero that already acted on this river is outside the supported root.
+    let check = Action { kind: Kind::Check, raise_to: 0 };
+    let bet = Action { kind: Kind::Raise, raise_to: 100 };
+    let raise = Action { kind: Kind::Raise, raise_to: 400 };
+    let (v, config) = river_request(&[bet, raise]);
+    assert!(reconstruct(&v, config).is_err(), "the original first actor already acted on the river");
+    let (v, config) = river_request(&[check]);
+    let mut bad = v.clone();
+    bad["seat"] = json!(root().seat);
+    assert!(reconstruct(&bad, config).is_err(), "non-acting hero");
+}
+
 #[test]
 fn exact_modeled_backend_matches_existing_dense_oracle_on_a_legal_root() {
     let r = root();

@@ -23,19 +23,20 @@ pub fn observation_request(o: &Observation<'_>) -> Result<Value, String> {
     )
 }
 
-pub fn eligibility(o: &Observation<'_>) -> &'static str {
+/// `second_to_act` also admits the hero's first river decision after the opponent's first action.
+pub fn eligibility(o: &Observation<'_>, second_to_act: bool) -> &'static str {
     if o.street != Street::River {
         return "not-river";
     }
-    if o.history.iter().any(|e| {
-        matches!(
-            e,
-            Event::Action {
-                street: Street::River,
-                ..
-            }
-        )
-    }) {
+    let river_actors: Vec<usize> = o
+        .history
+        .iter()
+        .filter_map(|e| match e {
+            Event::Action { street: Street::River, actor, .. } => Some(*actor),
+            _ => None,
+        })
+        .collect();
+    if !river_actors.is_empty() && !(second_to_act && river_actors.len() == 1 && river_actors[0] != o.seat) {
         return "later-first-entry";
     }
     let live: Vec<_> = o.players.iter().filter(|p| !p.folded).collect();
@@ -76,6 +77,7 @@ pub struct WholeHandPolicy {
     hand_id: String,
     context: Option<Value>,
     off_tree: bool,
+    second_to_act: bool,
 }
 
 /// Evaluator-owned view. No Hand/deck, action RNG, solve or profile restoration.
@@ -170,6 +172,7 @@ impl WholeHandPolicy {
         seed: u64,
         hand_id: String,
         enabled: bool,
+        second_to_act: bool,
     ) -> Result<Self, String> {
         Ok(Self {
             table,
@@ -182,6 +185,7 @@ impl WholeHandPolicy {
             hand_id,
             context: None,
             off_tree: false,
+            second_to_act,
         })
     }
     pub fn choose(
@@ -194,7 +198,7 @@ impl WholeHandPolicy {
         let bp_actions: Vec<_> = multi_holdem::menu(o).iter().map(|(_, a)| *a).collect();
         let mut p = bp.clone();
         let mut actions = bp_actions.clone();
-        let eligible = eligibility(o);
+        let eligible = eligibility(o, self.second_to_act);
         let mut mode = "blueprint";
         let mut info = Value::Null;
         if let Some(store) = &mut self.store {
@@ -305,7 +309,8 @@ mod tests {
     fn request_contains_own_cards_and_public_history_only() {
         let root = super::super::tests::root();
         let o = root.hand.observe(root.hand.actor().unwrap()).unwrap();
-        assert_eq!(eligibility(&o), "eligible");
+        assert_eq!(eligibility(&o, false), "eligible");
+        assert_eq!(eligibility(&o, true), "eligible");
         let v = observation_request(&o).unwrap();
         assert_eq!(v.as_object().unwrap().len(), 8);
         assert!(v.get("deck").is_none() && v.get("holes").is_none() && v.get("seed").is_none());
@@ -316,9 +321,15 @@ mod tests {
             raise_to: 0,
         })
         .unwrap();
-        assert_eq!(
-            eligibility(&h.observe(h.actor().unwrap()).unwrap()),
-            "later-first-entry"
-        );
+        let second = h.observe(h.actor().unwrap()).unwrap();
+        assert_eq!(eligibility(&second, false), "later-first-entry");
+        assert_eq!(eligibility(&second, true), "eligible", "first decision after the opponent acted");
+        // After the second player also acted, the first player's next decision stays excluded.
+        h.apply_mut(Action {
+            kind: Kind::Raise,
+            raise_to: 100,
+        })
+        .unwrap();
+        assert_eq!(eligibility(&h.observe(h.actor().unwrap()).unwrap(), true), "later-first-entry");
     }
 }

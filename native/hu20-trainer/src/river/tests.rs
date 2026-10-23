@@ -153,6 +153,25 @@ fn fixed_work_is_exactly_repeatable_and_incremental() {
     assert!(q["zero_sum_error_bb"].as_f64().unwrap() < 1e-12);
 }
 #[test]
+fn quality_does_not_deviate_at_fixed_nodes() {
+    // Seat 0's root is fixed (an action already taken); its best response may only deviate
+    // below it, while seat 1's best response is unchanged.
+    let row: Vec<f64> = (0..sample(false, false).holdings(0)).flat_map(|_| [0., 1.]).collect();
+    let mut fixed = vec![None; sample(false, false).nodes.len()];
+    fixed[0] = Some(row.clone());
+    let mut with_fixed = Solver::new(sample(false, false), fixed).unwrap();
+    with_fixed.advance(20).unwrap();
+    let profile = with_fixed.average();
+    let q = with_fixed.quality(&profile).unwrap();
+    let mut free = Solver::new(sample(false, false), vec![None; profile.len()]).unwrap();
+    let r = free.quality(&profile).unwrap();
+    let gain = |v: &Value, s: usize| v["best_response_gains_bb"][s].as_f64().unwrap();
+    assert_eq!(gain(&q, 0), 0., "the fixed root is the only seat-0 decision");
+    assert!(gain(&r, 0) > 0., "without the fixed flag the same profile is exploitable at the root");
+    assert_eq!(gain(&q, 1), gain(&r, 1));
+    assert_eq!(q["profile_values_bb"], r["profile_values_bb"]);
+}
+#[test]
 fn fixed_policy_is_kept_even_on_unreached_rows() {
     let g = sample(false, false);
     let mut fixed = vec![None; g.nodes.len()];
