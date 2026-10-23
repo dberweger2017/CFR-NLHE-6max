@@ -1,0 +1,193 @@
+{
+  "format": "pr415-concurrent-release-cost-context-v1",
+  "status": "complete-consumed-no-remaining-authorization",
+  "publication_receipt_path": "/research/PR-412-v061-release/publication-v1/PUBLICATION-RECEIPT.json",
+  "sha256": "101f9fc52c268a3ce81858ac397b3e4543f9dbc2f8b101cba57d96c5f180e11a",
+  "data": {
+    "anonymous_canonical_public_downloads": "passed",
+    "asset_bytes": 42919046778,
+    "assets": 52,
+    "dependencies": "existing hash-pinned K50 files reused; no duplicate dependency upload",
+    "drive_acceptance_claim": false,
+    "format": "v061-publication-receipt-v1",
+    "fresh_reconstruction_scratch_cleared": true,
+    "initial_integration_hands": 36,
+    "model_bytes": 42918983478,
+    "model_parts": 42,
+    "models": {
+      "2026102240001": {
+        "hands": 12,
+        "loaded_weight_tables": 1,
+        "manifest_sha256": "008918e722d3f7815ef65ba6608d23122d8a5ee310aa51c9278800a55d476ab6",
+        "model_sha256": "c29eac794d048793988c30f1f9e5024bf970e87883e026cfd72f0d006f24bfa3",
+        "native_start_seconds": 125.9267909170594,
+        "privacy_restricted_sizing_chip_conservation_double_replay": "passed"
+      },
+      "2026102261001": {
+        "hands": 12,
+        "loaded_weight_tables": 1,
+        "manifest_sha256": "a0f9945236ce2ee8e69388dfb55f22c89958d03040937b8ff1415f7162da7ca2",
+        "model_sha256": "7c5403929333e6d3260185d7c67667b1302a667745c5485147f87dd7a71ad076",
+        "native_start_seconds": 126.36078894103412,
+        "privacy_restricted_sizing_chip_conservation_double_replay": "passed"
+      },
+      "2026102261002": {
+        "hands": 12,
+        "loaded_weight_tables": 1,
+        "manifest_sha256": "e9b914e67875561e15332d3ac8ce947f3e2729b477547843000d07ab2c4c3917",
+        "model_sha256": "7ae4460ba0615af24cc66c8dd86bc868595c6f6e4622372314d5bf141628b3ed",
+        "native_start_seconds": 125.30934646702372,
+        "privacy_restricted_sizing_chip_conservation_double_replay": "passed"
+      }
+    },
+    "native_runtime_checks": 3,
+    "no_nvme_release_scratch": true,
+    "one_use_check_window": {
+      "authorization_sha256": "60198dcaef339c6594d639d5055d183d9ceb0caa9b1072e9e855ec9573011398",
+      "cpu_affinity": [
+        15
+      ],
+      "end": "2026-10-23T15:59:37Z",
+      "integrity_cpu_seconds": 163.367432,
+      "integrity_records": [
+        {
+          "phase": "2026102240001-reconstruction",
+          "physical_read_bytes": 4874825728,
+          "physical_write_bytes": 14304927744,
+          "pid": 894399,
+          "returncode": 0,
+          "sampled_peak_rss_bytes": 27369472,
+          "system_cpu_seconds": 6.012231,
+          "user_cpu_seconds": 47.314441,
+          "wall_seconds": 133.24209693307057
+        },
+        {
+          "phase": "2026102261001-reconstruction",
+          "physical_read_bytes": 14307233792,
+          "physical_write_bytes": 14307172352,
+          "pid": 894717,
+          "returncode": 0,
+          "sampled_peak_rss_bytes": 27828224,
+          "system_cpu_seconds": 6.681137,
+          "user_cpu_seconds": 47.4818,
+          "wall_seconds": 169.8543528659502
+        },
+        {
+          "phase": "2026102261002-reconstruction",
+          "physical_read_bytes": 14816727040,
+          "physical_write_bytes": 14306902016,
+          "pid": 895123,
+          "returncode": 0,
+          "sampled_peak_rss_bytes": 27541504,
+          "system_cpu_seconds": 7.511943,
+          "user_cpu_seconds": 48.36588,
+          "wall_seconds": 173.78198476904072
+        }
+      ],
+      "io_priority": "idle",
+      "native_cpu_seconds": 384.692427,
+      "native_records": [
+        {
+          "phase": "2026102240001-runtime",
+          "physical_read_bytes": 471040,
+          "physical_write_bytes": 5611520,
+          "pid": 894581,
+          "returncode": 0,
+          "sampled_peak_rss_bytes": 15737303040,
+          "system_cpu_seconds": 5.859745,
+          "user_cpu_seconds": 122.503101,
+          "wall_seconds": 133.5137065820163
+        },
+        {
+          "phase": "2026102261001-runtime",
+          "physical_read_bytes": 1355776,
+          "physical_write_bytes": 7131136,
+          "pid": 894944,
+          "returncode": 0,
+          "sampled_peak_rss_bytes": 15740178432,
+          "system_cpu_seconds": 5.61208,
+          "user_cpu_seconds": 123.150783,
+          "wall_seconds": 135.35421852907166
+        },
+        {
+          "phase": "2026102261002-runtime",
+          "physical_read_bytes": 696320,
+          "physical_write_bytes": 5558272,
+          "pid": 895354,
+          "returncode": 0,
+          "sampled_peak_rss_bytes": 15739351040,
+          "system_cpu_seconds": 5.301479,
+          "user_cpu_seconds": 122.265239,
+          "wall_seconds": 133.18990365695208
+        }
+      ],
+      "nice": 19,
+      "normal_mutex_unmodified": true,
+      "ordinary_mutex_transitions": [],
+      "peak_sampled_rss_bytes": 15740178432,
+      "pr415_config_unchanged": true,
+      "start": "2026-10-23T15:44:54Z",
+      "threads_each": 1,
+      "wall_seconds": 883.0672817230225
+    },
+    "ordered_physical_reconstruction_and_part_whole_sha256": "passed",
+    "original_inputs_unchanged": true,
+    "release": "v0.6.1",
+    "release_id": 421855332,
+    "science": "No new training, conversion or strength evaluation; release integration only",
+    "source_commit": "0338ed2ccd94796fef1d03cd7904ab561c55198d",
+    "status": "verified",
+    "url": "https://github.com/dberweger2017/CFR-NLHE-6max/releases/tag/v0.6.1",
+    "verified_at": "2026-10-23T15:59:37Z"
+  },
+  "scope": "Release integrity/native integration only; not five-player training or strength. Receipt SHA independently verified during final compact readback. No subtraction of overlap from observed PR415 wall time or inference of causal slowdown.",
+  "reported_intervals_utc": {
+    "integrity": [
+      {
+        "seed": 2026102240001,
+        "pid": 894399,
+        "start": "15:44:54",
+        "end": "15:47:08"
+      },
+      {
+        "seed": 2026102261001,
+        "pid": 894717,
+        "start": "15:49:23",
+        "end": "15:52:13"
+      },
+      {
+        "seed": 2026102261002,
+        "pid": 895123,
+        "start": "15:54:29",
+        "end": "15:57:23"
+      }
+    ],
+    "native": [
+      {
+        "seed": 2026102240001,
+        "pid": 894581,
+        "start": "15:47:08",
+        "end": "15:49:21"
+      },
+      {
+        "seed": 2026102261001,
+        "pid": 894944,
+        "start": "15:52:13",
+        "end": "15:54:28"
+      },
+      {
+        "seed": 2026102261002,
+        "pid": 895354,
+        "start": "15:57:23",
+        "end": "15:59:36"
+      }
+    ]
+  },
+  "interval_provenance": "Release agent final coordination message; date2026-10-23. Full command/start/end/wait4 CPU/physical IO/PID records retained in public-proof-hdd-v1/{measurements,one-use-runtime-exception-v1}.",
+  "cleanup": {
+    "status": "separate-owner-managed",
+    "reported_start": "after 2026-10-23T16:10:26Z completion/lock check",
+    "selected_bytes": 29340094270,
+    "scope": "Exactly three owner-authorized PR404 old3B checkpoints; PR415 inputs unchanged. No overlap with main window reported; final copy/readback/reclaimed-byte receipt pending."
+  }
+}

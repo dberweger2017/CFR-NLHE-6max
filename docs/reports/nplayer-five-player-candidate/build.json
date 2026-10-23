@@ -1,0 +1,102 @@
+{
+  "source": "6a01b327eb56c7678cb702e1c9106c98ba614699",
+  "source_file_count": 874,
+  "build_receipt_sha256": "cfb0bc492f18bef465780fc75b018d6ac964c248eb110d8f2875081f41c0277c",
+  "native_file_count": 81,
+  "native_byte_identical_to_pr413": true,
+  "binaries": {
+    "nplayer_train": "/home/dberweger/nplayer-five-player-candidate-20261023/build-v1/target/release/examples/nplayer_train",
+    "nplayer_policy": "/home/dberweger/nplayer-five-player-candidate-20261023/build-v1/target/release/examples/nplayer_policy",
+    "nplayer_inference": "/home/dberweger/nplayer-five-player-candidate-20261023/build-v1/target/release/examples/nplayer_inference",
+    "nplayer_paired_arena": "/home/dberweger/nplayer-five-player-candidate-20261023/build-v1/target/release/examples/nplayer_paired_arena",
+    "nplayer_arena": "/home/dberweger/nplayer-five-player-candidate-20261023/build-v1/target/release/examples/nplayer_arena",
+    "legacy": "/home/dberweger/nplayer-bb200-feasibility-20261022/build-v1/target/release/examples/nplayer_arena"
+  },
+  "binary_sha256s": {
+    "nplayer_train": "77ac051ec55881cac9f4a474f9ab25b075cdc22ef5fcf67ff54394ae42bfa9ef",
+    "nplayer_policy": "5d617e46fce4000dacb50fcbea00e1dccaeaa6cc7144b1d0d25dc3f73935c6ff",
+    "nplayer_inference": "2b6becf9bd0cef0ae771dbd9b0a95991349ae460fe83bb08837caff483c6751c",
+    "nplayer_paired_arena": "c3d8fc02c9a16dcae79df70dbed66720025c16b551b786627a50c26a7e7647a3",
+    "nplayer_arena": "877a53ab54f3ac8c10ef06b848ac9d737f538bdd1a92846fc1dd0ff5e686e636",
+    "legacy": "c3b1555806482c9f16391232d75590e284e37e8fc9e146cad73071c56fcaf008"
+  },
+  "stages": [
+    {
+      "phase": "native-tests",
+      "command": [
+        "/home/dberweger/.cargo/bin/cargo",
+        "test",
+        "--release",
+        "--locked",
+        "--offline",
+        "--manifest-path",
+        "/home/dberweger/nplayer-five-player-candidate-20261023/source-v1/native/hu20-trainer/Cargo.toml",
+        "--lib",
+        "--example",
+        "nplayer_paired_arena",
+        "--example",
+        "nplayer_arena"
+      ],
+      "returncode": 0,
+      "wall_seconds": 42.393494063057005,
+      "user_cpu_seconds": 165.428274,
+      "system_cpu_seconds": 39.789625,
+      "sampled_peak_rss_bytes": 1188327424
+    },
+    {
+      "phase": "native-build",
+      "command": [
+        "/home/dberweger/.cargo/bin/cargo",
+        "build",
+        "--release",
+        "--locked",
+        "--offline",
+        "--manifest-path",
+        "/home/dberweger/nplayer-five-player-candidate-20261023/source-v1/native/hu20-trainer/Cargo.toml",
+        "--example",
+        "nplayer_train",
+        "--example",
+        "nplayer_policy",
+        "--example",
+        "nplayer_inference",
+        "--example",
+        "nplayer_paired_arena",
+        "--example",
+        "nplayer_arena"
+      ],
+      "returncode": 0,
+      "wall_seconds": 10.082601600908674,
+      "user_cpu_seconds": 37.504389,
+      "system_cpu_seconds": 0.7345869999999977,
+      "sampled_peak_rss_bytes": 1049214976
+    },
+    {
+      "phase": "focused-python",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "unittest",
+        "tests.test_nplayer_five_player_candidate",
+        "tests.test_nplayer_paired_evidence",
+        "-q"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.014504601014778,
+      "user_cpu_seconds": 0.0966680000000224,
+      "system_cpu_seconds": 0.0030470000000022424,
+      "sampled_peak_rss_bytes": 14450688
+    }
+  ],
+  "test_summaries": {
+    "native-tests": [
+      "test result: ok. 121 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 9.87s",
+      "test result: ok. 1 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+      "test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s"
+    ],
+    "focused-python": [
+      "Ran 26 tests in 0.026s",
+      "OK"
+    ]
+  },
+  "no_main_started": true
+}

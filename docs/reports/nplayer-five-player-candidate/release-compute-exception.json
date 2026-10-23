@@ -1,0 +1,75 @@
+{
+  "format": "pr415-v061-one-use-compute-exception-v1",
+  "status": "owner-requested-scoped-operational-exception",
+  "owner_request": "Can v0.6.1 then continue? How can we handle the mutex exeption",
+  "authorization_interpretation": "Implement owner request to continue the already-described bounded one-core/~15GiB v0.6.1 runtime checks concurrently; this grants no general lock bypass.",
+  "scope": {
+    "module": "scripts.check_v061_runtime",
+    "release": "v0.6.1",
+    "seeds": [
+      "2026102240001",
+      "2026102261001",
+      "2026102261002"
+    ],
+    "attempts_per_seed": 1,
+    "max_concurrent_checks": 1,
+    "expected_total_minutes": [
+      10,
+      15
+    ],
+    "strength_hands_or_training": false
+  },
+  "constraints": {
+    "cpu_affinity_logical_cpus": 1,
+    "nice": 19,
+    "io_priority": "idle",
+    "thread_environment": {
+      "RAYON_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1"
+    },
+    "expected_rss_gib": 15,
+    "hard_rss_or_elapsed_kill_added": false,
+    "read_only_pinned_models": true,
+    "source_and_sha_checks_unchanged": true,
+    "public_readback_and_integrity_preconditions_unchanged": true,
+    "hdd_data_and_private_output_only": true,
+    "no_nvme_release_scratch": true
+  },
+  "mutex": {
+    "pr415_retains": "/tmp/cfr-cygnus-exclusive.lock",
+    "pr415_owner_pid": 888459,
+    "normal_mutex_never_unlinked_or_unlocked": true,
+    "exception_for_release_commands_only": "The release operational wrapper may omit normal-mutex acquisition ONLY for this allowlist; no shared/frozen tool gains a general bypass.",
+    "separate_nonblocking_lock": "/tmp/cfr-v061-pr415-runtime-exception.lock",
+    "one_use_receipt_required": true
+  },
+  "study": {
+    "source": "6a01b327eb56c7678cb702e1c9106c98ba614699",
+    "config_sha256": "aafa94da23019db594cc305e6a96d735f2f04178fc5f171d52395dc4d345fe22",
+    "recipe_counts_threads_models_guards_unchanged": true,
+    "no_main_restart": true,
+    "priority": [
+      "PR415",
+      "v0.6.1",
+      "cleanup"
+    ],
+    "no_new_science_or_budget_extension": true
+  },
+  "evidence": {
+    "require_exact_commands_pids_start_end_rss_cpu_io_and_result_receipts": true,
+    "record_overlap_in_pr415_costs": true,
+    "retain_failures_and_partials": true,
+    "no_duplicate_on_network_unknown": true,
+    "no_automatic_retries": true
+  },
+  "limits": [
+    "No other native jobs, training, benchmarks or strength evaluation",
+    "No release model/default changes under this exception",
+    "No global lock implementation, PR415 source/config or OS/fan/driver changes",
+    "No new schedule/daemon/observer",
+    "Expected memory/time are planning estimates, not invented hard stops"
+  ],
+  "handoff_thread": "ad69c027-5f20-45d1-82a0-9f068259b8af"
+}

@@ -1,0 +1,70 @@
+{
+  "utc": "2026-10-23T13:52:23Z",
+  "launch": {
+    "source": "6a01b327eb56c7678cb702e1c9106c98ba614699",
+    "bundle_sha256": "26b83becea886eb02c087e8b802f5f0a12b7ff7214ad7845518babf0bfb90024",
+    "no_main_started": true,
+    "qualification_only": true,
+    "planning_seconds": 1200,
+    "supervisor_pid": 882589,
+    "launch_epoch": 1792763377.1808217,
+    "command": [
+      "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+      "/home/dberweger/nplayer-five-player-candidate-20261023/qualify-v1.py"
+    ],
+    "source_bootstrap_correction": {
+      "status": "source-materialization-corrected-before-first-science",
+      "missing_prerequisites": [
+        "9ca629361b8db0bb8562e9cda70e3e7fb5da6016",
+        "4b416074584c7b8229ab1abf41a234fbf4237b18"
+      ],
+      "reason": "Incremental bundle had three prerequisite commits; initial shallow bootstrap fetched only bbb71f40. All prerequisites verified present in protected prior source.",
+      "no_build_or_qualification_started": true,
+      "no_scientific_retry": true,
+      "originals_retained": true
+    }
+  },
+  "controller": {
+    "status": "running",
+    "phase": "qualification",
+    "epoch": 1792763435.414686,
+    "no_main_started": true
+  },
+  "build_status": {
+    "status": "passed"
+  },
+  "build_failure": null,
+  "qualification_status": {
+    "status": "running",
+    "phase": "replay-trained-1",
+    "completed_stages": 15
+  },
+  "qualification_failure": null,
+  "supervisor_identity": "882589 /home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python /home/dberweger/nplayer-five-player-candidate-20261023/qualify-v1.py",
+  "nvme_free_bytes": 119777308672,
+  "no_main_root": true,
+  "build-v1_last_resource": {
+    "phase": "focused-python",
+    "utc": "2026-10-23T13:50:29Z",
+    "cpu_c": 43.0,
+    "thermistor15_c": 53.5,
+    "worker_family_rss_bytes": 14450688,
+    "live_family_cpu_seconds": 0.01,
+    "available_ram_bytes": 131475427328,
+    "swap_used_bytes": 458678272,
+    "nvme_free_bytes": 119785512960,
+    "hdd_free_bytes": 135067918336
+  },
+  "qualification-v1_last_resource": {
+    "phase": "replay-trained-1",
+    "utc": "2026-10-23T13:52:18Z",
+    "cpu_c": 42.0,
+    "thermistor15_c": 51.0,
+    "worker_family_rss_bytes": 16994304,
+    "live_family_cpu_seconds": 0.01,
+    "available_ram_bytes": 131614265344,
+    "swap_used_bytes": 458678272,
+    "nvme_free_bytes": 119777320960,
+    "hdd_free_bytes": 135067918336
+  }
+}

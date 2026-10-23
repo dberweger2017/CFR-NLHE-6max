@@ -1,5 +1,42 @@
 # Roadmap
 
+## Five-player100BB development: own-ancestor gain, support/exploitation review next
+
+[PR415](https://github.com/dberweger2017/CFR-NLHE-6max/pull/415),
+[proposal414](https://github.com/dberweger2017/CFR-NLHE-6max/issues/414),
+[verified report](docs/reports/nplayer-five-player-candidate/results.md),
+[fixed protocol](docs/nplayer-five-player-candidate.md).
+One fresh lineage2026102351001, fixed3B→10B/K50/unpruned/250Mmembership;
+eightfields×4,096independentblocks×tenbalancedseatings. All37stagesRC0;
+655,360initialhands independentlyreplayed plus byte-identical reproduction.
+Main October23 14:16→16:10UTC /16:16→18:10Madrid,1h53m59s.
+
+10B gains **+74.05BB/100**, adjusted lower **+31.35**, against four copies of
+own3B. Pressure gains+44.15/lower+11.10 and clears its relative safeguard,
+but10B absolute pressure return−10.25 remains imprecise. **Six other safeguards
+unpassed**: random−84.11/random+TAG−37.46 are adverse point deltas; do not call
+all six losses. This is one lineage/ancestor field, not release acceptance,
+Nash convergence, training-seed reliability or a controlled4P→5P strength comparison.
+
+Identical250,000,979keys freeze near576Mnodes. Continued retained visits and
+average mass improve, while10B check-call river missing lookups remain99.988%
+(16,726/16,728), versus10.52% in trained field. Fixed membership cannot add keys;
+played histories differ, so this does not identify the cause of the returns.
+Keep10B as leading research candidate and3B comparator. **Review exploitation/
+support and prospectively define acceptable tradeoffs before independent release
+lineages**. No further nodes, samples, capacity arm, six-player launch, search or
+release/default adoption is automatically authorized. Preserve PR413/357 adverse
+panels. Two circular opponent orders leave order robustness unresolved.
+
+Peak worker-family27.74GiB/CPU74/Thermistor15 91°C. Costs explicitly include the
+owner-approved one-use v0.6.1 integrity/native overlap15:44:54–15:59:37UTC;
+[verified final cost context](docs/reports/nplayer-five-player-candidate/release-cost-context.json).
+Exception consumed/finished, normal mutex now free, release/cleaner notified.
+Cleaner reports its three specifically authorized olderPR404 checkpoint relocations
+began after scientific completion; no415input changed. All originals/protected
+inputs retained; archive/Drive acceptance owner-managed pending. Fresh five-player
+qualification passes; separate final all-size M4 receipt forPR410 remains pending.
+
 ## v0.6.1 release preparation
 
 [PR404](https://github.com/dberweger2017/CFR-NLHE-6max/pull/404) merged as
@@ -12,6 +49,34 @@ integration hands and 42 verified parts. The owner approved continuing the quote
 publication procedure on October 23; exact source binding, missing-only uploads
 and canonical public verification follow. Defaults, search, new science and
 research cleanup remain outside this release.
+
+## First four-player100BB development candidate: primary gain, unresolved safeguards
+
+[PR413](https://github.com/dberweger2017/CFR-NLHE-6max/pull/413),
+[proposal411](https://github.com/dberweger2017/CFR-NLHE-6max/issues/411),
+[verified results](docs/reports/nplayer-four-player-candidate/results.md):
+fresh seed2026102341001, fixed3B→10B, K50/unprunedfast16/eightroots/fullfloat64
+averages/250Mthreshold. Main completes October23 13:05UTC/15:05Madrid in2h00m34s;
+37stagesRC0, all1,572,864initial hands independently replayed plus byte-identical
+reproduction, eight fields×4,096independent blocks×all24permutations×twoarms.
+
+10B improves against the fixed three-own3B field by **+53.85BB/100**, adjusted
+family95 lower **+25.35**. Seven scripted/mixed safeguards do not clear−5;
+random−56.03 and random+TAG−35.07 are adverse point deltas, while several other
+unpassed fields have positive means. Preserve all outcomes, both absolute returns,
+seats, lookup statuses and tails. This is one development lineage, not v0.7
+release acceptance or independent-seed confirmation.
+
+Both endpoints retain250,003,053 identical keys, frozen near824Mnodes;
+10B river missing lookups are96.19% against check-call versus3.36% against the
+trained field. Fixed membership cannot expand with additional nodes. Retain10B
+as leading research candidate and3B as comparator; capacity/support and safeguards
+remain unresolved. No automatic further nodes, tuning or five/six-player launch.
+Peak CPU75/Thermistor15 90.5°C, worker-family27.75GiB; normal compute mutex released.
+Release packaging may proceed independently before heavy cleanup. Originals and
+protected inputs retained; owner-managed archive pending. PR413 uses fresh bb128
+four-player qualification over PR410; M4's separate final all-size receipt remains
+pending and is not relabeled complete. Search/default/release changes remain separate.
 
 ## Three-player 200 BB family passes fresh acceptance toward v0.6.1
 
@@ -328,3 +393,16 @@ reserves a proposed3B/10B lineage and bounded250Mcapacity with paired developmen
 requirements. Qualify that arena and price the complete allocation after PR404
 releasesbb128; no further tiny four-player pilot ladder or automatic launch.
 M4 locks released; raw evidence retained, archival owner-managed pending.
+
+## Four-to-six-player paired arena — final qualification pending
+
+[PR410](https://github.com/dberweger2017/CFR-NLHE-6max/pull/410), proposal409,
+adds a separate fixed-field paired command, balanced cyclic seating and
+missing/zero/positive-mass evidence. Initial complete qualification passes600
+initial+600reproduced hands, six exact-zero self cases, serial parity, independent
+mass tags and unchanged legacy three-player traces. Review removed a fixture-only
+model-count restriction and fixed a parallel test temporary-name collision;
+latest121library/8example/10Python tests pass. Final source's fixture replay is
+pending after a prelaunch admission decline and M4 SSH timeouts. Keep draft;
+[readiness and exact preserved evidence](docs/reports/nplayer-paired-arena/results.md).
+No training, strength claim, bb128 work or automatic campaign follows this task.

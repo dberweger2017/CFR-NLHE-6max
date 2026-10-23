@@ -1,0 +1,114 @@
+{
+  "utc": "2026-10-23T14:16:35Z",
+  "controller_launch": {
+    "supervisor_pid": 888364,
+    "command": [
+      "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+      "/home/dberweger/nplayer-five-player-candidate-20261023/main-controller.py"
+    ],
+    "source": "6a01b327eb56c7678cb702e1c9106c98ba614699",
+    "epoch": 1792764970.4790804,
+    "authorization_sha256": "2dc724030b66086eaf6122a19267eba114a99c492143c1ce133e0aa5188f1df3",
+    "snapshot": {
+      "utc": "2026-10-23T14:16:10Z",
+      "nvme_free_bytes": 119770763264,
+      "thermal": {
+        "cpu_c": 33.0,
+        "thermistor15_c": 30.5
+      },
+      "meminfo": [
+        "MemAvailable:   128719804 kB",
+        "SwapTotal:      25787388 kB",
+        "SwapFree:       25336644 kB"
+      ]
+    },
+    "no_scientific_restart": true
+  },
+  "authorization": {
+    "owner_instruction": "Start with the training, we are cleaning up while you do",
+    "accepted_complete_allocation_seconds": 21600,
+    "storage_amendment": "Owner authorizes starting during cleanup; supersedes waiting for133.13GiBfree before launch; actualfree recorded. No runtime disk/RAM/swap/time stop added.",
+    "frozen_source": "6a01b327eb56c7678cb702e1c9106c98ba614699",
+    "qualification_result_sha256": "272e619bac9ffb40cc72e562882bbe3b972424b24eb2dc9aa3dceb56f668f1c6",
+    "quote_sha256": "1c1338e07cd58dbf199cd07dae82c9714701ca6d3704839e84cfb8d4309e1b7b",
+    "source_bundle_sha256": "26b83becea886eb02c087e8b802f5f0a12b7ff7214ad7845518babf0bfb90024",
+    "snapshot": {
+      "utc": "2026-10-23T14:16:10Z",
+      "nvme_free_bytes": 119770763264,
+      "thermal": {
+        "cpu_c": 33.0,
+        "thermistor15_c": 30.5
+      },
+      "meminfo": [
+        "MemAvailable:   128719804 kB",
+        "SwapTotal:      25787388 kB",
+        "SwapFree:       25336644 kB"
+      ]
+    },
+    "science_unchanged": true,
+    "cleanup_owner_managed": true,
+    "no_automatic_retry": true
+  },
+  "controller_status": {
+    "status": "running",
+    "phase": "main",
+    "epoch": 1792764974.1024535
+  },
+  "launch": {
+    "pid": 888459,
+    "epoch": 1792764976.9990716,
+    "source": "6a01b327eb56c7678cb702e1c9106c98ba614699",
+    "config_sha256": "aafa94da23019db594cc305e6a96d735f2f04178fc5f171d52395dc4d345fe22"
+  },
+  "status": {
+    "status": "running",
+    "phase": "baseline-train",
+    "completed_stages": 0
+  },
+  "failure": null,
+  "supervisor_identity": "888459 /home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python -m scripts.nplayer_five_player_candidate run --root /home/dberweger/nplayer-five-player-candidate-20261023/main-v1",
+  "resources.jsonl": {
+    "phase": "baseline-train",
+    "utc": "2026-10-23T14:16:34Z",
+    "cpu_c": 51.0,
+    "thermistor15_c": 44.5,
+    "worker_family_rss_bytes": 3209265152,
+    "live_family_cpu_seconds": 114.23,
+    "available_ram_bytes": 128482476032,
+    "swap_used_bytes": 461561856,
+    "nvme_free_bytes": 119770607616,
+    "hdd_free_bytes": 135067836416
+  },
+  "baseline-train.gz.progress.jsonl": {
+    "counts": {
+      "decisions": [
+        5926179,
+        5920747,
+        7877792,
+        12496671
+      ],
+      "discarded_keys": 0,
+      "discarded_visits": 0,
+      "missing": [
+        3921384,
+        5290487,
+        7579237,
+        12343522
+      ],
+      "nodes": 51009429,
+      "terminals": 18788040,
+      "traverser": [
+        1743154,
+        1752043,
+        1748009,
+        1761557,
+        1772331,
+        0
+      ]
+    },
+    "elapsed_seconds": 10.615570429,
+    "entries": 29133655,
+    "frozen_at": null,
+    "iteration": 2700
+  }
+}
