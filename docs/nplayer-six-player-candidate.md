@@ -1,6 +1,14 @@
 # Six-player 100 BB: four fixed checkpoints and five paired contrasts
 
-[Proposal416](https://github.com/dberweger2017/CFR-NLHE-6max/issues/416). **Main running since October23 18:37:07UTC /20:37Madrid**, source128f021b/configb7289278. [Completed source qualification and main launch](reports/nplayer-six-player-candidate/main-launch.json), [saved five-player diagnosis](reports/nplayer-six-player-candidate/five-player-diagnosis.md). All139qualification stages pass; six-player outcomes remain sealed.
+[Proposal416](https://github.com/dberweger2017/CFR-NLHE-6max/issues/416).
+**Complete and verified:** main October23 18:37–22:42 UTC /20:37–00:42 Madrid,
+115 stages RC0, source `128f021b` /config `b7289278` unchanged. [Final results and
+analysis](reports/nplayer-six-player-candidate/results.md) preserve all40 gates:
+6 pass, none of the five adjusted trained-field tests pass. No release acceptance,
+selected winner or automatic extension. [Completed source qualification and launch](reports/nplayer-six-player-candidate/main-launch.json)
+and [saved five-player diagnosis](reports/nplayer-six-player-candidate/five-player-diagnosis.md)
+remain provenance. The following is the predeclared protocol, not authorization
+for another run.
 
 Owner-authorized six-player 100 BB development trajectory, following PR415. Owner explicitly requested 3B/6B/10B/15B and five paired contrasts (3→6,6→10,10→15,3→10,3→15), then said "you can start and I will organize the extra space" after the provisional 5–6h runtime/12h reserve and 240GiB all-NVMe scenario.
 

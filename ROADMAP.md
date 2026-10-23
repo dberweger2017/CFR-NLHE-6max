@@ -1,20 +1,40 @@
 # Roadmap
 
-## Running six-player100BB development trajectory
+## Six-player 100 BB: verified trajectory, support review before scaling
 
-[Proposal416](https://github.com/dberweger2017/CFR-NLHE-6max/issues/416),
-[protocol](docs/nplayer-six-player-candidate.md): owner requests one fresh
-3B/6B/10B/15B lineage and five contrasts, including3B→10B for continuity.
-[Saved PR415 trace diagnosis](docs/reports/nplayer-six-player-candidate/five-player-diagnosis.md)
-completed69.42s; first differences mainly supported/preflop, not causal attribution.
-Exact-source139stage qualification passed,1152initial+same reproduction.
-[Main launched](docs/reports/nplayer-six-player-candidate/main-launch.json) October23
-18:37:07UTC/20:37Madrid,PID905725/source128f021b/879pins/configb7289278. Eight fixed fields,4096independentblocks/twelvebalanced
-seatings,40adjusted development bounds. No player/recipe/search/default change,
-release acceptance or automatic replication. Proposed12h complete planning
-allocation/240GiB storage scenario; owner permits start while arranging space,
-with live manual growth accounting. Source qualification complete; source/counts/guards remain unchanged. No six-player
-outcomes inspected before global proofs.
+[PR417](https://github.com/dberweger2017/CFR-NLHE-6max/pull/417),
+[proposal416](https://github.com/dberweger2017/CFR-NLHE-6max/issues/416),
+[verified report](docs/reports/nplayer-six-player-candidate/results.md),
+[fixed protocol](docs/nplayer-six-player-candidate.md).
+One fresh lineage, fixed 3B/6B/10B/15B checkpoints, eight fields and five paired
+contrasts. All **115 main stages pass** after 139 qualification stages;
+2,359,296 physical initial hand instances independently replay and reproduce
+byte-for-byte. Main completes October23 22:42 UTC /October24 00:42 Madrid in
+**4h05m17s**. Frozen source `128f021b`, 879 source/config pins, native recipe unchanged.
+
+Against five copies of own 3B, 3B→10B is **+46.19 BB/100**, ordinary95% interval
+[+7.99,+84.38], but adjusted family40 lower **−12.75** fails the declared gate.
+No trained-field contrast passes the adjustment. **10B→15B is −2.19
+[−27.42,+23.04]**, so this run does not establish marginal strength from the
+extra5B. Only **6/40** field gates pass: four pressure comparisons and
+3B→15B TAG/mixed-trained-call-pressure. Unpassed gates are not proof of loss.
+Retain all four checkpoints; 10B is a useful comparator, not a selected release winner.
+
+All checkpoints share 250,001,554 keys, frozen by approximately486M nodes.
+Retained updates/mass improve, but **all20,936 15B check-call river lookups are
+missing**, versus24.23% river misses in the trained field. These are field-dependent
+coverage observations, not causal proof of a capacity remedy. Prior PR413/415/357
+adverse panels remain. Before more nodes or independent release lineages,
+prospectively choose one controlled capacity/history/visitation investigation and
+acceptable exploitation tradeoff. Search and release/default adoption stay deferred;
+no automatic follow-up is authorized.
+
+Peak sampled family27.69GiB, CPU75°C /Thermistor15 93°C. Observed costs include
+owner-authorized cleanup; [exact overlap context](docs/reports/nplayer-six-player-candidate/cleanup-cost-context.json)
+records wall windows, not cleanup CPU or causal slowdown. Normal/study mutexes
+released, cleaner notified; final two old average relocations occurred afterward.
+Raw research archive/Drive acceptance remains owner-managed pending; originals,
+models, traces, source and proofs retained. Cleanup metadata acceptance is separate.
 
 ## Five-player100BB development: own-ancestor gain, support/exploitation review next
 

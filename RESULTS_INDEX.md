@@ -7177,3 +7177,66 @@ no copy/deletion/upload bythisagent. Archive/Drive researchpayload acceptance pe
 no verifiedalternatepath/cloudreceipt claimed. Old413/415rawtraces/3Bcheckpoints
 remain working original-path HDDlinks under ownerverifiedcleanercopies.
 Newmainactive, normalcompute mutexheld; no timer/observer/subagent/newmachine.
+
+
+### PR417 — verified six-player four-checkpoint trajectory
+
+[Final report](docs/reports/nplayer-six-player-candidate/results.md),
+[compact results](docs/reports/nplayer-six-player-candidate/results.json),
+[all40 contrasts/gates](docs/reports/nplayer-six-player-candidate/comparisons.csv),
+[absolute returns](docs/reports/nplayer-six-player-candidate/absolute-returns.csv),
+[models/paths/SHA256](docs/reports/nplayer-six-player-candidate/models.csv),
+[proof/completion](docs/reports/nplayer-six-player-candidate/completion.json),
+[costs/resources](docs/reports/nplayer-six-player-candidate/costs.json),
+[cleanup overlap](docs/reports/nplayer-six-player-candidate/cleanup-cost-context.json).
+Main complete **2026-10-23 22:42:24 UTC /October24 00:42 Madrid**, 4h05m17s,
+115/115 stages RC0. Source `128f021b8abb5c237574aeec9522592ec77a63d5`,
+879 source/config pins; bundle
+`cfa805bc44bb3feb9edb797205e5c7811e4dbb3c387acba1405417027341d70c`;
+config `b7289278d33eb938694a56e7c275404b0b2c648fbb705aa208f961ba50b6b881`.
+Raw settled result SHA256
+`361e40b70f195d578592d1155738340917d753fdd2cbd3866236adee3bd3e5c1`.
+All2,359,296 physical initial hand instances independently replay and reproduce;
+1,572,864 distinct checkpoint/deal/seating instances. All48 initial trace files,
+cross-job3B identity, full-row binary/mass/keyset parity and adjacent/direct
+block-delta additivity pass. One seed2026102361001 /six-player100BB;
+3B/6B/10B/15B /250,001,554 fixed keys, cap reached by~486M nodes.
+
+3B→10B trained +46.19 BB/100 ordinary95%[+7.99,+84.38], adjusted lower−12.75;
+3B→15B +44.00[+3.45,+84.56], lower−18.57; neither clears trained margin0.
+10B→15B −2.19[−27.42,+23.04]. Six of40 gates pass, none of the five trained
+contrasts. No release winner, Nash/seed reliability claim or automatic extension.
+Retain all four checkpoints; support/exploitation review precedes more nodes or
+release-lineage replication. All20,936 15B check-call river decisions miss;
+trained river misses24.23%. Fixed membership, changed visitation and one seed
+prevent causal capacity conclusions. Prior adverse panels remain.
+
+Lookup positive/zero/missing distinctions are in
+[128 focal rows](docs/reports/nplayer-six-player-candidate/lookup-coverage.csv),
+[all identity/seat/position counters](docs/reports/nplayer-six-player-candidate/coverage.json),
+[480 positional contrasts](docs/reports/nplayer-six-player-candidate/seats-and-positions.csv)
+and [retained visits](docs/reports/nplayer-six-player-candidate/retained-support.csv).
+Peak sampled family27.69GiB, CPU75/Thermistor15 93°C. Active traversal2739.87s;
+loading/resume/save/export/auditing/replay/global costs separately reported.
+Not isolated runtime: cleanup journal worker overlap5587.843s/payload5505.894s
+includes waits/throttling/guards, not CPU or causal slowdown. Cleanup's final two
+approved files ran23:05:38–23:08:59UTC, zero main overlap. All12 original paths
+remain verified HDD links, 87duplicategroups complete, net129.559GiB NVMe recovery;
+PR417 inputs unchanged. Final storage98.720GiB NVMe /19.248GiB HDD per cleaner.
+
+**Archive pending, originals retained:** read-only original
+`bb128:/home/dberweger/nplayer-six-player-candidate-20261023/main-v1/results.json`
+(verify above SHA256; contains block arrays). Source/build/diagnosis/qualification/main
+roots, all models/traces/partials/proofs, protected K50/env/interpreter/legacy400/
+404config remain retained. No payload moved/deleted/uploaded by this task.
+Cleaner metadata-only pass1 receipt accepted Drive ID
+`1m4Yo17eexVc3oVfwEufa5MDzymz7Snmm`, 1,493,969bytes,
+SHA256 `171f15a36976d9d0bc750e4ae25bfe08413e2898689797df0aef905b149e5dba`.
+Final184-member metadata ZIP SHA256
+`be9af8df6f5d906f9aa0ef538eecc31e9204efa0b73a2374897e2bca8fb7933d`
+retained at `/research/.storage-receipts/approved-reclaim-PR417-20261023-final.zip`;
+final metadata acceptance pending after two bounded API per-minute/project
+rate-limit failures, not storage-capacity evidence. Research-payload Drive
+acceptance is **not claimed**. Normal/study locks unheld; existing cleaner thread
+notified at natural completion, no new observer/timer. PR417 owner review only;
+no merge/default/release authority exercised.
