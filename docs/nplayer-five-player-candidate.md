@@ -1,6 +1,8 @@
 # Fixed five-player 100 BB development candidate
 
-**Main running since October23 16:16Madrid under the owner's start-during-cleanup amendment. [Launch/source/config/storage record](reports/nplayer-five-player-candidate/launch.md).**
+**Complete October23 18:10Madrid: +74.05BB/100 against own3B field, adjusted lower+31.35; pressure safeguard also passes, six other safeguards unpassed. [Verified results](reports/nplayer-five-player-candidate/results.md).**
+
+All37stagesRC0,655,360initialhands independentlyreplayed plus byte-identical reproduction. Keep10B research candidate/3Bcomparator; review scripted exploitation/support before replication. No release/default/search/merge or further allocation implied. [Owner launch/storage amendment](reports/nplayer-five-player-candidate/launch.md) and [completed release overlap](reports/nplayer-five-player-candidate/release-cost-context.json) remain provenance; the one-use release exception is consumed/finished.
 
 Proposal[414](https://github.com/dberweger2017/CFR-NLHE-6max/issues/414), owner-requested after[PR413's four-player result](reports/nplayer-four-player-candidate/results.md). One new lineage asks whether continuing a capped five-player blueprint from3B to10B improves against the same fixed fields, and where it loses value. No search, capacity/menu/recipe change, release/default adoption or automatic replication. Both four-player checkpoints stay unchanged.
 

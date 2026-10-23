@@ -7089,3 +7089,51 @@ Retrieval `bb128:/home/dberweger/nplayer-four-player-candidate-20261023/` withso
 [Protocol](docs/nplayer-five-player-candidate.md), [componentquote](configs/research/nplayer-five-player-candidate.json), [56stage exact-source qualification](docs/reports/nplayer-five-player-candidate/qualification.json), [launch and coordination](docs/reports/nplayer-five-player-candidate/launch.md), [source/owner/config/progress receipt](docs/reports/nplayer-five-player-candidate/main-launch.json), [remaining-growth storage ledger](docs/reports/nplayer-five-player-candidate/storage-ledger.json). Owner"Start with the training, we are cleaning up while you do" authorizes fixed6hcompleteallocation/startat111.54GiBfree, superseding133.13GiBbeforelaunchwait. Main14:16:17UTC/16:16MadridOctober23, scientificPID888459/wrapper888364, exactsource6a01b327eb56c7678cb702e1c9106c98ba614699/874pins/bundle26b83becea886eb02c087e8b802f5f0a12b7ff7214ad7845518babf0bfb90024, mainconfigaafa94da23019db594cc305e6a96d735f2f04178fc5f171d52395dc4d345fe22. Seed2026102351001/5P100BB/unprunedK50/v1/fast16/eightroots/fullaverage/250Mfreeze, fixed3B/10B,8fields4096blocks10balancedseatings/655360initial+repeat/allinitialreplay. First51.009Mnodes/29.134Mentries/10.616active s,CPU51/T1544.5,nofailure; no interimstrengthoutcome. One lineage/development only, no extension/tuning/release/default/search/replication/merge.
 
 Ownercleaner alone manages specificallyauthorizedthreePR404baselinecheckpointcopied-first/SHAverified/HDDlink relocation;415doesnotreadtheseolder3Bbytes. Allfinal10B/models/exports/K50/runtime/source/proofs andwhole415rootprotected. Remaininggrowthscenario subtractsalreadyretainedmainpayload; release scratch separate,133.13GiBnotlivefloor; manualheadroomnotnewguard. OnlyCPU90/T15100/missingnonfinite/ownerSTOP/mutex/correctnessstops, no time/RSS/disk/swapkill. Archivependingoriginalsretained/noDriveclaim; no copy/move/delete/uploadbythisagent. No timer/poller/observer/newmachine/scienceretry; allstagesautomatic. Initial19:00–19:30Madridcompleteforecastconditional, accepted6hincludespriorqualification/report/notreset. All bootstrap/admission/qualificationhistoryretained. Rawretrievalbb128:/home/dberweger/nplayer-five-player-candidate-20261023/{source-v1,build-v1,qualification-v1,main-v1}, verifiedalternateretrieval/cloudreceiptpending.
+
+
+### PR415 — verified five-player development closeout
+
+[All eight panels and analysis](docs/reports/nplayer-five-player-candidate/results.md),
+[compact provenance/result](docs/reports/nplayer-five-player-candidate/results.json),
+[panels](docs/reports/nplayer-five-player-candidate/panels.csv),
+[seats/positions](docs/reports/nplayer-five-player-candidate/seats.csv),
+[full lookup counts](docs/reports/nplayer-five-player-candidate/coverage.csv),
+[street support](docs/reports/nplayer-five-player-candidate/support.csv),
+[tails](docs/reports/nplayer-five-player-candidate/tails.csv),
+[costs](docs/reports/nplayer-five-player-candidate/costs.csv),
+[release-overlap final context](docs/reports/nplayer-five-player-candidate/release-cost-context.json).
+Completed2026-10-23 16:10:16UTC/18:10:16Madrid;37mainstagesRC0,
+655,360initialhands independentlyreplayed +samebyte-identicalreproduction,
+8fields4096blocks/10balancedseatings. Primary+74.0483/lower+31.3530 passes;
+pressure+44.1459/lower+11.1031 passes relative−5 safeguard; sixothersunpassed.
+Random−84.1070/random+TAG−37.4573 adverse; pressureabsolute−10.2501 imprecise.
+No release acceptance; frozen direction review-scripted-exploitation-tradeoff-before-replication.
+One seed/ancestorfield/twocircularorders, noNash/generalstrength/causalcapacityclaim.
+
+Source6a01b327eb56c7678cb702e1c9106c98ba614699/874pins,
+bundle26b83becea886eb02c087e8b802f5f0a12b7ff7214ad7845518babf0bfb90024,
+mainconfigaafa94da23019db594cc305e6a96d735f2f04178fc5f171d52395dc4d345fe22,
+fullhostresultcdf3d1430b216afdbe28f4d9728f8668f76cd6e42932cb7f6f2e25902a3306be.
+GitJSONcompactderivative omitsblockarrays, addsmetadata; notbyte-identicalhostcopy.
+Exactkeyset07d7d3bc561ac8f0991ba41b45efd0f9800c5e31bd05d7719eb252e7df584a6f,
+250,000,979keys/freezeiteration26597/~576Mnodes. Endpoint3BcheckpointSHA
+71e3a59c2e94deef67f4d95861694a4340c8d593b6abb72be7619bc2f029c3bd;
+10B61e5dc20a493ad28418beabb03936c1d53f59e05944716fd7d83a75978ab09ef.
+Allmodel/export/binary/mass/K50/env/manifests/replay/sourcepins incompactJSON.
+10Bcheck-callriver16,726/16,728missing; additionalnodesdonotexpandmembership.
+
+Retrievaloriginalrootbb128:/home/dberweger/nplayer-five-player-candidate-20261023/
+(source-v1/build-v1/qualification-v1/main-v1). Endpointsbaseline-train.gz/candidate-train.gz;
+rawtracesmain-v1/arena-initial/,arena-repeat/;7,200,574,062logicalbytes combined.
+Keepalloriginals/failures/partials/source/protected400/402/404/413/K50/sharedvenv.
+Archive/cache/Drive acceptance **owner-managed pending**; no accepted alternate
+retrieval path/DriveID/receipt/deletion/upload claimed. Owner cleaner's separate
+three oldPR4043Brelocations begin after maincompletion, receiptpending.
+
+Actualmain6839.30s,childCPU39019.61s,workerRSS27.74GiB/CPU74/T1591°C.
+Owner-approved release overlap883.067s at15:44:54–15:59:37UTC recorded separately;
+PUBLICATION-RECEIPT SHA101f9fc52c268a3ce81858ac397b3e4543f9dbc2f8b101cba57d96c5f180e11a
+independently verified. No causal speed correction; notisolatedbenchmark.
+One-use releaseexceptionconsumed/finished, no remainingbypass.
+Original415PIDexited,normalmutexinode46/noholders; release/cleaner notified.
+No timer/observer/extra experiment. PR415readyforreview; no mergeauthority exercised.

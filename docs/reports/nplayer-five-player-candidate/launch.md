@@ -32,3 +32,18 @@ PR415 **retains its normal exclusive mutex** and ownedmutex. Only the release's 
 
 
 Release-agent scope clarification: standalone stdlib ordered HDDreconstruction/hash of the same three public models is an existing integrity precondition and may run sequentially under the sameoneCPU/nice19/idlelimits. Each requires originalpart/modelSHA verification and privateHDDscratch (~14.307GBperseed), no training/native loading in that integrity step. [Clarification receipt](release-integrity-clarification.json) references the unchanged originalexceptionSHA; the nativeallowlist remains exactlythreeone-attemptchecks. Frozen/sharedtools andPR415mutex/source/config remainunchanged; integrity andnativewindows recorded separately. No newtimer, nativecategory or broadbypass.
+
+
+## Final closeout (October23)
+
+[Verified results](results.md): main completed16:10:16UTC/18:10:16Madrid,
+37stagesRC0/655,360initial independentlyreplayed plus identicalreproduction.
+FullresultSHA256cdf3d1430b216afdbe28f4d9728f8668f76cd6e42932cb7f6f2e25902a3306be.
+All earlier source/qualification/storage/owner receipts remain dated provenance.
+Actual release overlap15:44:54–15:59:37UTC/883.067s is bound in
+[final cost context](release-cost-context.json); the one-use exception is consumed,
+finished, and grants no further native authorization/general mutex bypass.
+Supervisor888459exited,normalmutexinode46/noholders; release/cleaner notified.
+Cleaner reports selected PR404old3B copy/readback only after16:10:26UTC completion
+check; no expected overlap with main scientific cost, final receipt owner-managed.
+All415inputs retained, no new science/timer/cleanup/upload by this agent.

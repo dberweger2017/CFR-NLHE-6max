@@ -1,24 +1,41 @@
 # Roadmap
 
-## Running bounded five-player100BB development candidate
+## Five-player100BB development: own-ancestor gain, support/exploitation review next
 
 [PR415](https://github.com/dberweger2017/CFR-NLHE-6max/pull/415),
 [proposal414](https://github.com/dberweger2017/CFR-NLHE-6max/issues/414),
-[fixed protocol](docs/nplayer-five-player-candidate.md),
-[component quote and source gates](docs/reports/nplayer-five-player-candidate/preparation.md).
-One fresh lineage2026102351001, fixed3B/10B/K50/unpruned/250Mmembership,
-eightfixedfields×4,096independentblocks×tenbalancedseatings,655,360initial+same
-reproduction. Independent block averages, eight-adjusted development gates,
-absolute/paired/adverse outcomes and support/visit changes retained. Own-ancestor
-primary is not general superiority; one lineage does not measure training-seed
-variability; two circular opponent orders leave order sensitivity unresolved.
-3hcentral/6hproposedcompleteallocation is a PR413-based scenario, not measured5P.
-Exact-source56stagequalification passed; owner accepts6h and startduringcleanup.
-[Mainlaunch](docs/reports/nplayer-five-player-candidate/launch.md) October23
-16:16Madrid/PID888459/source6a01b327,111.54GiBactualfree under explicit storage
-sequencingamendment. Counts/guards unchanged; remaininggrowth accounts already
-writtenmainpayload, release scratch separate. No outcomes before globalproof. No new capacity arm/search/release/default/replication or automatic hands.
-Keep both four-player checkpoints, preserve all earlier adverse panels and roots.
+[verified report](docs/reports/nplayer-five-player-candidate/results.md),
+[fixed protocol](docs/nplayer-five-player-candidate.md).
+One fresh lineage2026102351001, fixed3B→10B/K50/unpruned/250Mmembership;
+eightfields×4,096independentblocks×tenbalancedseatings. All37stagesRC0;
+655,360initialhands independentlyreplayed plus byte-identical reproduction.
+Main October23 14:16→16:10UTC /16:16→18:10Madrid,1h53m59s.
+
+10B gains **+74.05BB/100**, adjusted lower **+31.35**, against four copies of
+own3B. Pressure gains+44.15/lower+11.10 and clears its relative safeguard,
+but10B absolute pressure return−10.25 remains imprecise. **Six other safeguards
+unpassed**: random−84.11/random+TAG−37.46 are adverse point deltas; do not call
+all six losses. This is one lineage/ancestor field, not release acceptance,
+Nash convergence, training-seed reliability or a controlled4P→5P strength comparison.
+
+Identical250,000,979keys freeze near576Mnodes. Continued retained visits and
+average mass improve, while10B check-call river missing lookups remain99.988%
+(16,726/16,728), versus10.52% in trained field. Fixed membership cannot add keys;
+played histories differ, so this does not identify the cause of the returns.
+Keep10B as leading research candidate and3B comparator. **Review exploitation/
+support and prospectively define acceptable tradeoffs before independent release
+lineages**. No further nodes, samples, capacity arm, six-player launch, search or
+release/default adoption is automatically authorized. Preserve PR413/357 adverse
+panels. Two circular opponent orders leave order robustness unresolved.
+
+Peak worker-family27.74GiB/CPU74/Thermistor15 91°C. Costs explicitly include the
+owner-approved one-use v0.6.1 integrity/native overlap15:44:54–15:59:37UTC;
+[verified final cost context](docs/reports/nplayer-five-player-candidate/release-cost-context.json).
+Exception consumed/finished, normal mutex now free, release/cleaner notified.
+Cleaner reports its three specifically authorized olderPR404 checkpoint relocations
+began after scientific completion; no415input changed. All originals/protected
+inputs retained; archive/Drive acceptance owner-managed pending. Fresh five-player
+qualification passes; separate final all-size M4 receipt forPR410 remains pending.
 
 ## v0.6.1 release preparation
 
