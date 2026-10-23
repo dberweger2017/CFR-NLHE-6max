@@ -1,8 +1,12 @@
 # Accepted three-lineage 200 BB model campaign and acceptance
 
-[Research proposal403](https://github.com/dberweger2017/CFR-NLHE-6max/issues/403), following merged [PR402](https://github.com/dberweger2017/CFR-NLHE-6max/pull/402). **Owner accepted the full 18-hour allocation and fixed confirming counts.** The source-pinned controller is implemented; build and full 200 BB fixture qualification precede main. Main also waits for 360 GiB actual free NVMe, prepared by the owner’s vacuum-cleaner agent.
+[Research proposal403](https://github.com/dberweger2017/CFR-NLHE-6max/issues/403), following merged [PR402](https://github.com/dberweger2017/CFR-NLHE-6max/pull/402). **Owner accepted the full 18-hour allocation and fixed confirming counts.** The source-pinned controller, full qualification and accepted main campaign are complete; see the verified result below. The original360GiB admission scenario was superseded by the owner’s October22 storage-sequencing instruction.
 
 The recommended allocation is **18 hours of planning allowance**, with a central scenario of **7h51m** and component reserves totaling **17h33m**. This is not an8–12-hour completion promise or an elapsed-time kill guard. Runtime, memory and trace sizes remain conditional scenarios, not guarantees. Cleanup, movement, staging and uploads belong to the owner's vacuum-cleaner agent; this campaign agent performs none of them.
+
+## Completed October23: all 30 acceptance gates pass
+
+[Verified report](reports/nplayer-bb200-model-campaign/results.md), [all bounds](reports/nplayer-bb200-model-campaign/gates.csv), [lossless readout](reports/nplayer-bb200-model-campaign/results.json): fixed3B/10B endpoints across all three lineages qualify. All24 scripted-profit, three direct-improvement and three cyclic-noninferiority bounds pass the original30-test family. 10,543,104initial hands independently replay and reproduce byte-identically; all49main stages and nine jobs pass. Main elapsed6h25m, ending October23 02:49:31UTC/04:49Madrid, no failure/retry/extension. Sampled peak27.95GiB, CPU75/Thermistor15 92.5°C. Original proposal and planning scenarios below are retained as prospective provenance, not current launch instructions. Release/defaults and merge remain owner decisions; cloud closeout belongs to the owner vacuum-cleaner and remains pending.
 
 ## October22 launch and owner storage amendment
 
