@@ -49,8 +49,16 @@ def prepare(root,build=None,build_source=None):
     for size in ('tiny','cap'):
         for run in ('initial','repeat','serial') if size=='tiny' else ('initial','repeat'):
             (root/f'{size}-{run}').mkdir()
+    forecast=6*2**30;memory_basis='conservative premeasurement scenario'
+    prior=HOST/'qualification-v1'
+    if (prior/'status.json').exists() and core.load(prior/'status.json').get('status')=='complete' and core.load(prior/'config.json')['models']==models:
+        old_cases=[{k:v for k,v in row.items() if k not in ('traces','summary')} for size in ('tiny','cap') for row in core.load(prior/f'{size}-initial.json')['cases']]
+        new_cases=[{k:v for k,v in row.items() if k not in ('traces','summary')} for size in ('tiny','cap') for row in manifest(root,dict(tables=str(tables),models=models),size,'initial')['cases']]
+        if old_cases==new_cases:
+            forecast=max(row['sampled_peak_rss_bytes'] for row in core.load(prior/'stage-costs.json'))
+            memory_basis='completed identical fixed workloads and model pins; measured family peak plus1GiB admission headroom'
     config=dict(source=source(),models=models,tables=str(tables),binary=str(binary),binary_sha256=core.sha(binary),legacy=str(legacy),legacy_sha256=core.sha(legacy),
-        thermal=str(thermal),thermal_sha256=core.sha(thermal),python=sys.executable,python_sha256=core.sha(sys.executable),base=BASE,native_build=str(build),native_build_source=str(build_source))
+        thermal=str(thermal),thermal_sha256=core.sha(thermal),python=sys.executable,python_sha256=core.sha(sys.executable),base=BASE,native_build=str(build),native_build_source=str(build_source),forecast_peak_rss_bytes=forecast,memory_basis=memory_basis)
     core.write(root/'config.json',config);core.write(root/'catalog.json',models)
     # Already-measured cap-size work plus explicit streaming-tag audit reserve.
     quote=dict(status='quoted',central_seconds=900,reserved_seconds=1800,scope='Fixed tiny/cap cases, reproduction, tiny serial, legacy regression, independent replay and source-mass tag audit; no training',
@@ -90,8 +98,8 @@ def run(root,accepted):
     import psutil
     available=psutil.virtual_memory().available
     # Two JSON weights share one K50 set; this is admission only, not a kill.
-    forecast=6*2**30
-    if forecast+2**30>available:raise ValueError('two-model admission needs6GiB plus1GiB available headroom')
+    forecast=c.get('forecast_peak_rss_bytes',6*2**30)
+    if forecast+2**30>available:raise ValueError('measured/planned workload plus1GiB available headroom not admitted')
     core.write(root/'launch.json',dict(pid=os.getpid(),epoch=time.time(),source=c['source']['commit'],accepted_planning_seconds=accepted,quote_sha256=core.sha(root/'quote.json'),available_ram_bytes=available,forecast_peak_rss_bytes=forecast))
     env={**os.environ,'PYTHONPATH':str(SOURCE),'RAYON_NUM_THREADS':'4','RUST_TEST_THREADS':'4','CARGO_BUILD_JOBS':'4','NPLAYER_STOP_FILE':str(root/'STOP')}
     sup=core.Supervisor(root,env,Path(c['thermal']));tick=time.monotonic()
