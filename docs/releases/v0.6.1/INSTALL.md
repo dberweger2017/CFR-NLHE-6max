@@ -1,8 +1,8 @@
 # v0.6.1 installation (pending publication)
 
-These commands describe the proposed release. No v0.6.1 tag, assets or verified
-public availability exist yet. Use the final reviewed tag and source/manifest
-hashes from its publication receipt only after owner approval and publication.
+Use the final reviewed tag and source/manifest hashes from the release page's
+publication receipt after publication. Owner approval to proceed was received
+October 23, 2026; the receipt records completed public availability checks.
 Local reviewers can use the feature commit with an explicitly prepared bundle.
 
 Choose seed `2026102240001`, `2026102261001` or `2026102261002`. Each is a separate

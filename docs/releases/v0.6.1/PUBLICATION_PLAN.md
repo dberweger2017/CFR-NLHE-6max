@@ -1,7 +1,8 @@
 # v0.6.1 staged publication procedure and quote
 
-Preparation only. The owner must approve merge, tag and publication explicitly.
-**Release-asset upload is a separate proposed action**, not archival authorization.
+The owner approved continuing the quoted merge, tag, release-asset upload and
+publication procedure on October 23, 2026, after the completed qualification and
+resource quote. **Release-asset upload is separate from archival authorization.**
 Do not run the old v0.6.0 coordinator. Do not move/delete research originals,
 change Drive credentials/sharing, or stage archives as part of this work.
 
@@ -100,7 +101,8 @@ owns research cleanup, staging and archival upload; coordinate before host admis
    integration hands, one shared weight table, exact identity, restricted sizing,
    privacy, conserved chips, replay before/after restart. These hands estimate no
    strength. Process one model at a time. Retain private journals outside Git.
-4. **Review and approval (pending).** Attach compact measured proofs to this PR;
+4. **Review and approval.** Owner approval to continue was received October 23,
+   2026. Attach compact measured proofs to this PR;
    green CI and resolve review findings. Owner explicitly approves merge/tag/
    publication. Tag exactly the reviewed merged source. Rebind approved metadata
    in fresh paths using `--reuse-bundle OLD --reuse-source QUALIFIED_COMMIT`;

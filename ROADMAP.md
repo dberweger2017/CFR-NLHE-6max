@@ -8,7 +8,10 @@ pass; the three qualified 10B binaries are the release candidates and 3B
 comparators remain research evidence. [Release preparation](docs/releases/v0.6.1/READINESS.md)
 adds exact pins, resumable downloads, explicit three-player 200 BB selection and
 staged publication checks. Full-size qualification passes in 12m50s with 36
-integration hands and 42 verified parts; owner approval remains pending; no release, defaults, search, new science or research cleanup follows automatically.
+integration hands and 42 verified parts. The owner approved continuing the quoted
+publication procedure on October 23; exact source binding, missing-only uploads
+and canonical public verification follow. Defaults, search, new science and
+research cleanup remain outside this release.
 
 ## Three-player 200 BB family passes fresh acceptance toward v0.6.1
 

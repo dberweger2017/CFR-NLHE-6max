@@ -1,8 +1,11 @@
 # v0.6.1 release readiness
 
-Status: **preparation for review; packaging/runtime qualified; owner review and publication pending**.
-The owner authorizes this preparation only. Do not merge, tag, create/upload a
-release, publish, change defaults or adopt search without explicit approval.
+Status: **packaging/runtime qualified; owner approved proceeding with publication
+on October 23, 2026; final source binding and public verification pending**.
+After reviewing the measured qualification, publication quote and concurrent
+storage/compute constraints, the owner instructed this release to continue while
+cleanup runs. This authorizes the quoted merge/tag/release-asset upload/publication
+procedure. Defaults, search and research inputs remain outside this release.
 
 - [x] PR404 actually merged: `bbb71f408db6b1964541e22978628f8c60105313`, October 23
   10:03:38UTC, following five successful checks. Fresh isolated feature worktree.
@@ -19,7 +22,8 @@ release, publish, change defaults or adopt search without explicit approval.
 - [x] Three native integration checks (36 total hands), privacy/restart/replay proofs.
 - [x] Measured 12m50s/14.66GiB/56°C CPU/59°C VRM; both mutexes released.
 - [ ] Reviewed final PR with green CI; all findings resolved.
-- [ ] Explicit owner merge/tag/publication and **release-asset upload** approval.
+- [x] Explicit owner approval to continue the quoted merge/tag/publication and
+  **release-asset upload** procedure, October 23, 2026.
 - [ ] Approved source-bound manifests/hashes generated without recopying parts.
 - [ ] Live GitHub inventory reconciled; only missing assets uploaded and recorded.
 - [ ] All canonical public downloads, three reconstructions/runtime checks verified.
