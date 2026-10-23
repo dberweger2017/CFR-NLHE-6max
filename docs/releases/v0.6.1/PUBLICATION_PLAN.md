@@ -13,7 +13,7 @@ staging and 89.046 GB of additional retained files. The publication coordinator
 then uploaded all 55 assets and did 55 authenticated full readbacks (43.830 GB,
 4,014.68 seconds). [PR371](https://github.com/dberweger2017/CFR-NLHE-6max/pull/371)
 is still open/incomplete as inspected October 23: it stopped on HTTP404 because
-it retained draft `untagged-…` download URLs after publication. The October22
+it retained draft `untagged-…` download URLs after publication. The October 22
 metadata receipt matches all live asset IDs/sizes/digests and three small public
 readbacks; 52 public payload checks, reconstruction/runtime and Drive mirrors
 remain incomplete. Inspection is not authority to change that work.
@@ -48,28 +48,28 @@ use, but duplicates payload traffic and introduces another availability dependen
 It is not selected. Consider it only under separate owner approval with receipts;
 never infer Drive acceptance from GitHub digests or research metadata.
 
-## Bounded bb128 preparation quote — not yet run
+## Bounded bb128 preparation quote and completed run
 
 Finish small local implementation/tests first. Proposed host-only packaging and
 runtime qualification: **25–35 minutes central, 60-minute planning reserve**,
 not an elapsed-time cutoff. Historical v0.6.0 splitting/verification, 59-second
 reconstruction and 123-second native startups guide this estimate; ordinary
-cache/disk/source-build conditions may vary. Full-size checks are pending.
+cache/disk/source-build conditions may vary. [Full-size checks now pass](verification/qualification.md) in 12m50s, 14.66 GiB sampled peak, 56/59°C maxima; the original quote above is retained. Ordered streaming reconstruction and loading the hash-pinned original avoided duplicate whole files.
 
-New NVMe space: 42.919 GB parts + at most14.307 GB sequential reconstruction
+New NVMe space: 42.919 GB parts + at most 14.307 GB sequential reconstruction
 scratch + <=1 GB source/logs; request **65 GiB free plus 20 GiB working headroom**.
 No HDD staging or duplicate dependency copies. Expected one-model worker memory
-about15 GiB; recommend32 GB. No payload crosses to a Mac: only small code/receipt
+about 15 GiB; recommend 32 GB. No payload crosses to a Mac: only small code/receipt
 transfers over SSH. Mac payload transfers, if separately needed, wait for M4 and
 use its confirmed `bb128-lan` Ethernet link. The M4 can stay off for this plan.
 
-Read-only October23 preflight saw idle bb128, no campaign mutex owner, ~126 GiB
+Read-only October 23 preflight saw idle bb128, no campaign mutex owner, ~126 GiB
 free NVMe/~228 GiB HDD, ~122 GiB available RAM/~432 MiB used swap. These are dated
 observations, not admission guarantees. Recheck open PRs, actual jobs, disk/RAM/
 swap, required sensors, and the normal `/tmp/cfr-cygnus-exclusive.lock` immediately
 before work. Acquire that mutex nonblocking and an owned release mutex. Do not
-wait on, stop, reprioritize or change another job. Use the existing CPU90°C/
-Thermistor15 100°C/missing-sensor guard and owner STOP path, no new scheduler or
+wait on, stop, reprioritize or change another job. Use the existing CPU 90°C/
+Thermistor 15 100°C/missing-sensor guard and owner STOP path, no new scheduler or
 machine configuration. Requote if another job or changed storage invalidates this.
 
 Protected dependencies: PR404's entire `main-v1` root, all six endpoints/mass
@@ -86,14 +86,17 @@ owns research cleanup, staging and archival upload; coordinate before host admis
    hash, frozen source and six audit receipts. Committed result JSON has a separate
    formatting hash and parses identically. Small header/stat inspection is not a
    fresh full-model audit. No new science is required.
-2. **Prepare parts (pending).** On clean source, run `build_v061_bundle` once per
+2. **Prepare parts (complete).** On clean source, run `build_v061_bundle` once per
    seed into fresh directories. One source pass writes parts and calculates part/
    whole SHA256, checks the header and source stability. Save exact manifest hashes
    and the output receipts. It reports prepared, not independently read back.
-3. **Independent reconstruction/runtime (pending).** Run the shipped verifier
-   `-I -S --assemble` once, checking all parts and the whole pinned binary together;
+3. **Independent reconstruction/runtime (complete).** Run the shipped verifier
+   `-I -S --assemble` once for a physical cache, checking parts and whole binary together;
+   host qualification instead streamed the complete ordered reconstruction into
+   SHA256 and used `check_v061_runtime --model QUALIFIED_BINARY`, whose native
+   loader validates the pinned original. This avoids writing redundant whole files;
    omit a redundant preceding full verifier pass. Run `check_v061_runtime` per seed
-   with explicit source/K50/cache/binary/output paths: six human +six spectator
+   with explicit source/K50/cache/binary/output paths: six human + six spectator
    integration hands, one shared weight table, exact identity, restricted sizing,
    privacy, conserved chips, replay before/after restart. These hands estimate no
    strength. Process one model at a time. Retain private journals outside Git.

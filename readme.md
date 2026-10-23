@@ -7,7 +7,7 @@ There are three release lines, HU20, HU100 and HU200, for 20, 100 and 200 big-bl
 **v0.6.1 — three players, 200 BB (preparation only).** PR404 passes all 30
 prospective gates across three fixed 10B lineages. Exact binary/dependency pins,
 explicit seed selection and the staged publication procedure are prepared;
-full-size packaging/runtime proofs and owner publication approval remain pending.
+full-size packaging/runtime proofs pass; owner publication approval remains pending.
 [Readiness](docs/releases/v0.6.1/READINESS.md) · [Model card](docs/releases/v0.6.1/MODEL_CARD.md).
 
 **v0.6.0 — three players, 100 BB (publication authorized).** Fresh acceptance passes all 30

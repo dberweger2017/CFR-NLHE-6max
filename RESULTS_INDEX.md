@@ -6995,3 +6995,42 @@ Fixed fresh seeds2026102305001/2026102306001, sequential five then six,100BB/K50
 Five-player25,000,508nodes/14,753,432keys then50,007,287/20,006,770; freezeiteration1829 bracket33,837,795–35,713,752nodes. Six-player25,010,759/15,520,261 then50,015,901/20,002,527; freezeiteration1959 bracket31,442,336–33,214,235. Whole-iteration overshoot valid, capped growth censored/not saturation. Main peaks3.04/3.06GiB; nominal thermal state, pressure1, no observed swap growth. Active windows3.84/3.99 and4.19/4.26s are small-table, not mature/bb128 estimates. Full70,282,990main rows audited,240initial+240byte-identical reproduced policy hands independently replayed;180+180qualification hands,256engine fixtures,121native tests perbuild and1/10thread/fresh-resume checkpoint bytes pass. Tiny river misses7/8 and4/4 at50M are descriptive, no strength/coverage-adequacy claim. Table-wide zero-average mass is not played zero-mass fallback; the latter is not separately instrumented.
 
 Raw files retained on M4 `/Users/dberweger/Local/nplayer-five-six-feasibility-20261023` (source-v1/qualification-v1/main-v1); use this original path for retrieval. Both research locks verifiedfree/sourceclean, all retained CP/export/trace file SHA256s readbackmatch. Source clone's shared Git store `~/Local/hu200-river-search`, read-only engine venv and K50 remain protected until standalone source archival. Cleanup/staging/uploads/Driveacceptance owner-managed pending; no accepted cache/ZIP/cloud retrieval path or deletion claimed. PR404 and all other jobs untouched. [Four-player candidate campaign draft](docs/nplayer-four-player-campaign-plan.md) is preparation only, not a launch/default/release/merge authorization.
+
+## PR412 — v0.6.1 release preparation qualified; publication pending
+
+[PR412](https://github.com/dberweger2017/CFR-NLHE-6max/pull/412), based on actual
+PR404 merge `bbb71f408db6b1964541e22978628f8c60105313`.
+[Qualified preparation](docs/releases/v0.6.1/verification/qualification.md),
+[compact source/build/model/part/runtime/resource receipt](docs/releases/v0.6.1/verification/qualification.json),
+[exact prepared manifests](docs/releases/v0.6.1/manifests/),
+[42 part SHA256s](docs/releases/v0.6.1/PART_SHA256SUMS),
+[model/dependency/research provenance](docs/releases/v0.6.1/MODEL_MANIFEST.json).
+
+Frozen implementation `61585713154124802de9b434b04797e05f8a54e8`; all three qualified
+PR404 10B binaries retained byte-identically. One-pass splitting and independent
+ordered-stream reconstruction match all whole-model hashes, followed by native
+loading of the pinned originals. No redundant whole-file copies or conversions.
+All 36 integration hands pass restricted sizing, privacy, chip conservation and
+replay before/after restart; one shared weight table per seed. Eleven stages RC0,
+12m49.94s wall, sampled14.66GiB, CPU56°C/VRM59°C, unchanged swap, no failure/retry.
+This adds no strength evaluation to PR404's 30-gate acceptance.
+
+Active original output/retrieval path:
+`bb128:/home/dberweger/v061-release-preparation-pr412-20261023/qualification-v1/`.
+Model parts/manifests/checksums are `bundles/SEED/`; private journals `runtime/SEED/`;
+raw measurements/resources/build/result and a hypothetical empty-release asset
+plan remain there. Separate self-contained source checkout `../source`, controller
+`../qualify-v1.py`, exact controller/build/result hashes in the compact receipt.
+42 parts total42,918,983,478B; 52 planned GitHub assets total42,919,046,577B, excluding
+existing hash-pinned v0.5.3 K50 dependencies. Rebuild only into fresh paths using
+`scripts.build_v061_bundle` with the pinned source and PR404 original model paths
+in the manifest; no training/conversion is required. This original host path is
+the current restoration source; no accepted Drive fallback exists for this output.
+
+PR412 is open: protect its source/output root and PR404 candidate binaries/mass/
+checkpoint/export/trace/source/build dependencies, PR400/402 parent/environment,
+K50 and existing PR369/371 release work. No research original moved/deleted,
+no HDD staging, release-asset upload, archive or Drive acceptance claimed. Owner
+vacuum-cleaner owns future research archival/storage receipts. Release-asset
+upload remains a separate explicit owner decision. Do not tag/publish/merge or
+replace defaults automatically. Both compute mutexes are released.
