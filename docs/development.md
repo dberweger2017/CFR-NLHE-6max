@@ -24,6 +24,11 @@ The [research history](research-history.md) indexes completed experiments.
   `scripts.build_v060_bundle` prepares assets in a fresh directory;
   `scripts.play_v060` requires explicit seed selection and shares one model
   across the existing three-seat table. [Release preparation](releases/v0.6.0/READINESS.md).
+  `v061_bundle.py` and `scripts.build_v061_bundle` prepare the qualified three-player
+  200 BB family without conversion; `scripts.download_v061` resumes pinned assets,
+  `scripts.play_v061` explicitly selects a seed/source and `scripts.check_v061_runtime`
+  checks integration. `scripts.plan_v061_publication` only reconciles live asset
+  metadata. [v0.6.1 readiness and quote](releases/v0.6.1/READINESS.md); publication pending.
 - `src/play_api/` and `apps/poker-web/`: durable local sessions, HTTP and the table.
   `versions.py` has the explicit release catalog. Defaults never silently fall
   back when an artifact is missing or corrupt; sessions keep their model.
