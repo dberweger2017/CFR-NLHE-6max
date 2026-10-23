@@ -1,0 +1,79 @@
+{
+  "checked_utc": "2026-10-23T11:06:10.995777+00:00",
+  "root": "/home/dberweger/nplayer-four-player-candidate-20261023/main-v1",
+  "controller": {
+    "pid": 872177,
+    "utc": "2026-10-23T11:04:39.305064+00:00",
+    "source": "6adc28cea5fe29008766142ae5b9af01ef1e0067",
+    "config_sha256": "f3be3047b3c1b5fb781fa5d3e8c41e43ba7a57cf54a74672f8a5125b2f03cd9c",
+    "actual_free_bytes": 90175279104,
+    "accepted_seconds": 36000,
+    "owner_budget_message": "approvfed",
+    "owner_storage_message": "sotrage is beling cleared out, but you can get started",
+    "storage_amendment": "Owner authorizes launch during cleanup, superseding147.13GiB prelaunch wait; no runtime disk guard added",
+    "qualification_sha256": "0602825a7d3d27ebb27584a5bc83c2f6c9b06f9f46f77eeec4927debf25267c0",
+    "no_scientific_retry": true
+  },
+  "launch": {
+    "pid": 872177,
+    "epoch": 1792753482.1690319,
+    "source": "6adc28cea5fe29008766142ae5b9af01ef1e0067",
+    "config_sha256": "f3be3047b3c1b5fb781fa5d3e8c41e43ba7a57cf54a74672f8a5125b2f03cd9c"
+  },
+  "status": {
+    "status": "running",
+    "phase": "baseline-train",
+    "completed_stages": 0
+  },
+  "failure": null,
+  "last_resource": {
+    "phase": "baseline-train",
+    "utc": "2026-10-23T11:06:09Z",
+    "cpu_c": 61,
+    "thermistor15_c": 70,
+    "worker_family_rss_bytes": 12336160768,
+    "live_family_cpu_seconds": 897.13,
+    "available_ram_bytes": 119361789952,
+    "swap_used_bytes": 453697536,
+    "nvme_free_bytes": 90175172608,
+    "hdd_free_bytes": 244172890112
+  },
+  "free_bytes": 90175172608,
+  "source_file_count": 864,
+  "progress": {
+    "baseline-train.gz.progress.jsonl": {
+      "counts": {
+        "decisions": [
+          22977691,
+          35416287,
+          61189532,
+          112570756
+        ],
+        "discarded_keys": 0,
+        "discarded_visits": 0,
+        "missing": [
+          6906082,
+          16485466,
+          37417364,
+          85334417
+        ],
+        "nodes": 390823903,
+        "terminals": 158669637,
+        "traverser": [
+          18218898,
+          18290772,
+          18265858,
+          18215447,
+          0,
+          0
+        ]
+      },
+      "elapsed_seconds": 80.797597703,
+      "entries": 146140094,
+      "frozen_at": null,
+      "iteration": 19000
+    }
+  },
+  "supervisor": "872177       01:31 /home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python -m scripts.nplayer_four_player_candidate run --root /home/dberweger/nplayer-four-player-candidate-20261023/main-v1",
+  "children": "872272       01:26 /home/dberweger/nplayer-four-player-candidate-20261023/build-v1/target/release/examples/nplayer_train --players 4 --stack-bb 100 --small-blind 50 --big-blind 100 --fast --threads 16 --roots-per-seat 8 --seed 2026102341001 --nodes 3000000000 --max-entries 250000000 --freeze-at-cap --last-average-street 3 --fast-gzip --max-seconds 1e100 --card-buckets /home/dberweger/cygnus-qualification-20261014/tables --out /home/dberweger/nplayer-four-player-candidate-20261023/main-v1/baseline-train.gz --telemetry /home/dberweger/nplayer-four-player-candidate-20261023/main-v1/baseline-train.gz.progress.jsonl"
+}

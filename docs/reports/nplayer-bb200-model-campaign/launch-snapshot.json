@@ -1,0 +1,63 @@
+{
+  "utc": "2026-10-22T20:25:00Z",
+  "controller": {
+    "accepted_seconds": 64800,
+    "full_scope_accepted": true,
+    "storage_admission_free_bytes": 221623865344,
+    "source": "f11edfe5227882980f57925ab0ca93b3a2f790a7",
+    "epoch": 1792700657.476768,
+    "cleanup_staging_uploads": "owner-vacuum-cleaner-only",
+    "no_time_resource_cutoff": true,
+    "original_storage_admission_bytes": 386547056640,
+    "owner_storage_sequence_amendment": "you can start now, the vacume cleaner is removing files as we speak",
+    "owner_authorized_start_during_cleanup": true,
+    "science_scope_unchanged": true,
+    "pid": 847775,
+    "command": [
+      "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+      "-m",
+      "scripts.nplayer_bb200_model_campaign",
+      "run",
+      "--root",
+      "/home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1"
+    ],
+    "config_sha256": "cd6c47f9b13f5384f68f953f615aeae8310b6b1739b0cf1958c7388552a1b7ca"
+  },
+  "launch.json": {
+    "pid": 847775,
+    "epoch": 1792700660.3878448,
+    "source": "f11edfe5227882980f57925ab0ca93b3a2f790a7",
+    "config_sha256": "cd6c47f9b13f5384f68f953f615aeae8310b6b1739b0cf1958c7388552a1b7ca",
+    "accepted_planning_seconds": 64800,
+    "smoke": false,
+    "no_time_memory_disk_swap_stop": true
+  },
+  "status.json": {
+    "status": "running",
+    "phase": "2026102240001-baseline-train",
+    "completed_stages": 0
+  },
+  "failure.json": null,
+  "supervisor": "    PID     ELAPSED COMMAND\n 847775       00:42 /home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python -m scripts.nplayer_bb200_model_campaign run --root /home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1\n",
+  "children": "    PID     ELAPSED COMMAND\n 847794       00:25 /home/dberweger/nplayer-bb200-feasibility-20261022/build-v1/target/release/examples/nplayer_train --players 3 --stack-bb 200 --small-blind 50 --big-blind 100 --fast --threads 16 --roots-per-seat 8 --seed 2026102240001 --nodes 3000000000 --last-average-street 3 --max-entries 250000000 --freeze-at-cap --fast-gzip --max-seconds 1e100 --card-buckets /home/dberweger/cygnus-qualification-20261014/tables --out /home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1/2026102240001-baseline-train.gz --telemetry /home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1/2026102240001-baseline-train.gz.progress.jsonl --resume /home/dberweger/nplayer-bb200-maturity-20261022/main-v1/continuation-1b.gz --resume-sha256 55d89c553ba1756eac1af117847b30e8b18e4f901afba942ee5a906bc00249ad\n",
+  "last_resource": {
+    "phase": "2026102240001-baseline-train",
+    "utc": "2026-10-22T20:24:58Z",
+    "cpu_c": 50.0,
+    "thermistor15_c": 43.5,
+    "worker_family_rss_bytes": 1388740608,
+    "live_family_cpu_seconds": 24.08,
+    "available_ram_bytes": 130332348416,
+    "swap_used_bytes": 380280832,
+    "nvme_free_bytes": 221623713792,
+    "hdd_free_bytes": 384136060928
+  },
+  "nvme_free_bytes": 221623709696,
+  "hdd_free_bytes": 384136060928,
+  "memory": [
+    "MemAvailable:   127252612 kB",
+    "SwapTotal:      25787388 kB",
+    "SwapFree:       25416020 kB"
+  ],
+  "launcher_sha256": "49cc8da32d7e0004822b34e29e5b5ffb150c385aac2198aec743e0b96680b617"
+}

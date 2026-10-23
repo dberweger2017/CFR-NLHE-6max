@@ -90,7 +90,7 @@ def check_case(task):
     expected = [manifest['models'][n]['sha256'] if not n.startswith('bot=') else None
                 for n in (case['singleton'], case['pair'], case['pair'])]
     if (header['seed'] != case['root'] or header['blocks'] != case['blocks']
-            or header['identity']['stacks'] != [10000]*3
+            or header['identity']['stacks'] != [manifest.get('stack_bb',100)*100]*3
             or [p.get('sha256') for p in header['policies']] != expected):
         raise ValueError('trace identity differs')
     replay = check(a)
