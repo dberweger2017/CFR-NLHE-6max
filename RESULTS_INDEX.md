@@ -7034,3 +7034,51 @@ no HDD staging, release-asset upload, archive or Drive acceptance claimed. Owner
 vacuum-cleaner owns future research archival/storage receipts. Release-asset
 upload remains a separate explicit owner decision. Do not tag/publish/merge or
 replace defaults automatically. Both compute mutexes are released.
+
+## PR410 — paired arena engineering; final-source qualification pending
+
+[PR410](https://github.com/dberweger2017/CFR-NLHE-6max/pull/410), proposal409,
+[protocol](docs/nplayer-paired-arena.md), [report/readiness](docs/reports/nplayer-paired-arena/results.md),
+[initial results](docs/reports/nplayer-paired-arena/initial-results.json),
+[initial source/model configuration](docs/reports/nplayer-paired-arena/initial-configuration.json),
+[proof/resource/failure provenance](docs/reports/nplayer-paired-arena/initial-proof-summary.json).
+Initial source5b09752e/native857437a7 qualifies all53stages in303.38s,600initial+
+600reproduced hands,480serial, six self cases exactly zero/byte-identical,
+3326independently audited model lookup tags,36legacy three-player hands matching
+base and independently replaying. Peak5.60GiB, nominal thermal/no swap growth.
+Final native source6287b619 passes121library/8paired-example tests; latest
+orchestration sourcef6cfa7a5 is prepared but not fully fixture-qualified. Test
+naming collision/build-dev-v2 and conservative prelaunch admission decline/
+qualification-v2 retained; qualification-v3 prepared before two SSH timeouts.
+No final launch assumed, no training/strength/release/default/merge claim.
+
+All originals at M4 `/Users/dberweger/Local/nplayer-paired-arena-20261023`;
+existing PR406/408 models/mass/source, engine venv, K50 and shared Git dependencies
+remain protected. Archive/staging/Drive acceptance owner-managed pending; no
+completed cloud fallback or deletion. PR404/bb128 unchanged. Reconnect, inspect
+launch/status before any one-use execution, complete final proof barriers and
+publish final-source receipts before ready-for-review.
+
+
+## Four-player100BB candidate preparation — no main run yet
+
+[Proposal411](https://github.com/dberweger2017/CFR-NLHE-6max/issues/411), [protocol](docs/nplayer-four-player-candidate.md), [reproducible full quote](configs/research/nplayer-four-player-candidate.json). Freshseed2026102341001,fixed3B/10B,currentK50/v1/unprunedfast16/eightroots/fullfloat64averages/250Mfreeze. Eightfixedfields4,096blocks/all24permutations,1,572,864initial+same reproduction; focal-only3Bvs10B againstfixedthree3Bprimary plusscripts/mixed. One eight-test one-sided95family, primarylower>0/scriptslower>−5. Development, not v0.7 release acceptance. Counts/roots/margins/power scenarios prospective. 4h14central/9h34reserve/proposed10h includes models/conversion/arena/replay/readout/report.147.13GiBfree scenario vslast125.19GiB; ownercleanerowns space/staging/upload. Qualification relocatedtobb128becauseM4offline, freshtinyfixtures/sourcebinding required; original PR410 M4 evidence/failures remain unchanged. Local19tests pass; build/real-engine preflight pending. Main not launched/budget-admitted; protected400/402/404models/build/environment/K50 readonly, originals retained, no archive/Drive claim. No new training-strength result, merge/default/release or follow-up authority inferred.
+
+
+PR413 preflight admission: [readiness](docs/reports/nplayer-four-player-candidate/readiness.md)/[receipt](docs/reports/nplayer-four-player-candidate/readiness.json). Frozen6adc28ce/bundle9a6db8efe7107b42566753d17120de6f6eae906f78b23406bde1c29c354b4b2b;10:25:27UTC dispatch refuses normal research mutex held by v0.6.1 qualifier864834. No build/qualification/main directory or model/arena/training work created. Original source/driver/admissionfailure retained at `/home/dberweger/nplayer-four-player-candidate-20261023`; no automatic retry or lock bypass. Local19+8regressiontests pass, real bb128 fixture pending. Proposed10h/main147.13GiB storage not admitted, owner cleaner responsible. No M4 wait, no archival/Drive/deletion claim.
+
+
+### PR413 qualified and main launched under owner storage amendment
+
+Owner "approvfed" accepts complete10h planning allocation; "sotrage is beling cleared out, but you can get started" supersedes147.13GiBbeforelaunch. [Launch/forecast](docs/reports/nplayer-four-player-candidate/launch.md), [operatorreceipt](docs/reports/nplayer-four-player-candidate/launch.json), [source/config/firstsnapshot](docs/reports/nplayer-four-player-candidate/launch-snapshot.json), [qualification](docs/reports/nplayer-four-player-candidate/qualification.json), [amendment](docs/reports/nplayer-four-player-candidate/owner-amendment.json). Samefrozen6adc28cea5fe29008766142ae5b9af01ef1e0067/864pins/bundle9a6db8efe7107b42566753d17120de6f6eae906f78b23406bde1c29c354b4b2b. Build54.49s/native121lib+8paired+1legacy(oneexistingignored)/19Python;56qualificationstagesRC0,155.20childstagewall plusvalidationoverhead,768initial+768repeat allfieldhandsreplay; full-row export/binary/keyset/1-16thread/fresh-resume/serial/gzip-binarypayload/selfzero/mass/legacy20-100-200proofs pass. Source tag sample2950decisions/10positive/0zero/1161missingdistinctkeys; no playedzeroexample claim. QualificationresultSHA0602825a7d3d27ebb27584a5bc83c2f6c9b06f9f46f77eeec4927debf25267c0. Initialmutexblockedfailure/source/logs retained; no science duplicated.
+
+Main root `/home/dberweger/nplayer-four-player-candidate-20261023/main-v1`, supervisor872177,launch11:04:42UTC/13:04Madrid October23,83.98GiBfree actual. ConfigSHAf3be3047b3c1b5fb781fa5d3e8c41e43ba7a57cf54a74672f8a5125b2f03cd9c. First13:06Madrid snapshot390,823,903nodes/146,140,094entries/80.798active seconds,prefreeze,CPU61/T1570°C,11.49GiBRSS/no failure. Counts/targets/roots/seed/recipe/threads/thermalstops unchanged. Healthyonecompactstatuscheck/nooutcomesbeforeglobalproofbarrier; no restart/extra hands/tuning. Initial17:00–17:30Madrid resultforecast conditional; approved10hincludesalreadyspentbuild/qualification/report, notreset and nottimekill. No timer/observer/cleanup/upload created. Owner cleaner alone stages/uploads; all source/models/rawtraces/protected400/402/404/K50/venv/binaries retained, cloudacceptancepending/noDriveclaim. No release/default/merge or automatic next-player allocation.
+
+
+### PR413 four-player100BB development campaign complete — primary passes, safeguards unpassed
+
+[Report](docs/reports/nplayer-four-player-candidate/results.md), [compact result/provenance/costs](docs/reports/nplayer-four-player-candidate/results.json), [panels](docs/reports/nplayer-four-player-candidate/panels.csv), [coverage](docs/reports/nplayer-four-player-candidate/coverage.csv), [seat/position](docs/reports/nplayer-four-player-candidate/seats.csv), [tails](docs/reports/nplayer-four-player-candidate/tails.csv), [costs](docs/reports/nplayer-four-player-candidate/costs.csv). Main-v1 completes October23 13:05:16UTC/15:05Madrid,2h00m34s,37stageRC0/no failure/no retry. Freshseed2026102341001, fixed3B/10B,250,003,053 identical keys/freeze40389 near824Mnodes. Eight4,096block/all24permutation fields,1,572,864initial hand instances independently replayed plus byte-identical reproduction. Trained primary+53.85BB/100, family95lower+25.35; allseven scripted/mixed safeguards unpassed, random−56.03/random+TAG−35.07 adverse, not seven demonstrated losses. One seed/development only, no release acceptance/extension/default change. Focal10B check-callriver miss96.19% versus trained3.36%; table-wide zero mass24.75%, distinct from played fallback.
+
+Frozen source6adc28cea5fe29008766142ae5b9af01ef1e0067/864pins, bundle9a6db8efe7107b42566753d17120de6f6eae906f78b23406bde1c29c354b4b2b, configf3be3047b3c1b5fb781fa5d3e8c41e43ba7a57cf54a74672f8a5125b2f03cd9c. Complete hostresultsSHAef35893dc09968c2b9212ef3dd20df7e290ffe94b3d592a5a160583ae1271cc0; GitJSON is a documented compact derivative, raw block arrays remainhost. BaselineCPfee9cc669a5401a54de7d8b901066233b049505f001ddabd6f74724aade07676; candidateCP2071d1e7fcbf3294942a978cc01ca8c817b4174f3bdedda072758d68c08bd2a1. Full model/export/binary/mass/keyset/environment/K50/proof pins in compactJSON. Initialmanifest6baf0cf39f681bd6898deb71aaf2a320058d4a780a616e4db1b4a56bb8b0719b, repeatmanifestb5e0ced463f5c148de7db56d3948bc5dae9864ab84189644a65178fab5ddb190. Existing qualification and failed pre-build admission retained; source unchanged by reporting.
+
+Retrieval `bb128:/home/dberweger/nplayer-four-player-candidate-20261023/` withsource-v1/build-v1/qualification-v1/main-v1; endpointsmain-v1/baseline-train.gz,candidate-train.gz, initial/repeattracesunderarena-initial/arena-repeat. Logical traces13,613,967,004bytes. All originals/partials/source/dependencies protected, including400/402/404/K50/build/venv. Archive/cache/Drive acceptance **owner-managed pending**; no verified alternative retrieval path/DriveID/receipt, no deletion/upload/move or remote audit claim. At13:06:24UTC normal mutex free/originalsupervisorexited,112.46GiBNVMe notreserved; owner cleaner notified, release priority over heavy cleanup. Read-only one-time completion notifier finished/collected, no new schedule. PR413 ready for owner review over PR410; no merge authority or automatic next experiment.

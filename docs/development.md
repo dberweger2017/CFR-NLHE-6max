@@ -226,3 +226,22 @@ launch boundary,100M/200M/500M endpoints, real-K50 qualification, every-row expo
 audit, scripted coverage/replay and preservation. Generic training/policy paths
 already support200BB; the duplicate arena adds200 to its stack whitelist.
 The historical100BB bounded host is not repurposed or silently widened.
+
+## Paired four-to-six-player arena
+
+The opt-in `nplayer_paired_arena batch MANIFEST.json` keeps one focal identity and
+one immutable opponent list, producing two matched arm traces. A declared cyclic
+schedule balances seats without enumerating all permutations. Existing
+`nplayer_arena` and three-player traces stay unchanged. The manifest requires
+explicit game/count/root/output fields and source-pinned full-average mass
+metadata for each model. Repeated aliases share read-only weights, with separate
+policy RNG state per labeled player. More distinct models require a separate
+memory/cost quote; the M4 qualification uses two aliases per case.
+
+`scripts.nplayer_paired_evidence replay TRACE` independently checks every hand.
+Its `pair A B REPEAT_A REPEAT_B PROOF_A PROOF_B` readout requires replay and exact
+reproduction, then reports independent-block contrasts and lookup coverage.
+The qualification-only `coverage CATALOG_JSON TRACE...` path independently
+streams original gzip exports and audited zero-key metadata to verify tags.
+These tools do not train or start a strength campaign. [Protocol and seating
+limits](nplayer-paired-arena.md), [current qualification readiness](reports/nplayer-paired-arena/results.md).

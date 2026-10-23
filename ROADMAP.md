@@ -13,6 +13,34 @@ publication procedure on October 23; exact source binding, missing-only uploads
 and canonical public verification follow. Defaults, search, new science and
 research cleanup remain outside this release.
 
+## First four-player100BB development candidate: primary gain, unresolved safeguards
+
+[PR413](https://github.com/dberweger2017/CFR-NLHE-6max/pull/413),
+[proposal411](https://github.com/dberweger2017/CFR-NLHE-6max/issues/411),
+[verified results](docs/reports/nplayer-four-player-candidate/results.md):
+fresh seed2026102341001, fixed3B→10B, K50/unprunedfast16/eightroots/fullfloat64
+averages/250Mthreshold. Main completes October23 13:05UTC/15:05Madrid in2h00m34s;
+37stagesRC0, all1,572,864initial hands independently replayed plus byte-identical
+reproduction, eight fields×4,096independent blocks×all24permutations×twoarms.
+
+10B improves against the fixed three-own3B field by **+53.85BB/100**, adjusted
+family95 lower **+25.35**. Seven scripted/mixed safeguards do not clear−5;
+random−56.03 and random+TAG−35.07 are adverse point deltas, while several other
+unpassed fields have positive means. Preserve all outcomes, both absolute returns,
+seats, lookup statuses and tails. This is one development lineage, not v0.7
+release acceptance or independent-seed confirmation.
+
+Both endpoints retain250,003,053 identical keys, frozen near824Mnodes;
+10B river missing lookups are96.19% against check-call versus3.36% against the
+trained field. Fixed membership cannot expand with additional nodes. Retain10B
+as leading research candidate and3B as comparator; capacity/support and safeguards
+remain unresolved. No automatic further nodes, tuning or five/six-player launch.
+Peak CPU75/Thermistor15 90.5°C, worker-family27.75GiB; normal compute mutex released.
+Release packaging may proceed independently before heavy cleanup. Originals and
+protected inputs retained; owner-managed archive pending. PR413 uses fresh bb128
+four-player qualification over PR410; M4's separate final all-size receipt remains
+pending and is not relabeled complete. Search/default/release changes remain separate.
+
 ## Three-player 200 BB family passes fresh acceptance toward v0.6.1
 
 [PR404](https://github.com/dberweger2017/CFR-NLHE-6max/pull/404),
@@ -328,3 +356,16 @@ reserves a proposed3B/10B lineage and bounded250Mcapacity with paired developmen
 requirements. Qualify that arena and price the complete allocation after PR404
 releasesbb128; no further tiny four-player pilot ladder or automatic launch.
 M4 locks released; raw evidence retained, archival owner-managed pending.
+
+## Four-to-six-player paired arena — final qualification pending
+
+[PR410](https://github.com/dberweger2017/CFR-NLHE-6max/pull/410), proposal409,
+adds a separate fixed-field paired command, balanced cyclic seating and
+missing/zero/positive-mass evidence. Initial complete qualification passes600
+initial+600reproduced hands, six exact-zero self cases, serial parity, independent
+mass tags and unchanged legacy three-player traces. Review removed a fixture-only
+model-count restriction and fixed a parallel test temporary-name collision;
+latest121library/8example/10Python tests pass. Final source's fixture replay is
+pending after a prelaunch admission decline and M4 SSH timeouts. Keep draft;
+[readiness and exact preserved evidence](docs/reports/nplayer-paired-arena/results.md).
+No training, strength claim, bb128 work or automatic campaign follows this task.
