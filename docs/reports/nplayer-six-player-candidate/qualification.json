@@ -1,0 +1,110 @@
+{
+  "qualification": {
+    "status": {
+      "status": "complete",
+      "epoch": 1792780620.9334638,
+      "result_sha256": "b96779d51160eaaf8a7534581160b15bd7dc75dc2432be1be679ff21e9732de7"
+    },
+    "config_sha256": "4cee088522e99bc9c4ad7b2c5e144543c6739fa660860a485c8eca55a981a2c1",
+    "stages": 139,
+    "all_rc0": true,
+    "proof": {
+      "status": "passed",
+      "fields": 8,
+      "contrasts": 5,
+      "blocks_per_field": 2,
+      "physical_initial_hands": 1152,
+      "reproduction_hands": 1152,
+      "unique_initial_hands": 768,
+      "models_sha256": "2f4499eadcd5b6a307c0c5a0f06629cf42adfda393fe580a0700b2467751a63c",
+      "baseline_cross_job_trace_identity": true,
+      "manifests": {
+        "6b": {
+          "initial": "0d547e7cf9a0e01081c8c51c84cb5a8f0512b025e005613a7d51805c72d1196b",
+          "repeat": "e3add406255484f07b4de66ca48cdac5643613295b5427de484b1a7c19f42fea"
+        },
+        "10b": {
+          "initial": "5c2666513ff773b2640dfe01610b71dc3ab6f509fdb5257433179c530081f66a",
+          "repeat": "34f37a5690e192b9002dfb57c05cb6e11b0611fd94e9152d6ff53311372207a8"
+        },
+        "15b": {
+          "initial": "8d7e58ce2737267578fe86e2cbe97d02c147e789d24951dd6c9aaa4d4e01954d",
+          "repeat": "3603a4e976a0c80d04df102dc060953e9d48e7017bfa9c8a82e983c0d49e5b7b"
+        }
+      }
+    },
+    "source": "128f021b8abb5c237574aeec9522592ec77a63d5",
+    "source_pin_count": 879,
+    "adjacent_direct_additivity": true,
+    "same_keyset": true
+  },
+  "build": {
+    "status": "passed",
+    "tests_passed": true,
+    "receipt_sha256": "447ad14f4c5f3029327c3de86045b47cfaccf19de175146549534d4bc656727c"
+  },
+  "main_launch": {
+    "pid": 905725,
+    "epoch": 1792780627.292193,
+    "source": "128f021b8abb5c237574aeec9522592ec77a63d5",
+    "config_sha256": "b7289278d33eb938694a56e7c275404b0b2c648fbb705aa208f961ba50b6b881"
+  },
+  "main_config_sha256": "b7289278d33eb938694a56e7c275404b0b2c648fbb705aa208f961ba50b6b881",
+  "admission": {
+    "epoch": 1792780621.0119576,
+    "qualification_sha256": "b96779d51160eaaf8a7534581160b15bd7dc75dc2432be1be679ff21e9732de7",
+    "diagnosis_sha256": "f168de277f7af665137144299cb486d6dcd565c43a5438b0bd6cdc5e49590f5c",
+    "owner_authorization_sha256": "df777deb9fce071e71e5653eb362968c452510410bb8c109f57921a07d5c9998",
+    "thermal": {
+      "cpu_c": 43.0,
+      "thermistor15_c": 51.5
+    },
+    "meminfo": {
+      "MemAvailable": "128453580 kB",
+      "SwapTotal": "25787388 kB",
+      "SwapFree": "25333828 kB"
+    },
+    "nvme_free_bytes": 119532957696,
+    "hdd_free_bytes": 23206940672,
+    "owner_start_during_space_arrangement": true,
+    "planning_scenario_not_live_floor": true,
+    "no_time_rss_disk_swap_stop": true
+  },
+  "controller_costs": [
+    {
+      "phase": "saved-trace-diagnosis",
+      "returncode": 0,
+      "wall_seconds": 69.42453679710161,
+      "user_cpu_seconds": 67.76099900000001,
+      "system_cpu_seconds": 0.8364499999999999
+    },
+    {
+      "phase": "build",
+      "returncode": 0,
+      "wall_seconds": 56.69928758603055,
+      "user_cpu_seconds": 204.45046,
+      "system_cpu_seconds": 41.590397
+    },
+    {
+      "phase": "configure-qualification",
+      "returncode": 0,
+      "wall_seconds": 3.564667828963138,
+      "user_cpu_seconds": 3.1585529999999835,
+      "system_cpu_seconds": 0.2812589999999986
+    },
+    {
+      "phase": "qualification",
+      "returncode": 0,
+      "wall_seconds": 769.4130309949396,
+      "user_cpu_seconds": 493.510506,
+      "system_cpu_seconds": 32.421475
+    },
+    {
+      "phase": "configure-main",
+      "returncode": 0,
+      "wall_seconds": 3.403225103043951,
+      "user_cpu_seconds": 3.2124699999999393,
+      "system_cpu_seconds": 0.20465500000000247
+    }
+  ]
+}

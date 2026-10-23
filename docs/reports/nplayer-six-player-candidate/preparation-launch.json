@@ -1,0 +1,74 @@
+{
+  "utc": "2026-10-23T18:22:57.147996+00:00",
+  "spawn": {
+    "pid": 899936,
+    "epoch": 1792779721.8186903,
+    "source": "128f021b8abb5c237574aeec9522592ec77a63d5",
+    "controller_sha256": "93404fb391be43a107ece744f16241d918edca9a4f85e753c585d082f5a4a9f4",
+    "fixed_main_automatic_only_after_all_qualification_and_diagnosis_proofs": true,
+    "no_retry": true
+  },
+  "controller": {
+    "status": "running",
+    "phase": "saved-trace-diagnosis",
+    "pid": 899939,
+    "epoch": 1792779721.8413978,
+    "source": "128f021b8abb5c237574aeec9522592ec77a63d5"
+  },
+  "controller_failure": null,
+  "controller_costs": null,
+  "source_preparation": {
+    "status": "source-prepared",
+    "source": "128f021b8abb5c237574aeec9522592ec77a63d5",
+    "bundle_sha256": "cfa805bc44bb3feb9edb797205e5c7811e4dbb3c387acba1405417027341d70c",
+    "native_files_identical_to_PR415": 81,
+    "independent_git_no_alternates": true
+  },
+  "active_root": "/home/dberweger/nplayer-six-player-candidate-20261023/diagnosis-v1",
+  "active_status": {
+    "status": "running",
+    "phase": "diagnosis",
+    "completed_stages": 0
+  },
+  "active_failure": null,
+  "last_resource": {
+    "phase": "diagnosis",
+    "utc": "2026-10-23T18:22:57Z",
+    "cpu_c": 51.0,
+    "thermistor15_c": 49.0,
+    "worker_family_rss_bytes": 22310912,
+    "live_family_cpu_seconds": 54.46,
+    "available_ram_bytes": 131673530368,
+    "swap_used_bytes": 464445440,
+    "nvme_free_bytes": 119716429824,
+    "hdd_free_bytes": 23206940672
+  },
+  "main_launch": null,
+  "nvme_free_bytes": 119716425728,
+  "hdd_free_bytes": 23206940672,
+  "active_command": "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python -m scripts.nplayer_six_player_candidate diagnose --root /home/dberweger/nplayer-six-player-candidate-20261023/diagnosis-v1 ",
+  "owner_authorization": {
+    "status": "preparation-only",
+    "utc": "2026-10-23T18:19:21.818258+00:00",
+    "source": "128f021b8abb5c237574aeec9522592ec77a63d5",
+    "owner_instruction": "you can start and I will organize the extra space",
+    "start_during_space_arrangement": true,
+    "accepted_planning_seconds": 43200,
+    "targets": [
+      3000000000,
+      6000000000,
+      10000000000,
+      15000000000
+    ],
+    "no_extra_samples_tuning_retry": true,
+    "provisional_nvme_free_scenario_bytes": 257698037760,
+    "actual_nvme_free_bytes": 120376848384,
+    "actual_hdd_free_bytes": 23206940672,
+    "no_automatic_disk_stop": true
+  },
+  "qualification_complete": false,
+  "main_started": false,
+  "no_outcome_inspected": true,
+  "raw_inputs_retained": true,
+  "archive_status": "owner-managed-pending-no-research-payload-Drive-acceptance-claim"
+}
