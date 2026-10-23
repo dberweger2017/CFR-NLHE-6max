@@ -1,0 +1,241 @@
+{
+  "dependencies": {
+    "flop-k50.bin": {
+      "bytes": 12867944,
+      "sha256": "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+      "url": "https://github.com/dberweger2017/CFR-NLHE-6max/releases/download/v0.5.3/flop-k50.bin"
+    },
+    "river-k50.bin": {
+      "bytes": 1231562564,
+      "sha256": "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629",
+      "url": "https://github.com/dberweger2017/CFR-NLHE-6max/releases/download/v0.5.3/river-k50.bin"
+    },
+    "turn-k50.bin": {
+      "bytes": 139600524,
+      "sha256": "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+      "url": "https://github.com/dberweger2017/CFR-NLHE-6max/releases/download/v0.5.3/turn-k50.bin"
+    }
+  },
+  "evidence": {
+    "acceptance_pr": 404,
+    "adverse_relative_regressions_pr": 357,
+    "committed_results_sha256": "3784cd2d4b5b3d79a5461510bf206577aaff0927708ac407a6a4c1008d06e26d",
+    "frozen_source": "f11edfe5227882980f57925ab0ca93b3a2f790a7",
+    "initial_hands": 10543104,
+    "original_results_sha256": "6909662e4b2372c13981467723759ba5a37ffde7daa3899514e8d52c72c969b8",
+    "reproduction_hands": 10543104,
+    "research_merge": "bbb71f408db6b1964541e22978628f8c60105313",
+    "simultaneous_gates_passed": 30
+  },
+  "models": {
+    "2026102240001": {
+      "bytes": 14304919746,
+      "file": "NP3-200BB-v061-seed-2026102240001.bin",
+      "metadata": {
+        "byte_order": "little",
+        "dtype": "float64",
+        "format": "nplayer-policy-binary-v1",
+        "mass": {
+          "keyset_sha256": "c37fdf1c6d0a2e92d6193ae285db4c990e5fbecd859c734a33268ae34d41bb11",
+          "positive_mass_rows": 184507886,
+          "receipt_sha256": "b6202c4eaa665f1391f08457308fb5c05e6f1eaeb5a494b1093af355a5331252",
+          "zero_keys_sha256": "a40c9f1a82c588e764470671607b6ef42d7523bae88f7f510ece8242a955757f",
+          "zero_mass_rows": 65494651
+        },
+        "policy": {
+          "continuation": "none",
+          "entries": 250002537,
+          "format": "nplayer-policy-v1",
+          "identity": {
+            "big_blind": 100,
+            "card_tables": [
+              "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+              "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+              "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+            ],
+            "game": "nlhe-cash",
+            "menu": "min-pot-conditional-jam-v1",
+            "players": 3,
+            "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+            "small_blind": 50,
+            "stacks": [
+              20000,
+              20000,
+              20000
+            ],
+            "utility_unit": "big-blind"
+          },
+          "last_average_street": 3,
+          "missing": "uniform",
+          "players": 3,
+          "source_checkpoint_sha256": "9e824a45b87e0722385e82452f4ea4574f802edd784e9e91181bf24e17f32570",
+          "strategy": "average"
+        },
+        "record_bytes": 32,
+        "source_policy_sha256": "f6ca935e809ebda4f93e6ecd1c87ff74189c6d64d8a5687b2c3ebfc03c01f563"
+      },
+      "sha256": "c29eac794d048793988c30f1f9e5024bf970e87883e026cfd72f0d006f24bfa3"
+    },
+    "2026102261001": {
+      "bytes": 14307166826,
+      "file": "NP3-200BB-v061-seed-2026102261001.bin",
+      "metadata": {
+        "byte_order": "little",
+        "dtype": "float64",
+        "format": "nplayer-policy-binary-v1",
+        "mass": {
+          "keyset_sha256": "858641b78b74fc9aaef08c2c2c1bb9edec398d1d7f76131b103d4fee7a1906b5",
+          "positive_mass_rows": 184429066,
+          "receipt_sha256": "ac86bdecdc9cfc6441fcaff1adf37dc7107987e9ab44b4a9ff0fef3029629e9c",
+          "zero_keys_sha256": "dfa1c44ea8c5df36be8281a9aa8e6720f9917d74cef4977bdc8a2996b5e4d0c0",
+          "zero_mass_rows": 65571858
+        },
+        "policy": {
+          "continuation": "none",
+          "entries": 250000924,
+          "format": "nplayer-policy-v1",
+          "identity": {
+            "big_blind": 100,
+            "card_tables": [
+              "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+              "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+              "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+            ],
+            "game": "nlhe-cash",
+            "menu": "min-pot-conditional-jam-v1",
+            "players": 3,
+            "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+            "small_blind": 50,
+            "stacks": [
+              20000,
+              20000,
+              20000
+            ],
+            "utility_unit": "big-blind"
+          },
+          "last_average_street": 3,
+          "missing": "uniform",
+          "players": 3,
+          "source_checkpoint_sha256": "18f83931565fd6d1cc906bea52ae481b656cef276545306d8063250bd8ba2245",
+          "strategy": "average"
+        },
+        "record_bytes": 32,
+        "source_policy_sha256": "2382722430095e9f3b03b91846d849cc921243ea4a3088f5f9fd11cb1ccaef78"
+      },
+      "sha256": "7c5403929333e6d3260185d7c67667b1302a667745c5485147f87dd7a71ad076"
+    },
+    "2026102261002": {
+      "bytes": 14306896906,
+      "file": "NP3-200BB-v061-seed-2026102261002.bin",
+      "metadata": {
+        "byte_order": "little",
+        "dtype": "float64",
+        "format": "nplayer-policy-binary-v1",
+        "mass": {
+          "keyset_sha256": "a02d6573e785054455661d5fe54a1808df20109b1cc43ada687df6c90eb8ccf5",
+          "positive_mass_rows": 184597770,
+          "receipt_sha256": "847557af8852d2ad3296b2183eef757b97e4b8c4f73f767d41277724c90928cb",
+          "zero_keys_sha256": "c9725c2d94fa4ba74de9ad6c9169d75857345597268ad57fc2fc336acd357467",
+          "zero_mass_rows": 65404167
+        },
+        "policy": {
+          "continuation": "none",
+          "entries": 250001937,
+          "format": "nplayer-policy-v1",
+          "identity": {
+            "big_blind": 100,
+            "card_tables": [
+              "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+              "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+              "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+            ],
+            "game": "nlhe-cash",
+            "menu": "min-pot-conditional-jam-v1",
+            "players": 3,
+            "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+            "small_blind": 50,
+            "stacks": [
+              20000,
+              20000,
+              20000
+            ],
+            "utility_unit": "big-blind"
+          },
+          "last_average_street": 3,
+          "missing": "uniform",
+          "players": 3,
+          "source_checkpoint_sha256": "c5e79990c9fb60775b324547d815f7ca9e5df1cff6b7557576fda4b2fc1e47e2",
+          "strategy": "average"
+        },
+        "record_bytes": 32,
+        "source_policy_sha256": "844bb1a6e1ef9f2b94d32443d50a55d6c104abecdd65cab0262bfe89d16d89e1"
+      },
+      "sha256": "7ae4460ba0615af24cc66c8dd86bc868595c6f6e4622372314d5bf141628b3ed"
+    }
+  },
+  "part_bytes": 1073741824,
+  "research_comparators_and_candidates": {
+    "baseline-2026102240001": {
+      "checkpoint": "/home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1/2026102240001-baseline-train.gz",
+      "checkpoint_sha256": "435a664c7dceacd2f8f1cda972ddd060ec30faa9ba291cd7b1546a37ad28e41e",
+      "mass": "/home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1/2026102240001-baseline-mass",
+      "mass_sha256": "d62aae5489e368d7d714a8c7bcf744c7fca92da8388bd21c4ada8999fd33bd73",
+      "path": "/home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1/2026102240001-baseline.bin",
+      "sha256": "1d79e8e114c9abb1674759f028e0f02aa2cd1fa9cddd1daaf8d7e062d08f8dd7",
+      "source_policy": "/home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1/2026102240001-baseline-average.gz",
+      "source_policy_sha256": "3771d8d8f348e317e840ca9722d97f8e10a17d4eac4350c569e8799c891e7127"
+    },
+    "baseline-2026102261001": {
+      "checkpoint": "/home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1/2026102261001-baseline-train.gz",
+      "checkpoint_sha256": "0448795425421bba8d9558175e2e8d517defcabfdfbaab2616a240eab5c487bc",
+      "mass": "/home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1/2026102261001-baseline-mass",
+      "mass_sha256": "f1219dbdcd02cd293d1cc6314a2fa8e7df8bbedccc7f8aab066edc1ea3e0742e",
+      "path": "/home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1/2026102261001-baseline.bin",
+      "sha256": "7e9437a77542c84d992366cd08d6a9a92d76f3c3a94115e6c1762b4ddd29ff46",
+      "source_policy": "/home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1/2026102261001-baseline-average.gz",
+      "source_policy_sha256": "f8a0eea1f9b250cf4521da79c80f4ee484e7cfd7bfce6a0f41f2880555f44ae2"
+    },
+    "baseline-2026102261002": {
+      "checkpoint": "/home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1/2026102261002-baseline-train.gz",
+      "checkpoint_sha256": "2aa5058ac56cbfd27854e01e95fb91bc19728b3a042eb292d08d87f6384593c2",
+      "mass": "/home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1/2026102261002-baseline-mass",
+      "mass_sha256": "027f883423dfca39a8e53108dd687865a27840d6a284d46543eb59108b6d3151",
+      "path": "/home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1/2026102261002-baseline.bin",
+      "sha256": "7c85a47d38787f5606f355440c4f0da52cb5d22ed66fe34c57e7b4beec2a332a",
+      "source_policy": "/home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1/2026102261002-baseline-average.gz",
+      "source_policy_sha256": "f8a6c808b1b9602348927b08cb3bd3beb71f28e8a08fe666b07eebeba3d5fcea"
+    },
+    "candidate-2026102240001": {
+      "checkpoint": "/home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1/2026102240001-candidate-train.gz",
+      "checkpoint_sha256": "9e824a45b87e0722385e82452f4ea4574f802edd784e9e91181bf24e17f32570",
+      "mass": "/home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1/2026102240001-candidate-mass",
+      "mass_sha256": "b6202c4eaa665f1391f08457308fb5c05e6f1eaeb5a494b1093af355a5331252",
+      "path": "/home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1/2026102240001-candidate.bin",
+      "sha256": "c29eac794d048793988c30f1f9e5024bf970e87883e026cfd72f0d006f24bfa3",
+      "source_policy": "/home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1/2026102240001-candidate-average.gz",
+      "source_policy_sha256": "f6ca935e809ebda4f93e6ecd1c87ff74189c6d64d8a5687b2c3ebfc03c01f563"
+    },
+    "candidate-2026102261001": {
+      "checkpoint": "/home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1/2026102261001-candidate-train.gz",
+      "checkpoint_sha256": "18f83931565fd6d1cc906bea52ae481b656cef276545306d8063250bd8ba2245",
+      "mass": "/home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1/2026102261001-candidate-mass",
+      "mass_sha256": "ac86bdecdc9cfc6441fcaff1adf37dc7107987e9ab44b4a9ff0fef3029629e9c",
+      "path": "/home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1/2026102261001-candidate.bin",
+      "sha256": "7c5403929333e6d3260185d7c67667b1302a667745c5485147f87dd7a71ad076",
+      "source_policy": "/home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1/2026102261001-candidate-average.gz",
+      "source_policy_sha256": "2382722430095e9f3b03b91846d849cc921243ea4a3088f5f9fd11cb1ccaef78"
+    },
+    "candidate-2026102261002": {
+      "checkpoint": "/home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1/2026102261002-candidate-train.gz",
+      "checkpoint_sha256": "c5e79990c9fb60775b324547d815f7ca9e5df1cff6b7557576fda4b2fc1e47e2",
+      "mass": "/home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1/2026102261002-candidate-mass",
+      "mass_sha256": "847557af8852d2ad3296b2183eef757b97e4b8c4f73f767d41277724c90928cb",
+      "path": "/home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1/2026102261002-candidate.bin",
+      "sha256": "7ae4460ba0615af24cc66c8dd86bc868595c6f6e4622372314d5bf141628b3ed",
+      "source_policy": "/home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1/2026102261002-candidate-average.gz",
+      "source_policy_sha256": "844bb1a6e1ef9f2b94d32443d50a55d6c104abecdd65cab0262bfe89d16d89e1"
+    }
+  },
+  "split_checksums": "Generated by build_v061_bundle; not yet qualified or uploaded",
+  "version": "v0.6.1"
+}

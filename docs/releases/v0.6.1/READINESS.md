@@ -1,0 +1,35 @@
+# v0.6.1 release readiness
+
+Status: **preparation for review; full-size packaging/runtime and publication pending**.
+The owner authorizes this preparation only. Do not merge, tag, create/upload a
+release, publish, change defaults or adopt search without explicit approval.
+
+- [x] PR404 actually merged: `bbb71f408db6b1964541e22978628f8c60105313`, October23
+  10:03:38UTC, following five successful checks. Fresh isolated feature worktree.
+- [x] All30 prospective gates and10,543,104 initial/reproduced hand proofs retained.
+  Six checkpoint/export and binary audits pass; no new training/strength test.
+- [x] Exact three10B model pins, all six research endpoint paths/hashes, game/
+  schema/menu/float64/mass tags, K50 URLs and checksums prepared in Git.
+- [x] v0.6.0 PR369 qualification and PR371 incomplete publication inspected.
+  Reuse K50, one-pass split/hash, independent reconstruction, resumable downloads,
+  live-asset reuse planning, refreshed canonical public URLs; no mandatory Drive.
+- [x] Explicit three-player200BB selection; existing defaults/v0.6.0 preserved.
+- [x] [Local regressions](verification/local.md):20 new v0.6.1 +10 existing v0.6.0 checks pass.
+- [ ] Exact full-size part hashes/manifests and independent reconstruction receipts.
+- [ ] Three native integration checks (36 total hands), privacy/restart/replay proofs.
+- [ ] Measured time/RSS/temperature/storage receipt under coordinated bb128 mutex.
+- [ ] Reviewed final PR with green CI; all findings resolved.
+- [ ] Explicit owner merge/tag/publication and **release-asset upload** approval.
+- [ ] Approved source-bound manifests/hashes generated without recopying parts.
+- [ ] Live GitHub inventory reconciled; only missing assets uploaded and recorded.
+- [ ] All canonical public downloads, three reconstructions/runtime checks verified.
+- [ ] Final release availability/verification receipt and notes recorded.
+
+[Procedure and time/storage/network quote](PUBLICATION_PLAN.md) ·
+[Installation](INSTALL.md) · [Model card and limits](MODEL_CARD.md) ·
+[Exact manifest](MODEL_MANIFEST.json) · [Whole-model/dependency hashes](MODEL_SHA256SUMS).
+
+No payload has been uploaded or archived by this preparation. The vacuum-cleaner
+owns research cleanup/staging/archival; all protected paths remain intact. The
+readiness checklist never treats a local fixture test, GitHub metadata digest,
+archive listing or public release page alone as full publication verification.

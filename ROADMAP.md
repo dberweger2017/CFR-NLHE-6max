@@ -1,5 +1,15 @@
 # Roadmap
 
+## v0.6.1 release preparation
+
+[PR404](https://github.com/dberweger2017/CFR-NLHE-6max/pull/404) merged as
+`bbb71f40` after all five checks passed. All 30 fixed 200 BB acceptance gates
+pass; the three qualified 10B binaries are the release candidates and 3B
+comparators remain research evidence. [Release preparation](docs/releases/v0.6.1/READINESS.md)
+adds exact pins, resumable downloads, explicit three-player 200 BB selection and
+staged publication checks. Full-size packaging/runtime and owner approval remain
+pending; no release, defaults, search, new science or research cleanup follows automatically.
+
 ## Three-player 200 BB family passes fresh acceptance toward v0.6.1
 
 [PR404](https://github.com/dberweger2017/CFR-NLHE-6max/pull/404),
