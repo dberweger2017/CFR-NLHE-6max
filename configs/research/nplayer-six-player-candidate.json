@@ -1,0 +1,146 @@
+{
+  "status": "owner-authorized-source-qualification-pending",
+  "input": "docs/reports/nplayer-five-player-candidate/results.json",
+  "input_sha256": "63b929aa1ea7924b50ca57af14e41a9648c28731ed146e9c57804c33a6c34f30",
+  "players": 6,
+  "stack_bb": 100,
+  "seed": 2026102361001,
+  "targets": [
+    3000000000,
+    6000000000,
+    10000000000,
+    15000000000
+  ],
+  "contrasts": [
+    [
+      "3b",
+      "6b"
+    ],
+    [
+      "6b",
+      "10b"
+    ],
+    [
+      "10b",
+      "15b"
+    ],
+    [
+      "3b",
+      "10b"
+    ],
+    [
+      "3b",
+      "15b"
+    ]
+  ],
+  "fields": 8,
+  "blocks_per_field": 4096,
+  "seatings": 12,
+  "unique_initial_instances": 1572864,
+  "physical_initial_instances": 2359296,
+  "reproduction_instances": 2359296,
+  "statistical_family": "40 one-sided95 Student-t/Bonferroni; trained lower>0; seven scripted/mixed lower>-5",
+  "components": [
+    {
+      "name": "active traversal0\u219215B",
+      "central_seconds": 3630.696048754026,
+      "reserved_seconds": 7261.392097508052
+    },
+    {
+      "name": "four checkpoint saves",
+      "central_seconds": 673.03512532,
+      "reserved_seconds": 1346.07025064
+    },
+    {
+      "name": "four train startup/resume/hash residuals",
+      "central_seconds": 1401.7820059310827,
+      "reserved_seconds": 2803.5640118621654
+    },
+    {
+      "name": "four endpoints export",
+      "central_seconds": 2126.3044632901438,
+      "reserved_seconds": 4252.6089265802875
+    },
+    {
+      "name": "four endpoints source audit",
+      "central_seconds": 2064.220091412426,
+      "reserved_seconds": 4128.440182824852
+    },
+    {
+      "name": "four endpoints conversion",
+      "central_seconds": 1678.1931445974624,
+      "reserved_seconds": 3356.3862891949248
+    },
+    {
+      "name": "four endpoints binary audit",
+      "central_seconds": 1678.1476976998965,
+      "reserved_seconds": 3356.295395399793
+    },
+    {
+      "name": "three anchored arena jobs initial+repeat",
+      "central_seconds": 2004.2719420422509,
+      "reserved_seconds": 4008.5438840845018
+    },
+    {
+      "name": "initial independent replay including duplicate3B",
+      "central_seconds": 1134.4345586718991,
+      "reserved_seconds": 2268.8691173437983
+    },
+    {
+      "name": "five paired verification/readouts",
+      "central_seconds": 665.5099082036759,
+      "reserved_seconds": 1331.0198164073518
+    },
+    {
+      "name": "global complete proof/tail readout",
+      "central_seconds": 1255.6802805676125,
+      "reserved_seconds": 2511.360561135225
+    },
+    {
+      "name": "between-stage validation",
+      "central_seconds": 647.7201548404992,
+      "reserved_seconds": 1295.4403096809983
+    },
+    {
+      "name": "exact source build+qualification",
+      "central_seconds": 600,
+      "reserved_seconds": 1200
+    },
+    {
+      "name": "saved PR415 trace diagnosis",
+      "central_seconds": 600,
+      "reserved_seconds": 1200
+    },
+    {
+      "name": "report publication",
+      "central_seconds": 900,
+      "reserved_seconds": 1500.0
+    }
+  ],
+  "central_seconds": 21059.995421330976,
+  "reserved_seconds": 41819.99084266195,
+  "accepted_planning_seconds": 43200,
+  "storage": {
+    "model_artifacts_bytes": 171798691840,
+    "traces_bytes": 42949672960,
+    "source_qualification_logs_bytes": 10737418240,
+    "working_headroom_bytes": 32212254720,
+    "provisional_free_bytes": 257698037760,
+    "owner_start_during_cleanup": true,
+    "no_automatic_disk_stop": true
+  },
+  "assumptions": "PR415 five-player measurements,25percent six-player scenario penalty,12vs10seatings only for hand-dependent work; existing two-model runner three anchored jobs; duplicate3B is not extra sample. Reserve not guarantee or time kill.",
+  "excludes": [
+    "archival/upload",
+    "release packaging",
+    "new training seeds",
+    "capacity/menu/search changes",
+    "automatic outcome extension"
+  ],
+  "launch_requires": [
+    "exact source qualification",
+    "completed saved-trace diagnosis",
+    "manual live disk/RAM/mutex admission",
+    "immutable owner start-during-space-arrangement receipt"
+  ]
+}
