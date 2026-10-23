@@ -300,3 +300,16 @@ reserves a proposed3B/10B lineage and bounded250Mcapacity with paired developmen
 requirements. Qualify that arena and price the complete allocation after PR404
 releasesbb128; no further tiny four-player pilot ladder or automatic launch.
 M4 locks released; raw evidence retained, archival owner-managed pending.
+
+## Four-to-six-player paired arena — final qualification pending
+
+[PR410](https://github.com/dberweger2017/CFR-NLHE-6max/pull/410), proposal409,
+adds a separate fixed-field paired command, balanced cyclic seating and
+missing/zero/positive-mass evidence. Initial complete qualification passes600
+initial+600reproduced hands, six exact-zero self cases, serial parity, independent
+mass tags and unchanged legacy three-player traces. Review removed a fixture-only
+model-count restriction and fixed a parallel test temporary-name collision;
+latest121library/8example/10Python tests pass. Final source's fixture replay is
+pending after a prelaunch admission decline and M4 SSH timeouts. Keep draft;
+[readiness and exact preserved evidence](docs/reports/nplayer-paired-arena/results.md).
+No training, strength claim, bb128 work or automatic campaign follows this task.

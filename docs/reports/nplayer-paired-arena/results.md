@@ -1,0 +1,29 @@
+# Paired four-to-six-player arena: implemented; final qualification pending
+
+[PR410](https://github.com/dberweger2017/CFR-NLHE-6max/pull/410), [proposal409](https://github.com/dberweger2017/CFR-NLHE-6max/issues/409), [protocol](../../nplayer-paired-arena.md), [readiness](readiness.json). **Keep this PR in draft.** The initial complete qualification passes, but the final native/orchestration source still needs its fixed fixture confirmation. M4 SSH timed out twice after preparation. No new launch, substituted host, training or completion claim is inferred.
+
+## What works in the initial complete qualification
+
+Execution source `5b09752e710fdec0d23266997bdb7f910384333a`; native build `857437a7`. [Unchanged initial results](initial-results.json), [configuration/model pins](initial-configuration.json), [replay/hash/cost/resource proofs](initial-proof-summary.json), [fixed cases](initial-cases.csv).
+
+All53stages pass in **303.38seconds (5m03s)**, plus54.36seconds native build/tests. For eachN=4/5/6, tiny and cap-size fixtures each include one identical-focal self comparison and one changed-focal comparison against the same field. All **six self cases are byte-identical with exactly zero contrast**. The field, root, deal and seating checks pass for every changed-focal case. All600initial hand instances independently replay and600reproductions match bytes; the480tiny serial-hand instances also match four-thread traces. These are engineering fixture results, not playing-strength evidence or independent samples added by reproduction.
+
+Cyclic schedules use4/5/6rotations per block, covering every labeled identity in every physical seat and button-relative position without automatic24/120/720permutation expansion. They keep opponents' circular ordering fixed; a broader ordering estimand requires an explicitly declared balanced schedule. Deal blocks, not rotations, are the statistical units. Contrast is focalB minus focalA against the same field, with no reciprocal halving.
+
+The independent export/mass scan verifies **3,326 model-decision tags**, querying12existing source policies. Distinct queried keys by status are282positive-mass,6zero-average-mass and1,769missing. A positive-mass uniform row remains positive; probabilities alone never determine the original mass tag. Trace/readout counters separate identity, physical seat, button-relative position and street; scripts are not-applicable. Every action still receives only its acting-seat observation; privileged cards/decks remain host/replay evidence.
+
+The unchanged legacy command produces byte-identical base/current script-only traces at three-player20/100/200BB:36current hands independently replay and match their36base counterparts, retaining all six old permutations. Existing trainer/game/key/policy and library source are unchanged; this is not a mature three-player model rerun. Peak sampled family memory **5.60GiB**, all thermal states nominal, pressure1, no observed swap growth. Fresh processes do not imply cold OS caches; no cache flush. Both locks were free after this initial run.
+
+## Review changes and retained failures
+
+Review removed an unnecessary two-model alias restriction from the general command. The fixed M4 cases remain at two aliases; production fields may contain more, and their memory cost must be priced separately. A new native test accepts seven distinct model aliases in a six-player paired field. No played strategy, training recipe or fixed qualification deal changed.
+
+The next native build exposed a pre-existing parallel test-fixture naming collision in the reused mass-metadata helper (`AlreadyExists`). It is preserved under `build-dev-v2`; only the test helper's temporary naming was corrected with an atomic unique counter. `build-dev-v3`, source`6287b619`, passes121library tests,8paired-example tests and the legacy example test (one unrelated existing K50-dependent test remains ignored). Ten focused Python tests pass. Initial launcher setup also had a missing`sys`import before any native stage; the corrected launcher and original logs are retained. No scientific result was discarded or retried to obtain a favorable outcome.
+
+A final fixture admission under the initial conservative6GiBforecast+1GiBheadroom was declined before launch; `qualification-v2` remains preserved. The same completed fixed workload measured5.60GiB, so source`f6cfa7a5` prepares `qualification-v3` using that measured peak plus1GiB. The prepared model pins and all case fields are checked against the completed workload before using this forecast. This changes planning admission only; thermal/ownerSTOP/mutex/correctness stops stay intact, with no runtime time/RSS/disk/swap cutoff.
+
+## Remaining work and retrieval
+
+The M4 stopped answering SSH after `qualification-v3` was prepared. No final-source launch is known to have occurred. On reconnection, first read its launch/status/failure and supervisor identity; never duplicate an unknown run. If it has not launched and admission fits, execute the prepared one-use final fixture path, then verify every replay/reproduction/self-zero/coverage/legacy barrier, retained trace hashes and released locks. Publish final-source costs/proofs before marking review-ready. No native training command, extra deals, outcome-selected extension or speculative follow-up is authorized by this task.
+
+Owned M4 root `/Users/dberweger/Local/nplayer-paired-arena-20261023` retains source-dev-v1/source-v1/source-v2/source-v3/source-v4, all build/chain failures, original qualification-v1, declined qualification-v2 and prepared qualification-v3. PR406/408 fixture exports/mass files, shared Git object store `~/Local/hu200-river-search`, pinned engine venv and K50 paths are active read-only dependencies. Use originals for retrieval; archival/cache/Drive acceptance remains owner-managed pending, no deletion or accepted cloud fallback claimed. PR404 and bb128 science were not modified.

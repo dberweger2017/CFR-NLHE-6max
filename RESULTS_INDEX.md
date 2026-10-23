@@ -6974,3 +6974,27 @@ Fixed fresh seeds2026102305001/2026102306001, sequential five then six,100BB/K50
 Five-player25,000,508nodes/14,753,432keys then50,007,287/20,006,770; freezeiteration1829 bracket33,837,795–35,713,752nodes. Six-player25,010,759/15,520,261 then50,015,901/20,002,527; freezeiteration1959 bracket31,442,336–33,214,235. Whole-iteration overshoot valid, capped growth censored/not saturation. Main peaks3.04/3.06GiB; nominal thermal state, pressure1, no observed swap growth. Active windows3.84/3.99 and4.19/4.26s are small-table, not mature/bb128 estimates. Full70,282,990main rows audited,240initial+240byte-identical reproduced policy hands independently replayed;180+180qualification hands,256engine fixtures,121native tests perbuild and1/10thread/fresh-resume checkpoint bytes pass. Tiny river misses7/8 and4/4 at50M are descriptive, no strength/coverage-adequacy claim. Table-wide zero-average mass is not played zero-mass fallback; the latter is not separately instrumented.
 
 Raw files retained on M4 `/Users/dberweger/Local/nplayer-five-six-feasibility-20261023` (source-v1/qualification-v1/main-v1); use this original path for retrieval. Both research locks verifiedfree/sourceclean, all retained CP/export/trace file SHA256s readbackmatch. Source clone's shared Git store `~/Local/hu200-river-search`, read-only engine venv and K50 remain protected until standalone source archival. Cleanup/staging/uploads/Driveacceptance owner-managed pending; no accepted cache/ZIP/cloud retrieval path or deletion claimed. PR404 and all other jobs untouched. [Four-player candidate campaign draft](docs/nplayer-four-player-campaign-plan.md) is preparation only, not a launch/default/release/merge authorization.
+
+## PR410 — paired arena engineering; final-source qualification pending
+
+[PR410](https://github.com/dberweger2017/CFR-NLHE-6max/pull/410), proposal409,
+[protocol](docs/nplayer-paired-arena.md), [report/readiness](docs/reports/nplayer-paired-arena/results.md),
+[initial results](docs/reports/nplayer-paired-arena/initial-results.json),
+[initial source/model configuration](docs/reports/nplayer-paired-arena/initial-configuration.json),
+[proof/resource/failure provenance](docs/reports/nplayer-paired-arena/initial-proof-summary.json).
+Initial source5b09752e/native857437a7 qualifies all53stages in303.38s,600initial+
+600reproduced hands,480serial, six self cases exactly zero/byte-identical,
+3326independently audited model lookup tags,36legacy three-player hands matching
+base and independently replaying. Peak5.60GiB, nominal thermal/no swap growth.
+Final native source6287b619 passes121library/8paired-example tests; latest
+orchestration sourcef6cfa7a5 is prepared but not fully fixture-qualified. Test
+naming collision/build-dev-v2 and conservative prelaunch admission decline/
+qualification-v2 retained; qualification-v3 prepared before two SSH timeouts.
+No final launch assumed, no training/strength/release/default/merge claim.
+
+All originals at M4 `/Users/dberweger/Local/nplayer-paired-arena-20261023`;
+existing PR406/408 models/mass/source, engine venv, K50 and shared Git dependencies
+remain protected. Archive/staging/Drive acceptance owner-managed pending; no
+completed cloud fallback or deletion. PR404/bb128 unchanged. Reconnect, inspect
+launch/status before any one-use execution, complete final proof barriers and
+publish final-source receipts before ready-for-review.
