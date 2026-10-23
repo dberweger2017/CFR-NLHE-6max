@@ -1,0 +1,25 @@
+# Four-player 100 BB M4 feasibility pilot
+
+**Completed:** [results and limitations](reports/nplayer-four-player-feasibility/results.md). Main finished in2m51s with3.21GiBsampled peak; all correctness and replay proofs pass. This is cost/capacity evidence only; no strength result or automatic longer run. Execution source6637a70e stays frozen; later commits contain reports only.
+
+Proposal [405](https://github.com/dberweger2017/CFR-NLHE-6max/issues/405). The owner proposes a bounded parallel pilot toward v0.7 while PR404 runs unchanged on bb128. Question: how does a fourth player affect key growth, memory/key and traversal/save/export/audit costs? No strength estimate, release/default change, search or long continuation.
+
+## Fixed scope and qualification
+
+Four players, equal100BB stacks,50/100blinds, existing v1 menu/K50 key schema, unpruned fast mode,10threads/eight roots per seat, all-street float64 opponent-sampled averages and parallel gzip. One fresh main seed2026102240601, cumulative **25M then50M nodes**, **20M-key freeze threshold**, allowing whole-iteration overshoot. Freeze censors retained-key growth; it is not natural saturation. No extra endpoint, automatic retry or outcome-driven tuning.
+
+Use the existing generic training/export/policy-play commands (support2–6players); do not extend the three-player arena. Native game, information and regret code stay unchanged. Correctness fixture seed2026102240591 at100K/200K nodes and10K cap checks thread1/10 checkpoint bytes and fresh/resume equivalence. Independently replay128four-player engine/rules fixtures including all-in/unequal-stack/side-pot cases. Full-row average export auditing;24self-play hands plus byte-identical reproduction rotate the button across all four positions. A separate cost-only qualification seed2026102240592 at1M nodes/20Mcap measures the complete tool path before main. These tiny models never become candidates.
+
+At each main endpoint: save, hash/validate recipe/counts/lineage, export/full-row audit with4workers, then64four-policy self-play hands plus byte-identical reproduction and independent engine replay. Policy instances are independent and share one read-only weight table. These hands measure legality/lookup coverage only, not playing strength. Trace roots2026102240611/12 are fixed before outcomes. Store all source/config/build/engine/K50/binary/checkpoint/export/trace/proof pins and failures; refuse duplicate starts and input/config mutation.
+
+## Admission and cost
+
+**One hour is a planning allocation**, not a guarantee or an elapsed-time kill. Main is conditional on successful qualification and a measured complete-workflow reserved quote <=3600seconds, including qualification/build, both endpoints/tools and600seconds report reserve. Extrapolate training2× by nodes and tools2× by rows at the20Mcap; retain the uncapped growth scenario separately. Forecast memory from observed qualification peak plus200bytes per additional retained key, and require1GiB remaining available memory at admission. This is a conservative scenario, not a proven bound; do not silently alter cap/counts to fit. Report a declined admission if the measured quote/resources do not fit, without launching main.
+
+M4 only, AC and the existing `~/Local/.hu20-m4-research.lock` plus an owned mutex; no bb128/M1 compute. New isolated source/target/output roots; existing engine environment and K50 are read-only. A small Foundation helper reads Apple's [thermal state](https://developer.apple.com/documentation/foundation/processinfo/thermalstate-swift.enum); serious/critical/missing/unknown readings or ownerSTOP stop owned work. No Celsius value is invented. Disk/RSS/pressure/swap are recorded and inspected, with **no added time/RSS/disk/swap automatic stop**. The20Mtable threshold is part of the fixed training recipe, not a process-memory kill. No fan/driver/OS/environment edits.
+
+## Reporting and closeout
+
+Report actual per-street keys/visits/zero-average mass/misses, freeze/discards/censored growth, active traversal versus save/load/hash/wall, all tool/replay costs, sampled process-family RAM/CPU, pressure/swap/storage/thermal state and pin/proof validity. No aggregate self-play return, confidence interval, strength acceptance or release claim. One seed, early small tables and one machine cannot establish mature-table cost or capacity sufficiency; do not transfer M4 rates to bb128 as measured rates. There is no matched three-player arm: comparisons with historical three-player measurements are contextual and cannot isolate player count from hardware/table-size differences.
+
+Qualification failure is terminal for that attempt and preserved. Main failure is terminal with no automatic scientific retry or continuation beyond50M. No adaptation to weak results. Raw evidence stays in the owned M4 root; compact reports only enter Git. Cleanup/staging/Drive uploads remain owner-managed, pending final policy closeout; no deletion or Drive acceptance claim. Existing PR317/369/371/404 inputs and all other jobs stay untouched.
