@@ -1,5 +1,5 @@
 {
-  "status": "prepared-main-not-admitted-qualification-pending",
+  "status": "qualified-main-running",
   "proposal_issue": 411,
   "pr": 413,
   "dependency_pr": 410,
@@ -27,12 +27,25 @@
     "no_automatic_retry": true,
     "original_receipts_retained": true
   },
-  "main_budget": "Proposed36000seconds, not accepted for this new study; no time cutoff",
-  "storage": "147.13GiBfree scenario vslast125.19GiB; owner cleaner prepares space, not this agent",
+  "main_budget": "Owner accepted36000seconds; includes build/qualification/reporting, not an elapsed-time stop or reset",
+  "storage": "Owner authorizes starting during cleanup, superseding147.13GiB prelaunch wait. Actual launch83.98GiBfree; cleaner alone handles space/staging/upload.",
   "remaining": [
-    "Free research mutex and source-pinned bb128 build/real-engine qualification",
-    "Owner accepts complete10h main allocation and storage arrangement",
-    "Fresh one-use main configuration only after all qualification proofs pass"
+    "Fixed3B/10B main training, auditing, fresh paired evaluation/reproduction/replay and global readout",
+    "Complete report and owner-managed archive closeout"
   ],
-  "preservation": "All source/failed admission receipts retained. Protected400/402/404/K50/venv/read-only. No cleanup/upload/Drive acceptance claim."
+  "preservation": "All source/failed admission receipts retained. Protected400/402/404/K50/venv/read-only. No cleanup/upload/Drive acceptance claim.",
+  "qualification_result_sha256": "0602825a7d3d27ebb27584a5bc83c2f6c9b06f9f46f77eeec4927debf25267c0",
+  "main_launch": {
+    "pid": 872177,
+    "utc": "2026-10-23T11:04:39.305064+00:00",
+    "source": "6adc28cea5fe29008766142ae5b9af01ef1e0067",
+    "config_sha256": "f3be3047b3c1b5fb781fa5d3e8c41e43ba7a57cf54a74672f8a5125b2f03cd9c",
+    "actual_free_bytes": 90175279104,
+    "accepted_seconds": 36000,
+    "owner_budget_message": "approvfed",
+    "owner_storage_message": "sotrage is beling cleared out, but you can get started",
+    "storage_amendment": "Owner authorizes launch during cleanup, superseding147.13GiB prelaunch wait; no runtime disk guard added",
+    "qualification_sha256": "0602825a7d3d27ebb27584a5bc83c2f6c9b06f9f46f77eeec4927debf25267c0",
+    "no_scientific_retry": true
+  }
 }

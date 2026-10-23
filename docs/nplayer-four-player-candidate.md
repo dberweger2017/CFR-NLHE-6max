@@ -2,7 +2,7 @@
 
 Owner asks for one fresh lineage now, separately from v0.6.1 release preparation. [Proposal411](https://github.com/dberweger2017/CFR-NLHE-6max/issues/411). M4 is offline: qualification moves to **bb128**, using fresh tiny four-player correctness fixtures. No dependence on inaccessible PR406/408 model files, no requirement to wait for M4, and no new mature cost-pilot ladder. The [paired arena implementation](nplayer-paired-arena.md) remains the dependency; its prior M4 receipts and failures remain preserved.
 
-This PR prepares the controller and a complete allocation. **Main is not launched or budget-admitted.** PR404 is now merged and its main process has exited. Coordinate the normal bb128 mutex with the separate release agent; neither job bypasses it. Qualification is bounded engineering; it is not the3B/10B campaign.
+This PR prepares the controller and a complete allocation. **Owner has approved the10-hour allocation. Main launched October23 13:04Madrid after successful56-stage qualification. [Launch and exact receipts](reports/nplayer-four-player-candidate/launch.md).** PR404 is now merged and its main process has exited. Coordinate the normal bb128 mutex with the separate release agent; neither job bypasses it. Qualification was bounded engineering and is now complete; the3B/10B main campaign is a separate running phase.
 
 ## Fixed candidate and comparison
 
@@ -39,7 +39,7 @@ Qualification accounting: eight fields×two blocks×24rotations×two arms =768 i
 
 [Reproducible quote and storage arithmetic](../configs/research/nplayer-four-player-candidate.json), generated solely from PR404's retained mature metadata by `python3.11 -m scripts.plan_nplayer_four_player_candidate --out NEW_JSON`. PR406's few-second training windows are not a mature forecast.
 
-**4h14m central /9h34m component reserve; proposed10-hour planning allocation**, including build/qualification, two training endpoints and saves, capped resume, exports/full-row audits, binary conversion/parity, both arena passes, replay/pair validation, global/tail readout and report. No archive/upload/release work included. Main allocation requires owner acceptance before configure/run; it is not an elapsed-time stop or completion guarantee.
+**4h14m central /9h34m component reserve; proposed10-hour planning allocation**, including build/qualification, two training endpoints and saves, capped resume, exports/full-row audits, binary conversion/parity, both arena passes, replay/pair validation, global/tail readout and report. No archive/upload/release work included. Owner accepted this allocation with "approvfed"; it is not an elapsed-time stop or completion guarantee.
 
 Fourth-player mature costs are unmeasured. Scenario applies2× PR404's slowest active-node cost,1.5× save/load/export/audit/conversion costs and4× per-hand play/proof cost, then explicit further reserves. These are conservative choices, not measured4P penalties or bounds. Two readonly model aliases are shared by eight arena workers; memory and storage inspected manually before launch, with all model and trace paths remaining readable.
 
@@ -54,6 +54,16 @@ Power is deliberately conditional. No four-player outcome informs counts. Assumi
 Report both absolute and paired results, adjusted gates separately, physical seats/positions, lookup coverage, extreme positive/negative blocks and top10 squared-deviation share without excluding tails, active/save/load/export/audit/conversion/play/replay/readout/wall/CPU/RAM/thermal/storage costs and exact provenance. Keep full block arrays/raw traces/models on bb128; Git gets compact summaries. No outcomes inspected until all eight fields pass replay/reproduction. Main development success does not authorize release, merge, further nodes, seeds or automatic progression to five/six players. Archive remains owner-managed pending; retain originals and all failures.
 
 
-## Current admission state
+## Earlier admission state (preserved)
 
 [Readiness receipt](reports/nplayer-four-player-candidate/readiness.md): source-pinned preflight refuses the busy bb128 normal mutex at10:25:27UTC October23, before a build/qualification/main directory is created. The separate v0.6.1 release qualifier holds it; left untouched.19controller/evidence+8prior-campaign tests pass locally. Native build and real-engine fixture remain pending, no automatic retry. This is an external admission blocker, not a completed fixture or a scientific failure. Main is not configured or launched. M4 remains unnecessary for this4P qualification.
+
+
+## Owner approval and storage-sequencing amendment
+
+Owner approves the proposed10-hour allocation with "approvfed", then instructs "sotrage is beling cleared out, but you can get started". This authorizes main after successful qualification while the cleaner continues, superseding the147.13GiB-before-launch wait; record actual free space at admission. All scientific counts, seeds, recipe, source and thermal stops stay fixed. No disk/RSS/swap/time stop is introduced. Latest manual free-space check is84.01GiB, with cleanup owned by the owner's separate agent. Earlier admission failure/source/logs remain preserved. PR413 full CI passed on report headf83995fb (execution code unchanged from6adc28ce).
+
+
+## Main running after complete qualification
+
+[Launch record](reports/nplayer-four-player-candidate/launch.md):56qualificationstagesRC0, native121library/8paired/1legacy (oneexistingignored),19focusedPython and8localpriorcampaign regressions pass. All768initial+768reproduced field hands independently replay, self-zero/keyset/thread/resume/serial/gzip-binary payload/full-row/legacy proofs pass. Source6adc28ce/864pins; mainconfigf3be3047b3c1b5fb781fa5d3e8c41e43ba7a57cf54a74672f8a5125b2f03cd9c. Main started11:04:42UTC/13:04Madrid, supervisor872177,83.98GiBactualfree under ownerstorage amendment. Baseline first390.82Mnodes at13:06Madrid,CPU61/T1570°C,no failure. Initialcompleteforecast17:00–17:30Madrid conditional; no outcomes inspected, no retry/extension/newplayer/search/default/release/merge change. Source/model/rawtraces preserved, ownerarchive pending.

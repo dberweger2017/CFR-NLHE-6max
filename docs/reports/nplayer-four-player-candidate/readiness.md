@@ -1,6 +1,10 @@
-# Four-player candidate: prepared, qualification pending
+# Four-player candidate: qualified and main running
 
 [PR413](https://github.com/dberweger2017/CFR-NLHE-6max/pull/413), [proposal411](https://github.com/dberweger2017/CFR-NLHE-6max/issues/411), [protocol and complete quote](../../nplayer-four-player-candidate.md), [exact readiness](readiness.json).
+
+The owner subsequently approved the10-hour allocation and starting while storage cleanup continues. The56-stage bb128 qualification passes and main started13:04Madrid October23. [Launch/owner amendment, proof and initial forecast](launch.md), [qualification receipt](qualification.json). Earlier blocked admission below remains historical provenance; it is not the current runtime state.
+
+## Prior mutex admission, preserved
 
 The fixed controller/protocol/counts/roots/margins/cost/storage scenarios are implemented. Nineteen controller/evidence tests and eight prior-campaign regression tests pass locally; staged artifact and diff checks pass. This is preparation, not a trained candidate or a passed bb128 fixture.
 
