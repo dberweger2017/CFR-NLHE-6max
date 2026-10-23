@@ -127,14 +127,24 @@ class BundleTest(unittest.TestCase):
 
     def test_game_schema_menu_mass_and_source_mutations_refuse(self):
         base = deepcopy(v.MODELS[self.seed]['metadata'])
-        for field, value in [('players', 2), ('stacks', [10000]*3), ('schema', 'other'), ('menu', 'other')]:
+        mutations = []
+        for field, value in [('players', 2), ('stacks', [10000]*3),
+                             ('schema', 'x'*len(base['policy']['identity']['schema'])),
+                             ('menu', 'x'*len(base['policy']['identity']['menu']))]:
             bad = deepcopy(base)
             bad['policy']['identity'][field] = value
-            header = json.dumps(bad).encode()
+            mutations.append(bad)
+        bad = deepcopy(base); bad['dtype'] = 'float32'; mutations.append(bad)
+        bad = deepcopy(base); bad['source_policy_sha256'] = '0'*64; mutations.append(bad)
+        bad = deepcopy(base); bad['mass']['receipt_sha256'] = '0'*64; mutations.append(bad)
+        for bad in mutations:
+            # Keep every offset/length valid, so rejection tests the changed
+            # identity rather than an incidental malformed prefix.
+            header = json.dumps(bad, separators=(',', ':')).encode()
             prefix = bytearray(self.source.read_bytes()[:128])
-            struct.pack_into('<Q', prefix, 8, len(header))
+            self.assertEqual(len(header), struct.unpack_from('<Q', prefix, 8)[0])
             prefix[56:88] = hashlib.sha256(header).digest()
-            with self.assertRaises(ValueError):
+            with self.assertRaisesRegex(ValueError, 'source/schema/count/header'):
                 v.check_header(prefix, header, self.seed)
 
     def test_external_tables_and_rebinding_reuse_parts_without_conversion(self):
