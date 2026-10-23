@@ -1,21 +1,32 @@
 # Roadmap
 
-## Running first four-player100BB development candidate toward v0.7
+## First four-player100BB development candidate: primary gain, unresolved safeguards
 
-Owner prioritizes fresh seed2026102341001, fixed3B/10B, current K50/unprunedfast16/
-eightroots/fullaverages and250M membership threshold. [Proposal411](https://github.com/dberweger2017/CFR-NLHE-6max/issues/411),
-[fixed protocol and complete quote](docs/nplayer-four-player-candidate.md).
-M4 is offline; qualify the paired evaluation dependency on bb128 using fresh tiny
-correctness fixtures, without waiting for M4 or claiming its pending final receipt.
-Only the focal3B→10B changes against the same fixed three3B opponents and seven
-script/mixed fields;4,096independent blocks/field/all24permutations,1,572,864initial
-plus identical reproduction. One development seed is not release confirmation.
-Main allocation proposed10h (4h14central/9h34reserve),147.13GiB free storage scenario;
-owner accepts10h and starting during cleanup, superseding147GiBprelaunch wait.
-[Successful56-stage qualification and launch](docs/reports/nplayer-four-player-candidate/launch.md):
-main13:04Madrid October23,83.98GiBactualfree,source6adc28ce,supervisor872177.
-No new mature cost-pilot ladder; fixed source/model/proof barriers remain; preserve all coverage/adverse/inconclusive results. Release packaging
-runs separately under its own agent and mutex; no search/default/release change.
+[PR413](https://github.com/dberweger2017/CFR-NLHE-6max/pull/413),
+[proposal411](https://github.com/dberweger2017/CFR-NLHE-6max/issues/411),
+[verified results](docs/reports/nplayer-four-player-candidate/results.md):
+fresh seed2026102341001, fixed3B→10B, K50/unprunedfast16/eightroots/fullfloat64
+averages/250Mthreshold. Main completes October23 13:05UTC/15:05Madrid in2h00m34s;
+37stagesRC0, all1,572,864initial hands independently replayed plus byte-identical
+reproduction, eight fields×4,096independent blocks×all24permutations×twoarms.
+
+10B improves against the fixed three-own3B field by **+53.85BB/100**, adjusted
+family95 lower **+25.35**. Seven scripted/mixed safeguards do not clear−5;
+random−56.03 and random+TAG−35.07 are adverse point deltas, while several other
+unpassed fields have positive means. Preserve all outcomes, both absolute returns,
+seats, lookup statuses and tails. This is one development lineage, not v0.7
+release acceptance or independent-seed confirmation.
+
+Both endpoints retain250,003,053 identical keys, frozen near824Mnodes;
+10B river missing lookups are96.19% against check-call versus3.36% against the
+trained field. Fixed membership cannot expand with additional nodes. Retain10B
+as leading research candidate and3B as comparator; capacity/support and safeguards
+remain unresolved. No automatic further nodes, tuning or five/six-player launch.
+Peak CPU75/Thermistor15 90.5°C, worker-family27.75GiB; normal compute mutex released.
+Release packaging may proceed independently before heavy cleanup. Originals and
+protected inputs retained; owner-managed archive pending. PR413 uses fresh bb128
+four-player qualification over PR410; M4's separate final all-size receipt remains
+pending and is not relabeled complete. Search/default/release changes remain separate.
 
 ## Three-player 200 BB family passes fresh acceptance toward v0.6.1
 
