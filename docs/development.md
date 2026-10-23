@@ -245,3 +245,10 @@ The qualification-only `coverage CATALOG_JSON TRACE...` path independently
 streams original gzip exports and audited zero-key metadata to verify tags.
 These tools do not train or start a strength campaign. [Protocol and seating
 limits](nplayer-paired-arena.md), [current qualification readiness](reports/nplayer-paired-arena/results.md).
+
+
+The bounded [five-player development controller](nplayer-five-player-candidate.md),
+`scripts.nplayer_five_player_candidate`, reuses the qualified paired evidence
+and source-bound full-row model pipeline. Its metadata-only component planner is
+`scripts.plan_nplayer_five_player_candidate`; build/configure/run/readout require
+the documented bb128 source/budget/qualification gates, not automatic continuation.

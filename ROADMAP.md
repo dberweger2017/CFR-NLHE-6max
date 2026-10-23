@@ -1,5 +1,22 @@
 # Roadmap
 
+## Preparing bounded five-player100BB development candidate
+
+[PR415](https://github.com/dberweger2017/CFR-NLHE-6max/pull/415),
+[proposal414](https://github.com/dberweger2017/CFR-NLHE-6max/issues/414),
+[fixed protocol](docs/nplayer-five-player-candidate.md),
+[component quote and source gates](docs/reports/nplayer-five-player-candidate/preparation.md).
+One fresh lineage2026102351001, fixed3B/10B/K50/unpruned/250Mmembership,
+eightfixedfields×4,096independentblocks×tenbalancedseatings,655,360initial+same
+reproduction. Independent block averages, eight-adjusted development gates,
+absolute/paired/adverse outcomes and support/visit changes retained. Own-ancestor
+primary is not general superiority; one lineage does not measure training-seed
+variability; two circular opponent orders leave order sensitivity unresolved.
+3hcentral/6hproposedcompleteallocation is a PR413-based scenario, not measured5P.
+Exact-source realK50 qualification/budget/manualadmission precede main; no main
+started. No new capacity arm/search/release/default/replication or automatic hands.
+Keep both four-player checkpoints, preserve all earlier adverse panels and roots.
+
 ## v0.6.1 release preparation
 
 [PR404](https://github.com/dberweger2017/CFR-NLHE-6max/pull/404) merged as
