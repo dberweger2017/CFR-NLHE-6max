@@ -1,5 +1,21 @@
 # Roadmap
 
+## Preparing first four-player100BB development candidate toward v0.7
+
+Owner prioritizes fresh seed2026102341001, fixed3B/10B, current K50/unprunedfast16/
+eightroots/fullaverages and250M membership threshold. [Proposal411](https://github.com/dberweger2017/CFR-NLHE-6max/issues/411),
+[fixed protocol and complete quote](docs/nplayer-four-player-candidate.md).
+M4 is offline; qualify the paired evaluation dependency on bb128 using fresh tiny
+correctness fixtures, without waiting for M4 or claiming its pending final receipt.
+Only the focal3B→10B changes against the same fixed three3B opponents and seven
+script/mixed fields;4,096independent blocks/field/all24permutations,1,572,864initial
+plus identical reproduction. One development seed is not release confirmation.
+Main allocation proposed10h (4h14central/9h34reserve),147.13GiB free storage scenario;
+last125.19GiB free needs owner-cleaner preparation. Main unlaunched, no new mature
+cost-pilot ladder. Build/qualification, source/model/proof barriers precede budget
+admission; preserve all coverage/adverse/inconclusive results. Release packaging
+runs separately under its own agent and mutex; no search/default/release change.
+
 ## Three-player 200 BB family passes fresh acceptance toward v0.6.1
 
 [PR404](https://github.com/dberweger2017/CFR-NLHE-6max/pull/404),

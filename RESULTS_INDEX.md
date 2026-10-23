@@ -7019,3 +7019,8 @@ remain protected. Archive/staging/Drive acceptance owner-managed pending; no
 completed cloud fallback or deletion. PR404/bb128 unchanged. Reconnect, inspect
 launch/status before any one-use execution, complete final proof barriers and
 publish final-source receipts before ready-for-review.
+
+
+## Four-player100BB candidate preparation — no main run yet
+
+[Proposal411](https://github.com/dberweger2017/CFR-NLHE-6max/issues/411), [protocol](docs/nplayer-four-player-candidate.md), [reproducible full quote](configs/research/nplayer-four-player-candidate.json). Freshseed2026102341001,fixed3B/10B,currentK50/v1/unprunedfast16/eightroots/fullfloat64averages/250Mfreeze. Eightfixedfields4,096blocks/all24permutations,1,572,864initial+same reproduction; focal-only3Bvs10B againstfixedthree3Bprimary plusscripts/mixed. One eight-test one-sided95family, primarylower>0/scriptslower>−5. Development, not v0.7 release acceptance. Counts/roots/margins/power scenarios prospective. 4h14central/9h34reserve/proposed10h includes models/conversion/arena/replay/readout/report.147.13GiBfree scenario vslast125.19GiB; ownercleanerowns space/staging/upload. Qualification relocatedtobb128becauseM4offline, freshtinyfixtures/sourcebinding required; original PR410 M4 evidence/failures remain unchanged. Local19tests pass; build/real-engine preflight pending. Main not launched/budget-admitted; protected400/402/404models/build/environment/K50 readonly, originals retained, no archive/Drive claim. No new training-strength result, merge/default/release or follow-up authority inferred.
