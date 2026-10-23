@@ -217,7 +217,7 @@ def staging(root,c,execute,label,paths):
     execute(label,[sys.executable,'-m',MODULE,'stage',str(root),str(selection)])
 
 
-def make_job(root,c,name,rows,models):
+def make_job(root,c,name,rows,models,*,stack_bb=100):
     job=root/'jobs'/name;job.mkdir(parents=True)
     own=name.startswith('own-')
     if own:
@@ -226,8 +226,9 @@ def make_job(root,c,name,rows,models):
     else:
         ms={k:models[k] for k in (rows[0]['singleton'],rows[0]['pair'])};keyset=None
     manifest=dict(models=ms,cases=rows,tables=c['tables'],kind='own' if own else 'cross',keyset_sha256=keyset)
+    if stack_bb!=100:manifest['stack_bb']=stack_bb
     io.write(job/'evaluation-manifest.json',manifest)
-    native=dict(tables=c['tables'],threads=8,cases=[],stack_bb=100,models=ms,diagnostics=True,keyset_sha256=keyset)
+    native=dict(tables=c['tables'],threads=8,cases=[],stack_bb=stack_bb,models=ms,diagnostics=True,keyset_sha256=keyset)
     for case in rows:
         folder=job/'evaluation'/case['name'];folder.mkdir(parents=True)
         for repeat in (0,1):
@@ -262,10 +263,10 @@ def verify_job(job):
         trace_bytes=sum(Path(x['trace']).stat().st_size for x in native['cases'])))
 
 
-def verify_barrier(root,c):
+def verify_barrier(root,c,*,phase_rows=None):
     if (root/'failure.json').exists():raise ValueError('terminal failure; no settled readout')
     proofs={};coverage={}
-    for name,rows in phases(c['smoke']):
+    for name,rows in (phases(c['smoke']) if phase_rows is None else phase_rows):
         job=root/'jobs'/name;m=io.load(job/'evaluation-manifest.json');proof=io.load(job/'evaluation-verified.json')
         if (m['cases']!=rows or proof['status']!='passed' or proof['cases']!=len(rows)
                 or proof['hands']!=sum(r['blocks']*6 for r in rows)
@@ -296,15 +297,15 @@ def lower_bound(values,margin,family=FAMILY):
     return dict(score,blocks=len(values),family=family,lower_simultaneous95_bb100=lower,margin_bb100=margin,passed=lower>margin)
 
 
-def read(root):
+def read(root,*,sizing=None,cases=None,phase_rows=None,config_validator=None):
     from scripts.read_nplayer_fast_study import paired_blocks
     from scripts.analyze_nplayer_arena import interval
-    c=io.load(root/'config.json');validate_config(c)
+    c=io.load(root/'config.json');(validate_config if config_validator is None else config_validator)(c)
     if io.load(root/'status.json')['phase']!='global-readout':raise ValueError('global readout stage not entered')
-    proofs,coverage=verify_barrier(root,c)
-    rows=matrix(c['smoke']);gates=[]
+    proofs,coverage=verify_barrier(root,c,phase_rows=phase_rows)
+    rows=matrix(c['smoke']) if cases is None else cases;gates=[]
     def trace(case):return root/'jobs'/case['phase']/'evaluation'/case['name']/'play-0.jsonl'
-    for i,g in enumerate(io.load(SOURCE/SIZING)['rows']):
+    for i,g in enumerate(io.load(SOURCE/SIZING)['rows'] if sizing is None else sizing):
         seed=int(g['seed']);selected=[r for r in rows if r['seed']==seed and r['gate']==g['gate']
             and (g['gate']!='script-profit' or r.get('opponent')==g['name'])]
         a=selected[0];b=selected[-1]

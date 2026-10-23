@@ -1,0 +1,95 @@
+{
+  "status": "qualified-waiting-owner-storage",
+  "source": "f11edfe5227882980f57925ab0ca93b3a2f790a7",
+  "source_file_count": 855,
+  "bundle_sha256": "9ad072eb1aa04c1afd8277da5963a740b0b7e7f87fc52c9e224de10b5aef6b8d",
+  "proposal_sha256": "dfb4b2605639298f45e6ce99be08b83bba5b1a1d2e05e9e483a27d80631e46bf",
+  "build_receipt_sha256": "db5e137a379d55ae9e220361950f9a467ce333e12eaf8b47205797d5a9ec20f7",
+  "qualification_config_sha256": "0995959e0ecc3351dbd5f5b8cae1525309a219dc4d3524aae690135c7b3ab3d9",
+  "qualification_proof_sha256": "7f36daac390e37a2bdc76cf2113ab3cb35cacdcd59ce8c3332e95bc824e0124c",
+  "qualification_result_sha256": "4905889552d2a5df010c7190c683e8dc60e056568aa3146037690447e5662372",
+  "evaluation_verified": {
+    "status": "passed",
+    "initial_hands": 432,
+    "reproduction_hands": 432,
+    "jobs": {
+      "own-2026102269901": "ccdcf07d809006445a3b62cf209de350847dacd08ff2b4ba92c679df96bf81e6",
+      "own-2026102269902": "39da8a98960e619ca0dca27fabee71ca1be34468c07466973ed9a0b1411419de",
+      "own-2026102269903": "6b200a4864f3adbe12889cd83dbc2a261ca89b07ce149c7918d1801c91ebf1ea",
+      "cross-2026102269901-candidate": "113c29dd654d7144c6bc1d9741b777542c156bc41465ea0b9eff2c8032df4bce",
+      "cross-2026102269901-baseline": "578b6da3735bcdac361e9bede002edd6d51626243e90cb3d2ac3f059a62002a6",
+      "cross-2026102269902-candidate": "2579506b8a1c5dbfd057cdc7cfa1c12c9d65328653b13f7ede7fd937e097748f",
+      "cross-2026102269902-baseline": "9d55012150c29f939717cd176f601793e5bfe022189e33fec7133bf556e1da66",
+      "cross-2026102269903-candidate": "2ad8fff8d2747e4ebb4aaf4ba5b27ce3bd6a7d560c9055bffe1fd4f9d04fb981",
+      "cross-2026102269903-baseline": "606d70dfd08f9e4579ffa124630bcd3c59a3736cf34c77db03e9a8e86607bfff"
+    }
+  },
+  "build": {
+    "status": "passed",
+    "source": "f11edfe5227882980f57925ab0ca93b3a2f790a7",
+    "binaries": {
+      "nplayer_train": "/home/dberweger/nplayer-bb200-feasibility-20261022/build-v1/target/release/examples/nplayer_train",
+      "nplayer_policy": "/home/dberweger/nplayer-bb200-feasibility-20261022/build-v1/target/release/examples/nplayer_policy",
+      "nplayer_arena": "/home/dberweger/nplayer-bb200-feasibility-20261022/build-v1/target/release/examples/nplayer_arena",
+      "nplayer_inference": "/home/dberweger/nplayer-bb200-model-campaign-20261022/build-v1/target/release/examples/nplayer_inference",
+      "nplayer_continuation_arena": "/home/dberweger/nplayer-bb200-model-campaign-20261022/build-v1/target/release/examples/nplayer_continuation_arena"
+    },
+    "sha256s": {
+      "nplayer_train": "fd15b5676790de0ea02935c0f3b55f945f398690a9290471765ce3d2e58c1eaf",
+      "nplayer_policy": "226a88edf301ecfb0b6b25bc02fd204ebb31936084d72ff0336e85319e810cd7",
+      "nplayer_arena": "c3b1555806482c9f16391232d75590e284e37e8fc9e146cad73071c56fcaf008",
+      "nplayer_inference": "1c21c7727bf8cf7b6f537e714d58fc6d0988c8a25f26611343b2cc76f8045f8d",
+      "nplayer_continuation_arena": "0a217a867b4baafd51d46aaa955ccaedab9b6c06e1486008d82bb2e7b0c8168d"
+    },
+    "native_tests_passed": true
+  },
+  "focused_python_tests": 28,
+  "native_library_tests": 121,
+  "native_example_tests": 6,
+  "native_example_tests_ignored": 1,
+  "fixture_cases": 36,
+  "fixture_stages": 51,
+  "all_fixture_stage_returncodes_zero": true,
+  "checkpoint_thread_and_resume_byte_parity": true,
+  "full_row_export_and_binary_parity": true,
+  "within_lineage_keyset_parity": true,
+  "preparation_costs": [
+    {
+      "phase": "focused-tests",
+      "returncode": 0,
+      "wall_seconds": 0.6673978450708091
+    },
+    {
+      "phase": "build",
+      "returncode": 0,
+      "wall_seconds": 57.089731674059294
+    },
+    {
+      "phase": "configure-qualification",
+      "returncode": 0,
+      "wall_seconds": 3.4925107170129195
+    },
+    {
+      "phase": "qualification",
+      "returncode": 0,
+      "wall_seconds": 177.50847141293343
+    }
+  ],
+  "fixture_wall_seconds": 173.39138770010322,
+  "max_cpu_c": 55.0,
+  "max_thermistor15_c": 53.0,
+  "sampled_peak_rss_bytes": 160256000,
+  "observed_swap_growth_bytes": 0,
+  "parent": {
+    "path": "/home/dberweger/nplayer-bb200-maturity-20261022/main-v1/continuation-1b.gz",
+    "sha256": "55d89c553ba1756eac1af117847b30e8b18e4f901afba942ee5a906bc00249ad",
+    "bytes": 8788049377
+  },
+  "free_nvme_bytes": 221623934976,
+  "required_free_nvme_bytes": 386547056640,
+  "accepted_seconds": 64800,
+  "main_started": false,
+  "cleanup_staging_uploads": "owner-vacuum-cleaner-only",
+  "originals_retained": true,
+  "epoch": 1792700019.3454914
+}

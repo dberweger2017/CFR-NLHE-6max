@@ -1,26 +1,41 @@
 # Roadmap
 
-## Next: decide the fixed 200 BB model campaign toward v0.6.1
+## Three-player 200 BB family passes fresh acceptance toward v0.6.1
 
-Owner prioritizes 200 BB blueprints and defers v0.6.5 search adoption.
-[PR400's 500M feasibility](docs/reports/nplayer-bb200-feasibility/results.md) and
-[PR402's completed 1B maturity continuation](docs/reports/nplayer-bb200-maturity/results.md)
-show affordable training:1,000,008,098 nodes,250,002,537 entries, freeze near961M;
-full-row audit and3,072 initial/reproduced coverage hands pass. The controller's
-exact-cap assertion failed after successful saving and was corrected transparently;
-original failure/source/checkpoint are preserved and training is never repeated.
-Measured stages29m11s; elapsed including correction33m41s,33.68GiB sampled RSS,
-CPU74/Thermistor15 87.5°C, no observed swap growth.
+[PR404](https://github.com/dberweger2017/CFR-NLHE-6max/pull/404),
+[proposal403](https://github.com/dberweger2017/CFR-NLHE-6max/issues/403),
+[verified report](docs/reports/nplayer-bb200-model-campaign/results.md):
+all **30 predeclared simultaneous95% gates pass** across existing seed2026102240001
+and fresh2026102261001/02. Each fixed10B model profits against all eight script/mixed
+fields, beats its own3B, and passes cyclic noninferiority against another lineage's
+fixed3B pair. Direct contrasts +79.66/+69.75/+78.25BB/100, adjusted lower
++69.06/+56.94/+67.63; cyclic deltas +77.02/+67.99/+66.06, lower
++59.87/+58.57/+52.54 against the −5 margin. Do not reinterpret cyclic comparisons
+as a10B tournament or erase PR357's earlier100BB relative script regressions.
 
-250M is a bounded research capacity candidate, not established coverage sufficiency:
-check-call river27.3%missing and33.4%stored zero-average-mass rows remain distinct
-limitations. [Propose three independent fixed3B/10B lineages](docs/reports/nplayer-bb200-maturity/campaign-proposal.md),
-retaining250M threshold/current recipe and exact within-lineage membership. Model
-training/save/export/audit scenario3h50m central/9h35m reserve **excludes acceptance**;
-not authorized/launched. No more automatic cost pilots. Before fresh confirming
-hands, separately freeze/price the unchanged30-gate200BB acceptance with counts,
-roots, effect/variance assumptions and pass chances. No strength/default/release
-verdict yet. Owned archival pending receipt; originals and PR400/398/K50 protected.
+Six endpoints/export audits/full-row binary audits pass with exact within-lineage
+membership. All36 cases, **10,543,104 independently replayed initial hands plus
+byte-identical reproduction**, nine verified jobs and49main stages pass. Main
+runs October22 20:24→October23 02:49UTC (22:24→04:49Madrid), **6h25m**, within
+accepted18h planning allocation. Sampled peak27.95GiB,CPU75/Thermistor15 92.5°C;
+no resource stop, scientific failure, retry, extra hands or tuning.
+
+The250M threshold remains a bounded candidate: check-call river missing lookups
+are16.75–17.09% on these10B panels;26.16–26.23% of retained rows have zero average
+mass, distinct from played fallback. Membership cannot expand after freezing.
+Three fixed seeds/onehost/K50/menu and block-tail uncertainty limit the claim;
+per-seat/lookup results, exact costs/proofs/pins and absent tail-concentration
+diagnostics are recorded. This completes the declared research acceptance;
+**review v0.6.1 packaging separately**, with no release/default or merge change
+inferred. Search adoption remains deferred; no follow-up compute launched.
+
+[PR400 feasibility](docs/reports/nplayer-bb200-feasibility/results.md),
+[PR402 maturity](docs/reports/nplayer-bb200-maturity/results.md) and
+[launch/storage amendment](docs/reports/nplayer-bb200-model-campaign/launch.md)
+remain preserved. Owner authorized starting with206.40GiBfree during their cleanup,
+superseding the earlier360GiB wait. Archive/staging/uploads remain owner vacuum-cleaner
+managed and pending; all originals, protected parents/build/environment/K50 are
+retained. No Drive acceptance or deletion is claimed.
 
 ## Final frozen river assessment: defer candidate
 
