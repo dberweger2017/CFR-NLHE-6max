@@ -7137,3 +7137,43 @@ independently verified. No causal speed correction; notisolatedbenchmark.
 One-use releaseexceptionconsumed/finished, no remainingbypass.
 Original415PIDexited,normalmutexinode46/noholders; release/cleaner notified.
 No timer/observer/extra experiment. PR415readyforreview; no mergeauthority exercised.
+
+
+### PR417 — six-player trajectory launched after exact qualification
+
+[PR417](https://github.com/dberweger2017/CFR-NLHE-6max/pull/417),proposal416,
+[protocol](docs/nplayer-six-player-candidate.md),[mainlaunch](docs/reports/nplayer-six-player-candidate/main-launch.json),
+[139stagequal](docs/reports/nplayer-six-player-candidate/qualification.json),
+[old five-player diagnosis](docs/reports/nplayer-six-player-candidate/five-player-diagnosis.md),
+[diagnosticaggregates](docs/reports/nplayer-six-player-candidate/five-player-diagnosis.json),
+[contributions](docs/reports/nplayer-six-player-candidate/diagnosis-contributions.csv),
+[reachedactions](docs/reports/nplayer-six-player-candidate/diagnosis-actions.csv).
+Source128f021b8abb5c237574aeec9522592ec77a63d5/879pins/81nativefilesidentical415,
+bundlecfa805bc44bb3feb9edb797205e5c7811e4dbb3c387acba1405417027341d70c.
+Qualificationb96779d51160eaaf8a7534581160b15bd7dc75dc2432be1be679ff21e9732de7,
+139RC0/1152physicalinitial+repeat/768distinct/5contrasts/8fields,
+thread-resume/fullrow/binary/keyset/mass/serial/gzip/selfzero/legacy/additivity pass.
+Main2026-10-23 18:37:07UTC/20:37Madrid,PID905725/controller899936,
+configb7289278d33eb938694a56e7c275404b0b2c648fbb705aa208f961ba50b6b881.
+Owner"you can start and I will organize the extra space" accepts12h planning
+and startbelow240GiBfree scenario,actual119532957696Badmission. No livefreefloor,
+no time/RSS/disk/swapkill; mainthermalCPU90/T15100/missingnonfinite unchanged.
+Fresh6P100BBseed2026102361001/3B6B10B15B/unprunedK50v1fast16/250Mfreeze;
+all5contrasts×8fields/4096blocks/12balancedseatings,40adjusteddevelopmentbounds.
+2,359,296physicalinitial+same reproduce/1,572,864distinctinstances;
+no six-player outcomes inspected, no release acceptance or automatic extension.
+
+Diagnosis of EXISTING415initialtraces completes69.42s,allhashes/returns/coverage
+reconcile: SHA f168de277f7af665137144299cb486d6dcd565c43a5438b0bd6cdc5e49590f5c.
+First differences mainly at supportedpreflopstates; matched-state action changes
+have different downstreamcontinuations, whole-hand contributions not causalvalues.
+No newhands/rollouts/model loads; no changed six-player recipe following readout.
+
+Retrievalbb128:/home/dberweger/nplayer-six-player-candidate-20261023/
+source-v1/build-v1/diagnosis-v1/qualification-v1/main-v1. Preserve allpartials/
+failures/sources/models/rawtraces/sharedK50/envlink+target/interpreter/legacy400
+binary/404config. Ownercleaner manages approved storage actions and receipts;
+no copy/deletion/upload bythisagent. Archive/Drive researchpayload acceptance pending,
+no verifiedalternatepath/cloudreceipt claimed. Old413/415rawtraces/3Bcheckpoints
+remain working original-path HDDlinks under ownerverifiedcleanercopies.
+Newmainactive, normalcompute mutexheld; no timer/observer/subagent/newmachine.

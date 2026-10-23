@@ -1,16 +1,20 @@
 # Roadmap
 
-## Preparing six-player100BB development trajectory
+## Running six-player100BB development trajectory
 
 [Proposal416](https://github.com/dberweger2017/CFR-NLHE-6max/issues/416),
 [protocol](docs/nplayer-six-player-candidate.md): owner requests one fresh
 3B/6B/10B/15B lineage and five contrasts, including3B→10B for continuity.
-First localize PR415 action changes from all saved fields; then exact-source
-qualification before main. Eight fixed fields,4096independentblocks/twelvebalanced
+[Saved PR415 trace diagnosis](docs/reports/nplayer-six-player-candidate/five-player-diagnosis.md)
+completed69.42s; first differences mainly supported/preflop, not causal attribution.
+Exact-source139stage qualification passed,1152initial+same reproduction.
+[Main launched](docs/reports/nplayer-six-player-candidate/main-launch.json) October23
+18:37:07UTC/20:37Madrid,PID905725/source128f021b/879pins/configb7289278. Eight fixed fields,4096independentblocks/twelvebalanced
 seatings,40adjusted development bounds. No player/recipe/search/default change,
 release acceptance or automatic replication. Proposed12h complete planning
 allocation/240GiB storage scenario; owner permits start while arranging space,
-with live manual growth accounting. Nothing launched before source qualification.
+with live manual growth accounting. Source qualification complete; source/counts/guards remain unchanged. No six-player
+outcomes inspected before global proofs.
 
 ## Five-player100BB development: own-ancestor gain, support/exploitation review next
 

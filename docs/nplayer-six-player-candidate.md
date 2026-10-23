@@ -1,6 +1,6 @@
 # Six-player 100 BB: four fixed checkpoints and five paired contrasts
 
-[Proposal416](https://github.com/dberweger2017/CFR-NLHE-6max/issues/416). Source implementation and qualification pending; no main launched.
+[Proposal416](https://github.com/dberweger2017/CFR-NLHE-6max/issues/416). **Main running since October23 18:37:07UTC /20:37Madrid**, source128f021b/configb7289278. [Completed source qualification and main launch](reports/nplayer-six-player-candidate/main-launch.json), [saved five-player diagnosis](reports/nplayer-six-player-candidate/five-player-diagnosis.md). All139qualification stages pass; six-player outcomes remain sealed.
 
 Owner-authorized six-player 100 BB development trajectory, following PR415. Owner explicitly requested 3B/6B/10B/15B and five paired contrasts (3→6,6→10,10→15,3→10,3→15), then said "you can start and I will organize the extra space" after the provisional 5–6h runtime/12h reserve and 240GiB all-NVMe scenario.
 
