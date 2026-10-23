@@ -22,11 +22,12 @@ def source():
     return dict(commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=SOURCE,text=True).strip(),files={n:core.sha(SOURCE/n) for n in names})
 
 
-def prepare(root):
+def prepare(root,build=None,build_source=None):
+    build=build or HOST/'build-dev-v1';build_source=build_source or HOST/'source-dev-v1'
     if root.exists():raise FileExistsError('prepared attempt already exists')
-    if core.load(HOST/'build-dev-v1/status.json')['status']!='passed' or (HOST/'build-dev-v1/failure.json').exists():raise ValueError('native development build/tests not passed')
+    if core.load(build/'status.json')['status']!='passed' or (build/'failure.json').exists():raise ValueError('native development build/tests not passed')
     for name in subprocess.check_output(['git','ls-files','native'],cwd=SOURCE,text=True).splitlines():
-        if core.sha(SOURCE/name)!=core.sha(HOST/'source-dev-v1'/name):raise ValueError('native source differs from qualified build')
+        if core.sha(SOURCE/name)!=core.sha(build_source/name):raise ValueError('native source differs from qualified build')
     models={}
     for n in (4,5,6):
         parent=Path('/Users/dberweger/Local/nplayer-four-player-feasibility-20261022') if n==4 else Path('/Users/dberweger/Local/nplayer-five-six-feasibility-20261023')
@@ -39,7 +40,7 @@ def prepare(root):
                 path=folder/(name+'-average.gz');mass=folder/(name+'-mass');receipt=core.load(mass/'receipt.json')
                 if receipt['status']!='passed' or core.sha(path)!=receipt['policy_sha256'] or core.sha(mass/'zero-keys.bin')!=receipt['zero_keys_sha256']:raise ValueError('fixture source/mass changed')
                 models[f'p{n}-{size}-{label}']=dict(path=str(path),sha256=receipt['policy_sha256'],mass=str(mass),mass_sha256=core.sha(mass/'receipt.json'))
-    binary=HOST/'build-dev-v1/target/release/examples/nplayer_paired_arena';legacy=binary.with_name('nplayer_arena')
+    binary=build/'target/release/examples/nplayer_paired_arena';legacy=binary.with_name('nplayer_arena')
     tables=Path('/Users/dberweger/Local/overnight-equity-hu100-20261009/stage-a/results/equity-bench/tables')
     for name,pin in core.TABLES.items():
         if core.sha(tables/name)!=pin:raise ValueError('K50 changed')
@@ -49,12 +50,12 @@ def prepare(root):
         for run in ('initial','repeat','serial') if size=='tiny' else ('initial','repeat'):
             (root/f'{size}-{run}').mkdir()
     config=dict(source=source(),models=models,tables=str(tables),binary=str(binary),binary_sha256=core.sha(binary),legacy=str(legacy),legacy_sha256=core.sha(legacy),
-        thermal=str(thermal),thermal_sha256=core.sha(thermal),python=sys.executable,python_sha256=core.sha(sys.executable),base=BASE)
+        thermal=str(thermal),thermal_sha256=core.sha(thermal),python=sys.executable,python_sha256=core.sha(sys.executable),base=BASE,native_build=str(build),native_build_source=str(build_source))
     core.write(root/'config.json',config);core.write(root/'catalog.json',models)
     # Already-measured cap-size work plus explicit streaming-tag audit reserve.
     quote=dict(status='quoted',central_seconds=900,reserved_seconds=1800,scope='Fixed tiny/cap cases, reproduction, tiny serial, legacy regression, independent replay and source-mass tag audit; no training',
         basis='PR406/408 cap-size load/play ~15s per model, six cap models per fresh pass; 360s central serial export/tag audit allowance; existing build costs separate; reserve2x; no elapsed-time stop',
-        native_build_already_spent_seconds=sum(x['wall_seconds'] for x in core.load(HOST/'build-dev-v1/stage-costs.json')),
+        native_build_already_spent_seconds=sum(x['wall_seconds'] for x in core.load(build/'stage-costs.json')),
         no_arena_started=True,no_training=True)
     core.write(root/'quote.json',quote)
     core.write(root/'status.json',dict(status='prepared',no_arena_started=True))
@@ -135,7 +136,7 @@ def run(root,accepted):
 
 
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('mode',choices=('prepare','run'));p.add_argument('--root',required=True,type=Path);p.add_argument('--accepted-seconds',type=int);a=p.parse_args();root=a.root.absolute()
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('mode',choices=('prepare','run'));p.add_argument('--root',required=True,type=Path);p.add_argument('--accepted-seconds',type=int);p.add_argument('--build-root',type=Path);p.add_argument('--build-source',type=Path);a=p.parse_args();root=a.root.absolute()
     if sys.platform!='darwin' or subprocess.check_output(['sysctl','-n','machdep.cpu.brand_string'],text=True).strip()!='Apple M4':raise ValueError('M4 only')
     if 'AC Power' not in subprocess.check_output(['pmset','-g','batt'],text=True):raise ValueError('AC required')
     def stop(sig,frame):raise InterruptedError(f'owner signal{sig}')
@@ -145,7 +146,7 @@ def main():
         if a.mode=='prepare' and root.exists():raise FileExistsError('prepared attempt exists; no overwrite')
         if a.mode=='run' and any((root/p).exists() for p in ('launch.json','failure.json','measurements')):raise FileExistsError('attempt exists; no restart or metadata overwrite')
         try:
-            if a.mode=='prepare':prepare(root)
+            if a.mode=='prepare':prepare(root,a.build_root,a.build_source)
             else:run(root,a.accepted_seconds)
         except BaseException as e:
             if root.exists():core.write(root/'failure.json',dict(error=repr(e),epoch=time.time(),no_automatic_retry=True))

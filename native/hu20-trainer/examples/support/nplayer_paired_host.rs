@@ -126,14 +126,6 @@ impl Case {
                 .chain(opponents.clone())
                 .collect::<Vec<_>>()
         });
-        let models: HashSet<_> = arms
-            .iter()
-            .flatten()
-            .filter(|s| !s.starts_with("bot="))
-            .collect();
-        if models.len() > 2 {
-            return Err("at most two distinct model aliases per case".into());
-        }
         Ok(Self {
             name: text(v, "name")?.into(),
             n,
@@ -449,6 +441,14 @@ mod tests {
         .is_err());
         assert!(schedule(4, &json!([[0, 1, 2, 99]])).is_err());
     }
+    #[test]
+    fn distinct_opponent_fields_are_not_limited_to_the_m4_fixture_pair() {
+        let c = Case::parse(&json!({"name":"many-models","players":6,"stack_bb":100,"blocks":2,"root":9,
+            "focals":["a","b"],"opponents":["c","d","e","f","g"],"traces":["left","right"],"summary":"summary"})).unwrap();
+        assert_eq!(c.arms[0][1..], c.arms[1][1..]);
+        assert_eq!(c.arms.iter().flatten().collect::<HashSet<_>>().len(), 7);
+    }
+
     #[test]
     fn controlled_field_is_shared_by_construction() {
         let c=Case::parse(&json!({"name":"test","players":6,"stack_bb":100,"blocks":2,"root":9,
