@@ -1,0 +1,29 @@
+{
+  "utc": "2026-10-23T14:18:49Z",
+  "actual_nvme_free_bytes": 119770472448,
+  "main_retained_payload_allocated_bytes": 0,
+  "main_retained_payload_logical_bytes": 0,
+  "counted_files": 0,
+  "model_plus_trace_forecast_bytes": 110737418240,
+  "remaining_payload_scenario_bytes": 110737418240,
+  "manual_headroom_scenario_bytes": 32212254720,
+  "projected_free_after_remaining_payload_before_release_scratch": 9033054208,
+  "gap_to_headroom_before_release_scratch": 23179200512,
+  "release_scratch": "Account separately; no reservation/availability inferred by this agent.",
+  "scope": "Only current main checkpoints/exports/binaries/mass and arena traces; symlinks skipped and inodes deduplicated. Existing source/build/qualification are baseline use, not credited as completed main payload. Partial/unfinalized files conservatively not credited. Human planning ledger, not an automatic disk stop.",
+  "release_coordination_update": {
+    "owner_priorities": [
+      "PR415 main",
+      "v0.6.1 release",
+      "cleanup"
+    ],
+    "nvme_release_reservation_bytes": 0,
+    "public_readback_path": "/research/PR-412-v061-release/publication-v1/public-proof-hdd-v1",
+    "hdd_public_readback_scenario_gib": 53.3,
+    "hdd_admission_free_gib": 85,
+    "source": "Owner/release-agent coordination after main launch; not independently measured or reserved by PR415.",
+    "native_release_checks": "Wait for normal compute mutex natural release; ~1core/15GiB/~10-15min total",
+    "completion_notification_thread": "ad69c027-5f20-45d1-82a0-9f068259b8af",
+    "no_new_timer_or_poller": true
+  }
+}

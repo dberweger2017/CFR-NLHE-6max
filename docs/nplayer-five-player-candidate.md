@@ -1,5 +1,7 @@
 # Fixed five-player 100 BB development candidate
 
+**Main running since October23 16:16Madrid under the owner's start-during-cleanup amendment. [Launch/source/config/storage record](reports/nplayer-five-player-candidate/launch.md).**
+
 Proposal[414](https://github.com/dberweger2017/CFR-NLHE-6max/issues/414), owner-requested after[PR413's four-player result](reports/nplayer-four-player-candidate/results.md). One new lineage asks whether continuing a capped five-player blueprint from3B to10B improves against the same fixed fields, and where it loses value. No search, capacity/menu/recipe change, release/default adoption or automatic replication. Both four-player checkpoints stay unchanged.
 
 ## Frozen experiment
@@ -59,3 +61,8 @@ Use the precomputed settled result only after all stagesRC0/no failure/global pr
 - Weak gain/healthy measured support: revisit recipe/allocation before more nodes.
 
 These are follow-up directions, not causal findings or automatic launches. Do not tune, extend hands, change margins or add lineages to rescue an inconclusive result. Search remains deferred.
+
+
+## Owner-approved main launch (supersedes earlier admission wait)
+
+"Start with the training, we are cleaning up while you do" accepts fixed6hcompleteallocation and permits launch at111.54GiBfree instead of waiting for133.13GiBscenario. [Launch](reports/nplayer-five-player-candidate/launch.md), [source/owner/config receipt](reports/nplayer-five-player-candidate/main-launch.json), [storage growth ledger](reports/nplayer-five-player-candidate/storage-ledger.json). Source6a01b327/874pins, qualified56stagesRC0, mainPID888459/configaafa94da23019db594cc305e6a96d735f2f04178fc5f171d52395dc4d345fe22. Counts/recipe/guards unchanged. Allstagesautomatic; no scientificretry/extension/interimoutcome. Manualstorage accounts already-writtenmainpayload and separates release scratch, no live133GiBfloor or time/RSS/disk/swapstop. Ownercleaner owns only specificallyauthorizedrelocations; all415andotherprotectedinputsretained. Source/bootstrap/readiness history above remains dated provenance.

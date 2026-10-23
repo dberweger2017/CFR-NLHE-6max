@@ -1,6 +1,6 @@
 # Roadmap
 
-## Preparing bounded five-player100BB development candidate
+## Running bounded five-player100BB development candidate
 
 [PR415](https://github.com/dberweger2017/CFR-NLHE-6max/pull/415),
 [proposal414](https://github.com/dberweger2017/CFR-NLHE-6max/issues/414),
@@ -13,8 +13,11 @@ absolute/paired/adverse outcomes and support/visit changes retained. Own-ancesto
 primary is not general superiority; one lineage does not measure training-seed
 variability; two circular opponent orders leave order sensitivity unresolved.
 3hcentral/6hproposedcompleteallocation is a PR413-based scenario, not measured5P.
-Exact-source realK50 qualification/budget/manualadmission precede main; no main
-started. No new capacity arm/search/release/default/replication or automatic hands.
+Exact-source56stagequalification passed; owner accepts6h and startduringcleanup.
+[Mainlaunch](docs/reports/nplayer-five-player-candidate/launch.md) October23
+16:16Madrid/PID888459/source6a01b327,111.54GiBactualfree under explicit storage
+sequencingamendment. Counts/guards unchanged; remaininggrowth accounts already
+writtenmainpayload, release scratch separate. No outcomes before globalproof. No new capacity arm/search/release/default/replication or automatic hands.
 Keep both four-player checkpoints, preserve all earlier adverse panels and roots.
 
 ## v0.6.1 release preparation
