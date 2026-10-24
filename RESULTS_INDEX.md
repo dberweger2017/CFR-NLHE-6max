@@ -1,4 +1,4 @@
-## PR423 — composed missing-row policy qualified; mature allocation proposed
+## PR423 — composed missing-row comparison approved
 
 [Fixed protocol](docs/nplayer-missing-row-composition.md),
 [engineering evidence and complete quote](docs/reports/nplayer-missing-row-composition/qualification.md),
@@ -11,11 +11,18 @@ M4 final qualification-v2 source `c8b257e635e042ae2742268be2fc095e9d46ab15`,
 121library+15paired native+23Python tests pass;88.95s wall,1.11GiB sampled peak,
 nominal thermals. Prior successful qualification-v1 remains protected.
 
-Owner-selected next experiment, **no mature main or accepted budget**. Proposal
+Owner approved the exact **2h15m allocation** onOctober24. Frozen proposal
 58.87min central /117.74min reserve,2h15m allocation;24GiB new storage includes
 6GiB working room. Existing417/419control/donor/peer sources are read-only, no
 new training or exports. Counts/rules/precision declared before play. Current
-bb128 snapshot32.32GiB NVMe free; future root absent and no reservation created.
+preparation snapshot32.32GiB NVMe free. New protected bb128 root
+`/home/dberweger/nplayer-missing-row-composition-20261024/` holds the exact
+source-v2 snapshot and target-host qualification. All28Linux stages pass in136.07s;
+rawresultSHA `2533f8f28f6deea17b21f8cfde5459492e655e0df65bff96a69fc32b98493c08`.
+Fixed mature main launchedOctober24 15:52:55UTC /17:52Madrid, PID939496,
+configSHA `88208456262562a3ef4b1d56338dab1b5fa6445986922d38ba90f0e4da7d195b`.
+[Owner/admission/source/qualification/launch receipt](docs/reports/nplayer-missing-row-composition/run-launch.json).
+No interim outcome inspection, new training, exports, retries or scientific monitor.
 
 Ordinary source/fixtures/results/proofs remain at
 `m4:/Users/dberweger/Local/nplayer-missing-row-composition-20261024/` and ignored

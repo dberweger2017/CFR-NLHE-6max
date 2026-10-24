@@ -1,6 +1,6 @@
 # Roadmap
 
-## Proposed six-player missing-positive-row composition
+## Approved six-player missing-positive-row comparison
 
 [PR423](https://github.com/dberweger2017/CFR-NLHE-6max/pull/423),
 [proposal422](https://github.com/dberweger2017/CFR-NLHE-6max/issues/422),
@@ -14,15 +14,18 @@ Final-source M4 qualification passes all28stages in88.95s:121library+15paired
 native and23Python tests,384initial hands independently replayed and reproduced,
 exact source probabilities/selector accounting for428composed decisions.
 Identity composition, diagnostics-off, serial and ordinary legacy parity pass.
-No mature play or strength result. The prepared main requires same-source target-host
-qualification and accepted exact quote/scope receipt before configuration.
+Same-source bb128 qualification also passes all28stages in136.07s. Owner accepted
+the exact2h15m allocation; the fixed mature arena launched15:52:55UTC /17:52Madrid
+onOctober24, PID939496. [Launch/admission receipt](docs/reports/nplayer-missing-row-composition/run-launch.json).
+No strength result or interim outcome inspection; normal/study locks held.
 
 Proposed eight fixed fields ×4,096fresh blocks ×12balanced seatings; primary
 trained lower>0, seven lower>−5, one eight-test95% Student-t/Bonferroni family.
 **58.87min central /117.74min reserve, propose2h15m**,24GiB NEW storage including
 6GiB working room,75GiB memory planning. Variance is unmeasured; explicit
-fractional-SE scenarios do not promise small-gain power. Owner allocation acceptance
-pending; no main launch, automatic extension, adoption or release-lineage replication.
+fractional-SE scenarios do not promise small-gain power. Owner accepted the exact
+2h15m allocation onOctober24. Target-host qualification and prospective main
+receipts are recorded separately; no automatic extension, adoption or release-lineage replication.
 If useful benefit clears safeguards, consider independent confirmation; otherwise
 choose a concrete visitation/history mechanism. Search remains deferred.
 

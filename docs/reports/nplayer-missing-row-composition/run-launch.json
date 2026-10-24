@@ -1,0 +1,261 @@
+{
+  "pr": 423,
+  "status": "running-no-outcomes-inspected",
+  "owner_accepted_planning_seconds": 8100,
+  "owner_authorization": "approved, after exact allocation status on2026-10-24",
+  "execution_source": "c8b257e635e042ae2742268be2fc095e9d46ab15",
+  "source_file_count": 1403,
+  "source_bundle_sha256": "19deabc33775376baaec002a8c51ef5c7a2abaf70b1735d5a4bb9fb1ebaebef7",
+  "proposal_sha256": "fd90f6dbee89f8768f8e2ad92a0b4159815c7a7291ed125a0ce4a4847b8988bd",
+  "owner_sha256": "1af7094bdc64f0c20626fadc10d0f8efc41b59881adc4b48aa56b3c30f145281",
+  "main_config_sha256": "88208456262562a3ef4b1d56338dab1b5fa6445986922d38ba90f0e4da7d195b",
+  "main_root": "/home/dberweger/nplayer-missing-row-composition-20261024/main-v1",
+  "main_launch": {
+    "pid": 939496,
+    "command": [
+      "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+      "-m",
+      "scripts.nplayer_missing_row_composition",
+      "run",
+      "--root",
+      "/home/dberweger/nplayer-missing-row-composition-20261024/main-v1"
+    ],
+    "source": "c8b257e635e042ae2742268be2fc095e9d46ab15",
+    "utc": "2026-10-24T15:52:53.501426+00:00",
+    "owner_sha256": "1af7094bdc64f0c20626fadc10d0f8efc41b59881adc4b48aa56b3c30f145281",
+    "config_sha256": "88208456262562a3ef4b1d56338dab1b5fa6445986922d38ba90f0e4da7d195b",
+    "accepted_planning_seconds": 8100,
+    "no_automatic_retry": true
+  },
+  "bb128_qualification": {
+    "result_sha256": "2533f8f28f6deea17b21f8cfde5459492e655e0df65bff96a69fc32b98493c08",
+    "binary_sha256": "e64783e989e31c98f45799eccd20ba2ff2e1c1afd86541581ae6c42471e9ba27",
+    "stages": 28,
+    "all_stage_returncodes_zero": true,
+    "complete_wall_seconds": 136.0697014470352,
+    "stage_cpu_seconds": 264.67836199999994,
+    "sampled_peak_rss_bytes": 1201733632,
+    "maximum_cpu_c": 64,
+    "maximum_thermistor15_c": 51,
+    "initial_hands": 384,
+    "reproduction_hands": 384,
+    "all_initial_replayed": true,
+    "all_selection_and_rng_checks_passed": true
+  },
+  "admission_resources": {
+    "utc": "2026-10-24T15:52:51.056299+00:00",
+    "cpu_c": 34.0,
+    "thermistor15_c": 38.0,
+    "worker_family_rss_bytes": 23183360,
+    "live_family_cpu_seconds": 0.08,
+    "available_ram_bytes": 131774550016,
+    "swap_used_bytes": 475168768,
+    "nvme_free_bytes": 34548547584,
+    "hdd_free_bytes": 20626374656
+  },
+  "fixed_scope": {
+    "format": "nplayer-missing-positive-experiment-v1",
+    "players": 6,
+    "stack_bb": 100,
+    "blocks": 4096,
+    "threads": 8,
+    "root_base": 20261024750001,
+    "schedule": [
+      [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      [
+        1,
+        2,
+        3,
+        4,
+        5,
+        0
+      ],
+      [
+        2,
+        3,
+        4,
+        5,
+        0,
+        1
+      ],
+      [
+        3,
+        4,
+        5,
+        0,
+        1,
+        2
+      ],
+      [
+        4,
+        5,
+        0,
+        1,
+        2,
+        3
+      ],
+      [
+        5,
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      [
+        0,
+        5,
+        4,
+        3,
+        2,
+        1
+      ],
+      [
+        1,
+        0,
+        5,
+        4,
+        3,
+        2
+      ],
+      [
+        2,
+        1,
+        0,
+        5,
+        4,
+        3
+      ],
+      [
+        3,
+        2,
+        1,
+        0,
+        5,
+        4
+      ],
+      [
+        4,
+        3,
+        2,
+        1,
+        0,
+        5
+      ],
+      [
+        5,
+        4,
+        3,
+        2,
+        1,
+        0
+      ]
+    ],
+    "fields": [
+      {
+        "name": "trained",
+        "opponents": [
+          "peer",
+          "peer",
+          "peer",
+          "peer",
+          "peer"
+        ]
+      },
+      {
+        "name": "random",
+        "opponents": [
+          "bot=random",
+          "bot=random",
+          "bot=random",
+          "bot=random",
+          "bot=random"
+        ]
+      },
+      {
+        "name": "check-call",
+        "opponents": [
+          "bot=check-call",
+          "bot=check-call",
+          "bot=check-call",
+          "bot=check-call",
+          "bot=check-call"
+        ]
+      },
+      {
+        "name": "tight-aggressive",
+        "opponents": [
+          "bot=tight-aggressive",
+          "bot=tight-aggressive",
+          "bot=tight-aggressive",
+          "bot=tight-aggressive",
+          "bot=tight-aggressive"
+        ]
+      },
+      {
+        "name": "pot-pressure",
+        "opponents": [
+          "bot=pot-pressure",
+          "bot=pot-pressure",
+          "bot=pot-pressure",
+          "bot=pot-pressure",
+          "bot=pot-pressure"
+        ]
+      },
+      {
+        "name": "call-pressure",
+        "opponents": [
+          "bot=check-call",
+          "bot=check-call",
+          "bot=check-call",
+          "bot=pot-pressure",
+          "bot=pot-pressure"
+        ]
+      },
+      {
+        "name": "random-tight",
+        "opponents": [
+          "bot=random",
+          "bot=tight-aggressive",
+          "bot=tight-aggressive",
+          "bot=tight-aggressive",
+          "bot=tight-aggressive"
+        ]
+      },
+      {
+        "name": "trained-call-pressure",
+        "opponents": [
+          "peer",
+          "bot=check-call",
+          "bot=check-call",
+          "bot=pot-pressure",
+          "bot=pot-pressure"
+        ]
+      }
+    ],
+    "focals": [
+      "control",
+      "augmented"
+    ],
+    "composition": "nplayer-missing-positive-v1",
+    "no_training_or_exports": true,
+    "no_extension": true
+  },
+  "model_sha256s": {
+    "control": "086938a88f1b302688b00cf52666162350e02e3b1212aa590bb6bf4941c46178",
+    "donor": "268a154807a278681bdeee2667e18e54aada171132481fbc3eba0586c767173d",
+    "peer": "6cd50bf17d5a361f4d38e1d3bf98859c4b8877297c612ca87dfec41e3bbbb85b"
+  },
+  "no_new_training_or_exports": true,
+  "no_automatic_extension_or_retry": true,
+  "no_merge_or_default_authority": true,
+  "no_science_monitor_created": true,
+  "research_payload_drive_acceptance": false
+}

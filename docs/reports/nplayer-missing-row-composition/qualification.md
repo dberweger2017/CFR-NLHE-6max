@@ -1,4 +1,4 @@
-# Missing-positive-row composition: engineering qualified, mature quote pending approval
+# Missing-positive-row composition: engineering qualified, allocation approved
 
 [PR423](https://github.com/dberweger2017/CFR-NLHE-6max/pull/423),
 [proposal422](https://github.com/dberweger2017/CFR-NLHE-6max/issues/422),
@@ -7,9 +7,31 @@
 The opt-in arena player and one-use campaign controller are implemented.
 **M4 qualification passes all 28 stages in 88.95 seconds:** 121 native library,
 15 paired native and 23 focused Python tests; 384 initial hands independently
-replay and reproduce exactly. **No mature-model arena has started**, no new
+replay and reproduce exactly. **The approved mature-model arena is now running**; no new
 training or exports, and no strength result is available. The owner selected
-the experiment; the separately priced mature allocation below is not accepted yet.
+the experiment and accepted the exact2h15m allocation onOctober24. The original
+prospective quote remains byte-for-byte preserved; acceptance and execution
+receipts are separate.
+
+
+## October24 approved launch
+
+Owner accepted the exact **2h15m allocation**, without changing the frozen
+prospective quote, counts or interpretation. Same-source bb128 qualification
+passes all28stages in **136.07s**, with121library+15paired native and23Python
+tests,384initial+384repeated hands, independent replay and all selector/RNG checks.
+Stage CPU264.68s; sampled family peak1.12GiB, maximumCPU64°C /Thermistor15 51°C.
+Raw resultSHA `2533f8f28f6deea17b21f8cfde5459492e655e0df65bff96a69fc32b98493c08`.
+
+The fixed mature comparison launched **15:52:55UTC /17:52Madrid**, PID939496,
+under normal/study locks at
+`/home/dberweger/nplayer-missing-row-composition-20261024/main-v1`.
+ConfigSHA `88208456262562a3ef4b1d56338dab1b5fa6445986922d38ba90f0e4da7d195b`.
+Admission has32.18GiB NVMe free,122.72GiB available RAM,CPU34°C /Thermistor15 38°C.
+All stages advance automatically; no interim outcomes have been inspected.
+Planning remains about18:50Madrid centrally /19:50 reserved, not a guarantee.
+No new scientific monitor, retry, samples, training or exports. PR remains draft,
+with no merge or adoption authority. [Compact launch and admission receipt](run-launch.json).
 
 ## Exact selection rule
 
@@ -61,7 +83,7 @@ Final source **`c8b257e635e042ae2742268be2fc095e9d46ab15`**, 1,403 source/config
 raw qualification result **`c488e06f8382297f311e41bc564b2ef72df929517d773297b234d86a1e17eff3`**.
 [Compact source/binary/proof/cost receipt](qualification.json).
 
-## Complete arena-only allocation to accept
+## Accepted complete arena-only allocation
 
 **58.87min central /117.74min reserve;
 propose 2h15m (8,100s) on bb128**, including target-host exact-source build/small
@@ -97,7 +119,7 @@ No filesystem reserve or proposed cleanup gain is counted. Three-table sampled
 peak in PR419 was54.05GiB; plan75GiB memory, without an RSS cutoff. Current
 MemAvailable122.76GiB, CPU34°C /
 Thermistor15 29.5°C. Recheck resources before launch;
-no reservation or mature root exists at this snapshot.
+no reservation or mature root existed at that historical snapshot. See fresh admission above.
 
 ## Counts, prospective rules and precision
 
@@ -144,19 +166,19 @@ that both missed in PR419. Earlier donor choices may change which histories are
 reached. Added rows may be weak or incoherent with the smaller model's earlier
 strategy; qualification establishes the selector, not strength or equilibrium.
 
-## Remaining launch gate and preservation
+## Qualification, admission and preservation
 
 The [research-proposal rule](../../../CONTRIBUTING.md#research-proposals) requires
-acceptance of this concrete allocation before main. The owner receipt must bind
-the exact scope and quote SHA; no receipt was invented here. The prepared configure
+acceptance of this concrete allocation before main. Owner acceptance is now
+explicit. The owner receipt binds the exact scope and unchanged quote SHA. The prepared configure
 entry point also requires completed same-source M4 and **bb128 small qualification**,
 unchanged model/mass/K50/runtime pins and manual resource review. Target-host
-qualification is budgeted and still unstarted; the mature arena cannot bypass it.
+qualification is budgeted and runs before mature admission; the arena cannot bypass it.
 Normal/study locks are nonblocking. Only the existing CPU90°C /Thermistor15 100°C /
 missing-nonfinite thermal resource stops apply; ownerSTOP/mutex/correctness also
 terminate. No time/RSS/disk/swap cutoff is added. Partial evidence remains incomplete,
-never a smaller acceptance run. Both finite M4 qualifications finished, no timer,
-observer, mature model play or other-machine experiment was created.
+never a smaller acceptance run. Both finite M4 qualifications and the target-host qualification finished. The
+approved mature run is active; no timer, observer or other-machine experiment was created.
 
 Ordinary source, fixtures, failures/partials if any and proof/results remain at
 `m4:/Users/dberweger/Local/nplayer-missing-row-composition-20261024/` and ignored
