@@ -1,4 +1,4 @@
-"""One-use small M4 engineering qualification; no mature arena or training mode."""
+"""One-use small engineering qualification; no mature arena or training mode."""
 import argparse
 import fcntl
 import json
@@ -32,12 +32,20 @@ def qualify(a):
     catalog=json.loads(a.catalog.read_text());rows={k:composition.pinned_rows(catalog[k]) for k in ['control','donor']}
     for spec in catalog.values():
         if tools.sha(spec['path'])!=spec['sha256']:raise ValueError('small binary fixture changed')
-    locks=[open(Path.home()/'Local/.hu20-m4-research.lock','a+'),open('/tmp/cfr-nplayer-composition.lock','a+')]
+    normal=Path.home()/'Local/.hu20-m4-research.lock' if sys.platform=='darwin' else Path('/tmp/cfr-cygnus-exclusive.lock')
+    locks=[open(normal,'a+'),open('/tmp/cfr-nplayer-composition.lock','a+')]
     for lock in locks:fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
     env=dict(os.environ,NPLAYER_STOP_FILE=str(root/'STOP'),OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',CARGO_TARGET_DIR=str(root/'build'))
     config=dict(source=source,catalog=catalog,tables=str(a.tables),thermal=str(a.thermal),legacy=str(a.legacy),legacy_sha256=tools.sha(a.legacy),source_manifest_sha256=tools.sha(a.source_manifest),catalog_sha256=tools.sha(a.catalog),python=sys.executable,python_sha256=tools.sha(sys.executable),no_training_or_exports=True)
     tools.write(root/'config.json',config);os.chmod(root/'config.json',0o444)
-    sup=tools.Supervisor(root,env,a.thermal);tools.write(root/'launch.json',dict(pid=os.getpid(),epoch=time.time()))
+    if sys.platform=='darwin':
+        if a.thermal is None:raise ValueError('M4 thermal reader required')
+        sup=tools.Supervisor(root,env,a.thermal)
+    elif sys.platform=='linux':
+        from scripts import nplayer_bb200_feasibility as linux
+        sup=linux.Supervisor(root,env)
+    else:raise ValueError('qualified M4 or bb128 platform required')
+    tools.write(root/'launch.json',dict(pid=os.getpid(),epoch=time.time()))
     cargo=Path.home()/'.cargo/bin/cargo';args=['--release','--locked','--offline','--manifest-path',SOURCE/'native/hu20-trainer/Cargo.toml']
     try:
         sup.stage('native-tests',[cargo,'test',*args,'--lib','--example','nplayer_paired_arena'])
@@ -95,7 +103,8 @@ def qualify(a):
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    for flag in ['root','catalog','tables','thermal','legacy','source-manifest']:p.add_argument('--'+flag,type=Path,required=True)
+    for flag in ['root','catalog','tables','legacy','source-manifest']:p.add_argument('--'+flag,type=Path,required=True)
+    p.add_argument('--thermal',type=Path)
     qualify(p.parse_args())
 
 

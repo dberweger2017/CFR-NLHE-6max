@@ -1,0 +1,158 @@
+{
+  "format": "nplayer-missing-positive-proposal-v1",
+  "question": "Can positive-mass donor rows missing from250M improve play while preserving every existing250Mrow?",
+  "players": 6,
+  "stack_bb": 100,
+  "base_sha256": "086938a88f1b302688b00cf52666162350e02e3b1212aa590bb6bf4941c46178",
+  "donor_sha256": "268a154807a278681bdeee2667e18e54aada171132481fbc3eba0586c767173d",
+  "peer_sha256": "6cd50bf17d5a361f4d38e1d3bf98859c4b8877297c612ca87dfec41e3bbbb85b",
+  "blocks_per_field": 4096,
+  "fields": 8,
+  "seatings_per_block": 12,
+  "initial_hands": 786432,
+  "reproduction_hands": 786432,
+  "fresh_roots": [
+    20261024750001,
+    20261024750002,
+    20261024750003,
+    20261024750004,
+    20261024750005,
+    20261024750006,
+    20261024750007,
+    20261024750008
+  ],
+  "one_eight_test_family": "one-sided95Studentt/Bonferroni,trainedlower>0,otherlower>-5",
+  "components": [
+    {
+      "name": "bb128 exact-source build/tests and same small qualification allowance",
+      "central_seconds": 600,
+      "reserved_seconds": 1200
+    },
+    {
+      "name": "initial plus reproduction arena, measured PR419 whole stages",
+      "central_seconds": 1295.3493089689873,
+      "reserved_seconds": 2590.6986179379746
+    },
+    {
+      "name": "all initial independent replay, measured PR419",
+      "central_seconds": 365.1208050578134,
+      "reserved_seconds": 730.2416101156268
+    },
+    {
+      "name": "eight paired summaries, measured PR419",
+      "central_seconds": 135.14226069499273,
+      "reserved_seconds": 270.28452138998546
+    },
+    {
+      "name": "all composed-decision accounting, conservatively retain PR419 shared-proof cost",
+      "central_seconds": 225.93123120220844,
+      "reserved_seconds": 451.8624624044169
+    },
+    {
+      "name": "global input/trace pin checks, absolute/tail readout, measured PR419 allowance",
+      "central_seconds": 310.75109664699994,
+      "reserved_seconds": 621.5021932939999
+    },
+    {
+      "name": "compact report and reconciliation allowance",
+      "central_seconds": 600,
+      "reserved_seconds": 1200
+    }
+  ],
+  "central_seconds": 3532.294702571002,
+  "reserved_seconds": 7064.589405142004,
+  "proposed_planning_seconds": 8100,
+  "accepted_planning_seconds": null,
+  "arena_model_load_seconds_reference": 1205.090136801,
+  "arena_play_seconds_reference": 45.848469603,
+  "resource_planning": {
+    "new_storage_gib": 24,
+    "new_storage_components_gib": {
+      "trace_allowance": 16,
+      "source_build_proof_reports": 2,
+      "working_allowance": 6
+    },
+    "reference_three_table_sampled_peak_gib": 54.049625396728516,
+    "memory_planning_gib": 75,
+    "no_new_model_exports_or_copies": true,
+    "no_time_rss_disk_swap_cutoff": true
+  },
+  "precision_scenarios": [
+    {
+      "se_factor_vs_pr419": 1,
+      "assumed_standard_error_bb100": 19.871721847159744,
+      "ordinary95_halfwidth_bb100": 38.95936516539611,
+      "family_pass_threshold_mean_bb100": 49.65565139035849,
+      "approximate_pass_chance": {
+        "5": 0.012313755807,
+        "10": 0.022989717563,
+        "25": 0.107350801892,
+        "50": 0.506912755009
+      }
+    },
+    {
+      "se_factor_vs_pr419": 0.5,
+      "assumed_standard_error_bb100": 9.935860923579872,
+      "ordinary95_halfwidth_bb100": 19.479682582698054,
+      "family_pass_threshold_mean_bb100": 24.827825695179246,
+      "approximate_pass_chance": {
+        "5": 0.022989717563,
+        "10": 0.067803132218,
+        "25": 0.506912755009,
+        "50": 0.99435297893
+      }
+    },
+    {
+      "se_factor_vs_pr419": 0.25,
+      "assumed_standard_error_bb100": 4.967930461789936,
+      "ordinary95_halfwidth_bb100": 9.739841291349027,
+      "family_pass_threshold_mean_bb100": 12.413912847589623,
+      "approximate_pass_chance": {
+        "5": 0.067803132218,
+        "10": 0.313519359882,
+        "25": 0.99435297893,
+        "50": 1.0
+      }
+    }
+  ],
+  "variance_warning": "Composition variance unmeasured. PR419 full-replacement SE and fractional-SE scenarios are illustrations, not bounds or established power. Rare tails may dominate; low affected frequency does not guarantee low variance.",
+  "opportunity_on_existing_pr419_states": {
+    "trained": {
+      "existing_observations": 158095,
+      "eligible_missing_to_positive": 3814
+    },
+    "random": {
+      "existing_observations": 147413,
+      "eligible_missing_to_positive": 4041
+    },
+    "check-call": {
+      "existing_observations": 238882,
+      "eligible_missing_to_positive": 2248
+    },
+    "tight-aggressive": {
+      "existing_observations": 118264,
+      "eligible_missing_to_positive": 605
+    },
+    "pot-pressure": {
+      "existing_observations": 132568,
+      "eligible_missing_to_positive": 1418
+    },
+    "call-pressure": {
+      "existing_observations": 210232,
+      "eligible_missing_to_positive": 6190
+    },
+    "random-tight": {
+      "existing_observations": 158674,
+      "eligible_missing_to_positive": 2542
+    },
+    "trained-call-pressure": {
+      "existing_observations": 194340,
+      "eligible_missing_to_positive": 7824
+    }
+  },
+  "opportunity_warning": "Previously inspected histories from different policies, not expected usage or returns for the composed player.",
+  "prior_result_sha256": "c12ec77d688db05cbdcb1ce64c603d1914169a3cb4ce992e2748e7710057684a",
+  "main_requires": "Owner exact quote/scope acceptance, same-source M4 and bb128 small qualification, unchanged source/model/mass/K50/runtime pins, nonblocking normal/study mutex and manual resource review",
+  "no_automatic_extension_or_tuning": true,
+  "no_training_or_exports": true
+}

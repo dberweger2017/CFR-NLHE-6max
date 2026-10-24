@@ -1,5 +1,9 @@
 import unittest
+from pathlib import Path
+import tempfile
+from unittest.mock import patch
 from scripts import nplayer_composition_evidence as c
+from scripts import nplayer_missing_row_composition as campaign
 
 
 class CompositionEvidence(unittest.TestCase):
@@ -26,6 +30,22 @@ class CompositionEvidence(unittest.TestCase):
 
     def test_empty_menu_refuses(self):
         with self.assertRaises(ValueError):c.selection(None,None,0)
+
+    def test_prospective_field_and_seating_inventory(self):
+        fixed=campaign.fixed();self.assertEqual(fixed['blocks'],4096)
+        self.assertEqual(len(fixed['fields']),8);self.assertEqual(len(fixed['schedule']),12)
+        for identity in range(6):
+            for seat in range(6):self.assertEqual(sum(row[seat]==identity for row in fixed['schedule']),2)
+        self.assertEqual(fixed['fields'][0]['opponents'],['peer']*5)
+        self.assertTrue(fixed['no_training_or_exports']);self.assertTrue(fixed['no_extension'])
+
+    def test_unaccepted_budget_fails_before_model_access(self):
+        with tempfile.TemporaryDirectory() as d:
+            owner=Path(d)/'owner.json';owner.write_text('{}')
+            config=dict(fixed=campaign.fixed(),proposal_sha256=campaign.tools.sha(campaign.PROPOSAL),owner=str(owner),owner_sha256=campaign.tools.sha(owner))
+            with patch.object(campaign,'protected_models') as models:
+                with self.assertRaisesRegex(ValueError,'accepted exact owner'):campaign.validate(config)
+                models.assert_not_called()
 
 
 if __name__=='__main__':unittest.main()

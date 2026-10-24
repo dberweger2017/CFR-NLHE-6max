@@ -93,7 +93,7 @@ def structural(trace):
     the main pins audited existing binaries/mass receipts and the same native code.
     This check alone is not a second full source-row audit of mature policies.
     """
-    stream=evidence.rows(trace);h=next(stream);n,schedule=evidence.header_check(h);counts={};hands=decisions=0
+    stream=evidence.rows(trace);h=next(stream);n,schedule=evidence.header_check(h);counts={};by_street={};hands=decisions=0
     if h['policies'][0].get('composition')!=FORMAT:raise ValueError('composed focal required')
     for hands,row in enumerate(stream,1):
         evidence.validate_row(row,hands-1,h,n,schedule)
@@ -111,5 +111,12 @@ def structural(trace):
             if source=='uniform' or b=='zero_mass':
                 if any(abs(v-1/len(p))>1e-14 for v in p):raise ValueError('composition fallback changed')
             counts[source]=counts.get(source,0)+1;decisions+=1
+            s=by_street.setdefault(row['states'][index]['street'],{});s[source]=s.get(source,0)+1
     if hands!=h['hands']:raise ValueError('composition incomplete')
-    return dict(status='passed',hands=hands,decisions=decisions,selection_counts=counts,trace_sha256=evidence.sha(trace),exact_source_audit=False)
+    return dict(status='passed',hands=hands,decisions=decisions,selection_counts=counts,by_street=by_street,trace_sha256=evidence.sha(trace),exact_source_audit=False)
+
+
+if __name__=='__main__':
+    import argparse
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('mode',choices=['structural']);p.add_argument('trace',type=Path);a=p.parse_args()
+    print(json.dumps(structural(a.trace),indent=2,allow_nan=False))
