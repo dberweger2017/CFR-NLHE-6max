@@ -541,3 +541,105 @@ fn normalized_policy_underflow_is_not_reported_as_structural_zero() {
         .unwrap_err()
         .contains("normalization underflow"));
 }
+
+#[test]
+fn watched_tied_updates_keep_unconditional_positive_coefficients() {
+    let key = [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    let never = [100; 16];
+    let mut root = positive_root(key);
+    let i = root.increments.get_mut(&key).unwrap();
+    i.regret.fill(0.);
+    i.average.fill(0.);
+    i.average_coeff = probe::Moments::default();
+    i.average_linear_coeff = probe::Moments::default();
+    let mut shadow = probe::Shadow::new(100, &BTreeMap::from([(key, 2), (never, 3)])).unwrap();
+    shadow.batch(&[root]).unwrap();
+    let p = shadow.rows[&key].value(&key)["potential"].clone();
+    assert_eq!(p["regret_event_coeff"]["sum"], 1.);
+    assert_eq!(p["regret_root_coeff"]["sum"], 1.);
+    assert_eq!(p["regret_linear_root_coeff"]["sum"], 1.);
+    assert_eq!(p["nonzero_regret_update_root_coeff"]["sum"], 0.);
+    assert_eq!(p["zero_update_with_positive_coefficient"], true);
+    assert_eq!(p["encountered_only_zero_coefficient"], false);
+    assert_eq!(
+        shadow.rows[&never].value(&never)["potential"]["never_encountered"],
+        true
+    );
+}
+
+#[test]
+fn terminal_ess_groups_correlated_branches_and_keeps_linear_weights() {
+    let mut first = probe::Root::default();
+    let mut second = probe::Root::default();
+    for (name, left, right) in [
+        (
+            "terminal_counterfactual_coefficient",
+            vec![1., 1.],
+            vec![2.],
+        ),
+        (
+            "linear_terminal_counterfactual_coefficient",
+            vec![7., 7.],
+            vec![14.],
+        ),
+        (
+            "terminal_root_value_coefficient_with_own_reach",
+            vec![0.5, 0.5],
+            vec![1.],
+        ),
+        (
+            "linear_terminal_root_value_coefficient_with_own_reach",
+            vec![3.5, 3.5],
+            vec![7.],
+        ),
+    ] {
+        for value in left {
+            first
+                .metrics
+                .entry(name.into())
+                .or_default()
+                .add(value)
+                .unwrap();
+        }
+        for value in right {
+            second
+                .metrics
+                .entry(name.into())
+                .or_default()
+                .add(value)
+                .unwrap();
+        }
+    }
+    second
+        .metrics
+        .entry("late_group".into())
+        .or_default()
+        .add(1.)
+        .unwrap();
+    let mut shadow = probe::Shadow::new(100, &BTreeMap::new()).unwrap();
+    shadow
+        .batch(&[first, second, probe::Root::default()])
+        .unwrap();
+    let s = shadow.summary();
+    assert!(
+        (s["metrics"]["terminal_counterfactual_coefficient"]["ess"]
+            .as_f64()
+            .unwrap()
+            - 8. / 3.)
+            .abs()
+            < 1e-14
+    );
+    for name in [
+        "terminal_counterfactual_coefficient",
+        "linear_terminal_counterfactual_coefficient",
+        "terminal_root_value_coefficient_with_own_reach",
+        "linear_terminal_root_value_coefficient_with_own_reach",
+    ] {
+        let m = &s["root_grouped_metrics"][name];
+        assert_eq!(m["events"], 3);
+        assert_eq!(m["exact_zero"], 1);
+        assert!((m["ess"].as_f64().unwrap() - 2.).abs() < 1e-14);
+    }
+    assert_eq!(s["root_grouped_metrics"]["late_group"]["events"], 3);
+    assert_eq!(s["root_grouped_metrics"]["late_group"]["exact_zero"], 2);
+}

@@ -202,6 +202,14 @@ impl<D, F> Walk<'_, D, F> {
                 "terminal_root_value_coefficient_with_own_reach".into(),
                 product(prefix, own)?,
             )?;
+            self.root.metric(
+                "linear_terminal_counterfactual_coefficient".into(),
+                product(prefix, self.linear)?,
+            )?;
+            self.root.metric(
+                "linear_terminal_root_value_coefficient_with_own_reach".into(),
+                product(product(prefix, own)?, self.linear)?,
+            )?;
             let u = s.payoff(self.traverser);
             if !u.is_finite() {
                 return Err("nonfinite payoff".into());
@@ -217,6 +225,17 @@ impl<D, F> Walk<'_, D, F> {
             .metric(format!("street{}:{family}:update_prefix", d.street), prefix)?;
         self.root.metric(
             format!("street{}:{family}:linear_update_prefix", d.street),
+            product(prefix, self.linear)?,
+        )?;
+        let kind = if d.actor == self.traverser {
+            "regret"
+        } else {
+            "average"
+        };
+        self.root
+            .metric(format!("street{}:{family}:{kind}_prefix", d.street), prefix)?;
+        self.root.metric(
+            format!("street{}:{family}:linear_{kind}_prefix", d.street),
             product(prefix, self.linear)?,
         )?;
         let inc = self
@@ -339,6 +358,14 @@ pub struct Learning {
     regret_roots: Moments,
     average_linear_roots: Moments,
     regret_linear_roots: Moments,
+    average_events: Moments,
+    regret_events: Moments,
+    average_linear_events: Moments,
+    regret_linear_events: Moments,
+    average_all_roots: Moments,
+    regret_all_roots: Moments,
+    average_linear_all_roots: Moments,
+    regret_linear_all_roots: Moments,
     pub roots: u64,
     pub average_positive_roots: u64,
     pub regret_nonzero_roots: u64,
@@ -361,6 +388,16 @@ impl Learning {
         self.roots += 1;
         self.average_positive_roots += u64::from(avg);
         self.regret_nonzero_roots += u64::from(reg);
+        self.average_events.merge(&i.average_coeff)?;
+        self.regret_events.merge(&i.regret_coeff)?;
+        self.average_linear_events.merge(&i.average_linear_coeff)?;
+        self.regret_linear_events.merge(&i.regret_linear_coeff)?;
+        self.average_all_roots.add(i.average_coeff.sum)?;
+        self.regret_all_roots.add(i.regret_coeff.sum)?;
+        self.average_linear_all_roots
+            .add(i.average_linear_coeff.sum)?;
+        self.regret_linear_all_roots
+            .add(i.regret_linear_coeff.sum)?;
         self.average_roots
             .add(if avg { i.average_coeff.sum } else { 0. })?;
         self.regret_roots
@@ -393,8 +430,15 @@ impl Learning {
     fn value(&self) -> Value {
         json!({"regret":self.regret,"average":self.average,"roots_seen":self.roots,
         "positive_average_roots":self.average_positive_roots,"nonzero_regret_roots":self.regret_nonzero_roots,
-        "average_root_coeff":self.average_roots.value(),"regret_root_coeff":self.regret_roots.value(),
-        "average_linear_root_coeff":self.average_linear_roots.value(),"regret_linear_root_coeff":self.regret_linear_roots.value(),
+        "average_event_coeff":self.average_events.value(),"regret_event_coeff":self.regret_events.value(),
+        "average_linear_event_coeff":self.average_linear_events.value(),"regret_linear_event_coeff":self.regret_linear_events.value(),
+        "average_root_coeff":self.average_all_roots.value(),"regret_root_coeff":self.regret_all_roots.value(),
+        "average_linear_root_coeff":self.average_linear_all_roots.value(),"regret_linear_root_coeff":self.regret_linear_all_roots.value(),
+        "positive_average_update_root_coeff":self.average_roots.value(),"nonzero_regret_update_root_coeff":self.regret_roots.value(),
+        "positive_average_update_linear_root_coeff":self.average_linear_roots.value(),"nonzero_regret_update_linear_root_coeff":self.regret_linear_roots.value(),
+        "never_encountered":self.roots==0,
+        "encountered_only_zero_coefficient":self.roots>0&&self.average_all_roots.sum==0.&&self.regret_all_roots.sum==0.,
+        "zero_update_with_positive_coefficient":self.zero()&&(self.average_all_roots.sum>0.||self.regret_all_roots.sum>0.),
         "zero_update":self.zero(),"replicated_positive_learning_proxy":self.replicated()})
     }
 }
@@ -438,6 +482,7 @@ pub struct Shadow {
     pub roots: u64,
     discarded_key_batches: u64,
     pub metrics: BTreeMap<String, Moments>,
+    pub root_grouped_metrics: BTreeMap<String, Moments>,
     pub freeze_snapshot: Option<Value>,
 }
 impl Shadow {
@@ -459,6 +504,7 @@ impl Shadow {
             roots: 0,
             discarded_key_batches: 0,
             metrics: BTreeMap::new(),
+            root_grouped_metrics: BTreeMap::new(),
             freeze_snapshot: None,
         })
     }
@@ -472,6 +518,24 @@ impl Shadow {
             self.nodes += root.nodes;
             for (key, v) in &root.metrics {
                 self.metrics.entry(key.clone()).or_default().merge(v)?;
+            }
+            // Every independent root contributes once. Missing metric groups
+            // have zero weight, including roots before a group first appears.
+            let groups = self
+                .root_grouped_metrics
+                .keys()
+                .chain(root.metrics.keys())
+                .cloned()
+                .collect::<BTreeSet<_>>();
+            for key in groups {
+                self.root_grouped_metrics
+                    .entry(key.clone())
+                    .or_insert_with(|| Moments {
+                        count: self.roots - 1,
+                        zero: self.roots - 1,
+                        ..Moments::default()
+                    })
+                    .add(root.metrics.get(&key).map_or(0., |v| v.sum))?;
             }
             for (key, i) in &root.increments {
                 if !i.missing {
@@ -564,6 +628,7 @@ impl Shadow {
             "zero_at_admission":admitted.iter().filter(|r|r.zero_at_admission).count(),
             "zero_at_admission_later_positive":admitted.iter().filter(|r|r.zero_at_admission&&!r.retained.zero()).count(),
             "discarded_key_batches_not_unique_keys":self.discarded_key_batches,"by_street":by_street,"by_street_family":groups,
-            "metrics":self.metrics.iter().map(|(k,v)|(k.clone(),v.value())).collect::<BTreeMap<_,_>>()})
+            "metrics":self.metrics.iter().map(|(k,v)|(k.clone(),v.value())).collect::<BTreeMap<_,_>>(),
+            "root_grouped_metrics":self.root_grouped_metrics.iter().map(|(k,v)|(k.clone(),v.value())).collect::<BTreeMap<_,_>>()})
     }
 }

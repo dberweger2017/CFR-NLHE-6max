@@ -63,6 +63,12 @@ The existing opponent-sampled average update is
 `linear_weight × rho × sigma_vector`, recorded before sampling that node's
 action. Own-action reach is excluded from these counterfactual corrections;
 it is recorded separately for terminal root-value coefficient diagnostics.
+Every prefix/terminal coefficient has event and independent-root grouped
+moments, with and without the linear weight. Grouped terminal weights sum all
+correlated terminal branches inside one root before squaring; absent groups
+contribute explicit zero root weights. Per-key unconditional coefficient
+moments remain separate from the update-gated ESS used for replicated learning.
+A positive coefficient with tied/all-zero updates is not classified as zero reach.
 
 This targets the expected increments of the **existing** external-sampling
 implementation under fixed sigma. It is not a new claim about convergence of
@@ -147,12 +153,17 @@ pins fail verification. No archive/deletion or release adoption follows.
 
 ## Engineering status
 
-Local validation: **121 existing native library tests, 12 new native example
+Local validation: **121 existing native library tests, 14 new native example
 tests and five Python controller fixtures pass**. New tests cover exhaustive
 expected updates, bitwise reference behavior, zero reach at a missing row,
 own-zero counterfactual reach, ties, normalization/product underflow, batch
 admission, discarded/never-hit watch keys, 1/2/8/16-thread root/ledger parity
 and streamed reproduction failures. CI runs the new example fixtures too.
+The independent review identified missing grouped/linear terminal summaries
+and unconditional watched-key coefficients; both reporting gaps were corrected
+before any warmed work, with two focused fixtures. The estimator increments,
+fixed workload and player remain unchanged. Target-host build/review must bind
+the corrected source and actual binary before launch.
 
 **The warmed diagnostic has not run.** No target-host build receipt or
 independent estimator-review receipt is claimed. Complete those gates, then
