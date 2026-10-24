@@ -10,6 +10,7 @@ use hu20_trainer::{
 use rand::{seq::SliceRandom, SeedableRng};
 use rayon::prelude::*;
 use serde_json::{json, Value};
+use sha2::{Digest, Sha256};
 use std::{
     collections::{HashMap, HashSet},
     io::Write,
@@ -17,6 +18,8 @@ use std::{
     sync::Arc,
     time::Instant,
 };
+#[path = "nplayer_composition.rs"]
+mod composition;
 #[path = "nplayer_mass_metadata.rs"]
 mod mass;
 #[path = "nplayer_shared_observation.rs"]
@@ -80,9 +83,11 @@ pub fn schedule(n: usize, declared: &Value) -> Result<Vec<Vec<usize>>, String> {
 struct Model {
     table: Arc<PolicyTable>,
     pin: Value,
+    donor: Option<Arc<PolicyTable>>,
 }
 enum Player {
     Model(Policy, String),
+    Composed(composition::Policy),
     Script(Bot),
 }
 struct Case {
@@ -96,6 +101,7 @@ struct Case {
     traces: [PathBuf; 2],
     summary: PathBuf,
     shared_models: Option<[String; 2]>,
+    composition_diagnostics: bool,
 }
 impl Case {
     fn parse(v: &Value) -> Result<Self, String> {
@@ -125,6 +131,11 @@ impl Case {
             return Err("two focals/traces and N-1 fixed opponents required".into());
         }
         let shared_models = shared::aliases(&v["shared_models"])?;
+        let composition_diagnostics = match v.get("composition_diagnostics") {
+            None | Some(Value::Null) => true,
+            Some(Value::Bool(value)) => *value,
+            _ => return Err("composition_diagnostics must be boolean".into()),
+        };
         if shared_models.is_some() && focals.iter().any(|s| s.starts_with("bot=")) {
             return Err("shared observations require model focals".into());
         }
@@ -144,6 +155,7 @@ impl Case {
             traces: [PathBuf::from(&traces[0]), PathBuf::from(&traces[1])],
             summary: text(v, "summary")?.into(),
             shared_models,
+            composition_diagnostics,
         })
     }
 }
@@ -179,7 +191,16 @@ fn play(
                 players.push(if let Some(bot) = spec.strip_prefix("bot=") {
                     Player::Script(Bot::new(bot, seed)?)
                 } else {
-                    Player::Model(Policy::new(models[spec].table.clone(), seed), spec.clone())
+                    let model = &models[spec];
+                    if let Some(donor) = &model.donor {
+                        Player::Composed(composition::Policy::new(
+                            model.table.clone(),
+                            donor.clone(),
+                            seed,
+                        )?)
+                    } else {
+                        Player::Model(Policy::new(model.table.clone(), seed), spec.clone())
+                    }
                 });
             }
             let mut hand = Hand::from_deck(case.config, button, &deck)?;
@@ -196,6 +217,16 @@ fn play(
                 let id = ids[actor];
                 let (action, mut lookup) = match &mut players[id] {
                     Player::Script(bot) => (bot.choose(&view)?, json!({"status":"not_applicable"})),
+                    Player::Composed(policy) => {
+                        let t = tables.ok_or("composition K50 required")?;
+                        let (action, selected) = policy.choose(&view, t)?;
+                        let d = multi_holdem::observation_decision(&view, t);
+                        let mut lookup = json!({"status":selected.status,"key":key_hex(&d.key),"street":d.street,"identity":id,"seat":actor,"position":(actor+case.n-button)%case.n});
+                        if case.composition_diagnostics {
+                            lookup["composition"] = selected.diagnostic();
+                        }
+                        (action, lookup)
+                    }
                     Player::Model(policy, alias) => {
                         let t = tables.ok_or("K50 required")?;
                         let action = policy.choose(&view, t)?;
@@ -266,7 +297,7 @@ fn execute(
     threads: usize,
 ) -> Result<Value, String> {
     let tick = Instant::now();
-    let used: HashSet<_> = case
+    let mut used: HashSet<_> = case
         .arms
         .iter()
         .flatten()
@@ -274,14 +305,63 @@ fn execute(
         .filter(|s| !s.starts_with("bot="))
         .cloned()
         .collect();
+    for alias in used.clone() {
+        let spec = &catalog[&alias];
+        if !spec["composition"].is_null() {
+            if spec["composition"] != composition::FORMAT
+                || !case.arms.iter().any(|a| a[0] == alias)
+                || case.arms.iter().any(|a| a[1..].contains(&alias))
+                || case
+                    .shared_models
+                    .as_ref()
+                    .is_some_and(|a| a.contains(&alias))
+            {
+                return Err(
+                    "composition is opt-in focal-only; shared_models must name physical sources"
+                        .into(),
+                );
+            }
+            for key in ["base", "donor"] {
+                let dependency = text(spec, key)?;
+                if dependency.is_empty()
+                    || dependency.starts_with("bot=")
+                    || !catalog[dependency]["composition"].is_null()
+                {
+                    return Err("composition dependencies must be physical policy aliases".into());
+                }
+                used.insert(dependency.into());
+            }
+        }
+    }
     models.retain(|alias, _| used.contains(alias));
     let mut ordered: Vec<_> = used.into_iter().collect();
-    ordered.sort();
+    // Physical tables first; composition holds immutable references, no union
+    // copy, duplicate load, row mutation or extra per-seat weight table.
+    ordered.sort_by_key(|a| (!catalog[a]["composition"].is_null(), a.clone()));
     for alias in ordered {
         if models.contains_key(&alias) {
             continue;
         }
         let spec = &catalog[&alias];
+        if spec["composition"] == composition::FORMAT {
+            let base = &models[text(spec, "base")?];
+            let donor = &models[text(spec, "donor")?];
+            composition::compatible(&base.table, &donor.table)?;
+            let mut pin = json!({"composition":composition::FORMAT,"base":base.pin,"donor":donor.pin,"strategy":"average","average_scope":3});
+            pin["sha256"] = json!(format!(
+                "{:x}",
+                Sha256::digest(serde_json::to_vec(&pin).map_err(|e| e.to_string())?)
+            ));
+            models.insert(
+                alias,
+                Model {
+                    table: base.table.clone(),
+                    donor: Some(donor.table.clone()),
+                    pin,
+                },
+            );
+            continue;
+        }
         let path = Path::new(text(spec, "path")?);
         let sha = text(spec, "sha256")?;
         let mut table = PolicyTable::load(path, sha)?;
@@ -298,6 +378,7 @@ fn execute(
             Model {
                 table: Arc::new(table),
                 pin,
+                donor: None,
             },
         );
     }
@@ -318,6 +399,7 @@ fn execute(
     }
     let identity=case.arms.iter().flatten().find_map(|s|models.get(s)).map(|m|m.table.identity.clone())
         .unwrap_or_else(||json!({"players":case.n,"stacks":case.config.stacks(),"small_blind":50,"big_blind":100}));
+    let physical_tables = models.values().filter(|m| m.donor.is_none()).count();
     let mut output = Vec::new();
     for (arm, path) in case.traces.iter().enumerate() {
         let pins: Vec<_> = case.arms[arm]
@@ -337,7 +419,7 @@ fn execute(
             .map_err(|e| e.to_string())?;
         let mut out = std::io::BufWriter::new(file);
         let mut header = json!({"format":"nplayer-privileged-policy-replay-v1","harness":"nplayer-paired-v1","identity":identity,"hands":case.blocks*case.seating.len() as u64,
-          "blocks":case.blocks,"seed":case.root,"schedule":case.seating,"policies":pins,"distinct_policy_instances":case.n,"loaded_weight_tables":models.len(),
+          "blocks":case.blocks,"seed":case.root,"schedule":case.seating,"policies":pins,"distinct_policy_instances":case.n,"loaded_weight_tables":physical_tables,
           "seat_semantics":"fixed physical hands; button=block%N; schedule maps seat to labeled identity; identity0 focal"});
         if let Some(aliases) = &case.shared_models {
             header["shared_models"] = json!(aliases
@@ -372,7 +454,7 @@ fn execute(
     }
     Ok(
         json!({"status":"passed","blocks":case.blocks,"hands_per_arm":case.blocks*case.seating.len() as u64,"load_seconds":load_seconds,"play_seconds":playing.elapsed().as_secs_f64(),
-      "resident_weight_tables":models.len(),"trace_sha256":case.traces.iter().map(|p|sha256_file(p)).collect::<Vec<_>>()}),
+      "resident_weight_tables":physical_tables,"trace_sha256":case.traces.iter().map(|p|sha256_file(p)).collect::<Vec<_>>()}),
     )
 }
 pub fn run() -> Result<(), String> {
