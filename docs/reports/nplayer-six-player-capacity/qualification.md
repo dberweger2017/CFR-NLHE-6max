@@ -4,10 +4,28 @@
 [proposal418](https://github.com/dberweger2017/CFR-NLHE-6max/issues/418),
 [fixed protocol](../../nplayer-six-player-capacity.md).
 
-The small exact-source qualification passes. **The 500M-key/10B experiment has
-not started; no capacity strength result is available.** One fresh arm remains
-proposed against the preserved PR417 250M/10B control, with fixed old 3B opponents.
+The small exact-source qualification passes. **The 500M-key/10B experiment is
+now running; no capacity strength result is available.** One fresh arm is running
+against the preserved PR417 250M/10B control, with fixed old 3B opponents.
 No trainer, regret math, search, default or release change is included.
+
+## Main launch update — October24
+
+Owner replied **“Start, I will get you the space”** to the proposed seven-hour
+allocation and remaining 20.10 GiB gap. Fresh source/qualification/protected-input,
+thermal, memory, swap and mutex checks pass; all five CI checks are green at
+report head `be810802`. Start before the full storage planning scenario is
+explicitly authorized while the owner supplies space; no unverified gain or
+filesystem-reserve change is counted.
+
+Main controller 929267 starts **11:18:41UTC /13:18:41Madrid**, source
+`2ccf21ac608d9729fecea80583ad3f9ee5f34b64`, config
+`2fff4245900b851bedb2625cdf6a2d274e3500e525b39d83291d369374ca1801`.
+[Immutable approval/config pins, first resource sample and progress](launch.json).
+First 12.16 active seconds reach 52.71M nodes; no failure, CPU 44°C / Thermistor 15 45.5°C.
+This startup observation is not a mature-rate forecast or a strength result.
+All fixed counts, recipes and guards remain unchanged. The sections below
+preserve the qualification and pre-approval quote as originally published.
 
 ## Qualified behavior
 
@@ -59,7 +77,7 @@ normal-CDF last bits exactly. Build-v1 and failure remain preserved; publishing
 planning probabilities to 12 decimals fixes portability. No qualification training
 or main science ran in that failed build.
 
-## Complete proposed allocation, not yet accepted
+## Pre-launch allocation proposal — subsequently accepted
 
 **3.16h central /6.32h reserved;
 request 7h on bb128.** The 500M training/row-work/memory estimates remain extrapolations
@@ -123,7 +141,7 @@ extension follows an inconclusive result. Shared-state support is descriptive,
 not a causal attribution of payoff or proof of sufficient capacity.
 
 Main configuration requires completed same-source qualification, immutable owner
-approval of the exact quote/scope, and manual resource review. No approval receipt
-or main directory exists. Raw traces/models/failed builds/source/proofs remain
+approval of the exact quote/scope, and manual resource review. The owner subsequently approved and launched the unchanged main as recorded
+above. Raw traces/models/failed builds/source/proofs remain
 protected on bb128; archival is owner-managed and no research-payload Drive
-acceptance is claimed. PR419 remains draft pending the allocation decision.
+acceptance is claimed. PR419 remains draft while the approved main runs.

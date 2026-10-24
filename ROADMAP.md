@@ -9,10 +9,14 @@ fields, fresh paired deals and shared identical legal-observation coverage.
 Implementation and exact-source qualification pass (73 stages /384 initial hands
 plus reproduction, exact shared-probability/source and old-arena parity).
 [Qualification and complete quote](docs/reports/nplayer-six-player-capacity/qualification.md):
-3h10m central /6h19m reserve, proposed7h; owner acceptance remains pending.
+3h10m central /6h19m reserve; owner accepted7h and directed immediate start
+while arranging remaining storage. Main launches October24 11:18UTC /13:18Madrid,
+supervisor929267, same qualified frozen source/config and existing guards.
+[Launch and first health](docs/reports/nplayer-six-player-capacity/launch.json).
 120GiB new storage includes25GiB working room; after0.31GiB already written,
 20.10GiB additional availability remains needed at the captured snapshot.
-No main before accepted allocation and fresh manual resource review.
+Fresh resource/protected-input checks pass; start before full storage scenario
+is explicitly owner-authorized, with no unverified space gain counted.
 Three-model arena memory/loading, exact diagnostic parity and storage admission
 must be included. No capacity remedy or strength gain is assumed; search deferred.
 

@@ -1,0 +1,99 @@
+{
+  "checked_utc": "2026-10-24T11:19:04.587386+00:00",
+  "controller": {
+    "phase": "main-controller-started",
+    "pid": 929267,
+    "command": [
+      "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+      "-m",
+      "scripts.nplayer_six_player_capacity",
+      "run",
+      "--root",
+      "/home/dberweger/nplayer-six-player-capacity-20261024/main-v1"
+    ],
+    "utc": "2026-10-24T11:18:41.377405+00:00",
+    "source": "2ccf21ac608d9729fecea80583ad3f9ee5f34b64",
+    "config_sha256": "2fff4245900b851bedb2625cdf6a2d274e3500e525b39d83291d369374ca1801",
+    "owner_sha256": "acd1ce4d42d0b221c3a09435b8a5b3125359cb91f2f075c4c9117f01afe2c43c",
+    "quote_seconds": [
+      11383.794283626368,
+      22767.588567252737
+    ],
+    "accepted_planning_seconds": 25200,
+    "no_duplicate_or_retry": true
+  },
+  "command_identity": "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python -m scripts.nplayer_six_player_capacity run --root /home/dberweger/nplayer-six-player-capacity-20261024/main-v1 ",
+  "launch": {
+    "pid": 929267,
+    "epoch": 1792840724.339795,
+    "source": "2ccf21ac608d9729fecea80583ad3f9ee5f34b64",
+    "config_sha256": "2fff4245900b851bedb2625cdf6a2d274e3500e525b39d83291d369374ca1801"
+  },
+  "status": {
+    "status": "running",
+    "phase": "candidate-train",
+    "completed_stages": 0
+  },
+  "failure": null,
+  "last_resource": {
+    "phase": "candidate-train",
+    "utc": "2026-10-24T11:19:03Z",
+    "cpu_c": 44.0,
+    "thermistor15_c": 45.5,
+    "worker_family_rss_bytes": 3581681664,
+    "live_family_cpu_seconds": 134.65,
+    "available_ram_bytes": 128161312768,
+    "swap_used_bytes": 473051136,
+    "nvme_free_bytes": 106931904512,
+    "hdd_free_bytes": 20664295424
+  },
+  "progress": {
+    "candidate-train.gz.progress.jsonl": {
+      "counts": {
+        "decisions": [
+          9269760,
+          6686591,
+          7643398,
+          11208206
+        ],
+        "discarded_keys": 0,
+        "discarded_visits": 0,
+        "missing": [
+          6779349,
+          6391351,
+          7555698,
+          11170564
+        ],
+        "nodes": 52713865,
+        "terminals": 17905910,
+        "traverser": [
+          1414039,
+          1411127,
+          1416481,
+          1421084,
+          1402805,
+          1420990
+        ]
+      },
+      "elapsed_seconds": 12.164056791,
+      "entries": 31896283,
+      "frozen_at": null,
+      "iteration": 3100
+    }
+  },
+  "actual_free_nvme_bytes": 106931904512,
+  "actual_free_hdd_bytes": 20664295424,
+  "stage_count": 0,
+  "owner_authorization": {
+    "reply": "Start, I will get you the space",
+    "accepted_planning_seconds": 25200,
+    "start_before_full_storage_scenario_authorized": true,
+    "owner_will_provide_remaining_space": true,
+    "storage_scenario_total_new_gib": 120,
+    "working_gib_included": 25,
+    "initial_remaining_gap_gib": 20.098037719726562,
+    "no_unverified_cleanup_or_filesystem_reserve_gain_counted": true
+  },
+  "predeclared_admission_comment": "https://github.com/dberweger2017/CFR-NLHE-6max/pull/419#issuecomment-6383564623",
+  "scope": "Frozen one-use main; samequalifiedsource/seed/counts/recipe/guards; no addedobserver/schedule/retry/extension/merge authority"
+}
