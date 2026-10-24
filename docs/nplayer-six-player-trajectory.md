@@ -53,3 +53,14 @@ wall/CPU/RSS costs and concurrent419 context. Git receives compact reports only;
 source, manifests, copies, proofs, failures and raw derived data stay in ignored
 working roots. Owner manages later archival; no cleanup or Drive acceptance
 is implied by this task.
+
+## Completed bounded diagnosis — October 24
+
+Owner approved the45-minute allocation. The finite continuation waits for
+PR419completion, then copies/verifies all24inputs and scans all16panels twice;
+active operation7m21s, completion13:34:54UTC /15:34:54Madrid. All hashes,
+reference counters and deterministic outputs match. [Analysis and complete costs](reports/nplayer-six-player-trajectory/results.md)
+supersede historical awaiting-launch language. No new hands, model loads,
+scientific retry or follow-up; prior417adjusted strength conclusions unchanged.
+Ordinary source/copies/proofs/failed packaging retained for the owner's cleaner
+and later verified ZIP archive sets. Research-payload Drive acceptance pending.
