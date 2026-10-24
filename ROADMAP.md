@@ -1,5 +1,14 @@
 # Roadmap
 
+## Optional saved six-player trajectory diagnosis
+
+[Proposal420](https://github.com/dberweger2017/CFR-NLHE-6max/issues/420),
+[protocol](docs/nplayer-six-player-trajectory.md): all saved3B→10B and10B→15B
+comparisons across eight fields, first sampled-action divergence and descriptive
+return/support accounting. M4 streaming only, no new hands or mature model loads.
+Separate from active capacityPR419; implementation/qualification and a concrete
+transfer/scan quote precede owner budget acceptance and main. All inputs retained.
+
 ## Six-player 100 BB: verified trajectory, support review before scaling
 
 [PR417](https://github.com/dberweger2017/CFR-NLHE-6max/pull/417),
