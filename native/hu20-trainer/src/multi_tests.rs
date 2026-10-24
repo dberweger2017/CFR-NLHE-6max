@@ -206,6 +206,7 @@ fn exhaustive_sample_expectation_equals_full_tree_counterfactual_updates() {
                     counts: &mut counts,
                     fork_depth: 0,
                     prune_below: None,
+                    pressure: None,
                 }
                 .run(&mut state);
                 assert_eq!(state, hand);
@@ -383,7 +384,7 @@ fn forks_change_only_the_order_deltas_are_summed() {
             let (mut deltas, mut counts) = (Deltas::default(), Counts::default());
             let mut state = deal;
             let value = Traversal { table: &trained.table, deltas: &mut deltas, sampler: PathSampler(seed), traverser: (seed % 3) as usize,
-                weight: 31., last_average_street: 3, counts: &mut counts, fork_depth, prune_below: None }.run(&mut state);
+                weight: 31., last_average_street: 3, counts: &mut counts, fork_depth, prune_below: None, pressure: None }.run(&mut state);
             (value, deltas, counts)
         };
         let (v0, d0, c0) = run(0);
@@ -481,7 +482,7 @@ fn pruning_keeps_node_values_and_the_other_updates_bit_identical() {
             let (mut deltas, mut counts) = (Deltas::default(), Counts::default());
             let mut state = deal;
             let value = Traversal { table: &trained.table, deltas: &mut deltas, sampler: PathSampler(seed), traverser,
-                weight: 301., last_average_street: 3, counts: &mut counts, fork_depth, prune_below }.run(&mut state);
+                weight: 301., last_average_street: 3, counts: &mut counts, fork_depth, prune_below, pressure: None }.run(&mut state);
             (value, deltas, counts)
         };
         let (v, d, c) = run(None);
@@ -527,7 +528,7 @@ fn all_negative_regrets_prune_nothing() {
         let (mut deltas, mut counts) = (Deltas::default(), Counts::default());
         let mut state = hand;
         Traversal { table: &table, deltas: &mut deltas, sampler: PathSampler(3), traverser: 0, weight: 1., last_average_street: 3,
-            counts: &mut counts, fork_depth: 0, prune_below: Some(0.) }.run(&mut state);
+            counts: &mut counts, fork_depth: 0, prune_below: Some(0.), pressure: None }.run(&mut state);
         assert_eq!(counts.pruned, 0, "regret matching plays uniformly; no action has zero probability");
     }
 }
@@ -623,9 +624,34 @@ fn the_pruned_count_is_one_per_skipped_action() {
             let (mut deltas, mut counts) = (Deltas::default(), Counts::default());
             let mut state = hand;
             Traversal { table: &table, deltas: &mut deltas, sampler: PathSampler(5), traverser: d.actor, weight: 1., last_average_street: 3,
-                counts: &mut counts, fork_depth, prune_below: Some(0.) }.run(&mut state);
+                counts: &mut counts, fork_depth, prune_below: Some(0.), pressure: None }.run(&mut state);
             assert_eq!(counts.pruned, 1, "fork depth {fork_depth}");
             assert_eq!(deltas[&d.key].regrets()[1].to_bits(), 0f64.to_bits(), "the pruned action gets no update");
         }
     }
+}
+
+#[test]
+fn opponent_pressure_round_trips_and_is_absent_from_legacy_checkpoints() {
+    let game = SmallGame::new(Kind::Leduc, 3);
+    let legacy = fast_trainer(&game, 3, 2);
+    assert!(!String::from_utf8_lossy(&checkpoint_bytes(&legacy, "legacy-pressure")).is_empty());
+    let path = std::env::temp_dir().join(format!("multi-pressure-{}.gz", std::process::id()));
+    crate::multi_checkpoint::save(&legacy, &path, crate::gz::Gzip::Compatible).unwrap();
+    let header = |path: &std::path::Path| {
+        let mut line = String::new();
+        std::io::BufRead::read_line(&mut std::io::BufReader::new(flate2::read::MultiGzDecoder::new(std::fs::File::open(path).unwrap())), &mut line).unwrap();
+        serde_json::from_str::<serde_json::Value>(&line).unwrap()
+    };
+    assert!(header(&path).get("opponent_pressure").is_none());
+    let mut pressured = Trainer { pressure: Some(0.05), ..fast_trainer(&game, 3, 2) };
+    pressured.counts.pressured = 17;
+    crate::multi_checkpoint::save(&pressured, &path, crate::gz::Gzip::Compatible).unwrap();
+    assert_eq!(header(&path)["opponent_pressure"]["probability"], 0.05);
+    let loaded = crate::multi_checkpoint::load(&path).unwrap();
+    assert_eq!((loaded.pressure, loaded.counts.pressured), (Some(0.05), 17));
+    let stream = Trainer { pressure: Some(0.05), ..Trainer::new(&game, 9, 3, usize::MAX, false) };
+    crate::multi_checkpoint::save(&stream, &path, crate::gz::Gzip::Compatible).unwrap();
+    assert!(crate::multi_checkpoint::load(&path).is_err(), "pressure belongs to fast mode");
+    std::fs::remove_file(path).unwrap();
 }

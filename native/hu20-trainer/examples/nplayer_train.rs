@@ -62,6 +62,7 @@ fn train() -> Result<(), String> {
             "--roots-per-seat",
             "--prune-bb",
             "--prune-after",
+            "--opponent-pot-raise",
         ]
         .contains(&key.as_str())
         {
@@ -159,6 +160,11 @@ fn train() -> Result<(), String> {
         }),
         _ => return Err("--prune-bb and --prune-after go together".into()),
     };
+    let pressure = match options.get("--opponent-pot-raise") {
+        None => None,
+        Some(_) if !fast => return Err("--opponent-pot-raise needs --fast".into()),
+        Some(p) => Some(p.parse::<f64>().ok().filter(|p| *p > 0. && *p <= 1.).ok_or("invalid --opponent-pot-raise")?),
+    };
     let tables = EquityTables::load(Path::new(required("--card-buckets")?), false)?;
     let game = CashGame { config, tables };
     let mut trainer = if let Some(path) = options.get("--resume") {
@@ -177,12 +183,13 @@ fn train() -> Result<(), String> {
             || t.sampling != sampling
             || t.roots_per_seat != roots_per_seat
             || t.prune != prune
+            || t.pressure != pressure
         {
             return Err("resume configuration mismatch".into());
         }
         t
     } else {
-        Trainer { sampling, roots_per_seat, prune, ..Trainer::new(&game, seed, scope, max_entries, freeze) }
+        Trainer { sampling, roots_per_seat, prune, pressure, ..Trainer::new(&game, seed, scope, max_entries, freeze) }
     };
     if let Some(parent) = out.parent() {
         if !parent.as_os_str().is_empty() {
