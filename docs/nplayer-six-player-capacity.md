@@ -93,8 +93,11 @@ not establish research-payload Drive acceptance.
 
 ## Preliminary resources and decision
 
-The initial extrapolation is about3h central/~6h reserve; correcting arena loading
-for the third resident model and qualifying shared-state work may revise it.
+The reproducible preliminary quote is about3h10m central /6h19m reserved,
+with a proposed **7-hour complete allocation**, not yet accepted. It includes
+the third resident model and its reload in the final mixed field (the current
+cache drops unused aliases between cases). Shared-state qualification may
+revise it. [Component assumptions](../configs/research/nplayer-six-player-capacity.json).
 Linear estimates:~41GiB fresh training,~55GiB mixed arena; plan75GiB memory
 headroom, not a memory kill limit. New all-NVMe workspace/evidence scenario120GiB,
 including~55GiB final model artifacts, traces/shared-state evidence and working
@@ -107,3 +110,36 @@ point, key growth, full load/save/audit/play/replay/wall/CPU/RAM/thermal costs,
 tails and all eight flags. Different capacities need not share keysets. Keep all
 adverse prior panels. An encouraging, mixed or negative result ends this bounded
 comparison; any further capacity/seed/node/search/release decision is separate.
+
+
+## Precision scenarios and implementation
+
+The new capacity-pair variance is unknown. As a conservative illustration only,
+using PR417's3B→10B trained-fieldSE19.48BB/100 and a normal approximation to the
+new eight-test family gives roughly11% /53% /91% pass probability for true
++25 /+50 /+75BB/100. Those are not measured powers for this comparison, and
+neutral scripted effects may have little chance to clear−5. The fixed size is a
+bounded development allocation, not a promised precise small-gain verdict. No
+additional samples follow inconclusive flags.
+
+The opt-in native paired-arena field `shared_models` names exactly the two
+capacity comparators. For every focal decision both are queried on the same
+already-created acting-seat observation after ordinary action selection and
+before applying that action. Queries read immutable rows and consume no RNG.
+Their legal observation fingerprint includes only own cards and public state;
+ordinary diagnostics-off traces must remain byte-identical to the frozen PR417
+arena. Existing manifests without the option retain their exact format/behavior.
+
+The Python proof layer independently reconstructs the legal fingerprint/menu,
+reconciles every shared observation against ordinary focal counts, verifies
+reproduction/replay pins, and audits exact float64 probabilities plus original
+mass against source exports on small fixtures. Main source exports/binaries still
+undergo full-row auditing. Both arm strata are retained; no abstract-key dedup or
+policy-selected subsampling is introduced. A proof failure stops the attempt.
+
+The one-use controller exposes separate build/configure/run/readout commands.
+Main configuration requires same-source completed qualification plus an immutable
+owner receipt binding the exact proposal SHA, accepted7-hour allocation, fixed
+scope and manual resource review. No main command or acceptance receipt is
+created merely by opening this PR. Builds/tests and tiny fixtures use the existing
+pinned bb128 runtime; no new environment, schedule or background observer.

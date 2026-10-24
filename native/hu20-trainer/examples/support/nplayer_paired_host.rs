@@ -19,6 +19,8 @@ use std::{
 };
 #[path = "nplayer_mass_metadata.rs"]
 mod mass;
+#[path = "nplayer_shared_observation.rs"]
+mod shared;
 
 fn number(v: &Value, key: &str) -> Result<u64, String> {
     v[key]
@@ -93,6 +95,7 @@ struct Case {
     arms: [Vec<String>; 2],
     traces: [PathBuf; 2],
     summary: PathBuf,
+    shared_models: Option<[String; 2]>,
 }
 impl Case {
     fn parse(v: &Value) -> Result<Self, String> {
@@ -121,6 +124,10 @@ impl Case {
         {
             return Err("two focals/traces and N-1 fixed opponents required".into());
         }
+        let shared_models = shared::aliases(&v["shared_models"])?;
+        if shared_models.is_some() && focals.iter().any(|s| s.starts_with("bot=")) {
+            return Err("shared observations require model focals".into());
+        }
         let arms = [&focals[0], &focals[1]].map(|f| {
             std::iter::once(f.clone())
                 .chain(opponents.clone())
@@ -136,6 +143,7 @@ impl Case {
             arms,
             traces: [PathBuf::from(&traces[0]), PathBuf::from(&traces[1])],
             summary: text(v, "summary")?.into(),
+            shared_models,
         })
     }
 }
@@ -186,7 +194,7 @@ fn play(
                 // Only this acting-seat Observation crosses the player boundary.
                 let view = hand.observe(actor)?;
                 let id = ids[actor];
-                let (action, lookup) = match &mut players[id] {
+                let (action, mut lookup) = match &mut players[id] {
                     Player::Script(bot) => (bot.choose(&view)?, json!({"status":"not_applicable"})),
                     Player::Model(policy, alias) => {
                         let t = tables.ok_or("K50 required")?;
@@ -206,6 +214,13 @@ fn play(
                         )
                     }
                 };
+                if id == 0 {
+                    if let Some(aliases) = &case.shared_models {
+                        let t = tables.ok_or("shared K50 required")?;
+                        let decision = multi_holdem::observation_decision(&view, t);
+                        lookup["shared"] = shared::query(&view, &decision, aliases, models)?;
+                    }
+                }
                 hand.apply_mut(action)?;
                 actors.push(actor);
                 actions.push(json!([action.kind.name(), action.raise_to]));
@@ -255,6 +270,7 @@ fn execute(
         .arms
         .iter()
         .flatten()
+        .chain(case.shared_models.iter().flatten())
         .filter(|s| !s.starts_with("bot="))
         .cloned()
         .collect();
@@ -285,7 +301,12 @@ fn execute(
             },
         );
     }
-    for spec in case.arms.iter().flatten() {
+    for spec in case
+        .arms
+        .iter()
+        .flatten()
+        .chain(case.shared_models.iter().flatten())
+    {
         if let Some(bot) = spec.strip_prefix("bot=") {
             Bot::new(bot, 0)?;
         } else if models[spec].table.config() != case.config {
@@ -315,9 +336,16 @@ fn execute(
             .open(path)
             .map_err(|e| e.to_string())?;
         let mut out = std::io::BufWriter::new(file);
-        writeln!(out,"{}",json!({"format":"nplayer-privileged-policy-replay-v1","harness":"nplayer-paired-v1","identity":identity,"hands":case.blocks*case.seating.len() as u64,
+        let mut header = json!({"format":"nplayer-privileged-policy-replay-v1","harness":"nplayer-paired-v1","identity":identity,"hands":case.blocks*case.seating.len() as u64,
           "blocks":case.blocks,"seed":case.root,"schedule":case.seating,"policies":pins,"distinct_policy_instances":case.n,"loaded_weight_tables":models.len(),
-          "seat_semantics":"fixed physical hands; button=block%N; schedule maps seat to labeled identity; identity0 focal"})).map_err(|e|e.to_string())?;
+          "seat_semantics":"fixed physical hands; button=block%N; schedule maps seat to labeled identity; identity0 focal"});
+        if let Some(aliases) = &case.shared_models {
+            header["shared_models"] = json!(aliases
+                .iter()
+                .map(|alias| json!({"alias":alias,"pin":models[alias].pin}))
+                .collect::<Vec<_>>());
+        }
+        writeln!(out, "{header}").map_err(|e| e.to_string())?;
         output.push(out);
     }
     let load_seconds = tick.elapsed().as_secs_f64();
