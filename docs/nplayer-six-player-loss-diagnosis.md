@@ -91,3 +91,9 @@ This is a diagnosis, not a candidate. No gate, default or model change follows f
   - A failed reproduction check, a non-matching hash or a showdown the evaluator can't reproduce is a **finding**: it is recorded and the affected part stops, with no retry or tuning.
   - Plumbing (disk, host, lock) is reported in the PR, which then waits for the owner.
 - **Evidence:** compact results and the scripts go in Git. Raw outputs stay on bb128; archiving is the vacuum cleaner's job.
+
+## Completed — October 25
+
+Both parts ran as declared, with no failure and no thermal stop. [Results](reports/nplayer-six-player-loss-diagnosis/results.md).
+
+One efficiency step was added during the run, with no effect on the results. For 19 of the 24 uniform-arm files, the showdown requests were byte-identical to Part A's, so Part A's exact expectations were copied rather than recomputed. The 5 that were recomputed matched Part A byte for byte.
