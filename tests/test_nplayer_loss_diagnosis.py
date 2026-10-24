@@ -12,8 +12,28 @@ from scripts import nplayer_loss_diagnosis as diagnosis
 from scripts import nplayer_paired_evidence as evidence
 
 ROOT = Path(__file__).resolve().parents[1]
-FIXTURE = ROOT / 'tests/fixtures/nplayer_loss_diagnosis_4p.jsonl'
-EQUITY = ROOT / 'native/hu20-trainer/target/release/examples/nplayer_allin_equity'
+EXAMPLES = ROOT / 'native/hu20-trainer/target/release/examples'
+ARENA = EXAMPLES / 'nplayer_paired_arena'
+EQUITY = EXAMPLES / 'nplayer_allin_equity'
+_FIXTURE = tempfile.TemporaryDirectory()
+FIXTURE = Path(_FIXTURE.name) / 'a.jsonl'
+
+
+def setUpModule():
+    """Play a small scripted four-player trace; raw traces are never committed."""
+    if not ARENA.exists() or FIXTURE.exists():
+        return
+    folder = Path(_FIXTURE.name)
+    case = {'name': 'fixture', 'players': 4, 'stack_bb': 100, 'blocks': 2, 'root': 20,
+            'focals': ['bot=random', 'bot=random'], 'opponents': ['bot=tight-aggressive', 'bot=pot-pressure', 'bot=random'],
+            'traces': [str(FIXTURE), str(folder / 'b.jsonl')], 'summary': str(folder / 'cost.json')}
+    manifest = folder / 'manifest.json'
+    manifest.write_text(json.dumps({'format': 'nplayer-paired-manifest-v1', 'tables': '/unused', 'threads': 1, 'models': {}, 'cases': [case]}))
+    subprocess.run([str(ARENA), 'batch', str(manifest)], check=True, capture_output=True)
+
+
+def tearDownModule():
+    _FIXTURE.cleanup()
 
 
 def fixture():
@@ -38,6 +58,7 @@ class StatisticsTests(unittest.TestCase):
             diagnosis.cochran(e[:2])
 
 
+@unittest.skipUnless(ARENA.exists(), 'build nplayer_paired_arena first')
 class ClassificationTests(unittest.TestCase):
     def test_every_dimension_partitions_the_focal_result(self):
         header, rows = fixture()
@@ -98,7 +119,7 @@ class ClassificationTests(unittest.TestCase):
             diagnosis.classify(row, 4)
 
 
-@unittest.skipUnless(EQUITY.exists(), 'build nplayer_allin_equity first')
+@unittest.skipUnless(ARENA.exists() and EQUITY.exists(), 'build nplayer_paired_arena and nplayer_allin_equity first')
 class PipelineTests(unittest.TestCase):
     def test_scan_equity_and_adjusted_rows_on_the_fixture(self):
         header, rows = fixture()
