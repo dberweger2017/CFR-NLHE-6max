@@ -1,5 +1,24 @@
 # Roadmap
 
+## Four-player next step: short estimator qualification; release budget blocked
+
+[PR425](https://github.com/dberweger2017/CFR-NLHE-6max/pull/425),
+[diagnostic protocol](docs/nplayer-warm-estimator-qualification.md),
+[corrected four-player-only v0.7 proposal](docs/reports/four-player-next-allocation/release-proposal.md).
+Implement and review the frozen-current-regret qualification before another
+mature science campaign: preserve upstream zeros, measure positive learning,
+root-grouped ESS and shadow admission waste. Local fixtures are engineering
+evidence; the warmed diagnostic has not run and cannot trigger a 10B continuation.
+
+The release revision restores cyclic margin −5 and all24 mixed-field seatings,
+keeps eight balanced homogeneous/peer seatings, and explicitly defers the
+unqualified per-key training ledger. Its complete all-NVMe scenario is23.1h
+central/45.7h reserve and850.9GiB new NVMe; conditional staging is161.9GiB NVMe
++700.9GiB HDD and26.8h/53.2h including provisional copy/readback. Neither fits
+the recorded space. Mature campaigns remain paused pending feasible storage,
+source qualification and a complete accepted budget. Search stays deferred;
+PR423 and all earlier verdicts remain unchanged.
+
 ## Six-player missing-row composition: primary gain, no promotion
 
 [PR423](https://github.com/dberweger2017/CFR-NLHE-6max/pull/423),

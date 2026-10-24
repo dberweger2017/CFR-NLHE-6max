@@ -1,0 +1,201 @@
+{
+  "name": "Short frozen-warm-policy estimator and shadow-admission qualification",
+  "status": "IMPLEMENTED FOR ESTIMATOR REVIEW; local fixtures pass; no warmed load or root cohort run",
+  "question": "Can the proposed importance-corrected check/call exploration give missing passive histories positive-weight learning under an already warmed policy, rather than just visit zero-target-reach branches?",
+  "first_actual_science_run": true,
+  "not_a_strength_or_training_campaign": true,
+  "warm": {
+    "path": "/home/dberweger/nplayer-four-player-candidate-20261023/main-v1/candidate-train.gz",
+    "sha256": "2071d1e7fcbf3294942a978cc01ca8c817b4174f3bdedda072758d68c08bd2a1",
+    "seed": 2026102341001,
+    "nodes": 10000017058,
+    "iteration": 566859,
+    "sigma": "current regret-matching policy from the checkpoint, NOT the exported average",
+    "readonly": "load existing checkpoint in place, do not copy/unfreeze/resume/rewrite. Membership and every regret/average stay unchanged.",
+    "missing": "uniform over exact legal menu; this is the warm-policy reference at an absent key"
+  },
+  "fixtures": [
+    "enumerate all sampled paths of fixed small games to compare expectations of every regret and opponent-sampled average increment, including sigma(passive)=0",
+    "test zero-prefix, suffix ratios, all-tied utilities, underflow versus exact zero, check/call menu labels and duplicate raise removal",
+    "q>=0.75*sigma, float64, no clipping/self-normalization; positive-product underflow is a numerical failure, not a legitimate zero weight",
+    "disabled proposal preserves old sampler/updates; tiny1/2/8/16-thread deterministic ledger/delta parity and changed-source/config refusals"
+  ],
+  "root_work": {
+    "batches": 32,
+    "players": 4,
+    "roots_per_seat": 8,
+    "independent_contexts_per_mode": 1024,
+    "modes": [
+      "reference q=sigma",
+      "proposal q=0.75*sigma+0.25*legal-check/call"
+    ],
+    "initial_root_traversals": 2048,
+    "reproduction_root_traversals": 2048,
+    "pairing": "same fresh domain-separated deal/root-path uniforms in both modes; balanced256traverser contexts per seat; each root is a separate sampled deal",
+    "fixed_sigma": "keep warmed sigma fixed for every traversal; never feed accumulated diagnostic deltas back into policy",
+    "weights": "multiply returned child values by sigma/q; prefix products correct both regret and existing opponent-sampled average updates; linear iteration weights separately recorded"
+  },
+  "saved_prefix_audit": {
+    "fields": [
+      "check-call",
+      "call-pressure",
+      "trained-call-pressure"
+    ],
+    "blocks_per_field": 64,
+    "seating": [
+      [
+        0,
+        1,
+        2,
+        3
+      ],
+      [
+        1,
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        3,
+        0,
+        1
+      ],
+      [
+        3,
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        3,
+        2,
+        1
+      ],
+      [
+        1,
+        0,
+        3,
+        2
+      ],
+      [
+        2,
+        1,
+        0,
+        3
+      ],
+      [
+        3,
+        2,
+        1,
+        0
+      ]
+    ],
+    "hands": 1536,
+    "selection": "first64 declared blocks in each PR41310B initial field, both turn and river when reached; fixed before qualification outcomes",
+    "operation": "reconstruct historical legal prefixes, calculate each non-traverser action probability under current warmed sigma and q, and their cumulative counterfactual reach. This is likelihood inspection, not forced-action strength replay.",
+    "why": "never restart at the missing state with weight1: a zero-probability earlier opponent action makes its counterfactual prefix weight zero",
+    "outputs": "target missing keys with all observed prefixes, legal history/family, exact-zero ancestor reason and positive reach. Original private data stays evaluator-owned; only legal actor observations enter policy queries."
+  },
+  "shadow_admission": {
+    "new_slot_threshold": 100000,
+    "per_mode": true,
+    "purpose": "research-only prospective admission ledger for missing warm-table keys. The actual250Mtable remains frozen, so this is not evidence that it can admit additional rows.",
+    "rule": "merge all deltas at the same full32-root batch boundary, including zero updates, and freeze shadow membership on crossing100K; report whole-batch overshoot. Continue remaining fixed batches, counting discarded updates.",
+    "no_zero_shortcut": "do not skip zero-prefix descendants or suppress zero-delta entries: quantify whether the proposed ordinary admission rule wastes slots. No filtered-admission variant is added.",
+    "tracking": "for admitted keys and fixed watched missing keys: first encounter, admission, exact-zero/positive coefficients, per-action regret/average deltas, distinct root IDs, weighted sums/squares, and post-freeze discards",
+    "states": [
+      "never encountered (watch set only)",
+      "encountered only at zero target weight",
+      "positive coefficients but all-zero numerical updates",
+      "positive regret update only",
+      "positive average contribution only",
+      "both contributions",
+      "shadow-discarded after freeze",
+      "zero at admission but later positive",
+      "still zero at end"
+    ],
+    "useful_proxy": "replicated positive learning: previously missing key has positive accumulated average contribution, at least one nonzero counterfactual regret contribution, at least4distinctpositive-weight root contexts, and root-grouped ESS>=4. Report turn/river and history families separately.",
+    "limitation": "this proxy establishes usable update evidence, not improved action values, deployment quality, full-model coverage or from-scratch admission success"
+  },
+  "measurements": {
+    "zero_weights": "exact-zero fraction at sampled actions, whole prefixes and update coefficients, by street/family/mode; numerical underflow and tie-induced zero deltas separate",
+    "ess": "Kish ESS=(sum w)^2/sum(w^2), zero if denominator0. Report event-level and grouped-by-independent-root weights separately, prefix-average and terminal/value coefficients separately, with/without linear iteration weight; never use signed regrets/payoffs as weights.",
+    "dependence": "within-root tree branches are correlated. Event ESS is only a concentration diagnostic; root-grouped ESS is still not a strength interval or independent decision count.",
+    "admission": "new/positive/replicated-learning rows per1Mvisited nodes and per1000root contexts; zero-update share of shadow slots at admission, freeze and endpoint; useful updates discarded after freeze",
+    "matched_watch": "all selected saved-prefix targets retained, including never reached during stochastic traversals; do not silently drop zero/no-hit targets",
+    "runtime": "actual hashes/load/traversal/prefix/ledger/proof/report CPU/wall/RAM/bytes and thermal cost separately"
+  },
+  "decision": {
+    "correctness": "any biased fixture expectation, zero-prefix ghost update, illegal observation, nonfinite/underflow or reproduction mismatch fails qualification; retain and stop",
+    "mechanism": "report whether any missing turn AND river keys meet the replicated-positive-learning proxy. If none do, distinguish proven zero target reach from insufficient sampling; neither is a10Blaunch recommendation.",
+    "promising": "positive repeated learning can justify a separately priced next experiment only; no automatic training, epsilon tuning, row filter or changed objective",
+    "no_strength_verdict": true
+  },
+  "compute": {
+    "central_minutes": 25.93461058459264,
+    "reserve_minutes": 57.151915876888964,
+    "proposed_allocation_minutes": 60,
+    "components": [
+      {
+        "component": "isolated build and focused target-host checks",
+        "central_seconds": 180,
+        "reserve_seconds": 600
+      },
+      {
+        "component": "exhaustive estimator and ledger fixtures",
+        "central_seconds": 60,
+        "reserve_seconds": 180
+      },
+      {
+        "component": "source/model/K50 pins and file identity checks",
+        "central_seconds": 90,
+        "reserve_seconds": 180
+      },
+      {
+        "component": "two independent warmed-checkpoint loads",
+        "central_seconds": 806.0766350755586,
+        "reserve_seconds": 1209.114952613338
+      },
+      {
+        "component": "fixed prefix audit plus two-mode root traversals, both passes",
+        "central_seconds": 120,
+        "reserve_seconds": 600
+      },
+      {
+        "component": "hash reproduction and complete ledger verification",
+        "central_seconds": 120,
+        "reserve_seconds": 300
+      },
+      {
+        "component": "readout/reporting",
+        "central_seconds": 180,
+        "reserve_seconds": 360
+      }
+    ],
+    "assumption": "cold10Bload is scaled from historical3Bresume startup residual; not an observed load time for this new tool",
+    "independent_process_reproduction": true
+  },
+  "storage": {
+    "new_nvme_gib": 12,
+    "retained_model_copies": 0,
+    "new_checkpoint_outputs": 0,
+    "breakdown_gib": {
+      "source_and_manifest": 0.5,
+      "isolated_build": 3,
+      "saved_prefix_inputs": 0.1,
+      "initial_ledgers_and_digests": 1,
+      "logs_proofs_failures": 1,
+      "working_reserve": 6.4
+    },
+    "reproducibility": "Initial outputs retained; separate-process repeat byte-compares and hashes emitted bytes against the initial stream, retaining only receipts/timings and first-mismatch chunk context.",
+    "note": "Fresh 12GiB new-space admission required; recorded snapshots do not reserve space. No model copy, checkpoint rewrite, export or arena trace tree."
+  },
+  "ram_scenario_gib": [
+    25,
+    40
+  ],
+  "engineering_estimate": "approximately one working day for isolated diagnostic traversal, fixtures and review; production trainer and release recipe remain untouched",
+  "launch_status": "No mature or short warmed run launched. Source-bound estimator review, target-host build/fixtures and fresh admission required."
+}
