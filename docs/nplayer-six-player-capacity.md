@@ -143,3 +143,14 @@ owner receipt binding the exact proposal SHA, accepted7-hour allocation, fixed
 scope and manual resource review. No main command or acceptance receipt is
 created merely by opening this PR. Builds/tests and tiny fixtures use the existing
 pinned bb128 runtime; no new environment, schedule or background observer.
+
+## Completed bounded result — October 24
+
+The owner accepted the 7-hour planning allocation and directed start while
+arranging space. The fixed main completes in 2h08m52s, all40stages RC0 and all
+replay/reproduction/shared-observation barriers passed. [Results and analysis](reports/nplayer-six-player-capacity/results.md)
+record all eight panels, 0/8 gates passing, improved measured support and adverse
+call-pressure evidence. This supersedes the historical pending-launch language
+above; the source recipe, counts and decision family were unchanged. No extension,
+model promotion, release or follow-up was launched. Raw evidence retained for
+owner-managed ZIP archive sets and verified Drive upload; acceptance pending.
