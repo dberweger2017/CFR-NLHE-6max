@@ -1,5 +1,15 @@
 # Roadmap
 
+## Proposed six-player capacity control
+
+Owner requested a new [500M-versus250M capacity PR](docs/nplayer-six-player-capacity.md),
+[proposal418](https://github.com/dberweger2017/CFR-NLHE-6max/issues/418).
+Fresh same-seed500M arm to10B versus existingPR417250M/10B, fixed old3B opponent
+fields, fresh paired deals and shared identical legal-observation coverage.
+Implementation/qualification first; no main before a concrete accepted quote.
+Three-model arena memory/loading, exact diagnostic parity and storage admission
+must be included. No capacity remedy or strength gain is assumed; search deferred.
+
 ## Six-player 100 BB: verified trajectory, support review before scaling
 
 [PR417](https://github.com/dberweger2017/CFR-NLHE-6max/pull/417),
