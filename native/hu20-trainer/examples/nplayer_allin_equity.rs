@@ -82,21 +82,25 @@ fn parse(line: &str) -> Result<Showdown, String> {
 /// Rewards on one complete board, by the engine's pot and odd-chip rule.
 fn settle(s: &Showdown, board: &[u8; 5], out: &mut [i64]) {
     let n = s.holes.len();
+    // Only seats eligible for some pot can win; folded hands are never evaluated.
+    let contenders = s.pots.iter().fold(0u8, |m, p| m | p.1);
     let mut ranks = [0u32; 6];
     for (seat, h) in s.holes.iter().enumerate() {
-        ranks[seat] = evaluate(&[h[0], h[1], board[0], board[1], board[2], board[3], board[4]]);
+        if contenders & (1 << seat) != 0 {
+            ranks[seat] = evaluate(&[h[0], h[1], board[0], board[1], board[2], board[3], board[4]]);
+        }
     }
     for seat in 0..n {
         out[seat] = s.refunds[seat] - s.contributions[seat];
     }
     for &(amount, eligible) in &s.pots {
         let best = (0..n).filter(|i| eligible & (1 << i) != 0).map(|i| ranks[i]).max().unwrap();
-        let winners: Vec<_> = (0..n).filter(|&i| eligible & (1 << i) != 0 && ranks[i] == best).collect();
-        let share = amount / winners.len() as u64;
-        let mut remainder = amount % winners.len() as u64;
+        let winners = (0..n).filter(|&i| eligible & (1 << i) != 0 && ranks[i] == best).fold(0u8, |m, i| m | 1 << i);
+        let share = amount / winners.count_ones() as u64;
+        let mut remainder = amount % winners.count_ones() as u64;
         for offset in 1..=n {
             let seat = (s.button + offset) % n;
-            if winners.contains(&seat) {
+            if winners & (1 << seat) != 0 {
                 out[seat] += (share + u64::from(remainder > 0)) as i64;
                 remainder = remainder.saturating_sub(1);
             }
