@@ -1,12 +1,13 @@
-# Six-player saved-trajectory diagnosis: ready for allocation decision
+# Six-player saved-trajectory diagnosis: approved, awaiting source I/O
 
 [PR421](https://github.com/dberweger2017/CFR-NLHE-6max/pull/421),
 [proposal420](https://github.com/dberweger2017/CFR-NLHE-6max/issues/420),
 [fixed protocol](../../nplayer-six-player-trajectory.md).
 
 Implementation and small M4 engineering qualification pass. **No recorded PR417
-trace has been transferred or analyzed by this new job.** Main requires acceptance
-of the quote below and a source-I/O window compatible with priorityPR419.
+trace has been transferred or analyzed by this new job.** Owner accepted the45-minute allocation. Main awaits a source-I/O window
+compatible with priorityPR419; the quote below is retained as the pre-approval
+record.
 
 The fixed inventory is24 initial files, **7,989,712,885bytes (7.44GiB)**.
 It contains1,179,648 distinct physical hand instances; the two contrasts across
@@ -36,7 +37,7 @@ performance. The quote takes the slower extrapolation by bytes or comparisons,
 then reserves3× scan time. It does not assume an order-of-magnitude speedup or
 actual measured Ethernet payload throughput.
 
-## Proposed complete allocation
+## Complete allocation — owner approved
 
 **13.6min central /32.0min reserved;
 request45min on M4**, one worker,512MiB memory planning allowance and10GiB new
@@ -81,3 +82,28 @@ menus, search, tuning, release changes or expanded analysis follows automaticall
 All M4 inputs, source, manifest/proofs, results, partials and failed package logs
 remain protected in the new ignored working root. Owner-managed archival is
 separate; no research-payload Drive acceptance or cleanup is claimed.
+
+## Approved finite continuation — October24
+
+Owner replied **“approve421”**. M4 controller24255 starts at12:18:46UTC /14:18:46Madrid
+with immutable config SHA256
+`d022f932a9aac337e6dae5e83537dfd07d912834b8f94998fb23b5015ec8d398`.
+[Approval/config/operational source pins and first health](launch.json).
+The source phase waits on existing419controller929267 using one kernel pidfd exit
+event, then requires complete/no-failure/all-stage0 proofs. No repeated checks,
+app schedule or passive observer service is created. The ordinary M4 compute
+mutex remains free during this dependency wait; the job holds it nonblocking
+when source copy, destination hashes and both scans actually start.
+
+At12:19UTC the continuation is healthy in`await-source-io`, no payload copied or
+full scan started. PR419 is in candidate-audit, CPU71°C /Thermistor1587°C, nofailure.
+A single32MiB/s source rsync runs only after that dependency releases; raw source
+files remain untouched. Both full deterministic scans and final equality/hash/
+reference-count barriers then advance automatically. Waiting is recorded apart
+from the45-minute active-job estimate; it is not hidden in runtime reporting.
+No scientific retry/extension or merge authority is granted.
+
+Per the owner's clarified archival workflow, agents retain ordinary working/final
+files with their relative paths. The cleaner later packages completed stable
+evidence into verified ZIP archive sets on bb128 HDD and uploads those sets. No
+pre-ZIP, loose-payload upload or deletion is performed here.
