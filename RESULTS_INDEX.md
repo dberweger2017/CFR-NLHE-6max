@@ -1,3 +1,29 @@
+## PR423 — composed missing-row policy qualified; mature allocation proposed
+
+[Fixed protocol](docs/nplayer-missing-row-composition.md),
+[engineering evidence and complete quote](docs/reports/nplayer-missing-row-composition/qualification.md),
+[compact qualification receipt](docs/reports/nplayer-missing-row-composition/qualification.json),
+[prospective cost/precision scenarios](docs/reports/nplayer-missing-row-composition/quote.json).
+M4 final qualification-v2 source `c8b257e635e042ae2742268be2fc095e9d46ab15`,
+1,403 source/config pins, all28stages RC0;384initial+384repeat, independent replay,
+428composed decisions match exact source float64 bits. Raw result
+`c488e06f8382297f311e41bc564b2ef72df929517d773297b234d86a1e17eff3`.
+121library+15paired native+23Python tests pass;88.95s wall,1.11GiB sampled peak,
+nominal thermals. Prior successful qualification-v1 remains protected.
+
+Owner-selected next experiment, **no mature main or accepted budget**. Proposal
+58.87min central /117.74min reserve,2h15m allocation;24GiB new storage includes
+6GiB working room. Existing417/419control/donor/peer sources are read-only, no
+new training or exports. Counts/rules/precision declared before play. Current
+bb128 snapshot32.32GiB NVMe free; future root absent and no reservation created.
+
+Ordinary source/fixtures/results/proofs remain at
+`m4:/Users/dberweger/Local/nplayer-missing-row-composition-20261024/` and ignored
+M1`planning/missing-row-composition/`. Protect all required417/419/K50/shared
+runtime paths. Owner cleaner later creates complete relative-path ZIP archive sets
+on bb128 HDD and verifies Drive upload; research-payload acceptance pending.
+No raw model/trace payload in Git, deletion, cloud upload or new monitor here.
+
 ## PR419 — six-player capacity completed; 0/8 strength gates passed
 
 [Verified report](docs/reports/nplayer-six-player-capacity/results.md),

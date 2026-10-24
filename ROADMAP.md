@@ -1,5 +1,32 @@
 # Roadmap
 
+## Proposed six-player missing-positive-row composition
+
+[PR423](https://github.com/dberweger2017/CFR-NLHE-6max/pull/423),
+[proposal422](https://github.com/dberweger2017/CFR-NLHE-6max/issues/422),
+[qualification and arena-only quote](docs/reports/nplayer-missing-row-composition/qualification.md).
+Preserve every existing 250M/10B row, including zero-mass fallback; use a500M/10B
+row only if the base misses and donor original mass is positive. Otherwise keep
+uniform fallback. Immutable shared tables, original action RNG sequence, no
+training, exports, menu, search or default/release change.
+
+Final-source M4 qualification passes all28stages in88.95s:121library+15paired
+native and23Python tests,384initial hands independently replayed and reproduced,
+exact source probabilities/selector accounting for428composed decisions.
+Identity composition, diagnostics-off, serial and ordinary legacy parity pass.
+No mature play or strength result. The prepared main requires same-source target-host
+qualification and accepted exact quote/scope receipt before configuration.
+
+Proposed eight fixed fields ×4,096fresh blocks ×12balanced seatings; primary
+trained lower>0, seven lower>−5, one eight-test95% Student-t/Bonferroni family.
+**58.87min central /117.74min reserve, propose2h15m**,24GiB NEW storage including
+6GiB working room,75GiB memory planning. Variance is unmeasured; explicit
+fractional-SE scenarios do not promise small-gain power. Owner allocation acceptance
+pending; no main launch, automatic extension, adoption or release-lineage replication.
+If useful benefit clears safeguards, consider independent confirmation; otherwise
+choose a concrete visitation/history mechanism. Search remains deferred.
+
+
 ## Six-player capacity: support improved, no strength promotion
 
 [PR419](https://github.com/dberweger2017/CFR-NLHE-6max/pull/419),
