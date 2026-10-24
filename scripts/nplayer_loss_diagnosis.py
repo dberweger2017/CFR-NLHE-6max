@@ -390,7 +390,8 @@ def fallback_manifest(args):
 
 
 def published(spec, field, repo):
-    rows = list(csv.DictReader((repo / spec['csv']).open()))
+    with (repo / spec['csv']).open() as f:
+        rows = list(csv.DictReader(f))
     hits = [r for r in rows if r['field'] == field and all(r[k] == v for k, v in spec['where'].items())]
     if len(hits) != 1:
         raise ValueError(f"{spec['csv']}: {field} not unique")
@@ -474,12 +475,56 @@ def report(args):
     summary['failures'] = failures
     args.results.mkdir(parents=True, exist_ok=True)
     (args.results / 'summary.json').write_text(json.dumps(summary, indent=1) + '\n')
-    for name, rows in (('partitions', partitions), ('luck', luck), ('untrained', untrained_rows(receipts)), ('style', style_rows(receipts))):
+    tables = (('partitions', partitions), ('luck', luck), ('untrained', untrained_rows(receipts)), ('style', style_rows(receipts)),
+              ('banks', bank_rows(partitions, six, config['fields'])), ('table-size', size_rows(partitions, config)))
+    for name, rows in tables:
         with (args.results / f'{name}.csv').open('w', newline='') as f:
             w = csv.DictWriter(f, list(rows[0]))
             w.writeheader()
             w.writerows(rows)
     print(json.dumps({'failures': failures, 'inputs': len(receipts)}))
+
+
+def bank_rows(partitions, six, fields):
+    """Each category's contribution in every six-player bank, and the last bank minus the first."""
+    if not six:
+        return []
+    cells = {(p['input'], p['field'], p['dimension'], p['category']): p for p in partitions}
+    rows = []
+    for field in fields:
+        for dimension in DIMENSIONS:
+            categories = sorted({c for (i, f, d, c) in cells if f == field and d == dimension and i in six})
+            for category in categories:
+                row = {'field': field, 'dimension': dimension, 'category': category}
+                for label in six:
+                    cell = cells.get((label, field, dimension, category), {'realized_bb100': 0.0, 'adjusted_bb100': 0.0, 'share': 0.0})
+                    row[f'{label}_share'] = cell['share']
+                    row[f'{label}_realized_bb100'] = cell['realized_bb100']
+                    row[f'{label}_adjusted_bb100'] = cell['adjusted_bb100']
+                row['last_minus_first_realized_bb100'] = row[f'{six[-1]}_realized_bb100'] - row[f'{six[0]}_realized_bb100']
+                row['last_minus_first_adjusted_bb100'] = row[f'{six[-1]}_adjusted_bb100'] - row[f'{six[0]}_adjusted_bb100']
+                rows.append(row)
+    return rows
+
+
+def size_rows(partitions, config):
+    """Contributions by table size; six players is the equal-weight mean of its banks (equal hands per bank)."""
+    groups = defaultdict(list)
+    for s in config['inputs']:
+        groups[s['players']].append(s['label'])
+    cells = {(p['input'], p['field'], p['dimension'], p['category']): p for p in partitions}
+    rows = []
+    for field in config['fields']:
+        for dimension in DIMENSIONS:
+            categories = sorted({c for (i, f, d, c) in cells if f == field and d == dimension and not i.startswith('B')})
+            for category in categories:
+                row = {'field': field, 'dimension': dimension, 'category': category}
+                for players, labels in sorted(groups.items()):
+                    got = [cells.get((label, field, dimension, category)) for label in labels]
+                    for key in ('share', 'realized_bb100', 'adjusted_bb100'):
+                        row[f'{players}p_{key}'] = statistics.fmean(g[key] if g else 0.0 for g in got)
+                rows.append(row)
+    return rows
 
 
 def hand_rows(out, label, field):

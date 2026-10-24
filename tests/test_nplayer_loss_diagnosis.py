@@ -17,7 +17,7 @@ EQUITY = ROOT / 'native/hu20-trainer/target/release/examples/nplayer_allin_equit
 
 
 def fixture():
-    rows = [json.loads(line) for line in FIXTURE.open()]
+    rows = [json.loads(line) for line in FIXTURE.read_text().splitlines()]
     return rows[0], rows[1:]
 
 
@@ -136,6 +136,35 @@ class PipelineTests(unittest.TestCase):
             receipt = diagnosis.scan_file((str(FIXTURE), tmp, 'fx', 'mixed', None, None, str(changed)))
             self.assertEqual(receipt['reference']['matched_hands'], len(rows) - 1)
             self.assertFalse(receipt['reference']['all_matched'])
+
+
+    def test_report_reproduces_published_means_and_reads_the_fallback_pairs(self):
+        _, rows = fixture()
+        mean = sum(r['rewards'][r['identities'].index(0)] for r in rows) / len(rows)
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            (tmp / 'published.csv').write_text(f'field,mean_bb100\nmixed,{mean!r}\n')
+            banks = ['a', 'b', 'c']
+            config = {'fields': ['mixed'], 'focus': ['mixed'], 'fallback': {'banks': banks, 'modes': ['uniform', 'check-fold']},
+                      'inputs': [{'label': b, 'players': 6, 'published': {'csv': 'published.csv', 'where': {}, 'column': 'mean_bb100'}}
+                                 for b in banks]}
+            (tmp / 'config.json').write_text(json.dumps(config))
+            out = tmp / 'out'
+            for b in banks:
+                diagnosis.scan_file((str(FIXTURE), str(out), b, 'mixed', None, None, None))
+                diagnosis.scan_file((str(FIXTURE), str(out), f'B{b}-uniform', 'mixed', None, None, str(FIXTURE)))
+                diagnosis.scan_file((str(FIXTURE), str(out), f'B{b}-check-fold', 'mixed', None, None, None))
+            diagnosis.equity(type('A', (), {'out': out, 'binary': EQUITY}))
+            args = type('A', (), {'config': tmp / 'config.json', 'out': out, 'repo': tmp, 'results': tmp / 'results'})
+            diagnosis.report(args)
+            summary = json.loads((tmp / 'results/summary.json').read_text())
+            self.assertEqual(summary['failures'], [])
+            self.assertTrue(all(summary['inputs'][b]['mixed']['reproduced'] for b in banks))
+            self.assertAlmostEqual(summary['heterogeneity']['mixed']['realized']['q'], 0.0)
+            self.assertEqual(summary['fallback']['pooled']['mixed']['realized']['mean_bb100'], 0.0)
+            self.assertTrue(summary['fallback']['a']['mixed']['uniform_reproduces_history'])
+            for name in ('partitions', 'luck', 'untrained', 'style', 'banks', 'table-size'):
+                self.assertTrue((tmp / f'results/{name}.csv').exists())
 
 
 class ManifestTests(unittest.TestCase):
