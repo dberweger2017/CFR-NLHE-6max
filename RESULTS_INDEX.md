@@ -1,3 +1,16 @@
+## PR421 — saved six-player trajectory scanner qualified; main not launched
+
+[Protocol](docs/nplayer-six-player-trajectory.md),
+[qualification and quote](docs/reports/nplayer-six-player-trajectory/qualification.md),
+[runtime/source receipt](docs/reports/nplayer-six-player-trajectory/qualification.json),
+[complete quote](docs/reports/nplayer-six-player-trajectory/quote.json).
+24 pinned initial traces /7.99GB, both3B→10B and10B→15B over all eight fields.
+26 local /16 M4 focused tests and synthetic cost calibration pass. No real
+trace transfer or full scan; proposed45min needs owner acceptance and source-I/O
+clearance respecting activePR419. No new hands, model loads, training or causal
+strength claim. Failed package-v1 and successful qualification-v2 remain under
+`m4:~/Local/cfr-six-player-trajectory-diagnosis-20261024/`.
+
 ## PR317 — HU200 river search complete; cloud closeout owner-managed
 
 **October22:** the fixed primary run completed October21 at09:14:52Madrid.

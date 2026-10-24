@@ -7,7 +7,11 @@
 comparisons across eight fields, first sampled-action divergence and descriptive
 return/support accounting. M4 streaming only, no new hands or mature model loads.
 Separate from active capacityPR419; implementation/qualification and a concrete
-transfer/scan quote precede owner budget acceptance and main. All inputs retained.
+transfer/scan quote precede owner budget acceptance and main.
+[Qualification and quote](docs/reports/nplayer-six-player-trajectory/qualification.md):
+26 local /16 M4 focused tests pass; synthetic calibration only, no real traces
+transferred. Proposed45min allocation (~14min central /32min reserve) excludes
+waiting for a safe419 source-I/O window. All inputs retained.
 
 ## Six-player 100 BB: verified trajectory, support review before scaling
 
