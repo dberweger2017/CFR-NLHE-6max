@@ -1,0 +1,5074 @@
+{
+  "status": "settled-development",
+  "provenance": {
+    "pr": 419,
+    "proposal": 418,
+    "execution_source": "2ccf21ac608d9729fecea80583ad3f9ee5f34b64",
+    "implementation_source": "9b9204c8dccdda255b574cde48fb02d5c761d030",
+    "source_pins": 884,
+    "source_root": "/home/dberweger/nplayer-six-player-capacity-20261024",
+    "raw_result_sha256": "c12ec77d688db05cbdcb1ce64c603d1914169a3cb4ce992e2748e7710057684a",
+    "config_sha256": "2fff4245900b851bedb2625cdf6a2d274e3500e525b39d83291d369374ca1801",
+    "owner_sha256": "acd1ce4d42d0b221c3a09435b8a5b3125359cb91f2f075c4c9117f01afe2c43c",
+    "retrieved_compact_file_sha256s": {
+      "results.json": "c12ec77d688db05cbdcb1ce64c603d1914169a3cb4ce992e2748e7710057684a",
+      "config.json": "2fff4245900b851bedb2625cdf6a2d274e3500e525b39d83291d369374ca1801",
+      "status.json": "b96ff3b09d18aeb64d2291502aab685689f02d7f6035bcdacb5f283cb322907d",
+      "stage-costs.json": "8fd32409044d4def0597b9224b199e64accdf97b333aa856c35d1ac68b4ef158",
+      "evaluation-verified.json": "795bfcaf333c6f211174ccf13e7c597af9cb522383ad671ebde0f61fcc9aaf63",
+      "models.json": "098da6baa918c640a304471731c4bdb34317df692b8c8724a468abb4700b25f5",
+      "operational-summary.json": "2a5db9f5f1e357600f0407b471f3162b671301930a9626bc75517c771f1f893a"
+    }
+  },
+  "verification": {
+    "status": "passed",
+    "models_sha256": "098da6baa918c640a304471731c4bdb34317df692b8c8724a468abb4700b25f5",
+    "pair_receipts": {
+      "trained": "29b312164639f699f1c9d5e56b7e3e1f74e8067b6f9ec070234216ef6111d693",
+      "random": "6b81e69851de25644b1f475078c2c7a6673baae620b6d01dd98111bc86591b58",
+      "check-call": "c86b9dc4de150835da41cd3dd56dd861a7a89548b06696015fcc8c64f7452b3c",
+      "tight-aggressive": "83b1144561c8cef155cdb452f5155a13154ee37301dea9976a4451eb78e34fc2",
+      "pot-pressure": "56e4b6edfcdd7b1c7d602b3d9d0fd381ed66a30926b9527df9fe83efbdb27616",
+      "call-pressure": "8466bd720e424ebfb6660117652760936ada25fa339e90698bf30343655bbeda",
+      "random-tight": "0a5c1954ccc1ad2a87dd1bb134a659f6da9574d440dfbb9403de03a6afe4c1b4",
+      "trained-call-pressure": "286193807b4e1826e0900579276e7ed4f91e9ecb277e9d05b7e2a2c78f4bba23"
+    },
+    "shared_receipts": {
+      "trained": "254037b1e14a2f21690d89fad847908201b795746226fb6e132d2264691a4b2d",
+      "random": "764eeb9776331a6504b2af727bf1a6bb9d1952794cf29c7364582b7cca8aea96",
+      "check-call": "f6dc9560b1c98eabd558525c62ed1a01524281046054c23e16b95d6c414b883c",
+      "tight-aggressive": "6a5dd0e46408869598d38576f311102778d53a23a84a217de3af33adc3a5e84e",
+      "pot-pressure": "7a5b45e8ba9aa8ecdd39a97126600c40df56b2b6c4da1591502180d5aff6d7e5",
+      "call-pressure": "f86fefcfd620d9cdcb2aca3255891bb0321861410e3e9826c6d9c30cec3150e4",
+      "random-tight": "41b31703c93f6de8372f4b1e1835b2a4e2b6f4eef96be6919f2ec6dde0c61822",
+      "trained-call-pressure": "b3785669b2f254a8d2244f7befbd8e216c8324f52ee03a5f159fee89e6151a19"
+    },
+    "fields": 8,
+    "blocks_per_field": 4096,
+    "initial_hands": 786432,
+    "reproduction_hands": 786432,
+    "all_focal_observations_included": true,
+    "manifests": {
+      "initial": "12651920a61d3cef5f4d1041cd2ad2af7fb97b09bced99e1a92406aa2c43b266",
+      "repeat": "5d51134e6d142a15582c03d0f01e38075c7f319c08be44292330e5005008a50c"
+    }
+  },
+  "scope": {
+    "players": 6,
+    "stack_bb": 100,
+    "seed": 2026102361001,
+    "nodes": 10000000000,
+    "candidate_cap": 500000000,
+    "control_cap": 250000000,
+    "blocks_per_field": 4096,
+    "seatings_per_block": 12,
+    "comparisons": "candidate500M/10B minus control250M/10B",
+    "statistical_unit": "independent12-seating deal block",
+    "gate_family": "eight one-sided95% Student-t/Bonferroni lower bounds,df4095;trained>0,others>-5",
+    "new_seed_confirmation": false,
+    "equal_compute_comparison": false
+  },
+  "endpoint": {
+    "checkpoint": "/home/dberweger/nplayer-six-player-capacity-20261024/main-v1/candidate-train.gz",
+    "counts": {
+      "decisions": [
+        763380893,
+        876108704,
+        1511465625,
+        2872576766
+      ],
+      "discarded_keys": 2915941171,
+      "discarded_visits": 972639717,
+      "missing": [
+        242897227,
+        403746141,
+        816130419,
+        1953241881
+      ],
+      "nodes": 10000018757,
+      "terminals": 3976486769,
+      "traverser": [
+        305624526,
+        305196878,
+        305448001,
+        305187267,
+        305183215,
+        304949467
+      ]
+    },
+    "elapsed_seconds": 2221.647818721,
+    "entries": 500004559,
+    "frozen_at": 49319,
+    "identity": {
+      "big_blind": 100,
+      "card_tables": [
+        "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+        "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+        "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+      ],
+      "game": "nlhe-cash",
+      "menu": "min-pot-conditional-jam-v1",
+      "players": 6,
+      "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+      "small_blind": 50,
+      "stacks": [
+        10000,
+        10000,
+        10000,
+        10000,
+        10000,
+        10000
+      ],
+      "utility_unit": "big-blind"
+    },
+    "iteration": 393074,
+    "save_seconds": 285.055842077,
+    "sha256": "0cafd665bccaf966d3d96ba0ed1f4bed6dc214c1d5820e7095678542941d3652",
+    "stop_reason": "nodes",
+    "checkpoint_bytes": 18716485027,
+    "active_training_seconds": 1936.591976644,
+    "stage_wall_seconds": 2290.457161716069
+  },
+  "models": {
+    "control": {
+      "path": "/home/dberweger/nplayer-six-player-candidate-20261023/main-v1/2026102361001-10b.bin",
+      "sha256": "086938a88f1b302688b00cf52666162350e02e3b1212aa590bb6bf4941c46178",
+      "mass": "/home/dberweger/nplayer-six-player-candidate-20261023/main-v1/2026102361001-10b-mass",
+      "mass_sha256": "736739d99f7042fa61db40ff80ee43d797ba206e8fff9070b7649e4de6bf6a88",
+      "checkpoint": "/home/dberweger/nplayer-six-player-candidate-20261023/main-v1/10b-train.gz",
+      "checkpoint_sha256": "4c10ded3a1f8289cd8483da543cd577ed15f98d80047a524ce41c3990cfe7edd",
+      "strategy": "average",
+      "scope": 3,
+      "source_policy": "/home/dberweger/nplayer-six-player-candidate-20261023/main-v1/2026102361001-10b-average.gz",
+      "source_policy_sha256": "2397d349f21645ddcec699c3a1399a90bcaefd2ea4a543b5e0b6f5a9f803acb6",
+      "audit": {
+        "by_street": [
+          {
+            "entries": 35094961,
+            "visits": 70411446,
+            "zero_visit_entries": 23598608,
+            "decisions": 761215136,
+            "missing_decisions": 284752226,
+            "missing_decision_share": 0.3740758854274805,
+            "visits_per_key": 2.0063121312487
+          },
+          {
+            "entries": 44199936,
+            "visits": 117919085,
+            "zero_visit_entries": 28042283,
+            "decisions": 876183804,
+            "missing_decisions": 471233683,
+            "missing_decision_share": 0.5378251467884928,
+            "visits_per_key": 2.667856464769542
+          },
+          {
+            "entries": 63595490,
+            "visits": 179634986,
+            "zero_visit_entries": 37301355,
+            "decisions": 1511441214,
+            "missing_decisions": 971588907,
+            "missing_decision_share": 0.642822822350271,
+            "visits_per_key": 2.82464976683095
+          },
+          {
+            "entries": 107111167,
+            "visits": 214159238,
+            "zero_visit_entries": 60816509,
+            "decisions": 2872554768,
+            "missing_decisions": 2288949070,
+            "missing_decision_share": 0.7968339178415971,
+            "visits_per_key": 1.9994109297679485
+          }
+        ],
+        "status": "passed",
+        "checkpoint_sha256": "4c10ded3a1f8289cd8483da543cd577ed15f98d80047a524ce41c3990cfe7edd",
+        "policy_sha256": "2397d349f21645ddcec699c3a1399a90bcaefd2ea4a543b5e0b6f5a9f803acb6",
+        "strategy": "average",
+        "last_average_street": 3,
+        "rows": 250001554,
+        "average_rows": 250001554,
+        "current_rows": 0,
+        "zero_mass_rows": 58854501,
+        "format": "nplayer-average-mass-v1",
+        "keyset_sha256": "b23d1cacca6dff0a4b0af901e1be5c50b2c038e93a931b49116ce0e365c10de7",
+        "positive_mass_rows": 191147053,
+        "zero_keys_sha256": "b03f536a32313b82f04073f5830fb67496806a8e79376ef6a6f3ff2ebbfd5510"
+      },
+      "binary_audit": {
+        "binary_sha256": "086938a88f1b302688b00cf52666162350e02e3b1212aa590bb6bf4941c46178",
+        "rows": 250001554,
+        "source_policy_sha256": "2397d349f21645ddcec699c3a1399a90bcaefd2ea4a543b5e0b6f5a9f803acb6",
+        "status": "passed",
+        "verify_seconds": 318.942200434
+      }
+    },
+    "peer": {
+      "path": "/home/dberweger/nplayer-six-player-candidate-20261023/main-v1/2026102361001-3b.bin",
+      "sha256": "6cd50bf17d5a361f4d38e1d3bf98859c4b8877297c612ca87dfec41e3bbbb85b",
+      "mass": "/home/dberweger/nplayer-six-player-candidate-20261023/main-v1/2026102361001-3b-mass",
+      "mass_sha256": "db6c381be6cbfc76d6e0f64ad87548eb4b480899139554cf123c49572a7ad449",
+      "checkpoint": "/home/dberweger/nplayer-six-player-candidate-20261023/main-v1/3b-train.gz",
+      "checkpoint_sha256": "3a1871a057002c5c70d91c543e9411bd2258013a38fccf32c5c1288861854fde",
+      "strategy": "average",
+      "scope": 3,
+      "source_policy": "/home/dberweger/nplayer-six-player-candidate-20261023/main-v1/2026102361001-3b-average.gz",
+      "source_policy_sha256": "055dbdbc3c41927dee9baa166d76c834118531f0f2147365bfa3deb3a383c8d8",
+      "audit": {
+        "by_street": [
+          {
+            "entries": 35094961,
+            "visits": 28070404,
+            "zero_visit_entries": 25380879,
+            "decisions": 298816536,
+            "missing_decisions": 130401196,
+            "missing_decision_share": 0.4363921680693066,
+            "visits_per_key": 0.7998414359258015
+          },
+          {
+            "entries": 44199936,
+            "visits": 39162131,
+            "zero_visit_entries": 30212183,
+            "decisions": 305628026,
+            "missing_decisions": 193382400,
+            "missing_decision_share": 0.6327377843287186,
+            "visits_per_key": 0.8860223462767005
+          },
+          {
+            "entries": 63595490,
+            "visits": 55830072,
+            "zero_visit_entries": 40179232,
+            "decisions": 456642289,
+            "missing_decisions": 337248843,
+            "missing_decision_share": 0.7385405406462475,
+            "visits_per_key": 0.8778935738996586
+          },
+          {
+            "entries": 107111167,
+            "visits": 72393832,
+            "zero_visit_entries": 65886706,
+            "decisions": 789536598,
+            "missing_decisions": 674135858,
+            "missing_decision_share": 0.8538373771496783,
+            "visits_per_key": 0.6758756722349968
+          }
+        ],
+        "status": "passed",
+        "checkpoint_sha256": "3a1871a057002c5c70d91c543e9411bd2258013a38fccf32c5c1288861854fde",
+        "policy_sha256": "055dbdbc3c41927dee9baa166d76c834118531f0f2147365bfa3deb3a383c8d8",
+        "strategy": "average",
+        "last_average_street": 3,
+        "rows": 250001554,
+        "average_rows": 250001554,
+        "current_rows": 0,
+        "zero_mass_rows": 62960890,
+        "format": "nplayer-average-mass-v1",
+        "keyset_sha256": "b23d1cacca6dff0a4b0af901e1be5c50b2c038e93a931b49116ce0e365c10de7",
+        "positive_mass_rows": 187040664,
+        "zero_keys_sha256": "abb3de94b855a05b8d2f0f67bf931cba6c2fb047d57cd64ed939a6c8fa1d7e77"
+      },
+      "binary_audit": {
+        "binary_sha256": "6cd50bf17d5a361f4d38e1d3bf98859c4b8877297c612ca87dfec41e3bbbb85b",
+        "rows": 250001554,
+        "source_policy_sha256": "055dbdbc3c41927dee9baa166d76c834118531f0f2147365bfa3deb3a383c8d8",
+        "status": "passed",
+        "verify_seconds": 306.308786667
+      }
+    },
+    "candidate": {
+      "path": "/home/dberweger/nplayer-six-player-capacity-20261024/main-v1/2026102361001-candidate.bin",
+      "sha256": "268a154807a278681bdeee2667e18e54aada171132481fbc3eba0586c767173d",
+      "mass": "/home/dberweger/nplayer-six-player-capacity-20261024/main-v1/2026102361001-candidate-mass",
+      "mass_sha256": "35572f07729022fffb628b8f3062cbc2235a1875ba1c825ae177d260f4c7d403",
+      "checkpoint": "/home/dberweger/nplayer-six-player-capacity-20261024/main-v1/candidate-train.gz",
+      "checkpoint_sha256": "0cafd665bccaf966d3d96ba0ed1f4bed6dc214c1d5820e7095678542941d3652",
+      "strategy": "average",
+      "scope": 3,
+      "source_policy": "/home/dberweger/nplayer-six-player-capacity-20261024/main-v1/2026102361001-candidate-average.gz",
+      "source_policy_sha256": "647bd259e4cb1dc32d0dfefcfc79e36d977f4e550905b665849a68cf26e7bcd9",
+      "audit": {
+        "by_street": [
+          {
+            "entries": 58502643,
+            "visits": 83317946,
+            "zero_visit_entries": 40432469,
+            "decisions": 763380893,
+            "missing_decisions": 242897227,
+            "missing_decision_share": 0.31818614957133856,
+            "visits_per_key": 1.424174049709173
+          },
+          {
+            "entries": 81767238,
+            "visits": 147158359,
+            "zero_visit_entries": 53210749,
+            "decisions": 876108704,
+            "missing_decisions": 403746141,
+            "missing_decision_share": 0.46084023495787574,
+            "visits_per_key": 1.7997227569310827
+          },
+          {
+            "entries": 127812647,
+            "visits": 256539370,
+            "zero_visit_entries": 75938335,
+            "decisions": 1511465625,
+            "missing_decisions": 816130419,
+            "missing_decision_share": 0.5399596295813873,
+            "visits_per_key": 2.0071516866402117
+          },
+          {
+            "entries": 231922031,
+            "visits": 371933962,
+            "zero_visit_entries": 131105944,
+            "decisions": 2872576766,
+            "missing_decisions": 1953241881,
+            "missing_decision_share": 0.6799615954980539,
+            "visits_per_key": 1.603702590893575
+          }
+        ],
+        "status": "passed",
+        "checkpoint_sha256": "0cafd665bccaf966d3d96ba0ed1f4bed6dc214c1d5820e7095678542941d3652",
+        "policy_sha256": "647bd259e4cb1dc32d0dfefcfc79e36d977f4e550905b665849a68cf26e7bcd9",
+        "strategy": "average",
+        "last_average_street": 3,
+        "rows": 500004559,
+        "average_rows": 500004559,
+        "current_rows": 0,
+        "zero_mass_rows": 124537685,
+        "format": "nplayer-average-mass-v1",
+        "keyset_sha256": "909e8ff15ddf0b407402eb037d86f95f1a831606b1efed449d08c30914312a83",
+        "positive_mass_rows": 375466874,
+        "zero_keys_sha256": "026552f97ed1213eb03c4df2d5337c06dee6bc7a90b1142d1a86cb38a29d2086"
+      },
+      "binary_audit": {
+        "binary_sha256": "268a154807a278681bdeee2667e18e54aada171132481fbc3eba0586c767173d",
+        "rows": 500004559,
+        "source_policy_sha256": "647bd259e4cb1dc32d0dfefcfc79e36d977f4e550905b665849a68cf26e7bcd9",
+        "status": "passed",
+        "verify_seconds": 626.092171255
+      }
+    }
+  },
+  "first_frozen_telemetry": {
+    "counts": {
+      "decisions": [
+        132492249,
+        122039478,
+        166324331,
+        270742383
+      ],
+      "discarded_keys": 755753,
+      "discarded_visits": 236109,
+      "missing": [
+        58567598,
+        81876844,
+        128005764,
+        232313016
+      ],
+      "nodes": 1098785908,
+      "terminals": 407187467,
+      "traverser": [
+        31783410,
+        31754644,
+        31716490,
+        31752939,
+        31669766,
+        31769992
+      ]
+    },
+    "elapsed_seconds": 268.379655604,
+    "entries": 500004559,
+    "frozen_at": 49319,
+    "iteration": 49400
+  },
+  "panels": {
+    "trained": {
+      "strength": {
+        "field": "trained",
+        "mean_bb100": 5.261210123697917,
+        "standard_error_bb100": 19.871721847159744,
+        "lower95_bb100": -33.698164224564536,
+        "upper95_bb100": 44.220584471960365,
+        "lower_family95_bb100": -44.39444126666058,
+        "margin_bb100": 0,
+        "passed": false
+      },
+      "absolute": {
+        "control": {
+          "mean_bb100": 63.296529134114586,
+          "standard_error_bb100": 18.556983436869263,
+          "lower95_bb100": 26.91475658052839,
+          "upper95_bb100": 99.67830168770078
+        },
+        "candidate": {
+          "mean_bb100": 68.5577392578125,
+          "standard_error_bb100": 18.430051770445104,
+          "lower95_bb100": 32.42482175296857,
+          "upper95_bb100": 104.69065676265643
+        }
+      },
+      "by_seat": [
+        {
+          "mean_bb100": 5.7281494140625,
+          "standard_error_bb100": 46.95510449383344,
+          "lower95_bb100": -86.32937371388446,
+          "upper95_bb100": 97.78567254200946
+        },
+        {
+          "mean_bb100": -75.84033203125,
+          "standard_error_bb100": 48.54961907036107,
+          "lower95_bb100": -171.0239702874429,
+          "upper95_bb100": 19.343306224942893
+        },
+        {
+          "mean_bb100": 35.8978271484375,
+          "standard_error_bb100": 48.4005758437038,
+          "lower95_bb100": -58.993605384161114,
+          "upper95_bb100": 130.78925968103613
+        },
+        {
+          "mean_bb100": 9.71875,
+          "standard_error_bb100": 47.34459118127056,
+          "lower95_bb100": -83.10237870657961,
+          "upper95_bb100": 102.53987870657961
+        },
+        {
+          "mean_bb100": 10.5682373046875,
+          "standard_error_bb100": 49.9255430765379,
+          "lower95_bb100": -87.31295976617177,
+          "upper95_bb100": 108.44943437554677
+        },
+        {
+          "mean_bb100": 45.49462890625,
+          "standard_error_bb100": 48.71709620270198,
+          "lower95_bb100": -50.01735554680634,
+          "upper95_bb100": 141.00661335930636
+        }
+      ],
+      "by_position": [
+        {
+          "mean_bb100": -6.31103515625,
+          "standard_error_bb100": 48.03447317795863,
+          "lower95_bb100": -100.4847075010619,
+          "upper95_bb100": 87.8626371885619
+        },
+        {
+          "mean_bb100": 64.48974609375,
+          "standard_error_bb100": 51.540639797832185,
+          "lower95_bb100": -36.5579182947136,
+          "upper95_bb100": 165.5374104822136
+        },
+        {
+          "mean_bb100": -44.586181640625,
+          "standard_error_bb100": 53.67713480768778,
+          "lower95_bb100": -149.8225373524857,
+          "upper95_bb100": 60.65017407123571
+        },
+        {
+          "mean_bb100": -15.667724609375,
+          "standard_error_bb100": 47.664583444951106,
+          "lower95_bb100": -109.11621205643841,
+          "upper95_bb100": 77.78076283768841
+        },
+        {
+          "mean_bb100": 37.7908935546875,
+          "standard_error_bb100": 42.89156425863164,
+          "lower95_bb100": -46.29988233212491,
+          "upper95_bb100": 121.88166944149991
+        },
+        {
+          "mean_bb100": -4.1484375,
+          "standard_error_bb100": 45.3394565527939,
+          "lower95_bb100": -93.0384126200749,
+          "upper95_bb100": 84.7415376200749
+        }
+      ],
+      "on_policy_focal_lookup_counts": {
+        "control": [
+          [
+            56740,
+            9,
+            3846,
+            0
+          ],
+          [
+            9070,
+            16,
+            1852,
+            0
+          ],
+          [
+            3932,
+            2,
+            1065,
+            0
+          ],
+          [
+            1645,
+            2,
+            699,
+            0
+          ]
+        ],
+        "candidate": [
+          [
+            57834,
+            5,
+            2971,
+            0
+          ],
+          [
+            9334,
+            6,
+            1419,
+            0
+          ],
+          [
+            4295,
+            12,
+            799,
+            0
+          ],
+          [
+            2049,
+            5,
+            488,
+            0
+          ]
+        ]
+      },
+      "lookup_labels": [
+        "positive_mass",
+        "zero_mass",
+        "missing",
+        "not_applicable"
+      ],
+      "shared": {
+        "observations": 158095,
+        "paired_queries": 316190,
+        "query_inventory_sha256": "be59e30595cdac4d37ed8b140b7b21a37630c4f7e066b319b3a90e8a6f7f545c",
+        "groups": {
+          "0/0": {
+            "origin_arm": 0,
+            "street": 0,
+            "observations": 60595,
+            "models": [
+              {
+                "positive_mass": 56740,
+                "zero_mass": 9,
+                "missing": 3846
+              },
+              {
+                "positive_mass": 57601,
+                "zero_mass": 90,
+                "missing": 2904
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 56693,
+              "missing->positive_mass": 903,
+              "missing->missing": 2904,
+              "zero_mass->zero_mass": 4,
+              "zero_mass->positive_mass": 5,
+              "positive_mass->zero_mass": 47,
+              "missing->zero_mass": 39
+            },
+            "sum_probability_tv": 12275.766088694629,
+            "max_probability_tv": 0.9999930406940394,
+            "mean_probability_tv": 0.20258711261151297
+          },
+          "1/0": {
+            "origin_arm": 1,
+            "street": 0,
+            "observations": 60810,
+            "models": [
+              {
+                "positive_mass": 56682,
+                "zero_mass": 77,
+                "missing": 4051
+              },
+              {
+                "positive_mass": 57834,
+                "zero_mass": 5,
+                "missing": 2971
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 56682,
+              "missing->positive_mass": 1077,
+              "missing->missing": 2971,
+              "zero_mass->positive_mass": 75,
+              "zero_mass->zero_mass": 2,
+              "missing->zero_mass": 3
+            },
+            "sum_probability_tv": 12385.547491423145,
+            "max_probability_tv": 1.0,
+            "mean_probability_tv": 0.20367616331891375
+          },
+          "0/1": {
+            "origin_arm": 0,
+            "street": 1,
+            "observations": 10938,
+            "models": [
+              {
+                "positive_mass": 9070,
+                "zero_mass": 16,
+                "missing": 1852
+              },
+              {
+                "positive_mass": 9455,
+                "zero_mass": 33,
+                "missing": 1450
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 9054,
+              "missing->missing": 1450,
+              "zero_mass->zero_mass": 6,
+              "positive_mass->zero_mass": 16,
+              "missing->positive_mass": 391,
+              "missing->zero_mass": 11,
+              "zero_mass->positive_mass": 10
+            },
+            "sum_probability_tv": 3033.8605165504705,
+            "max_probability_tv": 1.0,
+            "mean_probability_tv": 0.27736885322275284
+          },
+          "0/2": {
+            "origin_arm": 0,
+            "street": 2,
+            "observations": 4999,
+            "models": [
+              {
+                "positive_mass": 3932,
+                "zero_mass": 2,
+                "missing": 1065
+              },
+              {
+                "positive_mass": 4163,
+                "zero_mass": 38,
+                "missing": 798
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 3916,
+              "missing->positive_mass": 246,
+              "missing->missing": 798,
+              "positive_mass->zero_mass": 16,
+              "missing->zero_mass": 21,
+              "zero_mass->zero_mass": 1,
+              "zero_mass->positive_mass": 1
+            },
+            "sum_probability_tv": 1390.92350310526,
+            "max_probability_tv": 1.0,
+            "mean_probability_tv": 0.2782403486907901
+          },
+          "0/3": {
+            "origin_arm": 0,
+            "street": 3,
+            "observations": 2346,
+            "models": [
+              {
+                "positive_mass": 1645,
+                "zero_mass": 2,
+                "missing": 699
+              },
+              {
+                "positive_mass": 1831,
+                "zero_mass": 16,
+                "missing": 499
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 1639,
+              "missing->positive_mass": 191,
+              "missing->missing": 499,
+              "zero_mass->zero_mass": 1,
+              "positive_mass->zero_mass": 6,
+              "zero_mass->positive_mass": 1,
+              "missing->zero_mass": 9
+            },
+            "sum_probability_tv": 585.4468793658191,
+            "max_probability_tv": 0.9961204724420234,
+            "mean_probability_tv": 0.24955109947392118
+          },
+          "1/1": {
+            "origin_arm": 1,
+            "street": 1,
+            "observations": 10759,
+            "models": [
+              {
+                "positive_mass": 8890,
+                "zero_mass": 16,
+                "missing": 1853
+              },
+              {
+                "positive_mass": 9334,
+                "zero_mass": 6,
+                "missing": 1419
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 8889,
+              "missing->missing": 1419,
+              "missing->positive_mass": 430,
+              "zero_mass->positive_mass": 15,
+              "missing->zero_mass": 4,
+              "zero_mass->zero_mass": 1,
+              "positive_mass->zero_mass": 1
+            },
+            "sum_probability_tv": 2969.834163739173,
+            "max_probability_tv": 1.0,
+            "mean_probability_tv": 0.2760325461231688
+          },
+          "1/2": {
+            "origin_arm": 1,
+            "street": 2,
+            "observations": 5106,
+            "models": [
+              {
+                "positive_mass": 3985,
+                "zero_mass": 26,
+                "missing": 1095
+              },
+              {
+                "positive_mass": 4295,
+                "zero_mass": 12,
+                "missing": 799
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 3982,
+              "missing->positive_mass": 291,
+              "missing->missing": 799,
+              "zero_mass->positive_mass": 22,
+              "missing->zero_mass": 5,
+              "zero_mass->zero_mass": 4,
+              "positive_mass->zero_mass": 3
+            },
+            "sum_probability_tv": 1464.1754134923256,
+            "max_probability_tv": 1.0,
+            "mean_probability_tv": 0.28675585849830115
+          },
+          "1/3": {
+            "origin_arm": 1,
+            "street": 3,
+            "observations": 2542,
+            "models": [
+              {
+                "positive_mass": 1757,
+                "zero_mass": 12,
+                "missing": 773
+              },
+              {
+                "positive_mass": 2049,
+                "zero_mass": 5,
+                "missing": 488
+              }
+            ],
+            "transition_counts": {
+              "missing->missing": 488,
+              "positive_mass->positive_mass": 1756,
+              "missing->positive_mass": 285,
+              "zero_mass->positive_mass": 8,
+              "zero_mass->zero_mass": 4,
+              "positive_mass->zero_mass": 1
+            },
+            "sum_probability_tv": 675.4207227282443,
+            "max_probability_tv": 1.0,
+            "mean_probability_tv": 0.2657044542597342
+          }
+        },
+        "pooled_by_street": {
+          "0": {
+            "observations": 121405,
+            "models": [
+              {
+                "positive_mass": 113422,
+                "zero_mass": 86,
+                "missing": 7897
+              },
+              {
+                "positive_mass": 115435,
+                "zero_mass": 95,
+                "missing": 5875
+              }
+            ]
+          },
+          "1": {
+            "observations": 21697,
+            "models": [
+              {
+                "positive_mass": 17960,
+                "zero_mass": 32,
+                "missing": 3705
+              },
+              {
+                "positive_mass": 18789,
+                "zero_mass": 39,
+                "missing": 2869
+              }
+            ]
+          },
+          "2": {
+            "observations": 10105,
+            "models": [
+              {
+                "positive_mass": 7917,
+                "zero_mass": 28,
+                "missing": 2160
+              },
+              {
+                "positive_mass": 8458,
+                "zero_mass": 50,
+                "missing": 1597
+              }
+            ]
+          },
+          "3": {
+            "observations": 4888,
+            "models": [
+              {
+                "positive_mass": 3402,
+                "zero_mass": 14,
+                "missing": 1472
+              },
+              {
+                "positive_mass": 3880,
+                "zero_mass": 21,
+                "missing": 987
+              }
+            ]
+          }
+        },
+        "weighting": "Every focal-decision occurrence from both arms equally weighted; each source-arm stratum retained; no key dedup, no return/action/status filtering; repeat is proof only."
+      },
+      "tails": {
+        "top10_squared_deviation_share": 0.08020083004516461,
+        "largest_positive": [
+          {
+            "block": 897,
+            "value_bb100": 6983.333333333333
+          },
+          {
+            "block": 156,
+            "value_bb100": 6570.833333333333
+          },
+          {
+            "block": 1731,
+            "value_bb100": 6529.166666666667
+          },
+          {
+            "block": 1665,
+            "value_bb100": 6454.166666666667
+          },
+          {
+            "block": 3158,
+            "value_bb100": 6437.5
+          }
+        ],
+        "largest_negative": [
+          {
+            "block": 3690,
+            "value_bb100": -8533.333333333334
+          },
+          {
+            "block": 1721,
+            "value_bb100": -8075.0
+          },
+          {
+            "block": 569,
+            "value_bb100": -8033.333333333333
+          },
+          {
+            "block": 1907,
+            "value_bb100": -7258.333333333333
+          },
+          {
+            "block": 1575,
+            "value_bb100": -7120.833333333333
+          }
+        ],
+        "no_exclusions": true
+      },
+      "root": 20261024650001,
+      "blocks": 4096,
+      "hands_per_arm": 49152
+    },
+    "random": {
+      "strength": {
+        "field": "random",
+        "mean_bb100": -34.14605712890625,
+        "standard_error_bb100": 29.022736753351804,
+        "lower95_bb100": -91.04639392314935,
+        "upper95_bb100": 22.754279665336853,
+        "lower_family95_bb100": -106.66835336991186,
+        "margin_bb100": -5,
+        "passed": false
+      },
+      "absolute": {
+        "control": {
+          "mean_bb100": 356.04095458984375,
+          "standard_error_bb100": 35.3286386088923,
+          "lower95_bb100": 286.77762314003087,
+          "upper95_bb100": 425.30428603965663
+        },
+        "candidate": {
+          "mean_bb100": 321.8948974609375,
+          "standard_error_bb100": 34.93906723973148,
+          "lower95_bb100": 253.39533761195705,
+          "upper95_bb100": 390.3944573099179
+        }
+      },
+      "by_seat": [
+        {
+          "mean_bb100": -109.8038330078125,
+          "standard_error_bb100": 72.91079248976212,
+          "lower95_bb100": -252.74861054067256,
+          "upper95_bb100": 33.14094452504756
+        },
+        {
+          "mean_bb100": -32.5836181640625,
+          "standard_error_bb100": 70.06708072777081,
+          "lower95_bb100": -169.9531751938331,
+          "upper95_bb100": 104.78593886570809
+        },
+        {
+          "mean_bb100": 3.1168212890625,
+          "standard_error_bb100": 69.4691244864601,
+          "lower95_bb100": -133.08041654118014,
+          "upper95_bb100": 139.31405911930514
+        },
+        {
+          "mean_bb100": -135.411376953125,
+          "standard_error_bb100": 70.45651684601454,
+          "lower95_bb100": -273.5444404184267,
+          "upper95_bb100": 2.721686512176717
+        },
+        {
+          "mean_bb100": -41.1732177734375,
+          "standard_error_bb100": 70.22707263787275,
+          "lower95_bb100": -178.85644589654848,
+          "upper95_bb100": 96.51001034967348
+        },
+        {
+          "mean_bb100": 110.9788818359375,
+          "standard_error_bb100": 68.34835779239536,
+          "lower95_bb100": -23.02104417970898,
+          "upper95_bb100": 244.97880785158398
+        }
+      ],
+      "by_position": [
+        {
+          "mean_bb100": -54.7427978515625,
+          "standard_error_bb100": 74.58214985868646,
+          "lower95_bb100": -200.96434414691194,
+          "upper95_bb100": 91.47874844378694
+        },
+        {
+          "mean_bb100": -42.3873291015625,
+          "standard_error_bb100": 84.92919463083774,
+          "lower95_bb100": -208.8947063770839,
+          "upper95_bb100": 124.1200481739589
+        },
+        {
+          "mean_bb100": -122.88916015625,
+          "standard_error_bb100": 82.42604349101597,
+          "lower95_bb100": -284.4890008299276,
+          "upper95_bb100": 38.71068051742759
+        },
+        {
+          "mean_bb100": -46.998046875,
+          "standard_error_bb100": 59.5479192621621,
+          "lower95_bb100": -163.74433066652108,
+          "upper95_bb100": 69.7482369165211
+        },
+        {
+          "mean_bb100": 21.4122314453125,
+          "standard_error_bb100": 50.43538495703246,
+          "lower95_bb100": -77.46853279105883,
+          "upper95_bb100": 120.29299568168383
+        },
+        {
+          "mean_bb100": 40.728759765625,
+          "standard_error_bb100": 62.96657108896112,
+          "lower95_bb100": -82.71993951414785,
+          "upper95_bb100": 164.17745904539785
+        }
+      ],
+      "on_policy_focal_lookup_counts": {
+        "control": [
+          [
+            56113,
+            22,
+            11396,
+            0
+          ],
+          [
+            1670,
+            14,
+            3122,
+            0
+          ],
+          [
+            218,
+            2,
+            904,
+            0
+          ],
+          [
+            42,
+            1,
+            269,
+            0
+          ]
+        ],
+        "candidate": [
+          [
+            57835,
+            20,
+            9552,
+            0
+          ],
+          [
+            2007,
+            15,
+            2816,
+            0
+          ],
+          [
+            252,
+            7,
+            831,
+            0
+          ],
+          [
+            59,
+            0,
+            246,
+            0
+          ]
+        ]
+      },
+      "lookup_labels": [
+        "positive_mass",
+        "zero_mass",
+        "missing",
+        "not_applicable"
+      ],
+      "shared": {
+        "observations": 147413,
+        "paired_queries": 294826,
+        "query_inventory_sha256": "35056905571d93203f3c79919dc56abc72c36cafb5e7d31eebaea3adec0d6cc8",
+        "groups": {
+          "0/0": {
+            "origin_arm": 0,
+            "street": 0,
+            "observations": 67531,
+            "models": [
+              {
+                "positive_mass": 56113,
+                "zero_mass": 22,
+                "missing": 11396
+              },
+              {
+                "positive_mass": 57630,
+                "zero_mass": 133,
+                "missing": 9768
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 56052,
+              "missing->missing": 9768,
+              "missing->positive_mass": 1570,
+              "positive_mass->zero_mass": 61,
+              "missing->zero_mass": 58,
+              "zero_mass->zero_mass": 14,
+              "zero_mass->positive_mass": 8
+            },
+            "sum_probability_tv": 14373.18501874004,
+            "max_probability_tv": 0.9992776075728685,
+            "mean_probability_tv": 0.21283832637958922
+          },
+          "1/0": {
+            "origin_arm": 1,
+            "street": 0,
+            "observations": 67407,
+            "models": [
+              {
+                "positive_mass": 56054,
+                "zero_mass": 85,
+                "missing": 11268
+              },
+              {
+                "positive_mass": 57835,
+                "zero_mass": 20,
+                "missing": 9552
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 56049,
+              "missing->missing": 9552,
+              "missing->positive_mass": 1708,
+              "zero_mass->positive_mass": 78,
+              "zero_mass->zero_mass": 7,
+              "positive_mass->zero_mass": 5,
+              "missing->zero_mass": 8
+            },
+            "sum_probability_tv": 14396.392457145104,
+            "max_probability_tv": 0.9993682363246869,
+            "mean_probability_tv": 0.21357414596622168
+          },
+          "0/1": {
+            "origin_arm": 0,
+            "street": 1,
+            "observations": 4806,
+            "models": [
+              {
+                "positive_mass": 1670,
+                "zero_mass": 14,
+                "missing": 3122
+              },
+              {
+                "positive_mass": 1968,
+                "zero_mass": 25,
+                "missing": 2813
+              }
+            ],
+            "transition_counts": {
+              "missing->missing": 2813,
+              "missing->positive_mass": 300,
+              "positive_mass->positive_mass": 1665,
+              "positive_mass->zero_mass": 5,
+              "zero_mass->positive_mass": 3,
+              "missing->zero_mass": 9,
+              "zero_mass->zero_mass": 11
+            },
+            "sum_probability_tv": 567.7371345469937,
+            "max_probability_tv": 0.9967718695423216,
+            "mean_probability_tv": 0.11813090606470947
+          },
+          "1/1": {
+            "origin_arm": 1,
+            "street": 1,
+            "observations": 4838,
+            "models": [
+              {
+                "positive_mass": 1688,
+                "zero_mass": 21,
+                "missing": 3129
+              },
+              {
+                "positive_mass": 2007,
+                "zero_mass": 15,
+                "missing": 2816
+              }
+            ],
+            "transition_counts": {
+              "missing->missing": 2816,
+              "positive_mass->positive_mass": 1686,
+              "missing->positive_mass": 309,
+              "zero_mass->positive_mass": 12,
+              "zero_mass->zero_mass": 9,
+              "missing->zero_mass": 4,
+              "positive_mass->zero_mass": 2
+            },
+            "sum_probability_tv": 595.0102192843763,
+            "max_probability_tv": 1.0,
+            "mean_probability_tv": 0.12298681671855648
+          },
+          "0/2": {
+            "origin_arm": 0,
+            "street": 2,
+            "observations": 1124,
+            "models": [
+              {
+                "positive_mass": 218,
+                "zero_mass": 2,
+                "missing": 904
+              },
+              {
+                "positive_mass": 274,
+                "zero_mass": 9,
+                "missing": 841
+              }
+            ],
+            "transition_counts": {
+              "missing->missing": 841,
+              "positive_mass->positive_mass": 217,
+              "missing->positive_mass": 56,
+              "zero_mass->zero_mass": 1,
+              "missing->zero_mass": 7,
+              "positive_mass->zero_mass": 1,
+              "zero_mass->positive_mass": 1
+            },
+            "sum_probability_tv": 83.40187439328561,
+            "max_probability_tv": 0.9980628350660334,
+            "mean_probability_tv": 0.07420095586591247
+          },
+          "0/3": {
+            "origin_arm": 0,
+            "street": 3,
+            "observations": 312,
+            "models": [
+              {
+                "positive_mass": 42,
+                "zero_mass": 1,
+                "missing": 269
+              },
+              {
+                "positive_mass": 55,
+                "zero_mass": 4,
+                "missing": 253
+              }
+            ],
+            "transition_counts": {
+              "missing->missing": 253,
+              "missing->positive_mass": 14,
+              "positive_mass->positive_mass": 41,
+              "positive_mass->zero_mass": 1,
+              "zero_mass->zero_mass": 1,
+              "missing->zero_mass": 2
+            },
+            "sum_probability_tv": 16.47540876285827,
+            "max_probability_tv": 0.972415975971369,
+            "mean_probability_tv": 0.05280579731685343
+          },
+          "1/2": {
+            "origin_arm": 1,
+            "street": 2,
+            "observations": 1090,
+            "models": [
+              {
+                "positive_mass": 182,
+                "zero_mass": 9,
+                "missing": 899
+              },
+              {
+                "positive_mass": 252,
+                "zero_mass": 7,
+                "missing": 831
+              }
+            ],
+            "transition_counts": {
+              "missing->missing": 831,
+              "positive_mass->positive_mass": 181,
+              "missing->positive_mass": 65,
+              "zero_mass->positive_mass": 6,
+              "missing->zero_mass": 3,
+              "zero_mass->zero_mass": 3,
+              "positive_mass->zero_mass": 1
+            },
+            "sum_probability_tv": 68.68927150985718,
+            "max_probability_tv": 0.9570241924069529,
+            "mean_probability_tv": 0.06301768028427264
+          },
+          "1/3": {
+            "origin_arm": 1,
+            "street": 3,
+            "observations": 305,
+            "models": [
+              {
+                "positive_mass": 38,
+                "zero_mass": 2,
+                "missing": 265
+              },
+              {
+                "positive_mass": 59,
+                "zero_mass": 0,
+                "missing": 246
+              }
+            ],
+            "transition_counts": {
+              "missing->missing": 246,
+              "positive_mass->positive_mass": 38,
+              "missing->positive_mass": 19,
+              "zero_mass->positive_mass": 2
+            },
+            "sum_probability_tv": 19.07956255268785,
+            "max_probability_tv": 1.0,
+            "mean_probability_tv": 0.06255594279569787
+          }
+        },
+        "pooled_by_street": {
+          "0": {
+            "observations": 134938,
+            "models": [
+              {
+                "positive_mass": 112167,
+                "zero_mass": 107,
+                "missing": 22664
+              },
+              {
+                "positive_mass": 115465,
+                "zero_mass": 153,
+                "missing": 19320
+              }
+            ]
+          },
+          "1": {
+            "observations": 9644,
+            "models": [
+              {
+                "positive_mass": 3358,
+                "zero_mass": 35,
+                "missing": 6251
+              },
+              {
+                "positive_mass": 3975,
+                "zero_mass": 40,
+                "missing": 5629
+              }
+            ]
+          },
+          "2": {
+            "observations": 2214,
+            "models": [
+              {
+                "positive_mass": 400,
+                "zero_mass": 11,
+                "missing": 1803
+              },
+              {
+                "positive_mass": 526,
+                "zero_mass": 16,
+                "missing": 1672
+              }
+            ]
+          },
+          "3": {
+            "observations": 617,
+            "models": [
+              {
+                "positive_mass": 80,
+                "zero_mass": 3,
+                "missing": 534
+              },
+              {
+                "positive_mass": 114,
+                "zero_mass": 4,
+                "missing": 499
+              }
+            ]
+          }
+        },
+        "weighting": "Every focal-decision occurrence from both arms equally weighted; each source-arm stratum retained; no key dedup, no return/action/status filtering; repeat is proof only."
+      },
+      "tails": {
+        "top10_squared_deviation_share": 0.057508399295021446,
+        "largest_positive": [
+          {
+            "block": 1233,
+            "value_bb100": 8941.666666666666
+          },
+          {
+            "block": 846,
+            "value_bb100": 8425.0
+          },
+          {
+            "block": 470,
+            "value_bb100": 8208.333333333334
+          },
+          {
+            "block": 810,
+            "value_bb100": 7775.0
+          },
+          {
+            "block": 2439,
+            "value_bb100": 7758.333333333333
+          }
+        ],
+        "largest_negative": [
+          {
+            "block": 3764,
+            "value_bb100": -11641.666666666666
+          },
+          {
+            "block": 451,
+            "value_bb100": -9591.666666666666
+          },
+          {
+            "block": 3315,
+            "value_bb100": -9125.0
+          },
+          {
+            "block": 1097,
+            "value_bb100": -8995.833333333334
+          },
+          {
+            "block": 698,
+            "value_bb100": -8341.666666666666
+          }
+        ],
+        "no_exclusions": true
+      },
+      "root": 20261024650002,
+      "blocks": 4096,
+      "hands_per_arm": 49152
+    },
+    "check-call": {
+      "strength": {
+        "field": "check-call",
+        "mean_bb100": -2.2359212239583357,
+        "standard_error_bb100": 36.77188534814771,
+        "lower95_bb100": -74.32880063262598,
+        "upper95_bb100": 69.8569581847093,
+        "lower_family95_bb100": -94.12186517273767,
+        "margin_bb100": -5,
+        "passed": false
+      },
+      "absolute": {
+        "control": {
+          "mean_bb100": 251.67032877604166,
+          "standard_error_bb100": 41.13578953942842,
+          "lower95_bb100": 171.02182553589626,
+          "upper95_bb100": 332.31883201618706
+        },
+        "candidate": {
+          "mean_bb100": 249.43440755208334,
+          "standard_error_bb100": 41.16520622680606,
+          "lower95_bb100": 168.72823161782287,
+          "upper95_bb100": 330.1405834863438
+        }
+      },
+      "by_seat": [
+        {
+          "mean_bb100": 14.29443359375,
+          "standard_error_bb100": 93.60946698836257,
+          "lower95_bb100": -169.23099490162681,
+          "upper95_bb100": 197.81986208912681
+        },
+        {
+          "mean_bb100": -105.2001953125,
+          "standard_error_bb100": 91.35640225272977,
+          "lower95_bb100": -284.30839247072754,
+          "upper95_bb100": 73.90800184572757
+        },
+        {
+          "mean_bb100": 79.638671875,
+          "standard_error_bb100": 88.99104104253229,
+          "lower95_bb100": -94.83213182705288,
+          "upper95_bb100": 254.10947557705288
+        },
+        {
+          "mean_bb100": 29.736328125,
+          "standard_error_bb100": 90.70605675567639,
+          "lower95_bb100": -148.0968384208687,
+          "upper95_bb100": 207.5694946708687
+        },
+        {
+          "mean_bb100": -3.08837890625,
+          "standard_error_bb100": 87.03316393536298,
+          "lower95_bb100": -173.72067944623265,
+          "upper95_bb100": 167.54392163373265
+        },
+        {
+          "mean_bb100": -28.79638671875,
+          "standard_error_bb100": 91.58727836406896,
+          "lower95_bb100": -208.35722652762038,
+          "upper95_bb100": 150.76445309012038
+        }
+      ],
+      "by_position": [
+        {
+          "mean_bb100": -19.62890625,
+          "standard_error_bb100": 112.43776467472033,
+          "lower95_bb100": -240.06803067697422,
+          "upper95_bb100": 200.81021817697422
+        },
+        {
+          "mean_bb100": -42.3583984375,
+          "standard_error_bb100": 126.0682579630709,
+          "lower95_bb100": -289.5206973662464,
+          "upper95_bb100": 204.80390049124642
+        },
+        {
+          "mean_bb100": 112.5,
+          "standard_error_bb100": 88.39079610114264,
+          "lower95_bb100": -60.79399740654847,
+          "upper95_bb100": 285.79399740654844
+        },
+        {
+          "mean_bb100": -36.21826171875,
+          "standard_error_bb100": 54.55155980618764,
+          "lower95_bb100": -143.16896564452276,
+          "upper95_bb100": 70.73244220702274
+        },
+        {
+          "mean_bb100": -2.587890625,
+          "standard_error_bb100": 57.58961795244155,
+          "lower95_bb100": -115.49483958691245,
+          "upper95_bb100": 110.31905833691245
+        },
+        {
+          "mean_bb100": -25.1220703125,
+          "standard_error_bb100": 81.10805566962345,
+          "lower95_bb100": -184.13793857980951,
+          "upper95_bb100": 133.89379795480951
+        }
+      ],
+      "on_policy_focal_lookup_counts": {
+        "control": [
+          [
+            49058,
+            0,
+            94,
+            0
+          ],
+          [
+            7256,
+            8,
+            16678,
+            0
+          ],
+          [
+            38,
+            0,
+            23904,
+            0
+          ],
+          [
+            0,
+            0,
+            22028,
+            0
+          ]
+        ],
+        "candidate": [
+          [
+            49140,
+            0,
+            12,
+            0
+          ],
+          [
+            8110,
+            56,
+            16044,
+            0
+          ],
+          [
+            42,
+            0,
+            24168,
+            0
+          ],
+          [
+            0,
+            0,
+            22246,
+            0
+          ]
+        ]
+      },
+      "lookup_labels": [
+        "positive_mass",
+        "zero_mass",
+        "missing",
+        "not_applicable"
+      ],
+      "shared": {
+        "observations": 238882,
+        "paired_queries": 477764,
+        "query_inventory_sha256": "4367c8b0e1a490c7b70759debec1e922ad010c131bd29347bf4a43db3ffb93bf",
+        "groups": {
+          "0/0": {
+            "origin_arm": 0,
+            "street": 0,
+            "observations": 49152,
+            "models": [
+              {
+                "positive_mass": 49058,
+                "zero_mass": 0,
+                "missing": 94
+              },
+              {
+                "positive_mass": 49140,
+                "zero_mass": 0,
+                "missing": 12
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 49058,
+              "missing->positive_mass": 82,
+              "missing->missing": 12
+            },
+            "sum_probability_tv": 14195.474570688295,
+            "max_probability_tv": 0.9702511605784343,
+            "mean_probability_tv": 0.28880766948828723
+          },
+          "1/0": {
+            "origin_arm": 1,
+            "street": 0,
+            "observations": 49152,
+            "models": [
+              {
+                "positive_mass": 49058,
+                "zero_mass": 0,
+                "missing": 94
+              },
+              {
+                "positive_mass": 49140,
+                "zero_mass": 0,
+                "missing": 12
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 49058,
+              "missing->positive_mass": 82,
+              "missing->missing": 12
+            },
+            "sum_probability_tv": 14195.474570688295,
+            "max_probability_tv": 0.9702511605784343,
+            "mean_probability_tv": 0.28880766948828723
+          },
+          "0/1": {
+            "origin_arm": 0,
+            "street": 1,
+            "observations": 23942,
+            "models": [
+              {
+                "positive_mass": 7256,
+                "zero_mass": 8,
+                "missing": 16678
+              },
+              {
+                "positive_mass": 8254,
+                "zero_mass": 34,
+                "missing": 15654
+              }
+            ],
+            "transition_counts": {
+              "missing->missing": 15654,
+              "positive_mass->positive_mass": 7254,
+              "missing->positive_mass": 992,
+              "missing->zero_mass": 32,
+              "zero_mass->positive_mass": 8,
+              "positive_mass->zero_mass": 2
+            },
+            "sum_probability_tv": 2143.0327402253024,
+            "max_probability_tv": 0.967545339999009,
+            "mean_probability_tv": 0.08950934509336322
+          },
+          "0/2": {
+            "origin_arm": 0,
+            "street": 2,
+            "observations": 23942,
+            "models": [
+              {
+                "positive_mass": 38,
+                "zero_mass": 0,
+                "missing": 23904
+              },
+              {
+                "positive_mass": 58,
+                "zero_mass": 0,
+                "missing": 23884
+              }
+            ],
+            "transition_counts": {
+              "missing->missing": 23884,
+              "missing->positive_mass": 20,
+              "positive_mass->positive_mass": 38
+            },
+            "sum_probability_tv": 0.0,
+            "max_probability_tv": 0.0,
+            "mean_probability_tv": 0.0
+          },
+          "0/3": {
+            "origin_arm": 0,
+            "street": 3,
+            "observations": 22028,
+            "models": [
+              {
+                "positive_mass": 0,
+                "zero_mass": 0,
+                "missing": 22028
+              },
+              {
+                "positive_mass": 0,
+                "zero_mass": 0,
+                "missing": 22028
+              }
+            ],
+            "transition_counts": {
+              "missing->missing": 22028
+            },
+            "sum_probability_tv": 0.0,
+            "max_probability_tv": 0.0,
+            "mean_probability_tv": 0.0
+          },
+          "1/1": {
+            "origin_arm": 1,
+            "street": 1,
+            "observations": 24210,
+            "models": [
+              {
+                "positive_mass": 7046,
+                "zero_mass": 14,
+                "missing": 17150
+              },
+              {
+                "positive_mass": 8110,
+                "zero_mass": 56,
+                "missing": 16044
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 7046,
+              "missing->missing": 16044,
+              "missing->positive_mass": 1054,
+              "missing->zero_mass": 52,
+              "zero_mass->positive_mass": 10,
+              "zero_mass->zero_mass": 4
+            },
+            "sum_probability_tv": 2108.225044726819,
+            "max_probability_tv": 0.967545339999009,
+            "mean_probability_tv": 0.08708075360292519
+          },
+          "1/2": {
+            "origin_arm": 1,
+            "street": 2,
+            "observations": 24210,
+            "models": [
+              {
+                "positive_mass": 24,
+                "zero_mass": 0,
+                "missing": 24186
+              },
+              {
+                "positive_mass": 42,
+                "zero_mass": 0,
+                "missing": 24168
+              }
+            ],
+            "transition_counts": {
+              "missing->missing": 24168,
+              "missing->positive_mass": 18,
+              "positive_mass->positive_mass": 24
+            },
+            "sum_probability_tv": 0.0,
+            "max_probability_tv": 0.0,
+            "mean_probability_tv": 0.0
+          },
+          "1/3": {
+            "origin_arm": 1,
+            "street": 3,
+            "observations": 22246,
+            "models": [
+              {
+                "positive_mass": 0,
+                "zero_mass": 0,
+                "missing": 22246
+              },
+              {
+                "positive_mass": 0,
+                "zero_mass": 0,
+                "missing": 22246
+              }
+            ],
+            "transition_counts": {
+              "missing->missing": 22246
+            },
+            "sum_probability_tv": 0.0,
+            "max_probability_tv": 0.0,
+            "mean_probability_tv": 0.0
+          }
+        },
+        "pooled_by_street": {
+          "0": {
+            "observations": 98304,
+            "models": [
+              {
+                "positive_mass": 98116,
+                "zero_mass": 0,
+                "missing": 188
+              },
+              {
+                "positive_mass": 98280,
+                "zero_mass": 0,
+                "missing": 24
+              }
+            ]
+          },
+          "1": {
+            "observations": 48152,
+            "models": [
+              {
+                "positive_mass": 14302,
+                "zero_mass": 22,
+                "missing": 33828
+              },
+              {
+                "positive_mass": 16364,
+                "zero_mass": 90,
+                "missing": 31698
+              }
+            ]
+          },
+          "2": {
+            "observations": 48152,
+            "models": [
+              {
+                "positive_mass": 62,
+                "zero_mass": 0,
+                "missing": 48090
+              },
+              {
+                "positive_mass": 100,
+                "zero_mass": 0,
+                "missing": 48052
+              }
+            ]
+          },
+          "3": {
+            "observations": 44274,
+            "models": [
+              {
+                "positive_mass": 0,
+                "zero_mass": 0,
+                "missing": 44274
+              },
+              {
+                "positive_mass": 0,
+                "zero_mass": 0,
+                "missing": 44274
+              }
+            ]
+          }
+        },
+        "weighting": "Every focal-decision occurrence from both arms equally weighted; each source-arm stratum retained; no key dedup, no return/action/status filtering; repeat is proof only."
+      },
+      "tails": {
+        "top10_squared_deviation_share": 0.047901943776142604,
+        "largest_positive": [
+          {
+            "block": 1428,
+            "value_bb100": 11441.666666666666
+          },
+          {
+            "block": 142,
+            "value_bb100": 10141.666666666666
+          },
+          {
+            "block": 642,
+            "value_bb100": 10008.333333333334
+          },
+          {
+            "block": 153,
+            "value_bb100": 9991.666666666666
+          },
+          {
+            "block": 503,
+            "value_bb100": 9991.666666666666
+          }
+        ],
+        "largest_negative": [
+          {
+            "block": 4081,
+            "value_bb100": -11675.0
+          },
+          {
+            "block": 1509,
+            "value_bb100": -10533.333333333334
+          },
+          {
+            "block": 3582,
+            "value_bb100": -10266.666666666666
+          },
+          {
+            "block": 3357,
+            "value_bb100": -10008.333333333334
+          },
+          {
+            "block": 3707,
+            "value_bb100": -10000.0
+          }
+        ],
+        "no_exclusions": true
+      },
+      "root": 20261024650003,
+      "blocks": 4096,
+      "hands_per_arm": 49152
+    },
+    "tight-aggressive": {
+      "strength": {
+        "field": "tight-aggressive",
+        "mean_bb100": 2.6516520182291665,
+        "standard_error_bb100": 7.578774120830615,
+        "lower95_bb100": -12.206864035152767,
+        "upper95_bb100": 17.5101680716111,
+        "lower_family95_bb100": -16.2862623006563,
+        "margin_bb100": -5,
+        "passed": false
+      },
+      "absolute": {
+        "control": {
+          "mean_bb100": 6.1143798828125,
+          "standard_error_bb100": 8.085756299314683,
+          "lower95_bb100": -9.738096766001254,
+          "upper95_bb100": 21.966856531626256
+        },
+        "candidate": {
+          "mean_bb100": 8.766031901041668,
+          "standard_error_bb100": 8.390326203192853,
+          "lower95_bb100": -7.683567281575058,
+          "upper95_bb100": 25.215631083658394
+        }
+      },
+      "by_seat": [
+        {
+          "mean_bb100": 5.853271484375,
+          "standard_error_bb100": 19.64522459780632,
+          "lower95_bb100": -32.66204516248232,
+          "upper95_bb100": 44.36858813123232
+        },
+        {
+          "mean_bb100": 23.10791015625,
+          "standard_error_bb100": 18.399824347880973,
+          "lower95_bb100": -12.965745172909472,
+          "upper95_bb100": 59.18156548540947
+        },
+        {
+          "mean_bb100": 5.6854248046875,
+          "standard_error_bb100": 17.32875408035231,
+          "lower95_bb100": -28.288350714011216,
+          "upper95_bb100": 39.659200323386216
+        },
+        {
+          "mean_bb100": -3.9276123046875,
+          "standard_error_bb100": 17.591115228411287,
+          "lower95_bb100": -38.415758256924185,
+          "upper95_bb100": 30.560533647549185
+        },
+        {
+          "mean_bb100": 2.4322509765625,
+          "standard_error_bb100": 20.97327324283215,
+          "lower95_bb100": -38.68676275866058,
+          "upper95_bb100": 43.55126471178558
+        },
+        {
+          "mean_bb100": -17.2413330078125,
+          "standard_error_bb100": 17.763409437439083,
+          "lower95_bb100": -52.067269245117565,
+          "upper95_bb100": 17.584603229492565
+        }
+      ],
+      "by_position": [
+        {
+          "mean_bb100": 10.8062744140625,
+          "standard_error_bb100": 18.272472812575067,
+          "lower95_bb100": -25.017702695163663,
+          "upper95_bb100": 46.63025152328866
+        },
+        {
+          "mean_bb100": -2.8228759765625,
+          "standard_error_bb100": 20.392879190928774,
+          "lower95_bb100": -42.80400194788049,
+          "upper95_bb100": 37.15824999475549
+        },
+        {
+          "mean_bb100": 20.3460693359375,
+          "standard_error_bb100": 18.5632009812057,
+          "lower95_bb100": -16.047892983547854,
+          "upper95_bb100": 56.740031655422854
+        },
+        {
+          "mean_bb100": 5.731201171875,
+          "standard_error_bb100": 16.607087493345098,
+          "lower95_bb100": -26.82771563784548,
+          "upper95_bb100": 38.29011798159548
+        },
+        {
+          "mean_bb100": 0.7965087890625,
+          "standard_error_bb100": 21.228570902967697,
+          "lower95_bb100": -40.8230271046306,
+          "upper95_bb100": 42.4160446827556
+        },
+        {
+          "mean_bb100": -18.947265625,
+          "standard_error_bb100": 16.39642082045428,
+          "lower95_bb100": -51.09316126650051,
+          "upper95_bb100": 13.198630016500509
+        }
+      ],
+      "on_policy_focal_lookup_counts": {
+        "control": [
+          [
+            46140,
+            0,
+            104,
+            0
+          ],
+          [
+            7502,
+            0,
+            60,
+            0
+          ],
+          [
+            3446,
+            1,
+            150,
+            0
+          ],
+          [
+            1511,
+            1,
+            265,
+            0
+          ]
+        ],
+        "candidate": [
+          [
+            46217,
+            0,
+            53,
+            0
+          ],
+          [
+            7562,
+            0,
+            28,
+            0
+          ],
+          [
+            3432,
+            1,
+            68,
+            0
+          ],
+          [
+            1575,
+            0,
+            148,
+            0
+          ]
+        ]
+      },
+      "lookup_labels": [
+        "positive_mass",
+        "zero_mass",
+        "missing",
+        "not_applicable"
+      ],
+      "shared": {
+        "observations": 118264,
+        "paired_queries": 236528,
+        "query_inventory_sha256": "3ea66dad59bfc1bd9cbd57635e169b9ec1f859da9e3ea9c25a96ccadeed8ce52",
+        "groups": {
+          "0/0": {
+            "origin_arm": 0,
+            "street": 0,
+            "observations": 46244,
+            "models": [
+              {
+                "positive_mass": 46140,
+                "zero_mass": 0,
+                "missing": 104
+              },
+              {
+                "positive_mass": 46181,
+                "zero_mass": 13,
+                "missing": 50
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 46128,
+              "missing->positive_mass": 53,
+              "missing->missing": 50,
+              "positive_mass->zero_mass": 12,
+              "missing->zero_mass": 1
+            },
+            "sum_probability_tv": 8032.972420078754,
+            "max_probability_tv": 0.9999573670857886,
+            "mean_probability_tv": 0.1737084253109323
+          },
+          "1/0": {
+            "origin_arm": 1,
+            "street": 0,
+            "observations": 46270,
+            "models": [
+              {
+                "positive_mass": 46092,
+                "zero_mass": 40,
+                "missing": 138
+              },
+              {
+                "positive_mass": 46217,
+                "zero_mass": 0,
+                "missing": 53
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 46092,
+              "missing->positive_mass": 85,
+              "missing->missing": 53,
+              "zero_mass->positive_mass": 40
+            },
+            "sum_probability_tv": 8029.851441801865,
+            "max_probability_tv": 1.0,
+            "mean_probability_tv": 0.17354336377354365
+          },
+          "0/1": {
+            "origin_arm": 0,
+            "street": 1,
+            "observations": 7562,
+            "models": [
+              {
+                "positive_mass": 7502,
+                "zero_mass": 0,
+                "missing": 60
+              },
+              {
+                "positive_mass": 7531,
+                "zero_mass": 5,
+                "missing": 26
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 7499,
+              "missing->missing": 26,
+              "missing->positive_mass": 32,
+              "positive_mass->zero_mass": 3,
+              "missing->zero_mass": 2
+            },
+            "sum_probability_tv": 2461.0498386948416,
+            "max_probability_tv": 1.0,
+            "mean_probability_tv": 0.32544959517255245
+          },
+          "0/2": {
+            "origin_arm": 0,
+            "street": 2,
+            "observations": 3597,
+            "models": [
+              {
+                "positive_mass": 3446,
+                "zero_mass": 1,
+                "missing": 150
+              },
+              {
+                "positive_mass": 3509,
+                "zero_mass": 8,
+                "missing": 80
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 3440,
+              "missing->positive_mass": 69,
+              "missing->missing": 80,
+              "zero_mass->zero_mass": 1,
+              "positive_mass->zero_mass": 6,
+              "missing->zero_mass": 1
+            },
+            "sum_probability_tv": 1138.0385344607132,
+            "max_probability_tv": 1.0,
+            "mean_probability_tv": 0.3163854696860476
+          },
+          "1/1": {
+            "origin_arm": 1,
+            "street": 1,
+            "observations": 7590,
+            "models": [
+              {
+                "positive_mass": 7526,
+                "zero_mass": 2,
+                "missing": 62
+              },
+              {
+                "positive_mass": 7562,
+                "zero_mass": 0,
+                "missing": 28
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 7526,
+              "missing->missing": 28,
+              "missing->positive_mass": 34,
+              "zero_mass->positive_mass": 2
+            },
+            "sum_probability_tv": 2492.8253117539134,
+            "max_probability_tv": 1.0,
+            "mean_probability_tv": 0.32843548244452087
+          },
+          "0/3": {
+            "origin_arm": 0,
+            "street": 3,
+            "observations": 1777,
+            "models": [
+              {
+                "positive_mass": 1511,
+                "zero_mass": 1,
+                "missing": 265
+              },
+              {
+                "positive_mass": 1632,
+                "zero_mass": 7,
+                "missing": 138
+              }
+            ],
+            "transition_counts": {
+              "missing->missing": 138,
+              "positive_mass->positive_mass": 1508,
+              "missing->positive_mass": 123,
+              "positive_mass->zero_mass": 3,
+              "zero_mass->positive_mass": 1,
+              "missing->zero_mass": 4
+            },
+            "sum_probability_tv": 423.6048770388855,
+            "max_probability_tv": 0.9962893293177426,
+            "mean_probability_tv": 0.23838203547489337
+          },
+          "1/2": {
+            "origin_arm": 1,
+            "street": 2,
+            "observations": 3501,
+            "models": [
+              {
+                "positive_mass": 3346,
+                "zero_mass": 3,
+                "missing": 152
+              },
+              {
+                "positive_mass": 3432,
+                "zero_mass": 1,
+                "missing": 68
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 3345,
+              "missing->positive_mass": 84,
+              "missing->missing": 68,
+              "zero_mass->positive_mass": 3,
+              "positive_mass->zero_mass": 1
+            },
+            "sum_probability_tv": 1088.8950630787358,
+            "max_probability_tv": 0.9978976219034561,
+            "mean_probability_tv": 0.3110240111621639
+          },
+          "1/3": {
+            "origin_arm": 1,
+            "street": 3,
+            "observations": 1723,
+            "models": [
+              {
+                "positive_mass": 1443,
+                "zero_mass": 7,
+                "missing": 273
+              },
+              {
+                "positive_mass": 1575,
+                "zero_mass": 0,
+                "missing": 148
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 1443,
+              "missing->positive_mass": 125,
+              "missing->missing": 148,
+              "zero_mass->positive_mass": 7
+            },
+            "sum_probability_tv": 407.88135335848426,
+            "max_probability_tv": 0.9987463102727706,
+            "mean_probability_tv": 0.23672742504845284
+          }
+        },
+        "pooled_by_street": {
+          "0": {
+            "observations": 92514,
+            "models": [
+              {
+                "positive_mass": 92232,
+                "zero_mass": 40,
+                "missing": 242
+              },
+              {
+                "positive_mass": 92398,
+                "zero_mass": 13,
+                "missing": 103
+              }
+            ]
+          },
+          "1": {
+            "observations": 15152,
+            "models": [
+              {
+                "positive_mass": 15028,
+                "zero_mass": 2,
+                "missing": 122
+              },
+              {
+                "positive_mass": 15093,
+                "zero_mass": 5,
+                "missing": 54
+              }
+            ]
+          },
+          "2": {
+            "observations": 7098,
+            "models": [
+              {
+                "positive_mass": 6792,
+                "zero_mass": 4,
+                "missing": 302
+              },
+              {
+                "positive_mass": 6941,
+                "zero_mass": 9,
+                "missing": 148
+              }
+            ]
+          },
+          "3": {
+            "observations": 3500,
+            "models": [
+              {
+                "positive_mass": 2954,
+                "zero_mass": 8,
+                "missing": 538
+              },
+              {
+                "positive_mass": 3207,
+                "zero_mass": 7,
+                "missing": 286
+              }
+            ]
+          }
+        },
+        "weighting": "Every focal-decision occurrence from both arms equally weighted; each source-arm stratum retained; no key dedup, no return/action/status filtering; repeat is proof only."
+      },
+      "tails": {
+        "top10_squared_deviation_share": 0.20262094577788217,
+        "largest_positive": [
+          {
+            "block": 3980,
+            "value_bb100": 9183.333333333334
+          },
+          {
+            "block": 1398,
+            "value_bb100": 3558.3333333333335
+          },
+          {
+            "block": 2226,
+            "value_bb100": 3550.0
+          },
+          {
+            "block": 2604,
+            "value_bb100": 3325.0
+          },
+          {
+            "block": 3190,
+            "value_bb100": 3200.0
+          }
+        ],
+        "largest_negative": [
+          {
+            "block": 2313,
+            "value_bb100": -4383.333333333333
+          },
+          {
+            "block": 671,
+            "value_bb100": -3533.3333333333335
+          },
+          {
+            "block": 908,
+            "value_bb100": -3391.6666666666665
+          },
+          {
+            "block": 28,
+            "value_bb100": -3333.3333333333335
+          },
+          {
+            "block": 539,
+            "value_bb100": -3166.6666666666665
+          }
+        ],
+        "no_exclusions": true
+      },
+      "root": 20261024650004,
+      "blocks": 4096,
+      "hands_per_arm": 49152
+    },
+    "pot-pressure": {
+      "strength": {
+        "field": "pot-pressure",
+        "mean_bb100": 18.7713623046875,
+        "standard_error_bb100": 13.280172286325882,
+        "lower95_bb100": -7.264992646926338,
+        "upper95_bb100": 44.80771725630134,
+        "lower_family95_bb100": -14.413261077505773,
+        "margin_bb100": -5,
+        "passed": false
+      },
+      "absolute": {
+        "control": {
+          "mean_bb100": -33.875528971354164,
+          "standard_error_bb100": 14.368128301109257,
+          "lower95_bb100": -62.044868974811784,
+          "upper95_bb100": -5.706188967896544
+        },
+        "candidate": {
+          "mean_bb100": -15.104166666666666,
+          "standard_error_bb100": 14.12738981066245,
+          "lower95_bb100": -42.801528396601235,
+          "upper95_bb100": 12.5931950632679
+        }
+      },
+      "by_seat": [
+        {
+          "mean_bb100": 46.5789794921875,
+          "standard_error_bb100": 30.780750799074262,
+          "lower95_bb100": -13.76802024568945,
+          "upper95_bb100": 106.92597923006446
+        },
+        {
+          "mean_bb100": -0.81787109375,
+          "standard_error_bb100": 31.24646296005912,
+          "lower95_bb100": -62.07791976406964,
+          "upper95_bb100": 60.44217757656964
+        },
+        {
+          "mean_bb100": 13.983154296875,
+          "standard_error_bb100": 33.348046480483056,
+          "lower95_bb100": -51.39714020448409,
+          "upper95_bb100": 79.36344879823409
+        },
+        {
+          "mean_bb100": -8.3953857421875,
+          "standard_error_bb100": 32.18915721822281,
+          "lower95_bb100": -71.50362747711598,
+          "upper95_bb100": 54.712855992740984
+        },
+        {
+          "mean_bb100": 32.989501953125,
+          "standard_error_bb100": 36.9096936592356,
+          "lower95_bb100": -39.37355663887004,
+          "upper95_bb100": 105.35256054512004
+        },
+        {
+          "mean_bb100": 28.289794921875,
+          "standard_error_bb100": 30.519836947171367,
+          "lower95_bb100": -31.545671869480508,
+          "upper95_bb100": 88.12526171323051
+        }
+      ],
+      "by_position": [
+        {
+          "mean_bb100": -30.6182861328125,
+          "standard_error_bb100": 30.457918099923692,
+          "lower95_bb100": -90.33235833301536,
+          "upper95_bb100": 29.095786067390364
+        },
+        {
+          "mean_bb100": 64.312744140625,
+          "standard_error_bb100": 35.82489237372265,
+          "lower95_bb100": -5.923514383372108,
+          "upper95_bb100": 134.5490026646221
+        },
+        {
+          "mean_bb100": -1.0406494140625,
+          "standard_error_bb100": 37.33855451266243,
+          "lower95_bb100": -74.24450834839723,
+          "upper95_bb100": 72.16320952027223
+        },
+        {
+          "mean_bb100": 16.424560546875,
+          "standard_error_bb100": 29.241149153893797,
+          "lower95_bb100": -40.90398325129385,
+          "upper95_bb100": 73.75310434504385
+        },
+        {
+          "mean_bb100": 23.785400390625,
+          "standard_error_bb100": 32.02890663645789,
+          "lower95_bb100": -39.008663113925394,
+          "upper95_bb100": 86.5794638951754
+        },
+        {
+          "mean_bb100": 39.764404296875,
+          "standard_error_bb100": 29.64577168473714,
+          "lower95_bb100": -18.35741955876005,
+          "upper95_bb100": 97.88622815251006
+        }
+      ],
+      "on_policy_focal_lookup_counts": {
+        "control": [
+          [
+            51210,
+            2,
+            533,
+            0
+          ],
+          [
+            7751,
+            0,
+            340,
+            0
+          ],
+          [
+            3722,
+            0,
+            411,
+            0
+          ],
+          [
+            1641,
+            0,
+            405,
+            0
+          ]
+        ],
+        "candidate": [
+          [
+            51436,
+            3,
+            302,
+            0
+          ],
+          [
+            8100,
+            1,
+            247,
+            0
+          ],
+          [
+            4010,
+            2,
+            257,
+            0
+          ],
+          [
+            1948,
+            2,
+            245,
+            0
+          ]
+        ]
+      },
+      "lookup_labels": [
+        "positive_mass",
+        "zero_mass",
+        "missing",
+        "not_applicable"
+      ],
+      "shared": {
+        "observations": 132568,
+        "paired_queries": 265136,
+        "query_inventory_sha256": "47c95bbd3775fe6b539f88030348124fba10a756220d105d5cc746b40c9f9878",
+        "groups": {
+          "0/0": {
+            "origin_arm": 0,
+            "street": 0,
+            "observations": 51745,
+            "models": [
+              {
+                "positive_mass": 51210,
+                "zero_mass": 2,
+                "missing": 533
+              },
+              {
+                "positive_mass": 51394,
+                "zero_mass": 38,
+                "missing": 313
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 51189,
+              "missing->missing": 313,
+              "missing->positive_mass": 205,
+              "zero_mass->zero_mass": 2,
+              "missing->zero_mass": 15,
+              "positive_mass->zero_mass": 21
+            },
+            "sum_probability_tv": 9625.983084875455,
+            "max_probability_tv": 1.0,
+            "mean_probability_tv": 0.18602730862644615
+          },
+          "1/0": {
+            "origin_arm": 1,
+            "street": 0,
+            "observations": 51741,
+            "models": [
+              {
+                "positive_mass": 51114,
+                "zero_mass": 39,
+                "missing": 588
+              },
+              {
+                "positive_mass": 51436,
+                "zero_mass": 3,
+                "missing": 302
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 51114,
+              "missing->positive_mass": 284,
+              "missing->missing": 302,
+              "zero_mass->positive_mass": 38,
+              "missing->zero_mass": 2,
+              "zero_mass->zero_mass": 1
+            },
+            "sum_probability_tv": 9659.625144088363,
+            "max_probability_tv": 1.0,
+            "mean_probability_tv": 0.18669189122916763
+          },
+          "0/1": {
+            "origin_arm": 0,
+            "street": 1,
+            "observations": 8091,
+            "models": [
+              {
+                "positive_mass": 7751,
+                "zero_mass": 0,
+                "missing": 340
+              },
+              {
+                "positive_mass": 7840,
+                "zero_mass": 12,
+                "missing": 239
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 7742,
+              "missing->positive_mass": 98,
+              "missing->missing": 239,
+              "missing->zero_mass": 3,
+              "positive_mass->zero_mass": 9
+            },
+            "sum_probability_tv": 2482.74187069821,
+            "max_probability_tv": 1.0,
+            "mean_probability_tv": 0.30685228904934
+          },
+          "0/2": {
+            "origin_arm": 0,
+            "street": 2,
+            "observations": 4133,
+            "models": [
+              {
+                "positive_mass": 3722,
+                "zero_mass": 0,
+                "missing": 411
+              },
+              {
+                "positive_mass": 3862,
+                "zero_mass": 20,
+                "missing": 251
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 3713,
+              "missing->positive_mass": 149,
+              "missing->missing": 251,
+              "positive_mass->zero_mass": 9,
+              "missing->zero_mass": 11
+            },
+            "sum_probability_tv": 1217.7654227165676,
+            "max_probability_tv": 0.9854889577845255,
+            "mean_probability_tv": 0.2946444284337207
+          },
+          "0/3": {
+            "origin_arm": 0,
+            "street": 3,
+            "observations": 2046,
+            "models": [
+              {
+                "positive_mass": 1641,
+                "zero_mass": 0,
+                "missing": 405
+              },
+              {
+                "positive_mass": 1798,
+                "zero_mass": 9,
+                "missing": 239
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 1636,
+              "missing->missing": 239,
+              "missing->positive_mass": 162,
+              "missing->zero_mass": 4,
+              "positive_mass->zero_mass": 5
+            },
+            "sum_probability_tv": 519.0248914267453,
+            "max_probability_tv": 0.9997243044367997,
+            "mean_probability_tv": 0.2536778550472851
+          },
+          "1/1": {
+            "origin_arm": 1,
+            "street": 1,
+            "observations": 8348,
+            "models": [
+              {
+                "positive_mass": 7954,
+                "zero_mass": 0,
+                "missing": 394
+              },
+              {
+                "positive_mass": 8100,
+                "zero_mass": 1,
+                "missing": 247
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 7954,
+              "missing->missing": 247,
+              "missing->positive_mass": 146,
+              "missing->zero_mass": 1
+            },
+            "sum_probability_tv": 2563.395148323286,
+            "max_probability_tv": 1.0,
+            "mean_probability_tv": 0.3070669799141454
+          },
+          "1/2": {
+            "origin_arm": 1,
+            "street": 2,
+            "observations": 4269,
+            "models": [
+              {
+                "positive_mass": 3841,
+                "zero_mass": 12,
+                "missing": 416
+              },
+              {
+                "positive_mass": 4010,
+                "zero_mass": 2,
+                "missing": 257
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 3841,
+              "missing->missing": 257,
+              "missing->positive_mass": 157,
+              "zero_mass->positive_mass": 12,
+              "missing->zero_mass": 2
+            },
+            "sum_probability_tv": 1279.254479726843,
+            "max_probability_tv": 1.0,
+            "mean_probability_tv": 0.29966139136257747
+          },
+          "1/3": {
+            "origin_arm": 1,
+            "street": 3,
+            "observations": 2195,
+            "models": [
+              {
+                "positive_mass": 1729,
+                "zero_mass": 4,
+                "missing": 462
+              },
+              {
+                "positive_mass": 1948,
+                "zero_mass": 2,
+                "missing": 245
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 1728,
+              "missing->positive_mass": 217,
+              "missing->missing": 245,
+              "positive_mass->zero_mass": 1,
+              "zero_mass->positive_mass": 3,
+              "zero_mass->zero_mass": 1
+            },
+            "sum_probability_tv": 585.3631532665729,
+            "max_probability_tv": 0.99865641793931,
+            "mean_probability_tv": 0.2666802520576642
+          }
+        },
+        "pooled_by_street": {
+          "0": {
+            "observations": 103486,
+            "models": [
+              {
+                "positive_mass": 102324,
+                "zero_mass": 41,
+                "missing": 1121
+              },
+              {
+                "positive_mass": 102830,
+                "zero_mass": 41,
+                "missing": 615
+              }
+            ]
+          },
+          "1": {
+            "observations": 16439,
+            "models": [
+              {
+                "positive_mass": 15705,
+                "zero_mass": 0,
+                "missing": 734
+              },
+              {
+                "positive_mass": 15940,
+                "zero_mass": 13,
+                "missing": 486
+              }
+            ]
+          },
+          "2": {
+            "observations": 8402,
+            "models": [
+              {
+                "positive_mass": 7563,
+                "zero_mass": 12,
+                "missing": 827
+              },
+              {
+                "positive_mass": 7872,
+                "zero_mass": 22,
+                "missing": 508
+              }
+            ]
+          },
+          "3": {
+            "observations": 4241,
+            "models": [
+              {
+                "positive_mass": 3370,
+                "zero_mass": 4,
+                "missing": 867
+              },
+              {
+                "positive_mass": 3746,
+                "zero_mass": 11,
+                "missing": 484
+              }
+            ]
+          }
+        },
+        "weighting": "Every focal-decision occurrence from both arms equally weighted; each source-arm stratum retained; no key dedup, no return/action/status filtering; repeat is proof only."
+      },
+      "tails": {
+        "top10_squared_deviation_share": 0.149156183523944,
+        "largest_positive": [
+          {
+            "block": 1268,
+            "value_bb100": 7900.0
+          },
+          {
+            "block": 432,
+            "value_bb100": 7758.333333333333
+          },
+          {
+            "block": 155,
+            "value_bb100": 7733.333333333333
+          },
+          {
+            "block": 349,
+            "value_bb100": 6283.333333333333
+          },
+          {
+            "block": 3229,
+            "value_bb100": 6108.333333333333
+          }
+        ],
+        "largest_negative": [
+          {
+            "block": 1838,
+            "value_bb100": -6533.333333333333
+          },
+          {
+            "block": 1840,
+            "value_bb100": -6341.666666666667
+          },
+          {
+            "block": 3723,
+            "value_bb100": -6066.666666666667
+          },
+          {
+            "block": 2154,
+            "value_bb100": -5425.0
+          },
+          {
+            "block": 3840,
+            "value_bb100": -5204.166666666667
+          }
+        ],
+        "no_exclusions": true
+      },
+      "root": 20261024650005,
+      "blocks": 4096,
+      "hands_per_arm": 49152
+    },
+    "call-pressure": {
+      "strength": {
+        "field": "call-pressure",
+        "mean_bb100": -65.43654378255208,
+        "standard_error_bb100": 23.733626318804372,
+        "lower95_bb100": -111.96734969398008,
+        "upper95_bb100": -18.905737871124074,
+        "lower_family95_bb100": -124.74235954325482,
+        "margin_bb100": -5,
+        "passed": false
+      },
+      "absolute": {
+        "control": {
+          "mean_bb100": 132.592041015625,
+          "standard_error_bb100": 28.0861731493613,
+          "lower95_bb100": 77.52787787203306,
+          "upper95_bb100": 187.65620415921694
+        },
+        "candidate": {
+          "mean_bb100": 67.15549723307291,
+          "standard_error_bb100": 28.25158259244712,
+          "lower95_bb100": 11.767041687268268,
+          "upper95_bb100": 122.54395277887755
+        }
+      },
+      "by_seat": [
+        {
+          "mean_bb100": -3.873046875,
+          "standard_error_bb100": 59.054466284850164,
+          "lower95_bb100": -119.65189465799484,
+          "upper95_bb100": 111.90580090799484
+        },
+        {
+          "mean_bb100": -62.8773193359375,
+          "standard_error_bb100": 57.61355173378682,
+          "lower95_bb100": -175.83119151638994,
+          "upper95_bb100": 50.07655284451492
+        },
+        {
+          "mean_bb100": -126.163330078125,
+          "standard_error_bb100": 55.48099500784994,
+          "lower95_bb100": -234.93623211196908,
+          "upper95_bb100": -17.390428044280924
+        },
+        {
+          "mean_bb100": -45.51953125,
+          "standard_error_bb100": 57.67846690457937,
+          "lower95_bb100": -158.60067244414134,
+          "upper95_bb100": 67.56160994414134
+        },
+        {
+          "mean_bb100": -61.8687744140625,
+          "standard_error_bb100": 58.43212678199639,
+          "lower95_bb100": -176.4274985535263,
+          "upper95_bb100": 52.689949725401306
+        },
+        {
+          "mean_bb100": -92.3172607421875,
+          "standard_error_bb100": 59.591391142371116,
+          "lower95_bb100": -209.14877304423788,
+          "upper95_bb100": 24.5142515598629
+        }
+      ],
+      "by_position": [
+        {
+          "mean_bb100": -201.36767578125,
+          "standard_error_bb100": 59.957441654460155,
+          "lower95_bb100": -318.91684602157756,
+          "upper95_bb100": -83.81850554092243
+        },
+        {
+          "mean_bb100": -91.10498046875,
+          "standard_error_bb100": 74.69734399125998,
+          "lower95_bb100": -237.55236986758956,
+          "upper95_bb100": 55.34240893008956
+        },
+        {
+          "mean_bb100": -33.624267578125,
+          "standard_error_bb100": 67.58427361262531,
+          "lower95_bb100": -166.12617335062376,
+          "upper95_bb100": 98.87763819437376
+        },
+        {
+          "mean_bb100": 65.9566650390625,
+          "standard_error_bb100": 47.79724465713803,
+          "lower95_bb100": -27.7519104802292,
+          "upper95_bb100": 159.66524055835418
+        },
+        {
+          "mean_bb100": -67.536865234375,
+          "standard_error_bb100": 44.9929134486213,
+          "lower95_bb100": -155.74742753722597,
+          "upper95_bb100": 20.67369706847596
+        },
+        {
+          "mean_bb100": -64.942138671875,
+          "standard_error_bb100": 46.032064804900834,
+          "lower95_bb100": -155.19000237241966,
+          "upper95_bb100": 25.305725028669656
+        }
+      ],
+      "on_policy_focal_lookup_counts": {
+        "control": [
+          [
+            50533,
+            6,
+            3657,
+            0
+          ],
+          [
+            10668,
+            24,
+            8410,
+            0
+          ],
+          [
+            1415,
+            10,
+            15489,
+            0
+          ],
+          [
+            30,
+            0,
+            14656,
+            0
+          ]
+        ],
+        "candidate": [
+          [
+            50941,
+            18,
+            3166,
+            0
+          ],
+          [
+            12558,
+            31,
+            6670,
+            0
+          ],
+          [
+            2303,
+            25,
+            14793,
+            0
+          ],
+          [
+            32,
+            3,
+            14794,
+            0
+          ]
+        ]
+      },
+      "lookup_labels": [
+        "positive_mass",
+        "zero_mass",
+        "missing",
+        "not_applicable"
+      ],
+      "shared": {
+        "observations": 210232,
+        "paired_queries": 420464,
+        "query_inventory_sha256": "9991a6c45ac00bb3c937ab5d13ba61a1d12cff78d3ea20868cae858c4df252b1",
+        "groups": {
+          "0/0": {
+            "origin_arm": 0,
+            "street": 0,
+            "observations": 54196,
+            "models": [
+              {
+                "positive_mass": 50533,
+                "zero_mass": 6,
+                "missing": 3657
+              },
+              {
+                "positive_mass": 50938,
+                "zero_mass": 29,
+                "missing": 3229
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 50519,
+              "missing->positive_mass": 419,
+              "missing->missing": 3229,
+              "zero_mass->zero_mass": 6,
+              "missing->zero_mass": 9,
+              "positive_mass->zero_mass": 14
+            },
+            "sum_probability_tv": 13413.079551320256,
+            "max_probability_tv": 0.9992256988314886,
+            "mean_probability_tv": 0.24749205755628192
+          },
+          "0/1": {
+            "origin_arm": 0,
+            "street": 1,
+            "observations": 19102,
+            "models": [
+              {
+                "positive_mass": 10668,
+                "zero_mass": 24,
+                "missing": 8410
+              },
+              {
+                "positive_mass": 12430,
+                "zero_mass": 27,
+                "missing": 6645
+              }
+            ],
+            "transition_counts": {
+              "missing->missing": 6645,
+              "positive_mass->positive_mass": 10664,
+              "missing->positive_mass": 1749,
+              "missing->zero_mass": 16,
+              "zero_mass->positive_mass": 17,
+              "positive_mass->zero_mass": 4,
+              "zero_mass->zero_mass": 7
+            },
+            "sum_probability_tv": 3803.0988290860937,
+            "max_probability_tv": 0.9894021484924921,
+            "mean_probability_tv": 0.19909427437368304
+          },
+          "0/2": {
+            "origin_arm": 0,
+            "street": 2,
+            "observations": 16914,
+            "models": [
+              {
+                "positive_mass": 1415,
+                "zero_mass": 10,
+                "missing": 15489
+              },
+              {
+                "positive_mass": 2271,
+                "zero_mass": 27,
+                "missing": 14616
+              }
+            ],
+            "transition_counts": {
+              "missing->missing": 14616,
+              "positive_mass->positive_mass": 1405,
+              "missing->positive_mass": 858,
+              "missing->zero_mass": 15,
+              "zero_mass->positive_mass": 8,
+              "zero_mass->zero_mass": 2,
+              "positive_mass->zero_mass": 10
+            },
+            "sum_probability_tv": 369.9623244350806,
+            "max_probability_tv": 0.9469160801124683,
+            "mean_probability_tv": 0.0218731420382571
+          },
+          "0/3": {
+            "origin_arm": 0,
+            "street": 3,
+            "observations": 14686,
+            "models": [
+              {
+                "positive_mass": 30,
+                "zero_mass": 0,
+                "missing": 14656
+              },
+              {
+                "positive_mass": 53,
+                "zero_mass": 1,
+                "missing": 14632
+              }
+            ],
+            "transition_counts": {
+              "missing->missing": 14632,
+              "missing->positive_mass": 23,
+              "positive_mass->positive_mass": 30,
+              "missing->zero_mass": 1
+            },
+            "sum_probability_tv": 2.6666666666666665,
+            "max_probability_tv": 0.6666666666666666,
+            "mean_probability_tv": 0.00018157882790866583
+          },
+          "1/0": {
+            "origin_arm": 1,
+            "street": 0,
+            "observations": 54125,
+            "models": [
+              {
+                "positive_mass": 50522,
+                "zero_mass": 17,
+                "missing": 3586
+              },
+              {
+                "positive_mass": 50941,
+                "zero_mass": 18,
+                "missing": 3166
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 50519,
+              "missing->missing": 3166,
+              "missing->positive_mass": 416,
+              "zero_mass->positive_mass": 6,
+              "zero_mass->zero_mass": 11,
+              "missing->zero_mass": 4,
+              "positive_mass->zero_mass": 3
+            },
+            "sum_probability_tv": 13419.297545385414,
+            "max_probability_tv": 1.0,
+            "mean_probability_tv": 0.2479315943720169
+          },
+          "1/1": {
+            "origin_arm": 1,
+            "street": 1,
+            "observations": 19259,
+            "models": [
+              {
+                "positive_mass": 10698,
+                "zero_mass": 21,
+                "missing": 8540
+              },
+              {
+                "positive_mass": 12558,
+                "zero_mass": 31,
+                "missing": 6670
+              }
+            ],
+            "transition_counts": {
+              "missing->missing": 6670,
+              "positive_mass->positive_mass": 10697,
+              "missing->positive_mass": 1847,
+              "positive_mass->zero_mass": 1,
+              "missing->zero_mass": 23,
+              "zero_mass->zero_mass": 7,
+              "zero_mass->positive_mass": 14
+            },
+            "sum_probability_tv": 3880.8954866754975,
+            "max_probability_tv": 0.9894021484924921,
+            "mean_probability_tv": 0.2015107475297522
+          },
+          "1/2": {
+            "origin_arm": 1,
+            "street": 2,
+            "observations": 17121,
+            "models": [
+              {
+                "positive_mass": 1435,
+                "zero_mass": 14,
+                "missing": 15672
+              },
+              {
+                "positive_mass": 2303,
+                "zero_mass": 25,
+                "missing": 14793
+              }
+            ],
+            "transition_counts": {
+              "missing->missing": 14793,
+              "positive_mass->positive_mass": 1428,
+              "missing->positive_mass": 864,
+              "zero_mass->positive_mass": 11,
+              "missing->zero_mass": 15,
+              "zero_mass->zero_mass": 3,
+              "positive_mass->zero_mass": 7
+            },
+            "sum_probability_tv": 396.6512405009638,
+            "max_probability_tv": 0.9469160801124683,
+            "mean_probability_tv": 0.023167527626947248
+          },
+          "1/3": {
+            "origin_arm": 1,
+            "street": 3,
+            "observations": 14829,
+            "models": [
+              {
+                "positive_mass": 18,
+                "zero_mass": 1,
+                "missing": 14810
+              },
+              {
+                "positive_mass": 32,
+                "zero_mass": 3,
+                "missing": 14794
+              }
+            ],
+            "transition_counts": {
+              "missing->missing": 14794,
+              "missing->positive_mass": 14,
+              "positive_mass->positive_mass": 18,
+              "missing->zero_mass": 2,
+              "zero_mass->zero_mass": 1
+            },
+            "sum_probability_tv": 2.0,
+            "max_probability_tv": 0.6666666666666666,
+            "mean_probability_tv": 0.00013487086115044844
+          }
+        },
+        "pooled_by_street": {
+          "0": {
+            "observations": 108321,
+            "models": [
+              {
+                "positive_mass": 101055,
+                "zero_mass": 23,
+                "missing": 7243
+              },
+              {
+                "positive_mass": 101879,
+                "zero_mass": 47,
+                "missing": 6395
+              }
+            ]
+          },
+          "1": {
+            "observations": 38361,
+            "models": [
+              {
+                "positive_mass": 21366,
+                "zero_mass": 45,
+                "missing": 16950
+              },
+              {
+                "positive_mass": 24988,
+                "zero_mass": 58,
+                "missing": 13315
+              }
+            ]
+          },
+          "2": {
+            "observations": 34035,
+            "models": [
+              {
+                "positive_mass": 2850,
+                "zero_mass": 24,
+                "missing": 31161
+              },
+              {
+                "positive_mass": 4574,
+                "zero_mass": 52,
+                "missing": 29409
+              }
+            ]
+          },
+          "3": {
+            "observations": 29515,
+            "models": [
+              {
+                "positive_mass": 48,
+                "zero_mass": 1,
+                "missing": 29466
+              },
+              {
+                "positive_mass": 85,
+                "zero_mass": 4,
+                "missing": 29426
+              }
+            ]
+          }
+        },
+        "weighting": "Every focal-decision occurrence from both arms equally weighted; each source-arm stratum retained; no key dedup, no return/action/status filtering; repeat is proof only."
+      },
+      "tails": {
+        "top10_squared_deviation_share": 0.05275794221714687,
+        "largest_positive": [
+          {
+            "block": 1032,
+            "value_bb100": 8116.666666666667
+          },
+          {
+            "block": 3894,
+            "value_bb100": 7700.0
+          },
+          {
+            "block": 720,
+            "value_bb100": 6358.333333333333
+          },
+          {
+            "block": 2709,
+            "value_bb100": 6050.0
+          },
+          {
+            "block": 1222,
+            "value_bb100": 5966.666666666667
+          }
+        ],
+        "largest_negative": [
+          {
+            "block": 931,
+            "value_bb100": -7987.5
+          },
+          {
+            "block": 959,
+            "value_bb100": -7454.166666666667
+          },
+          {
+            "block": 3801,
+            "value_bb100": -6862.5
+          },
+          {
+            "block": 546,
+            "value_bb100": -6712.5
+          },
+          {
+            "block": 497,
+            "value_bb100": -6550.0
+          }
+        ],
+        "no_exclusions": true
+      },
+      "root": 20261024650006,
+      "blocks": 4096,
+      "hands_per_arm": 49152
+    },
+    "random-tight": {
+      "strength": {
+        "field": "random-tight",
+        "mean_bb100": -15.852864583333332,
+        "standard_error_bb100": 11.536072414800897,
+        "lower95_bb100": -38.4698359345668,
+        "upper95_bb100": 6.7641067679001345,
+        "lower_family95_bb100": -44.67931428150878,
+        "margin_bb100": -5,
+        "passed": false
+      },
+      "absolute": {
+        "control": {
+          "mean_bb100": 125.56864420572917,
+          "standard_error_bb100": 12.323447787821225,
+          "lower95_bb100": 101.40798921469646,
+          "upper95_bb100": 149.72929919676187
+        },
+        "candidate": {
+          "mean_bb100": 109.71577962239583,
+          "standard_error_bb100": 12.274449914180764,
+          "lower95_bb100": 85.65118709218608,
+          "upper95_bb100": 133.78037215260557
+        }
+      },
+      "by_seat": [
+        {
+          "mean_bb100": 23.6907958984375,
+          "standard_error_bb100": 27.075870515337385,
+          "lower95_bb100": -29.392625021269133,
+          "upper95_bb100": 76.77421681814414
+        },
+        {
+          "mean_bb100": -48.7091064453125,
+          "standard_error_bb100": 28.369855944371103,
+          "lower95_bb100": -104.32944203797321,
+          "upper95_bb100": 6.911229147348209
+        },
+        {
+          "mean_bb100": 18.3685302734375,
+          "standard_error_bb100": 28.149325406229448,
+          "lower95_bb100": -36.819445614474596,
+          "upper95_bb100": 73.5565061613496
+        },
+        {
+          "mean_bb100": 3.704833984375,
+          "standard_error_bb100": 28.81548893610172,
+          "lower95_bb100": -52.78918445672245,
+          "upper95_bb100": 60.19885242547245
+        },
+        {
+          "mean_bb100": -68.914794921875,
+          "standard_error_bb100": 29.18863221560509,
+          "lower95_bb100": -126.14037698003204,
+          "upper95_bb100": -11.689212863717962
+        },
+        {
+          "mean_bb100": -23.2574462890625,
+          "standard_error_bb100": 29.288644072980137,
+          "lower95_bb100": -80.67910594032938,
+          "upper95_bb100": 34.164213362204386
+        }
+      ],
+      "by_position": [
+        {
+          "mean_bb100": -11.9140625,
+          "standard_error_bb100": 28.002398985824666,
+          "lower95_bb100": -66.81398275497668,
+          "upper95_bb100": 42.985857754976685
+        },
+        {
+          "mean_bb100": -40.0970458984375,
+          "standard_error_bb100": 29.582597960160594,
+          "lower95_bb100": -98.09501492137704,
+          "upper95_bb100": 17.900923124502036
+        },
+        {
+          "mean_bb100": -94.3267822265625,
+          "standard_error_bb100": 35.01622204236585,
+          "lower95_bb100": -162.97760741941795,
+          "upper95_bb100": -25.67595703370705
+        },
+        {
+          "mean_bb100": -16.241455078125,
+          "standard_error_bb100": 25.828706391761504,
+          "lower95_bb100": -66.87975652918024,
+          "upper95_bb100": 34.39684637293024
+        },
+        {
+          "mean_bb100": 59.0728759765625,
+          "standard_error_bb100": 25.40004879122282,
+          "lower95_bb100": 9.27497638172595,
+          "upper95_bb100": 108.87077557139905
+        },
+        {
+          "mean_bb100": 8.3892822265625,
+          "standard_error_bb100": 25.910321174726274,
+          "lower95_bb100": -42.409028553645626,
+          "upper95_bb100": 59.187593006770626
+        }
+      ],
+      "on_policy_focal_lookup_counts": {
+        "control": [
+          [
+            55172,
+            0,
+            626,
+            0
+          ],
+          [
+            12928,
+            3,
+            583,
+            0
+          ],
+          [
+            5606,
+            1,
+            797,
+            0
+          ],
+          [
+            2277,
+            3,
+            859,
+            0
+          ]
+        ],
+        "candidate": [
+          [
+            55456,
+            0,
+            406,
+            0
+          ],
+          [
+            13448,
+            4,
+            330,
+            0
+          ],
+          [
+            6357,
+            9,
+            480,
+            0
+          ],
+          [
+            2786,
+            10,
+            533,
+            0
+          ]
+        ]
+      },
+      "lookup_labels": [
+        "positive_mass",
+        "zero_mass",
+        "missing",
+        "not_applicable"
+      ],
+      "shared": {
+        "observations": 158674,
+        "paired_queries": 317348,
+        "query_inventory_sha256": "fd3277e7804e4d541b2443cec3b4457f5e9b1699d9a8995a8c65909e947aa1cf",
+        "groups": {
+          "0/0": {
+            "origin_arm": 0,
+            "street": 0,
+            "observations": 55798,
+            "models": [
+              {
+                "positive_mass": 55172,
+                "zero_mass": 0,
+                "missing": 626
+              },
+              {
+                "positive_mass": 55376,
+                "zero_mass": 46,
+                "missing": 376
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 55143,
+              "positive_mass->zero_mass": 29,
+              "missing->positive_mass": 233,
+              "missing->missing": 376,
+              "missing->zero_mass": 17
+            },
+            "sum_probability_tv": 11147.650550806917,
+            "max_probability_tv": 0.9999838118428891,
+            "mean_probability_tv": 0.19978584448917375
+          },
+          "1/0": {
+            "origin_arm": 1,
+            "street": 0,
+            "observations": 55862,
+            "models": [
+              {
+                "positive_mass": 55060,
+                "zero_mass": 57,
+                "missing": 745
+              },
+              {
+                "positive_mass": 55456,
+                "zero_mass": 0,
+                "missing": 406
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 55060,
+              "missing->positive_mass": 339,
+              "missing->missing": 406,
+              "zero_mass->positive_mass": 57
+            },
+            "sum_probability_tv": 11206.515872521644,
+            "max_probability_tv": 1.0,
+            "mean_probability_tv": 0.20061071699047017
+          },
+          "0/1": {
+            "origin_arm": 0,
+            "street": 1,
+            "observations": 13514,
+            "models": [
+              {
+                "positive_mass": 12928,
+                "zero_mass": 3,
+                "missing": 583
+              },
+              {
+                "positive_mass": 13152,
+                "zero_mass": 31,
+                "missing": 331
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 12910,
+              "missing->positive_mass": 240,
+              "missing->missing": 331,
+              "missing->zero_mass": 12,
+              "positive_mass->zero_mass": 18,
+              "zero_mass->positive_mass": 2,
+              "zero_mass->zero_mass": 1
+            },
+            "sum_probability_tv": 4340.421854932969,
+            "max_probability_tv": 1.0,
+            "mean_probability_tv": 0.321179654797467
+          },
+          "1/1": {
+            "origin_arm": 1,
+            "street": 1,
+            "observations": 13782,
+            "models": [
+              {
+                "positive_mass": 13146,
+                "zero_mass": 30,
+                "missing": 606
+              },
+              {
+                "positive_mass": 13448,
+                "zero_mass": 4,
+                "missing": 330
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 13145,
+              "missing->positive_mass": 274,
+              "missing->missing": 330,
+              "zero_mass->positive_mass": 29,
+              "missing->zero_mass": 2,
+              "zero_mass->zero_mass": 1,
+              "positive_mass->zero_mass": 1
+            },
+            "sum_probability_tv": 4402.646997419019,
+            "max_probability_tv": 1.0,
+            "mean_probability_tv": 0.3194490638092453
+          },
+          "0/2": {
+            "origin_arm": 0,
+            "street": 2,
+            "observations": 6404,
+            "models": [
+              {
+                "positive_mass": 5606,
+                "zero_mass": 1,
+                "missing": 797
+              },
+              {
+                "positive_mass": 5895,
+                "zero_mass": 35,
+                "missing": 474
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 5584,
+              "missing->missing": 474,
+              "missing->positive_mass": 310,
+              "positive_mass->zero_mass": 22,
+              "missing->zero_mass": 13,
+              "zero_mass->positive_mass": 1
+            },
+            "sum_probability_tv": 2055.164791418407,
+            "max_probability_tv": 1.0,
+            "mean_probability_tv": 0.32091892433141894
+          },
+          "0/3": {
+            "origin_arm": 0,
+            "street": 3,
+            "observations": 3139,
+            "models": [
+              {
+                "positive_mass": 2277,
+                "zero_mass": 3,
+                "missing": 859
+              },
+              {
+                "positive_mass": 2598,
+                "zero_mass": 27,
+                "missing": 514
+              }
+            ],
+            "transition_counts": {
+              "missing->positive_mass": 330,
+              "positive_mass->positive_mass": 2266,
+              "missing->missing": 514,
+              "missing->zero_mass": 15,
+              "positive_mass->zero_mass": 11,
+              "zero_mass->positive_mass": 2,
+              "zero_mass->zero_mass": 1
+            },
+            "sum_probability_tv": 848.0389956037146,
+            "max_probability_tv": 0.9999999999999999,
+            "mean_probability_tv": 0.27016215215154976
+          },
+          "1/2": {
+            "origin_arm": 1,
+            "street": 2,
+            "observations": 6846,
+            "models": [
+              {
+                "positive_mass": 5928,
+                "zero_mass": 32,
+                "missing": 886
+              },
+              {
+                "positive_mass": 6357,
+                "zero_mass": 9,
+                "missing": 480
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 5927,
+              "zero_mass->positive_mass": 28,
+              "missing->missing": 480,
+              "missing->positive_mass": 402,
+              "missing->zero_mass": 4,
+              "positive_mass->zero_mass": 1,
+              "zero_mass->zero_mass": 4
+            },
+            "sum_probability_tv": 2208.3821531981507,
+            "max_probability_tv": 1.0,
+            "mean_probability_tv": 0.3225799230496861
+          },
+          "1/3": {
+            "origin_arm": 1,
+            "street": 3,
+            "observations": 3329,
+            "models": [
+              {
+                "positive_mass": 2347,
+                "zero_mass": 29,
+                "missing": 953
+              },
+              {
+                "positive_mass": 2786,
+                "zero_mass": 10,
+                "missing": 533
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 2346,
+              "missing->positive_mass": 414,
+              "missing->missing": 533,
+              "zero_mass->positive_mass": 26,
+              "zero_mass->zero_mass": 3,
+              "missing->zero_mass": 6,
+              "positive_mass->zero_mass": 1
+            },
+            "sum_probability_tv": 963.4166095943243,
+            "max_probability_tv": 1.0,
+            "mean_probability_tv": 0.2894012044440746
+          }
+        },
+        "pooled_by_street": {
+          "0": {
+            "observations": 111660,
+            "models": [
+              {
+                "positive_mass": 110232,
+                "zero_mass": 57,
+                "missing": 1371
+              },
+              {
+                "positive_mass": 110832,
+                "zero_mass": 46,
+                "missing": 782
+              }
+            ]
+          },
+          "1": {
+            "observations": 27296,
+            "models": [
+              {
+                "positive_mass": 26074,
+                "zero_mass": 33,
+                "missing": 1189
+              },
+              {
+                "positive_mass": 26600,
+                "zero_mass": 35,
+                "missing": 661
+              }
+            ]
+          },
+          "2": {
+            "observations": 13250,
+            "models": [
+              {
+                "positive_mass": 11534,
+                "zero_mass": 33,
+                "missing": 1683
+              },
+              {
+                "positive_mass": 12252,
+                "zero_mass": 44,
+                "missing": 954
+              }
+            ]
+          },
+          "3": {
+            "observations": 6468,
+            "models": [
+              {
+                "positive_mass": 4624,
+                "zero_mass": 32,
+                "missing": 1812
+              },
+              {
+                "positive_mass": 5384,
+                "zero_mass": 37,
+                "missing": 1047
+              }
+            ]
+          }
+        },
+        "weighting": "Every focal-decision occurrence from both arms equally weighted; each source-arm stratum retained; no key dedup, no return/action/status filtering; repeat is proof only."
+      },
+      "tails": {
+        "top10_squared_deviation_share": 0.11574136230444125,
+        "largest_positive": [
+          {
+            "block": 1355,
+            "value_bb100": 6654.166666666667
+          },
+          {
+            "block": 1837,
+            "value_bb100": 4616.666666666667
+          },
+          {
+            "block": 1444,
+            "value_bb100": 3975.0
+          },
+          {
+            "block": 1137,
+            "value_bb100": 3808.3333333333335
+          },
+          {
+            "block": 3623,
+            "value_bb100": 3808.3333333333335
+          }
+        ],
+        "largest_negative": [
+          {
+            "block": 1727,
+            "value_bb100": -7900.0
+          },
+          {
+            "block": 478,
+            "value_bb100": -5462.5
+          },
+          {
+            "block": 3896,
+            "value_bb100": -4758.333333333333
+          },
+          {
+            "block": 757,
+            "value_bb100": -4091.6666666666665
+          },
+          {
+            "block": 40,
+            "value_bb100": -3991.6666666666665
+          }
+        ],
+        "no_exclusions": true
+      },
+      "root": 20261024650007,
+      "blocks": 4096,
+      "hands_per_arm": 49152
+    },
+    "trained-call-pressure": {
+      "strength": {
+        "field": "trained-call-pressure",
+        "mean_bb100": 15.115091959635416,
+        "standard_error_bb100": 24.757080560759125,
+        "lower95_bb100": -33.42224047462289,
+        "upper95_bb100": 63.65242439389372,
+        "lower_family95_bb100": -46.74814119264341,
+        "margin_bb100": -5,
+        "passed": false
+      },
+      "absolute": {
+        "control": {
+          "mean_bb100": 63.907002766927086,
+          "standard_error_bb100": 28.293684997940233,
+          "lower95_bb100": 8.436003625293942,
+          "upper95_bb100": 119.37800190856024
+        },
+        "candidate": {
+          "mean_bb100": 79.0220947265625,
+          "standard_error_bb100": 28.673452746960606,
+          "lower95_bb100": 22.80654440746828,
+          "upper95_bb100": 135.23764504565673
+        }
+      },
+      "by_seat": [
+        {
+          "mean_bb100": -41.9454345703125,
+          "standard_error_bb100": 62.65441125410914,
+          "lower95_bb100": -164.78213092673383,
+          "upper95_bb100": 80.89126178610884
+        },
+        {
+          "mean_bb100": 63.563232421875,
+          "standard_error_bb100": 57.75689868082886,
+          "lower95_bb100": -49.67167767841373,
+          "upper95_bb100": 176.79814252216374
+        },
+        {
+          "mean_bb100": 9.40185546875,
+          "standard_error_bb100": 60.06364041354812,
+          "lower95_bb100": -108.35552205439139,
+          "upper95_bb100": 127.15923299189139
+        },
+        {
+          "mean_bb100": -35.132080078125,
+          "standard_error_bb100": 59.690326622087206,
+          "lower95_bb100": -152.15755968810322,
+          "upper95_bb100": 81.89339953185322
+        },
+        {
+          "mean_bb100": -17.904541015625,
+          "standard_error_bb100": 58.759758246417405,
+          "lower95_bb100": -133.10560088064005,
+          "upper95_bb100": 97.29651884939005
+        },
+        {
+          "mean_bb100": 112.70751953125,
+          "standard_error_bb100": 61.02146422396222,
+          "lower95_bb100": -6.927713201249375,
+          "upper95_bb100": 232.3427522637494
+        }
+      ],
+      "by_position": [
+        {
+          "mean_bb100": -38.5194091796875,
+          "standard_error_bb100": 59.135861764884865,
+          "lower95_bb100": -154.45783633890946,
+          "upper95_bb100": 77.41901797953446
+        },
+        {
+          "mean_bb100": 43.4869384765625,
+          "standard_error_bb100": 77.72041225107961,
+          "lower95_bb100": -108.8873076345703,
+          "upper95_bb100": 195.8611845876953
+        },
+        {
+          "mean_bb100": 93.3599853515625,
+          "standard_error_bb100": 75.16650935487773,
+          "lower95_bb100": -54.00722313356499,
+          "upper95_bb100": 240.72719383669
+        },
+        {
+          "mean_bb100": -75.460205078125,
+          "standard_error_bb100": 50.08348027580477,
+          "lower95_bb100": -173.65104489243043,
+          "upper95_bb100": 22.73063473618045
+        },
+        {
+          "mean_bb100": 56.1513671875,
+          "standard_error_bb100": 43.05488674404748,
+          "lower95_bb100": -28.259609530309532,
+          "upper95_bb100": 140.56234390530955
+        },
+        {
+          "mean_bb100": 11.671875,
+          "standard_error_bb100": 45.37088397636905,
+          "lower95_bb100": -77.27971494989603,
+          "upper95_bb100": 100.62346494989603
+        }
+      ],
+      "on_policy_focal_lookup_counts": {
+        "control": [
+          [
+            52556,
+            3,
+            5206,
+            0
+          ],
+          [
+            10096,
+            17,
+            6748,
+            0
+          ],
+          [
+            3869,
+            6,
+            8495,
+            0
+          ],
+          [
+            716,
+            5,
+            9085,
+            0
+          ]
+        ],
+        "candidate": [
+          [
+            53433,
+            15,
+            4483,
+            0
+          ],
+          [
+            11236,
+            25,
+            5754,
+            0
+          ],
+          [
+            5183,
+            15,
+            7429,
+            0
+          ],
+          [
+            1534,
+            13,
+            8418,
+            0
+          ]
+        ]
+      },
+      "lookup_labels": [
+        "positive_mass",
+        "zero_mass",
+        "missing",
+        "not_applicable"
+      ],
+      "shared": {
+        "observations": 194340,
+        "paired_queries": 388680,
+        "query_inventory_sha256": "f89f9517e7232205165031a0d55ac1e7e71149276ba8411ac00a59ebe4c6aba7",
+        "groups": {
+          "0/0": {
+            "origin_arm": 0,
+            "street": 0,
+            "observations": 57765,
+            "models": [
+              {
+                "positive_mass": 52556,
+                "zero_mass": 3,
+                "missing": 5206
+              },
+              {
+                "positive_mass": 53324,
+                "zero_mass": 53,
+                "missing": 4388
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 52532,
+              "missing->missing": 4388,
+              "missing->positive_mass": 789,
+              "positive_mass->zero_mass": 24,
+              "missing->zero_mass": 29,
+              "zero_mass->positive_mass": 3
+            },
+            "sum_probability_tv": 12982.4215491158,
+            "max_probability_tv": 1.0,
+            "mean_probability_tv": 0.2247454609039349
+          },
+          "1/0": {
+            "origin_arm": 1,
+            "street": 0,
+            "observations": 57931,
+            "models": [
+              {
+                "positive_mass": 52539,
+                "zero_mass": 26,
+                "missing": 5366
+              },
+              {
+                "positive_mass": 53433,
+                "zero_mass": 15,
+                "missing": 4483
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 52538,
+              "missing->missing": 4483,
+              "missing->positive_mass": 874,
+              "zero_mass->positive_mass": 21,
+              "zero_mass->zero_mass": 5,
+              "missing->zero_mass": 9,
+              "positive_mass->zero_mass": 1
+            },
+            "sum_probability_tv": 13023.238480246464,
+            "max_probability_tv": 1.0,
+            "mean_probability_tv": 0.22480603615070452
+          },
+          "0/1": {
+            "origin_arm": 0,
+            "street": 1,
+            "observations": 16861,
+            "models": [
+              {
+                "positive_mass": 10096,
+                "zero_mass": 17,
+                "missing": 6748
+              },
+              {
+                "positive_mass": 11153,
+                "zero_mass": 24,
+                "missing": 5684
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 10090,
+              "missing->missing": 5684,
+              "missing->positive_mass": 1056,
+              "missing->zero_mass": 8,
+              "zero_mass->zero_mass": 10,
+              "zero_mass->positive_mass": 7,
+              "positive_mass->zero_mass": 6
+            },
+            "sum_probability_tv": 3722.976645878695,
+            "max_probability_tv": 0.9951541168995761,
+            "mean_probability_tv": 0.22080402383480782
+          },
+          "0/2": {
+            "origin_arm": 0,
+            "street": 2,
+            "observations": 12370,
+            "models": [
+              {
+                "positive_mass": 3869,
+                "zero_mass": 6,
+                "missing": 8495
+              },
+              {
+                "positive_mass": 5046,
+                "zero_mass": 16,
+                "missing": 7308
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 3864,
+              "missing->missing": 7308,
+              "missing->positive_mass": 1180,
+              "zero_mass->zero_mass": 4,
+              "zero_mass->positive_mass": 2,
+              "positive_mass->zero_mass": 5,
+              "missing->zero_mass": 7
+            },
+            "sum_probability_tv": 1665.9382121071076,
+            "max_probability_tv": 0.9992958284718277,
+            "mean_probability_tv": 0.13467568408303213
+          },
+          "0/3": {
+            "origin_arm": 0,
+            "street": 3,
+            "observations": 9806,
+            "models": [
+              {
+                "positive_mass": 716,
+                "zero_mass": 5,
+                "missing": 9085
+              },
+              {
+                "positive_mass": 1557,
+                "zero_mass": 12,
+                "missing": 8237
+              }
+            ],
+            "transition_counts": {
+              "missing->missing": 8237,
+              "missing->positive_mass": 846,
+              "positive_mass->positive_mass": 710,
+              "zero_mass->zero_mass": 4,
+              "missing->zero_mass": 2,
+              "positive_mass->zero_mass": 6,
+              "zero_mass->positive_mass": 1
+            },
+            "sum_probability_tv": 475.9504002788644,
+            "max_probability_tv": 1.0,
+            "mean_probability_tv": 0.04853665105841978
+          },
+          "1/1": {
+            "origin_arm": 1,
+            "street": 1,
+            "observations": 17015,
+            "models": [
+              {
+                "positive_mass": 10170,
+                "zero_mass": 16,
+                "missing": 6829
+              },
+              {
+                "positive_mass": 11236,
+                "zero_mass": 25,
+                "missing": 5754
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 10167,
+              "missing->missing": 5754,
+              "missing->positive_mass": 1064,
+              "missing->zero_mass": 11,
+              "zero_mass->zero_mass": 11,
+              "positive_mass->zero_mass": 3,
+              "zero_mass->positive_mass": 5
+            },
+            "sum_probability_tv": 3682.227475853056,
+            "max_probability_tv": 0.9962233338507758,
+            "mean_probability_tv": 0.21641066563932154
+          },
+          "1/2": {
+            "origin_arm": 1,
+            "street": 2,
+            "observations": 12627,
+            "models": [
+              {
+                "positive_mass": 3997,
+                "zero_mass": 9,
+                "missing": 8621
+              },
+              {
+                "positive_mass": 5183,
+                "zero_mass": 15,
+                "missing": 7429
+              }
+            ],
+            "transition_counts": {
+              "positive_mass->positive_mass": 3995,
+              "missing->positive_mass": 1184,
+              "missing->missing": 7429,
+              "positive_mass->zero_mass": 2,
+              "zero_mass->positive_mass": 4,
+              "missing->zero_mass": 8,
+              "zero_mass->zero_mass": 5
+            },
+            "sum_probability_tv": 1699.787771508427,
+            "max_probability_tv": 0.9968219593406309,
+            "mean_probability_tv": 0.13461532996819728
+          },
+          "1/3": {
+            "origin_arm": 1,
+            "street": 3,
+            "observations": 9965,
+            "models": [
+              {
+                "positive_mass": 700,
+                "zero_mass": 11,
+                "missing": 9254
+              },
+              {
+                "positive_mass": 1534,
+                "zero_mass": 13,
+                "missing": 8418
+              }
+            ],
+            "transition_counts": {
+              "missing->missing": 8418,
+              "missing->positive_mass": 831,
+              "positive_mass->positive_mass": 698,
+              "zero_mass->zero_mass": 6,
+              "positive_mass->zero_mass": 2,
+              "missing->zero_mass": 5,
+              "zero_mass->positive_mass": 5
+            },
+            "sum_probability_tv": 463.84781309677726,
+            "max_probability_tv": 0.9703343320092027,
+            "mean_probability_tv": 0.0465476982535652
+          }
+        },
+        "pooled_by_street": {
+          "0": {
+            "observations": 115696,
+            "models": [
+              {
+                "positive_mass": 105095,
+                "zero_mass": 29,
+                "missing": 10572
+              },
+              {
+                "positive_mass": 106757,
+                "zero_mass": 68,
+                "missing": 8871
+              }
+            ]
+          },
+          "1": {
+            "observations": 33876,
+            "models": [
+              {
+                "positive_mass": 20266,
+                "zero_mass": 33,
+                "missing": 13577
+              },
+              {
+                "positive_mass": 22389,
+                "zero_mass": 49,
+                "missing": 11438
+              }
+            ]
+          },
+          "2": {
+            "observations": 24997,
+            "models": [
+              {
+                "positive_mass": 7866,
+                "zero_mass": 15,
+                "missing": 17116
+              },
+              {
+                "positive_mass": 10229,
+                "zero_mass": 31,
+                "missing": 14737
+              }
+            ]
+          },
+          "3": {
+            "observations": 19771,
+            "models": [
+              {
+                "positive_mass": 1416,
+                "zero_mass": 16,
+                "missing": 18339
+              },
+              {
+                "positive_mass": 3091,
+                "zero_mass": 25,
+                "missing": 16655
+              }
+            ]
+          }
+        },
+        "weighting": "Every focal-decision occurrence from both arms equally weighted; each source-arm stratum retained; no key dedup, no return/action/status filtering; repeat is proof only."
+      },
+      "tails": {
+        "top10_squared_deviation_share": 0.06017342322547537,
+        "largest_positive": [
+          {
+            "block": 2527,
+            "value_bb100": 8854.166666666666
+          },
+          {
+            "block": 1114,
+            "value_bb100": 8420.833333333334
+          },
+          {
+            "block": 2865,
+            "value_bb100": 7645.833333333333
+          },
+          {
+            "block": 2918,
+            "value_bb100": 7312.5
+          },
+          {
+            "block": 2407,
+            "value_bb100": 6920.833333333333
+          }
+        ],
+        "largest_negative": [
+          {
+            "block": 2148,
+            "value_bb100": -9229.166666666666
+          },
+          {
+            "block": 167,
+            "value_bb100": -8445.833333333334
+          },
+          {
+            "block": 3957,
+            "value_bb100": -7675.0
+          },
+          {
+            "block": 3664,
+            "value_bb100": -6879.166666666667
+          },
+          {
+            "block": 2599,
+            "value_bb100": -6604.166666666667
+          }
+        ],
+        "no_exclusions": true
+      },
+      "root": 20261024650008,
+      "blocks": 4096,
+      "hands_per_arm": 49152
+    }
+  },
+  "costs": {
+    "start_utc": "2026-10-24T11:18:41.377405+00:00",
+    "end_utc": "2026-10-24T13:27:33.314849+00:00",
+    "complete_wall_seconds": 7731.937444448471,
+    "measured_stage_wall_seconds": 7538.01410306606,
+    "controller_other_wall_seconds": 193.9233413824113,
+    "stage_cpu_seconds": 41350.93864199999,
+    "active_training_seconds": 1936.591976644,
+    "checkpoint_save_seconds": 285.055842077,
+    "arena_model_load_seconds": 1205.090136801,
+    "arena_play_seconds": 45.848469603,
+    "groups": {
+      "training_including_save": {
+        "wall_seconds": 2290.457161716069,
+        "cpu_seconds": 28945.627622
+      },
+      "export": {
+        "wall_seconds": 834.5247673889389,
+        "cpu_seconds": 3142.062331
+      },
+      "row_audit": {
+        "wall_seconds": 809.727275968995,
+        "cpu_seconds": 5465.2465040000025
+      },
+      "binary_conversion": {
+        "wall_seconds": 643.607794806012,
+        "cpu_seconds": 643.8007030000007
+      },
+      "binary_audit": {
+        "wall_seconds": 627.402400615043,
+        "cpu_seconds": 628.3290620000005
+      },
+      "arena_initial_and_repeat": {
+        "wall_seconds": 1295.3493089689873,
+        "cpu_seconds": 1524.420054000002
+      },
+      "independent_replay": {
+        "wall_seconds": 365.1208050578134,
+        "cpu_seconds": 347.20489299999326
+      },
+      "paired_summaries": {
+        "wall_seconds": 135.14226069499273,
+        "cpu_seconds": 130.50320699999656
+      },
+      "shared_observation_proofs": {
+        "wall_seconds": 225.93123120220844,
+        "cpu_seconds": 217.3043349999839
+      },
+      "global_readout": {
+        "wall_seconds": 310.75109664699994,
+        "cpu_seconds": 306.439930999999
+      }
+    },
+    "peak_sampled_family_rss_bytes": 58035343360,
+    "maximum_cpu_c": 76.0,
+    "maximum_thermistor15_c": 93.5,
+    "resources_by_phase": {
+      "candidate-train": {
+        "samples": 1131,
+        "peak_rss_bytes": 43630112768,
+        "max_cpu_c": 73.0,
+        "max_thermistor15_c": 93.5
+      },
+      "2026102361001-candidate-export": {
+        "samples": 413,
+        "peak_rss_bytes": 40804237312,
+        "max_cpu_c": 73.0,
+        "max_thermistor15_c": 87.0
+      },
+      "2026102361001-candidate-audit": {
+        "samples": 401,
+        "peak_rss_bytes": 392646656,
+        "max_cpu_c": 76.0,
+        "max_thermistor15_c": 89.5
+      },
+      "2026102361001-candidate-convert": {
+        "samples": 319,
+        "peak_rss_bytes": 4530176,
+        "max_cpu_c": 60.0,
+        "max_thermistor15_c": 77.5
+      },
+      "2026102361001-candidate-binary-audit": {
+        "samples": 311,
+        "peak_rss_bytes": 28309389312,
+        "max_cpu_c": 60.0,
+        "max_thermistor15_c": 62.0
+      },
+      "arena-initial": {
+        "samples": 320,
+        "peak_rss_bytes": 58034814976,
+        "max_cpu_c": 60.0,
+        "max_thermistor15_c": 67.0
+      },
+      "arena-repeat": {
+        "samples": 322,
+        "peak_rss_bytes": 58035343360,
+        "max_cpu_c": 60.0,
+        "max_thermistor15_c": 66.5
+      },
+      "replay-trained-0": {
+        "samples": 10,
+        "peak_rss_bytes": 26660864,
+        "max_cpu_c": 54.0,
+        "max_thermistor15_c": 62.0
+      },
+      "replay-trained-1": {
+        "samples": 10,
+        "peak_rss_bytes": 26755072,
+        "max_cpu_c": 56.0,
+        "max_thermistor15_c": 60.5
+      },
+      "replay-random-0": {
+        "samples": 11,
+        "peak_rss_bytes": 27176960,
+        "max_cpu_c": 55.0,
+        "max_thermistor15_c": 60.0
+      },
+      "replay-random-1": {
+        "samples": 11,
+        "peak_rss_bytes": 26882048,
+        "max_cpu_c": 53.0,
+        "max_thermistor15_c": 60.0
+      },
+      "replay-check-call-0": {
+        "samples": 18,
+        "peak_rss_bytes": 25939968,
+        "max_cpu_c": 54.0,
+        "max_thermistor15_c": 59.5
+      },
+      "replay-check-call-1": {
+        "samples": 19,
+        "peak_rss_bytes": 26394624,
+        "max_cpu_c": 55.0,
+        "max_thermistor15_c": 59.5
+      },
+      "replay-tight-aggressive-0": {
+        "samples": 7,
+        "peak_rss_bytes": 26398720,
+        "max_cpu_c": 56.0,
+        "max_thermistor15_c": 59.5
+      },
+      "replay-tight-aggressive-1": {
+        "samples": 7,
+        "peak_rss_bytes": 26611712,
+        "max_cpu_c": 54.0,
+        "max_thermistor15_c": 58.5
+      },
+      "replay-pot-pressure-0": {
+        "samples": 7,
+        "peak_rss_bytes": 26275840,
+        "max_cpu_c": 56.0,
+        "max_thermistor15_c": 58.5
+      },
+      "replay-pot-pressure-1": {
+        "samples": 7,
+        "peak_rss_bytes": 26275840,
+        "max_cpu_c": 54.0,
+        "max_thermistor15_c": 59.5
+      },
+      "replay-call-pressure-0": {
+        "samples": 15,
+        "peak_rss_bytes": 26202112,
+        "max_cpu_c": 56.0,
+        "max_thermistor15_c": 59.5
+      },
+      "replay-call-pressure-1": {
+        "samples": 15,
+        "peak_rss_bytes": 26607616,
+        "max_cpu_c": 54.0,
+        "max_thermistor15_c": 59.5
+      },
+      "replay-random-tight-0": {
+        "samples": 8,
+        "peak_rss_bytes": 26378240,
+        "max_cpu_c": 54.0,
+        "max_thermistor15_c": 59.5
+      },
+      "replay-random-tight-1": {
+        "samples": 8,
+        "peak_rss_bytes": 26382336,
+        "max_cpu_c": 55.0,
+        "max_thermistor15_c": 59.5
+      },
+      "replay-trained-call-pressure-0": {
+        "samples": 14,
+        "peak_rss_bytes": 26546176,
+        "max_cpu_c": 55.0,
+        "max_thermistor15_c": 59.5
+      },
+      "replay-trained-call-pressure-1": {
+        "samples": 14,
+        "peak_rss_bytes": 26677248,
+        "max_cpu_c": 55.0,
+        "max_thermistor15_c": 59.5
+      },
+      "pair-trained": {
+        "samples": 8,
+        "peak_rss_bytes": 21921792,
+        "max_cpu_c": 56.0,
+        "max_thermistor15_c": 59.0
+      },
+      "shared-trained": {
+        "samples": 13,
+        "peak_rss_bytes": 22155264,
+        "max_cpu_c": 56.0,
+        "max_thermistor15_c": 59.5
+      },
+      "pair-random": {
+        "samples": 8,
+        "peak_rss_bytes": 21925888,
+        "max_cpu_c": 54.0,
+        "max_thermistor15_c": 59.5
+      },
+      "shared-random": {
+        "samples": 13,
+        "peak_rss_bytes": 21733376,
+        "max_cpu_c": 53.0,
+        "max_thermistor15_c": 59.0
+      },
+      "pair-check-call": {
+        "samples": 14,
+        "peak_rss_bytes": 22605824,
+        "max_cpu_c": 55.0,
+        "max_thermistor15_c": 58.5
+      },
+      "shared-check-call": {
+        "samples": 21,
+        "peak_rss_bytes": 24109056,
+        "max_cpu_c": 54.0,
+        "max_thermistor15_c": 59.0
+      },
+      "pair-tight-aggressive": {
+        "samples": 5,
+        "peak_rss_bytes": 21905408,
+        "max_cpu_c": 55.0,
+        "max_thermistor15_c": 58.5
+      },
+      "shared-tight-aggressive": {
+        "samples": 9,
+        "peak_rss_bytes": 22061056,
+        "max_cpu_c": 55.0,
+        "max_thermistor15_c": 58.5
+      },
+      "pair-pot-pressure": {
+        "samples": 5,
+        "peak_rss_bytes": 21782528,
+        "max_cpu_c": 55.0,
+        "max_thermistor15_c": 58.5
+      },
+      "shared-pot-pressure": {
+        "samples": 10,
+        "peak_rss_bytes": 22089728,
+        "max_cpu_c": 53.0,
+        "max_thermistor15_c": 59.0
+      },
+      "pair-call-pressure": {
+        "samples": 11,
+        "peak_rss_bytes": 22482944,
+        "max_cpu_c": 56.0,
+        "max_thermistor15_c": 59.0
+      },
+      "shared-call-pressure": {
+        "samples": 18,
+        "peak_rss_bytes": 23826432,
+        "max_cpu_c": 54.0,
+        "max_thermistor15_c": 59.5
+      },
+      "pair-random-tight": {
+        "samples": 6,
+        "peak_rss_bytes": 21995520,
+        "max_cpu_c": 52.0,
+        "max_thermistor15_c": 58.5
+      },
+      "shared-random-tight": {
+        "samples": 11,
+        "peak_rss_bytes": 22343680,
+        "max_cpu_c": 54.0,
+        "max_thermistor15_c": 59.0
+      },
+      "pair-trained-call-pressure": {
+        "samples": 10,
+        "peak_rss_bytes": 22573056,
+        "max_cpu_c": 55.0,
+        "max_thermistor15_c": 59.0
+      },
+      "shared-trained-call-pressure": {
+        "samples": 17,
+        "peak_rss_bytes": 23760896,
+        "max_cpu_c": 54.0,
+        "max_thermistor15_c": 59.5
+      },
+      "global-readout": {
+        "samples": 154,
+        "peak_rss_bytes": 115556352,
+        "max_cpu_c": 56.0,
+        "max_thermistor15_c": 59.5
+      }
+    },
+    "first_resource": {
+      "phase": "candidate-train",
+      "utc": "2026-10-24T11:18:47Z",
+      "cpu_c": 39.0,
+      "thermistor15_c": 35.5,
+      "worker_family_rss_bytes": 3739648,
+      "live_family_cpu_seconds": 0.01,
+      "available_ram_bytes": 131639910400,
+      "swap_used_bytes": 473051136,
+      "nvme_free_bytes": 106931924992,
+      "hdd_free_bytes": 20664295424
+    },
+    "last_resource": {
+      "phase": "global-readout",
+      "utc": "2026-10-24T13:27:28Z",
+      "cpu_c": 54.0,
+      "thermistor15_c": 59.5,
+      "worker_family_rss_bytes": 115556352,
+      "live_family_cpu_seconds": 304.56,
+      "available_ram_bytes": 129476771840,
+      "swap_used_bytes": 577122304,
+      "nvme_free_bytes": 34711973888,
+      "hdd_free_bytes": 20644872192
+    },
+    "retained_main_allocated_bytes": 72224677888,
+    "top_level_file_bytes": {
+      "config.json": 115460,
+      "2026102361001-candidate.bin": 28305031245,
+      "resources.jsonl": 1155421,
+      "evaluation-verified.json": 1905,
+      "launch.json": 193,
+      "initial-manifest.json": 25758,
+      "2026102361001-candidate-average.gz": 11160642030,
+      "candidate-train.gz.progress.jsonl": 1478503,
+      "stage-costs.json": 30841,
+      "status.json": 145,
+      "results.json": 5407304,
+      "candidate-train.gz": 18716485027,
+      "verified-summary.json": 5392427,
+      "models.json": 9197,
+      "repeat-manifest.json": 25734
+    },
+    "arena_costs": {
+      "initial": {
+        "call-pressure-cost": {
+          "blocks": 4096,
+          "hands_per_arm": 49152,
+          "load_seconds": 5.7566e-05,
+          "play_seconds": 3.531019699,
+          "resident_weight_tables": 2,
+          "status": "passed",
+          "trace_sha256": [
+            "14d8cc03d8dfe62004a2c89793b346413bb0bc09f1465a8c26acb98a31b30a1c",
+            "e1146b21e243d0112c98dd0d3ea71e77cd4155a8ffdc8dcaba1f968d37aad91d"
+          ]
+        },
+        "trained-call-pressure-cost": {
+          "blocks": 4096,
+          "hands_per_arm": 49152,
+          "load_seconds": 117.665731774,
+          "play_seconds": 3.547554519,
+          "resident_weight_tables": 3,
+          "status": "passed",
+          "trace_sha256": [
+            "98edbee7129fba26a29d344ab6ddfea588a64d6313ebbf1ae5914de00ce66269",
+            "0eecd6c894dfeb4f553439f7bba1cd00cc9b714ecd6f37c114f0b3abe4476b61"
+          ]
+        },
+        "check-call-cost": {
+          "blocks": 4096,
+          "hands_per_arm": 49152,
+          "load_seconds": 5.7404e-05,
+          "play_seconds": 4.459827339,
+          "resident_weight_tables": 2,
+          "status": "passed",
+          "trace_sha256": [
+            "83a3d002e0a1d8b5bcc7b71ccf2315f9f4f1464b3a611a9e333c3c1c4c647d33",
+            "0d2d596a737ce2d7af8e6b2831ff482b4fe815ba5958df0f87136e61f0ef7e76"
+          ]
+        },
+        "tight-aggressive-cost": {
+          "blocks": 4096,
+          "hands_per_arm": 49152,
+          "load_seconds": 5.6424e-05,
+          "play_seconds": 1.685049533,
+          "resident_weight_tables": 2,
+          "status": "passed",
+          "trace_sha256": [
+            "ab1c75c7515efb97f1b6e96cb46a00385c41210d817496ff4db44185ff08c10b",
+            "7e1072ad033cd2f1175744ef3c27ce5dd8171487b2012811e0fa989f0b7759d0"
+          ]
+        },
+        "trained-cost": {
+          "blocks": 4096,
+          "hands_per_arm": 49152,
+          "load_seconds": 481.734981413,
+          "play_seconds": 3.185027866,
+          "resident_weight_tables": 3,
+          "status": "passed",
+          "trace_sha256": [
+            "9ec0727fd8d04bd8c92e8ed0f81fdd2678cbd72c41315511c276d83d470e0670",
+            "b97b25da92332a6595fbe432299dbeff8d6713fe40ba2913d56993387c61af4f"
+          ]
+        },
+        "random-tight-cost": {
+          "blocks": 4096,
+          "hands_per_arm": 49152,
+          "load_seconds": 0.000319556,
+          "play_seconds": 2.120603014,
+          "resident_weight_tables": 2,
+          "status": "passed",
+          "trace_sha256": [
+            "c286cd74d7c441961d0d4340b77f41285cefd5d5d9198409420c42a252601d8c",
+            "abb301c77ae990a80253023ff16bfb2dd2150095b3d9f71b7438bc094b0067b3"
+          ]
+        },
+        "random-cost": {
+          "blocks": 4096,
+          "hands_per_arm": 49152,
+          "load_seconds": 0.527455508,
+          "play_seconds": 2.57395505,
+          "resident_weight_tables": 2,
+          "status": "passed",
+          "trace_sha256": [
+            "f693b46557e672c4a568e61c3007c3ec843b7fa0b4adc0419c3b0308af9256bc",
+            "d8402853e460c8798a46d8b8e3c01de21cf86c1becc2dd40119ca9c8cdaa0cab"
+          ]
+        },
+        "pot-pressure-cost": {
+          "blocks": 4096,
+          "hands_per_arm": 49152,
+          "load_seconds": 5.711e-05,
+          "play_seconds": 1.886506683,
+          "resident_weight_tables": 2,
+          "status": "passed",
+          "trace_sha256": [
+            "848b58794fb42ff809a9e31c8a5e678364fd37823798ab82ae1c99df55a6056a",
+            "79944eb7bd631554f1e0d8ef007ebba25a9f1c9aee35ae7717333c9d9e9a8ff1"
+          ]
+        }
+      },
+      "repeat": {
+        "call-pressure-cost": {
+          "blocks": 4096,
+          "hands_per_arm": 49152,
+          "load_seconds": 5.3657e-05,
+          "play_seconds": 3.599465655,
+          "resident_weight_tables": 2,
+          "status": "passed",
+          "trace_sha256": [
+            "14d8cc03d8dfe62004a2c89793b346413bb0bc09f1465a8c26acb98a31b30a1c",
+            "e1146b21e243d0112c98dd0d3ea71e77cd4155a8ffdc8dcaba1f968d37aad91d"
+          ]
+        },
+        "trained-call-pressure-cost": {
+          "blocks": 4096,
+          "hands_per_arm": 49152,
+          "load_seconds": 118.267592365,
+          "play_seconds": 3.500949249,
+          "resident_weight_tables": 3,
+          "status": "passed",
+          "trace_sha256": [
+            "98edbee7129fba26a29d344ab6ddfea588a64d6313ebbf1ae5914de00ce66269",
+            "0eecd6c894dfeb4f553439f7bba1cd00cc9b714ecd6f37c114f0b3abe4476b61"
+          ]
+        },
+        "check-call-cost": {
+          "blocks": 4096,
+          "hands_per_arm": 49152,
+          "load_seconds": 5.3877e-05,
+          "play_seconds": 4.467502897,
+          "resident_weight_tables": 2,
+          "status": "passed",
+          "trace_sha256": [
+            "83a3d002e0a1d8b5bcc7b71ccf2315f9f4f1464b3a611a9e333c3c1c4c647d33",
+            "0d2d596a737ce2d7af8e6b2831ff482b4fe815ba5958df0f87136e61f0ef7e76"
+          ]
+        },
+        "tight-aggressive-cost": {
+          "blocks": 4096,
+          "hands_per_arm": 49152,
+          "load_seconds": 5.6296e-05,
+          "play_seconds": 1.669879259,
+          "resident_weight_tables": 2,
+          "status": "passed",
+          "trace_sha256": [
+            "ab1c75c7515efb97f1b6e96cb46a00385c41210d817496ff4db44185ff08c10b",
+            "7e1072ad033cd2f1175744ef3c27ce5dd8171487b2012811e0fa989f0b7759d0"
+          ]
+        },
+        "trained-cost": {
+          "blocks": 4096,
+          "hands_per_arm": 49152,
+          "load_seconds": 486.367245036,
+          "play_seconds": 2.979260109,
+          "resident_weight_tables": 3,
+          "status": "passed",
+          "trace_sha256": [
+            "9ec0727fd8d04bd8c92e8ed0f81fdd2678cbd72c41315511c276d83d470e0670",
+            "b97b25da92332a6595fbe432299dbeff8d6713fe40ba2913d56993387c61af4f"
+          ]
+        },
+        "random-tight-cost": {
+          "blocks": 4096,
+          "hands_per_arm": 49152,
+          "load_seconds": 5.6482e-05,
+          "play_seconds": 2.181255185,
+          "resident_weight_tables": 2,
+          "status": "passed",
+          "trace_sha256": [
+            "c286cd74d7c441961d0d4340b77f41285cefd5d5d9198409420c42a252601d8c",
+            "abb301c77ae990a80253023ff16bfb2dd2150095b3d9f71b7438bc094b0067b3"
+          ]
+        },
+        "random-cost": {
+          "blocks": 4096,
+          "hands_per_arm": 49152,
+          "load_seconds": 0.52630088,
+          "play_seconds": 2.557971685,
+          "resident_weight_tables": 2,
+          "status": "passed",
+          "trace_sha256": [
+            "f693b46557e672c4a568e61c3007c3ec843b7fa0b4adc0419c3b0308af9256bc",
+            "d8402853e460c8798a46d8b8e3c01de21cf86c1becc2dd40119ca9c8cdaa0cab"
+          ]
+        },
+        "pot-pressure-cost": {
+          "blocks": 4096,
+          "hands_per_arm": 49152,
+          "load_seconds": 6.1453e-05,
+          "play_seconds": 1.902641861,
+          "resident_weight_tables": 2,
+          "status": "passed",
+          "trace_sha256": [
+            "848b58794fb42ff809a9e31c8a5e678364fd37823798ab82ae1c99df55a6056a",
+            "79944eb7bd631554f1e0d8ef007ebba25a9f1c9aee35ae7717333c9d9e9a8ff1"
+          ]
+        }
+      }
+    },
+    "runtime_isolated": false,
+    "concurrent_activity": {
+      "scope": "Owner-authorized backup concurrency; not part of scientific controller and not isolated runtime attribution",
+      "receipt_root": "/research/.storage-receipts/full-HDD-backup-20261024/",
+      "receipt_sha256": {
+        "PR419-concurrent-backup-resource-sample.json": "62ae777a6323f645a966f78bf85b4f5f9512bdc68dd4addebec27c03b35f4c1b",
+        "FIRST-RECEIPT-SCAN-FAILURE.json": "7aecde2c404fbefe3aa8f4d79d8058e0d8b40b7210d540546307335eb742447f"
+      },
+      "science_end_utc": "2026-10-24T13:27:33.314849+00:00",
+      "archive_transfer_window_utc": [
+        "2026-10-24T12:01:31Z",
+        "2026-10-24T12:02:50Z"
+      ],
+      "receipt_scan_overlapped_science": true,
+      "post_science_work_included_in_child_cpu": true,
+      "whole_child_cpu_user_seconds": 219.45,
+      "whole_child_cpu_system_seconds": 81.76,
+      "observed_prior_sample_rss_kib": 7699952,
+      "exact_peak_rss_unavailable": true,
+      "concurrent_only_cpu_unavailable": true,
+      "child_physical_io_unavailable": true,
+      "process_sample": {
+        "epoch": 1792849194.842401,
+        "utc": "2026-10-24T13:39:54Z",
+        "scope": "Point-in-time cumulative resource sample, not isolated-science attribution; own backup processes only",
+        "processes": [
+          {
+            "pid": 931219,
+            "comm": "python3",
+            "state": "T",
+            "ppid": 1,
+            "start_ticks": 66841371,
+            "cpu_user_seconds": 1.03,
+            "cpu_system_seconds": 0.08,
+            "VmRSS": "13368 kB",
+            "VmHWM": "96800 kB",
+            "VmSize": "98240 kB",
+            "io": {
+              "rchar": 255373658,
+              "wchar": 4042664,
+              "syscr": 1051,
+              "syscw": 12,
+              "read_bytes": 239693824,
+              "write_bytes": 4071424,
+              "cancelled_write_bytes": 0
+            },
+            "exit_code_if_zombie": 19
+          },
+          {
+            "pid": 931223,
+            "comm": "python3",
+            "state": "Z",
+            "ppid": 931219,
+            "start_ticks": 66841627,
+            "cpu_user_seconds": 219.45,
+            "cpu_system_seconds": 81.76,
+            "VmRSS": null,
+            "VmHWM": null,
+            "VmSize": null,
+            "io": {
+              "unavailable": "Permission denied reading own child /proc/io; no privilege escalation attempted"
+            },
+            "exit_code_if_zombie": 256
+          }
+        ],
+        "free_bytes": {
+          "/": 34706513920,
+          "/research": 20644872192
+        },
+        "events_path": "/research/.storage-receipts/full-HDD-backup-20261024/events.jsonl",
+        "archive_transfer_window_UTC": [
+          "2026-10-24T12:01:31Z",
+          "2026-10-24T12:02:50Z"
+        ],
+        "receipt_includes_local_member_CRC_then_whole_folder_metadata_walk": true
+      },
+      "backup_failure": {
+        "epoch": 1792849351.2879496,
+        "prior_parent_pid": 931219,
+        "failed_child_pid": 931223,
+        "rc": 1,
+        "reason": "MemoryError in deployed helper whole-folder uncovered scan at 8 GiB virtual cap",
+        "source_and_written_receipt_preserved": true,
+        "deployed_tool_changed": false,
+        "failure_log": "/research/.storage-receipts/full-HDD-backup-20261024/hu200-river-final-tight_aggressive-000000-002047-20261022.zip.attempt1.log",
+        "failure_log_mtime_epoch": 1792849166.5226936,
+        "resource_sample": "/research/.storage-receipts/full-HDD-backup-20261024/PR419-concurrent-backup-resource-sample.json",
+        "replacement": "Existing multi-FILE upload API, all 15 ZIPs, one whole-folder receipt scan, 24 GiB bounded virtual memory after science completed; no automatic repeat on helper failure"
+      },
+      "all_scientific_stages_rc_zero": true,
+      "backup_finalized_jobs": 0,
+      "backup_total_jobs": 15,
+      "new_grouped_backup_pid_after_science": 936533,
+      "no_research_drive_acceptance_claim": true
+    }
+  },
+  "decision": {
+    "passed_gates": 0,
+    "total_gates": 8,
+    "promote_500m": false,
+    "retain_all_models": true,
+    "no_automatic_extension": true,
+    "no_release_acceptance": true,
+    "interpretation": "Larger capacity improves measured support but does not establish trained-field benefit or clear any safeguard. Retain250M/10B control; do not infer equivalence or universal capacity failure."
+  },
+  "archive": {
+    "status": "Owner-managed pending",
+    "research_payload_drive_accepted": false,
+    "originals_retained": true,
+    "ordinary_evidence_root": "/home/dberweger/nplayer-six-player-capacity-20261024",
+    "credentials_excluded": true
+  }
+}

@@ -1,3 +1,29 @@
+## PR419 — six-player capacity completed; 0/8 strength gates passed
+
+[Verified report](docs/reports/nplayer-six-player-capacity/results.md),
+[compact source/model/proof/cost receipt](docs/reports/nplayer-six-player-capacity/results.json),
+[all eight strength panels](docs/reports/nplayer-six-player-capacity/strength.csv),
+[shared-observation coverage](docs/reports/nplayer-six-player-capacity/shared-coverage.csv),
+[concurrent backup cost context](docs/reports/nplayer-six-player-capacity/backup-cost-context.json).
+Main October 24 11:18:41–13:27:33 UTC /13:18–15:27 Madrid, 2h08m52s; all40RC0.
+786,432 initial hands replay independently and reproduce byte-for-byte.
+1,358,468 focal observations, both source arms, are queried against both models.
+Source `2ccf21ac608d9729fecea80583ad3f9ee5f34b64` /884 pins; config
+`2fff4245900b851bedb2625cdf6a2d274e3500e525b39d83291d369374ca1801`;
+raw result `c12ec77d688db05cbdcb1ce64c603d1914169a3cb4ce992e2748e7710057684a`.
+500M/10B versus protected 250M/10B: trained +5.26 ordinary95[−33.70,+44.22],
+all eight prospective gates unpassed. Call-pressure −65.44[−111.97,−18.91].
+Support improves in several fields, but all44,274 shared check-call river
+observations miss for both. No promotion, release acceptance or follow-up.
+
+Retain all originals at `bb128:/home/dberweger/nplayer-six-player-capacity-20261024/`,
+including failed build-v1, successful source/build/qualification-v2, main-v1,
+models, traces and proofs; prior417/shared paths remain protected. Main allocated
+67.26GiB at readout. Owner-managed archive-set packaging/Drive acceptance pending;
+no cache relocation, deletion or research-payload acceptance claimed. Existing
+[qualification](docs/reports/nplayer-six-player-capacity/qualification.md) and
+[launch](docs/reports/nplayer-six-player-capacity/launch.json) preserve prior gates.
+
 ## PR317 — HU200 river search complete; cloud closeout owner-managed
 
 **October22:** the fixed primary run completed October21 at09:14:52Madrid.

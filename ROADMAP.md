@@ -1,5 +1,30 @@
 # Roadmap
 
+## Six-player capacity: support improved, no strength promotion
+
+[PR419](https://github.com/dberweger2017/CFR-NLHE-6max/pull/419),
+[verified results](docs/reports/nplayer-six-player-capacity/results.md).
+Fresh same-seed 500M versus retained 250M/10B control completes October 24
+at 15:27 Madrid in **2h08m52s**. All 40 stages pass; 786,432 initial hands
+independently replay and reproduce, and 1,358,468 shared legal observations
+are queried against both models. No player, menu, search or default changes.
+
+Trained-field delta **+5.26 BB/100 [−33.70,+44.22]** does not establish gain;
+**0/8** predeclared gates pass. Call-pressure is adverse: **−65.44
+[−111.97,−18.91]**, ordinary 95% interval; unpassed safeguards elsewhere do not
+prove losses. Shared trained-field river misses improve **30.11%→20.19%**,
+but all **44,274 check-call river observations miss for both capacities**.
+Keep 250M/10B as control and retain the new model; do not promote 500M or
+infer a universal capacity cure. Use field-dependent support and the separately
+descriptive PR421 trajectory diagnosis to choose a concrete next mechanism.
+No additional nodes, samples, lineages, search or release adoption authorized.
+
+Peak sampled family 54.05 GiB, CPU 76°C /Thermistor15 93.5°C. Actual wall includes
+separately authorized HDD backup concurrency; [receipt limitations](docs/reports/nplayer-six-player-capacity/backup-cost-context.json)
+distinguish its later archival MemoryError from the successful science.
+Ordinary evidence and prior failed qualification remain protected. Cleaner owns
+later verified ZIP sets; research-payload Drive acceptance remains pending.
+
 ## Six-player 100 BB: verified trajectory, support review before scaling
 
 [PR417](https://github.com/dberweger2017/CFR-NLHE-6max/pull/417),
