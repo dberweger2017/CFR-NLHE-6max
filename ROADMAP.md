@@ -61,6 +61,26 @@ released, cleaner notified; final two old average relocations occurred afterward
 Raw research archive/Drive acceptance remains owner-managed pending; originals,
 models, traces, source and proofs retained. Cleanup metadata acceptance is separate.
 
+## Six-player saved trajectory: supported preflop changes dominate
+
+[PR421](https://github.com/dberweger2017/CFR-NLHE-6max/pull/421),
+[verified analysis](docs/reports/nplayer-six-player-trajectory/results.md).
+All 24 saved initial trace hashes /16 panels /786,432 paired comparisons pass;
+both full scans reproduce exactly. M4 completes October 24 at15:34:54 Madrid,
+**7m21s active**, after waiting for PR419. No new hands or mature model loads.
+
+Among first sampled-action changes, **87.93% in 3B→10B and82.75% in10B→15B
+start preflop**, and >99.96% start at positive-mass rows in both checkpoints.
+This locates recurring training changes; grouped whole-hand returns do not
+establish causal action values. Later unsupported continuations still occur,
+with different reached histories. Prior PR417 adjusted strength conclusions
+and all four checkpoints remain unchanged; this is no fresh confirmation.
+
+Use supported preflop changes and their later support as context for a concrete
+next mechanism, alongside PR419's separate fresh capacity experiment. No tuning,
+training, search, release or extra evaluation authorized. All ordinary evidence,
+failed packaging-v1 and proofs retained; cleaner owns later verified ZIP sets.
+
 ## Five-player100BB development: own-ancestor gain, support/exploitation review next
 
 [PR415](https://github.com/dberweger2017/CFR-NLHE-6max/pull/415),

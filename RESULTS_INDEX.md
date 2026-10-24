@@ -310,6 +310,37 @@ paths. Restore any ZIP with the private-cable command above or
 `rclone copy 'gdrive:PR-317-HU200-river-search/' RESTORE_ROOT/`, verify its recorded
 whole SHA256, extract into a fresh ignored directory and verify needed member
 hashes before research. This closeout authorizes no open-PR cleanup or final play.
+## PR421 — saved six-player trajectory completed and exactly reproduced
+
+[Results/interpretation](docs/reports/nplayer-six-player-trajectory/results.md),
+[compact partitions/proofs/costs](docs/reports/nplayer-six-player-trajectory/results.json),
+[16-panel CSV](docs/reports/nplayer-six-player-trajectory/panels.csv),
+[all descriptive partitions](docs/reports/nplayer-six-player-trajectory/partitions.csv).
+24 unique initial traces /7,989,712,885bytes; 1,179,648 physical instances,
+786,432 paired comparisons across 3B→10B and10B→15B ×eight fields. All input
+hashes/reference block means/SE/coverage reconcile; deterministic outputs match:
+`f4a408f1c2ddc9d4af9d4d080eace57d4d184d6c649b6522a5811996644a2267`.
+Inventory `dcdbda4b1b8ff93529b080df3d9721f0fb569409c05c61d2a6a76bc78bf5da8b`;
+scanner source `ed5ac7804c97e12a6bd50f3aaa133703c637e55e`.
+
+M4 waits12:18:46–13:27:33UTC on one kernel event, then active transfer/verify/two
+scans complete13:34:54UTC /15:34:54Madrid in7m21s. Copy238.30s, destination SHA
+2.92s, scans98.36/101.44s; no overlap with419main. >99.96% of first changes
+are at positive-mass rows;87.93%/82.75% begin preflop. Descriptive only: no new
+strength claim or causal attribution, prior417family decisions retained.
+
+Ordinary working/final evidence remains at
+`m4:/Users/dberweger/Local/cfr-six-player-trajectory-diagnosis-20261024/`;
+source traces/proofs remain at
+`bb128:/home/dberweger/nplayer-six-player-candidate-20261023/main-v1/`;
+source operational gate/transfer receipts at
+`bb128:/home/dberweger/nplayer-six-player-trajectory-20261024/`.
+Failed qualification-v1 and completed qualification-v2 preserved. Owner cleaner
+packages later as complete relative-path ZIP sets on bb128 HDD; research-payload
+Drive acceptance pending, no original deletion or pre-ZIP/upload claimed.
+[Qualification history](docs/reports/nplayer-six-player-trajectory/qualification.md),
+[accepted launch](docs/reports/nplayer-six-player-trajectory/launch.json).
+
 ## PR396 — fresh frozen river screen is inconclusive on both panels
 
 [PR396](https://github.com/dberweger2017/CFR-NLHE-6max/pull/396), proposal395;
