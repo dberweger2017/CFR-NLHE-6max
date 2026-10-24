@@ -1,0 +1,206 @@
+{
+  "format": "four-player-v07-release-proposal-v3",
+  "status": "CORRECTED PROPOSAL ONLY; NOT ACCEPTED OR LAUNCHED; STORAGE BLOCKED",
+  "scope": "four-player100BB v0.7 only; no search, training visitation intervention or earlier/later player counts bundled",
+  "models": {
+    "existing_seed": 2026102341001,
+    "new_seeds": [
+      2026102570001,
+      2026102570002
+    ],
+    "checkpoints": [
+      3000000000,
+      10000000000
+    ],
+    "recipe": "unpruned K50, current native regret math, last_average_street3, 16threads,8roots/seat,250M threshold with whole-iteration overshoot, membership fixed within each continuation; never relax or unfreeze",
+    "existing_candidate_inputs": "PR413 models/checkpoints unchanged, no retraining of first lineage"
+  },
+  "seating": {
+    "homogeneous_and_peer": "eight forward/reverse circular rotations, each identity in every physical seat twice; button=block%4",
+    "mixed": "all24 permutations of labeled identities for call-pressure/random-tight/trained-call-pressure; repeated script types retain labeled positions",
+    "limitation": "eight homogeneous/peer seatings do not establish full opponent-order sensitivity; this is prospective and fixed"
+  },
+  "statistical_unit": "independent duplicate-deal block, average all declared seatings within block before computing absolute or paired outcomes; reproduction and seats are not new samples",
+  "fields": [
+    {
+      "name": "random",
+      "opponents": [
+        "random",
+        "random",
+        "random"
+      ],
+      "focal": "10B_i ONLY",
+      "seatings": 8
+    },
+    {
+      "name": "check-call",
+      "opponents": [
+        "check-call",
+        "check-call",
+        "check-call"
+      ],
+      "focal": "10B_i ONLY",
+      "seatings": 8
+    },
+    {
+      "name": "tight-aggressive",
+      "opponents": [
+        "tight-aggressive",
+        "tight-aggressive",
+        "tight-aggressive"
+      ],
+      "focal": "10B_i ONLY",
+      "seatings": 8
+    },
+    {
+      "name": "pot-pressure",
+      "opponents": [
+        "pot-pressure",
+        "pot-pressure",
+        "pot-pressure"
+      ],
+      "focal": "10B_i ONLY",
+      "seatings": 8
+    },
+    {
+      "name": "call-pressure",
+      "opponents": [
+        "check-call",
+        "check-call",
+        "pot-pressure"
+      ],
+      "focal": "10B_i ONLY",
+      "seatings": 24
+    },
+    {
+      "name": "random-tight",
+      "opponents": [
+        "random",
+        "tight-aggressive",
+        "tight-aggressive"
+      ],
+      "focal": "10B_i ONLY",
+      "seatings": 24
+    },
+    {
+      "name": "trained-call-pressure",
+      "opponents": [
+        "own-3B",
+        "check-call",
+        "pot-pressure"
+      ],
+      "focal": "10B_i ONLY",
+      "seatings": 24
+    }
+  ],
+  "gates": {
+    "family": 27,
+    "alpha": 0.05,
+    "profit": "21 gates: every10B profits in every seven-field scripted/mixed lineup, lower>0BB/100",
+    "own": "three gates: D_i=0.5*[R(10B_i vs three3B_i)-R(3B_i vs three10B_i)], lower>0BB/100",
+    "own_rationale": "Retain the #404-style oriented reciprocal singleton comparison for continuity with prior release qualification. Both focal and opponent checkpoint change; it measures relative oriented singleton performance across ancestor/successor fields. It is NOT the effect of changing only the focal checkpoint against a fixed field, and does not establish equilibrium progress or general superiority.",
+    "cyclic": "three gates existing->fresh1->fresh2->existing: C_i=R(10B_i vs three3B_next)-R(3B_i vs SAME three3B_next), lower>-5BB/100; no halving",
+    "margin_correction": "-5 restored. -10 in revision2 was not an agreed relaxation and is superseded.",
+    "requirement": "all27 gates must pass; never pool seeds to rescue a failed lineage, drop panels or extend hands after outcomes"
+  },
+  "banks": {
+    "count": 16,
+    "roots": "432 distinct proposed new roots, base20261025730000 +lineage_index*1000+gate_index*16+bank_index, in displayed gate order; separate from qualification roots and all historical roots; future launch must verify registry nonoverlap",
+    "uncertainty_rule": "all 27 gates require BOTH fixed pooled-block Student-t and 16-bank-mean Student-t lower bounds above the same threshold; report the smaller lower bound. No post-outcome interval switch.",
+    "tails": "Report all16bank results, fixed pooled/bank lower bounds, extremes and top-variation contributions. Both fixed t models rely on distributional assumptions; neither protects against unobserved rare tails. No widening until banks agree, no data-dependent switch.",
+    "training_uncertainty": "three lineages, no guarantee first-seed profit recurs; deal precision cannot remove training-seed uncertainty"
+  },
+  "counts_per_lineage": [
+    {
+      "gate": "random",
+      "blocks": 16384,
+      "blocks_per_bank": 1024,
+      "effect_scenario_bb100": 100,
+      "threshold_bb100": 0,
+      "sd_source": "measured PR413 24-seating SD for mixed fields, eight-seating SD for homogeneous fields"
+    },
+    {
+      "gate": "check-call",
+      "blocks": 81920,
+      "blocks_per_bank": 5120,
+      "effect_scenario_bb100": 50,
+      "threshold_bb100": 0,
+      "sd_source": "measured PR413 24-seating SD for mixed fields, eight-seating SD for homogeneous fields"
+    },
+    {
+      "gate": "tight-aggressive",
+      "blocks": 98304,
+      "blocks_per_bank": 6144,
+      "effect_scenario_bb100": 10,
+      "threshold_bb100": 0,
+      "sd_source": "measured PR413 24-seating SD for mixed fields, eight-seating SD for homogeneous fields"
+    },
+    {
+      "gate": "pot-pressure",
+      "blocks": 180224,
+      "blocks_per_bank": 11264,
+      "effect_scenario_bb100": 10,
+      "threshold_bb100": 0,
+      "sd_source": "measured PR413 24-seating SD for mixed fields, eight-seating SD for homogeneous fields"
+    },
+    {
+      "gate": "call-pressure",
+      "blocks": 32768,
+      "blocks_per_bank": 2048,
+      "effect_scenario_bb100": 50,
+      "threshold_bb100": 0,
+      "sd_source": "measured PR413 24-seating SD for mixed fields, eight-seating SD for homogeneous fields"
+    },
+    {
+      "gate": "random-tight",
+      "blocks": 32768,
+      "blocks_per_bank": 2048,
+      "effect_scenario_bb100": 25,
+      "threshold_bb100": 0,
+      "sd_source": "measured PR413 24-seating SD for mixed fields, eight-seating SD for homogeneous fields"
+    },
+    {
+      "gate": "trained-call-pressure",
+      "blocks": 49152,
+      "blocks_per_bank": 3072,
+      "effect_scenario_bb100": 25,
+      "threshold_bb100": 0,
+      "sd_source": "measured PR413 24-seating SD for mixed fields, eight-seating SD for homogeneous fields"
+    },
+    {
+      "gate": "own-reciprocal",
+      "blocks": 98304,
+      "blocks_per_bank": 6144,
+      "effect_scenario_bb100": 25,
+      "threshold_bb100": 0,
+      "sd_source": "PR413 eight-seating one-sided field paired SD, unmeasured proxy for this new estimand; no reciprocal-halving variance discount"
+    },
+    {
+      "gate": "cyclic-fixed-peer",
+      "blocks": 2064384,
+      "blocks_per_bank": 129024,
+      "effect_scenario_bb100": 0,
+      "threshold_bb100": -5,
+      "sd_source": "PR413 eight-seating one-sided field paired SD, unmeasured proxy for this new estimand; no reciprocal-halving variance discount"
+    }
+  ],
+  "ledger": {
+    "decision": "DELIBERATELY DEFER exact per-key training watch ledger from unchanged-recipe release campaign",
+    "reason": "Its instrumentation still lacks demonstrated checkpoint byte parity and measured overhead. Do not silently add it to a frozen release recipe or hide unmeasured cost.",
+    "retained": "ordinary existing growth/visits/freeze/discard counters and played missing/zero-mass/positive-mass coverage remain mandatory; preserve all3B/10B checkpoints",
+    "limitation": "without per-key admission history, historical missing keys cannot be labeled never visited versus discarded at freeze; short shadow qualification cannot repair that historical gap",
+    "future": "any decision to include a ledger requires separate byte-parity/overhead qualification and a revised source/budget before launch"
+  },
+  "costs": "release-pricing.json contains full component arithmetic, exact four-player SD scenarios, per-gate conditional power bounds and storage; not a completion guarantee",
+  "reproduction": "no second complete raw trace tree; retain expected/observed stream and block digests, byte counts, source/model pins and independent initial replay. On first mismatch preserve that full block and stop.",
+  "implementation_gates": [
+    "single-focal arena path and bounded hash-only reproduction writer must pass tiny byte-parity/replay fixtures before main",
+    "native model conversion/full-row audits retained",
+    "every initial hand independently replayed; repeated traversal still runs fully",
+    "source/runtime/K50/models and all prospective banks frozen before outcomes"
+  ],
+  "incomplete_run": "correctness/numerical/thermal/STOP/mutex failure terminal with all evidence retained; no scientific retry or sample removal; incomplete stays incomplete. Recoverable plumbing requires explicit reviewed preservation of already-successful work, never silent regeneration.",
+  "resources": "normal exclusive compute lock; CPU90/Thermistor15100/missing/nonfinite/ownerSTOP/correctness terminal; no elapsed-time/RSS/disk/swap cutoff. Actual headroom required before launch.",
+  "decision": "joint review of release design/budget and diagnostic before any mature campaign; short qualification informs next science hypothesis, never automatic10B",
+  "archive": "ordinary working/final files retained; cleaner owns later verified ZIP sets. Packaging/upload/publication scratch and future cleanup gains excluded."
+}

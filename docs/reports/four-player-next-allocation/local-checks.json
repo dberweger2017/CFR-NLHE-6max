@@ -1,0 +1,52 @@
+{
+  "status": "local-fixtures-passed-warmed-run-not-started",
+  "native_library_tests": {
+    "passed": 121,
+    "command": "cargo test --locked --manifest-path native/hu20-trainer/Cargo.toml --lib",
+    "scope": "existing library suite; no production library source changed afterward"
+  },
+  "native_example_tests": {
+    "passed": 12,
+    "command": "cargo test --locked --manifest-path native/hu20-trainer/Cargo.toml --example nplayer_warm_estimator",
+    "thread_parity": [
+      1,
+      2,
+      8,
+      16
+    ],
+    "exhaustive_expectation_players": [
+      2,
+      3,
+      4
+    ]
+  },
+  "controller_tests": {
+    "passed": 5,
+    "command": "python3.11 -m unittest discover -s tests -p test_nplayer_warm_estimator_qualification.py -v"
+  },
+  "pricing_checks": {
+    "components_sum": true,
+    "initial_hands": 121110528,
+    "all16historical_trace_pins_match": true,
+    "cyclic_margin": -5,
+    "mixed_seatings": 24,
+    "family": 27
+  },
+  "implementation_sha256s": {
+    "native/hu20-trainer/examples/nplayer_warm_estimator.rs": "c6f19498fcbfecf5e2eac45189a7d4e070258e3225cc72fb2b1810d9cd987842",
+    "native/hu20-trainer/examples/support/warm_estimator.rs": "baf258caa515eff6cd90b934426224dd054b1fbb0bc6c203a8f23b1315e0b7c1",
+    "native/hu20-trainer/examples/support/warm_estimator_tests.rs": "56816771f7dda880440b5f714cb4d67bec8c9f4141e76ce2b834e8db290c2135",
+    "native/hu20-trainer/examples/support/warm_artifacts.rs": "aaae4f1c1e232f961cc1a1159a82a7c91e43317454c5b878cd27713fe053503c",
+    "scripts/nplayer_warm_estimator_qualification.py": "9785b42e2f8634b312877737ca86cd997e7539054397f675ff8824b7ef96a740",
+    "tests/test_nplayer_warm_estimator_qualification.py": "fd86517c6021d711ec9f6eb8f63f91172e0c563954310385b690ede8629e1c25"
+  },
+  "not_claimed": [
+    "independent estimator review",
+    "target-host build and fixtures",
+    "warm checkpoint loading",
+    "short diagnostic result",
+    "new training",
+    "new arena hands",
+    "release acceptance"
+  ]
+}
