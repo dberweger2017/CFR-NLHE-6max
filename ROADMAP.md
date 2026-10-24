@@ -6,7 +6,13 @@ Owner requested a new [500M-versus250M capacity PR](docs/nplayer-six-player-capa
 [proposal418](https://github.com/dberweger2017/CFR-NLHE-6max/issues/418).
 Fresh same-seed500M arm to10B versus existingPR417250M/10B, fixed old3B opponent
 fields, fresh paired deals and shared identical legal-observation coverage.
-Implementation/qualification first; no main before a concrete accepted quote.
+Implementation and exact-source qualification pass (73 stages /384 initial hands
+plus reproduction, exact shared-probability/source and old-arena parity).
+[Qualification and complete quote](docs/reports/nplayer-six-player-capacity/qualification.md):
+3h10m central /6h19m reserve, proposed7h; owner acceptance remains pending.
+120GiB new storage includes25GiB working room; after0.31GiB already written,
+20.10GiB additional availability remains needed at the captured snapshot.
+No main before accepted allocation and fresh manual resource review.
 Three-model arena memory/loading, exact diagnostic parity and storage admission
 must be included. No capacity remedy or strength gain is assumed; search deferred.
 

@@ -1,3 +1,16 @@
+## PR419 — six-player capacity engineering qualified; main not started
+
+[Qualification, component quote and interpretation](docs/reports/nplayer-six-player-capacity/qualification.md),
+[compact source/binary/proof/cost receipts](docs/reports/nplayer-six-player-capacity/qualification.json),
+[storage accounting](docs/reports/nplayer-six-player-capacity/resource-review.json).
+73 exact-source qualification stages pass;384 initial hands independently replay
+and reproduce,884 focal shared observations match source probabilities exactly.
+No capacity strength result. Fresh500M/10B versus protected250M/10B remains proposed:
+7h allocation and fresh resources require owner acceptance. All original source,
+models, traces, failed build-v1 and completed qualification-v2 remain protected at
+`bb128:/home/dberweger/nplayer-six-player-capacity-20261024/`.
+No research-payload Drive acceptance or archival cleanup is claimed.
+
 ## PR317 — HU200 river search complete; cloud closeout owner-managed
 
 **October22:** the fixed primary run completed October21 at09:14:52Madrid.

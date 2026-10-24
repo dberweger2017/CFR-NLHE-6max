@@ -1,0 +1,3428 @@
+{
+  "status": "qualified-engineering",
+  "captured_utc": "2026-10-24T00:35:11.807434+00:00",
+  "upstream_commit": "9b9204c8dccdda255b574cde48fb02d5c761d030",
+  "execution_snapshot_commit": "2ccf21ac608d9729fecea80583ad3f9ee5f34b64",
+  "source_pin_count": 884,
+  "source_preparation_sha256": "fc92c7b9a2043ed2086290ad3e5e75bbad7f02544ada6bd4ca8509a698941a35",
+  "build_receipt_sha256": "8bc2cbcda8e3ebce83db9286b0e5dedfeb95dbea7a0db276c273eacf2f854b48",
+  "config_sha256": "e64c20a8d023b7c32439059cd4d288b40e063de914bea783fc9432c4989c9c36",
+  "result_sha256": "cd79043aa7d58f4871b6d166ad7e80173e1b6347a09d7b47b248d32024dd2fc2",
+  "proof_sha256": "34b24384af72ef6a66898dea09ba64cd1d50d5af04e490ef32e5c6af47ad347b",
+  "binary_sha256s": {
+    "nplayer_train": "f37ca94456a2e7ecce4e3b6ec90f6d14c2c23533b02fd73a4db6e48647961ca5",
+    "nplayer_policy": "151d73f1cd4d1227597db48467bf0a43f7a18eda7ff8d355bc328bb26cf66123",
+    "nplayer_inference": "26708e0b7e4583f82198427508c605499f569ab85c7b11e7cd715dd9c6553c08",
+    "nplayer_paired_arena": "a7092d59e0d8aa5b08602ad107e990eb4b2ecf0de35045b84b1f76ea9e15d17d",
+    "nplayer_arena": "50dd9539d5d24f9494d54b18898966714184bd664edb449d429822b8d3eb9996",
+    "legacy": "c3b1555806482c9f16391232d75590e284e37e8fc9e146cad73071c56fcaf008",
+    "legacy_paired": "436cf7bb5380f113deaf4474d7257758e8b4b743a7a6d5587a32d89678b0e6b3"
+  },
+  "source_trainer_unchanged": true,
+  "models": {
+    "peer": {
+      "sha256": "2d9572df85518a488f5ea14b721c1ee14d252864cc62b72ee560af2843eab764",
+      "checkpoint_sha256": "80e89f100828660290484c54ebe2f0fbdf3063e1304643f67b73053885c87feb",
+      "mass_sha256": "49ddc80366f8bad473ab7c1917c6fcf1727221207e410db1693855082c2be23f",
+      "entries": 14972,
+      "audit_status": "passed",
+      "binary_audit_status": "passed"
+    },
+    "control": {
+      "sha256": "c220c69fbf3f55aa479998b7348b50423e3b5c7d17ce7aa3143a560125e9517c",
+      "checkpoint_sha256": "3f9f2e3f1240f1dfcd8d0136fae2014e911dcf44d211e11104dc617925e02abc",
+      "mass_sha256": "b7d15c9f0db83dde418950baf860b8647ef1f514dc2c5f233332273768aefd47",
+      "entries": 14972,
+      "audit_status": "passed",
+      "binary_audit_status": "passed"
+    },
+    "candidate": {
+      "sha256": "4d763dba20d47c208042b174ae365702e487f766cef99e185f8e122652425881",
+      "checkpoint_sha256": "cc811144c5b5fd99afa56dbcb72e62e97c44283ea4ea497fc193436839959025",
+      "mass_sha256": "5f3ac52019a9217ccfdcc362b6884fe0f08aaad5212df76dcc5ee92871781557",
+      "entries": 21737,
+      "audit_status": "passed",
+      "binary_audit_status": "passed"
+    }
+  },
+  "verification": {
+    "status": "passed",
+    "models_sha256": "e31e0408ecd4d338a2f70e2a990c0ef0d56196d2ee957667592f1c9e04e47e5d",
+    "pair_receipts": {
+      "trained": "e1b68e84e4943d7b8cda88ea6a8f5487b3218c788109b00e051752ac577ede04",
+      "random": "765b6eb55fbd522c664952b71b042929ab15901c204cfe2e484ec06665a3a9e7",
+      "check-call": "a637b9047a003d46b2ba1f843dd4d8c247a05cb96e56865308edf3ad782bb342",
+      "tight-aggressive": "98abc5577159f997a3d0c2ca7d30fece8669e6cb846f8a67d4397adfe41c4e15",
+      "pot-pressure": "8822b11d26f1a893f4a5c42679ea761db9e9f3a6762722dc9e03a7765344bf64",
+      "call-pressure": "34551eff90100475378fbe3cb2e6af2ca94d292b5a8459c8a3e65d900ebb27ec",
+      "random-tight": "b9aaf504cc6836c288927c470c501d2b5b2c95a70318fd0f8e5689f822a4a4b6",
+      "trained-call-pressure": "4fd329542eb13b5b8749276290636674a934d3930386bb22b084c9ddee03129e"
+    },
+    "shared_receipts": {
+      "trained": "d8f63413eaacb165b87a852b972341b3fa4c80f84df175af1c5e982ebab1f211",
+      "random": "1318e6b2d4b42cf0246642baad95216553dc361a3b850ebd80da92f20d4df374",
+      "check-call": "b396017f1a163ba5c3da86ac8e4741ec817d31d6408fdf2916e98a5c85bef242",
+      "tight-aggressive": "b4fd34f74b5f8d01d9262cec7b7d3a9fc7b8eaf5180da39060d8692f5d6dfed2",
+      "pot-pressure": "0059b611bbdf5b86ec2770c6a28cf9f5858f5d1bf03f0ef30ef68e38ce310117",
+      "call-pressure": "543760fb7aa9d615ab9a1739cf320a71621253fdbf51341537884e4ffd861ed3",
+      "random-tight": "32495f89e6781d1ceb453c437f9d84529bb916832af3433519b312504244ea08",
+      "trained-call-pressure": "d28bfa655c35ca96aa79fac3a4502f1639b9c7ca8527a62e9443400ea8ed0209"
+    },
+    "fields": 8,
+    "blocks_per_field": 2,
+    "initial_hands": 384,
+    "reproduction_hands": 384,
+    "all_focal_observations_included": true,
+    "manifests": {
+      "initial": "35977e9a96138af27a0cf525cfdbeb9189a2f8c6cd73984b0305d09a0ceaf34e",
+      "repeat": "3a4f97aa366704e8c49f10d9ffe6aa70ecdf5f55b786d91538ef49553e2b7c7d"
+    }
+  },
+  "shared_observations": {
+    "trained": {
+      "observations": 90,
+      "paired_queries": 180,
+      "query_inventory_sha256": "5484ee4efe6de777e9a8dd04a09cb424c1c659d030af95bb0e6733161693bbd6",
+      "groups": {
+        "0/0": {
+          "origin_arm": 0,
+          "street": 0,
+          "observations": 46,
+          "models": [
+            {
+              "positive_mass": 2,
+              "zero_mass": 0,
+              "missing": 44
+            },
+            {
+              "positive_mass": 4,
+              "zero_mass": 0,
+              "missing": 42
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 42,
+            "missing->positive_mass": 2,
+            "positive_mass->positive_mass": 2
+          },
+          "sum_probability_tv": 1.5,
+          "max_probability_tv": 0.75,
+          "mean_probability_tv": 0.03260869565217391
+        },
+        "1/0": {
+          "origin_arm": 1,
+          "street": 0,
+          "observations": 44,
+          "models": [
+            {
+              "positive_mass": 2,
+              "zero_mass": 0,
+              "missing": 42
+            },
+            {
+              "positive_mass": 4,
+              "zero_mass": 0,
+              "missing": 40
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 40,
+            "missing->positive_mass": 2,
+            "positive_mass->positive_mass": 2
+          },
+          "sum_probability_tv": 1.5,
+          "max_probability_tv": 0.75,
+          "mean_probability_tv": 0.03409090909090909
+        }
+      }
+    },
+    "random": {
+      "observations": 124,
+      "paired_queries": 248,
+      "query_inventory_sha256": "6c5aa100d444c846fb90ddbd3b515dd1b7789a97635eb3ca00cf4d2aec9fad94",
+      "groups": {
+        "0/0": {
+          "origin_arm": 0,
+          "street": 0,
+          "observations": 58,
+          "models": [
+            {
+              "positive_mass": 7,
+              "zero_mass": 0,
+              "missing": 51
+            },
+            {
+              "positive_mass": 7,
+              "zero_mass": 0,
+              "missing": 51
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 51,
+            "positive_mass->positive_mass": 7
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "1/0": {
+          "origin_arm": 1,
+          "street": 0,
+          "observations": 58,
+          "models": [
+            {
+              "positive_mass": 7,
+              "zero_mass": 0,
+              "missing": 51
+            },
+            {
+              "positive_mass": 7,
+              "zero_mass": 0,
+              "missing": 51
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 51,
+            "positive_mass->positive_mass": 7
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "0/1": {
+          "origin_arm": 0,
+          "street": 1,
+          "observations": 4,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 4
+            },
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 4
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 4
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "1/1": {
+          "origin_arm": 1,
+          "street": 1,
+          "observations": 4,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 4
+            },
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 4
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 4
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        }
+      }
+    },
+    "check-call": {
+      "observations": 132,
+      "paired_queries": 264,
+      "query_inventory_sha256": "2760c98ab4c07d320a9c57125ebafc0c227dc8af4b2c1894cdcba23d5f2df0f7",
+      "groups": {
+        "0/0": {
+          "origin_arm": 0,
+          "street": 0,
+          "observations": 24,
+          "models": [
+            {
+              "positive_mass": 4,
+              "zero_mass": 0,
+              "missing": 20
+            },
+            {
+              "positive_mass": 6,
+              "zero_mass": 0,
+              "missing": 18
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 18,
+            "missing->positive_mass": 2,
+            "positive_mass->positive_mass": 4
+          },
+          "sum_probability_tv": 0.689655172413793,
+          "max_probability_tv": 0.3448275862068965,
+          "mean_probability_tv": 0.028735632183908042
+        },
+        "0/1": {
+          "origin_arm": 0,
+          "street": 1,
+          "observations": 14,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 14
+            },
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 14
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 14
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "0/2": {
+          "origin_arm": 0,
+          "street": 2,
+          "observations": 14,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 14
+            },
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 14
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 14
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "0/3": {
+          "origin_arm": 0,
+          "street": 3,
+          "observations": 14,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 14
+            },
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 14
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 14
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "1/0": {
+          "origin_arm": 1,
+          "street": 0,
+          "observations": 24,
+          "models": [
+            {
+              "positive_mass": 4,
+              "zero_mass": 0,
+              "missing": 20
+            },
+            {
+              "positive_mass": 6,
+              "zero_mass": 0,
+              "missing": 18
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 18,
+            "missing->positive_mass": 2,
+            "positive_mass->positive_mass": 4
+          },
+          "sum_probability_tv": 0.689655172413793,
+          "max_probability_tv": 0.3448275862068965,
+          "mean_probability_tv": 0.028735632183908042
+        },
+        "1/1": {
+          "origin_arm": 1,
+          "street": 1,
+          "observations": 14,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 14
+            },
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 14
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 14
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "1/2": {
+          "origin_arm": 1,
+          "street": 2,
+          "observations": 14,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 14
+            },
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 14
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 14
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "1/3": {
+          "origin_arm": 1,
+          "street": 3,
+          "observations": 14,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 14
+            },
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 14
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 14
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        }
+      }
+    },
+    "tight-aggressive": {
+      "observations": 76,
+      "paired_queries": 152,
+      "query_inventory_sha256": "d0791885a52379d289d8dd3fac7e3861483284de849701793b591a689e3ae9fc",
+      "groups": {
+        "0/0": {
+          "origin_arm": 0,
+          "street": 0,
+          "observations": 36,
+          "models": [
+            {
+              "positive_mass": 8,
+              "zero_mass": 0,
+              "missing": 28
+            },
+            {
+              "positive_mass": 10,
+              "zero_mass": 0,
+              "missing": 26
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 26,
+            "positive_mass->positive_mass": 8,
+            "missing->positive_mass": 2
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "1/0": {
+          "origin_arm": 1,
+          "street": 0,
+          "observations": 36,
+          "models": [
+            {
+              "positive_mass": 8,
+              "zero_mass": 0,
+              "missing": 28
+            },
+            {
+              "positive_mass": 10,
+              "zero_mass": 0,
+              "missing": 26
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 26,
+            "positive_mass->positive_mass": 8,
+            "missing->positive_mass": 2
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "0/1": {
+          "origin_arm": 0,
+          "street": 1,
+          "observations": 2,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 2
+            },
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 2
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 2
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "1/1": {
+          "origin_arm": 1,
+          "street": 1,
+          "observations": 2,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 2
+            },
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 2
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 2
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        }
+      }
+    },
+    "pot-pressure": {
+      "observations": 110,
+      "paired_queries": 220,
+      "query_inventory_sha256": "d4aa9cdd9435122db033e25fb9c14a1ee4d4c3e0403ab1510d52abad4f395634",
+      "groups": {
+        "0/0": {
+          "origin_arm": 0,
+          "street": 0,
+          "observations": 26,
+          "models": [
+            {
+              "positive_mass": 4,
+              "zero_mass": 0,
+              "missing": 22
+            },
+            {
+              "positive_mass": 4,
+              "zero_mass": 0,
+              "missing": 22
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 22,
+            "positive_mass->positive_mass": 4
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "0/1": {
+          "origin_arm": 0,
+          "street": 1,
+          "observations": 12,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 12
+            },
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 12
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 12
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "0/2": {
+          "origin_arm": 0,
+          "street": 2,
+          "observations": 17,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 17
+            },
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 17
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 17
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "1/0": {
+          "origin_arm": 1,
+          "street": 0,
+          "observations": 26,
+          "models": [
+            {
+              "positive_mass": 4,
+              "zero_mass": 0,
+              "missing": 22
+            },
+            {
+              "positive_mass": 4,
+              "zero_mass": 0,
+              "missing": 22
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 22,
+            "positive_mass->positive_mass": 4
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "1/1": {
+          "origin_arm": 1,
+          "street": 1,
+          "observations": 12,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 12
+            },
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 12
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 12
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "1/2": {
+          "origin_arm": 1,
+          "street": 2,
+          "observations": 17,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 17
+            },
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 17
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 17
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        }
+      }
+    },
+    "call-pressure": {
+      "observations": 130,
+      "paired_queries": 260,
+      "query_inventory_sha256": "dfcfdc60d0759d331a2db4e1800d4f8584615bd9c22f08c098c90279b18e3223",
+      "groups": {
+        "0/0": {
+          "origin_arm": 0,
+          "street": 0,
+          "observations": 25,
+          "models": [
+            {
+              "positive_mass": 6,
+              "zero_mass": 0,
+              "missing": 19
+            },
+            {
+              "positive_mass": 6,
+              "zero_mass": 0,
+              "missing": 19
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 19,
+            "positive_mass->positive_mass": 6
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "1/0": {
+          "origin_arm": 1,
+          "street": 0,
+          "observations": 25,
+          "models": [
+            {
+              "positive_mass": 6,
+              "zero_mass": 0,
+              "missing": 19
+            },
+            {
+              "positive_mass": 6,
+              "zero_mass": 0,
+              "missing": 19
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 19,
+            "positive_mass->positive_mass": 6
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "0/1": {
+          "origin_arm": 0,
+          "street": 1,
+          "observations": 14,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 14
+            },
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 14
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 14
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "0/2": {
+          "origin_arm": 0,
+          "street": 2,
+          "observations": 13,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 13
+            },
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 13
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 13
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "0/3": {
+          "origin_arm": 0,
+          "street": 3,
+          "observations": 13,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 13
+            },
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 13
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 13
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "1/1": {
+          "origin_arm": 1,
+          "street": 1,
+          "observations": 14,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 14
+            },
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 14
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 14
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "1/2": {
+          "origin_arm": 1,
+          "street": 2,
+          "observations": 13,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 13
+            },
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 13
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 13
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "1/3": {
+          "origin_arm": 1,
+          "street": 3,
+          "observations": 13,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 13
+            },
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 13
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 13
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        }
+      }
+    },
+    "random-tight": {
+      "observations": 44,
+      "paired_queries": 88,
+      "query_inventory_sha256": "f58b27cf585b13c17d53f59e19552a2713b2c48db933b1882eb30e5d641c0b30",
+      "groups": {
+        "0/0": {
+          "origin_arm": 0,
+          "street": 0,
+          "observations": 20,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 20
+            },
+            {
+              "positive_mass": 2,
+              "zero_mass": 0,
+              "missing": 18
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 18,
+            "missing->positive_mass": 2
+          },
+          "sum_probability_tv": 1.0985559450002376,
+          "max_probability_tv": 0.5492779725001188,
+          "mean_probability_tv": 0.05492779725001188
+        },
+        "1/0": {
+          "origin_arm": 1,
+          "street": 0,
+          "observations": 20,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 20
+            },
+            {
+              "positive_mass": 2,
+              "zero_mass": 0,
+              "missing": 18
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 18,
+            "missing->positive_mass": 2
+          },
+          "sum_probability_tv": 1.0985559450002376,
+          "max_probability_tv": 0.5492779725001188,
+          "mean_probability_tv": 0.05492779725001188
+        },
+        "1/1": {
+          "origin_arm": 1,
+          "street": 1,
+          "observations": 2,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 2
+            },
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 2
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 2
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "1/2": {
+          "origin_arm": 1,
+          "street": 2,
+          "observations": 2,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 2
+            },
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 2
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 2
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        }
+      }
+    },
+    "trained-call-pressure": {
+      "observations": 178,
+      "paired_queries": 356,
+      "query_inventory_sha256": "2c1379329b4fe565e79bba1c34c39b1029599352066656785880f215586fa11d",
+      "groups": {
+        "0/0": {
+          "origin_arm": 0,
+          "street": 0,
+          "observations": 38,
+          "models": [
+            {
+              "positive_mass": 2,
+              "zero_mass": 0,
+              "missing": 36
+            },
+            {
+              "positive_mass": 2,
+              "zero_mass": 0,
+              "missing": 36
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 36,
+            "positive_mass->positive_mass": 2
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "0/1": {
+          "origin_arm": 0,
+          "street": 1,
+          "observations": 21,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 21
+            },
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 21
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 21
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "0/2": {
+          "origin_arm": 0,
+          "street": 2,
+          "observations": 15,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 15
+            },
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 15
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 15
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "1/0": {
+          "origin_arm": 1,
+          "street": 0,
+          "observations": 38,
+          "models": [
+            {
+              "positive_mass": 2,
+              "zero_mass": 0,
+              "missing": 36
+            },
+            {
+              "positive_mass": 2,
+              "zero_mass": 0,
+              "missing": 36
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 36,
+            "positive_mass->positive_mass": 2
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "1/1": {
+          "origin_arm": 1,
+          "street": 1,
+          "observations": 21,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 21
+            },
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 21
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 21
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "1/2": {
+          "origin_arm": 1,
+          "street": 2,
+          "observations": 15,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 15
+            },
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 15
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 15
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "0/3": {
+          "origin_arm": 0,
+          "street": 3,
+          "observations": 15,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 15
+            },
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 15
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 15
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        },
+        "1/3": {
+          "origin_arm": 1,
+          "street": 3,
+          "observations": 15,
+          "models": [
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 15
+            },
+            {
+              "positive_mass": 0,
+              "zero_mass": 0,
+              "missing": 15
+            }
+          ],
+          "transition_counts": {
+            "missing->missing": 15
+          },
+          "sum_probability_tv": 0.0,
+          "max_probability_tv": 0.0,
+          "mean_probability_tv": 0.0
+        }
+      }
+    }
+  },
+  "exact_source_audit": {
+    "status": "passed",
+    "observations": 884,
+    "models": 2,
+    "exact_float64_source_rows": true,
+    "original_mass_tags_verified": true
+  },
+  "stage_count": 73,
+  "all_rc0": true,
+  "stage_wall_seconds": 213.66963472799398,
+  "stage_cpu_seconds": 92.22378900000008,
+  "build_costs": [
+    {
+      "phase": "native-tests",
+      "command": [
+        "/home/dberweger/.cargo/bin/cargo",
+        "test",
+        "--release",
+        "--locked",
+        "--offline",
+        "--manifest-path",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/source-v2/native/hu20-trainer/Cargo.toml",
+        "--lib",
+        "--example",
+        "nplayer_paired_arena",
+        "--example",
+        "nplayer_arena"
+      ],
+      "returncode": 0,
+      "wall_seconds": 42.42760937602725,
+      "user_cpu_seconds": 167.726723,
+      "system_cpu_seconds": 39.912865000000004,
+      "sampled_peak_rss_bytes": 1097351168
+    },
+    {
+      "phase": "native-build",
+      "command": [
+        "/home/dberweger/.cargo/bin/cargo",
+        "build",
+        "--release",
+        "--locked",
+        "--offline",
+        "--manifest-path",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/source-v2/native/hu20-trainer/Cargo.toml",
+        "--example",
+        "nplayer_train",
+        "--example",
+        "nplayer_policy",
+        "--example",
+        "nplayer_inference",
+        "--example",
+        "nplayer_paired_arena",
+        "--example",
+        "nplayer_arena"
+      ],
+      "returncode": 0,
+      "wall_seconds": 10.088807833963074,
+      "user_cpu_seconds": 38.22961699999999,
+      "system_cpu_seconds": 0.9739099999999965,
+      "sampled_peak_rss_bytes": 1004544000
+    },
+    {
+      "phase": "focused-python",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "unittest",
+        "tests.test_nplayer_six_player_capacity",
+        "tests.test_nplayer_shared_observations",
+        "tests.test_nplayer_paired_evidence",
+        "-q"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0147386390017346,
+      "user_cpu_seconds": 0.10056299999999396,
+      "system_cpu_seconds": 0.00813500000000289,
+      "sampled_peak_rss_bytes": 14356480
+    }
+  ],
+  "qualification_costs": [
+    {
+      "phase": "peer-train",
+      "command": [
+        "/home/dberweger/nplayer-six-player-capacity-20261024/build-v2/target/release/examples/nplayer_train",
+        "--players",
+        "6",
+        "--stack-bb",
+        "100",
+        "--small-blind",
+        "50",
+        "--big-blind",
+        "100",
+        "--fast",
+        "--threads",
+        "16",
+        "--roots-per-seat",
+        "8",
+        "--seed",
+        "2026102461991",
+        "--nodes",
+        "50000",
+        "--max-entries",
+        "10000",
+        "--freeze-at-cap",
+        "--last-average-street",
+        "3",
+        "--fast-gzip",
+        "--max-seconds",
+        "1e100",
+        "--card-buckets",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "--out",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/peer-train.gz",
+        "--telemetry",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/peer-train.gz.progress.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 6.0500386019703,
+      "user_cpu_seconds": 4.869160999999999,
+      "system_cpu_seconds": 0.5049920000000001,
+      "sampled_peak_rss_bytes": 157405184
+    },
+    {
+      "phase": "2026102461991-peer-export",
+      "command": [
+        "/home/dberweger/nplayer-six-player-capacity-20261024/build-v2/target/release/examples/nplayer_policy",
+        "export",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/peer-train.gz",
+        "80e89f100828660290484c54ebe2f0fbdf3063e1304643f67b73053885c87feb",
+        "average",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/2026102461991-peer-average.gz",
+        "--fast-gzip"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.014926802017726,
+      "user_cpu_seconds": 0.07039500000000132,
+      "system_cpu_seconds": 0.011235000000000106,
+      "sampled_peak_rss_bytes": 3919872
+    },
+    {
+      "phase": "2026102461991-peer-audit",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.audit_nplayer_policy_parallel",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/peer-train.gz",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/2026102461991-peer-average.gz",
+        "--workers",
+        "8",
+        "--lookup-out",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/2026102461991-peer-mass"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0149559560231864,
+      "user_cpu_seconds": 0.17398000000000025,
+      "system_cpu_seconds": 0.01748100000000008,
+      "sampled_peak_rss_bytes": 14839808
+    },
+    {
+      "phase": "2026102461991-peer-convert",
+      "command": [
+        "/home/dberweger/nplayer-six-player-capacity-20261024/build-v2/target/release/examples/nplayer_inference",
+        "convert",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/2026102461991-peer-average.gz",
+        "12b06fffb28b75e8ead8a086971e7cbbebd62161b7cddc91e689331a652ae3ba",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/2026102461991-peer.bin",
+        "--mass",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/2026102461991-peer-mass/receipt.json",
+        "49ddc80366f8bad473ab7c1917c6fcf1727221207e410db1693855082c2be23f"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0142777670407668,
+      "user_cpu_seconds": 0.024087999999999,
+      "system_cpu_seconds": 0.0,
+      "sampled_peak_rss_bytes": 3055616
+    },
+    {
+      "phase": "2026102461991-peer-binary-audit",
+      "command": [
+        "/home/dberweger/nplayer-six-player-capacity-20261024/build-v2/target/release/examples/nplayer_inference",
+        "verify",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/2026102461991-peer-average.gz",
+        "12b06fffb28b75e8ead8a086971e7cbbebd62161b7cddc91e689331a652ae3ba",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/2026102461991-peer.bin",
+        "2d9572df85518a488f5ea14b721c1ee14d252864cc62b72ee560af2843eab764",
+        "--mass",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/2026102461991-peer-mass/receipt.json",
+        "49ddc80366f8bad473ab7c1917c6fcf1727221207e410db1693855082c2be23f"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0148985940031707,
+      "user_cpu_seconds": 0.016989000000000587,
+      "system_cpu_seconds": 0.0072770000000002,
+      "sampled_peak_rss_bytes": 5296128
+    },
+    {
+      "phase": "peer-reference",
+      "command": [
+        "/home/dberweger/nplayer-six-player-capacity-20261024/build-v2/target/release/examples/nplayer_train",
+        "--players",
+        "6",
+        "--stack-bb",
+        "100",
+        "--small-blind",
+        "50",
+        "--big-blind",
+        "100",
+        "--fast",
+        "--threads",
+        "1",
+        "--roots-per-seat",
+        "8",
+        "--seed",
+        "2026102461991",
+        "--nodes",
+        "50000",
+        "--max-entries",
+        "10000",
+        "--freeze-at-cap",
+        "--last-average-street",
+        "3",
+        "--fast-gzip",
+        "--max-seconds",
+        "1e100",
+        "--card-buckets",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "--out",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/peer-reference.gz",
+        "--telemetry",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/peer-reference.gz.progress.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 6.0503565079998225,
+      "user_cpu_seconds": 4.732433,
+      "system_cpu_seconds": 0.48206400000000027,
+      "sampled_peak_rss_bytes": 156966912
+    },
+    {
+      "phase": "control-train",
+      "command": [
+        "/home/dberweger/nplayer-six-player-capacity-20261024/build-v2/target/release/examples/nplayer_train",
+        "--players",
+        "6",
+        "--stack-bb",
+        "100",
+        "--small-blind",
+        "50",
+        "--big-blind",
+        "100",
+        "--fast",
+        "--threads",
+        "16",
+        "--roots-per-seat",
+        "8",
+        "--seed",
+        "2026102461991",
+        "--nodes",
+        "200000",
+        "--max-entries",
+        "10000",
+        "--freeze-at-cap",
+        "--last-average-street",
+        "3",
+        "--fast-gzip",
+        "--max-seconds",
+        "1e100",
+        "--card-buckets",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "--out",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/control-train.gz",
+        "--telemetry",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/control-train.gz.progress.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 6.0498677380383015,
+      "user_cpu_seconds": 5.188144000000001,
+      "system_cpu_seconds": 0.46768499999999946,
+      "sampled_peak_rss_bytes": 157257728
+    },
+    {
+      "phase": "2026102461991-control-export",
+      "command": [
+        "/home/dberweger/nplayer-six-player-capacity-20261024/build-v2/target/release/examples/nplayer_policy",
+        "export",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/control-train.gz",
+        "3f9f2e3f1240f1dfcd8d0136fae2014e911dcf44d211e11104dc617925e02abc",
+        "average",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/2026102461991-control-average.gz",
+        "--fast-gzip"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.014183899969794,
+      "user_cpu_seconds": 0.06449699999999936,
+      "system_cpu_seconds": 0.014497000000000426,
+      "sampled_peak_rss_bytes": 3608576
+    },
+    {
+      "phase": "2026102461991-control-audit",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.audit_nplayer_policy_parallel",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/control-train.gz",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/2026102461991-control-average.gz",
+        "--workers",
+        "8",
+        "--lookup-out",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/2026102461991-control-mass"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0143200820311904,
+      "user_cpu_seconds": 0.16777400000000142,
+      "system_cpu_seconds": 0.022171000000000163,
+      "sampled_peak_rss_bytes": 14315520
+    },
+    {
+      "phase": "2026102461991-control-convert",
+      "command": [
+        "/home/dberweger/nplayer-six-player-capacity-20261024/build-v2/target/release/examples/nplayer_inference",
+        "convert",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/2026102461991-control-average.gz",
+        "902f5a342f1e4a6e7b94d0d2d2b040badd3c7a4d48e413a28c07959142d03dad",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/2026102461991-control.bin",
+        "--mass",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/2026102461991-control-mass/receipt.json",
+        "b7d15c9f0db83dde418950baf860b8647ef1f514dc2c5f233332273768aefd47"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0148933629970998,
+      "user_cpu_seconds": 0.019914999999997463,
+      "system_cpu_seconds": 0.004260000000000375,
+      "sampled_peak_rss_bytes": 3600384
+    },
+    {
+      "phase": "2026102461991-control-binary-audit",
+      "command": [
+        "/home/dberweger/nplayer-six-player-capacity-20261024/build-v2/target/release/examples/nplayer_inference",
+        "verify",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/2026102461991-control-average.gz",
+        "902f5a342f1e4a6e7b94d0d2d2b040badd3c7a4d48e413a28c07959142d03dad",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/2026102461991-control.bin",
+        "c220c69fbf3f55aa479998b7348b50423e3b5c7d17ce7aa3143a560125e9517c",
+        "--mass",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/2026102461991-control-mass/receipt.json",
+        "b7d15c9f0db83dde418950baf860b8647ef1f514dc2c5f233332273768aefd47"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.013920402037911,
+      "user_cpu_seconds": 0.024146000000001777,
+      "system_cpu_seconds": 0.0,
+      "sampled_peak_rss_bytes": 5091328
+    },
+    {
+      "phase": "control-reference",
+      "command": [
+        "/home/dberweger/nplayer-six-player-capacity-20261024/build-v2/target/release/examples/nplayer_train",
+        "--players",
+        "6",
+        "--stack-bb",
+        "100",
+        "--small-blind",
+        "50",
+        "--big-blind",
+        "100",
+        "--fast",
+        "--threads",
+        "1",
+        "--roots-per-seat",
+        "8",
+        "--seed",
+        "2026102461991",
+        "--nodes",
+        "200000",
+        "--max-entries",
+        "10000",
+        "--freeze-at-cap",
+        "--last-average-street",
+        "3",
+        "--fast-gzip",
+        "--max-seconds",
+        "1e100",
+        "--card-buckets",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "--out",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/control-reference.gz",
+        "--telemetry",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/control-reference.gz.progress.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 6.049768144963309,
+      "user_cpu_seconds": 4.9345110000000005,
+      "system_cpu_seconds": 0.4440369999999998,
+      "sampled_peak_rss_bytes": 157057024
+    },
+    {
+      "phase": "candidate-train",
+      "command": [
+        "/home/dberweger/nplayer-six-player-capacity-20261024/build-v2/target/release/examples/nplayer_train",
+        "--players",
+        "6",
+        "--stack-bb",
+        "100",
+        "--small-blind",
+        "50",
+        "--big-blind",
+        "100",
+        "--fast",
+        "--threads",
+        "16",
+        "--roots-per-seat",
+        "8",
+        "--seed",
+        "2026102461991",
+        "--nodes",
+        "200000",
+        "--max-entries",
+        "20000",
+        "--freeze-at-cap",
+        "--last-average-street",
+        "3",
+        "--fast-gzip",
+        "--max-seconds",
+        "1e100",
+        "--card-buckets",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "--out",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/candidate-train.gz",
+        "--telemetry",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/candidate-train.gz.progress.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 6.050602526054718,
+      "user_cpu_seconds": 5.2262739999999965,
+      "system_cpu_seconds": 0.47921999999999976,
+      "sampled_peak_rss_bytes": 156827648
+    },
+    {
+      "phase": "2026102461991-candidate-export",
+      "command": [
+        "/home/dberweger/nplayer-six-player-capacity-20261024/build-v2/target/release/examples/nplayer_policy",
+        "export",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/candidate-train.gz",
+        "cc811144c5b5fd99afa56dbcb72e62e97c44283ea4ea497fc193436839959025",
+        "average",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/2026102461991-candidate-average.gz",
+        "--fast-gzip"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.014943885966204,
+      "user_cpu_seconds": 0.07450200000000251,
+      "system_cpu_seconds": 0.037361000000000644,
+      "sampled_peak_rss_bytes": 3514368
+    },
+    {
+      "phase": "2026102461991-candidate-audit",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.audit_nplayer_policy_parallel",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/candidate-train.gz",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/2026102461991-candidate-average.gz",
+        "--workers",
+        "8",
+        "--lookup-out",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/2026102461991-candidate-mass"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0151272820075974,
+      "user_cpu_seconds": 0.23206000000000415,
+      "system_cpu_seconds": 0.02023399999999853,
+      "sampled_peak_rss_bytes": 14884864
+    },
+    {
+      "phase": "2026102461991-candidate-convert",
+      "command": [
+        "/home/dberweger/nplayer-six-player-capacity-20261024/build-v2/target/release/examples/nplayer_inference",
+        "convert",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/2026102461991-candidate-average.gz",
+        "f8e83188dc922dc44d41b7c0ecd3425a67ce420572d803e325b41af22e32e50f",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/2026102461991-candidate.bin",
+        "--mass",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/2026102461991-candidate-mass/receipt.json",
+        "5f3ac52019a9217ccfdcc362b6884fe0f08aaad5212df76dcc5ee92871781557"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0147339770337567,
+      "user_cpu_seconds": 0.028701000000005195,
+      "system_cpu_seconds": 0.003680000000002792,
+      "sampled_peak_rss_bytes": 2764800
+    },
+    {
+      "phase": "2026102461991-candidate-binary-audit",
+      "command": [
+        "/home/dberweger/nplayer-six-player-capacity-20261024/build-v2/target/release/examples/nplayer_inference",
+        "verify",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/2026102461991-candidate-average.gz",
+        "f8e83188dc922dc44d41b7c0ecd3425a67ce420572d803e325b41af22e32e50f",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/2026102461991-candidate.bin",
+        "4d763dba20d47c208042b174ae365702e487f766cef99e185f8e122652425881",
+        "--mass",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/2026102461991-candidate-mass/receipt.json",
+        "5f3ac52019a9217ccfdcc362b6884fe0f08aaad5212df76dcc5ee92871781557"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.01507359102834,
+      "user_cpu_seconds": 0.029942000000005464,
+      "system_cpu_seconds": 0.002932000000001267,
+      "sampled_peak_rss_bytes": 5697536
+    },
+    {
+      "phase": "candidate-reference",
+      "command": [
+        "/home/dberweger/nplayer-six-player-capacity-20261024/build-v2/target/release/examples/nplayer_train",
+        "--players",
+        "6",
+        "--stack-bb",
+        "100",
+        "--small-blind",
+        "50",
+        "--big-blind",
+        "100",
+        "--fast",
+        "--threads",
+        "1",
+        "--roots-per-seat",
+        "8",
+        "--seed",
+        "2026102461991",
+        "--nodes",
+        "200000",
+        "--max-entries",
+        "20000",
+        "--freeze-at-cap",
+        "--last-average-street",
+        "3",
+        "--fast-gzip",
+        "--max-seconds",
+        "1e100",
+        "--card-buckets",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "--out",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/candidate-reference.gz",
+        "--telemetry",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/candidate-reference.gz.progress.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 6.049750294070691,
+      "user_cpu_seconds": 4.957521999999997,
+      "system_cpu_seconds": 0.4168130000000012,
+      "sampled_peak_rss_bytes": 157118464
+    },
+    {
+      "phase": "candidate-half",
+      "command": [
+        "/home/dberweger/nplayer-six-player-capacity-20261024/build-v2/target/release/examples/nplayer_train",
+        "--players",
+        "6",
+        "--stack-bb",
+        "100",
+        "--small-blind",
+        "50",
+        "--big-blind",
+        "100",
+        "--fast",
+        "--threads",
+        "16",
+        "--roots-per-seat",
+        "8",
+        "--seed",
+        "2026102461991",
+        "--nodes",
+        "100000",
+        "--max-entries",
+        "20000",
+        "--freeze-at-cap",
+        "--last-average-street",
+        "3",
+        "--fast-gzip",
+        "--max-seconds",
+        "1e100",
+        "--card-buckets",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "--out",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/candidate-half.gz",
+        "--telemetry",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/candidate-half.gz.progress.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 6.04973929701373,
+      "user_cpu_seconds": 4.985155000000006,
+      "system_cpu_seconds": 0.48646300000000053,
+      "sampled_peak_rss_bytes": 157200384
+    },
+    {
+      "phase": "candidate-resume",
+      "command": [
+        "/home/dberweger/nplayer-six-player-capacity-20261024/build-v2/target/release/examples/nplayer_train",
+        "--players",
+        "6",
+        "--stack-bb",
+        "100",
+        "--small-blind",
+        "50",
+        "--big-blind",
+        "100",
+        "--fast",
+        "--threads",
+        "16",
+        "--roots-per-seat",
+        "8",
+        "--seed",
+        "2026102461991",
+        "--nodes",
+        "200000",
+        "--max-entries",
+        "20000",
+        "--freeze-at-cap",
+        "--last-average-street",
+        "3",
+        "--fast-gzip",
+        "--max-seconds",
+        "1e100",
+        "--card-buckets",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "--out",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/candidate-resume.gz",
+        "--telemetry",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/candidate-resume.gz.progress.jsonl",
+        "--resume",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/candidate-half.gz",
+        "--resume-sha256",
+        "675340eda6dbcfa60111edf8d3d175fb34756fb839f1d39da958001b32a60e9c"
+      ],
+      "returncode": 0,
+      "wall_seconds": 6.050087242037989,
+      "user_cpu_seconds": 4.940595999999999,
+      "system_cpu_seconds": 0.5118930000000006,
+      "sampled_peak_rss_bytes": 156979200
+    },
+    {
+      "phase": "arena-initial",
+      "command": [
+        "/home/dberweger/nplayer-six-player-capacity-20261024/build-v2/target/release/examples/nplayer_paired_arena",
+        "batch",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/initial-manifest.json"
+      ],
+      "returncode": 0,
+      "wall_seconds": 6.050256017013453,
+      "user_cpu_seconds": 4.707283000000004,
+      "system_cpu_seconds": 0.5183229999999988,
+      "sampled_peak_rss_bytes": 160485376
+    },
+    {
+      "phase": "arena-repeat",
+      "command": [
+        "/home/dberweger/nplayer-six-player-capacity-20261024/build-v2/target/release/examples/nplayer_paired_arena",
+        "batch",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/repeat-manifest.json"
+      ],
+      "returncode": 0,
+      "wall_seconds": 6.048917117994279,
+      "user_cpu_seconds": 4.718350000000001,
+      "system_cpu_seconds": 0.4570229999999995,
+      "sampled_peak_rss_bytes": 160342016
+    },
+    {
+      "phase": "replay-trained-0",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/trained-a.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.014946238952689,
+      "user_cpu_seconds": 0.05872200000000305,
+      "system_cpu_seconds": 0.011953000000001879,
+      "sampled_peak_rss_bytes": 15896576
+    },
+    {
+      "phase": "replay-trained-1",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/trained-b.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0151673250366002,
+      "user_cpu_seconds": 0.0577650000000034,
+      "system_cpu_seconds": 0.011189999999999145,
+      "sampled_peak_rss_bytes": 16576512
+    },
+    {
+      "phase": "replay-random-0",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/random-a.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0148431479465216,
+      "user_cpu_seconds": 0.06967600000000118,
+      "system_cpu_seconds": 0.0,
+      "sampled_peak_rss_bytes": 16207872
+    },
+    {
+      "phase": "replay-random-1",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/random-b.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0139583299169317,
+      "user_cpu_seconds": 0.06014999999999304,
+      "system_cpu_seconds": 0.006669999999999732,
+      "sampled_peak_rss_bytes": 15568896
+    },
+    {
+      "phase": "replay-check-call-0",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/check-call-a.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0149149839999154,
+      "user_cpu_seconds": 0.06677000000000533,
+      "system_cpu_seconds": 0.011119999999998242,
+      "sampled_peak_rss_bytes": 16060416
+    },
+    {
+      "phase": "replay-check-call-1",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/check-call-b.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.014845472993329,
+      "user_cpu_seconds": 0.06421499999999014,
+      "system_cpu_seconds": 0.011507999999999186,
+      "sampled_peak_rss_bytes": 16748544
+    },
+    {
+      "phase": "replay-tight-aggressive-0",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/tight-aggressive-a.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0153651130385697,
+      "user_cpu_seconds": 0.04657899999999415,
+      "system_cpu_seconds": 0.018502000000005125,
+      "sampled_peak_rss_bytes": 16838656
+    },
+    {
+      "phase": "replay-tight-aggressive-1",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/tight-aggressive-b.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0144488910445943,
+      "user_cpu_seconds": 0.05383899999999642,
+      "system_cpu_seconds": 0.010574999999995782,
+      "sampled_peak_rss_bytes": 15814656
+    },
+    {
+      "phase": "replay-pot-pressure-0",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/pot-pressure-a.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0155028919689357,
+      "user_cpu_seconds": 0.05524499999999932,
+      "system_cpu_seconds": 0.010898000000004515,
+      "sampled_peak_rss_bytes": 16752640
+    },
+    {
+      "phase": "replay-pot-pressure-1",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/pot-pressure-b.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.014995325007476,
+      "user_cpu_seconds": 0.06298699999999258,
+      "system_cpu_seconds": 0.003998000000002833,
+      "sampled_peak_rss_bytes": 16461824
+    },
+    {
+      "phase": "replay-call-pressure-0",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/call-pressure-a.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.015070468070917,
+      "user_cpu_seconds": 0.05791899999999828,
+      "system_cpu_seconds": 0.014617000000001212,
+      "sampled_peak_rss_bytes": 16662528
+    },
+    {
+      "phase": "replay-call-pressure-1",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/call-pressure-b.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.014500060933642,
+      "user_cpu_seconds": 0.0699290000000019,
+      "system_cpu_seconds": 0.003940000000000055,
+      "sampled_peak_rss_bytes": 14372864
+    },
+    {
+      "phase": "replay-random-tight-0",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/random-tight-a.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0147386039607227,
+      "user_cpu_seconds": 0.0562839999999909,
+      "system_cpu_seconds": 0.00700899999999649,
+      "sampled_peak_rss_bytes": 16244736
+    },
+    {
+      "phase": "replay-random-tight-1",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/random-tight-b.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.014869000064209,
+      "user_cpu_seconds": 0.06368400000000918,
+      "system_cpu_seconds": 0.0,
+      "sampled_peak_rss_bytes": 16338944
+    },
+    {
+      "phase": "replay-trained-call-pressure-0",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/trained-call-pressure-a.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0148630519397557,
+      "user_cpu_seconds": 0.06173100000000886,
+      "system_cpu_seconds": 0.010581999999999425,
+      "sampled_peak_rss_bytes": 16609280
+    },
+    {
+      "phase": "replay-trained-call-pressure-1",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/trained-call-pressure-b.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0152006869902834,
+      "user_cpu_seconds": 0.05748600000001147,
+      "system_cpu_seconds": 0.015591000000000577,
+      "sampled_peak_rss_bytes": 16449536
+    },
+    {
+      "phase": "arena-diagnostics-off",
+      "command": [
+        "/home/dberweger/nplayer-six-player-capacity-20261024/build-v2/target/release/examples/nplayer_paired_arena",
+        "batch",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/diagnostics-off-manifest.json"
+      ],
+      "returncode": 0,
+      "wall_seconds": 6.050152307958342,
+      "user_cpu_seconds": 4.7722789999999975,
+      "system_cpu_seconds": 0.4250730000000047,
+      "sampled_peak_rss_bytes": 160546816
+    },
+    {
+      "phase": "arena-serial",
+      "command": [
+        "/home/dberweger/nplayer-six-player-capacity-20261024/build-v2/target/release/examples/nplayer_paired_arena",
+        "batch",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/serial-manifest.json"
+      ],
+      "returncode": 0,
+      "wall_seconds": 6.049726522993296,
+      "user_cpu_seconds": 4.781240000000011,
+      "system_cpu_seconds": 0.42666499999999985,
+      "sampled_peak_rss_bytes": 160419840
+    },
+    {
+      "phase": "legacy-paired",
+      "command": [
+        "/home/dberweger/nplayer-six-player-candidate-20261023/build-v1/target/release/examples/nplayer_paired_arena",
+        "batch",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/legacy-paired-manifest.json"
+      ],
+      "returncode": 0,
+      "wall_seconds": 6.049561705905944,
+      "user_cpu_seconds": 4.649399000000017,
+      "system_cpu_seconds": 0.47356200000000115,
+      "sampled_peak_rss_bytes": 160317440
+    },
+    {
+      "phase": "arena-gzip",
+      "command": [
+        "/home/dberweger/nplayer-six-player-capacity-20261024/build-v2/target/release/examples/nplayer_paired_arena",
+        "batch",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/gzip-manifest.json"
+      ],
+      "returncode": 0,
+      "wall_seconds": 6.048991351039149,
+      "user_cpu_seconds": 4.693872999999996,
+      "system_cpu_seconds": 0.46112200000000314,
+      "sampled_peak_rss_bytes": 163074048
+    },
+    {
+      "phase": "arena-self",
+      "command": [
+        "/home/dberweger/nplayer-six-player-capacity-20261024/build-v2/target/release/examples/nplayer_paired_arena",
+        "batch",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/self-manifest.json"
+      ],
+      "returncode": 0,
+      "wall_seconds": 6.051357298973016,
+      "user_cpu_seconds": 4.694619999999986,
+      "system_cpu_seconds": 0.4608140000000063,
+      "sampled_peak_rss_bytes": 160235520
+    },
+    {
+      "phase": "arena-self-repeat",
+      "command": [
+        "/home/dberweger/nplayer-six-player-capacity-20261024/build-v2/target/release/examples/nplayer_paired_arena",
+        "batch",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/self-repeat-manifest.json"
+      ],
+      "returncode": 0,
+      "wall_seconds": 6.049624486011453,
+      "user_cpu_seconds": 4.687489999999997,
+      "system_cpu_seconds": 0.46327700000000505,
+      "sampled_peak_rss_bytes": 160468992
+    },
+    {
+      "phase": "replay-self-0",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-self/self-a.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0148479930358008,
+      "user_cpu_seconds": 0.06308500000000095,
+      "system_cpu_seconds": 0.010779999999996903,
+      "sampled_peak_rss_bytes": 16269312
+    },
+    {
+      "phase": "replay-self-1",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-self/self-b.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0154031990095973,
+      "user_cpu_seconds": 0.06845999999998753,
+      "system_cpu_seconds": 0.0040869999999983975,
+      "sampled_peak_rss_bytes": 16719872
+    },
+    {
+      "phase": "shared-source-audit",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_shared_observations",
+        "source",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/shared-source-catalog.json",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/trained-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/trained-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/random-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/random-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/check-call-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/check-call-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/tight-aggressive-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/tight-aggressive-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/pot-pressure-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/pot-pressure-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/call-pressure-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/call-pressure-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/random-tight-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/random-tight-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/trained-call-pressure-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/trained-call-pressure-b.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0143616980640218,
+      "user_cpu_seconds": 0.15287799999998697,
+      "system_cpu_seconds": 0.014654000000000167,
+      "sampled_peak_rss_bytes": 14622720
+    },
+    {
+      "phase": "legacy-20-old",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/build-v1/target/release/examples/nplayer_arena",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "2",
+        "20261024659820",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/legacy-20-old.jsonl",
+        "bot=check-call",
+        "bot=pot-pressure",
+        "20",
+        "1"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0152535300003365,
+      "user_cpu_seconds": 0.001873000000017555,
+      "system_cpu_seconds": 0.003043000000005236,
+      "sampled_peak_rss_bytes": 0
+    },
+    {
+      "phase": "legacy-20-new",
+      "command": [
+        "/home/dberweger/nplayer-six-player-capacity-20261024/build-v2/target/release/examples/nplayer_arena",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "2",
+        "20261024659820",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/legacy-20-new.jsonl",
+        "bot=check-call",
+        "bot=pot-pressure",
+        "20",
+        "1"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0148972700117156,
+      "user_cpu_seconds": 0.0031340000000170676,
+      "system_cpu_seconds": 0.0019309999999990168,
+      "sampled_peak_rss_bytes": 0
+    },
+    {
+      "phase": "legacy-20-replay",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.check_nplayer_policy_replay",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/legacy-20-new.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0149519339902326,
+      "user_cpu_seconds": 0.043261000000001104,
+      "system_cpu_seconds": 0.01863699999999824,
+      "sampled_peak_rss_bytes": 14520320
+    },
+    {
+      "phase": "legacy-100-old",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/build-v1/target/release/examples/nplayer_arena",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "2",
+        "20261024659900",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/legacy-100-old.jsonl",
+        "bot=check-call",
+        "bot=pot-pressure",
+        "100",
+        "1"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0151596770156175,
+      "user_cpu_seconds": 0.002093999999999596,
+      "system_cpu_seconds": 0.0030040000000042255,
+      "sampled_peak_rss_bytes": 0
+    },
+    {
+      "phase": "legacy-100-new",
+      "command": [
+        "/home/dberweger/nplayer-six-player-capacity-20261024/build-v2/target/release/examples/nplayer_arena",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "2",
+        "20261024659900",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/legacy-100-new.jsonl",
+        "bot=check-call",
+        "bot=pot-pressure",
+        "100",
+        "1"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0155846829293296,
+      "user_cpu_seconds": 0.005350999999990336,
+      "system_cpu_seconds": 0.0,
+      "sampled_peak_rss_bytes": 0
+    },
+    {
+      "phase": "legacy-100-replay",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.check_nplayer_policy_replay",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/legacy-100-new.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0148981789825484,
+      "user_cpu_seconds": 0.05561599999998634,
+      "system_cpu_seconds": 0.006918000000005975,
+      "sampled_peak_rss_bytes": 16281600
+    },
+    {
+      "phase": "legacy-200-old",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/build-v1/target/release/examples/nplayer_arena",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "2",
+        "20261024660000",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/legacy-200-old.jsonl",
+        "bot=check-call",
+        "bot=pot-pressure",
+        "200",
+        "1"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.014992635929957,
+      "user_cpu_seconds": 0.0,
+      "system_cpu_seconds": 0.0051289999999966085,
+      "sampled_peak_rss_bytes": 0
+    },
+    {
+      "phase": "legacy-200-new",
+      "command": [
+        "/home/dberweger/nplayer-six-player-capacity-20261024/build-v2/target/release/examples/nplayer_arena",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "2",
+        "20261024660000",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/legacy-200-new.jsonl",
+        "bot=check-call",
+        "bot=pot-pressure",
+        "200",
+        "1"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0147646160330623,
+      "user_cpu_seconds": 0.004757000000012113,
+      "system_cpu_seconds": 0.0,
+      "sampled_peak_rss_bytes": 0
+    },
+    {
+      "phase": "legacy-200-replay",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.check_nplayer_policy_replay",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/legacy-200-new.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.014275411958806,
+      "user_cpu_seconds": 0.049928999999991674,
+      "system_cpu_seconds": 0.011754000000003373,
+      "sampled_peak_rss_bytes": 14127104
+    },
+    {
+      "phase": "pair-trained",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "pair",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/trained-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/trained-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/trained-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/trained-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-trained-0/stdout.log",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-trained-1/stdout.log"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.015383110032417,
+      "user_cpu_seconds": 0.448789000000005,
+      "system_cpu_seconds": 0.03451299999999691,
+      "sampled_peak_rss_bytes": 16777216
+    },
+    {
+      "phase": "shared-trained",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_shared_observations",
+        "pair",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/trained-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/trained-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/trained-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/trained-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-trained-0/stdout.log",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-trained-1/stdout.log"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.014913492021151,
+      "user_cpu_seconds": 0.03256999999999266,
+      "system_cpu_seconds": 0.010991000000004192,
+      "sampled_peak_rss_bytes": 15925248
+    },
+    {
+      "phase": "pair-random",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "pair",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/random-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/random-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/random-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/random-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-random-0/stdout.log",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-random-1/stdout.log"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0155046959407628,
+      "user_cpu_seconds": 0.02577600000000757,
+      "system_cpu_seconds": 0.011718000000001894,
+      "sampled_peak_rss_bytes": 16531456
+    },
+    {
+      "phase": "shared-random",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_shared_observations",
+        "pair",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/random-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/random-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/random-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/random-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-random-0/stdout.log",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-random-1/stdout.log"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0147946960059926,
+      "user_cpu_seconds": 0.04153300000001536,
+      "system_cpu_seconds": 0.003837000000004309,
+      "sampled_peak_rss_bytes": 14684160
+    },
+    {
+      "phase": "pair-check-call",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "pair",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/check-call-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/check-call-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/check-call-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/check-call-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-check-call-0/stdout.log",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-check-call-1/stdout.log"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0145572749897838,
+      "user_cpu_seconds": 0.03623299999998153,
+      "system_cpu_seconds": 0.006985999999997716,
+      "sampled_peak_rss_bytes": 16326656
+    },
+    {
+      "phase": "shared-check-call",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_shared_observations",
+        "pair",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/check-call-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/check-call-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/check-call-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/check-call-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-check-call-0/stdout.log",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-check-call-1/stdout.log"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0149450710741803,
+      "user_cpu_seconds": 0.051829000000026326,
+      "system_cpu_seconds": 0.0,
+      "sampled_peak_rss_bytes": 14827520
+    },
+    {
+      "phase": "pair-tight-aggressive",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "pair",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/tight-aggressive-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/tight-aggressive-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/tight-aggressive-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/tight-aggressive-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-tight-aggressive-0/stdout.log",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-tight-aggressive-1/stdout.log"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.015179389039986,
+      "user_cpu_seconds": 0.02828400000001352,
+      "system_cpu_seconds": 0.0069000000000016826,
+      "sampled_peak_rss_bytes": 16449536
+    },
+    {
+      "phase": "shared-tight-aggressive",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_shared_observations",
+        "pair",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/tight-aggressive-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/tight-aggressive-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/tight-aggressive-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/tight-aggressive-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-tight-aggressive-0/stdout.log",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-tight-aggressive-1/stdout.log"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0150293949991465,
+      "user_cpu_seconds": 0.03216900000001033,
+      "system_cpu_seconds": 0.007054999999994038,
+      "sampled_peak_rss_bytes": 16191488
+    },
+    {
+      "phase": "pair-pot-pressure",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "pair",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/pot-pressure-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/pot-pressure-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/pot-pressure-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/pot-pressure-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-pot-pressure-0/stdout.log",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-pot-pressure-1/stdout.log"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.014452883042395,
+      "user_cpu_seconds": 0.03651600000000599,
+      "system_cpu_seconds": 0.0,
+      "sampled_peak_rss_bytes": 14372864
+    },
+    {
+      "phase": "shared-pot-pressure",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_shared_observations",
+        "pair",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/pot-pressure-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/pot-pressure-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/pot-pressure-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/pot-pressure-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-pot-pressure-0/stdout.log",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-pot-pressure-1/stdout.log"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0144719450036064,
+      "user_cpu_seconds": 0.0392400000000066,
+      "system_cpu_seconds": 0.004024999999998613,
+      "sampled_peak_rss_bytes": 14512128
+    },
+    {
+      "phase": "pair-call-pressure",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "pair",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/call-pressure-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/call-pressure-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/call-pressure-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/call-pressure-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-call-pressure-0/stdout.log",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-call-pressure-1/stdout.log"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0142351909307763,
+      "user_cpu_seconds": 0.03242399999999179,
+      "system_cpu_seconds": 0.00847899999999413,
+      "sampled_peak_rss_bytes": 15896576
+    },
+    {
+      "phase": "shared-call-pressure",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_shared_observations",
+        "pair",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/call-pressure-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/call-pressure-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/call-pressure-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/call-pressure-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-call-pressure-0/stdout.log",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-call-pressure-1/stdout.log"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0149943600408733,
+      "user_cpu_seconds": 0.037549999999981765,
+      "system_cpu_seconds": 0.01153200000000254,
+      "sampled_peak_rss_bytes": 14704640
+    },
+    {
+      "phase": "pair-random-tight",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "pair",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/random-tight-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/random-tight-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/random-tight-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/random-tight-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-random-tight-0/stdout.log",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-random-tight-1/stdout.log"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.015238916967064,
+      "user_cpu_seconds": 0.026905999999996766,
+      "system_cpu_seconds": 0.007946000000004005,
+      "sampled_peak_rss_bytes": 16539648
+    },
+    {
+      "phase": "shared-random-tight",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_shared_observations",
+        "pair",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/random-tight-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/random-tight-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/random-tight-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/random-tight-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-random-tight-0/stdout.log",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-random-tight-1/stdout.log"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0148193519562483,
+      "user_cpu_seconds": 0.0276800000000037,
+      "system_cpu_seconds": 0.010776000000007002,
+      "sampled_peak_rss_bytes": 14659584
+    },
+    {
+      "phase": "pair-trained-call-pressure",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "pair",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/trained-call-pressure-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/trained-call-pressure-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/trained-call-pressure-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/trained-call-pressure-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-trained-call-pressure-0/stdout.log",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-trained-call-pressure-1/stdout.log"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0147329979809,
+      "user_cpu_seconds": 0.034389000000004444,
+      "system_cpu_seconds": 0.006825999999989563,
+      "sampled_peak_rss_bytes": 15917056
+    },
+    {
+      "phase": "shared-trained-call-pressure",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_shared_observations",
+        "pair",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/trained-call-pressure-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-initial/trained-call-pressure-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/trained-call-pressure-a.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/arena-repeat/trained-call-pressure-b.jsonl",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-trained-call-pressure-0/stdout.log",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2/measurements/replay-trained-call-pressure-1/stdout.log"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0202669569989666,
+      "user_cpu_seconds": 0.05505899999999997,
+      "system_cpu_seconds": 0.0,
+      "sampled_peak_rss_bytes": 17125376
+    },
+    {
+      "phase": "global-readout",
+      "command": [
+        "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+        "-m",
+        "scripts.nplayer_six_player_capacity",
+        "readout",
+        "--root",
+        "/home/dberweger/nplayer-six-player-capacity-20261024/qualification-v2"
+      ],
+      "returncode": 0,
+      "wall_seconds": 4.033441819949076,
+      "user_cpu_seconds": 3.188841999999994,
+      "system_cpu_seconds": 0.18943399999999144,
+      "sampled_peak_rss_bytes": 24707072
+    }
+  ],
+  "peak_sampled_rss_bytes": 1097351168,
+  "max_cpu_c": 66.0,
+  "max_thermistor15_c": 58.0,
+  "last_resource": {
+    "phase": "global-readout",
+    "utc": "2026-10-24T00:34:53Z",
+    "cpu_c": 55.0,
+    "thermistor15_c": 51.5,
+    "worker_family_rss_bytes": 24707072,
+    "live_family_cpu_seconds": 1.54,
+    "available_ram_bytes": 131556229120,
+    "swap_used_bytes": 473051136,
+    "nvme_free_bytes": 106934505472,
+    "hdd_free_bytes": 20664311808
+  },
+  "trace_bytes_by_phase": {
+    "arena-self": 556374,
+    "arena-repeat": 3114224,
+    "arena-legacy-paired": 2718680,
+    "arena-diagnostics-off": 2718680,
+    "arena-self-repeat": 556374,
+    "arena-gzip": 3114224,
+    "arena-serial": 3114224,
+    "arena-initial": 3114224
+  },
+  "arena_costs": {
+    "initial": [
+      {
+        "name": "trained",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 5.087592379,
+        "play_seconds": 0.004735627,
+        "resident_weight_tables": 3,
+        "status": "passed",
+        "trace_sha256": [
+          "5ce4938cc18e55f495bd6a22650aa3dae580e7c3b89afb9e637c8a8ecf2eab73",
+          "2d82d595b7e8d058d5cd269cc27f1e4377864dd5d7ac9df55c875c034e296c3f"
+        ]
+      },
+      {
+        "name": "random",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 5.5814e-05,
+        "play_seconds": 0.004715256,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "98e63668e342f58eea40b47af7904d35e81be8a1cca429eed4781982458ccd66",
+          "138838cd046d3af4fb1f69f423c23a69db7e4d437cece8e491fb0eedf579b84e"
+        ]
+      },
+      {
+        "name": "check-call",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 5.0958e-05,
+        "play_seconds": 0.008478081,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "5a83945e76546154080bea03d37af2a68292f52130b7b7411d4bc3c6cc854fc4",
+          "5e08954c4ab83b58df95581182033a2ffd78564b57a3036edefbd6bb1b004ba8"
+        ]
+      },
+      {
+        "name": "tight-aggressive",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 5.5877e-05,
+        "play_seconds": 0.003282273,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "3f65a0babcc2b15df63c41f92530a86501906405b4c9e45dd150dbc978a49340",
+          "e3199e34aadf62a2039b8da99858d4e8a99ccc8de53196407ee4b4d8b6fc298b"
+        ]
+      },
+      {
+        "name": "pot-pressure",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 5.1716e-05,
+        "play_seconds": 0.005161729,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "c29994f15682e19ce8de32a1c582bcab8dcd55b72e0e78905287982c6f7f56ea",
+          "12e4acc7f058b54ec7b78df579b2a4e5c74b945cf27cb81a9dcccab87b5ad3e8"
+        ]
+      },
+      {
+        "name": "call-pressure",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 5.1084e-05,
+        "play_seconds": 0.007250239,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "616e78fe6aeff93f8115c90e21d8898426b0145bedbeec8399e67cb296f2ab02",
+          "b9ebda36468573266fb11e4b5f55dda009b63c048e8c73019ddb3ac35db983d9"
+        ]
+      },
+      {
+        "name": "random-tight",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 5.1049e-05,
+        "play_seconds": 0.002352301,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "609d9c168f24c2180d4729277b7a92e1dd83531305cd68167faf7649cc0a748c",
+          "fc8f209a39971182bb4077957f51c5b353c3093e12e16fc25d08291676f2387c"
+        ]
+      },
+      {
+        "name": "trained-call-pressure",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 0.007050274,
+        "play_seconds": 0.006457389,
+        "resident_weight_tables": 3,
+        "status": "passed",
+        "trace_sha256": [
+          "0efe7c1b2aed1b4c26befa08a7eca698dce1c8d6615e61d01497e57f64e23999",
+          "80093460391050b2cceaa81946936f2e849872210a9789f6e447ecbe384a9aa9"
+        ]
+      }
+    ],
+    "repeat": [
+      {
+        "name": "trained",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 5.037249513,
+        "play_seconds": 0.004729617,
+        "resident_weight_tables": 3,
+        "status": "passed",
+        "trace_sha256": [
+          "5ce4938cc18e55f495bd6a22650aa3dae580e7c3b89afb9e637c8a8ecf2eab73",
+          "2d82d595b7e8d058d5cd269cc27f1e4377864dd5d7ac9df55c875c034e296c3f"
+        ]
+      },
+      {
+        "name": "random",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 5.3377e-05,
+        "play_seconds": 0.004643474,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "98e63668e342f58eea40b47af7904d35e81be8a1cca429eed4781982458ccd66",
+          "138838cd046d3af4fb1f69f423c23a69db7e4d437cece8e491fb0eedf579b84e"
+        ]
+      },
+      {
+        "name": "check-call",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 5.0248e-05,
+        "play_seconds": 0.008612989,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "5a83945e76546154080bea03d37af2a68292f52130b7b7411d4bc3c6cc854fc4",
+          "5e08954c4ab83b58df95581182033a2ffd78564b57a3036edefbd6bb1b004ba8"
+        ]
+      },
+      {
+        "name": "tight-aggressive",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 5.0001e-05,
+        "play_seconds": 0.003259135,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "3f65a0babcc2b15df63c41f92530a86501906405b4c9e45dd150dbc978a49340",
+          "e3199e34aadf62a2039b8da99858d4e8a99ccc8de53196407ee4b4d8b6fc298b"
+        ]
+      },
+      {
+        "name": "pot-pressure",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 5.5933e-05,
+        "play_seconds": 0.005065482,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "c29994f15682e19ce8de32a1c582bcab8dcd55b72e0e78905287982c6f7f56ea",
+          "12e4acc7f058b54ec7b78df579b2a4e5c74b945cf27cb81a9dcccab87b5ad3e8"
+        ]
+      },
+      {
+        "name": "call-pressure",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 5.0169e-05,
+        "play_seconds": 0.007240784,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "616e78fe6aeff93f8115c90e21d8898426b0145bedbeec8399e67cb296f2ab02",
+          "b9ebda36468573266fb11e4b5f55dda009b63c048e8c73019ddb3ac35db983d9"
+        ]
+      },
+      {
+        "name": "random-tight",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 5.189e-05,
+        "play_seconds": 0.002313797,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "609d9c168f24c2180d4729277b7a92e1dd83531305cd68167faf7649cc0a748c",
+          "fc8f209a39971182bb4077957f51c5b353c3093e12e16fc25d08291676f2387c"
+        ]
+      },
+      {
+        "name": "trained-call-pressure",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 0.007037654,
+        "play_seconds": 0.006479211,
+        "resident_weight_tables": 3,
+        "status": "passed",
+        "trace_sha256": [
+          "0efe7c1b2aed1b4c26befa08a7eca698dce1c8d6615e61d01497e57f64e23999",
+          "80093460391050b2cceaa81946936f2e849872210a9789f6e447ecbe384a9aa9"
+        ]
+      }
+    ],
+    "diagnostics-off": [
+      {
+        "name": "trained",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 5.077457398,
+        "play_seconds": 0.004383796,
+        "resident_weight_tables": 3,
+        "status": "passed",
+        "trace_sha256": [
+          "299c3c2386b41899e1ed84c150c44d155cbb6b0a8f8eea4057d98e846c64b401",
+          "5b8713cd78401345895a1214ce58180dfe120f02c19e486151df76ffb99b9808"
+        ]
+      },
+      {
+        "name": "random",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 4.4836e-05,
+        "play_seconds": 0.00347498,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "b794778f72fd90b3a70cf593bb8cdb0c8c4f3f274deb4f35bc42ab915583a748",
+          "8811f066d21045f8fe52fe8619051b5a2740339af7542784eeaf088f4864e9fc"
+        ]
+      },
+      {
+        "name": "check-call",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 3.8367e-05,
+        "play_seconds": 0.006628866,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "bbe60caa32b12260937416e5be59ffabe32ad1233634be244253fcbdfcde6753",
+          "54b3303089c427f5ad87f618e515598af00eeed722bd8bfd8314a60d8d424888"
+        ]
+      },
+      {
+        "name": "tight-aggressive",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 4.2456e-05,
+        "play_seconds": 0.002292915,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "4a0a4a422116aca1fc2adb80601a1e3e848435272a3081a3441bec204b8e09b9",
+          "461a373f334e7742ee41a4858204d406b916620477c1406440fc3286ee786c3b"
+        ]
+      },
+      {
+        "name": "pot-pressure",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 3.8706e-05,
+        "play_seconds": 0.003511281,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "76b160144a811e9be245ab54e5ac3424d4a943decad1ec863953e10d858f52f1",
+          "f2bdb9085531ec69df5bb29f868f1b4f6fd42e6489977e907f8b6738cbcfa95a"
+        ]
+      },
+      {
+        "name": "call-pressure",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 3.9251e-05,
+        "play_seconds": 0.005486321,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "e55dc9c6e5f7219e5e7c68909a43f633f25e9e082e17fda14e69b5b9759b4c7e",
+          "900456e5bf31004703dd9f30780d5674f47cb4fa6a6ed499009a545f3c4d29e4"
+        ]
+      },
+      {
+        "name": "random-tight",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 4.0297e-05,
+        "play_seconds": 0.002083283,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "99d40d4ff23a7026f2e2e91a2828076740f71e6db0280f88e3a93be55f359d39",
+          "a4621379730419670f16dbfcb1d1b96fd74be0d4e6c15f80195926ea193dc47c"
+        ]
+      },
+      {
+        "name": "trained-call-pressure",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 0.007134284,
+        "play_seconds": 0.004896837,
+        "resident_weight_tables": 3,
+        "status": "passed",
+        "trace_sha256": [
+          "45bb4bdaeb238fcc41b753c39cf7f459a83888b1066116eef4f0edb9cd175292",
+          "1f198eebbbe50060e390a52eae27bfc521da403e0560e62225a7d1b73d6921ea"
+        ]
+      }
+    ],
+    "serial": [
+      {
+        "name": "trained",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 5.0753662330000004,
+        "play_seconds": 0.008249526,
+        "resident_weight_tables": 3,
+        "status": "passed",
+        "trace_sha256": [
+          "5ce4938cc18e55f495bd6a22650aa3dae580e7c3b89afb9e637c8a8ecf2eab73",
+          "2d82d595b7e8d058d5cd269cc27f1e4377864dd5d7ac9df55c875c034e296c3f"
+        ]
+      },
+      {
+        "name": "random",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 5.5656e-05,
+        "play_seconds": 0.007831094,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "98e63668e342f58eea40b47af7904d35e81be8a1cca429eed4781982458ccd66",
+          "138838cd046d3af4fb1f69f423c23a69db7e4d437cece8e491fb0eedf579b84e"
+        ]
+      },
+      {
+        "name": "check-call",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 5.0754e-05,
+        "play_seconds": 0.013413268,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "5a83945e76546154080bea03d37af2a68292f52130b7b7411d4bc3c6cc854fc4",
+          "5e08954c4ab83b58df95581182033a2ffd78564b57a3036edefbd6bb1b004ba8"
+        ]
+      },
+      {
+        "name": "tight-aggressive",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 5.2369e-05,
+        "play_seconds": 0.004735187,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "3f65a0babcc2b15df63c41f92530a86501906405b4c9e45dd150dbc978a49340",
+          "e3199e34aadf62a2039b8da99858d4e8a99ccc8de53196407ee4b4d8b6fc298b"
+        ]
+      },
+      {
+        "name": "pot-pressure",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 5.5409e-05,
+        "play_seconds": 0.006800438,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "c29994f15682e19ce8de32a1c582bcab8dcd55b72e0e78905287982c6f7f56ea",
+          "12e4acc7f058b54ec7b78df579b2a4e5c74b945cf27cb81a9dcccab87b5ad3e8"
+        ]
+      },
+      {
+        "name": "call-pressure",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 5.1376e-05,
+        "play_seconds": 0.011027468,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "616e78fe6aeff93f8115c90e21d8898426b0145bedbeec8399e67cb296f2ab02",
+          "b9ebda36468573266fb11e4b5f55dda009b63c048e8c73019ddb3ac35db983d9"
+        ]
+      },
+      {
+        "name": "random-tight",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 5.1959e-05,
+        "play_seconds": 0.003852384,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "609d9c168f24c2180d4729277b7a92e1dd83531305cd68167faf7649cc0a748c",
+          "fc8f209a39971182bb4077957f51c5b353c3093e12e16fc25d08291676f2387c"
+        ]
+      },
+      {
+        "name": "trained-call-pressure",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 0.007056872,
+        "play_seconds": 0.011785985,
+        "resident_weight_tables": 3,
+        "status": "passed",
+        "trace_sha256": [
+          "0efe7c1b2aed1b4c26befa08a7eca698dce1c8d6615e61d01497e57f64e23999",
+          "80093460391050b2cceaa81946936f2e849872210a9789f6e447ecbe384a9aa9"
+        ]
+      }
+    ],
+    "gzip": [
+      {
+        "name": "trained",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 5.011882167,
+        "play_seconds": 0.004582001,
+        "resident_weight_tables": 3,
+        "status": "passed",
+        "trace_sha256": [
+          "202e50ba2dbe66bb0615611973117c59ebcf3d8b0b34726c95f42b913d225b1d",
+          "920519576d928411825e2c26844c8481c6694d38ac1e3c5cd658e415597a1119"
+        ]
+      },
+      {
+        "name": "random",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 0.00080794,
+        "play_seconds": 0.004620883,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "fa5a2b336348f795e5d90248336ef08f49307aed884a0d70ce9ff0b36d19e6da",
+          "d028fdb3440d1f862caad658f5b988af0f1d04241422dcd8312784adae2957d0"
+        ]
+      },
+      {
+        "name": "check-call",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 5.53e-05,
+        "play_seconds": 0.008678302,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "96fafb9b72ad2978ae617dc90ba5fec7ad58c4b1c3f22b972e8435da5f2c36f4",
+          "d2c3a67235b69894aa37ab78a0545de99668e3cda2d77d3bec6ed4f36c434082"
+        ]
+      },
+      {
+        "name": "tight-aggressive",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 5.8064e-05,
+        "play_seconds": 0.003277443,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "a52b268a0bc02ffda5a518cd90648d330b7c545766ffe359b70266436bb7e6b5",
+          "f8b04be62c146c26f73c3619999bc12a95c90deba03143ae28e861939a5ef02f"
+        ]
+      },
+      {
+        "name": "pot-pressure",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 5.549e-05,
+        "play_seconds": 0.005148338,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "d0f092c95c12a784a0621e3d28dbfc0ead4d0bd912f9bf5963fb0cd14b731d5d",
+          "c1738762f3de926474ded412ac3414528ebf9b0a2510e6f962fe08b8eb319ea3"
+        ]
+      },
+      {
+        "name": "call-pressure",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 5.5262e-05,
+        "play_seconds": 0.007495382,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "955a008d648eba9ec1056cced9cdb68e20bcc49e5f0e32c3ae3639427bcd09ae",
+          "aedab9c8bcc8b7ef1ae868ae16ef98dd8dd035bb766a00851c9dd2663415920f"
+        ]
+      },
+      {
+        "name": "random-tight",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 5.8714e-05,
+        "play_seconds": 0.002255838,
+        "resident_weight_tables": 2,
+        "status": "passed",
+        "trace_sha256": [
+          "af51e2ae04b00f50561ea45a59dfbe1ce5902fe722244a210d137eece204b07a",
+          "3689e5c34c019079491b1618063568c909512cde3beaea1218e9e376ecdf9557"
+        ]
+      },
+      {
+        "name": "trained-call-pressure",
+        "blocks": 2,
+        "hands_per_arm": 24,
+        "load_seconds": 0.011204322,
+        "play_seconds": 0.006474171,
+        "resident_weight_tables": 3,
+        "status": "passed",
+        "trace_sha256": [
+          "e092a5cfcb299fa8f3b8205320bfd0219e4bce026db1efde1648b4cbcdc5e2a3",
+          "899df0446d3e208861a9d45792fe75bc80a08425fc50a26ad1b87588de2eacc2"
+        ]
+      }
+    ]
+  },
+  "retained_419_bytes": 334675968,
+  "free_nvme_bytes": 106934239232,
+  "free_hdd_bytes": 20664311808,
+  "main_started": false,
+  "no_strength_claim": true,
+  "archive": "Owner-managed; raw research payload Drive acceptance not claimed",
+  "failed_build_v1": {
+    "failure": {
+      "error": "RuntimeError('focused-python failed with 1; no automatic retry')",
+      "no_automatic_retry": true
+    },
+    "costs": [
+      {
+        "phase": "native-tests",
+        "command": [
+          "/home/dberweger/.cargo/bin/cargo",
+          "test",
+          "--release",
+          "--locked",
+          "--offline",
+          "--manifest-path",
+          "/home/dberweger/nplayer-six-player-capacity-20261024/source-v1/native/hu20-trainer/Cargo.toml",
+          "--lib",
+          "--example",
+          "nplayer_paired_arena",
+          "--example",
+          "nplayer_arena"
+        ],
+        "returncode": 0,
+        "wall_seconds": 42.388830062933266,
+        "user_cpu_seconds": 168.48805199999998,
+        "system_cpu_seconds": 40.018499999999996,
+        "sampled_peak_rss_bytes": 1079156736
+      },
+      {
+        "phase": "native-build",
+        "command": [
+          "/home/dberweger/.cargo/bin/cargo",
+          "build",
+          "--release",
+          "--locked",
+          "--offline",
+          "--manifest-path",
+          "/home/dberweger/nplayer-six-player-capacity-20261024/source-v1/native/hu20-trainer/Cargo.toml",
+          "--example",
+          "nplayer_train",
+          "--example",
+          "nplayer_policy",
+          "--example",
+          "nplayer_inference",
+          "--example",
+          "nplayer_paired_arena",
+          "--example",
+          "nplayer_arena"
+        ],
+        "returncode": 0,
+        "wall_seconds": 10.085583333973773,
+        "user_cpu_seconds": 38.241547,
+        "system_cpu_seconds": 0.9220299999999995,
+        "sampled_peak_rss_bytes": 984633344
+      },
+      {
+        "phase": "focused-python",
+        "command": [
+          "/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python",
+          "-m",
+          "unittest",
+          "tests.test_nplayer_six_player_capacity",
+          "tests.test_nplayer_shared_observations",
+          "tests.test_nplayer_paired_evidence",
+          "-q"
+        ],
+        "returncode": 1,
+        "wall_seconds": 2.0148717520060018,
+        "user_cpu_seconds": 0.08704299999999421,
+        "system_cpu_seconds": 0.024072000000003868,
+        "sampled_peak_rss_bytes": 14561280
+      }
+    ],
+    "diagnosis": "Exact planning NormalDist probability comparison differed at last bits across macOS/Linux; quantized published power probabilities to12decimal places; original failed build retained."
+  },
+  "completion": {
+    "launch": {
+      "pid": 924819,
+      "epoch": 1792801670.575588,
+      "source": "2ccf21ac608d9729fecea80583ad3f9ee5f34b64",
+      "config_sha256": "e64c20a8d023b7c32439059cd4d288b40e063de914bea783fc9432c4989c9c36"
+    },
+    "status": {
+      "status": "complete",
+      "epoch": 1792802097.8883185,
+      "result_sha256": "cd79043aa7d58f4871b6d166ad7e80173e1b6347a09d7b47b248d32024dd2fc2"
+    },
+    "complete_elapsed_seconds": 427.312730550766,
+    "failure_exists": false,
+    "meminfo": {
+      "MemAvailable": "128643228 kB",
+      "SwapTotal": "25787388 kB",
+      "SwapFree": "25325424 kB"
+    }
+  },
+  "retained_419_measure": "Allocated blocks, deduplicated by device/inode; protected inputs outside419already resident.",
+  "protected_input_review": {
+    "status": "passed",
+    "epoch": 1792802240.0798657,
+    "models": {
+      "control": {
+        "sha256": "086938a88f1b302688b00cf52666162350e02e3b1212aa590bb6bf4941c46178",
+        "checkpoint_sha256": "4c10ded3a1f8289cd8483da543cd577ed15f98d80047a524ce41c3990cfe7edd",
+        "audit_status": "passed",
+        "binary_audit_status": "passed",
+        "files": {
+          "path": {
+            "path": "/home/dberweger/nplayer-six-player-candidate-20261023/main-v1/2026102361001-10b.bin",
+            "resolved": "/home/dberweger/nplayer-six-player-candidate-20261023/main-v1/2026102361001-10b.bin",
+            "size": 14161542772,
+            "mtime_ns": 1792787628399776224
+          },
+          "checkpoint": {
+            "path": "/home/dberweger/nplayer-six-player-candidate-20261023/main-v1/10b-train.gz",
+            "resolved": "/home/dberweger/nplayer-six-player-candidate-20261023/main-v1/10b-train.gz",
+            "size": 9552145042,
+            "mtime_ns": 1792786470860777207
+          },
+          "source_policy": {
+            "path": "/home/dberweger/nplayer-six-player-candidate-20261023/main-v1/2026102361001-10b-average.gz",
+            "resolved": "/home/dberweger/nplayer-six-player-candidate-20261023/main-v1/2026102361001-10b-average.gz",
+            "size": 5750555184,
+            "mtime_ns": 1792786926997216526
+          }
+        }
+      },
+      "peer": {
+        "sha256": "6cd50bf17d5a361f4d38e1d3bf98859c4b8877297c612ca87dfec41e3bbbb85b",
+        "checkpoint_sha256": "3a1871a057002c5c70d91c543e9411bd2258013a38fccf32c5c1288861854fde",
+        "audit_status": "passed",
+        "binary_audit_status": "passed",
+        "files": {
+          "path": {
+            "path": "/home/dberweger/nplayer-six-player-candidate-20261023/main-v1/2026102361001-3b.bin",
+            "resolved": "/home/dberweger/nplayer-six-player-candidate-20261023/main-v1/2026102361001-3b.bin",
+            "size": 14161542772,
+            "mtime_ns": 1792782443705731848
+          },
+          "checkpoint": {
+            "path": "/home/dberweger/nplayer-six-player-candidate-20261023/main-v1/3b-train.gz",
+            "resolved": "/home/dberweger/nplayer-six-player-candidate-20261023/main-v1/3b-train.gz",
+            "size": 8818858434,
+            "mtime_ns": 1792781324588471696
+          },
+          "source_policy": {
+            "path": "/home/dberweger/nplayer-six-player-candidate-20261023/main-v1/2026102361001-3b-average.gz",
+            "resolved": "/home/dberweger/nplayer-six-player-candidate-20261023/main-v1/2026102361001-3b-average.gz",
+            "size": 5391345606,
+            "mtime_ns": 1792781755425895793
+          }
+        }
+      }
+    },
+    "scope": "Current PR417 completed proof/report metadata and readable path/stat pins; no new payload hash/read, no model load or play"
+  }
+}
