@@ -30,7 +30,7 @@ def proposal():
         if gate['contrast']!='3b-10b':continue
         se=gate['standard_error_bb100'];margin=0 if gate['field']=='trained' else -5
         power.append(dict(field=gate['field'],reference_se_bb100=se,margin_bb100=margin,
-            normal_reference_power=[dict(true_delta_bb100=delta,pass_probability=NormalDist().cdf((delta-margin)/se-family_critical)) for delta in ([0,25,50,75] if margin==0 else [0,10,25])]))
+            normal_reference_power=[dict(true_delta_bb100=delta,pass_probability=round(NormalDist().cdf((delta-margin)/se-family_critical),12)) for delta in ([0,25,50,75] if margin==0 else [0,10,25])]))
     return dict(status='provisional-not-admitted',basis=INPUT,basis_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),
         basis_raw_result_sha256=r['source_result_sha256'],players=6,stack_bb=100,seed=2026102361001,capacity=500000000,control_capacity=250000000,target=10000000000,
         components=components,central_seconds=sum(x['central_seconds'] for x in components),reserved_seconds=sum(x['reserved_seconds'] for x in components),proposed_planning_seconds=25200,accepted_planning_seconds=None,
