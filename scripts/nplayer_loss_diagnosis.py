@@ -357,10 +357,11 @@ def fallback_manifest(args):
         tables = tables or manifest['tables']
         if manifest['tables'] != tables:
             raise ValueError('K50 tables differ between banks')
+        # Only the pinned focal and the opponents of the selected fields are carried over.
+        used = {o for c in manifest['cases'] if c['name'] in config['fields'] for o in c['opponents'] if not o.startswith('bot=')}
         alias = {}
-        for name, model in manifest['models'].items():
-            if 'path' not in model:
-                continue
+        for name in used | {spec['focal_alias']}:
+            model = {k: manifest['models'][name][k] for k in ('path', 'sha256', 'mass', 'mass_sha256')}
             short = 'ten' if model['sha256'] == spec['focal_sha256'] else 'three'
             if catalog.setdefault(short, model) != model:
                 raise ValueError(f'{short} differs between banks')

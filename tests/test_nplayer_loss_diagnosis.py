@@ -150,7 +150,8 @@ class ManifestTests(unittest.TestCase):
                 cases = [{'name': f, 'players': 6, 'stack_bb': 100, 'blocks': 4, 'root': 7, 'schedule': [[0, 1, 2, 3, 4, 5]] * 1,
                           'focals': [peer, focal], 'opponents': [peer] * 5 if f == 'trained' else ['bot=random'] * 5}
                          for f in fields]
-                models = {focal: ten, peer: three, 'composed': {'composition': 'x'}}
+                models = {focal: dict(ten, checkpoint='/m/ckpt'), peer: three, 'composed': {'composition': 'x'},
+                          'unused': {'path': '/m/500m.bin', 'sha256': 'e' * 64, 'mass': '/m/m', 'mass_sha256': 'f' * 64}}
                 path = tmp / f'{bank}.json'
                 path.write_text(json.dumps({'tables': '/k50', 'threads': 8, 'models': models, 'cases': cases}))
                 inputs.append({'label': bank, 'players': 6, 'focal_sha256': 'a' * 64, 'manifest': str(path), 'focal_alias': focal})
