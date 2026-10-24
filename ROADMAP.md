@@ -1,5 +1,34 @@
 # Roadmap
 
+## Six-player missing-row composition: primary gain, no promotion
+
+[PR423](https://github.com/dberweger2017/CFR-NLHE-6max/pull/423),
+[verified results](docs/reports/nplayer-missing-row-composition/results.md),
+[all eight panels](docs/reports/nplayer-missing-row-composition/strength.csv).
+Adding positive-mass500Mrows only when250Mmisses gains **+10.78BB/100** against
+five fixed own3B peers, ordinary95%[+2.80,+18.76], adjusted eight-family lower
+**+0.60**. All existing base rows, including zero-mass fallback, stay unchanged.
+**5/8gates pass**; random/check-call/call-pressure safeguards remain unresolved
+with point deltas+0.95/−0.05/+1.30. These unpassed gates do not demonstrate losses.
+Retain250M/10B control and the composed research candidate; **no promotion**.
+
+All35main stages pass;786,432initial hands independently replay and reproduce,
+with no exclusions. MainOctober24 15:52:55–16:27:51UTC /17:52–18:27Madrid,
+34m56s; same-source M4/Linux qualifications each pass28stages. Peak54.05GiB,
+CPU63°C /Thermistor15 66°C. Donor rows supply2.04%of composed decisions;
+all21,846check-call river decisions still use uniform fallback. Different played
+histories are not shared-state coverage or causal action evidence. Check-call's
+largest10blocks contribute94.5%of its squared variation; uncertainty remains.
+
+One seed/own-ancestor field, not release or equilibrium validation. Prior417/419
+adverse panels remain; no extra hands, tuning, training, capacity, search,
+release-lineage replication or default change follows automatically. Choose a
+concrete support/visitation/history mechanism prospectively before another run.
+Normal/study locks released, cleaner notified. Ordinary evidence retained;
+research-payload archive/Drive acceptance pending. Exact backup-child overlap
+limitations are retained separately; no isolated-runtime claim.
+
+
 ## Six-player capacity: support improved, no strength promotion
 
 [PR419](https://github.com/dberweger2017/CFR-NLHE-6max/pull/419),
