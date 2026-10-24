@@ -5,7 +5,8 @@ use hu20_trainer::{
     multi_checkpoint::key_hex,
     multi_holdem,
     multi_policy::{Policy, PolicyTable},
-    nplayer::{Config, Event, Hand},
+    game::Kind,
+    nplayer::{Action, Config, Event, Hand},
 };
 use rand::{seq::SliceRandom, SeedableRng};
 use rayon::prelude::*;
@@ -102,6 +103,8 @@ struct Case {
     summary: PathBuf,
     shared_models: Option<[String; 2]>,
     composition_diagnostics: bool,
+    /// Per arm: replace the focal uniform fallback by check, else fold.
+    check_fold: [bool; 2],
 }
 impl Case {
     fn parse(v: &Value) -> Result<Self, String> {
@@ -139,6 +142,21 @@ impl Case {
         if shared_models.is_some() && focals.iter().any(|s| s.starts_with("bot=")) {
             return Err("shared observations require model focals".into());
         }
+        let check_fold = match v.get("focal_untrained_fallback") {
+            None | Some(Value::Null) => [false; 2],
+            Some(Value::Array(modes)) if modes.len() == 2 => {
+                let mut flags = [false; 2];
+                for (arm, mode) in modes.iter().enumerate() {
+                    flags[arm] = match mode.as_str() {
+                        Some("uniform") => false,
+                        Some("check-fold") if !focals[arm].starts_with("bot=") => true,
+                        _ => return Err("focal_untrained_fallback: uniform or check-fold per model arm".into()),
+                    };
+                }
+                flags
+            }
+            _ => return Err("focal_untrained_fallback must list two arm modes".into()),
+        };
         let arms = [&focals[0], &focals[1]].map(|f| {
             std::iter::once(f.clone())
                 .chain(opponents.clone())
@@ -156,6 +174,7 @@ impl Case {
             summary: text(v, "summary")?.into(),
             shared_models,
             composition_diagnostics,
+            check_fold,
         })
     }
 }
@@ -218,6 +237,9 @@ fn play(
                 let (action, mut lookup) = match &mut players[id] {
                     Player::Script(bot) => (bot.choose(&view)?, json!({"status":"not_applicable"})),
                     Player::Composed(policy) => {
+                        if id == 0 && case.check_fold[arm] {
+                            return Err("check-fold fallback applies to physical policies".into());
+                        }
                         let t = tables.ok_or("composition K50 required")?;
                         let (action, selected) = policy.choose(&view, t)?;
                         let d = multi_holdem::observation_decision(&view, t);
@@ -239,10 +261,19 @@ fn play(
                             return Err("lookup identity mismatch".into());
                         }
                         let label = mass::LABELS[mass::MassMetadata::classify_row(row)?];
-                        (
-                            action,
-                            json!({"status":label,"key":key_hex(&d.key),"street":d.street,"identity":id,"seat":actor,"position":(actor+case.n-button)%case.n}),
-                        )
+                        let mut lookup = json!({"status":label,"key":key_hex(&d.key),"street":d.street,"identity":id,"seat":actor,"position":(actor+case.n-button)%case.n});
+                        // The draw above already advanced the RNG, so later draws stay aligned.
+                        let mut action = action;
+                        if id == 0 && case.check_fold[arm] && label != "positive_mass" {
+                            let legal = view.legal.ok_or("focal decision without legal set")?;
+                            let kind = if legal.check { Kind::Check } else { Kind::Fold };
+                            let passive = Action { kind, raise_to: 0 };
+                            if passive != action {
+                                lookup["fallback_replaced"] = json!([action.kind.name(), action.raise_to]);
+                                action = passive;
+                            }
+                        }
+                        (action, lookup)
                     }
                 };
                 if id == 0 {
@@ -421,6 +452,9 @@ fn execute(
         let mut header = json!({"format":"nplayer-privileged-policy-replay-v1","harness":"nplayer-paired-v1","identity":identity,"hands":case.blocks*case.seating.len() as u64,
           "blocks":case.blocks,"seed":case.root,"schedule":case.seating,"policies":pins,"distinct_policy_instances":case.n,"loaded_weight_tables":physical_tables,
           "seat_semantics":"fixed physical hands; button=block%N; schedule maps seat to labeled identity; identity0 focal"});
+        if case.check_fold[arm] {
+            header["focal_untrained_fallback"] = json!("check-fold");
+        }
         if let Some(aliases) = &case.shared_models {
             header["shared_models"] = json!(aliases
                 .iter()
@@ -568,5 +602,23 @@ mod tests {
         let rows=play(0,&Case::parse(&json!({"name":"self","players":4,"stack_bb":100,"blocks":2,"root":9,
             "focals":["bot=random","bot=random"],"opponents":["bot=check-call","bot=pot-pressure","bot=tight-aggressive"],"traces":["left","right"],"summary":"summary"})).unwrap(),None,&HashMap::new()).unwrap();
         assert_eq!(rows[0], rows[1]);
+    }
+
+    #[test]
+    fn check_fold_fallback_is_opt_in_per_model_arm() {
+        let base = json!({"name":"fallback","players":4,"stack_bb":100,"blocks":2,"root":9,
+            "focals":["a","a"],"opponents":["bot=check-call","bot=pot-pressure","bot=tight-aggressive"],"traces":["left","right"],"summary":"summary"});
+        assert_eq!(Case::parse(&base).unwrap().check_fold, [false, false]);
+        let mut v = base.clone();
+        v["focal_untrained_fallback"] = json!(["uniform", "check-fold"]);
+        assert_eq!(Case::parse(&v).unwrap().check_fold, [false, true]);
+        for bad in [json!(["check-fold"]), json!(["uniform", "jam"]), json!("check-fold")] {
+            v["focal_untrained_fallback"] = bad;
+            assert!(Case::parse(&v).is_err());
+        }
+        let mut scripted = base;
+        scripted["focals"] = json!(["bot=random", "bot=random"]);
+        scripted["focal_untrained_fallback"] = json!(["check-fold", "uniform"]);
+        assert!(Case::parse(&scripted).is_err());
     }
 }
