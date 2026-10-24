@@ -1,14 +1,18 @@
-# Missing-positive-row composition: engineering qualified, allocation approved
+# Missing-positive-row composition: qualification and prospective quote
 
 [PR423](https://github.com/dberweger2017/CFR-NLHE-6max/pull/423),
 [proposal422](https://github.com/dberweger2017/CFR-NLHE-6max/issues/422),
 [protocol](../../nplayer-missing-row-composition.md).
 
+**Completed October24: [final verified results](results.md).** The following
+qualification and prelaunch quote are historical evidence; the main is finished.
+Primary adjusted gain passes,5/8overall gates; no promotion.
+
 The opt-in arena player and one-use campaign controller are implemented.
 **M4 qualification passes all 28 stages in 88.95 seconds:** 121 native library,
 15 paired native and 23 focused Python tests; 384 initial hands independently
-replay and reproduce exactly. **The approved mature-model arena is now running**; no new
-training or exports, and no strength result is available. The owner selected
+replay and reproduce exactly. **The mature-model arena is complete**; no new
+training or exports. Final strength results are linked above. The owner selected
 the experiment and accepted the exact2h15m allocation onOctober24. The original
 prospective quote remains byte-for-byte preserved; acceptance and execution
 receipts are separate.
@@ -28,7 +32,7 @@ under normal/study locks at
 `/home/dberweger/nplayer-missing-row-composition-20261024/main-v1`.
 ConfigSHA `88208456262562a3ef4b1d56338dab1b5fa6445986922d38ba90f0e4da7d195b`.
 Admission has32.18GiB NVMe free,122.72GiB available RAM,CPU34°C /Thermistor15 38°C.
-All stages advance automatically; no interim outcomes have been inspected.
+All35stages subsequently passed, completing16:27:51UTC. No outcomes were inspected before the global verification barrier.
 Planning remains about18:50Madrid centrally /19:50 reserved, not a guarantee.
 No new scientific monitor, retry, samples, training or exports. PR remains draft,
 with no merge or adoption authority. [Compact launch and admission receipt](run-launch.json).
@@ -178,7 +182,7 @@ Normal/study locks are nonblocking. Only the existing CPU90°C /Thermistor15 100
 missing-nonfinite thermal resource stops apply; ownerSTOP/mutex/correctness also
 terminate. No time/RSS/disk/swap cutoff is added. Partial evidence remains incomplete,
 never a smaller acceptance run. Both finite M4 qualifications and the target-host qualification finished. The
-approved mature run is active; no timer, observer or other-machine experiment was created.
+approved mature run has completed; no timer, observer or other-machine experiment was created.
 
 Ordinary source, fixtures, failures/partials if any and proof/results remain at
 `m4:/Users/dberweger/Local/nplayer-missing-row-composition-20261024/` and ignored

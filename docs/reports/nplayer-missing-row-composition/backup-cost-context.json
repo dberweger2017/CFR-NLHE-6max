@@ -1,0 +1,93 @@
+{
+  "science_window_UTC": [
+    "2026-10-24T15:49:55Z",
+    "2026-10-24T16:27:51Z"
+  ],
+  "basis": "Existing events/resource receipts only; no payload read or new observer",
+  "events_in_window": [
+    {
+      "archive_bytes": 103119197032,
+      "child_virtual_memory_GiB": 24,
+      "count": 15,
+      "epoch": 1792858210.0185995,
+      "event": "grouped-batch-start",
+      "nice": 19,
+      "prior_failure": "8 GiB whole-folder uncovered scan; deployed tool unchanged"
+    },
+    {
+      "archive_bytes": 103119197032,
+      "child_pid": 940211,
+      "count": 15,
+      "epoch": 1792858211.0115166,
+      "event": "grouped-upload-receipt-start",
+      "start": 1792858210.8498144
+    },
+    {
+      "child_cpu_system_seconds": 0.028308,
+      "child_cpu_user_seconds": 0.08061499999999999,
+      "child_maxrss_KiB": 53112,
+      "device": "HDD only; source device preflight recorded",
+      "end": 1792858214.2539604,
+      "epoch": 1792858214.513778,
+      "event": "grouped-upload-receipt-end",
+      "rc": 1,
+      "rusage_input_blocks": 3456,
+      "rusage_output_blocks": 24,
+      "start": 1792858210.8498144,
+      "virtual_memory_limit_GiB": 24
+    },
+    {
+      "event": "scheduled-wake-once",
+      "utc": "2026-10-24T16:10:09Z",
+      "prior_phase": "blocked",
+      "active_jobs": [],
+      "accepted_count": 0,
+      "accepted_bytes": 0,
+      "pending_bytes": 103119197032,
+      "free_GB": {
+        "/": 29.1,
+        "/research": 20.63
+      },
+      "action": "one bounded scheduled retry",
+      "new_worker_pid": 940209,
+      "current_phase": "grouped-upload-and-native-receipt",
+      "worker_pid": 940209,
+      "research_deletions": 0
+    },
+    {
+      "epoch": 1792858214.629079,
+      "error": "deployed grouped upload/receipt returned 1; no automatic repeat of whole-folder scan, inspect grouped-upload.log",
+      "event": "grouped-batch-blocked"
+    }
+  ],
+  "upload_receipt_spans_overlapping_window": [
+    {
+      "child_cpu_system_seconds": 0.028308,
+      "child_cpu_user_seconds": 0.08061499999999999,
+      "child_maxrss_KiB": 53112,
+      "device": "HDD only; source device preflight recorded",
+      "end": 1792858214.2539604,
+      "epoch": 1792858214.513778,
+      "event": "grouped-upload-receipt-end",
+      "rc": 1,
+      "rusage_input_blocks": 3456,
+      "rusage_output_blocks": 24,
+      "start": 1792858210.8498144,
+      "virtual_memory_limit_GiB": 24
+    }
+  ],
+  "known_actual_first_payload_upload": "12:01:31-12:02:50 UTC, outside this window",
+  "later_corrected_transport_retry": "PID941017 started16:29:53 UTC, after science window",
+  "interpretation": "Recorded overlapping attempts use cached archive hashes, source stat checks and deployed uploader; Drive API failures are archival, not science failures. rusage CPU/I/O block figures apply to each full child span, not exact science-only attribution. Physical I/O bytes and exact total-process-family peak RSS are not established.",
+  "compact_summary": {
+    "attempts": 1,
+    "child_wall_seconds": 3.4041459560394287,
+    "child_CPU_seconds": 0.10892299999999999,
+    "child_maxrss_KiB": 53112,
+    "rusage_input_blocks": 3456,
+    "rusage_output_blocks": 24,
+    "complete_payload_transfers_recorded_in_window": 0,
+    "member_CRC_or_full_tree_receipt_scan_reached": false,
+    "parent_and_full_process_family_costs": "not measured; do not present child-only measurements as full backup cost"
+  }
+}

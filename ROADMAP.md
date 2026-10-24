@@ -1,33 +1,32 @@
 # Roadmap
 
-## Approved six-player missing-positive-row comparison
+## Six-player missing-row composition: primary gain, no promotion
 
 [PR423](https://github.com/dberweger2017/CFR-NLHE-6max/pull/423),
-[proposal422](https://github.com/dberweger2017/CFR-NLHE-6max/issues/422),
-[qualification and arena-only quote](docs/reports/nplayer-missing-row-composition/qualification.md).
-Preserve every existing 250M/10B row, including zero-mass fallback; use a500M/10B
-row only if the base misses and donor original mass is positive. Otherwise keep
-uniform fallback. Immutable shared tables, original action RNG sequence, no
-training, exports, menu, search or default/release change.
+[verified results](docs/reports/nplayer-missing-row-composition/results.md),
+[all eight panels](docs/reports/nplayer-missing-row-composition/strength.csv).
+Adding positive-mass500Mrows only when250Mmisses gains **+10.78BB/100** against
+five fixed own3B peers, ordinary95%[+2.80,+18.76], adjusted eight-family lower
+**+0.60**. All existing base rows, including zero-mass fallback, stay unchanged.
+**5/8gates pass**; random/check-call/call-pressure safeguards remain unresolved
+with point deltas+0.95/−0.05/+1.30. These unpassed gates do not demonstrate losses.
+Retain250M/10B control and the composed research candidate; **no promotion**.
 
-Final-source M4 qualification passes all28stages in88.95s:121library+15paired
-native and23Python tests,384initial hands independently replayed and reproduced,
-exact source probabilities/selector accounting for428composed decisions.
-Identity composition, diagnostics-off, serial and ordinary legacy parity pass.
-Same-source bb128 qualification also passes all28stages in136.07s. Owner accepted
-the exact2h15m allocation; the fixed mature arena launched15:52:55UTC /17:52Madrid
-onOctober24, PID939496. [Launch/admission receipt](docs/reports/nplayer-missing-row-composition/run-launch.json).
-No strength result or interim outcome inspection; normal/study locks held.
+All35main stages pass;786,432initial hands independently replay and reproduce,
+with no exclusions. MainOctober24 15:52:55–16:27:51UTC /17:52–18:27Madrid,
+34m56s; same-source M4/Linux qualifications each pass28stages. Peak54.05GiB,
+CPU63°C /Thermistor15 66°C. Donor rows supply2.04%of composed decisions;
+all21,846check-call river decisions still use uniform fallback. Different played
+histories are not shared-state coverage or causal action evidence. Check-call's
+largest10blocks contribute94.5%of its squared variation; uncertainty remains.
 
-Proposed eight fixed fields ×4,096fresh blocks ×12balanced seatings; primary
-trained lower>0, seven lower>−5, one eight-test95% Student-t/Bonferroni family.
-**58.87min central /117.74min reserve, propose2h15m**,24GiB NEW storage including
-6GiB working room,75GiB memory planning. Variance is unmeasured; explicit
-fractional-SE scenarios do not promise small-gain power. Owner accepted the exact
-2h15m allocation onOctober24. Target-host qualification and prospective main
-receipts are recorded separately; no automatic extension, adoption or release-lineage replication.
-If useful benefit clears safeguards, consider independent confirmation; otherwise
-choose a concrete visitation/history mechanism. Search remains deferred.
+One seed/own-ancestor field, not release or equilibrium validation. Prior417/419
+adverse panels remain; no extra hands, tuning, training, capacity, search,
+release-lineage replication or default change follows automatically. Choose a
+concrete support/visitation/history mechanism prospectively before another run.
+Normal/study locks released, cleaner notified. Ordinary evidence retained;
+research-payload archive/Drive acceptance pending. Exact backup-child overlap
+limitations are retained separately; no isolated-runtime claim.
 
 
 ## Six-player capacity: support improved, no strength promotion

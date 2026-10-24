@@ -1,35 +1,36 @@
-## PR423 — composed missing-row comparison approved
+## PR423 — missing-row composition complete; primary gain, 5/8 gates
 
-[Fixed protocol](docs/nplayer-missing-row-composition.md),
-[engineering evidence and complete quote](docs/reports/nplayer-missing-row-composition/qualification.md),
-[compact qualification receipt](docs/reports/nplayer-missing-row-composition/qualification.json),
-[prospective cost/precision scenarios](docs/reports/nplayer-missing-row-composition/quote.json).
-M4 final qualification-v2 source `c8b257e635e042ae2742268be2fc095e9d46ab15`,
-1,403 source/config pins, all28stages RC0;384initial+384repeat, independent replay,
-428composed decisions match exact source float64 bits. Raw result
-`c488e06f8382297f311e41bc564b2ef72df929517d773297b234d86a1e17eff3`.
-121library+15paired native+23Python tests pass;88.95s wall,1.11GiB sampled peak,
-nominal thermals. Prior successful qualification-v1 remains protected.
+[Verified report](docs/reports/nplayer-missing-row-composition/results.md),
+[all eight panels](docs/reports/nplayer-missing-row-composition/strength.csv),
+[coverage](docs/reports/nplayer-missing-row-composition/coverage.csv),
+[selectors by street](docs/reports/nplayer-missing-row-composition/selection.csv),
+[seat/position contrasts](docs/reports/nplayer-missing-row-composition/seats.csv),
+[compact source/model/proof/tail/cost evidence](docs/reports/nplayer-missing-row-composition/results.json),
+[backup cost context](docs/reports/nplayer-missing-row-composition/backup-cost-context.json).
 
-Owner approved the exact **2h15m allocation** onOctober24. Frozen proposal
-58.87min central /117.74min reserve,2h15m allocation;24GiB new storage includes
-6GiB working room. Existing417/419control/donor/peer sources are read-only, no
-new training or exports. Counts/rules/precision declared before play. Current
-preparation snapshot32.32GiB NVMe free. New protected bb128 root
-`/home/dberweger/nplayer-missing-row-composition-20261024/` holds the exact
-source-v2 snapshot and target-host qualification. All28Linux stages pass in136.07s;
-rawresultSHA `2533f8f28f6deea17b21f8cfde5459492e655e0df65bff96a69fc32b98493c08`.
-Fixed mature main launchedOctober24 15:52:55UTC /17:52Madrid, PID939496,
-configSHA `88208456262562a3ef4b1d56338dab1b5fa6445986922d38ba90f0e4da7d195b`.
-[Owner/admission/source/qualification/launch receipt](docs/reports/nplayer-missing-row-composition/run-launch.json).
-No interim outcome inspection, new training, exports, retries or scientific monitor.
+MainOctober24 15:52:55–16:27:51UTC /17:52–18:27Madrid,34m55.67s;
+all35stagesRC0. 786,432initial hands independently replay and reproduce exactly,
+all8fields/4,096blocks/12seatings, no exclusions or scientific retries.
+Primary+10.78BB/100,ordinary95%[+2.80,+18.76],family lower+0.60 passes;
+5/8total. Random/check-call/call-pressure safeguards unresolved, not established
+losses. Keep250M/10B control; no composed promotion or automatic extension.
 
-Ordinary source/fixtures/results/proofs remain at
-`m4:/Users/dberweger/Local/nplayer-missing-row-composition-20261024/` and ignored
-M1`planning/missing-row-composition/`. Protect all required417/419/K50/shared
-runtime paths. Owner cleaner later creates complete relative-path ZIP archive sets
-on bb128 HDD and verifies Drive upload; research-payload acceptance pending.
-No raw model/trace payload in Git, deletion, cloud upload or new monitor here.
+Exact execution sourcec8b257e635e042ae2742268be2fc095e9d46ab15/1,403pins,
+config88208456262562a3ef4b1d56338dab1b5fa6445986922d38ba90f0e4da7d195b,
+raw resulta1ad792aa415cc33cd7008b24dc091855bca9adb11e9c3cb2cafa5a8e81d29e2.
+Both host small qualifications pass28stages. Peak54.05GiB/CPU63/Thermistor15 66;
+32traces10,895,414,514B. No new training/exports/search/default change.
+
+Ordinary evidence, full block vectors/source/owner/config/failures/partials and
+qualifications remain protected at
+`bb128:/home/dberweger/nplayer-missing-row-composition-20261024/` and
+`m4:/Users/dberweger/Local/nplayer-missing-row-composition-20261024/`.
+All417/419/K50/runtime dependencies retained. Cleaner notified natural completion;
+normal/study mutexes released. Later archive destinations are prospective
+`/research/PR-423-nplayer-missing-row-composition/` and matching Drive folder;
+**no payload archive/member/upload acceptance exists yet**. Both future retrieval
+paths require exact ZIP-set/member receipts; use protected originals meanwhile.
+No research deletion or upload performed here.
 
 ## PR419 — six-player capacity completed; 0/8 strength gates passed
 
