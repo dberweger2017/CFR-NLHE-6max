@@ -75,6 +75,57 @@ pub(super) fn root() -> PublicRoot {
 }
 
 #[test]
+fn taken_action_share_uses_compatible_pairs_and_actual_hero_support() {
+    let hero = [
+        Holding {
+            cards: [1, 2],
+            weight: 0.5,
+        },
+        Holding {
+            cards: [3, 4],
+            weight: 0.5,
+        },
+    ];
+    let opponent = [
+        Holding {
+            cards: [1, 5],
+            weight: 0.5,
+        },
+        Holding {
+            cards: [6, 7],
+            weight: 0.5,
+        },
+    ];
+    // Three equally likely compatible pairs; only one reaches the first action.
+    // The marginal estimate is 1/2, but the solver's joint probability is 1/3.
+    let share = taken_action_share(&hero, &opponent, &[1., 0.], [3, 4]).unwrap();
+    assert!((share - 1. / 3.).abs() < 1e-15);
+    // The reverse action has probability 2/3: marginal scaling can err either way.
+    let reverse = taken_action_share(&hero, &opponent, &[0., 1.], [1, 2]).unwrap();
+    assert!((reverse - 2. / 3.).abs() < 1e-15);
+    // Positive global likelihood does not establish support for the played hand.
+    assert_eq!(
+        taken_action_share(&hero, &opponent, &[1., 0.], [1, 2]).unwrap_err(),
+        "own holding has zero modeled reach after opponent river action"
+    );
+    assert_eq!(
+        taken_action_share(&hero, &opponent, &[0., 0.], [3, 4]).unwrap_err(),
+        "observed opponent river action has zero modeled likelihood"
+    );
+    let constant = taken_action_share(&hero, &opponent, &[0.25, 0.25], [3, 4]).unwrap();
+    assert!((constant - 0.25).abs() < 1e-15);
+    // With no card overlap, joint and marginal action probabilities agree.
+    let unblocked = [Holding {
+        cards: [8, 9],
+        weight: 1.,
+    }];
+    assert_eq!(
+        taken_action_share(&unblocked, &opponent, &[1., 0.], [8, 9]).unwrap(),
+        0.5
+    );
+}
+
+#[test]
 fn matched_belief_control_uses_equal_targets_and_reports_residual_identity() {
     let r = root();
     let pairs = [[21, 22], [23, 24], [25, 26], [27, 28], [29, 30], [30, 31]];

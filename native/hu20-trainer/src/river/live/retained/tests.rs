@@ -1031,8 +1031,17 @@ fn the_played_subtree_alone_sets_quality_and_the_scaled_target() {
         assert_eq!(out["quality"], q, "in-solve quality judges the played subtree only");
         assert_ne!(q["best_response_gains_bb"], r["best_response_gains_bb"], "settling changes the gains here");
         // The target scales with the opponent's modeled share of the taken action.
-        let share = ranges[actor].iter().enumerate().map(|(i, h)| h.weight * average[0][i * k + a]).sum::<f64>()
-            / ranges[actor].iter().map(|h| h.weight).sum::<f64>();
+        let (mut mass, mut observed_mass) = (0., 0.);
+        for h in &ranges[1 - actor] {
+            for (i, o) in ranges[actor].iter().enumerate() {
+                if h.cards.iter().all(|c| !o.cards.contains(c)) {
+                    let pair_mass = h.weight * o.weight;
+                    mass += pair_mass;
+                    observed_mass += pair_mass * average[0][i * k + a];
+                }
+            }
+        }
+        let share = observed_mass / mass;
         let base = quality_target(obs.get("target"), f(&g["root_pot_bb"])).unwrap();
         assert!(share < 1.);
         assert!((f(&out["target_bb"]) - base * share).abs() <= 1e-12 * base, "target scales with the share");
@@ -1077,6 +1086,7 @@ fn an_opponent_action_the_blueprint_never_takes_falls_back() {
 fn only_declared_solve_failures_fall_back() {
     assert!(falls_back("observed opponent river action has zero modeled likelihood"));
     assert!(falls_back("own holding has zero modeled root reach"));
+    assert!(falls_back("own holding has zero modeled reach after opponent river action"));
     assert!(falls_back("unsupported river tree"));
     assert!(!falls_back("invalid fixed profile"));
     assert!(!falls_back(FIRST_TO_ACT_ONLY));
@@ -1094,4 +1104,112 @@ fn audits_exports_and_omitted_evaluation_refuse_second_to_act_roots() {
     let mut omitted = second_to_act(BET, 1e6, 8);
     omitted["omitted"] = json!(true);
     assert!(request_impl(&omitted, &table, &tables, None).unwrap_err().contains("first-to-act"));
+}
+
+#[test]
+fn an_opponent_action_blocked_by_the_actual_hero_falls_back() {
+    let mut table = table();
+    let r = super::super::tests::root();
+    let mut obs = second_to_act(BET, 0.01, 128);
+    obs["target"] = json!({"pot_fraction":0.01,"cap_bb":0.1});
+    obs["checkpoints"] = json!([8, 16, 32, 64, 128]);
+    let hero = [32, 33];
+    obs["hole"] = json!(hero);
+    let dir = std::env::temp_dir().join(format!("pr429-blocker-fixture-{}", std::process::id()));
+    std::fs::create_dir_all(&dir).unwrap();
+    for (s, name) in ["flop", "turn", "river"].iter().enumerate() {
+        let board = &r.board[..s + 3];
+        let mut mapping = std::collections::BTreeMap::new();
+        for a in 0..52u8 {
+            for b in a + 1..52 {
+                if board.contains(&a) || board.contains(&b) {
+                    continue;
+                }
+                let value = if s == 2 && (hero.contains(&a) || hero.contains(&b)) {
+                    1
+                } else {
+                    0
+                };
+                let prior = mapping.insert(hu20_buckets::class_key(&[a, b], board), value);
+                assert!(prior.is_none_or(|p| p == value), "fixture class collision");
+            }
+        }
+        let keys: Vec<_> = mapping.keys().copied().collect();
+        let assignments: Vec<_> = mapping.values().copied().collect();
+        hu20_buckets::BucketTable::new(s as u32 + 1, 50, &keys, &assignments)
+            .write(&dir.join(format!("{name}-k50.bin")))
+            .unwrap();
+    }
+    let tables = EquityTables::load(&dir, true).unwrap();
+    std::fs::remove_dir_all(&dir).unwrap();
+    let opponent = r.hand.actor().unwrap();
+    let mut view = r.hand.observe(opponent).unwrap();
+    let menu = multi_holdem::menu(&view);
+    let bet = menu.iter().position(|(_, a)| *a == BET).unwrap();
+    let check = menu.iter().position(|(_, a)| *a == CHECK).unwrap();
+    let crate::multi_policy::Rows::Json(rows) = &mut table.rows else {
+        panic!()
+    };
+    for a in 0..52u8 {
+        for b in a + 1..52 {
+            if r.board.contains(&a) || r.board.contains(&b) {
+                continue;
+            }
+            view.hole = [a, b];
+            let d = multi_holdem::observation_decision(&view, tables);
+            let mut p = vec![0.; menu.len()];
+            p[if hero.contains(&a) || hero.contains(&b) {
+                bet
+            } else {
+                check
+            }] = 1.;
+            rows.insert(
+                d.key,
+                crate::multi_policy::Row {
+                    owner: d.owner as u8,
+                    street: d.street as u8,
+                    code: d.code,
+                    probabilities: p.into_boxed_slice(),
+                    original_average_mass: Some(true),
+                },
+            );
+        }
+    }
+    // Every opponent hand compatible with [32,33] checks. Only blocked hands bet.
+    for a in 0..52u8 {
+        for b in a + 1..52 {
+            if r.board.contains(&a)
+                || r.board.contains(&b)
+                || hero.contains(&a)
+                || hero.contains(&b)
+            {
+                continue;
+            }
+            view.hole = [a, b];
+            assert_eq!(blueprint_row(&view, &table, tables).unwrap().0[bet], 0.);
+        }
+    }
+    let decision = reconstruct(&obs, table.config())
+        .unwrap()
+        .decision()
+        .unwrap();
+    let mut hero_obs = decision.observe(decision.actor().unwrap()).unwrap();
+    hero_obs.hole = hero;
+    let blueprint = blueprint_row(&hero_obs, &table, tables).unwrap().0;
+    let out = begin(
+        &mut SessionStore::new(&"a".repeat(64)).unwrap(),
+        &obs,
+        &table,
+        tables,
+    );
+    assert_eq!(
+        out["session"]["installed_search"], false,
+        "zero conditional likelihood for actual hero must fall back"
+    );
+    assert_eq!(
+        out["session"]["fallback_reason"],
+        "own holding has zero modeled reach after opponent river action"
+    );
+    assert_eq!(out["probabilities"], json!(blueprint));
+    assert!(out["session"]["binding"]["profile_sha256"].is_null());
 }

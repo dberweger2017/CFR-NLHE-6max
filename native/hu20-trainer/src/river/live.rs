@@ -92,6 +92,53 @@ fn outside_subtree(nodes: &[Node], keep: usize) -> Vec<bool> {
     outside
 }
 
+/// Probability of the observed action under the solver's blocker-conditioned
+/// product law. The actual holding is used only to reject an impossible played
+/// decision; the quality normalization still uses the whole modeled hero range.
+fn taken_action_share(
+    hero: &[Holding],
+    opponent: &[Holding],
+    probabilities: &[f64],
+    actual_hole: [u8; 2],
+) -> Result<f64, String> {
+    let marginal: f64 = opponent
+        .iter()
+        .zip(probabilities)
+        .map(|(h, p)| h.weight * p)
+        .sum();
+    if marginal <= 0. {
+        return Err("observed opponent river action has zero modeled likelihood".into());
+    }
+    let conditional: f64 = opponent
+        .iter()
+        .zip(probabilities)
+        .filter(|(h, _)| disjoint(actual_hole, h.cards))
+        .map(|(h, p)| h.weight * p)
+        .sum();
+    if conditional <= 0. {
+        return Err("own holding has zero modeled reach after opponent river action".into());
+    }
+    // Use the same compatible pair masses as Game::new. Scalar nonnegative
+    // accumulation avoids cancellation manufacturing support for blocked hands.
+    let (mut total, mut taken) = (0., 0.);
+    for h in hero {
+        for (o, p) in opponent.iter().zip(probabilities) {
+            if disjoint(h.cards, o.cards) {
+                let mass = h.weight * o.weight;
+                total += mass;
+                taken += mass * p;
+            }
+        }
+    }
+    if !total.is_finite() || !taken.is_finite() || total <= 0. {
+        return Err("invalid compatible opponent action mass".into());
+    }
+    if taken <= 0. {
+        return Err("observed opponent river action has zero modeled likelihood".into());
+    }
+    Ok(taken / total)
+}
+
 impl PublicRoot {
     /// The hero's decision: the first river decision with the opponent's prefix applied.
     fn decision(&self) -> Result<Hand, String> {
@@ -1330,7 +1377,7 @@ fn request_impl(
     // and the hero's row is read at the child for the action actually taken.
     let mut fixed = vec![None; nodes];
     let mut hero_node = 0;
-    // Share of the opponent's modeled range that took the observed action (1 at first-to-act roots).
+    // Probability of the taken action under the compatible joint law (1 at first-to-act roots).
     let mut taken_share = 1.;
     if let Some(&taken) = root.prefix.first() {
         let opponent = root.hand.actor().ok_or("root actor missing")?;
@@ -1361,12 +1408,14 @@ fn request_impl(
             return Err("search root menu differs from the blueprint menu".into());
         }
         let o = root.live.iter().position(|&s| s == opponent).unwrap();
-        let reach: f64 = (0..pairs.len()).map(|i| ranges[o][i].weight * row[i * k + taken_index]).sum();
-        if reach <= 0. {
-            return Err("observed opponent river action has zero modeled likelihood".into());
-        }
+        let taken_probabilities: Vec<_> = row.chunks(k).map(|p| p[taken_index]).collect();
+        taken_share = taken_action_share(
+            &ranges[hero],
+            &ranges[o],
+            &taken_probabilities,
+            root.hole,
+        )?;
         hero_node = children[taken_index];
-        taken_share = reach / ranges[o].iter().map(|h| h.weight).sum::<f64>();
         fixed[0] = Some(row);
     }
     // Quality judges only the hero's played subtree: the opponent's root and the branches it ruled out are settled.

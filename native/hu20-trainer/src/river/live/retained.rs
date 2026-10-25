@@ -280,6 +280,7 @@ const FIRST_TO_ACT_ONLY: &str = "second-to-act roots support retained begin, con
 /// Solve errors that play the blueprint at the hero's decision instead of failing the hand.
 fn falls_back(e: &str) -> bool {
     e == "own holding has zero modeled root reach"
+        || e == "own holding has zero modeled reach after opponent river action"
         || e == "observed opponent river action has zero modeled likelihood"
         || e.starts_with("unsupported ")
 }

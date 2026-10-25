@@ -18,16 +18,18 @@ player all-in, one contested pot.
   ruled out are settled (`Solver::set_settled`): best responses keep the profile there instead of
   deviating, in quality and in best-response values alike. Unsettled fixed nodes, such as the
   constraints of prepared requests, are still deviated from exactly as before.
-- **Target:** best-response gains are weighted by reaching each node, and the hero's played subtree
-  is reached with the share of the opponent's modeled range that took the observed action. The
-  quality target is multiplied by that share, so the played subtree is held to the same
-  per-decision target as a first-to-act root (at a 10% share, a ten times smaller target). Two
-  approximations, not measured here: the share ignores card removal against the hero's range,
-  which can err in either direction when the opponent's action correlates with blocking a narrow
-  hero range; and the base target uses the pot at the river start, so after an opponent bet it is
-  stricter than a first-to-act root at the larger pot would get, until the 0.1 BB cap binds.
+- **Target:** best-response gains are weighted by reaching each node. The quality target is
+  multiplied by the probability of the observed action under the solver's projected product
+  law, conditioned on compatible hero/opponent holdings. This uses the entire modeled hero
+  range and includes card removal, rather than just the opponent's marginal action share.
+  Thus the played subtree keeps the same conditional per-decision target (at a 10% share, a
+  ten times smaller target). The base target still uses the pot at the river start, so after
+  an opponent bet it is stricter than a first-to-act root at the larger pot would get, until
+  the 0.1 BB cap binds. This does not remove the existing folded-law projection approximation.
 - **Fallbacks:** a root that misses the target, a zero-reach own holding, an unsupported tree or an
   observed opponent action with zero modeled likelihood plays the blueprint at the hero's decision.
+  In particular, an action possible across the opponent's range but impossible against the hero's
+  actual cards falls back before solving; globally positive likelihood alone is insufficient.
 - **Continuation:** retained rows replay the opponent's first action before later actions;
   off-tree handling is unchanged.
 - **Scope:** projected-product beliefs and `solve` only. Exact backends, `classify`,
@@ -69,6 +71,14 @@ false keeps first-to-act search only and the trace header unchanged; a true valu
 
 All of the above used a small laptop-trained three-player 100 BB model (110M nodes), not the frozen
 10B models; they show the mechanism and its accounting, not strength.
+
+The measurements above precede the blocker-aware support/target correction. New regression
+fixtures independently enumerate compatible pair masses (1/3 and 2/3 versus a marginal1/2),
+check no-overlap and constant-probability controls, and construct an opponent that bets only
+with cards blocked by the actual hero. That retained-session fixture must return the exact
+blueprint probabilities at the hero's decision, with no installed profile. Existing quality
+tests also independently sum compatible pairs when checking the scaled target. No new arena
+or mature-model speed/strength measurement is claimed for the correction.
 
 ## Suggested evaluation
 
