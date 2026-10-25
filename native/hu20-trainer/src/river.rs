@@ -413,8 +413,8 @@ struct Workspace {
     timing: Option<LeafTiming>,
     // Best responses only: per node, the actions the responder may use (empty = all).
     mask: Option<Vec<Vec<bool>>>,
-    // Best responses only: nodes already played (see `Solver::set_taken`) are not deviated from.
-    taken: Option<Vec<bool>>,
+    // Best responses only: settled nodes (see `Solver::set_settled`) are not deviated from.
+    settled: Option<Vec<bool>>,
 }
 impl Workspace {
     fn new(game: &Game, seat: usize) -> Self {
@@ -423,7 +423,7 @@ impl Workspace {
             reach: vec![vec![0.; game.holdings(1 - seat)]; game.nodes.len()],
             timing: None,
             mask: None,
-            taken: None,
+            settled: None,
         }
     }
     fn start(&mut self) {
@@ -477,7 +477,7 @@ fn visit(
             for h in 0..game.holdings(seat) {
                 let value = if *actor != seat {
                     children.iter().map(|&c| work.value[c][h]).sum()
-                } else if best && !work.taken.as_ref().is_some_and(|t| t[id]) {
+                } else if best && !work.settled.as_ref().is_some_and(|t| t[id]) {
                     let allowed = work.mask.as_ref().map(|m| &m[id]).filter(|m| !m.is_empty());
                     children
                         .iter()
@@ -543,8 +543,8 @@ pub struct Solver {
     profile: Vec<Vec<f64>>,
     deltas: Vec<Vec<f64>>,
     fixed: Vec<Option<Vec<f64>>>,
-    // Fixed nodes that were already played; empty unless `set_taken` marked one.
-    taken: Vec<bool>,
+    // Decision nodes best responses keep (`set_settled`); empty = none.
+    settled: Vec<bool>,
     work: [Workspace; 2],
     own_reach: [Vec<Vec<f64>>; 2],
     sweeps: u64,
@@ -590,23 +590,26 @@ impl Solver {
             profile: shape.clone(),
             deltas: shape,
             fixed,
-            taken: Vec::new(),
+            settled: Vec::new(),
             work,
             own_reach,
             sweeps: 0,
         })
     }
 
-    /// Marks a fixed node as already played: quality best responses keep its fixed profile.
-    /// Other fixed nodes (prepared-request constraints) are still deviated from, as before.
-    pub fn set_taken(&mut self, node: usize) -> Result<(), String> {
-        if self.fixed.get(node).is_none_or(|f| f.is_none()) {
-            return Err("only a fixed node can be marked as played".into());
+    /// Decision nodes whose profile best responses keep: an action already played and the
+    /// branches it ruled out. Unmarked fixed nodes (prepared-request constraints) are still
+    /// deviated from, as before.
+    pub fn set_settled(&mut self, settled: Vec<bool>) -> Result<(), String> {
+        if settled.len() != self.game.nodes.len()
+            || settled
+                .iter()
+                .zip(&self.game.nodes)
+                .any(|(s, n)| *s && matches!(n, Node::Leaf(_)))
+        {
+            return Err("settled nodes must be decision nodes of this game".into());
         }
-        if self.taken.is_empty() {
-            self.taken = vec![false; self.fixed.len()];
-        }
-        self.taken[node] = true;
+        self.settled = settled;
         Ok(())
     }
 
@@ -790,6 +793,7 @@ impl Solver {
             return Err("profile or mask node count differs".into());
         }
         self.work[seat].mask = mask;
+        self.work[seat].settled = (!self.settled.is_empty()).then(|| self.settled.clone());
         self.work[seat].start();
         visit(
             &self.game,
@@ -877,7 +881,7 @@ impl Solver {
         let mut values = [0.; 2];
         let mut gains = [0.; 2];
         for seat in 0..2 {
-            self.work[seat].taken = (!self.taken.is_empty()).then(|| self.taken.clone());
+            self.work[seat].settled = (!self.settled.is_empty()).then(|| self.settled.clone());
             self.work[seat].start();
             visit(
                 &self.game,

@@ -520,6 +520,62 @@ fn second_to_act_roots_keep_the_river_start_and_the_opponent_action() {
 }
 
 #[test]
+fn an_opponent_all_in_first_river_action_is_refused() {
+    // A raised preflop pot makes the conditional all-in legal on the river.
+    let config = Config::new(&[10000; 3], 50, 100).unwrap();
+    let request = |river: fn(&Observation<'_>) -> Action| {
+        let mut hand = representative(config, 0, [0, 5, 10, 15, 20]).unwrap();
+        let mut actions = Vec::new();
+        let mut raises = 0;
+        while hand.street() != Street::River || actions.iter().all(|a: &Value| a[1] != Street::River as u64) {
+            let actor = hand.actor().unwrap();
+            let obs = hand.observe(actor).unwrap();
+            let legal = obs.legal.unwrap();
+            // Menu pot raises, not all-ins, build the pot.
+            let pot_raise = multi_holdem::menu(&obs).into_iter().map(|(_, a)| a)
+                .filter(|a| a.kind == Kind::Raise && Some(a.raise_to) != legal.raise_to.map(|r| r.1))
+                .max_by_key(|a| a.raise_to);
+            let action = if hand.street() == Street::River {
+                river(&obs)
+            } else if actor == 0 && hand.street() == Street::Preflop {
+                Action { kind: Kind::Fold, raise_to: 0 }
+            } else if raises < 4 && pot_raise.is_some() {
+                raises += 1;
+                pot_raise.unwrap()
+            } else {
+                Action { kind: if legal.check { Kind::Check } else { Kind::Call }, raise_to: 0 }
+            };
+            let (street, before) = (hand.street(), hand.players()[actor].stack);
+            hand.apply_mut(action).unwrap();
+            actions.push(json!([actor, street as u64, action.kind.name(), action.raise_to, before - hand.players()[actor].stack]));
+        }
+        let legal = hand.legal().unwrap();
+        json!({"format":"nplayer-live-river-v1","button":0,"board":[0,5,10,15,20],"seat":hand.actor(),"hole":[32,33],"actions":actions,
+            "players":hand.players().iter().map(|p|json!([p.stack,p.street_bet,p.contributed,p.folded])).collect::<Vec<_>>(),
+            "legal":{"check":legal.check,"call_amount":legal.call_amount,"raise_to":legal.raise_to},"sweeps":16})
+    };
+    fn largest(o: &Observation<'_>) -> Action {
+        multi_holdem::menu(o).into_iter().map(|(_, a)| a).filter(|a| a.kind == Kind::Raise).max_by_key(|a| a.raise_to).unwrap()
+    }
+    let jam = request(|o| {
+        let a = largest(o);
+        assert_eq!(Some(a.raise_to), o.legal.unwrap().raise_to.map(|r| r.1), "the menu offers the all-in");
+        a
+    });
+    assert_eq!(
+        reconstruct(&jam, config).err().as_deref(),
+        Some("needs two live non-all-in seats and one contested root pot"),
+        "the hero faces an all-in"
+    );
+    let pot = request(|o| {
+        let raises: Vec<_> = multi_holdem::menu(o).into_iter().map(|(_, a)| a).filter(|a| a.kind == Kind::Raise).collect();
+        raises[raises.len() - 2]
+    });
+    let r = reconstruct(&pot, config);
+    assert!(r.is_ok(), "a bet that leaves both stacks live is supported: {:?}", r.err());
+}
+
+#[test]
 fn a_hero_river_action_is_refused() {
     // First actor checks, second checks: the river is over; first actor bets, second calls: over.
     // A hero that already acted on this river is outside the supported root.

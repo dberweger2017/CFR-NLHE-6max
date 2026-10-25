@@ -277,6 +277,13 @@ struct Active {
 
 const FIRST_TO_ACT_ONLY: &str = "second-to-act roots support retained begin, continue and release only";
 
+/// Solve errors that play the blueprint at the hero's decision instead of failing the hand.
+fn falls_back(e: &str) -> bool {
+    e == "own holding has zero modeled root reach"
+        || e == "observed opponent river action has zero modeled likelihood"
+        || e.starts_with("unsupported ")
+}
+
 /// Audits, exports and harm diagnostics assume the hero acts at the solved root.
 fn first_to_act_only(cap: &Captured) -> Result<(), String> {
     if cap.root.prefix.is_empty() {
@@ -401,11 +408,7 @@ impl SessionStore {
                             .then(|| "declared-game quality target not met".to_string());
                         (out, cap, reason)
                     }
-                    Err(e)
-                        if e == "own holding has zero modeled root reach"
-                            || e == "observed opponent river action has zero modeled likelihood"
-                            || e.starts_with("unsupported ") =>
-                    {
+                    Err(e) if falls_back(&e) => {
                         let root = reconstruct(observation, table.config())?;
                         let decision = root.decision()?;
                         let mut obs = decision.observe(root.seat)?;

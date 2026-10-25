@@ -153,29 +153,47 @@ fn fixed_work_is_exactly_repeatable_and_incremental() {
     assert!(q["zero_sum_error_bb"].as_f64().unwrap() < 1e-12);
 }
 #[test]
-fn quality_does_not_deviate_at_fixed_nodes() {
-    // Seat 0's root is fixed (an action already taken); its best response may only deviate
-    // below it, while seat 1's best response is unchanged.
+fn quality_and_values_keep_settled_nodes() {
+    // Seat 0's root is fixed and settled (an action already taken); its best response may only
+    // deviate below it, while seat 1's best response is unchanged.
     let row: Vec<f64> = (0..sample(false, false).holdings(0)).flat_map(|_| [0., 1.]).collect();
-    let mut fixed = vec![None; sample(false, false).nodes.len()];
+    let n = sample(false, false).nodes.len();
+    let mut fixed = vec![None; n];
     fixed[0] = Some(row.clone());
+    let mut root = vec![false; n];
+    root[0] = true;
     let mut with_fixed = Solver::new(sample(false, false), fixed.clone()).unwrap();
-    with_fixed.set_taken(0).unwrap();
+    with_fixed.set_settled(root.clone()).unwrap();
     with_fixed.advance(20).unwrap();
     let profile = with_fixed.average();
     let q = with_fixed.quality(&profile).unwrap();
-    let mut free = Solver::new(sample(false, false), vec![None; profile.len()]).unwrap();
+    let mut free = Solver::new(sample(false, false), vec![None; n]).unwrap();
     let r = free.quality(&profile).unwrap();
     let gain = |v: &Value, s: usize| v["best_response_gains_bb"][s].as_f64().unwrap();
-    assert_eq!(gain(&q, 0), 0., "the played root is the only seat-0 decision");
-    assert!(gain(&r, 0) > 0., "without the played flag the same profile is exploitable at the root");
+    assert_eq!(gain(&q, 0), 0., "the settled root is the only seat-0 decision");
+    assert!(gain(&r, 0) > 0., "without settling, the same profile is exploitable at the root");
     assert_eq!(gain(&q, 1), gain(&r, 1));
     assert_eq!(q["profile_values_bb"], r["profile_values_bb"]);
-    // Fixed but not played (prepared-request constraints): quality is unchanged.
+    // Best-response values agree with quality, before and after a quality call.
+    let fresh = |s: &mut Solver| s.value(&profile, 0, true, None).unwrap();
+    let mut before = Solver::new(sample(false, false), fixed.clone()).unwrap();
+    before.set_settled(root.clone()).unwrap();
+    let v = fresh(&mut before);
+    before.quality(&profile).unwrap();
+    assert_eq!(v, fresh(&mut before));
+    assert_eq!(v, q["profile_values_bb"][0].as_f64().unwrap() + gain(&q, 0));
+    // Settling every decision node leaves no gain for either seat.
+    let mut all = Solver::new(sample(false, false), fixed.clone()).unwrap();
+    all.set_settled(sample(false, false).nodes.iter().map(|x| matches!(x, Node::Decision { .. })).collect()).unwrap();
+    let a = all.quality(&profile).unwrap();
+    assert_eq!((gain(&a, 0), gain(&a, 1)), (0., 0.));
+    // Fixed but not settled (prepared-request constraints): quality is unchanged.
     let mut constrained = Solver::new(sample(false, false), fixed).unwrap();
     assert_eq!(constrained.quality(&profile).unwrap(), r);
-    let mut free = Solver::new(sample(false, false), vec![None; profile.len()]).unwrap();
-    assert!(free.set_taken(0).is_err(), "only fixed nodes can be played");
+    let mut leaf = vec![false; n];
+    leaf[1] = true;
+    assert!(free.set_settled(leaf).is_err(), "only decision nodes can be settled");
+    assert!(free.set_settled(vec![false; n - 1]).is_err());
 }
 #[test]
 fn fixed_policy_is_kept_even_on_unreached_rows() {

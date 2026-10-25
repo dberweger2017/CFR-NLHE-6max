@@ -966,6 +966,66 @@ fn second_to_act_continuation_replays_the_opponent_action() {
 }
 
 #[test]
+fn the_played_subtree_alone_sets_quality_and_the_scaled_target() {
+    let (table, tables) = (table(), fixture_tables());
+    for taken in [CHECK, BET] {
+        let mut obs = second_to_act(taken, 1e6, 8);
+        obs["debug"] = json!(true);
+        obs["stop_at_target"] = json!(false);
+        let out = request_impl(&obs, &table, &tables, None).unwrap();
+        // Rebuild the prepared game and recompute quality with and without settling.
+        let g = &out["prepared_game"];
+        let f = |v: &Value| v.as_f64().unwrap();
+        let ranges: [Vec<Holding>; 2] = std::array::from_fn(|s| {
+            g["ranges"][s].as_array().unwrap().iter()
+                .map(|h| Holding { cards: [h[0].as_u64().unwrap() as u8, h[1].as_u64().unwrap() as u8], weight: f(&h[2]) })
+                .collect()
+        });
+        let nodes: Vec<Node> = g["nodes"].as_array().unwrap().iter().map(|n| match n.get("terminal") {
+            Some(t) => Node::Leaf(Terminal { base: f(&t[0]), win0: f(&t[1]), tie0: f(&t[2]) }),
+            None => Node::Decision {
+                actor: n["actor"].as_u64().unwrap() as usize,
+                children: n["children"].as_array().unwrap().iter().map(|c| c.as_u64().unwrap() as usize).collect(),
+            },
+        }).collect();
+        let board: Vec<u8> = g["board"].as_array().unwrap().iter().map(|c| c.as_u64().unwrap() as u8).collect();
+        let average: Vec<Vec<f64>> = serde_json::from_value(out["average"].clone()).unwrap();
+        let Node::Decision { actor, children } = nodes[0].clone() else { panic!() };
+        let k = children.len();
+        let r = super::super::tests::root();
+        let a = multi_holdem::menu(&r.hand.observe(r.hand.actor().unwrap()).unwrap())
+            .iter()
+            .position(|(_, x)| *x == taken)
+            .unwrap();
+        let child = children[a];
+        let game = || Game::new(board.clone().try_into().unwrap(), ranges.clone(), nodes.clone(), f(&g["root_pot_bb"])).unwrap();
+        let mut fixed = vec![None; nodes.len()];
+        fixed[0] = Some(average[0].clone());
+        let mut settled = Solver::new(game(), fixed.clone()).unwrap();
+        settled.set_settled(outside_subtree(&nodes, child)).unwrap();
+        let mut unsettled = Solver::new(game(), fixed).unwrap();
+        let (q, r) = (settled.quality(&average).unwrap(), unsettled.quality(&average).unwrap());
+        assert_eq!(out["quality"], q, "in-solve quality judges the played subtree only");
+        assert_ne!(q["best_response_gains_bb"], r["best_response_gains_bb"], "settling changes the gains here");
+        // The target scales with the opponent's modeled share of the taken action.
+        let share = ranges[actor].iter().enumerate().map(|(i, h)| h.weight * average[0][i * k + a]).sum::<f64>()
+            / ranges[actor].iter().map(|h| h.weight).sum::<f64>();
+        let base = quality_target(obs.get("target"), f(&g["root_pot_bb"])).unwrap();
+        assert!(share < 1.);
+        assert!((f(&out["target_bb"]) - base * share).abs() <= 1e-12 * base, "target scales with the share");
+    }
+}
+
+#[test]
+fn only_declared_solve_failures_fall_back() {
+    assert!(falls_back("observed opponent river action has zero modeled likelihood"));
+    assert!(falls_back("own holding has zero modeled root reach"));
+    assert!(falls_back("unsupported river tree"));
+    assert!(!falls_back("invalid fixed profile"));
+    assert!(!falls_back(FIRST_TO_ACT_ONLY));
+}
+
+#[test]
 fn audits_exports_and_omitted_evaluation_refuse_second_to_act_roots() {
     let (table, tables) = (table(), fixture_tables());
     let mut store = SessionStore::new(&"a".repeat(64)).unwrap();

@@ -79,6 +79,19 @@ struct PublicRoot {
     hole: [u8; 2],
     live: [usize; 2],
 }
+/// Every decision node outside the subtree rooted at `keep`.
+fn outside_subtree(nodes: &[Node], keep: usize) -> Vec<bool> {
+    let mut outside: Vec<bool> = nodes.iter().map(|n| matches!(n, Node::Decision { .. })).collect();
+    let mut stack = vec![keep];
+    while let Some(id) = stack.pop() {
+        outside[id] = false;
+        if let Node::Decision { children, .. } = &nodes[id] {
+            stack.extend(children);
+        }
+    }
+    outside
+}
+
 impl PublicRoot {
     /// The hero's decision: the first river decision with the opponent's prefix applied.
     fn decision(&self) -> Result<Hand, String> {
@@ -1356,6 +1369,8 @@ fn request_impl(
         taken_share = reach / ranges[o].iter().map(|h| h.weight).sum::<f64>();
         fixed[0] = Some(row);
     }
+    // Quality judges only the hero's played subtree: the opponent's root and the branches it ruled out are settled.
+    let settled = (hero_node != 0).then(|| outside_subtree(&tree.nodes, hero_node));
     let game = Game::new(
         root.board,
         ranges,
@@ -1372,8 +1387,8 @@ fn request_impl(
     };
     let menus = &tree.menus;
     let mut solver = Solver::new(game, fixed)?;
-    if hero_node != 0 {
-        solver.set_taken(0)?;
+    if let Some(settled) = settled {
+        solver.set_settled(settled)?;
     }
     solver.set_algorithm(match v.get("algorithm").map(|a| a.as_str()) {
         None | Some(Some("linear-cfr")) => Algorithm::Linear,
