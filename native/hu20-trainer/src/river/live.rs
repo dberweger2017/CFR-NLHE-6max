@@ -121,14 +121,15 @@ fn taken_action_share(
     // Use the same compatible pair masses as Game::new. Scalar nonnegative
     // accumulation avoids cancellation manufacturing support for blocked hands.
     let (mut total, mut taken) = (0., 0.);
-    for h in hero {
-        for (o, p) in opponent.iter().zip(probabilities) {
-            if disjoint(h.cards, o.cards) {
-                let mass = h.weight * o.weight;
-                total += mass;
-                taken += mass * p;
-            }
-        }
+    for (o, p) in opponent.iter().zip(probabilities) {
+        let compatible: f64 = hero
+            .iter()
+            .filter(|h| disjoint(h.cards, o.cards))
+            .map(|h| h.weight)
+            .sum();
+        let mass = compatible * o.weight;
+        total += mass;
+        taken += mass * p;
     }
     if !total.is_finite() || !taken.is_finite() || total <= 0. {
         return Err("invalid compatible opponent action mass".into());

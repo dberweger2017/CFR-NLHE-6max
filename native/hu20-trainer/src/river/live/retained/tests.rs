@@ -1033,18 +1033,21 @@ fn the_played_subtree_alone_sets_quality_and_the_scaled_target() {
         // The target scales with the opponent's modeled share of the taken action.
         let (mut mass, mut observed_mass) = (0., 0.);
         for h in &ranges[1 - actor] {
+            let (mut row_mass, mut observed_row_mass) = (0., 0.);
             for (i, o) in ranges[actor].iter().enumerate() {
                 if h.cards.iter().all(|c| !o.cards.contains(c)) {
-                    let pair_mass = h.weight * o.weight;
-                    mass += pair_mass;
-                    observed_mass += pair_mass * average[0][i * k + a];
+                    row_mass += o.weight;
+                    observed_row_mass += o.weight * average[0][i * k + a];
                 }
             }
+            mass += h.weight * row_mass;
+            observed_mass += h.weight * observed_row_mass;
         }
         let share = observed_mass / mass;
         let base = quality_target(obs.get("target"), f(&g["root_pot_bb"])).unwrap();
         assert!(share < 1.);
-        assert!((f(&out["target_bb"]) - base * share).abs() <= 1e-12 * base, "target scales with the share");
+        assert!((f(&out["target_bb"]) - base * share).abs() <= 1e-12 * base,
+            "target {} differs from compatible share {} times base {}", out["target_bb"], share, base);
     }
 }
 
