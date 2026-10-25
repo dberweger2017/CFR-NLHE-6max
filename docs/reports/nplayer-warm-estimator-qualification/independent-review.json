@@ -1,0 +1,106 @@
+{
+  "format": "nplayer-independent-estimator-review-v1",
+  "status": "approved",
+  "independent_reviewer": "Independent reviewer agent /root/estimator_review; the same single owner-authorized reviewer for both rounds; did not implement the reviewed changes",
+  "scope": "frozen-warm-estimator-and-information-boundary",
+  "source": "cc28e45d0d842ec68721d14b9224ce232bcad0dc",
+  "sourceSHA": "cc28e45d0d842ec68721d14b9224ce232bcad0dc",
+  "binary_sha256": "0286d5ec5ceb7466c68e001cc03cfa3aa19600eb35eb42cc8001cd313e902d23",
+  "binary": "/home/dberweger/nplayer-warm-estimator-qualification-20261025/build-v2/target/release/examples/nplayer_warm_estimator",
+  "reviewed_at_utc": "2026-10-25T00:00:49.179604+00:00",
+  "unresolved_correctness_questions": [],
+  "target_build_receipt": "/Users/dberweger/Local/nplayer-four-player-next-proposals-20261024/revision-v3/TARGET-BUILD-RECEIPT.json",
+  "target_build_receipt_sha256": "f35296877287f328f934f7cffcf6372bd8dfc3cd6a55e34e87e5d7fa33330c6a",
+  "source_binding": {
+    "clean_local_checkout": true,
+    "all_source_files_match_target_build_receipt": true,
+    "source_file_count": 703,
+    "source_map_selection": [
+      "native",
+      "scripts"
+    ]
+  },
+  "reviewed_paths": [
+    "CONTRIBUTING.md",
+    "docs/nplayer-warm-estimator-qualification.md",
+    "docs/observations.md",
+    "docs/rules.md",
+    "docs/reports/four-player-next-allocation/science-qualification.json",
+    "native/hu20-trainer/examples/nplayer_warm_estimator.rs",
+    "native/hu20-trainer/examples/support/warm_estimator.rs",
+    "native/hu20-trainer/examples/support/warm_estimator_tests.rs",
+    "native/hu20-trainer/examples/support/warm_artifacts.rs",
+    "scripts/nplayer_warm_estimator_qualification.py",
+    "tests/test_nplayer_warm_estimator_qualification.py",
+    "native/hu20-trainer/src/multi_cfr.rs",
+    "native/hu20-trainer/src/multi_holdem.rs",
+    "native/hu20-trainer/src/multi_checkpoint.rs",
+    "native/hu20-trainer/src/cfr.rs",
+    "scripts/nplayer_bb200_feasibility.py",
+    "scripts/run_river_continuation_qualification.py"
+  ],
+  "original_findings": [
+    {
+      "reviewed_source": "b6b350a53c3205cd56d3a77d85912a908e371ad5",
+      "status": "resolved",
+      "finding": "Missing independent-root grouped terminal/value coefficient ESS and linear-weight terminal/value counterparts in the settled diagnostic.",
+      "resolution": "cc28e45d adds raw and linear terminal coefficient metrics, separate average/regret prefix groups, root_grouped_metrics that sum within each independent root and explicitly pad absent root groups with zeros. Native summaries are retained in the settled full_summary. Focused fixture distinguishes event ESS 8/3 from grouped ESS 2 and checks late/missing root groups."
+    },
+    {
+      "reviewed_source": "b6b350a53c3205cd56d3a77d85912a908e371ad5",
+      "status": "resolved",
+      "finding": "Update-gated per-key coefficient moments obscured positive counterfactual reach when the numerical regret vector was tied/all zero.",
+      "resolution": "cc28e45d exposes unconditional event and root moments, raw and linear, separately from the original update-gated evidence used for replication. Explicit never_encountered, encountered_only_zero_coefficient, and zero_update_with_positive_coefficient fields preserve the distinction. Focused watched-key fixture confirms positive coefficients survive tied updates."
+    }
+  ],
+  "methods": [
+    "Read the frozen qualification contract and compared standalone diagnostic control flow and expected increments with unchanged production multi_cfr::Traversal.",
+    "Checked conditional returned-value correction sigma/q and prefix-only non-traverser correction for regrets and existing opponent-sampled averages; own-action reach is excluded from counterfactual updates and used only for separate root-value coefficient diagnostics.",
+    "Inspected exact-zero reach, missing-row uniform policy, nonzero normalization/product underflow failures, tied action values and zero vectors; no missing-history reset or zero-prefix shortcut is present.",
+    "Checked nonnegative coefficient moments, separate update evidence, root grouping, fixed replication thresholds and full-batch shadow admission including zeros, overshoot, post-freeze retained updates/discards, and never-hit watched keys.",
+    "Compared policy query construction with the existing acting-seat legal observation, key and menu adapters; evaluator-owned hidden data remains outside policy inputs.",
+    "Inspected source/config/model/K50 pins, fixed root identities and domain-separated pairing, separate-process byte-comparing reproduction, failure retention and settled watch-key completeness.",
+    "Reviewed the complete b6b350a..cc28e45d correction diff and its two focused fixtures; no estimator increment, workload, threshold or legal-input change was introduced.",
+    "Compared all 703 target build receipt source-file hashes with the reviewed clean local checkout and checked its full source commit and actual reported binary hash."
+  ],
+  "evidence": {
+    "local_native_example_fixtures": {
+      "passed": 14,
+      "command": "native/hu20-trainer/target/debug/examples/nplayer_warm_estimator-4b80747a4059e455 --test-threads=1",
+      "method": "Executed existing local test executable without rebuilding or modifying repository files."
+    },
+    "local_python_controller_fixtures": {
+      "passed": 5,
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3.11 -m unittest discover -s tests -p test_nplayer_warm_estimator_qualification.py"
+    },
+    "target_build_receipt": {
+      "status": "passed",
+      "native_library_tests_passed": true,
+      "estimator_fixtures_passed": true,
+      "source_file_hashes_matched": 703
+    },
+    "production_traversal_and_adapters_changed": false,
+    "new_substantive_findings": []
+  },
+  "approved_workload": {
+    "batches": 32,
+    "traversers": 4,
+    "roots_per_traverser": 8,
+    "root_contexts_per_mode": 1024,
+    "modes": [
+      "q=sigma",
+      "q=0.75*sigma+0.25*legal-check/call"
+    ],
+    "separate_process_reproduction": true,
+    "saved_prefix_hands": 1536,
+    "shadow_slots_whole_batch_threshold": 100000
+  },
+  "limitations": [
+    "Approval applies only to this reviewed source and receipt-bound binary for the fixed frozen-current-regret diagnostic. Later changes require review.",
+    "Target binary identity and successful target tests/build are established by the copied source-bound target build receipt; this reviewer did not download or execute the target binary independently.",
+    "No mature checkpoint load, warmed traversal, arena, training, remote command or scientific run was performed by this reviewer.",
+    "This is correctness and information-boundary approval, not resource admission, approval of adaptive training or a strength verdict.",
+    "Root-grouped Kish ESS is a concentration diagnostic, not a strength interval or an independent decision count. Shadow admission does not establish from-scratch training admission.",
+    "Zero reach in the retained historical prefixes does not prove an abstract key unreachable for every compatible hidden state."
+  ]
+}

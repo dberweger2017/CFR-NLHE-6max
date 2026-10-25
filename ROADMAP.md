@@ -1,5 +1,32 @@
 # Roadmap
 
+## Four-player estimator qualification complete; mature campaigns remain paused
+
+[PR425](https://github.com/dberweger2017/CFR-NLHE-6max/pull/425),
+[diagnostic protocol](docs/nplayer-warm-estimator-qualification.md),
+[corrected four-player-only v0.7 proposal](docs/reports/four-player-next-allocation/release-proposal.md).
+[Verified diagnostic](docs/reports/nplayer-warm-estimator-qualification/results.md):
+all2,048 root contexts reproduce byte for byte; independent review and target
+fixtures pass. Main18m09s, peak20.35GiB, CPU73/Thermistor15 76°C. Passive sampling
+admits105,635 shadow rows but87,393 (82.73%) remain zero-update; ordinary sampling
+admits90,089 with59 zero-update rows. Neither mode demonstrates the prescribed
+per-key repeated-learning proxy on admitted targeted turn/river rows. Of267
+historical watch keys, passive sampling reaches two, both zero-weight;434/436
+saved missing prefixes have zero target reach. Sparse sampling and compatible
+hidden states limit any universal reach claim. Do not launch mature visitation
+training from this result; a successor needs an explicit support/admission
+hypothesis and separately qualified objective. Ordinary evidence remains
+protected, cleaner-owned archival pending; no player/default/verdict changes.
+
+The release revision restores cyclic margin −5 and all24 mixed-field seatings,
+keeps eight balanced homogeneous/peer seatings, and explicitly defers the
+unqualified per-key training ledger. Its complete all-NVMe scenario is23.1h
+central/45.7h reserve and850.9GiB new NVMe; conditional staging is161.9GiB NVMe
++700.9GiB HDD and26.8h/53.2h including provisional copy/readback. Neither fits
+the recorded space. Mature campaigns remain paused pending feasible storage,
+source qualification and a complete accepted budget. Search stays deferred;
+PR423 and all earlier verdicts remain unchanged.
+
 ## Six-player missing-row composition: primary gain, no promotion
 
 [PR423](https://github.com/dberweger2017/CFR-NLHE-6max/pull/423),
