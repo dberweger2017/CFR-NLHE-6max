@@ -1,14 +1,22 @@
 # Roadmap
 
-## Four-player next step: short estimator qualification; release budget blocked
+## Four-player estimator qualification complete; mature campaigns remain paused
 
 [PR425](https://github.com/dberweger2017/CFR-NLHE-6max/pull/425),
 [diagnostic protocol](docs/nplayer-warm-estimator-qualification.md),
 [corrected four-player-only v0.7 proposal](docs/reports/four-player-next-allocation/release-proposal.md).
-Implement and review the frozen-current-regret qualification before another
-mature science campaign: preserve upstream zeros, measure positive learning,
-root-grouped ESS and shadow admission waste. Local fixtures are engineering
-evidence; the warmed diagnostic has not run and cannot trigger a 10B continuation.
+[Verified diagnostic](docs/reports/nplayer-warm-estimator-qualification/results.md):
+all2,048 root contexts reproduce byte for byte; independent review and target
+fixtures pass. Main18m09s, peak20.35GiB, CPU73/Thermistor15 76°C. Passive sampling
+admits105,635 shadow rows but87,393 (82.73%) remain zero-update; ordinary sampling
+admits90,089 with59 zero-update rows. Neither mode demonstrates the prescribed
+per-key repeated-learning proxy on admitted targeted turn/river rows. Of267
+historical watch keys, passive sampling reaches two, both zero-weight;434/436
+saved missing prefixes have zero target reach. Sparse sampling and compatible
+hidden states limit any universal reach claim. Do not launch mature visitation
+training from this result; a successor needs an explicit support/admission
+hypothesis and separately qualified objective. Ordinary evidence remains
+protected, cleaner-owned archival pending; no player/default/verdict changes.
 
 The release revision restores cyclic margin −5 and all24 mixed-field seatings,
 keeps eight balanced homogeneous/peer seatings, and explicitly defers the

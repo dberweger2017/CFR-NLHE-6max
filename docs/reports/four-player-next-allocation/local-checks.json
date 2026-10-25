@@ -1,5 +1,5 @@
 {
-  "status": "local-fixtures-passed-warmed-run-not-started",
+  "status": "fixtures-independent-review-and-warmed-diagnostic-passed",
   "native_library_tests": {
     "passed": 121,
     "command": "cargo test --locked --manifest-path native/hu20-trainer/Cargo.toml --lib",
@@ -41,10 +41,6 @@
     "tests/test_nplayer_warm_estimator_qualification.py": "fd86517c6021d711ec9f6eb8f63f91172e0c563954310385b690ede8629e1c25"
   },
   "not_claimed": [
-    "independent estimator review",
-    "target-host build and fixtures",
-    "warm checkpoint loading",
-    "short diagnostic result",
     "new training",
     "new arena hands",
     "release acceptance"
@@ -55,6 +51,20 @@
     "corrections": "grouped/linear terminal metrics and unconditional per-key coefficients separate from update-gated ESS",
     "two_focused_fixtures_passed": true,
     "warm_work_before_corrections": false,
-    "independent_recheck_pending": true
+    "independent_recheck_pending": false,
+    "approved_source": "cc28e45d0d842ec68721d14b9224ce232bcad0dc",
+    "approved_binary_sha256": "0286d5ec5ceb7466c68e001cc03cfa3aa19600eb35eb42cc8001cd313e902d23",
+    "receipt": "../nplayer-warm-estimator-qualification/independent-review.json"
+  },
+  "target_host_and_diagnostic": {
+    "native_library_tests": 121,
+    "native_example_tests": 14,
+    "controller_tests": 5,
+    "main_stages_passed": 3,
+    "root_contexts_per_mode": 1024,
+    "modes": 2,
+    "byte_identical_reproduction": true,
+    "no_training": true,
+    "results": "../nplayer-warm-estimator-qualification/results.json"
   }
 }

@@ -1,3 +1,31 @@
+## PR425 — warmed estimator qualification complete; no mature continuation
+
+[Results](docs/reports/nplayer-warm-estimator-qualification/results.md),
+[compact proofs/costs](docs/reports/nplayer-warm-estimator-qualification/results.json),
+[independent estimator review](docs/reports/nplayer-warm-estimator-qualification/independent-review.json),
+[all missing coefficients](docs/reports/nplayer-warm-estimator-qualification/missing-coefficients.csv),
+[watch groups](docs/reports/nplayer-warm-estimator-qualification/watch-keys.csv).
+October25 00:01:57–00:20:06UTC,18m09.21s; all3mainstagesRC0. Both1,024root
+modes reproduce byte for byte, no omissions or scientific retries. Passive
+admits105,635 shadow rows,87,393 zero-update at end; ordinary90,089/59.
+No admitted targeted turn/river row or watched potential row meets the fixed
+replicated-learning proxy.434/436saved missing prefixes have zero target reach;
+never-hit keys and hidden-state limitations preserved. No training/new hands.
+
+Execution source `cc28e45d0d842ec68721d14b9224ce232bcad0dc`,703source pins;
+binary `0286d5ec5ceb7466c68e001cc03cfa3aa19600eb35eb42cc8001cd313e902d23`,
+config `094dce6bf86409bd026af020d2e372ab6dcce1e4583292e30f40da31ede06a25`,
+verified receipt `d3d864033e3159376acd3c25aaa26d9a225bfc0d85f1e1c1f5e702dfa573d639`.
+Ordinary evidence/source/config/review/inputs/first build PATH failure retained
+at `bb128:/home/dberweger/nplayer-warm-estimator-qualification-20261025/`.
+Initial artifact manifest `8a85d599bd4cb17aaacb03f2749303856b2fa399492a3b0399b5a8d4a64f1e3e`
+pins eight files1,098,614,179B; no duplicate raw repeat tree. PR413 checkpoint,
+borrowed traces/K50/runtime remain protected; cleaner received natural completion.
+Future cache `/research/PR-425-nplayer-warm-estimator-qualification/` and Drive
+`gdrive:PR-425-nplayer-warm-estimator-qualification/` are **prospective**, not
+populated/accepted claims. No archive/member/upload receipt or deletion. Use
+protected originals until cleaner publishes the complete archive-set receipts.
+
 ## PR423 — missing-row composition complete; primary gain, 5/8 gates
 
 [Verified report](docs/reports/nplayer-missing-row-composition/results.md),

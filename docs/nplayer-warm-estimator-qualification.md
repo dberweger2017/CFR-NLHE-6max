@@ -162,14 +162,16 @@ and streamed reproduction failures. CI runs the new example fixtures too.
 The independent review identified missing grouped/linear terminal summaries
 and unconditional watched-key coefficients; both reporting gaps were corrected
 before any warmed work, with two focused fixtures. The estimator increments,
-fixed workload and player remain unchanged. Target-host build/review must bind
-the corrected source and actual binary before launch.
+fixed workload and player remain unchanged.
 
-**The warmed diagnostic has not run.** No target-host build receipt or
-independent estimator-review receipt is claimed. Complete those gates, then
-inspect current storage before the short allocation. Positive results may
-justify pricing a next science experiment only; absence of replicated learning
-must distinguish zero target reach in the inspected prefixes from insufficient
-sampling. Zero reach in every retained prefix is not proof that an abstract key
-is unreachable for every compatible hidden state. The fixed readout preserves
-that distinction and all never-hit watch targets.
+**The owner-authorized warmed diagnostic is complete.** The target build and
+[independent review](reports/nplayer-warm-estimator-qualification/independent-review.json)
+bind source `cc28e45d0d842ec68721d14b9224ce232bcad0dc` and the actual binary.
+All three main stages return0; all2,048 initial root contexts reproduce byte
+for byte in a fresh process. [Results and costs](reports/nplayer-warm-estimator-qualification/results.md)
+show82.73% passive shadow rows remain zero-update, with no qualifying repeated
+learning on admitted targeted turn/river rows or watched potential rows. Main
+execution is18m09s; no mature continuation follows. Sparse sampling and
+compatible hidden states remain explicit limitations of reach conclusions.
+The frozen protocol above is retained as the original prospective contract,
+not authorization to repeat the run. Four-player release storage remains blocked.
