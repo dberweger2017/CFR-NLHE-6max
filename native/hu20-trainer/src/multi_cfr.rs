@@ -206,9 +206,10 @@ impl Table {
     pub fn insert(&mut self, key: Key, entry: Entry) -> bool {
         self.0.insert_view(key, entry.stored().view())
     }
-    /// Merges `tasks` shard by shard, each key's deltas summed in task order; returns the
-    /// (keys, visits) discarded when `frozen`.
-    pub fn merge_all(&mut self, tasks: Vec<Deltas>, frozen: bool, parallel: bool) -> (u64, u64) {
+    /// Merges `tasks` shard by shard, each key's deltas summed in task order. Returns the keys and
+    /// visits discarded when `frozen`, then the new keys declined because `traverser_admission`
+    /// admits only summed deltas with a traverser visit.
+    pub fn merge_all(&mut self, tasks: Vec<Deltas>, frozen: bool, traverser_admission: bool, parallel: bool) -> (u64, u64, u64) {
         use rayon::prelude::*;
         let shards = self.0 .0.len();
         let split = |deltas: Deltas| {
@@ -235,21 +236,23 @@ impl Table {
                 }
                 combined.into_iter().collect()
             };
-            let mut discarded = (0, 0);
+            let mut discarded = (0, 0, 0);
             for (key, delta) in part {
                 if frozen && !shard.contains(&key) {
-                    discarded = (discarded.0 + 1, discarded.1 + delta.visits);
+                    discarded = (discarded.0 + 1, discarded.1 + delta.visits, discarded.2);
+                } else if traverser_admission && delta.visits == 0 && !shard.contains(&key) {
+                    discarded.2 += 1;
                 } else {
                     shard.merge(key, delta.stored().view());
                 }
             }
             discarded
         };
-        let sum = |a: (u64, u64), b: (u64, u64)| (a.0 + b.0, a.1 + b.1);
+        let sum = |a: (u64, u64, u64), b: (u64, u64, u64)| (a.0 + b.0, a.1 + b.1, a.2 + b.2);
         if parallel {
-            self.0 .0.par_iter_mut().zip(by_shard).map(merge).reduce(|| (0, 0), sum)
+            self.0 .0.par_iter_mut().zip(by_shard).map(merge).reduce(|| (0, 0, 0), sum)
         } else {
-            self.0 .0.iter_mut().zip(by_shard).map(merge).fold((0, 0), sum)
+            self.0 .0.iter_mut().zip(by_shard).map(merge).fold((0, 0, 0), sum)
         }
     }
     /// Every entry, in no particular order.
@@ -417,6 +420,9 @@ pub struct Counts {
     pub pruned: u64,
     /// Opponent pot raises forced by pressure; recorded under `opponent_pressure`, not `counts`.
     pub pressured: u64,
+    /// New keys with only opponent updates, declined by traverser admission and summed over
+    /// iterations; recorded under `admission`, not `counts`.
+    pub declined: u64,
 }
 impl Counts {
     fn add(&mut self, other: &Counts) {
@@ -433,6 +439,7 @@ impl Counts {
         self.discarded_visits += other.discarded_visits;
         self.pruned += other.pruned;
         self.pressured += other.pressured;
+        self.declined += other.declined;
     }
 }
 
@@ -602,6 +609,10 @@ pub struct Trainer {
     /// Fast cash-game mode: probability that a sampled opponent decision takes the pot-size
     /// raise (docs/nplayer-opponent-pressure.md). Average strategies still record the policy.
     pub pressure: Option<f64>,
+    /// Fast mode: a new key enters the table only with a traverser update
+    /// (docs/nplayer-traverser-admission.md). Opponent-only rows keep zero regrets and so play
+    /// exactly the uniform fallback while holding capacity.
+    pub traverser_admission: bool,
 }
 
 /// Skip traverser actions with zero probability whose regret shows an average loss above `bb`
@@ -644,6 +655,7 @@ impl Trainer {
             roots_per_seat: 1,
             prune: None,
             pressure: None,
+            traverser_admission: false,
         }
     }
     /// Starts the next iteration; its linear weight.
@@ -655,6 +667,7 @@ impl Trainer {
             "pruning: fast mode only, with a positive finite limit");
         assert!(self.pressure.map_or(true, |p| sampling == Sampling::Path && p > 0. && p <= 1.),
             "opponent pressure: fast mode only, probability in (0, 1]");
+        assert!(!self.traverser_admission || sampling == Sampling::Path, "traverser admission: fast mode only");
         assert_eq!(game.identity(), self.identity);
         assert_eq!(game.players(), self.players);
         assert!(
@@ -760,9 +773,10 @@ impl Trainer {
     /// Production merges on its own thread, fast mode in parallel.
     fn apply(&mut self, tasks: Vec<Deltas>) {
         let parallel = self.sampling == Sampling::Path;
-        let (keys, visits) = self.table.merge_all(tasks, self.frozen_at.is_some(), parallel);
+        let (keys, visits, declined) = self.table.merge_all(tasks, self.frozen_at.is_some(), self.traverser_admission, parallel);
         self.counts.discarded_keys += keys;
         self.counts.discarded_visits += visits;
+        self.counts.declined += declined;
         if self.freeze_at_cap && self.frozen_at.is_none() && self.table.len() >= self.max_entries {
             self.frozen_at = Some(self.iteration);
         }

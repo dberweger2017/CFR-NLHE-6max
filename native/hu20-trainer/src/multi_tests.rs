@@ -655,3 +655,110 @@ fn opponent_pressure_round_trips_and_is_absent_from_legacy_checkpoints() {
     assert!(crate::multi_checkpoint::load(&path).is_err(), "pressure belongs to fast mode");
     std::fs::remove_file(path).unwrap();
 }
+
+fn admitted(game: &SmallGame, steps: usize, threads: usize, roots_per_seat: usize, max_entries: usize) -> Trainer {
+    let mut t = Trainer { sampling: Sampling::Path, roots_per_seat, traverser_admission: true,
+        ..Trainer::new(game, 31, 3, max_entries, max_entries != usize::MAX) };
+    let pool = rayon::ThreadPoolBuilder::new().num_threads(threads).build().unwrap();
+    pool.install(|| (0..steps).for_each(|_| t.step_fast(game)));
+    t
+}
+
+#[test]
+fn traverser_admission_stores_only_keys_with_a_traverser_update() {
+    for (kind, n) in [(Kind::Leduc, 3), (Kind::Leduc, 4)] {
+        let game = SmallGame::new(kind, n);
+        let legacy = fast_roots(&game, 6, 1, 2);
+        assert!(legacy.table.values().any(|e| e.visits == 0), "{kind:?} {n}: legacy keeps opponent-only rows");
+        let t = admitted(&game, 6, 1, 2, usize::MAX);
+        assert!(t.counts.declined > 0);
+        assert!(t.table.values().all(|e| e.visits > 0), "{kind:?} {n}");
+        // From an empty table both runs traverse identically, so the first iteration admits exactly
+        // the legacy rows with a traverser update, with identical contents.
+        let (legacy, t) = (fast_roots(&game, 1, 1, 2), admitted(&game, 1, 1, 2, usize::MAX));
+        let trained: Vec<_> = legacy.table.sorted().filter(|(_, e)| e.visits > 0).collect();
+        assert!(trained.len() < legacy.table.len());
+        assert!(t.table.sorted().eq(trained.into_iter()), "{kind:?} {n}");
+        assert_eq!(t.counts.declined as usize, legacy.table.len() - t.table.len());
+    }
+}
+
+#[test]
+fn traverser_admission_still_merges_opponent_updates_into_stored_keys() {
+    let decision = |byte: u8| Decision { key: [byte; 16], actor: 0, owner: 0, street: 0, code: 0b11 };
+    let mut table = Table::default();
+    table.insert([1; 16], Entry::new(decision(1), 3));
+    let opponent = |byte: u8| {
+        let mut d = Delta::new(decision(byte), 3);
+        d.average_mut().unwrap()[0] = 2.;
+        d
+    };
+    let mut traverser = Delta::new(decision(3), 3);
+    traverser.regrets_mut()[1] = 5.;
+    traverser.visits = 1;
+    let mut deltas = Deltas::default();
+    deltas.insert([1; 16], opponent(1));
+    deltas.insert([2; 16], opponent(2));
+    deltas.insert([3; 16], traverser);
+    for parallel in [false, true] {
+        let mut t = table.clone();
+        assert_eq!(t.merge_all(vec![deltas.clone()], false, true, parallel), (0, 0, 1));
+        assert_eq!(t.get(&[1; 16]).unwrap().average.unwrap()[0], 2., "stored key keeps opponent mass");
+        assert!(t.get(&[2; 16]).is_none(), "new opponent-only key declined");
+        assert_eq!(t.get(&[3; 16]).unwrap().regrets[1], 5.);
+        let mut legacy = table.clone();
+        assert_eq!(legacy.merge_all(vec![deltas.clone()], false, false, parallel), (0, 0, 0));
+        assert!(legacy.contains_key(&[2; 16]));
+    }
+    // A key with both kinds of update in one iteration is admitted with both.
+    let mut both = opponent(4);
+    both.visits = 1;
+    let mut t = Table::default();
+    let mut split = (Deltas::default(), Deltas::default());
+    split.0.insert([4; 16], opponent(4));
+    split.1.insert([4; 16], both);
+    assert_eq!(t.merge_all(vec![split.0, split.1], false, true, false), (0, 0, 0));
+    assert_eq!(t.get(&[4; 16]).unwrap().average.unwrap()[0], 4.);
+}
+
+#[test]
+fn traverser_admission_is_identical_for_every_thread_count_and_freezes() {
+    let game = SmallGame::new(Kind::Leduc, 3);
+    let one = admitted(&game, 30, 1, 3, usize::MAX);
+    let bytes = checkpoint_bytes(&one, "admitted-one");
+    assert!(bytes != checkpoint_bytes(&fast_roots(&game, 30, 1, 3), "admitted-legacy"));
+    for threads in [2, 8] {
+        let many = admitted(&game, 30, threads, 3, usize::MAX);
+        assert_eq!(one.counts, many.counts, "threads {threads}");
+        assert!(bytes == checkpoint_bytes(&many, "admitted-many"), "threads {threads}");
+    }
+    let cap = one.table.len() / 2;
+    let frozen = admitted(&game, 30, 4, 3, cap);
+    assert!(frozen.frozen_at.is_some() && frozen.counts.discarded_keys > 0);
+    assert!(frozen.table.values().all(|e| e.visits > 0));
+}
+
+#[test]
+fn traverser_admission_round_trips_and_is_absent_from_legacy_checkpoints() {
+    let game = SmallGame::new(Kind::Leduc, 3);
+    let path = std::env::temp_dir().join(format!("multi-admission-{}.gz", std::process::id()));
+    let header = |path: &std::path::Path| {
+        let mut line = String::new();
+        std::io::BufRead::read_line(&mut std::io::BufReader::new(flate2::read::MultiGzDecoder::new(std::fs::File::open(path).unwrap())), &mut line).unwrap();
+        serde_json::from_str::<serde_json::Value>(&line).unwrap()
+    };
+    crate::multi_checkpoint::save(&fast_trainer(&game, 3, 2), &path, crate::gz::Gzip::Compatible).unwrap();
+    assert!(header(&path).get("admission").is_none());
+    let t = admitted(&game, 3, 2, 1, usize::MAX);
+    crate::multi_checkpoint::save(&t, &path, crate::gz::Gzip::Compatible).unwrap();
+    assert_eq!(header(&path)["admission"]["rule"], "traverser-admission-v1");
+    assert_eq!(header(&path)["admission"]["declined_keys"], t.counts.declined);
+    let loaded = crate::multi_checkpoint::load(&path).unwrap();
+    assert!(loaded.traverser_admission);
+    assert_eq!(loaded.counts, t.counts);
+    assert_eq!(loaded.table, t.table);
+    let stream = Trainer { traverser_admission: true, ..Trainer::new(&game, 9, 3, usize::MAX, false) };
+    crate::multi_checkpoint::save(&stream, &path, crate::gz::Gzip::Compatible).unwrap();
+    assert!(crate::multi_checkpoint::load(&path).is_err(), "traverser admission belongs to fast mode");
+    std::fs::remove_file(path).unwrap();
+}

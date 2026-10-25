@@ -19,7 +19,15 @@ fn train() -> Result<(), String> {
     let mut freeze = false;
     let mut gzip = None;
     let mut fast = false;
+    let mut admission = false;
     while let Some(key) = args.next() {
+        if key == "--traverser-admission" {
+            if admission {
+                return Err("duplicate --traverser-admission".into());
+            }
+            admission = true;
+            continue;
+        }
         if key == "--fast" {
             if fast {
                 return Err("duplicate --fast".into());
@@ -165,6 +173,9 @@ fn train() -> Result<(), String> {
         Some(_) if !fast => return Err("--opponent-pot-raise needs --fast".into()),
         Some(p) => Some(p.parse::<f64>().ok().filter(|p| *p > 0. && *p <= 1.).ok_or("invalid --opponent-pot-raise")?),
     };
+    if admission && !fast {
+        return Err("--traverser-admission needs --fast".into());
+    }
     let tables = EquityTables::load(Path::new(required("--card-buckets")?), false)?;
     let game = CashGame { config, tables };
     let mut trainer = if let Some(path) = options.get("--resume") {
@@ -184,12 +195,13 @@ fn train() -> Result<(), String> {
             || t.roots_per_seat != roots_per_seat
             || t.prune != prune
             || t.pressure != pressure
+            || t.traverser_admission != admission
         {
             return Err("resume configuration mismatch".into());
         }
         t
     } else {
-        Trainer { sampling, roots_per_seat, prune, pressure, ..Trainer::new(&game, seed, scope, max_entries, freeze) }
+        Trainer { sampling, roots_per_seat, prune, pressure, traverser_admission: admission, ..Trainer::new(&game, seed, scope, max_entries, freeze) }
     };
     if let Some(parent) = out.parent() {
         if !parent.as_os_str().is_empty() {
@@ -231,8 +243,12 @@ fn train() -> Result<(), String> {
         }
         if trainer.iteration % 100 == 0 {
             if let Some(file) = telemetry.as_mut() {
-                writeln!(file,"{}",json!({"iteration":trainer.iteration,"entries":trainer.table.len(),
-                "frozen_at":trainer.frozen_at,"elapsed_seconds":start.elapsed().as_secs_f64(),"counts":multi_checkpoint::counts_json(&trainer.counts)})).map_err(|e|e.to_string())?;
+                let mut line = json!({"iteration":trainer.iteration,"entries":trainer.table.len(),
+                "frozen_at":trainer.frozen_at,"elapsed_seconds":start.elapsed().as_secs_f64(),"counts":multi_checkpoint::counts_json(&trainer.counts)});
+                if admission {
+                    line["declined_keys"] = json!(trainer.counts.declined);
+                }
+                writeln!(file, "{line}").map_err(|e| e.to_string())?;
             }
         }
     };
