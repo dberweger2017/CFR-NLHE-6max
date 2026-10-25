@@ -479,7 +479,7 @@ fn capped_search_menus_keep_the_root_and_cap_river_raises() {
 }
 
 /// The `root()` history continued with river actions, as a request for the current actor.
-fn river_request(extra: &[Action]) -> (Value, Config) {
+pub(super) fn river_request(extra: &[Action]) -> (Value, Config) {
     let config = Config::new(&[10000; 3], 50, 100).unwrap();
     let r = root();
     let mut hand = r.hand.clone();

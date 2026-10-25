@@ -79,6 +79,17 @@ struct PublicRoot {
     hole: [u8; 2],
     live: [usize; 2],
 }
+impl PublicRoot {
+    /// The hero's decision: the first river decision with the opponent's prefix applied.
+    fn decision(&self) -> Result<Hand, String> {
+        let mut hand = self.hand.clone();
+        for &a in &self.prefix {
+            hand.apply_mut(a)?;
+        }
+        Ok(hand)
+    }
+}
+
 fn reconstruct(v: &Value, config: Config) -> Result<PublicRoot, String> {
     fields(
         v,
@@ -203,6 +214,7 @@ fn reconstruct(v: &Value, config: Config) -> Result<PublicRoot, String> {
             .iter()
             .any(|p| p.contributed > root_hand.players()[live[0]].contributed)
         || hand.players()[seat].folded
+        || live.iter().any(|&s| hand.players()[s].stack == 0)
     {
         return Err("needs two live non-all-in seats and one contested root pot".into());
     }
@@ -1285,6 +1297,9 @@ fn request_impl(
     if omitted && menu == SearchMenu::Full {
         return Err("omitted-raise evaluation needs a capped search menu".into());
     }
+    if omitted && !root.prefix.is_empty() {
+        return Err("omitted-raise evaluation supports first-to-act roots only".into());
+    }
     if backend != exact::Backend::Projected && omitted {
         return Err("exact solves use retained-full-menu-audit outside decision timing".into());
     }
@@ -1302,6 +1317,8 @@ fn request_impl(
     // and the hero's row is read at the child for the action actually taken.
     let mut fixed = vec![None; nodes];
     let mut hero_node = 0;
+    // Share of the opponent's modeled range that took the observed action (1 at first-to-act roots).
+    let mut taken_share = 1.;
     if let Some(&taken) = root.prefix.first() {
         let opponent = root.hand.actor().ok_or("root actor missing")?;
         let Node::Decision { children, .. } = &tree.nodes[0] else {
@@ -1336,6 +1353,7 @@ fn request_impl(
             return Err("observed opponent river action has zero modeled likelihood".into());
         }
         hero_node = children[taken_index];
+        taken_share = reach / ranges[o].iter().map(|h| h.weight).sum::<f64>();
         fixed[0] = Some(row);
     }
     let game = Game::new(
@@ -1354,6 +1372,9 @@ fn request_impl(
     };
     let menus = &tree.menus;
     let mut solver = Solver::new(game, fixed)?;
+    if hero_node != 0 {
+        solver.set_taken(0)?;
+    }
     solver.set_algorithm(match v.get("algorithm").map(|a| a.as_str()) {
         None | Some(Some("linear-cfr")) => Algorithm::Linear,
         Some(Some("dcfr-1.5-0-2")) => DCFR,
@@ -1376,7 +1397,9 @@ fn request_impl(
     }
     let stop_at_target = v.get("stop_at_target") == Some(&json!(true));
     // The frozen quality gate: each player's gain within min(1% of the pot, 0.1 BB).
-    let target = quality_target(v.get("target"), root.hand.pot() as f64 / 100.)?;
+    // Gains are weighted by reaching each node; at a second-to-act root the hero's played
+    // subtree is reached with `taken_share`, so the same per-decision target scales by it.
+    let target = quality_target(v.get("target"), root.hand.pot() as f64 / 100.)? * taken_share;
     let preparation = tick.elapsed().as_secs_f64();
     let tick = Instant::now();
     let (mut done, mut quality_seconds, mut curve) = (0, 0., Vec::new());

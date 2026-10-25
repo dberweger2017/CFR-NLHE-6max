@@ -885,3 +885,96 @@ fn exact_response_audit_preserves_profile_and_actual_blueprint_fallback() {
         assert!(r["leave_one_out_wc_improvement_bb"].as_f64().unwrap() >= -1e-8);
     }
 }
+
+const CHECK: Action = Action { kind: Kind::Check, raise_to: 0 };
+const BET: Action = Action { kind: Kind::Raise, raise_to: 100 };
+
+/// A deployed-style solve request at the hero's first river decision after `taken`.
+fn second_to_act(taken: Action, target: f64, sweeps: u64) -> Value {
+    let (mut obs, _) = super::super::tests::river_request(&[taken]);
+    obs["mode"] = json!("solve");
+    obs["algorithm"] = json!("dcfr-1.5-0-2");
+    obs["search_menu"] = json!("pot-jam-cap3-root-min-responses-v1");
+    obs["sweeps"] = json!(sweeps);
+    obs["checkpoints"] = json!([sweeps]);
+    obs["stop_at_target"] = json!(true);
+    obs["target"] = json!({"pot_fraction":target,"cap_bb":target});
+    obs
+}
+
+fn begin(store: &mut SessionStore, obs: &Value, table: &PolicyTable, tables: &EquityTables) -> Value {
+    store
+        .request(&json!({"mode":"retained-begin","hand_id":"h","observation":obs}), table, tables)
+        .unwrap()
+}
+
+#[test]
+fn second_to_act_root_fixes_the_opponent_and_plays_the_taken_child() {
+    let (table, tables) = (table(), fixture_tables());
+    for (taken, first) in [(CHECK, "check"), (BET, "fold")] {
+        let mut obs = second_to_act(taken, 1e6, 8);
+        obs["debug"] = json!(true);
+        let out = request_impl(&obs, &table, &tables, None).unwrap();
+        // The fixture blueprint has no river rows, so the opponent's fixed root is uniform.
+        let k = out["prepared_game"]["nodes"][0]["children"].as_array().unwrap().len();
+        let root = out["average"][0].as_array().unwrap();
+        assert!(root.iter().all(|p| (p.as_f64().unwrap() - 1. / k as f64).abs() < 1e-15),
+            "the opponent's first action is fixed to its blueprint row");
+        assert_eq!(out["actions"][0][0], first, "the hero row comes from the child of the taken action");
+        let installed = begin(&mut SessionStore::new(&"a".repeat(64)).unwrap(), &second_to_act(taken, 1e6, 8), &table, &tables);
+        assert_eq!(installed["session"]["installed_search"], true);
+        assert_eq!(installed["actions"][0][0], first);
+    }
+}
+
+#[test]
+fn an_unconverged_second_to_act_root_falls_back_at_the_hero_decision() {
+    let (table, tables) = (table(), fixture_tables());
+    for (taken, first) in [(CHECK, "check"), (BET, "fold")] {
+        let mut store = SessionStore::new(&"a".repeat(64)).unwrap();
+        let out = begin(&mut store, &second_to_act(taken, 1e-15, 1), &table, &tables);
+        assert_eq!(out["session"]["installed_search"], false);
+        assert_eq!(out["actions"][0][0], first, "blueprint row at the hero's decision, not the river start");
+        let p: f64 = out["probabilities"].as_array().unwrap().iter().map(|x| x.as_f64().unwrap()).sum();
+        assert!((p - 1.).abs() < 1e-12);
+    }
+}
+
+#[test]
+fn second_to_act_continuation_replays_the_opponent_action() {
+    let (table, tables) = (table(), fixture_tables());
+    let mut store = SessionStore::new(&"a".repeat(64)).unwrap();
+    let out = begin(&mut store, &second_to_act(CHECK, 1e6, 8), &table, &tables);
+    assert_eq!(out["session"]["installed_search"], true);
+    // Hero bets, the opponent raises: the hero's next decision must replay check, bet, raise.
+    let r = super::super::tests::root();
+    let mut hand = r.hand.clone();
+    hand.apply_mut(CHECK).unwrap();
+    let bet = Action { kind: Kind::Raise, raise_to: hand.pot() };
+    hand.apply_mut(bet).unwrap();
+    let obs = hand.observe(hand.actor().unwrap()).unwrap();
+    let raise = multi_holdem::menu(&obs).into_iter().map(|(_, a)| a).find(|a| a.kind == Kind::Raise).unwrap();
+    let (mut later, _) = super::super::tests::river_request(&[CHECK, bet, raise]);
+    for key in ["mode", "algorithm", "search_menu", "sweeps", "checkpoints", "stop_at_target", "target"] {
+        later.as_object_mut().unwrap().remove(key);
+    }
+    let next = store
+        .request(&json!({"mode":"retained-continue","hand_id":"h","handle":out["session"]["handle"],"observation":later}), &table, &tables)
+        .unwrap();
+    assert_eq!(next["solver_advances"], 0);
+    assert_eq!(next["actions"][0][0], "fold", "the hero faces the opponent's raise");
+}
+
+#[test]
+fn audits_exports_and_omitted_evaluation_refuse_second_to_act_roots() {
+    let (table, tables) = (table(), fixture_tables());
+    let mut store = SessionStore::new(&"a".repeat(64)).unwrap();
+    let out = begin(&mut store, &second_to_act(BET, 1e6, 8), &table, &tables);
+    for mode in ["retained-audit", "retained-export-profile", "retained-harm-diagnosis", "retained-full-menu-audit"] {
+        let r = store.request(&json!({"mode":mode,"hand_id":"h","handle":out["session"]["handle"]}), &table, &tables);
+        assert_eq!(r, Err(FIRST_TO_ACT_ONLY.to_string()), "{mode}");
+    }
+    let mut omitted = second_to_act(BET, 1e6, 8);
+    omitted["omitted"] = json!(true);
+    assert!(request_impl(&omitted, &table, &tables, None).unwrap_err().contains("first-to-act"));
+}

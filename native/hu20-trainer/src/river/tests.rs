@@ -159,17 +159,23 @@ fn quality_does_not_deviate_at_fixed_nodes() {
     let row: Vec<f64> = (0..sample(false, false).holdings(0)).flat_map(|_| [0., 1.]).collect();
     let mut fixed = vec![None; sample(false, false).nodes.len()];
     fixed[0] = Some(row.clone());
-    let mut with_fixed = Solver::new(sample(false, false), fixed).unwrap();
+    let mut with_fixed = Solver::new(sample(false, false), fixed.clone()).unwrap();
+    with_fixed.set_taken(0).unwrap();
     with_fixed.advance(20).unwrap();
     let profile = with_fixed.average();
     let q = with_fixed.quality(&profile).unwrap();
     let mut free = Solver::new(sample(false, false), vec![None; profile.len()]).unwrap();
     let r = free.quality(&profile).unwrap();
     let gain = |v: &Value, s: usize| v["best_response_gains_bb"][s].as_f64().unwrap();
-    assert_eq!(gain(&q, 0), 0., "the fixed root is the only seat-0 decision");
-    assert!(gain(&r, 0) > 0., "without the fixed flag the same profile is exploitable at the root");
+    assert_eq!(gain(&q, 0), 0., "the played root is the only seat-0 decision");
+    assert!(gain(&r, 0) > 0., "without the played flag the same profile is exploitable at the root");
     assert_eq!(gain(&q, 1), gain(&r, 1));
     assert_eq!(q["profile_values_bb"], r["profile_values_bb"]);
+    // Fixed but not played (prepared-request constraints): quality is unchanged.
+    let mut constrained = Solver::new(sample(false, false), fixed).unwrap();
+    assert_eq!(constrained.quality(&profile).unwrap(), r);
+    let mut free = Solver::new(sample(false, false), vec![None; profile.len()]).unwrap();
+    assert!(free.set_taken(0).is_err(), "only fixed nodes can be played");
 }
 #[test]
 fn fixed_policy_is_kept_even_on_unreached_rows() {
