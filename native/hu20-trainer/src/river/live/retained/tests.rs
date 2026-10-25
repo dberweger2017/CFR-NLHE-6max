@@ -885,3 +885,334 @@ fn exact_response_audit_preserves_profile_and_actual_blueprint_fallback() {
         assert!(r["leave_one_out_wc_improvement_bb"].as_f64().unwrap() >= -1e-8);
     }
 }
+
+const CHECK: Action = Action { kind: Kind::Check, raise_to: 0 };
+const BET: Action = Action { kind: Kind::Raise, raise_to: 100 };
+
+/// A deployed-style solve request at the hero's first river decision after `taken`.
+fn second_to_act(taken: Action, target: f64, sweeps: u64) -> Value {
+    let (mut obs, _) = super::super::tests::river_request(&[taken]);
+    obs["mode"] = json!("solve");
+    obs["algorithm"] = json!("dcfr-1.5-0-2");
+    obs["search_menu"] = json!("pot-jam-cap3-root-min-responses-v1");
+    obs["sweeps"] = json!(sweeps);
+    obs["checkpoints"] = json!([sweeps]);
+    obs["stop_at_target"] = json!(true);
+    obs["target"] = json!({"pot_fraction":target,"cap_bb":target});
+    obs
+}
+
+fn begin(store: &mut SessionStore, obs: &Value, table: &PolicyTable, tables: &EquityTables) -> Value {
+    store
+        .request(&json!({"mode":"retained-begin","hand_id":"h","observation":obs}), table, tables)
+        .unwrap()
+}
+
+#[test]
+fn second_to_act_root_fixes_the_opponent_and_plays_the_taken_child() {
+    let (table, tables) = (table(), fixture_tables());
+    for (taken, first) in [(CHECK, "check"), (BET, "fold")] {
+        let mut obs = second_to_act(taken, 1e6, 8);
+        obs["debug"] = json!(true);
+        let out = request_impl(&obs, &table, &tables, None).unwrap();
+        // The fixture blueprint has no river rows, so the opponent's fixed root is uniform.
+        let k = out["prepared_game"]["nodes"][0]["children"].as_array().unwrap().len();
+        let root = out["average"][0].as_array().unwrap();
+        assert!(root.iter().all(|p| (p.as_f64().unwrap() - 1. / k as f64).abs() < 1e-15),
+            "the opponent's first action is fixed to its blueprint row");
+        assert_eq!(out["actions"][0][0], first, "the hero row comes from the child of the taken action");
+        let installed = begin(&mut SessionStore::new(&"a".repeat(64)).unwrap(), &second_to_act(taken, 1e6, 8), &table, &tables);
+        assert_eq!(installed["session"]["installed_search"], true);
+        assert_eq!(installed["actions"][0][0], first);
+    }
+}
+
+#[test]
+fn an_unconverged_second_to_act_root_falls_back_at_the_hero_decision() {
+    let (table, tables) = (table(), fixture_tables());
+    for (taken, first) in [(CHECK, "check"), (BET, "fold")] {
+        let mut store = SessionStore::new(&"a".repeat(64)).unwrap();
+        let out = begin(&mut store, &second_to_act(taken, 1e-15, 1), &table, &tables);
+        assert_eq!(out["session"]["installed_search"], false);
+        assert_eq!(out["actions"][0][0], first, "blueprint row at the hero's decision, not the river start");
+        let p: f64 = out["probabilities"].as_array().unwrap().iter().map(|x| x.as_f64().unwrap()).sum();
+        assert!((p - 1.).abs() < 1e-12);
+    }
+}
+
+#[test]
+fn second_to_act_continuation_replays_the_opponent_action() {
+    let (table, tables) = (table(), fixture_tables());
+    let mut store = SessionStore::new(&"a".repeat(64)).unwrap();
+    let out = begin(&mut store, &second_to_act(CHECK, 1e6, 8), &table, &tables);
+    assert_eq!(out["session"]["installed_search"], true);
+    // Hero bets, the opponent raises: the hero's next decision must replay check, bet, raise.
+    let r = super::super::tests::root();
+    let mut hand = r.hand.clone();
+    hand.apply_mut(CHECK).unwrap();
+    let bet = Action { kind: Kind::Raise, raise_to: hand.pot() };
+    hand.apply_mut(bet).unwrap();
+    let obs = hand.observe(hand.actor().unwrap()).unwrap();
+    let raise = multi_holdem::menu(&obs).into_iter().map(|(_, a)| a).find(|a| a.kind == Kind::Raise).unwrap();
+    let (mut later, _) = super::super::tests::river_request(&[CHECK, bet, raise]);
+    for key in ["mode", "algorithm", "search_menu", "sweeps", "checkpoints", "stop_at_target", "target"] {
+        later.as_object_mut().unwrap().remove(key);
+    }
+    let next = store
+        .request(&json!({"mode":"retained-continue","hand_id":"h","handle":out["session"]["handle"],"observation":later}), &table, &tables)
+        .unwrap();
+    assert_eq!(next["solver_advances"], 0);
+    assert_eq!(next["actions"][0][0], "fold", "the hero faces the opponent's raise");
+}
+
+#[test]
+fn the_played_subtree_alone_sets_quality_and_the_scaled_target() {
+    let (table, tables) = (table(), fixture_tables());
+    for taken in [CHECK, BET] {
+        let mut obs = second_to_act(taken, 1e6, 8);
+        obs["debug"] = json!(true);
+        obs["stop_at_target"] = json!(false);
+        let out = request_impl(&obs, &table, &tables, None).unwrap();
+        // Rebuild the prepared game and recompute quality with and without settling.
+        let g = &out["prepared_game"];
+        let f = |v: &Value| v.as_f64().unwrap();
+        let ranges: [Vec<Holding>; 2] = std::array::from_fn(|s| {
+            g["ranges"][s].as_array().unwrap().iter()
+                .map(|h| Holding { cards: [h[0].as_u64().unwrap() as u8, h[1].as_u64().unwrap() as u8], weight: f(&h[2]) })
+                .collect()
+        });
+        let nodes: Vec<Node> = g["nodes"].as_array().unwrap().iter().map(|n| match n.get("terminal") {
+            Some(t) => Node::Leaf(Terminal { base: f(&t[0]), win0: f(&t[1]), tie0: f(&t[2]) }),
+            None => Node::Decision {
+                actor: n["actor"].as_u64().unwrap() as usize,
+                children: n["children"].as_array().unwrap().iter().map(|c| c.as_u64().unwrap() as usize).collect(),
+            },
+        }).collect();
+        let board: Vec<u8> = g["board"].as_array().unwrap().iter().map(|c| c.as_u64().unwrap() as u8).collect();
+        let average: Vec<Vec<f64>> = serde_json::from_value(out["average"].clone()).unwrap();
+        let Node::Decision { actor, children } = nodes[0].clone() else { panic!() };
+        let k = children.len();
+        let r = super::super::tests::root();
+        let a = multi_holdem::menu(&r.hand.observe(r.hand.actor().unwrap()).unwrap())
+            .iter()
+            .position(|(_, x)| *x == taken)
+            .unwrap();
+        let child = children[a];
+        let game = || Game::new(board.clone().try_into().unwrap(), ranges.clone(), nodes.clone(), f(&g["root_pot_bb"])).unwrap();
+        let mut fixed = vec![None; nodes.len()];
+        fixed[0] = Some(average[0].clone());
+        // Expected settled set, by walking parents: every decision node not below the hero's child.
+        let mut parent = vec![usize::MAX; nodes.len()];
+        for (id, n) in nodes.iter().enumerate() {
+            if let Node::Decision { children, .. } = n {
+                for &c in children {
+                    parent[c] = id;
+                }
+            }
+        }
+        let played = |mut id: usize| loop {
+            if id == child {
+                break true;
+            }
+            if id == 0 {
+                break false;
+            }
+            id = parent[id];
+        };
+        let decision = |id: usize| matches!(nodes[id], Node::Decision { .. });
+        let expected: Vec<bool> = (0..nodes.len()).map(|id| decision(id) && !played(id)).collect();
+        assert!(expected[0] && !expected[child]);
+        assert!(expected[1..].iter().any(|&s| s), "an unplayed branch has decision nodes to settle");
+        assert!((0..nodes.len()).any(|id| id != child && decision(id) && played(id)), "the played subtree goes past the hero");
+        let mut settled = Solver::new(game(), fixed.clone()).unwrap();
+        settled.set_settled(expected).unwrap();
+        let mut unsettled = Solver::new(game(), fixed).unwrap();
+        let (q, r) = (settled.quality(&average).unwrap(), unsettled.quality(&average).unwrap());
+        assert_eq!(out["quality"], q, "in-solve quality judges the played subtree only");
+        assert_ne!(q["best_response_gains_bb"], r["best_response_gains_bb"], "settling changes the gains here");
+        // The target scales with the opponent's modeled share of the taken action.
+        let (mut mass, mut observed_mass) = (0., 0.);
+        for h in &ranges[1 - actor] {
+            let (mut row_mass, mut observed_row_mass) = (0., 0.);
+            for (i, o) in ranges[actor].iter().enumerate() {
+                if h.cards.iter().all(|c| !o.cards.contains(c)) {
+                    row_mass += o.weight;
+                    observed_row_mass += o.weight * average[0][i * k + a];
+                }
+            }
+            mass += h.weight * row_mass;
+            observed_mass += h.weight * observed_row_mass;
+        }
+        let share = observed_mass / mass;
+        let base = quality_target(obs.get("target"), f(&g["root_pot_bb"])).unwrap();
+        assert!(share < 1.);
+        assert!((f(&out["target_bb"]) - base * share).abs() <= 1e-12 * base,
+            "target {} differs from compatible share {} times base {}", out["target_bb"], share, base);
+    }
+}
+
+#[test]
+fn an_opponent_action_the_blueprint_never_takes_falls_back() {
+    let mut table = table();
+    let tables = fixture_tables();
+    let r = super::super::tests::root();
+    let mut view = r.hand.observe(r.hand.actor().unwrap()).unwrap();
+    let menu = multi_holdem::menu(&view);
+    let bet = menu.iter().position(|(_, a)| *a == BET).unwrap();
+    let mut p = vec![1. / (menu.len() - 1) as f64; menu.len()];
+    p[bet] = 0.;
+    let crate::multi_policy::Rows::Json(rows) = &mut table.rows else { panic!("fixture representation") };
+    for a in (0..52u8).filter(|c| !r.board.contains(c)) {
+        for b in (a + 1..52).filter(|c| !r.board.contains(c)) {
+            view.hole = [a, b];
+            let d = multi_holdem::observation_decision(&view, &tables);
+            rows.insert(
+                d.key,
+                crate::multi_policy::Row {
+                    owner: d.owner as u8,
+                    street: d.street as u8,
+                    code: d.code,
+                    probabilities: p.clone().into_boxed_slice(),
+                    original_average_mass: Some(true),
+                },
+            );
+        }
+    }
+    let mut store = SessionStore::new(&"a".repeat(64)).unwrap();
+    let out = begin(&mut store, &second_to_act(BET, 1e6, 8), &table, &tables);
+    assert_eq!(out["session"]["installed_search"], false);
+    assert_eq!(out["session"]["fallback_reason"], "observed opponent river action has zero modeled likelihood");
+    assert!(out["session"]["binding"]["profile_sha256"].is_null());
+}
+
+#[test]
+fn only_declared_solve_failures_fall_back() {
+    assert!(falls_back("observed opponent river action has zero modeled likelihood"));
+    assert!(falls_back("own holding has zero modeled root reach"));
+    assert!(falls_back("own holding has zero modeled reach after opponent river action"));
+    assert!(falls_back("unsupported river tree"));
+    assert!(!falls_back("invalid fixed profile"));
+    assert!(!falls_back(FIRST_TO_ACT_ONLY));
+}
+
+#[test]
+fn audits_exports_and_omitted_evaluation_refuse_second_to_act_roots() {
+    let (table, tables) = (table(), fixture_tables());
+    let mut store = SessionStore::new(&"a".repeat(64)).unwrap();
+    let out = begin(&mut store, &second_to_act(BET, 1e6, 8), &table, &tables);
+    for mode in ["retained-audit", "retained-export-profile", "retained-harm-diagnosis", "retained-full-menu-audit"] {
+        let r = store.request(&json!({"mode":mode,"hand_id":"h","handle":out["session"]["handle"]}), &table, &tables);
+        assert_eq!(r, Err(FIRST_TO_ACT_ONLY.to_string()), "{mode}");
+    }
+    let mut omitted = second_to_act(BET, 1e6, 8);
+    omitted["omitted"] = json!(true);
+    assert!(request_impl(&omitted, &table, &tables, None).unwrap_err().contains("first-to-act"));
+}
+
+#[test]
+fn an_opponent_action_blocked_by_the_actual_hero_falls_back() {
+    let mut table = table();
+    let r = super::super::tests::root();
+    let mut obs = second_to_act(BET, 0.01, 128);
+    obs["target"] = json!({"pot_fraction":0.01,"cap_bb":0.1});
+    obs["checkpoints"] = json!([8, 16, 32, 64, 128]);
+    let hero = [32, 33];
+    obs["hole"] = json!(hero);
+    let dir = std::env::temp_dir().join(format!("pr429-blocker-fixture-{}", std::process::id()));
+    std::fs::create_dir_all(&dir).unwrap();
+    for (s, name) in ["flop", "turn", "river"].iter().enumerate() {
+        let board = &r.board[..s + 3];
+        let mut mapping = std::collections::BTreeMap::new();
+        for a in 0..52u8 {
+            for b in a + 1..52 {
+                if board.contains(&a) || board.contains(&b) {
+                    continue;
+                }
+                let value = if s == 2 && (hero.contains(&a) || hero.contains(&b)) {
+                    1
+                } else {
+                    0
+                };
+                let prior = mapping.insert(hu20_buckets::class_key(&[a, b], board), value);
+                assert!(prior.is_none_or(|p| p == value), "fixture class collision");
+            }
+        }
+        let keys: Vec<_> = mapping.keys().copied().collect();
+        let assignments: Vec<_> = mapping.values().copied().collect();
+        hu20_buckets::BucketTable::new(s as u32 + 1, 50, &keys, &assignments)
+            .write(&dir.join(format!("{name}-k50.bin")))
+            .unwrap();
+    }
+    let tables = EquityTables::load(&dir, true).unwrap();
+    std::fs::remove_dir_all(&dir).unwrap();
+    let opponent = r.hand.actor().unwrap();
+    let mut view = r.hand.observe(opponent).unwrap();
+    let menu = multi_holdem::menu(&view);
+    let bet = menu.iter().position(|(_, a)| *a == BET).unwrap();
+    let check = menu.iter().position(|(_, a)| *a == CHECK).unwrap();
+    let crate::multi_policy::Rows::Json(rows) = &mut table.rows else {
+        panic!()
+    };
+    for a in 0..52u8 {
+        for b in a + 1..52 {
+            if r.board.contains(&a) || r.board.contains(&b) {
+                continue;
+            }
+            view.hole = [a, b];
+            let d = multi_holdem::observation_decision(&view, tables);
+            let mut p = vec![0.; menu.len()];
+            p[if hero.contains(&a) || hero.contains(&b) {
+                bet
+            } else {
+                check
+            }] = 1.;
+            rows.insert(
+                d.key,
+                crate::multi_policy::Row {
+                    owner: d.owner as u8,
+                    street: d.street as u8,
+                    code: d.code,
+                    probabilities: p.into_boxed_slice(),
+                    original_average_mass: Some(true),
+                },
+            );
+        }
+    }
+    // Every opponent hand compatible with [32,33] checks. Only blocked hands bet.
+    for a in 0..52u8 {
+        for b in a + 1..52 {
+            if r.board.contains(&a)
+                || r.board.contains(&b)
+                || hero.contains(&a)
+                || hero.contains(&b)
+            {
+                continue;
+            }
+            view.hole = [a, b];
+            assert_eq!(blueprint_row(&view, &table, tables).unwrap().0[bet], 0.);
+        }
+    }
+    let decision = reconstruct(&obs, table.config())
+        .unwrap()
+        .decision()
+        .unwrap();
+    let mut hero_obs = decision.observe(decision.actor().unwrap()).unwrap();
+    hero_obs.hole = hero;
+    let blueprint = blueprint_row(&hero_obs, &table, tables).unwrap().0;
+    let out = begin(
+        &mut SessionStore::new(&"a".repeat(64)).unwrap(),
+        &obs,
+        &table,
+        tables,
+    );
+    assert_eq!(
+        out["session"]["installed_search"], false,
+        "zero conditional likelihood for actual hero must fall back"
+    );
+    assert_eq!(
+        out["session"]["fallback_reason"],
+        "own holding has zero modeled reach after opponent river action"
+    );
+    assert_eq!(out["probabilities"], json!(blueprint));
+    assert!(out["session"]["binding"]["profile_sha256"].is_null());
+}

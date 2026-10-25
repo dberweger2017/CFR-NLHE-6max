@@ -75,6 +75,57 @@ pub(super) fn root() -> PublicRoot {
 }
 
 #[test]
+fn taken_action_share_uses_compatible_pairs_and_actual_hero_support() {
+    let hero = [
+        Holding {
+            cards: [1, 2],
+            weight: 0.5,
+        },
+        Holding {
+            cards: [3, 4],
+            weight: 0.5,
+        },
+    ];
+    let opponent = [
+        Holding {
+            cards: [1, 5],
+            weight: 0.5,
+        },
+        Holding {
+            cards: [6, 7],
+            weight: 0.5,
+        },
+    ];
+    // Three equally likely compatible pairs; only one reaches the first action.
+    // The marginal estimate is 1/2, but the solver's joint probability is 1/3.
+    let share = taken_action_share(&hero, &opponent, &[1., 0.], [3, 4]).unwrap();
+    assert!((share - 1. / 3.).abs() < 1e-15);
+    // The reverse action has probability 2/3: marginal scaling can err either way.
+    let reverse = taken_action_share(&hero, &opponent, &[0., 1.], [1, 2]).unwrap();
+    assert!((reverse - 2. / 3.).abs() < 1e-15);
+    // Positive global likelihood does not establish support for the played hand.
+    assert_eq!(
+        taken_action_share(&hero, &opponent, &[1., 0.], [1, 2]).unwrap_err(),
+        "own holding has zero modeled reach after opponent river action"
+    );
+    assert_eq!(
+        taken_action_share(&hero, &opponent, &[0., 0.], [3, 4]).unwrap_err(),
+        "observed opponent river action has zero modeled likelihood"
+    );
+    let constant = taken_action_share(&hero, &opponent, &[0.25, 0.25], [3, 4]).unwrap();
+    assert!((constant - 0.25).abs() < 1e-15);
+    // With no card overlap, joint and marginal action probabilities agree.
+    let unblocked = [Holding {
+        cards: [8, 9],
+        weight: 1.,
+    }];
+    assert_eq!(
+        taken_action_share(&unblocked, &opponent, &[1., 0.], [8, 9]).unwrap(),
+        0.5
+    );
+}
+
+#[test]
 fn matched_belief_control_uses_equal_targets_and_reports_residual_identity() {
     let r = root();
     let pairs = [[21, 22], [23, 24], [25, 26], [27, 28], [29, 30], [30, 31]];
@@ -476,6 +527,118 @@ fn capped_search_menus_keep_the_root_and_cap_river_raises() {
         }
         assert!(tree.nodes.len() < full.nodes.len());
     }
+}
+
+/// The `root()` history continued with river actions, as a request for the current actor.
+pub(super) fn river_request(extra: &[Action]) -> (Value, Config) {
+    let config = Config::new(&[10000; 3], 50, 100).unwrap();
+    let r = root();
+    let mut hand = r.hand.clone();
+    let mut actions: Vec<Value> = Vec::new();
+    let mut replay = representative(config, 0, [0, 5, 10, 15, 20]).unwrap();
+    for (_, a) in &r.prior {
+        let actor = replay.actor().unwrap();
+        let (street, before) = (replay.street(), replay.players()[actor].stack);
+        replay.apply_mut(*a).unwrap();
+        actions.push(json!([actor, street as u64, a.kind.name(), a.raise_to, before - replay.players()[actor].stack]));
+    }
+    for a in extra {
+        let actor = hand.actor().unwrap();
+        let (street, before) = (hand.street(), hand.players()[actor].stack);
+        hand.apply_mut(*a).unwrap();
+        actions.push(json!([actor, street as u64, a.kind.name(), a.raise_to, before - hand.players()[actor].stack]));
+    }
+    let legal = hand.legal().unwrap();
+    let hole = if hand.actor() == Some(r.seat) { [30, 31] } else { [32, 33] };
+    (json!({"format":"nplayer-live-river-v1","button":0,"board":[0,5,10,15,20],"seat":hand.actor(),"hole":hole,"actions":actions,
+        "players":hand.players().iter().map(|p|json!([p.stack,p.street_bet,p.contributed,p.folded])).collect::<Vec<_>>(),
+        "legal":{"check":legal.check,"call_amount":legal.call_amount,"raise_to":legal.raise_to},"sweeps":16}), config)
+}
+
+#[test]
+fn second_to_act_roots_keep_the_river_start_and_the_opponent_action() {
+    let first = root();
+    for taken in [Action { kind: Kind::Check, raise_to: 0 }, Action { kind: Kind::Raise, raise_to: 100 }] {
+        let (v, config) = river_request(&[taken]);
+        let r = reconstruct(&v, config).unwrap();
+        assert_eq!(r.prefix, vec![taken]);
+        assert_eq!((r.hand.street(), r.hand.actor()), (Street::River, first.hand.actor()));
+        assert_eq!(r.hand.pot(), first.hand.pot());
+        assert_eq!(r.prior.len(), first.prior.len(), "river actions never enter the belief prior");
+        assert_ne!(r.seat, first.seat);
+    }
+    assert!(first.prefix.is_empty());
+}
+
+#[test]
+fn an_opponent_all_in_first_river_action_is_refused() {
+    // A raised preflop pot makes the conditional all-in legal on the river.
+    let config = Config::new(&[10000; 3], 50, 100).unwrap();
+    let request = |river: fn(&Observation<'_>) -> Action| {
+        let mut hand = representative(config, 0, [0, 5, 10, 15, 20]).unwrap();
+        let mut actions = Vec::new();
+        let mut raises = 0;
+        while hand.street() != Street::River || actions.iter().all(|a: &Value| a[1] != Street::River as u64) {
+            let actor = hand.actor().unwrap();
+            let obs = hand.observe(actor).unwrap();
+            let legal = obs.legal.unwrap();
+            // Menu pot raises, not all-ins, build the pot.
+            let pot_raise = multi_holdem::menu(&obs).into_iter().map(|(_, a)| a)
+                .filter(|a| a.kind == Kind::Raise && Some(a.raise_to) != legal.raise_to.map(|r| r.1))
+                .max_by_key(|a| a.raise_to);
+            let action = if hand.street() == Street::River {
+                river(&obs)
+            } else if actor == 0 && hand.street() == Street::Preflop {
+                Action { kind: Kind::Fold, raise_to: 0 }
+            } else if raises < 4 && pot_raise.is_some() {
+                raises += 1;
+                pot_raise.unwrap()
+            } else {
+                Action { kind: if legal.check { Kind::Check } else { Kind::Call }, raise_to: 0 }
+            };
+            let (street, before) = (hand.street(), hand.players()[actor].stack);
+            hand.apply_mut(action).unwrap();
+            actions.push(json!([actor, street as u64, action.kind.name(), action.raise_to, before - hand.players()[actor].stack]));
+        }
+        let legal = hand.legal().unwrap();
+        json!({"format":"nplayer-live-river-v1","button":0,"board":[0,5,10,15,20],"seat":hand.actor(),"hole":[32,33],"actions":actions,
+            "players":hand.players().iter().map(|p|json!([p.stack,p.street_bet,p.contributed,p.folded])).collect::<Vec<_>>(),
+            "legal":{"check":legal.check,"call_amount":legal.call_amount,"raise_to":legal.raise_to},"sweeps":16})
+    };
+    fn largest(o: &Observation<'_>) -> Action {
+        multi_holdem::menu(o).into_iter().map(|(_, a)| a).filter(|a| a.kind == Kind::Raise).max_by_key(|a| a.raise_to).unwrap()
+    }
+    let jam = request(|o| {
+        let a = largest(o);
+        assert_eq!(Some(a.raise_to), o.legal.unwrap().raise_to.map(|r| r.1), "the menu offers the all-in");
+        a
+    });
+    assert_eq!(
+        reconstruct(&jam, config).err().as_deref(),
+        Some("needs two live non-all-in seats and one contested root pot"),
+        "the hero faces an all-in"
+    );
+    let pot = request(|o| {
+        let raises: Vec<_> = multi_holdem::menu(o).into_iter().map(|(_, a)| a).filter(|a| a.kind == Kind::Raise).collect();
+        raises[raises.len() - 2]
+    });
+    let r = reconstruct(&pot, config);
+    assert!(r.is_ok(), "a bet that leaves both stacks live is supported: {:?}", r.err());
+}
+
+#[test]
+fn a_hero_river_action_is_refused() {
+    // First actor checks, second checks: the river is over; first actor bets, second calls: over.
+    // A hero that already acted on this river is outside the supported root.
+    let check = Action { kind: Kind::Check, raise_to: 0 };
+    let bet = Action { kind: Kind::Raise, raise_to: 100 };
+    let raise = Action { kind: Kind::Raise, raise_to: 400 };
+    let (v, config) = river_request(&[bet, raise]);
+    assert!(reconstruct(&v, config).is_err(), "the original first actor already acted on the river");
+    let (v, config) = river_request(&[check]);
+    let mut bad = v.clone();
+    bad["seat"] = json!(root().seat);
+    assert!(reconstruct(&bad, config).is_err(), "non-acting hero");
 }
 
 #[test]

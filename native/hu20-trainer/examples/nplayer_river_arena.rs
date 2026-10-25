@@ -39,6 +39,7 @@ fn block(
     models: &[Model; 2],
     opponents: &[String; 2],
     enabled: bool,
+    second_to_act: bool,
     expectation_lineup: Option<&str>,
 ) -> Result<(Vec<u8>, Vec<u8>, Vec<u8>), String> {
     let config = Config::new(&[10000; 3], 50, 100)?;
@@ -59,6 +60,7 @@ fn block(
             stream_seed(root, b"action", index, 0),
             hand_id.clone(),
             enabled,
+            second_to_act,
         )?)];
         for id in 1..3 {
             let seed = stream_seed(root, b"action", index, id as u64);
@@ -243,6 +245,14 @@ fn run() -> Result<(), String> {
         }
         let root = c["root"].as_u64().ok_or("root")?;
         let enabled = c["search"].as_bool().ok_or("explicit search switch")?;
+        // Optional; absent keeps first-to-act search only, and the trace header unchanged.
+        let second_to_act = match c.get("search_second_to_act") {
+            None => false,
+            Some(v) => v.as_bool().ok_or("search_second_to_act must be boolean")?,
+        };
+        if second_to_act && !enabled {
+            return Err("search_second_to_act requires search".into());
+        }
         let expectation_path = match c.get("expectations") {
             None => None,
             Some(v) => Some(v.as_str().ok_or("expectation output path")?),
@@ -285,10 +295,13 @@ fn run() -> Result<(), String> {
         let mut trace = output(trace_path)?;
         let mut metrics = output(c["metrics"].as_str().ok_or("metrics output")?)?;
         let mut expectations = expectation_path.map(output).transpose()?;
-        let header = json!({"format":"nplayer-privileged-policy-replay-v1","harness":"nplayer-duplicate-v1",
+        let mut header = json!({"format":"nplayer-privileged-policy-replay-v1","harness":"nplayer-duplicate-v1",
             "identity":models[0].table.identity,"blocks":blocks,"hands":blocks*6,"seed":root,"policies":pins,"distinct_policy_instances":3,
             "search_enabled":enabled,"search_menu":hu20_trainer::river::live::whole_hand::MENU,"loaded_weight_tables":2,
             "seat_semantics":"fixed physical seats; button=block%3; permutation maps seat to identity; identity0 singleton"});
+        if second_to_act {
+            header["search_second_to_act"] = json!(true);
+        }
         writeln!(&mut trace, "{header}").map_err(|e| e.to_string())?;
         let tick = Instant::now();
         for start in (0..blocks).step_by(threads) {
@@ -303,6 +316,7 @@ fn run() -> Result<(), String> {
                         &models,
                         &opponents,
                         enabled,
+                        second_to_act,
                         expectation_lineup,
                     )
                 })

@@ -69,13 +69,88 @@ fn representative(config: Config, button: usize, board: [u8; 5]) -> Result<Hand,
 }
 
 struct PublicRoot {
+    /// The first river decision; `prefix` holds the opponent's river action already taken
+    /// when the hero acts second (empty when the hero acts first).
     hand: Hand,
+    prefix: Vec<Action>,
     prior: Vec<(Hand, Action)>,
     board: [u8; 5],
     seat: usize,
     hole: [u8; 2],
     live: [usize; 2],
 }
+/// Every decision node outside the subtree rooted at `keep`.
+fn outside_subtree(nodes: &[Node], keep: usize) -> Vec<bool> {
+    let mut outside: Vec<bool> = nodes.iter().map(|n| matches!(n, Node::Decision { .. })).collect();
+    let mut stack = vec![keep];
+    while let Some(id) = stack.pop() {
+        outside[id] = false;
+        if let Node::Decision { children, .. } = &nodes[id] {
+            stack.extend(children);
+        }
+    }
+    outside
+}
+
+/// Probability of the observed action under the solver's blocker-conditioned
+/// product law. The actual holding is used only to reject an impossible played
+/// decision; the quality normalization still uses the whole modeled hero range.
+fn taken_action_share(
+    hero: &[Holding],
+    opponent: &[Holding],
+    probabilities: &[f64],
+    actual_hole: [u8; 2],
+) -> Result<f64, String> {
+    let marginal: f64 = opponent
+        .iter()
+        .zip(probabilities)
+        .map(|(h, p)| h.weight * p)
+        .sum();
+    if marginal <= 0. {
+        return Err("observed opponent river action has zero modeled likelihood".into());
+    }
+    let conditional: f64 = opponent
+        .iter()
+        .zip(probabilities)
+        .filter(|(h, _)| disjoint(actual_hole, h.cards))
+        .map(|(h, p)| h.weight * p)
+        .sum();
+    if conditional <= 0. {
+        return Err("own holding has zero modeled reach after opponent river action".into());
+    }
+    // Use the same compatible pair masses as Game::new. Scalar nonnegative
+    // accumulation avoids cancellation manufacturing support for blocked hands.
+    let (mut total, mut taken) = (0., 0.);
+    for (o, p) in opponent.iter().zip(probabilities) {
+        let compatible: f64 = hero
+            .iter()
+            .filter(|h| disjoint(h.cards, o.cards))
+            .map(|h| h.weight)
+            .sum();
+        let mass = compatible * o.weight;
+        total += mass;
+        taken += mass * p;
+    }
+    if !total.is_finite() || !taken.is_finite() || total <= 0. {
+        return Err("invalid compatible opponent action mass".into());
+    }
+    if taken <= 0. {
+        return Err("observed opponent river action has zero modeled likelihood".into());
+    }
+    Ok(taken / total)
+}
+
+impl PublicRoot {
+    /// The hero's decision: the first river decision with the opponent's prefix applied.
+    fn decision(&self) -> Result<Hand, String> {
+        let mut hand = self.hand.clone();
+        for &a in &self.prefix {
+            hand.apply_mut(a)?;
+        }
+        Ok(hand)
+    }
+}
+
 fn reconstruct(v: &Value, config: Config) -> Result<PublicRoot, String> {
     fields(
         v,
@@ -122,6 +197,9 @@ fn reconstruct(v: &Value, config: Config) -> Result<PublicRoot, String> {
     }
     let mut hand = representative(config, uint(&v["button"])? as usize, board)?;
     let mut prior = Vec::new();
+    let mut prefix = Vec::new();
+    let mut river_start: Option<Hand> = None;
+    let hero_seat = uint(&v["seat"])? as usize;
     let actions = array(&v["actions"])?;
     if actions.len() > 256 {
         return Err("public action count outside support".into());
@@ -132,11 +210,12 @@ fn reconstruct(v: &Value, config: Config) -> Result<PublicRoot, String> {
             return Err("public action needs actor/street/kind/target/payment".into());
         }
         let actor = hand.actor().ok_or("history continues after settlement")?;
+        // River actions are admitted only before the hero's first river decision.
         if uint(&a[0])? as usize != actor
             || uint(&a[1])? != hand.street() as u64
-            || hand.street() == Street::River
+            || (hand.street() == Street::River && actor == hero_seat)
         {
-            return Err("history must end at the first river decision".into());
+            return Err("history must end at the hero's first river decision".into());
         }
         let action = Action {
             kind: kind(&a[2])?,
@@ -146,7 +225,12 @@ fn reconstruct(v: &Value, config: Config) -> Result<PublicRoot, String> {
         if !multi_holdem::menu(&obs).iter().any(|(_, x)| *x == action) {
             return Err("public action outside blueprint menu".into());
         }
-        prior.push((hand.clone(), action));
+        if hand.street() == Street::River {
+            river_start.get_or_insert_with(|| hand.clone());
+            prefix.push(action);
+        } else {
+            prior.push((hand.clone(), action));
+        }
         hand.apply_mut(action)?;
         match hand
             .history()
@@ -171,7 +255,12 @@ fn reconstruct(v: &Value, config: Config) -> Result<PublicRoot, String> {
     if hole[0] == hole[1] || hole.iter().any(|c| board.contains(c)) {
         return Err("invalid own holding".into());
     }
-    let live: Vec<_> = hand
+    // The solved root is the first river decision; a prefix is the opponent's single first action.
+    let root_hand = river_start.unwrap_or_else(|| hand.clone());
+    if prefix.len() > 1 {
+        return Err("the hero must act on its first river decision".into());
+    }
+    let live: Vec<_> = root_hand
         .players()
         .iter()
         .enumerate()
@@ -179,12 +268,14 @@ fn reconstruct(v: &Value, config: Config) -> Result<PublicRoot, String> {
         .collect();
     if live.len() != 2
         || !live.contains(&seat)
-        || live.iter().any(|&s| hand.players()[s].stack == 0)
-        || hand.players()[live[0]].contributed != hand.players()[live[1]].contributed
-        || hand
+        || live.iter().any(|&s| root_hand.players()[s].stack == 0)
+        || root_hand.players()[live[0]].contributed != root_hand.players()[live[1]].contributed
+        || root_hand
             .players()
             .iter()
-            .any(|p| p.contributed > hand.players()[live[0]].contributed)
+            .any(|p| p.contributed > root_hand.players()[live[0]].contributed)
+        || hand.players()[seat].folded
+        || live.iter().any(|&s| hand.players()[s].stack == 0)
     {
         return Err("needs two live non-all-in seats and one contested root pot".into());
     }
@@ -203,7 +294,8 @@ fn reconstruct(v: &Value, config: Config) -> Result<PublicRoot, String> {
         return Err("legal bounds differ from history".into());
     }
     Ok(PublicRoot {
-        hand,
+        hand: root_hand,
+        prefix,
         prior,
         board,
         seat,
@@ -1153,6 +1245,11 @@ fn request_impl(
     {
         return Err("exact backend is supported only for solve or exact-qualification".into());
     }
+    if !root.prefix.is_empty()
+        && (backend != exact::Backend::Projected || !matches!(v["mode"].as_str(), None | Some("solve")))
+    {
+        return Err("second-to-act roots support projected solve only".into());
+    }
     match v.get("mode").map(|m| m.as_str()) {
         None | Some(Some("solve")) => (),
         Some(Some("classify")) => {
@@ -1261,6 +1358,9 @@ fn request_impl(
     if omitted && menu == SearchMenu::Full {
         return Err("omitted-raise evaluation needs a capped search menu".into());
     }
+    if omitted && !root.prefix.is_empty() {
+        return Err("omitted-raise evaluation supports first-to-act roots only".into());
+    }
     if backend != exact::Backend::Projected && omitted {
         return Err("exact solves use retained-full-menu-audit outside decision timing".into());
     }
@@ -1273,6 +1373,54 @@ fn request_impl(
     let mut tree = Tree::new(&root.hand, root.live, menu, SUPPORTED_NODES);
     tree.compile(&mut root.hand.clone())?;
     let nodes = tree.nodes.len();
+    // Hero acting second: the opponent's first river action is fixed to the blueprint, so the
+    // opponent's range after it follows the same blueprint likelihoods as every earlier street,
+    // and the hero's row is read at the child for the action actually taken.
+    let mut fixed = vec![None; nodes];
+    let mut hero_node = 0;
+    // Probability of the taken action under the compatible joint law (1 at first-to-act roots).
+    let mut taken_share = 1.;
+    if let Some(&taken) = root.prefix.first() {
+        let opponent = root.hand.actor().ok_or("root actor missing")?;
+        let Node::Decision { children, .. } = &tree.nodes[0] else {
+            return Err("terminal river root".into());
+        };
+        let root_menu = &tree.menus[0];
+        let taken_index = root_menu
+            .iter()
+            .position(|x| *x == taken)
+            .ok_or("opponent river action outside the search root menu")?;
+        let mut obs = root.hand.observe(opponent)?;
+        let full = multi_holdem::menu(&obs);
+        let mut row = Vec::with_capacity(pairs.len() * root_menu.len());
+        for &pair in &pairs {
+            obs.hole = pair;
+            let (p, _) = blueprint_row(&obs, table, tables)?;
+            for x in root_menu {
+                let j = full
+                    .iter()
+                    .position(|(_, y)| y == x)
+                    .ok_or("search root action outside the blueprint menu")?;
+                row.push(p[j]);
+            }
+        }
+        let k = root_menu.len();
+        if row.chunks(k).any(|r| (r.iter().sum::<f64>() - 1.).abs() > 1e-10) {
+            return Err("search root menu differs from the blueprint menu".into());
+        }
+        let o = root.live.iter().position(|&s| s == opponent).unwrap();
+        let taken_probabilities: Vec<_> = row.chunks(k).map(|p| p[taken_index]).collect();
+        taken_share = taken_action_share(
+            &ranges[hero],
+            &ranges[o],
+            &taken_probabilities,
+            root.hole,
+        )?;
+        hero_node = children[taken_index];
+        fixed[0] = Some(row);
+    }
+    // Quality judges only the hero's played subtree: the opponent's root and the branches it ruled out are settled.
+    let settled = (hero_node != 0).then(|| outside_subtree(&tree.nodes, hero_node));
     let game = Game::new(
         root.board,
         ranges,
@@ -1288,7 +1436,10 @@ fn request_impl(
         }
     };
     let menus = &tree.menus;
-    let mut solver = Solver::new(game, vec![None; nodes])?;
+    let mut solver = Solver::new(game, fixed)?;
+    if let Some(settled) = settled {
+        solver.set_settled(settled)?;
+    }
     solver.set_algorithm(match v.get("algorithm").map(|a| a.as_str()) {
         None | Some(Some("linear-cfr")) => Algorithm::Linear,
         Some(Some("dcfr-1.5-0-2")) => DCFR,
@@ -1311,7 +1462,9 @@ fn request_impl(
     }
     let stop_at_target = v.get("stop_at_target") == Some(&json!(true));
     // The frozen quality gate: each player's gain within min(1% of the pot, 0.1 BB).
-    let target = quality_target(v.get("target"), root.hand.pot() as f64 / 100.)?;
+    // Gains are weighted by reaching each node; at a second-to-act root the hero's played
+    // subtree is reached with `taken_share`, so the same per-decision target scales by it.
+    let target = quality_target(v.get("target"), root.hand.pot() as f64 / 100.)? * taken_share;
     let preparation = tick.elapsed().as_secs_f64();
     let tick = Instant::now();
     let (mut done, mut quality_seconds, mut curve) = (0, 0., Vec::new());
@@ -1337,9 +1490,9 @@ fn request_impl(
         }
     }
     let solve = tick.elapsed().as_secs_f64() - quality_seconds;
-    let k = menus[0].len();
-    let probabilities = &average[0][holding * k..(holding + 1) * k];
-    let actions: Vec<_> = menus[0]
+    let k = menus[hero_node].len();
+    let probabilities = &average[hero_node][holding * k..(holding + 1) * k];
+    let actions: Vec<_> = menus[hero_node]
         .iter()
         .map(|a| json!([a.kind.name(), a.raise_to]))
         .collect();

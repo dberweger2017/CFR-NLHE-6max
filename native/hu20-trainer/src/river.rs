@@ -413,6 +413,8 @@ struct Workspace {
     timing: Option<LeafTiming>,
     // Best responses only: per node, the actions the responder may use (empty = all).
     mask: Option<Vec<Vec<bool>>>,
+    // Best responses only: settled nodes (see `Solver::set_settled`) are not deviated from.
+    settled: Option<Vec<bool>>,
 }
 impl Workspace {
     fn new(game: &Game, seat: usize) -> Self {
@@ -421,6 +423,7 @@ impl Workspace {
             reach: vec![vec![0.; game.holdings(1 - seat)]; game.nodes.len()],
             timing: None,
             mask: None,
+            settled: None,
         }
     }
     fn start(&mut self) {
@@ -474,7 +477,7 @@ fn visit(
             for h in 0..game.holdings(seat) {
                 let value = if *actor != seat {
                     children.iter().map(|&c| work.value[c][h]).sum()
-                } else if best {
+                } else if best && !work.settled.as_ref().is_some_and(|t| t[id]) {
                     let allowed = work.mask.as_ref().map(|m| &m[id]).filter(|m| !m.is_empty());
                     children
                         .iter()
@@ -540,6 +543,8 @@ pub struct Solver {
     profile: Vec<Vec<f64>>,
     deltas: Vec<Vec<f64>>,
     fixed: Vec<Option<Vec<f64>>>,
+    // Decision nodes best responses keep (`set_settled`); empty = none.
+    settled: Vec<bool>,
     work: [Workspace; 2],
     own_reach: [Vec<Vec<f64>>; 2],
     sweeps: u64,
@@ -585,10 +590,27 @@ impl Solver {
             profile: shape.clone(),
             deltas: shape,
             fixed,
+            settled: Vec::new(),
             work,
             own_reach,
             sweeps: 0,
         })
+    }
+
+    /// Decision nodes whose profile best responses keep: an action already played and the
+    /// branches it ruled out. Unmarked fixed nodes (prepared-request constraints) are still
+    /// deviated from, as before.
+    pub fn set_settled(&mut self, settled: Vec<bool>) -> Result<(), String> {
+        if settled.len() != self.game.nodes.len()
+            || settled
+                .iter()
+                .zip(&self.game.nodes)
+                .any(|(s, n)| *s && matches!(n, Node::Leaf(_)))
+        {
+            return Err("settled nodes must be decision nodes of this game".into());
+        }
+        self.settled = settled;
+        Ok(())
     }
 
     pub fn set_algorithm(&mut self, algorithm: Algorithm) -> Result<(), String> {
@@ -771,6 +793,7 @@ impl Solver {
             return Err("profile or mask node count differs".into());
         }
         self.work[seat].mask = mask;
+        self.work[seat].settled = (!self.settled.is_empty()).then(|| self.settled.clone());
         self.work[seat].start();
         visit(
             &self.game,
@@ -858,6 +881,7 @@ impl Solver {
         let mut values = [0.; 2];
         let mut gains = [0.; 2];
         for seat in 0..2 {
+            self.work[seat].settled = (!self.settled.is_empty()).then(|| self.settled.clone());
             self.work[seat].start();
             visit(
                 &self.game,

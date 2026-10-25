@@ -66,6 +66,9 @@ impl Captured {
         }
         let original = &snapshot["observation"];
         let root = reconstruct(original, table.config())?;
+        if !root.prefix.is_empty() {
+            return Err(FIRST_TO_ACT_ONLY.into());
+        }
         let cards: Vec<_> = (0..52).filter(|c| !root.board.contains(c)).collect();
         let pairs: Vec<_> = (0..cards.len())
             .flat_map(|i| (i + 1..cards.len()).map(move |j| (i, j)))
@@ -186,8 +189,14 @@ impl Captured {
         if actions.len() > 256 || !actions.starts_with(original) {
             return Err("retained history does not extend root".into());
         }
+        // The solved root is the first river decision; the begin request's own river prefix
+        // (the opponent's first action when the hero acts second) is replayed first.
         let mut hand = self.root.hand.clone();
         let mut path = Vec::new();
+        for &a in &self.root.prefix {
+            hand.apply_mut(a)?;
+            path.push(a);
+        }
         for e in &actions[original.len()..] {
             let a = array(e)?;
             if a.len() != 5
@@ -264,6 +273,25 @@ struct Active {
     last_actions: Vec<Value>,
     off_tree: bool,
     fallback_reason: Option<String>,
+}
+
+const FIRST_TO_ACT_ONLY: &str = "second-to-act roots support retained begin, continue and release only";
+
+/// Solve errors that play the blueprint at the hero's decision instead of failing the hand.
+fn falls_back(e: &str) -> bool {
+    e == "own holding has zero modeled root reach"
+        || e == "own holding has zero modeled reach after opponent river action"
+        || e == "observed opponent river action has zero modeled likelihood"
+        || e.starts_with("unsupported ")
+}
+
+/// Audits, exports and harm diagnostics assume the hero acts at the solved root.
+fn first_to_act_only(cap: &Captured) -> Result<(), String> {
+    if cap.root.prefix.is_empty() {
+        Ok(())
+    } else {
+        Err(FIRST_TO_ACT_ONLY.into())
+    }
 }
 
 /// Single-owner session state. Opaque handles are transport metadata only.
@@ -381,12 +409,10 @@ impl SessionStore {
                             .then(|| "declared-game quality target not met".to_string());
                         (out, cap, reason)
                     }
-                    Err(e)
-                        if e == "own holding has zero modeled root reach"
-                            || e.starts_with("unsupported ") =>
-                    {
+                    Err(e) if falls_back(&e) => {
                         let root = reconstruct(observation, table.config())?;
-                        let mut obs = root.hand.observe(root.seat)?;
+                        let decision = root.decision()?;
+                        let mut obs = decision.observe(root.seat)?;
                         obs.hole = root.hole;
                         let (p, tag) = blueprint_row(&obs, table, tables)?;
                         let actions = multi_holdem::menu(&obs)
@@ -424,7 +450,8 @@ impl SessionStore {
                 };
                 // Nonconverged root must play the actual blueprint, never its unconverged profile.
                 if reason.is_some() {
-                    let mut obs = cap.root.hand.observe(cap.root.seat)?;
+                    let decision = cap.root.decision()?;
+                    let mut obs = decision.observe(cap.root.seat)?;
                     obs.hole = cap.root.hole;
                     let (p, tag) = blueprint_row(&obs, table, tables)?;
                     out["probabilities"] = json!(p);
@@ -501,6 +528,7 @@ impl SessionStore {
                         json!({"installed_search":false,"checked_rows":0,"solver_advances":0}),
                     );
                 };
+                first_to_act_only(cap)?;
                 let mut count = 0;
                 let mut h = Sha256::new();
                 let tick = Instant::now();
@@ -556,6 +584,7 @@ impl SessionStore {
                 if cap.profile.is_empty() {
                     return Err("root has no saved solver profile".into());
                 }
+                first_to_act_only(cap)?;
                 Ok(cap.snapshot(&self.model))
             }
             Some("diagnose-saved-profile") => {
@@ -612,6 +641,7 @@ impl SessionStore {
                 if cap.profile.is_empty() {
                     return Err("root has no saved solver profile".into());
                 }
+                first_to_act_only(cap)?;
                 harms::diagnose(
                     &cap.root,
                     &cap.pairs,
@@ -633,6 +663,7 @@ impl SessionStore {
                 if active.off_tree {
                     return Err("offline root audit requires original retained root".into());
                 }
+                first_to_act_only(cap)?;
                 exact::audit(
                     &cap.root,
                     &cap.pairs,

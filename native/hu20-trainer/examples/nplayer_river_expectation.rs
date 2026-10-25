@@ -112,7 +112,7 @@ fn root(
         return Err("focal root actor differs".into());
     }
     let o = hand.observe(seat)?;
-    if hu20_trainer::river::live::whole_hand::eligibility(&o) != "eligible" {
+    if hu20_trainer::river::live::whole_hand::eligibility(&o, false) != "eligible" {
         return Err("saved root not eligible".into());
     }
     let mut request = observation_request(&o)?;
