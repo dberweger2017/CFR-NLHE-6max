@@ -14,12 +14,21 @@ player all-in, one contested pot.
   holding, so the opponent's range after that action follows the same blueprint likelihoods as
   every earlier street. River actions never enter the belief prior.
 - **Played row:** the hero's average row at the child for the action actually taken.
-- **Quality:** best responses no longer deviate at fixed nodes, so the target measures the
-  remaining game only. With no fixed node (first-to-act roots) the computation is unchanged.
+- **Quality:** the opponent's root is marked as played (`Solver::set_taken`), so quality best
+  responses keep its blueprint row instead of deviating there. Other fixed nodes, such as the
+  constraints of prepared requests, are still deviated from exactly as before.
+- **Target:** best-response gains are weighted by reaching each node, and the hero's played subtree
+  is reached with the share of the opponent's modeled range that took the observed action. The
+  quality target is multiplied by that share, so the played subtree is held to the same
+  per-decision target as a first-to-act root (at a 10% share, a ten times smaller target).
+- **Fallbacks:** a root that misses the target, a zero-reach own holding, an unsupported tree or an
+  observed opponent action with zero modeled likelihood plays the blueprint at the hero's decision.
 - **Continuation:** retained rows replay the opponent's first action before later actions;
-  off-tree handling and blueprint fallbacks are unchanged.
-- **Scope:** projected-product beliefs and `solve` only; exact backends, `classify`,
-  `belief-control` and `diagnose` refuse second-to-act roots.
+  off-tree handling is unchanged.
+- **Scope:** projected-product beliefs and `solve` only. Exact backends, `classify`,
+  `belief-control`, `diagnose`, omitted-raise evaluation, retained audits, profile export and
+  restore, and harm and full-menu diagnostics refuse second-to-act roots. An opponent all-in first
+  action is refused (eligibility already excludes it).
 
 ## How to enable
 
@@ -34,8 +43,13 @@ false keeps first-to-act search only and the trace header unchanged; a true valu
   `river_live` result (strategy, stopping checkpoint, quality, checkpoint gains) equals main's.
 - Second-to-act roots: 280 of 280 from the same hands solve and meet the quality target.
 - Unit tests: second-to-act roots keep the river start and the opponent action and never put river
-  actions in the prior; a hero river action is refused; quality does not deviate at a fixed node
-  (fails with the previous best response); eligibility with and without the switch.
+  actions in the prior; a hero river action is refused; quality keeps a played node and leaves
+  plain fixed constraints unchanged; eligibility with and without the switch; and, through the
+  retained session with a fixture model, the opponent root is fixed and the hero row comes from
+  the taken child, an unconverged root falls back at the hero's decision, continuation replays the
+  opponent action, and audits, exports and omitted evaluation refuse the root. Copies that leave
+  the root unfixed, read the wrong child, skip the prefix replay or fall back at the river start
+  each fail at least one of these tests.
 - Paired arena (360 hands each against peers and against check-call/pot-pressure): every on/off
   action difference occurs at an installed focal river search, and retained continuations served
   later decisions. This ran on the prototype of this change, which had the same solver code but an
