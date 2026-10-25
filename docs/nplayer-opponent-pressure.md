@@ -67,3 +67,7 @@ A positive result would justify confirmation with more seeds. It doesn't promote
   - A qualification failure stops the run before training.
   - Plumbing problems go in the PR for the owner.
 - **Evidence:** compact results go in Git; working files stay on bb128 for the vacuum cleaner.
+
+## Completed — October 25
+
+The run is complete. The primary is **not shown** (+5.9 [−2.3, +14.1]), and check-call is **flagged as harmed** (−57.4 [−108.1, −6.6]). [Results](reports/nplayer-opponent-pressure/results.md).
