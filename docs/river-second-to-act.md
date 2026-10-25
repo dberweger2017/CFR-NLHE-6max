@@ -14,13 +14,18 @@ player all-in, one contested pot.
   holding, so the opponent's range after that action follows the same blueprint likelihoods as
   every earlier street. River actions never enter the belief prior.
 - **Played row:** the hero's average row at the child for the action actually taken.
-- **Quality:** the opponent's root is marked as played (`Solver::set_taken`), so quality best
-  responses keep its blueprint row instead of deviating there. Other fixed nodes, such as the
+- **Quality:** only the hero's played subtree is judged. The opponent's root and every branch it
+  ruled out are settled (`Solver::set_settled`): best responses keep the profile there instead of
+  deviating, in quality and in best-response values alike. Unsettled fixed nodes, such as the
   constraints of prepared requests, are still deviated from exactly as before.
 - **Target:** best-response gains are weighted by reaching each node, and the hero's played subtree
   is reached with the share of the opponent's modeled range that took the observed action. The
   quality target is multiplied by that share, so the played subtree is held to the same
-  per-decision target as a first-to-act root (at a 10% share, a ten times smaller target).
+  per-decision target as a first-to-act root (at a 10% share, a ten times smaller target). Two
+  approximations, not measured here: the share ignores card removal against the hero's range,
+  which can err in either direction when the opponent's action correlates with blocking a narrow
+  hero range; and the base target uses the pot at the river start, so after an opponent bet it is
+  stricter than a first-to-act root at the larger pot would get, until the 0.1 BB cap binds.
 - **Fallbacks:** a root that misses the target, a zero-reach own holding, an unsupported tree or an
   observed opponent action with zero modeled likelihood plays the blueprint at the hero's decision.
 - **Continuation:** retained rows replay the opponent's first action before later actions;
@@ -41,19 +46,26 @@ false keeps first-to-act search only and the trace header unchanged; a true valu
 
 - First-to-act results unchanged: on 299 eligible first-to-act roots from self-play, every
   `river_live` result (strategy, stopping checkpoint, quality, checkpoint gains) equals main's.
-- Second-to-act roots: 280 of 280 from the same hands solve and meet the quality target.
+- Second-to-act roots: the same hands add 280 eligible roots. All 280 solve; under the scaled
+  target (median 0.032 BB, minimum 0.003 BB) 278 meet it and 2 fall back to the blueprint. Solve
+  time per root: median 0.22 s, 90th percentile 0.75 s, maximum 3.16 s.
 - Unit tests: second-to-act roots keep the river start and the opponent action and never put river
-  actions in the prior; a hero river action is refused; quality keeps a played node and leaves
-  plain fixed constraints unchanged; eligibility with and without the switch; and, through the
-  retained session with a fixture model, the opponent root is fixed and the hero row comes from
-  the taken child, an unconverged root falls back at the hero's decision, continuation replays the
-  opponent action, and audits, exports and omitted evaluation refuse the root. Copies that leave
-  the root unfixed, read the wrong child, skip the prefix replay or fall back at the river start
-  each fail at least one of these tests.
+  actions in the prior; a hero river action and an opponent all-in first action are refused;
+  settled nodes are kept by quality and best-response values while plain fixed constraints are
+  unchanged; eligibility with and without the switch; the declared solve errors fall back; and,
+  through the retained session with a fixture model, the opponent root is fixed and the hero row
+  comes from the taken child, in-solve quality equals the quality recomputed with an independently
+  built settled set and the target scales with the share, an opponent action the blueprint never
+  takes falls back, an unconverged root falls back at the hero's decision,
+  continuation replays the opponent action, and audits, exports and omitted evaluation refuse the
+  root. Copies that leave the root unfixed, read the wrong child, skip the prefix replay, fall back
+  at the river start, drop the target scaling, skip the settling, settle only the opponent's root,
+  also settle nodes inside the played subtree, drop the all-in refusal, or drop the zero-likelihood
+  guard or its fallback each fail at least one of these tests.
 - Paired arena (360 hands each against peers and against check-call/pot-pressure): every on/off
   action difference occurs at an installed focal river search, and retained continuations served
-  later decisions. This ran on the prototype of this change, which had the same solver code but an
-  environment switch instead of the manifest field.
+  later decisions. This ran on an earlier prototype of this change (environment switch, before the
+  quality and fallback hardening), not on the final code.
 
 All of the above used a small laptop-trained three-player 100 BB model (110M nodes), not the frozen
 10B models; they show the mechanism and its accounting, not strength.
