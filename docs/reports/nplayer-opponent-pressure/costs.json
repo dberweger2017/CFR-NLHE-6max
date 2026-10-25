@@ -1,0 +1,104 @@
+{
+ "host": "bb128 (cygnus-x1), 16 threads, CPU only, alongside PR425",
+ "source_commit": "2dd8a1a3 (branch), main parity build from origin/main d495a0da",
+ "stages_utc": [
+  {
+   "stage": "build",
+   "at": "2026-10-24T23:58:11Z"
+  },
+  {
+   "stage": "parity",
+   "at": "2026-10-24T23:58:45Z"
+  },
+  {
+   "stage": "parity",
+   "at": "2026-10-25T00:08:42Z"
+  },
+  {
+   "stage": "parity-passed",
+   "at": "2026-10-25T00:09:02Z"
+  },
+  {
+   "stage": "train",
+   "at": "2026-10-25T00:09:02Z"
+  },
+  {
+   "stage": "export",
+   "at": "2026-10-25T00:43:37Z"
+  },
+  {
+   "stage": "audit",
+   "at": "2026-10-25T00:51:24Z"
+  },
+  {
+   "stage": "convert",
+   "at": "2026-10-25T00:58:15Z"
+  },
+  {
+   "stage": "verify",
+   "at": "2026-10-25T01:04:09Z"
+  },
+  {
+   "stage": "arena",
+   "at": "2026-10-25T01:09:30Z"
+  },
+  {
+   "stage": "scan",
+   "at": "2026-10-25T01:18:09Z"
+  },
+  {
+   "stage": "equity",
+   "at": "2026-10-25T01:19:15Z"
+  },
+  {
+   "stage": "report",
+   "at": "2026-10-25T02:29:43Z"
+  },
+  {
+   "stage": "done",
+   "at": "2026-10-25T02:30:02Z"
+  }
+ ],
+ "binaries_sha256": {
+  "nplayer_train": "c63ac498531d49a1d49608faba2ec52c0d6ca551b65f5f22482262c8b4385031",
+  "nplayer_policy": "65937524d070ff63bdcc1b4a4b8fae196d0644ddc5957f5e99a2d4f7f7b3a5a6",
+  "nplayer_inference": "c724190a10dde53f7bf88308076afc0a4a440081dc006da046747e7a714b1fb5",
+  "nplayer_paired_arena": "5419fde5320a680522856e457d208b6abd130ca2807ef6fd806203079ffd63fa",
+  "nplayer_allin_equity": "bb2b0fd5cf3d85928335f314c6fe78e4da9e34a5feb2422a51658b394849ed27",
+  "main nplayer_train": "d8190c5b1b33e3b9763a93054ceef47ad8a5c2929a11c3057cfa5976623b7f81"
+ },
+ "parity_sha256": {
+  "branch.gz": "69fad647251c59d8890e61ab77f9ce4c482199c32a170f83d2906557a309fb25",
+  "main.gz": "69fad647251c59d8890e61ab77f9ce4c482199c32a170f83d2906557a309fb25",
+  "pressure16.gz": "a38fe135f5ef034f6588a3994a31b7aade0afd18ec77f3b8d5008d87129d8ffe",
+  "pressure8.gz": "a38fe135f5ef034f6588a3994a31b7aade0afd18ec77f3b8d5008d87129d8ffe"
+ },
+ "pressure_header_100m": {
+  "pressured_actions": 1634891,
+  "probability": 0.05,
+  "rule": "opponent-pot-raise-v1"
+ },
+ "model_pins": {
+  "checkpoint": "8fdd791132494a1a5d0dfc412e9b192e670787798c1630908dccd2dfa55fa811",
+  "average": "0ea4b23014e51c69ed68aca6a017e1c1949133f4a9a6a8360baeed97c038c74a",
+  "mass_receipt": "689a240245c31b2036d874a6b5c8d2a19bccbe526fd37ab0c17dcc014a610170",
+  "binary": "91c70fdc0c37bf113d40821ef7aa005e20ac67ecc00f2f9778c6ba76a7c34078"
+ },
+ "training": {
+  "nodes": 10000025057,
+  "iterations": 448818,
+  "entries": 250005139,
+  "frozen_at": 31021,
+  "active_seconds": 2019.99,
+  "pressured_actions": 152961237,
+  "control_417": {
+   "iterations": 390401,
+   "frozen_at": 23678,
+   "entries": 250001554
+  }
+ },
+ "restart": "The first launch stopped after the parity checks passed, on a shell pipefail (zcat | head) in the header check; the controller was fixed to read the header with gzip and resumed, reusing the four verified parity checkpoints.",
+ "peak_cpu_c": 75,
+ "peak_vrm_thermistor15_c": 76,
+ "disk": "57 GB of working files on the HDD"
+}

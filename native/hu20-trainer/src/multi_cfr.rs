@@ -317,6 +317,15 @@ fn pick(draw: f64, policy: &[f64]) -> usize {
         .expect("empty policy support")
 }
 
+const PRESSURE_SALT: u64 = 0x7072_6573_7375_7265;
+
+/// Cash-game menu labels (multi_holdem::menu): the pot-size raise is label 4; when its
+/// target equals the minimum raise the menu keeps only label 3, which is then the pot raise.
+pub fn pressure_action(d: Decision) -> Option<usize> {
+    [4u16, 3].into_iter().find(|&label| d.code & (1 << label) != 0)
+        .map(|label| (d.code & ((1 << label) - 1)).count_ones() as usize)
+}
+
 fn splitmix(mut x: u64) -> u64 {
     x = x.wrapping_add(0x9E37_79B9_7F4A_7C15);
     x = (x ^ (x >> 30)).wrapping_mul(0xBF58_476D_1CE4_E5B9);
@@ -332,6 +341,8 @@ pub fn child_path(path: u64, action: usize) -> u64 {
 /// How a traversal draws opponent actions, and whether it forks traverser subtrees.
 pub trait Sampler<S: State>: Sized {
     fn sample(&mut self, policy: &[f64], path: u64) -> usize;
+    /// An extra uniform draw in [0, 1) for opponent pressure; only drawn when pressure is on.
+    fn pressure_draw(&mut self, path: u64) -> f64;
     /// Every child's value, deltas and counts, visited in parallel; None visits in order.
     fn fork(_t: &Traversal<'_, Self>, _state: &S, _n: usize, _pruned: &[bool; MAX_ACTIONS], _path: u64, _depth: u8) -> Option<Vec<(f64, Deltas, Counts)>> {
         None
@@ -344,6 +355,9 @@ impl<R: Rng, S: State> Sampler<S> for Stream<'_, R> {
     fn sample(&mut self, policy: &[f64], _path: u64) -> usize {
         sample_policy(self.0, policy)
     }
+    fn pressure_draw(&mut self, _path: u64) -> f64 {
+        self.0.gen()
+    }
 }
 
 /// Fast mode: each draw depends only on the root's seed and the node's path, so subtrees are
@@ -353,6 +367,10 @@ pub struct PathSampler(pub u64);
 impl<S: State + Clone + Send + Sync> Sampler<S> for PathSampler {
     fn sample(&mut self, policy: &[f64], path: u64) -> usize {
         pick((splitmix(self.0 ^ path) >> 11) as f64 * (1.0 / (1u64 << 53) as f64), policy)
+    }
+    fn pressure_draw(&mut self, path: u64) -> f64 {
+        // Domain-separated from the action draw at the same node.
+        (splitmix(self.0 ^ path ^ PRESSURE_SALT) >> 11) as f64 * (1.0 / (1u64 << 53) as f64)
     }
     fn fork(t: &Traversal<'_, Self>, state: &S, n: usize, pruned: &[bool; MAX_ACTIONS], path: u64, depth: u8) -> Option<Vec<(f64, Deltas, Counts)>> {
         use rayon::prelude::*;
@@ -366,7 +384,7 @@ impl<S: State + Clone + Send + Sync> Sampler<S> for PathSampler {
                 child.apply(a);
                 let value = Traversal { table: t.table, deltas: &mut deltas, sampler: t.sampler, traverser: t.traverser,
                     weight: t.weight, last_average_street: t.last_average_street, counts: &mut counts, fork_depth: t.fork_depth,
-                    prune_below: t.prune_below }
+                    prune_below: t.prune_below, pressure: t.pressure }
                     .visit(&mut child, child_path(path, a), depth + 1);
                 (value, deltas, counts)
             }).collect()
@@ -397,6 +415,8 @@ pub struct Counts {
     pub discarded_visits: u64,
     /// Actions skipped by pruning; recorded under the checkpoint's `pruning`, not `counts`.
     pub pruned: u64,
+    /// Opponent pot raises forced by pressure; recorded under `opponent_pressure`, not `counts`.
+    pub pressured: u64,
 }
 impl Counts {
     fn add(&mut self, other: &Counts) {
@@ -412,6 +432,7 @@ impl Counts {
         self.discarded_keys += other.discarded_keys;
         self.discarded_visits += other.discarded_visits;
         self.pruned += other.pruned;
+        self.pressured += other.pressured;
     }
 }
 
@@ -451,6 +472,8 @@ pub struct Traversal<'a, P> {
     pub fork_depth: u8,
     /// Regret-based pruning limit of this iteration; None explores every action.
     pub prune_below: Option<f64>,
+    /// Probability that a sampled opponent decision takes the pot-size raise instead of its policy.
+    pub pressure: Option<f64>,
 }
 impl<P> Traversal<'_, P> {
     pub fn run<S: State>(&mut self, state: &mut S) -> f64
@@ -494,7 +517,14 @@ impl<P> Traversal<'_, P> {
                     *sum += self.weight * p;
                 }
             }
-            let action = self.sampler.sample(&policy[..n], path);
+            let pressured = self.pressure.and_then(|p| pressure_action(d).map(|a| (p, a)));
+            let action = match pressured {
+                Some((p, a)) if self.sampler.pressure_draw(path) < p => {
+                    self.counts.pressured += 1;
+                    a
+                }
+                _ => self.sampler.sample(&policy[..n], path),
+            };
             let saved = state.save();
             state.apply(action);
             let value = self.visit(state, child_path(path, action), depth);
@@ -569,6 +599,9 @@ pub struct Trainer {
     pub roots_per_seat: usize,
     /// Fast mode: regret-based pruning (docs/nplayer-pruning.md).
     pub prune: Option<Prune>,
+    /// Fast cash-game mode: probability that a sampled opponent decision takes the pot-size
+    /// raise (docs/nplayer-opponent-pressure.md). Average strategies still record the policy.
+    pub pressure: Option<f64>,
 }
 
 /// Skip traverser actions with zero probability whose regret shows an average loss above `bb`
@@ -610,6 +643,7 @@ impl Trainer {
             sampling: Sampling::Stream,
             roots_per_seat: 1,
             prune: None,
+            pressure: None,
         }
     }
     /// Starts the next iteration; its linear weight.
@@ -619,6 +653,8 @@ impl Trainer {
             "roots per seat: 1 in production, 1 to 1024 in fast mode");
         assert!(self.prune.map_or(true, |p| sampling == Sampling::Path && p.bb.is_finite() && p.bb > 0.),
             "pruning: fast mode only, with a positive finite limit");
+        assert!(self.pressure.map_or(true, |p| sampling == Sampling::Path && p > 0. && p <= 1.),
+            "opponent pressure: fast mode only, probability in (0, 1]");
         assert_eq!(game.identity(), self.identity);
         assert_eq!(game.players(), self.players);
         assert!(
@@ -663,6 +699,7 @@ impl Trainer {
                 counts: &mut counts,
                 fork_depth: 0,
                 prune_below: None,
+                pressure: None,
             }
             .run(&mut state);
         }
@@ -693,6 +730,7 @@ impl Trainer {
                 counts: &mut counts,
                 fork_depth: FORK_DEPTH,
                 prune_below,
+                pressure: self.pressure,
             }
             .run(&mut state);
             (deltas, counts)
