@@ -45,3 +45,11 @@ To fit two runs:
 - **The model binary is gzip-compressed after the arena.**
 
 Stops: CPU 90 °C, VRM (Thermistor 15) 100 °C. Failures: research results are reported as they are, with no retry or extra hands; a failed qualification stops that dose.
+
+## Completed — October 25
+
+Both doses ran.
+- **15%:** primary not shown (+3.7 [−6.2, +13.6]), with no harm flags.
+- **30%:** primary not shown, with pot-pressure **−71.0** [−83.8, −58.3]; tight-aggressive is flagged as harmed (−44.7).
+
+[Results](reports/nplayer-opponent-pressure-doses/results.md).
