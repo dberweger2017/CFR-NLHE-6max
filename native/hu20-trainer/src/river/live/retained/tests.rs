@@ -1001,8 +1001,31 @@ fn the_played_subtree_alone_sets_quality_and_the_scaled_target() {
         let game = || Game::new(board.clone().try_into().unwrap(), ranges.clone(), nodes.clone(), f(&g["root_pot_bb"])).unwrap();
         let mut fixed = vec![None; nodes.len()];
         fixed[0] = Some(average[0].clone());
+        // Expected settled set, by walking parents: every decision node not below the hero's child.
+        let mut parent = vec![usize::MAX; nodes.len()];
+        for (id, n) in nodes.iter().enumerate() {
+            if let Node::Decision { children, .. } = n {
+                for &c in children {
+                    parent[c] = id;
+                }
+            }
+        }
+        let played = |mut id: usize| loop {
+            if id == child {
+                break true;
+            }
+            if id == 0 {
+                break false;
+            }
+            id = parent[id];
+        };
+        let decision = |id: usize| matches!(nodes[id], Node::Decision { .. });
+        let expected: Vec<bool> = (0..nodes.len()).map(|id| decision(id) && !played(id)).collect();
+        assert!(expected[0] && !expected[child]);
+        assert!(expected[1..].iter().any(|&s| s), "an unplayed branch has decision nodes to settle");
+        assert!((0..nodes.len()).any(|id| id != child && decision(id) && played(id)), "the played subtree goes past the hero");
         let mut settled = Solver::new(game(), fixed.clone()).unwrap();
-        settled.set_settled(outside_subtree(&nodes, child)).unwrap();
+        settled.set_settled(expected).unwrap();
         let mut unsettled = Solver::new(game(), fixed).unwrap();
         let (q, r) = (settled.quality(&average).unwrap(), unsettled.quality(&average).unwrap());
         assert_eq!(out["quality"], q, "in-solve quality judges the played subtree only");
@@ -1014,6 +1037,40 @@ fn the_played_subtree_alone_sets_quality_and_the_scaled_target() {
         assert!(share < 1.);
         assert!((f(&out["target_bb"]) - base * share).abs() <= 1e-12 * base, "target scales with the share");
     }
+}
+
+#[test]
+fn an_opponent_action_the_blueprint_never_takes_falls_back() {
+    let mut table = table();
+    let tables = fixture_tables();
+    let r = super::super::tests::root();
+    let mut view = r.hand.observe(r.hand.actor().unwrap()).unwrap();
+    let menu = multi_holdem::menu(&view);
+    let bet = menu.iter().position(|(_, a)| *a == BET).unwrap();
+    let mut p = vec![1. / (menu.len() - 1) as f64; menu.len()];
+    p[bet] = 0.;
+    let crate::multi_policy::Rows::Json(rows) = &mut table.rows else { panic!("fixture representation") };
+    for a in (0..52u8).filter(|c| !r.board.contains(c)) {
+        for b in (a + 1..52).filter(|c| !r.board.contains(c)) {
+            view.hole = [a, b];
+            let d = multi_holdem::observation_decision(&view, &tables);
+            rows.insert(
+                d.key,
+                crate::multi_policy::Row {
+                    owner: d.owner as u8,
+                    street: d.street as u8,
+                    code: d.code,
+                    probabilities: p.clone().into_boxed_slice(),
+                    original_average_mass: Some(true),
+                },
+            );
+        }
+    }
+    let mut store = SessionStore::new(&"a".repeat(64)).unwrap();
+    let out = begin(&mut store, &second_to_act(BET, 1e6, 8), &table, &tables);
+    assert_eq!(out["session"]["installed_search"], false);
+    assert_eq!(out["session"]["fallback_reason"], "observed opponent river action has zero modeled likelihood");
+    assert!(out["session"]["binding"]["profile_sha256"].is_null());
 }
 
 #[test]
