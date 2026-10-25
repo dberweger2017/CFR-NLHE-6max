@@ -109,6 +109,9 @@ impl Sampler<Toy> for Fixed {
     fn sample(&mut self, _: &[f64], path: u64) -> usize {
         self.0[&path]
     }
+    fn pressure_draw(&mut self, _: u64) -> f64 {
+        unreachable!("these fixtures never enable opponent pressure")
+    }
 }
 fn probability(table: &Table, state: &Toy, id: usize, action: usize, biased: bool) -> f64 {
     let d = state.decision_at(id).unwrap();
@@ -165,6 +168,7 @@ fn expected_updates_match_existing_traversal_with_warm_zeros_for_two_to_four_pla
                     counts: &mut counts,
                     fork_depth: 0,
                     prune_below: None,
+                    pressure: None,
                 }
                 .run(&mut s);
                 expected_value += probs[0] * v;
@@ -351,6 +355,7 @@ fn reference_mode_is_bitwise_equal_to_existing_traversal_for_supported_draws() {
             counts: &mut counts,
             fork_depth: 0,
             prune_below: None,
+            pressure: None,
         }
         .run(&mut s);
         let root = probe::run(
