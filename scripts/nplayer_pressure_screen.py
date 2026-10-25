@@ -38,9 +38,10 @@ def manifest(args):
     models = {'ten': {k: old['models']['candidate'][k] for k in keep},
               'three': {k: old['models']['baseline'][k] for k in keep},
               'pressure': {'path': str(args.binary), 'sha256': sha(args.binary), 'mass': str(args.mass), 'mass_sha256': sha(receipt)}}
-    cases, late = [], []
     by_name = {c['name']: c for c in old['cases']}
+    # One manifest per bank, so each bank's traces can be scanned and compressed before the next.
     for bank in range(BANKS):
+        cases, late = [], []
         folder = args.out / 'arena' / f'b{bank}'
         folder.mkdir(parents=True, exist_ok=True)
         for index, field in enumerate(FIELDS):
@@ -50,21 +51,23 @@ def manifest(args):
             row.update(name=f'b{bank}-{field}', root=ROOT + 100 * bank + index, focals=['ten', 'pressure'], opponents=opponents,
                        traces=[str(folder / f'{field}-{arm}.jsonl') for arm in ARMS], summary=str(folder / f'{field}-cost.json'))
             (late if 'three' in opponents else cases).append(row)
-    # 10B-only fields first so the 3B loads once, for the trained fields at the end.
-    target = args.out / 'arena-manifest.json'
-    diagnosis.create(target, json.dumps({'format': 'nplayer-paired-manifest-v1', 'tables': old['tables'], 'threads': 16,
-                                         'models': models, 'cases': cases + late}, indent=1) + '\n')
-    print(json.dumps({'manifest': str(target), 'cases': len(cases + late), 'pressure_sha256': models['pressure']['sha256']}))
+        # 10B-only fields first so the 3B loads once, for the trained fields at the end.
+        target = args.out / f'arena-manifest-b{bank}.json'
+        diagnosis.create(target, json.dumps({'format': 'nplayer-paired-manifest-v1', 'tables': old['tables'], 'threads': 16,
+                                             'models': models, 'cases': cases + late}, indent=1) + '\n')
+    print(json.dumps({'manifests': BANKS, 'pressure_sha256': models['pressure']['sha256']}))
 
 
 def jobs(out):
-    arena = json.loads((out / 'arena-manifest.json').read_text())
+    arena = json.loads((out / 'arena-manifest-b0.json').read_text())
     pins = {'control': CONTROL_SHA, 'pressure': arena['models']['pressure']['sha256']}
     work = []
     for bank in range(BANKS):
         for field in FIELDS:
             for arm in ARMS:
                 trace = out / 'arena' / f'b{bank}' / f'{field}-{arm}.jsonl'
+                if not trace.exists():
+                    continue
                 work.append((str(trace), str(out), f'{arm}-b{bank}', field, None, pins[arm], None))
     return work
 
