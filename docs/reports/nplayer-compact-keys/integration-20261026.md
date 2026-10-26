@@ -122,10 +122,12 @@ schema relabel tests cover both policy and checkpoint readers. Unknown formats,
 unbound compact prototypes and corrupted bindings fail closed; valid legacy,
 sparse and empty files remain supported.
 
-The full native library and example compilation, benchmark self-tests and
-relevant Python checks are run before publication. Final counts and CI status
-are recorded in the PR body; the original pilot's counts are not relabeled as
-new integration tests. All ordinary test outputs remain in the isolated local
+The integrated release library passes 152 tests with none ignored. All native
+examples compile; the two benchmark self-tests pass. Focused Python/inference
+checks pass 22 tests and five subtests. An additional original-main comparison
+passes both the legacy checkpoint/export hash and history/live-order golden
+key checks. CI runs the broader Linux matrix before merge; these integration
+counts do not relabel the original pilot's executed tests. All ordinary test outputs remain in the isolated local
 checkout under ignored `planning/compact-finish/`; no research input, bb128 job,
 M4 job, cache tool or archive policy is changed.
 

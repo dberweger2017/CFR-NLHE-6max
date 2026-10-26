@@ -1436,7 +1436,7 @@ archival/copy/cleanup or Drive acceptance is claimed through this merge.
   CPU64C/Thermistor15 74.5C maximum; zero swap growth, existing22.85GiB
   host swap remains telemetry only. No OS/fan/cache/other-job changes.
 - Frozen source0b8d16c9e0a7299b164a543200f535a48d216a05;
-  qualified CLI SHA256fc37a562f8d3753d920b07b5d35c6deabe75fc846196b176f749187a3b3ac790.
+  qualified CLI SHA256 `fc37a562f8d3753d920b07b5d35c6deabe75fc846196b176f749187a3b3ac790`.
   Controller/source/config originals remain at
   `bb128:/home/dberweger/nplayer-bb100-pilot-20261019/`:
   `source-v2`/`config-v2.json` are launched, initial `source`/`config.json`
