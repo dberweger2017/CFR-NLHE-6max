@@ -1,6 +1,24 @@
 # Roadmap
 
-## Separate M4 river fixture qualification passes; model panel remains unrun
+## M4 model-backed second-to-act river panel completes
+
+[PR436](https://github.com/dberweger2017/CFR-NLHE-6max/pull/436),
+[fixed protocol](docs/river-model-panel-m4.md),
+[results](docs/reports/river-model-panel-m4/results.md),
+[agent handoff](docs/reports/river-model-panel-m4/AGENT_HANDOFF.md): one25M-node history-key
+fixture, all48 roots plus12 pre429 controls and reproduction. Search installs
+on34/36 second-to-act roots; two retain zero-reach blueprint fallback. All46
+installed profiles meet the capped-game target; all12 first-to-act profiles
+match pre429 bitwise.145 native +6 example +23 Python tests pass. Exactly144
+root begins; the preserved initial preflight root0 framing rejection leaves
+one follow-up/release incomplete, while its fixed repeat and all main requests
+pass. No retraining, extra solves or excluded roots. Installed median279ms,
+p951.01s, sampled peak1.446GiB; nominal thermals, locks free. This is tiny-policy
+engineering, not strength/adoption or mature-model speed. Ordinary M4 evidence
+retained; cleaner archival pending. PR434 keeps bb128; search adoption and
+scientific continuation remain separately deferred.
+
+## Earlier M4 river fixture qualification passes; PR436 closes its model-input gap
 
 [Proposal432](https://github.com/dberweger2017/CFR-NLHE-6max/issues/432),
 [fixed plan](docs/river-second-to-act-m4-qualification.md),
@@ -9,9 +27,11 @@
 Guarded fixture execution66.98s, sampled peak0.892GiB, nominal thermals. Two prior
 RAM refusals are preserved; a prospective fixture-only forecast amendment uses
 prior same-host costs,4GiB family +1GiB headroom. No compatible three-player model
-was admitted from the12-policy catalog. Learned-model panel,12 pre429 controls,
-learned-profile reproduction and latency remain unrun. No training, mature-model
-transfer or automatic scientific continuation. PR431's
+was admitted from the12-policy catalog. At PR433 closeout, the learned-model
+panel,12 pre429 controls,
+learned-profile reproduction and latency were unrun; PR436 above records their
+separately authorized completion. PR433 itself performed no training or
+mature-model transfer and authorized no automatic continuation. PR431's
 bb128 allocation and the cleaner's uploads are untouched. Search adoption and
 mature strength work remain separately deferred; no automatic continuation.
 

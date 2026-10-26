@@ -1,0 +1,6977 @@
+{
+  "status": "complete",
+  "scope": "small-history-policy engineering; no strength/adoption claim",
+  "source": "469ffa3c4811f571bd6dc4fd4ed72de203cef9c3",
+  "baseline_source": "e6ae0bec74159e7c81ba65f48da6e9b3903c9b80",
+  "config_sha256": "ea034bed51abe9f9460371708d6b9f3c45d5ea7bc61e77676c7d7f868eb29f78",
+  "adapter_source": "116f1be60bafa34ef1ec940a5000083e381840ba",
+  "policy_sha256": "c2c425422545bad2d789b7346262c1209cf1d1f0bcace40cf74ef7616eee28ca",
+  "mass_sha256": "f5c9e5c0c37ad8da0a9f12c101ed237d94f35ddf81363caf0e93fc8c49a472c3",
+  "panel_sha256": "9394fad0bba108f75cf6fbcb7955d259598b2da919711dadf0a753618098eb76",
+  "native_tests": {
+    "passed": 145,
+    "failed": 0,
+    "ignored": 0
+  },
+  "stage_costs": [
+    {
+      "phase": "adapter-tests",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "unittest",
+        "tests.test_river_model_panel_m4",
+        "tests.test_river_second_to_act_m4",
+        "tests.test_river_arena_expectation",
+        "tests.test_river_whole_hand_pilot"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.0275432920025196,
+      "cpu_seconds": 0.07153500000000007,
+      "sampled_peak_rss_bytes": 12337152
+    },
+    {
+      "phase": "preflight-current-0",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.river_model_panel_m4",
+        "batch",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/completion-v1",
+        "--phase",
+        "preflight",
+        "--version",
+        "current",
+        "--repeat",
+        "0"
+      ],
+      "returncode": 0,
+      "wall_seconds": 6.13456162501825,
+      "cpu_seconds": 6.072136,
+      "sampled_peak_rss_bytes": 1549893632
+    },
+    {
+      "phase": "preflight-current-1",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.river_model_panel_m4",
+        "batch",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/completion-v1",
+        "--phase",
+        "preflight",
+        "--version",
+        "current",
+        "--repeat",
+        "1"
+      ],
+      "returncode": 0,
+      "wall_seconds": 7.155151958024362,
+      "cpu_seconds": 6.323661000000001,
+      "sampled_peak_rss_bytes": 1549910016
+    },
+    {
+      "phase": "preflight-baseline-0",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.river_model_panel_m4",
+        "batch",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/completion-v1",
+        "--phase",
+        "preflight",
+        "--version",
+        "baseline",
+        "--repeat",
+        "0"
+      ],
+      "returncode": 0,
+      "wall_seconds": 6.133079207997071,
+      "cpu_seconds": 5.746057999999999,
+      "sampled_peak_rss_bytes": 1549369344
+    },
+    {
+      "phase": "preflight-baseline-1",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.river_model_panel_m4",
+        "batch",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/completion-v1",
+        "--phase",
+        "preflight",
+        "--version",
+        "baseline",
+        "--repeat",
+        "1"
+      ],
+      "returncode": 0,
+      "wall_seconds": 6.134101083007408,
+      "cpu_seconds": 5.810943999999999,
+      "sampled_peak_rss_bytes": 1549336576
+    },
+    {
+      "phase": "main-current-0",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.river_model_panel_m4",
+        "batch",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/completion-v1",
+        "--phase",
+        "main",
+        "--version",
+        "current",
+        "--repeat",
+        "0"
+      ],
+      "returncode": 0,
+      "wall_seconds": 19.417764457990415,
+      "cpu_seconds": 19.416886999999996,
+      "sampled_peak_rss_bytes": 1552351232
+    },
+    {
+      "phase": "main-current-1",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.river_model_panel_m4",
+        "batch",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/completion-v1",
+        "--phase",
+        "main",
+        "--version",
+        "current",
+        "--repeat",
+        "1"
+      ],
+      "returncode": 0,
+      "wall_seconds": 20.453992916998686,
+      "cpu_seconds": 19.664656000000004,
+      "sampled_peak_rss_bytes": 1552547840
+    },
+    {
+      "phase": "main-baseline-0",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.river_model_panel_m4",
+        "batch",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/completion-v1",
+        "--phase",
+        "main",
+        "--version",
+        "baseline",
+        "--repeat",
+        "0"
+      ],
+      "returncode": 0,
+      "wall_seconds": 10.229820458014729,
+      "cpu_seconds": 9.696416999999991,
+      "sampled_peak_rss_bytes": 1549975552
+    },
+    {
+      "phase": "main-baseline-1",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.river_model_panel_m4",
+        "batch",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/completion-v1",
+        "--phase",
+        "main",
+        "--version",
+        "baseline",
+        "--repeat",
+        "1"
+      ],
+      "returncode": 0,
+      "wall_seconds": 10.235707874991931,
+      "cpu_seconds": 9.780414000000004,
+      "sampled_peak_rss_bytes": 1550450688
+    }
+  ],
+  "prior_stage_costs": [
+    {
+      "phase": "thermal-build",
+      "command": [
+        "swiftc",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/source-v1/scripts/support/m4_thermal_state.swift",
+        "-o",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/run-v1/thermal-state"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.0300003750016913,
+      "cpu_seconds": 0.6035350000000002,
+      "sampled_peak_rss_bytes": 262144
+    },
+    {
+      "phase": "native-tests",
+      "command": [
+        "/Users/dberweger/.cargo/bin/cargo",
+        "test",
+        "--release",
+        "--locked",
+        "--offline",
+        "--manifest-path",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/source-v1/native/hu20-trainer/Cargo.toml",
+        "--lib",
+        "--",
+        "--test-threads=2"
+      ],
+      "returncode": 0,
+      "wall_seconds": 47.04536724998616,
+      "cpu_seconds": 162.043037,
+      "sampled_peak_rss_bytes": 956153856
+    },
+    {
+      "phase": "example-tests",
+      "command": [
+        "/Users/dberweger/.cargo/bin/cargo",
+        "test",
+        "--release",
+        "--locked",
+        "--offline",
+        "--manifest-path",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/source-v1/native/hu20-trainer/Cargo.toml",
+        "--example",
+        "nplayer_river_panel",
+        "--example",
+        "river_live",
+        "--",
+        "--test-threads=2"
+      ],
+      "returncode": 0,
+      "wall_seconds": 14.356368375010788,
+      "cpu_seconds": 19.320165000000003,
+      "sampled_peak_rss_bytes": 553222144
+    },
+    {
+      "phase": "python-tests",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "unittest",
+        "tests.test_river_model_panel_m4",
+        "tests.test_river_second_to_act_m4",
+        "tests.test_river_arena_expectation",
+        "tests.test_river_whole_hand_pilot"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.0575048750033602,
+      "cpu_seconds": 0.10664199999999369,
+      "sampled_peak_rss_bytes": 10567680
+    },
+    {
+      "phase": "build",
+      "command": [
+        "/Users/dberweger/.cargo/bin/cargo",
+        "build",
+        "--release",
+        "--locked",
+        "--offline",
+        "--manifest-path",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/source-v1/native/hu20-trainer/Cargo.toml",
+        "--example",
+        "nplayer_train",
+        "--example",
+        "nplayer_policy",
+        "--example",
+        "river_live",
+        "--example",
+        "nplayer_river_panel"
+      ],
+      "returncode": 0,
+      "wall_seconds": 11.29313216698938,
+      "cpu_seconds": 21.487592000000006,
+      "sampled_peak_rss_bytes": 481099776
+    },
+    {
+      "phase": "baseline-lock",
+      "command": [
+        "/Users/dberweger/.cargo/bin/cargo",
+        "metadata",
+        "--offline",
+        "--no-deps",
+        "--format-version",
+        "1",
+        "--manifest-path",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/run-v1/baseline-worker/Cargo.toml"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.0581480000109877,
+      "cpu_seconds": 0.06435600000001784,
+      "sampled_peak_rss_bytes": 18513920
+    },
+    {
+      "phase": "baseline-build",
+      "command": [
+        "/Users/dberweger/.cargo/bin/cargo",
+        "build",
+        "--release",
+        "--locked",
+        "--offline",
+        "--manifest-path",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/run-v1/baseline-worker/Cargo.toml"
+      ],
+      "returncode": 101,
+      "wall_seconds": 1.043461124994792,
+      "cpu_seconds": 0.05462199999996642,
+      "sampled_peak_rss_bytes": 18366464
+    },
+    {
+      "phase": "thermal-build",
+      "command": [
+        "swiftc",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/source-v2/scripts/support/m4_thermal_state.swift",
+        "-o",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/run-v2/thermal-state"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.0273964169900864,
+      "cpu_seconds": 0.235309,
+      "sampled_peak_rss_bytes": 1523712
+    },
+    {
+      "phase": "native-tests",
+      "command": [
+        "/Users/dberweger/.cargo/bin/cargo",
+        "test",
+        "--release",
+        "--locked",
+        "--offline",
+        "--manifest-path",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/source-v2/native/hu20-trainer/Cargo.toml",
+        "--lib",
+        "--",
+        "--test-threads=2"
+      ],
+      "returncode": 0,
+      "wall_seconds": 47.05362945899833,
+      "cpu_seconds": 163.047864,
+      "sampled_peak_rss_bytes": 929660928
+    },
+    {
+      "phase": "example-tests",
+      "command": [
+        "/Users/dberweger/.cargo/bin/cargo",
+        "test",
+        "--release",
+        "--locked",
+        "--offline",
+        "--manifest-path",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/source-v2/native/hu20-trainer/Cargo.toml",
+        "--example",
+        "nplayer_river_panel",
+        "--example",
+        "river_live",
+        "--",
+        "--test-threads=2"
+      ],
+      "returncode": 0,
+      "wall_seconds": 14.352990792016499,
+      "cpu_seconds": 19.298146000000003,
+      "sampled_peak_rss_bytes": 553648128
+    },
+    {
+      "phase": "python-tests",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "unittest",
+        "tests.test_river_model_panel_m4",
+        "tests.test_river_second_to_act_m4",
+        "tests.test_river_arena_expectation",
+        "tests.test_river_whole_hand_pilot"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.057916583988117,
+      "cpu_seconds": 0.1063880000000097,
+      "sampled_peak_rss_bytes": 10682368
+    },
+    {
+      "phase": "build",
+      "command": [
+        "/Users/dberweger/.cargo/bin/cargo",
+        "build",
+        "--release",
+        "--locked",
+        "--offline",
+        "--manifest-path",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/source-v2/native/hu20-trainer/Cargo.toml",
+        "--example",
+        "nplayer_train",
+        "--example",
+        "nplayer_policy",
+        "--example",
+        "river_live",
+        "--example",
+        "nplayer_river_panel"
+      ],
+      "returncode": 0,
+      "wall_seconds": 11.28790462500183,
+      "cpu_seconds": 21.469714999999994,
+      "sampled_peak_rss_bytes": 514621440
+    },
+    {
+      "phase": "baseline-lock",
+      "command": [
+        "/Users/dberweger/.cargo/bin/cargo",
+        "metadata",
+        "--offline",
+        "--locked",
+        "--no-deps",
+        "--format-version",
+        "1",
+        "--manifest-path",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/run-v2/baseline-worker/Cargo.toml"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.0557901249849238,
+      "cpu_seconds": 0.060864000000009355,
+      "sampled_peak_rss_bytes": 18841600
+    },
+    {
+      "phase": "baseline-build",
+      "command": [
+        "/Users/dberweger/.cargo/bin/cargo",
+        "build",
+        "--release",
+        "--locked",
+        "--offline",
+        "--manifest-path",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/run-v2/baseline-worker/Cargo.toml"
+      ],
+      "returncode": 0,
+      "wall_seconds": 12.29015512499609,
+      "cpu_seconds": 15.280839000000029,
+      "sampled_peak_rss_bytes": 544391168
+    },
+    {
+      "phase": "panel-generate",
+      "command": [
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/run-v2/target/release/examples/nplayer_river_panel",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/run-v2/panel.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.0430374999996275,
+      "cpu_seconds": 0.04301800000000355,
+      "sampled_peak_rss_bytes": 2392064
+    },
+    {
+      "phase": "fixture-train",
+      "command": [
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/run-v2/target/release/examples/nplayer_train",
+        "--players",
+        "3",
+        "--stack-bb",
+        "100",
+        "--small-blind",
+        "50",
+        "--big-blind",
+        "100",
+        "--key-schema",
+        "history",
+        "--fast",
+        "--threads",
+        "2",
+        "--roots-per-seat",
+        "8",
+        "--seed",
+        "2026102643601",
+        "--nodes",
+        "25000000",
+        "--last-average-street",
+        "3",
+        "--max-entries",
+        "1000000",
+        "--freeze-at-cap",
+        "--fast-gzip",
+        "--max-seconds",
+        "1e100",
+        "--card-buckets",
+        "/Users/dberweger/Local/overnight-equity-hu100-20261009/stage-a/results/equity-bench/tables",
+        "--out",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/run-v2/fixture.gz",
+        "--telemetry",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/run-v2/training-progress.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 12.28383416600991,
+      "cpu_seconds": 21.307343000000003,
+      "sampled_peak_rss_bytes": 1509490688
+    },
+    {
+      "phase": "fixture-export",
+      "command": [
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/run-v2/target/release/examples/nplayer_policy",
+        "export",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/run-v2/fixture.gz",
+        "fc6e991fc9c06e001a549ea9dc2e15e79504b1e318fb80c59bd340239563d608",
+        "average",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/run-v2/fixture-average.gz",
+        "--fast-gzip"
+      ],
+      "returncode": 0,
+      "wall_seconds": 3.0652286669937894,
+      "cpu_seconds": 2.267255999999975,
+      "sampled_peak_rss_bytes": 91439104
+    },
+    {
+      "phase": "fixture-audit",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.audit_nplayer_policy_parallel",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/run-v2/fixture.gz",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/run-v2/fixture-average.gz",
+        "--workers",
+        "1",
+        "--lookup-out",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/run-v2/mass"
+      ],
+      "returncode": 0,
+      "wall_seconds": 5.1474476250004955,
+      "cpu_seconds": 5.171661999999998,
+      "sampled_peak_rss_bytes": 103432192
+    },
+    {
+      "phase": "preflight-current-0",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.river_model_panel_m4",
+        "batch",
+        "/Users/dberweger/Local/river-model-panel-m4-20261026/run-v2",
+        "--phase",
+        "preflight",
+        "--version",
+        "current",
+        "--repeat",
+        "0"
+      ],
+      "returncode": 1,
+      "wall_seconds": 4.089745166973444,
+      "cpu_seconds": 4.078874000000013,
+      "sampled_peak_rss_bytes": 304922624
+    }
+  ],
+  "controller_wall_seconds": 95.33372525000595,
+  "primary_root_count": 48,
+  "declared_root_requests": 144,
+  "first_actor_proof": {
+    "phase": "main",
+    "reproduction": {
+      "current": {
+        "roots": 48,
+        "float64_bits_and_profiles": true,
+        "no_root_exclusions": true,
+        "incomplete_initial_followups": []
+      },
+      "baseline": {
+        "roots": 12,
+        "float64_bits_and_profiles": true,
+        "no_root_exclusions": true,
+        "incomplete_initial_followups": []
+      }
+    },
+    "first_actor_profiles": 12,
+    "first_actor_classifications": 0
+  },
+  "latency_seconds": {
+    "installed": {
+      "n": 46,
+      "p50": 0.27850587500142865,
+      "p90": 0.6347179584990954,
+      "p95": 1.0081565727596171,
+      "max": 1.3499137919861823
+    },
+    "fallback": {
+      "n": 2,
+      "p50": 0.010554333013715222,
+      "p90": 0.01064413302228786,
+      "p95": 0.01065535802335944,
+      "max": 0.01066658302443102
+    },
+    "unsupported": {
+      "n": 0
+    }
+  },
+  "installed_second_to_act": 34,
+  "roots": [
+    {
+      "id": 0,
+      "entry": 0,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.27621858299244195,
+      "reentry_seconds": 6.454100366681814e-05,
+      "actions": [
+        [
+          "check",
+          0
+        ],
+        [
+          "raise",
+          100
+        ],
+        [
+          "raise",
+          200
+        ]
+      ],
+      "probabilities": [
+        0.9961628793806453,
+        0.0023268876912385674,
+        0.0015102329281162464
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "check",
+            0
+          ],
+          [
+            "raise",
+            100
+          ],
+          [
+            "raise",
+            200
+          ]
+        ],
+        "probabilities": [
+          0.9961628793806453,
+          0.0023268876912385674,
+          0.0015102329281162464
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 476,
+          "positive_mass": 2767,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 752,
+          "positive_mass": 2491,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.00564419060753929,
+          0.0048536996935062415
+        ],
+        "exploitability_bb": 0.005248945150522766,
+        "exploitability_root_pot": 0.002624472575261383,
+        "profile_values_bb": [
+          -0.36419660507244894,
+          0.3641966050724478
+        ],
+        "zero_sum_error_bb": 1.1657341758564144e-15
+      },
+      "target_bb": 0.02,
+      "sweeps": 256,
+      "nodes": 51,
+      "timings": {
+        "likelihood_seconds": 0.0051785,
+        "native_before_serialization_seconds": 0.275248292,
+        "projection_seconds": 0.006177375,
+        "quality_seconds": 0.008202626,
+        "reconstruction_seconds": 1.0167e-05,
+        "solve_seconds": 0.254217958,
+        "tree_and_solver_preparation_seconds": 0.001443875
+      },
+      "solver_memory_bytes": 4531552,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "abbe961ce06c8b4d88b5b35f40080aaa7220a3d194771cf3d9e018d393ed3962",
+        "retained_payload_bytes": 437842,
+        "root_sha256": "1f0c8f998c15195c72249d9789ee65b93ffa64b23177d1d387d04805d01d6736",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 256,
+          "target_bb": 0.02
+        }
+      }
+    },
+    {
+      "id": 1,
+      "entry": 1,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.15145529102301225,
+      "reentry_seconds": 5.1125010941177607e-05,
+      "actions": [
+        [
+          "check",
+          0
+        ],
+        [
+          "raise",
+          100
+        ],
+        [
+          "raise",
+          200
+        ]
+      ],
+      "probabilities": [
+        0.0005384659170115817,
+        0.09063507711349801,
+        0.9088264569694906
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "check",
+            0
+          ],
+          [
+            "raise",
+            100
+          ],
+          [
+            "raise",
+            200
+          ]
+        ],
+        "probabilities": [
+          0.0005384659170115817,
+          0.09063507711349801,
+          0.9088264569694906
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 476,
+          "positive_mass": 2767,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 752,
+          "positive_mass": 2491,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.005454917671319448,
+          0.0036373574158879984
+        ],
+        "exploitability_bb": 0.004546137543603723,
+        "exploitability_root_pot": 0.0022730687718018616,
+        "profile_values_bb": [
+          -0.6958559187970332,
+          0.6958559187970341
+        ],
+        "zero_sum_error_bb": 8.881784197001252e-16
+      },
+      "target_bb": 0.008484174879145892,
+      "sweeps": 128,
+      "nodes": 51,
+      "timings": {
+        "likelihood_seconds": 0.003856666,
+        "native_before_serialization_seconds": 0.150533042,
+        "projection_seconds": 0.006327042,
+        "quality_seconds": 0.0070015419999999995,
+        "reconstruction_seconds": 5.792e-06,
+        "solve_seconds": 0.1292055,
+        "tree_and_solver_preparation_seconds": 0.004124625
+      },
+      "solver_memory_bytes": 4531552,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "216b963615ca5235b4d23aaf110228bba37b14c728635197e69ed570fe1ab35a",
+        "retained_payload_bytes": 437842,
+        "root_sha256": "e96f33fa92ded2d365b48a7e8019da1fe852b73fa80085114b7c3f79db814c48",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 128,
+          "target_bb": 0.008484174879145892
+        }
+      }
+    },
+    {
+      "id": 2,
+      "entry": 2,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.27929220799705945,
+      "reentry_seconds": 6.904199835844338e-05,
+      "actions": [
+        [
+          "fold",
+          0
+        ],
+        [
+          "call",
+          0
+        ],
+        [
+          "raise",
+          200
+        ],
+        [
+          "raise",
+          500
+        ]
+      ],
+      "probabilities": [
+        4.444273784331127e-08,
+        0.0010188717167405922,
+        0.01700610877728873,
+        0.9819749750632332
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "fold",
+            0
+          ],
+          [
+            "call",
+            0
+          ],
+          [
+            "raise",
+            200
+          ],
+          [
+            "raise",
+            500
+          ]
+        ],
+        "probabilities": [
+          4.444273784331127e-08,
+          0.0010188717167405922,
+          0.01700610877728873,
+          0.9819749750632332
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 476,
+          "positive_mass": 2767,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 752,
+          "positive_mass": 2491,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.00449002076641547,
+          0.0022555645644439792
+        ],
+        "exploitability_bb": 0.0033727926654297247,
+        "exploitability_root_pot": 0.0016863963327148623,
+        "profile_values_bb": [
+          -0.7033679387589806,
+          0.7033679387589811
+        ],
+        "zero_sum_error_bb": 4.440892098500626e-16
+      },
+      "target_bb": 0.005946635219419198,
+      "sweeps": 256,
+      "nodes": 51,
+      "timings": {
+        "likelihood_seconds": 0.004058708,
+        "native_before_serialization_seconds": 0.278331667,
+        "projection_seconds": 0.006349334,
+        "quality_seconds": 0.008185334,
+        "reconstruction_seconds": 6.333e-06,
+        "solve_seconds": 0.25683341600000004,
+        "tree_and_solver_preparation_seconds": 0.002879458
+      },
+      "solver_memory_bytes": 4531552,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "b4b08749be6c33cd7562095016b7cf5fc7fcc01609c61c5a55a0c4bc87f8e3c0",
+        "retained_payload_bytes": 437842,
+        "root_sha256": "7184e4bc31991051f3ccfea1816f981ba93bddf747a9c406f073f795854893f9",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 256,
+          "target_bb": 0.005946635219419198
+        }
+      }
+    },
+    {
+      "id": 3,
+      "entry": 3,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.2795465409872122,
+      "reentry_seconds": 5.791700095869601e-05,
+      "actions": [
+        [
+          "fold",
+          0
+        ],
+        [
+          "call",
+          0
+        ],
+        [
+          "raise",
+          400
+        ],
+        [
+          "raise",
+          800
+        ]
+      ],
+      "probabilities": [
+        4.444273784331127e-08,
+        4.444273784331127e-08,
+        0.050798902705932354,
+        0.9492010084085919
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "fold",
+            0
+          ],
+          [
+            "call",
+            0
+          ],
+          [
+            "raise",
+            400
+          ],
+          [
+            "raise",
+            800
+          ]
+        ],
+        "probabilities": [
+          4.444273784331127e-08,
+          4.444273784331127e-08,
+          0.050798902705932354,
+          0.9492010084085919
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 476,
+          "positive_mass": 2767,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 752,
+          "positive_mass": 2491,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.004921931235100874,
+          0.004619239630374472
+        ],
+        "exploitability_bb": 0.004770585432737673,
+        "exploitability_root_pot": 0.0023852927163688364,
+        "profile_values_bb": [
+          -0.7033679387589806,
+          0.7033679387589811
+        ],
+        "zero_sum_error_bb": 4.440892098500626e-16
+      },
+      "target_bb": 0.005569189901434917,
+      "sweeps": 256,
+      "nodes": 51,
+      "timings": {
+        "likelihood_seconds": 0.00537975,
+        "native_before_serialization_seconds": 0.278613208,
+        "projection_seconds": 0.006356791,
+        "quality_seconds": 0.008341082000000001,
+        "reconstruction_seconds": 6.833e-06,
+        "solve_seconds": 0.254454918,
+        "tree_and_solver_preparation_seconds": 0.00406075
+      },
+      "solver_memory_bytes": 4531552,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "b4b08749be6c33cd7562095016b7cf5fc7fcc01609c61c5a55a0c4bc87f8e3c0",
+        "retained_payload_bytes": 437842,
+        "root_sha256": "86cd77f99e0689ee3b6c42195238930b74ddacdcf27b9db73dbc0bc29d124698",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 256,
+          "target_bb": 0.005569189901434917
+        }
+      }
+    },
+    {
+      "id": 4,
+      "entry": 0,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.2824412499903701,
+      "reentry_seconds": 4.549999721348286e-05,
+      "actions": [
+        [
+          "check",
+          0
+        ],
+        [
+          "raise",
+          100
+        ],
+        [
+          "raise",
+          200
+        ]
+      ],
+      "probabilities": [
+        0.9065637885250389,
+        0.09138429463016873,
+        0.0020519168447923957
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "check",
+            0
+          ],
+          [
+            "raise",
+            100
+          ],
+          [
+            "raise",
+            200
+          ]
+        ],
+        "probabilities": [
+          0.9065637885250389,
+          0.09138429463016873,
+          0.0020519168447923957
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 635,
+          "positive_mass": 2608,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 398,
+          "positive_mass": 2845,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.014329687270988711,
+          0.01796477105684985
+        ],
+        "exploitability_bb": 0.01614722916391928,
+        "exploitability_root_pot": 0.00807361458195964,
+        "profile_values_bb": [
+          0.38277073403162853,
+          -0.3827707340316289
+        ],
+        "zero_sum_error_bb": 3.885780586188048e-16
+      },
+      "target_bb": 0.02,
+      "sweeps": 256,
+      "nodes": 51,
+      "timings": {
+        "likelihood_seconds": 0.004168541,
+        "native_before_serialization_seconds": 0.281510125,
+        "projection_seconds": 0.006370417,
+        "quality_seconds": 0.008380084,
+        "reconstruction_seconds": 7.75e-06,
+        "solve_seconds": 0.261322832,
+        "tree_and_solver_preparation_seconds": 0.001249625
+      },
+      "solver_memory_bytes": 4531552,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "f6956b55eab6cbc17899f1aea8f43d1f010700b0d7d8f93de26908551a2ec1ca",
+        "retained_payload_bytes": 437842,
+        "root_sha256": "f2e84206d169d17f80619dbbfd6a71a34829496a8e70287e16da4d3fe62377ed",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 256,
+          "target_bb": 0.02
+        }
+      }
+    },
+    {
+      "id": 5,
+      "entry": 1,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.28649766600574367,
+      "reentry_seconds": 5.395800690166652e-05,
+      "actions": [
+        [
+          "check",
+          0
+        ],
+        [
+          "raise",
+          100
+        ],
+        [
+          "raise",
+          200
+        ]
+      ],
+      "probabilities": [
+        7.270168055142187e-07,
+        0.03505637683211414,
+        0.9649428961510801
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "check",
+            0
+          ],
+          [
+            "raise",
+            100
+          ],
+          [
+            "raise",
+            200
+          ]
+        ],
+        "probabilities": [
+          7.270168055142187e-07,
+          0.03505637683211414,
+          0.9649428961510801
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 635,
+          "positive_mass": 2608,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 398,
+          "positive_mass": 2845,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.004545715361043423,
+          0.00463559128282065
+        ],
+        "exploitability_bb": 0.004590653321932037,
+        "exploitability_root_pot": 0.0022953266609660183,
+        "profile_values_bb": [
+          0.7708019167106794,
+          -0.7708019167106787
+        ],
+        "zero_sum_error_bb": 7.771561172376096e-16
+      },
+      "target_bb": 0.007543681791365024,
+      "sweeps": 256,
+      "nodes": 51,
+      "timings": {
+        "likelihood_seconds": 0.003375417,
+        "native_before_serialization_seconds": 0.285580459,
+        "projection_seconds": 0.006369042,
+        "quality_seconds": 0.008596289,
+        "reconstruction_seconds": 5.5e-06,
+        "solve_seconds": 0.26332050300000004,
+        "tree_and_solver_preparation_seconds": 0.003902833
+      },
+      "solver_memory_bytes": 4531552,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "003aa0340b95240cc11d2a6555725ce15a3abd0653c960bc3c8eba67ba0d3eb6",
+        "retained_payload_bytes": 437842,
+        "root_sha256": "665d72d40c119071e24765a75e8f07a6ddf0b517ce6f6e3b2b22262b2108ed73",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 256,
+          "target_bb": 0.007543681791365024
+        }
+      }
+    },
+    {
+      "id": 6,
+      "entry": 2,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.5520398330118041,
+      "reentry_seconds": 5.3208001190796494e-05,
+      "actions": [
+        [
+          "fold",
+          0
+        ],
+        [
+          "call",
+          0
+        ],
+        [
+          "raise",
+          200
+        ],
+        [
+          "raise",
+          500
+        ]
+      ],
+      "probabilities": [
+        5.5716017686492714e-09,
+        5.5716017686492714e-09,
+        0.0004544936891171049,
+        0.9995454951676793
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "fold",
+            0
+          ],
+          [
+            "call",
+            0
+          ],
+          [
+            "raise",
+            200
+          ],
+          [
+            "raise",
+            500
+          ]
+        ],
+        "probabilities": [
+          5.5716017686492714e-09,
+          5.5716017686492714e-09,
+          0.0004544936891171049,
+          0.9995454951676793
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 635,
+          "positive_mass": 2608,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 398,
+          "positive_mass": 2845,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.002452285779649177,
+          0.0047415317102503796
+        ],
+        "exploitability_bb": 0.0035969087449497783,
+        "exploitability_root_pot": 0.0017984543724748892,
+        "profile_values_bb": [
+          0.7715810955689315,
+          -0.7715810955689313
+        ],
+        "zero_sum_error_bb": 2.220446049250313e-16
+      },
+      "target_bb": 0.005946077851044626,
+      "sweeps": 512,
+      "nodes": 51,
+      "timings": {
+        "likelihood_seconds": 0.004367209,
+        "native_before_serialization_seconds": 0.551140583,
+        "projection_seconds": 0.006484584,
+        "quality_seconds": 0.010110625,
+        "reconstruction_seconds": 6.792e-06,
+        "solve_seconds": 0.52618975,
+        "tree_and_solver_preparation_seconds": 0.003970583
+      },
+      "solver_memory_bytes": 4531552,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "dc8f9e8155423cfdbe2bdf27156f200cbb8df1311e5dfe29b69789c987d19633",
+        "retained_payload_bytes": 437842,
+        "root_sha256": "2b4b5eea7fe754dc72e7d5ca435c23022ab9269051dc1d3b65d52acfc9dd195b",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 512,
+          "target_bb": 0.005946077851044626
+        }
+      }
+    },
+    {
+      "id": 7,
+      "entry": 3,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.15156966701033525,
+      "reentry_seconds": 4.8708985559642315e-05,
+      "actions": [
+        [
+          "fold",
+          0
+        ],
+        [
+          "call",
+          0
+        ],
+        [
+          "raise",
+          400
+        ],
+        [
+          "raise",
+          800
+        ]
+      ],
+      "probabilities": [
+        3.53474798660755e-07,
+        3.53474798660755e-07,
+        0.09406098076344686,
+        0.9059383122869561
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "fold",
+            0
+          ],
+          [
+            "call",
+            0
+          ],
+          [
+            "raise",
+            400
+          ],
+          [
+            "raise",
+            800
+          ]
+        ],
+        "probabilities": [
+          3.53474798660755e-07,
+          3.53474798660755e-07,
+          0.09406098076344686,
+          0.9059383122869561
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 635,
+          "positive_mass": 2608,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 398,
+          "positive_mass": 2845,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.002376924428809657,
+          0.002694927938730274
+        ],
+        "exploitability_bb": 0.0025359261837699654,
+        "exploitability_root_pot": 0.0012679630918849827,
+        "profile_values_bb": [
+          0.7678190876824007,
+          -0.7678190876824016
+        ],
+        "zero_sum_error_bb": 8.881784197001252e-16
+      },
+      "target_bb": 0.006510240357590327,
+      "sweeps": 128,
+      "nodes": 51,
+      "timings": {
+        "likelihood_seconds": 0.003650166,
+        "native_before_serialization_seconds": 0.15068475,
+        "projection_seconds": 0.006424459,
+        "quality_seconds": 0.007086917,
+        "reconstruction_seconds": 6e-06,
+        "solve_seconds": 0.130684208,
+        "tree_and_solver_preparation_seconds": 0.002823375
+      },
+      "solver_memory_bytes": 4531552,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "4df87d52bf645cbbc68ff0f47bc07406a1e002b4c5a197c039054b552c79df09",
+        "retained_payload_bytes": 437842,
+        "root_sha256": "50e85769fce7fb375c2596d917c9ce78430ec47e7e8ed12924929435bb0b77f6",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 128,
+          "target_bb": 0.006510240357590327
+        }
+      }
+    },
+    {
+      "id": 8,
+      "entry": 0,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.29669658400234766,
+      "reentry_seconds": 4.9124995712190866e-05,
+      "actions": [
+        [
+          "check",
+          0
+        ],
+        [
+          "raise",
+          100
+        ],
+        [
+          "raise",
+          200
+        ]
+      ],
+      "probabilities": [
+        0.9470480716047237,
+        0.03337395367829144,
+        0.01957797471698364
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "check",
+            0
+          ],
+          [
+            "raise",
+            100
+          ],
+          [
+            "raise",
+            200
+          ]
+        ],
+        "probabilities": [
+          0.9470480716047237,
+          0.03337395367829144,
+          0.01957797471698364
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 179,
+          "positive_mass": 3064,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 1213,
+          "positive_mass": 2030,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.015980086819857187,
+          0.01761425931138949
+        ],
+        "exploitability_bb": 0.01679717306562334,
+        "exploitability_root_pot": 0.00839858653281167,
+        "profile_values_bb": [
+          -0.4814981024226204,
+          0.4814981024226232
+        ],
+        "zero_sum_error_bb": 2.7755575615628914e-15
+      },
+      "target_bb": 0.02,
+      "sweeps": 256,
+      "nodes": 51,
+      "timings": {
+        "likelihood_seconds": 0.003617959,
+        "native_before_serialization_seconds": 0.295806042,
+        "projection_seconds": 0.00644275,
+        "quality_seconds": 0.009042165,
+        "reconstruction_seconds": 4.834e-06,
+        "solve_seconds": 0.27549054300000003,
+        "tree_and_solver_preparation_seconds": 0.001196417
+      },
+      "solver_memory_bytes": 4531552,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "2dd13c079f882bdf5cff731feaa5a54a49477a579b01f83e3d37cd867421ed6f",
+        "retained_payload_bytes": 437842,
+        "root_sha256": "9f324aed76d7c2a52eddd934d9f509bf91d97f6fa95a13f7ddad1edfd7983cb1",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 256,
+          "target_bb": 0.02
+        }
+      }
+    },
+    {
+      "id": 9,
+      "entry": 1,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.29799841600470245,
+      "reentry_seconds": 4.5625027269124985e-05,
+      "actions": [
+        [
+          "check",
+          0
+        ],
+        [
+          "raise",
+          100
+        ],
+        [
+          "raise",
+          200
+        ]
+      ],
+      "probabilities": [
+        0.2023359726848212,
+        0.005153489017967778,
+        0.7925105382972109
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "check",
+            0
+          ],
+          [
+            "raise",
+            100
+          ],
+          [
+            "raise",
+            200
+          ]
+        ],
+        "probabilities": [
+          0.2023359726848212,
+          0.005153489017967778,
+          0.7925105382972109
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 179,
+          "positive_mass": 3064,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 1213,
+          "positive_mass": 2030,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.005886036372565018,
+          0.004919708783504229
+        ],
+        "exploitability_bb": 0.005402872578034623,
+        "exploitability_root_pot": 0.0027014362890173116,
+        "profile_values_bb": [
+          -1.142210914299769,
+          1.1422109142997556
+        ],
+        "zero_sum_error_bb": 1.3322676295501878e-14
+      },
+      "target_bb": 0.00844493880439342,
+      "sweeps": 256,
+      "nodes": 51,
+      "timings": {
+        "likelihood_seconds": 0.0036165,
+        "native_before_serialization_seconds": 0.297135041,
+        "projection_seconds": 0.006404583,
+        "quality_seconds": 0.009119584,
+        "reconstruction_seconds": 5.208e-06,
+        "solve_seconds": 0.27501924899999997,
+        "tree_and_solver_preparation_seconds": 0.002962125
+      },
+      "solver_memory_bytes": 4531552,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "9c072cc43cdaf5dfab7ab60248fc02144941ff388c43cf85f46c130699b9dde1",
+        "retained_payload_bytes": 437842,
+        "root_sha256": "4a94b8990294cc0e1408a5c04a2497418c0059ea3fc000cb410f40e329b9563b",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 256,
+          "target_bb": 0.00844493880439342
+        }
+      }
+    },
+    {
+      "id": 10,
+      "entry": 2,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.16082266700686887,
+      "reentry_seconds": 4.170899046584964e-05,
+      "actions": [
+        [
+          "fold",
+          0
+        ],
+        [
+          "call",
+          0
+        ],
+        [
+          "raise",
+          200
+        ],
+        [
+          "raise",
+          500
+        ]
+      ],
+      "probabilities": [
+        0.9674095524868787,
+        0.0001792402537242106,
+        0.0002737473561322561,
+        0.03213745990326501
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "fold",
+            0
+          ],
+          [
+            "call",
+            0
+          ],
+          [
+            "raise",
+            200
+          ],
+          [
+            "raise",
+            500
+          ]
+        ],
+        "probabilities": [
+          0.9674095524868787,
+          0.0001792402537242106,
+          0.0002737473561322561,
+          0.03213745990326501
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 179,
+          "positive_mass": 3064,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 1213,
+          "positive_mass": 2030,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.0004008009026523762,
+          0.0005040597757040022
+        ],
+        "exploitability_bb": 0.0004524303391781892,
+        "exploitability_root_pot": 0.0002262151695890946,
+        "profile_values_bb": [
+          -1.1320733759490829,
+          1.1320733759490835
+        ],
+        "zero_sum_error_bb": 6.661338147750939e-16
+      },
+      "target_bb": 0.0006605718264745725,
+      "sweeps": 128,
+      "nodes": 51,
+      "timings": {
+        "likelihood_seconds": 0.003184583,
+        "native_before_serialization_seconds": 0.159907041,
+        "projection_seconds": 0.006323917,
+        "quality_seconds": 0.007797334,
+        "reconstruction_seconds": 4.083e-06,
+        "solve_seconds": 0.140001749,
+        "tree_and_solver_preparation_seconds": 0.00258775
+      },
+      "solver_memory_bytes": 4531552,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "00b893ba6d1750943f8c9b6d9b411128794c81a20bf991a7db9237dab6f67574",
+        "retained_payload_bytes": 437842,
+        "root_sha256": "44cfb3bd932e8ba95c3ec57631453acbd1e9ceb367f12ebd4b70e6aa50ef1eb0",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 128,
+          "target_bb": 0.0006605718264745725
+        }
+      }
+    },
+    {
+      "id": 11,
+      "entry": 3,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.5769972910056822,
+      "reentry_seconds": 5.587501800619066e-05,
+      "actions": [
+        [
+          "fold",
+          0
+        ],
+        [
+          "call",
+          0
+        ],
+        [
+          "raise",
+          400
+        ],
+        [
+          "raise",
+          800
+        ]
+      ],
+      "probabilities": [
+        8.501886485079891e-06,
+        0.597531083093806,
+        0.00032889818934664453,
+        0.4021315168303625
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "fold",
+            0
+          ],
+          [
+            "call",
+            0
+          ],
+          [
+            "raise",
+            400
+          ],
+          [
+            "raise",
+            800
+          ]
+        ],
+        "probabilities": [
+          8.501886485079891e-06,
+          0.597531083093806,
+          0.00032889818934664453,
+          0.4021315168303625
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 179,
+          "positive_mass": 3064,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 1213,
+          "positive_mass": 2030,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.009030375951041947,
+          0.00796292086173045
+        ],
+        "exploitability_bb": 0.008496648406386198,
+        "exploitability_root_pot": 0.004248324203193099,
+        "profile_values_bb": [
+          -1.145627513260459,
+          1.145627513260467
+        ],
+        "zero_sum_error_bb": 7.993605777301127e-15
+      },
+      "target_bb": 0.01089448936913199,
+      "sweeps": 512,
+      "nodes": 51,
+      "timings": {
+        "likelihood_seconds": 0.003291167,
+        "native_before_serialization_seconds": 0.576027417,
+        "projection_seconds": 0.006391709,
+        "quality_seconds": 0.01084596,
+        "reconstruction_seconds": 4.709e-06,
+        "solve_seconds": 0.552924915,
+        "tree_and_solver_preparation_seconds": 0.002551208
+      },
+      "solver_memory_bytes": 4531552,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "3be775f7c1b50046058ca7d2a4e46265f970d33abaed10a18933a6db88612d3e",
+        "retained_payload_bytes": 437842,
+        "root_sha256": "ddaba76e66f3700028430972f0707a071851f585f4b3ca4b413d015ff9336056",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 512,
+          "target_bb": 0.01089448936913199
+        }
+      }
+    },
+    {
+      "id": 12,
+      "entry": 0,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.2841437080060132,
+      "reentry_seconds": 4.341598832979798e-05,
+      "actions": [
+        [
+          "check",
+          0
+        ],
+        [
+          "raise",
+          100
+        ],
+        [
+          "raise",
+          400
+        ]
+      ],
+      "probabilities": [
+        0.4774704238491312,
+        0.46644547912914536,
+        0.05608409702172308
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "check",
+            0
+          ],
+          [
+            "raise",
+            100
+          ],
+          [
+            "raise",
+            400
+          ]
+        ],
+        "probabilities": [
+          0.4774704238491312,
+          0.46644547912914536,
+          0.05608409702172308
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 925,
+          "positive_mass": 2318,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 467,
+          "positive_mass": 2776,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.018373368255240552,
+          0.03072611795370539
+        ],
+        "exploitability_bb": 0.02454974310447297,
+        "exploitability_root_pot": 0.006137435776118243,
+        "profile_values_bb": [
+          0.47789075333629283,
+          -0.4778907533362923
+        ],
+        "zero_sum_error_bb": 5.551115123125783e-16
+      },
+      "target_bb": 0.04,
+      "sweeps": 256,
+      "nodes": 51,
+      "timings": {
+        "likelihood_seconds": 0.005153667,
+        "native_before_serialization_seconds": 0.283221625,
+        "projection_seconds": 0.00645475,
+        "quality_seconds": 0.008382375,
+        "reconstruction_seconds": 6.083e-06,
+        "solve_seconds": 0.261955958,
+        "tree_and_solver_preparation_seconds": 0.001257042
+      },
+      "solver_memory_bytes": 4531552,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "f7cc5d0304a3c79b0481c4a8a5f10de18cf69318d9ec6a0c55ec3cf5e6dc42d6",
+        "retained_payload_bytes": 437842,
+        "root_sha256": "bc04e1b7a540af5aba6aa63e6e2a90823658e1c65da7e97791abd8d392c10244",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 256,
+          "target_bb": 0.04
+        }
+      }
+    },
+    {
+      "id": 13,
+      "entry": 1,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.14992087500286289,
+      "reentry_seconds": 5.6832999689504504e-05,
+      "actions": [
+        [
+          "check",
+          0
+        ],
+        [
+          "raise",
+          100
+        ],
+        [
+          "raise",
+          400
+        ]
+      ],
+      "probabilities": [
+        0.8999795921161028,
+        0.03935081156628283,
+        0.060669596317614476
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "check",
+            0
+          ],
+          [
+            "raise",
+            100
+          ],
+          [
+            "raise",
+            400
+          ]
+        ],
+        "probabilities": [
+          0.8999795921161028,
+          0.03935081156628283,
+          0.060669596317614476
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 925,
+          "positive_mass": 2318,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 467,
+          "positive_mass": 2776,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.007847826532828783,
+          0.007659561324278363
+        ],
+        "exploitability_bb": 0.007753693928553573,
+        "exploitability_root_pot": 0.0019384234821383933,
+        "profile_values_bb": [
+          0.9847044319227071,
+          -0.9847044319227065
+        ],
+        "zero_sum_error_bb": 5.551115123125783e-16
+      },
+      "target_bb": 0.012661503094782922,
+      "sweeps": 128,
+      "nodes": 51,
+      "timings": {
+        "likelihood_seconds": 0.003626583,
+        "native_before_serialization_seconds": 0.1489855,
+        "projection_seconds": 0.006334916,
+        "quality_seconds": 0.0068969570000000004,
+        "reconstruction_seconds": 7.708e-06,
+        "solve_seconds": 0.12772383499999998,
+        "tree_and_solver_preparation_seconds": 0.004385416
+      },
+      "solver_memory_bytes": 4531552,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "40d8b874cf3b465abd844aa75686783b03546b7a80cef36e0823712531a1fcee",
+        "retained_payload_bytes": 437842,
+        "root_sha256": "bd39e3cca9f5e00a2eefbde75855420a2b20b8b28b1bb10bbe869e3f7355a897",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 128,
+          "target_bb": 0.012661503094782922
+        }
+      }
+    },
+    {
+      "id": 14,
+      "entry": 2,
+      "classification": "fallback",
+      "reason": "own holding has zero modeled root reach",
+      "begin_seconds": 0.010442083002999425,
+      "reentry_seconds": 3.837500116787851e-05,
+      "actions": [
+        [
+          "fold",
+          0
+        ],
+        [
+          "call",
+          0
+        ],
+        [
+          "raise",
+          200
+        ],
+        [
+          "raise",
+          700
+        ]
+      ],
+      "probabilities": [
+        0.25,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "produced_root_strategy": null,
+      "coverage": null,
+      "lookup_tag": 0,
+      "quality": null,
+      "target_bb": null,
+      "sweeps": null,
+      "nodes": null,
+      "timings": null,
+      "solver_memory_bytes": null,
+      "binding": {
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "profile_sha256": null,
+        "retained_payload_bytes": 0,
+        "root_sha256": "391b6ec05f5667b27ddd727e82e3425b8fd0f03beb70d06f5ce344f21e359c2c"
+      }
+    },
+    {
+      "id": 15,
+      "entry": 3,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.27771954200579785,
+      "reentry_seconds": 4.0624989196658134e-05,
+      "actions": [
+        [
+          "fold",
+          0
+        ],
+        [
+          "call",
+          0
+        ],
+        [
+          "raise",
+          800
+        ],
+        [
+          "raise",
+          1600
+        ]
+      ],
+      "probabilities": [
+        4.444273784331127e-08,
+        4.444273784331127e-08,
+        0.03394560146517323,
+        0.9660543096493506
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "fold",
+            0
+          ],
+          [
+            "call",
+            0
+          ],
+          [
+            "raise",
+            800
+          ],
+          [
+            "raise",
+            1600
+          ]
+        ],
+        "probabilities": [
+          4.444273784331127e-08,
+          4.444273784331127e-08,
+          0.03394560146517323,
+          0.9660543096493506
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 925,
+          "positive_mass": 2318,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 467,
+          "positive_mass": 2776,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.008538482791840885,
+          0.011507274659155131
+        ],
+        "exploitability_bb": 0.010022878725498008,
+        "exploitability_root_pot": 0.002505719681374502,
+        "profile_values_bb": [
+          0.990907503628529,
+          -0.9909075036285274
+        ],
+        "zero_sum_error_bb": 1.5543122344752192e-15
+      },
+      "target_bb": 0.012673811528229604,
+      "sweeps": 256,
+      "nodes": 51,
+      "timings": {
+        "likelihood_seconds": 0.003463667,
+        "native_before_serialization_seconds": 0.276826917,
+        "projection_seconds": 0.006358083,
+        "quality_seconds": 0.008282125,
+        "reconstruction_seconds": 4.667e-06,
+        "solve_seconds": 0.25572245800000004,
+        "tree_and_solver_preparation_seconds": 0.002986333
+      },
+      "solver_memory_bytes": 4531552,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "671c6085ba7b8d369f910fda4f060e54a2e2f084a74b77316316c25e83018b56",
+        "retained_payload_bytes": 437842,
+        "root_sha256": "6b8e495faf993fb9b1a63b2bc32ad84e8894c471ad9c4dd25685692b9ce4ec40",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 256,
+          "target_bb": 0.012673811528229604
+        }
+      }
+    },
+    {
+      "id": 16,
+      "entry": 0,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.2809119999874383,
+      "reentry_seconds": 5.633299588225782e-05,
+      "actions": [
+        [
+          "check",
+          0
+        ],
+        [
+          "raise",
+          100
+        ],
+        [
+          "raise",
+          400
+        ]
+      ],
+      "probabilities": [
+        0.5684305415150337,
+        0.4192005667661805,
+        0.012368891718786183
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "check",
+            0
+          ],
+          [
+            "raise",
+            100
+          ],
+          [
+            "raise",
+            400
+          ]
+        ],
+        "probabilities": [
+          0.5684305415150337,
+          0.4192005667661805,
+          0.012368891718786183
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 421,
+          "positive_mass": 2822,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 838,
+          "positive_mass": 2405,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.03240835738864815,
+          0.025750267860197795
+        ],
+        "exploitability_bb": 0.02907931262442297,
+        "exploitability_root_pot": 0.007269828156105743,
+        "profile_values_bb": [
+          -0.028674858749521446,
+          0.02867485874952322
+        ],
+        "zero_sum_error_bb": 1.7728873924482969e-15
+      },
+      "target_bb": 0.04,
+      "sweeps": 256,
+      "nodes": 51,
+      "timings": {
+        "likelihood_seconds": 0.004183166,
+        "native_before_serialization_seconds": 0.279985625,
+        "projection_seconds": 0.006301958,
+        "quality_seconds": 0.008399209000000001,
+        "reconstruction_seconds": 3.667e-06,
+        "solve_seconds": 0.25988412499999997,
+        "tree_and_solver_preparation_seconds": 0.001203791
+      },
+      "solver_memory_bytes": 4531552,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "583085633d191c65a54001f600da41d4b8cdf5a6a2c475301e71a67331900ba3",
+        "retained_payload_bytes": 437842,
+        "root_sha256": "3cbafa9eaea5f2af4b42de8dc8c3a0f74711625e7a3dd4d3f938f9d41b0e8bf9",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 256,
+          "target_bb": 0.04
+        }
+      }
+    },
+    {
+      "id": 17,
+      "entry": 1,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.0858040000020992,
+      "reentry_seconds": 4.3249980080872774e-05,
+      "actions": [
+        [
+          "check",
+          0
+        ],
+        [
+          "raise",
+          100
+        ],
+        [
+          "raise",
+          400
+        ]
+      ],
+      "probabilities": [
+        0.9982113031932605,
+        0.0017082246977609366,
+        8.047210897837495e-05
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "check",
+            0
+          ],
+          [
+            "raise",
+            100
+          ],
+          [
+            "raise",
+            400
+          ]
+        ],
+        "probabilities": [
+          0.9982113031932605,
+          0.0017082246977609366,
+          8.047210897837495e-05
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 421,
+          "positive_mass": 2822,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 838,
+          "positive_mass": 2405,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.00801831539602843,
+          0.012251845471085154
+        ],
+        "exploitability_bb": 0.010135080433556792,
+        "exploitability_root_pot": 0.002533770108389198,
+        "profile_values_bb": [
+          -0.4173070371379723,
+          0.4173070371379734
+        ],
+        "zero_sum_error_bb": 1.1102230246251565e-15
+      },
+      "target_bb": 0.012506118162391652,
+      "sweeps": 64,
+      "nodes": 51,
+      "timings": {
+        "likelihood_seconds": 0.004313167,
+        "native_before_serialization_seconds": 0.084919875,
+        "projection_seconds": 0.006419125,
+        "quality_seconds": 0.005654375,
+        "reconstruction_seconds": 4.834e-06,
+        "solve_seconds": 0.06421575,
+        "tree_and_solver_preparation_seconds": 0.00430275
+      },
+      "solver_memory_bytes": 4531552,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "5cd2458c5e772382863dc80602f511fe810828257c424f2f5bdc8176c0c16e35",
+        "retained_payload_bytes": 437842,
+        "root_sha256": "82298691b4416d41f86a595079fd2e32823c75eef13a32d7bc1d1ef87d2632c3",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 64,
+          "target_bb": 0.012506118162391652
+        }
+      }
+    },
+    {
+      "id": 18,
+      "entry": 2,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.0847962920088321,
+      "reentry_seconds": 4.350001108832657e-05,
+      "actions": [
+        [
+          "fold",
+          0
+        ],
+        [
+          "call",
+          0
+        ],
+        [
+          "raise",
+          200
+        ],
+        [
+          "raise",
+          700
+        ]
+      ],
+      "probabilities": [
+        2.7951699463327374e-06,
+        3.575427434704306e-06,
+        0.030298709388130177,
+        0.9696949200144886
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "fold",
+            0
+          ],
+          [
+            "call",
+            0
+          ],
+          [
+            "raise",
+            200
+          ],
+          [
+            "raise",
+            700
+          ]
+        ],
+        "probabilities": [
+          2.7951699463327374e-06,
+          3.575427434704306e-06,
+          0.030298709388130177,
+          0.9696949200144886
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 421,
+          "positive_mass": 2822,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 838,
+          "positive_mass": 2405,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.011419238783088537,
+          0.012306902221258575
+        ],
+        "exploitability_bb": 0.011863070502173556,
+        "exploitability_root_pot": 0.002965767625543389,
+        "profile_values_bb": [
+          -0.4173070371379723,
+          0.4173070371379734
+        ],
+        "zero_sum_error_bb": 1.1102230246251565e-15
+      },
+      "target_bb": 0.012622496638180505,
+      "sweeps": 64,
+      "nodes": 51,
+      "timings": {
+        "likelihood_seconds": 0.003400209,
+        "native_before_serialization_seconds": 0.083904166,
+        "projection_seconds": 0.006407041,
+        "quality_seconds": 0.005720541,
+        "reconstruction_seconds": 6e-06,
+        "solve_seconds": 0.065535959,
+        "tree_and_solver_preparation_seconds": 0.00282475
+      },
+      "solver_memory_bytes": 4531552,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "5cd2458c5e772382863dc80602f511fe810828257c424f2f5bdc8176c0c16e35",
+        "retained_payload_bytes": 437842,
+        "root_sha256": "76f32848e889d7a37b034d70db9fdd6ba3ba2a1560f8f7df0f6db753351e9435",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 64,
+          "target_bb": 0.012622496638180505
+        }
+      }
+    },
+    {
+      "id": 19,
+      "entry": 3,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.28304666600888595,
+      "reentry_seconds": 4.104201798327267e-05,
+      "actions": [
+        [
+          "fold",
+          0
+        ],
+        [
+          "call",
+          0
+        ],
+        [
+          "raise",
+          800
+        ],
+        [
+          "raise",
+          1600
+        ]
+      ],
+      "probabilities": [
+        4.444273784331127e-08,
+        4.444273784331127e-08,
+        0.13626112076828512,
+        0.8637387903462387
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "fold",
+            0
+          ],
+          [
+            "call",
+            0
+          ],
+          [
+            "raise",
+            800
+          ],
+          [
+            "raise",
+            1600
+          ]
+        ],
+        "probabilities": [
+          4.444273784331127e-08,
+          4.444273784331127e-08,
+          0.13626112076828512,
+          0.8637387903462387
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 421,
+          "positive_mass": 2822,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 838,
+          "positive_mass": 2405,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.013080904988748532,
+          0.010396746180586836
+        ],
+        "exploitability_bb": 0.011738825584667684,
+        "exploitability_root_pot": 0.002934706396166921,
+        "profile_values_bb": [
+          -0.4400323504737375,
+          0.44003235047373734
+        ],
+        "zero_sum_error_bb": 1.6653345369377348e-16
+      },
+      "target_bb": 0.014871385199427852,
+      "sweeps": 256,
+      "nodes": 51,
+      "timings": {
+        "likelihood_seconds": 0.003402875,
+        "native_before_serialization_seconds": 0.282169792,
+        "projection_seconds": 0.006436917,
+        "quality_seconds": 0.008558166999999998,
+        "reconstruction_seconds": 4.458e-06,
+        "solve_seconds": 0.260980374,
+        "tree_and_solver_preparation_seconds": 0.002777709
+      },
+      "solver_memory_bytes": 4531552,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "2ea96a84fcdc67e79cd7335c79ffdbe88f4dcf6f656d7beddc579827d03ccbda",
+        "retained_payload_bytes": 437842,
+        "root_sha256": "08fdb169a9562f5074bf3d78989b22e9e55d09f07e996c73766303f803c59e4b",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 256,
+          "target_bb": 0.014871385199427852
+        }
+      }
+    },
+    {
+      "id": 20,
+      "entry": 0,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 1.1257387080113403,
+      "reentry_seconds": 4.008298856206238e-05,
+      "actions": [
+        [
+          "check",
+          0
+        ],
+        [
+          "raise",
+          100
+        ],
+        [
+          "raise",
+          400
+        ]
+      ],
+      "probabilities": [
+        0.8808654664130312,
+        0.044921959672038894,
+        0.07421257391492887
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "check",
+            0
+          ],
+          [
+            "raise",
+            100
+          ],
+          [
+            "raise",
+            400
+          ]
+        ],
+        "probabilities": [
+          0.8808654664130312,
+          0.044921959672038894,
+          0.07421257391492887
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 496,
+          "positive_mass": 2747,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 1193,
+          "positive_mass": 2050,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.02191946769568834,
+          0.021921691222836548
+        ],
+        "exploitability_bb": 0.021920579459262443,
+        "exploitability_root_pot": 0.005480144864815611,
+        "profile_values_bb": [
+          -0.20818390741021592,
+          0.20818390741021098
+        ],
+        "zero_sum_error_bb": 4.9404924595819466e-15
+      },
+      "target_bb": 0.04,
+      "sweeps": 1024,
+      "nodes": 51,
+      "timings": {
+        "likelihood_seconds": 0.003723584,
+        "native_before_serialization_seconds": 1.1248278329999999,
+        "projection_seconds": 0.0064095,
+        "quality_seconds": 0.012147834000000001,
+        "reconstruction_seconds": 4.25e-06,
+        "solve_seconds": 1.1013216659999998,
+        "tree_and_solver_preparation_seconds": 0.001211541
+      },
+      "solver_memory_bytes": 4531552,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "f3cf185e839fc0517e60c15d841b524c6f3855d615cab8de0e1ad6931e65f67b",
+        "retained_payload_bytes": 437842,
+        "root_sha256": "de1f0fd05e6554ddbc617b6e04722ab59fe6eb426ee8971241352a026584bc06",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 1024,
+          "target_bb": 0.04
+        }
+      }
+    },
+    {
+      "id": 21,
+      "entry": 1,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.08826154097914696,
+      "reentry_seconds": 5.3208001190796494e-05,
+      "actions": [
+        [
+          "check",
+          0
+        ],
+        [
+          "raise",
+          100
+        ],
+        [
+          "raise",
+          400
+        ]
+      ],
+      "probabilities": [
+        0.9544042662791654,
+        0.013474769284840862,
+        0.03212096443599331
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "check",
+            0
+          ],
+          [
+            "raise",
+            100
+          ],
+          [
+            "raise",
+            400
+          ]
+        ],
+        "probabilities": [
+          0.9544042662791654,
+          0.013474769284840862,
+          0.03212096443599331
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 496,
+          "positive_mass": 2747,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 1193,
+          "positive_mass": 2050,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.004441317641937448,
+          0.003223799531353877
+        ],
+        "exploitability_bb": 0.0038325585866456624,
+        "exploitability_root_pot": 0.0009581396466614156,
+        "profile_values_bb": [
+          -0.6016214738076239,
+          0.6016214738076169
+        ],
+        "zero_sum_error_bb": 6.994405055138486e-15
+      },
+      "target_bb": 0.004487848551251138,
+      "sweeps": 64,
+      "nodes": 51,
+      "timings": {
+        "likelihood_seconds": 0.003914041,
+        "native_before_serialization_seconds": 0.0873785,
+        "projection_seconds": 0.006366167,
+        "quality_seconds": 0.006010791000000001,
+        "reconstruction_seconds": 4.583e-06,
+        "solve_seconds": 0.067952834,
+        "tree_and_solver_preparation_seconds": 0.003122042
+      },
+      "solver_memory_bytes": 4531552,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "98f0b817ba07270c397cd2c64e7747c6f5fcb5314d481392fe955d0ef7ffe717",
+        "retained_payload_bytes": 437842,
+        "root_sha256": "fa75eb2301d6cb9cac2cfb9bf5e7dcf21875bbdfcb01c12138f7accf0b2f550c",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 64,
+          "target_bb": 0.004487848551251138
+        }
+      }
+    },
+    {
+      "id": 22,
+      "entry": 2,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.5731686670042109,
+      "reentry_seconds": 5.429101292975247e-05,
+      "actions": [
+        [
+          "fold",
+          0
+        ],
+        [
+          "call",
+          0
+        ],
+        [
+          "raise",
+          200
+        ],
+        [
+          "raise",
+          700
+        ]
+      ],
+      "probabilities": [
+        5.5716017686492714e-09,
+        0.11637622381509821,
+        0.005414236284009229,
+        0.8782095343292915
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "fold",
+            0
+          ],
+          [
+            "call",
+            0
+          ],
+          [
+            "raise",
+            200
+          ],
+          [
+            "raise",
+            700
+          ]
+        ],
+        "probabilities": [
+          5.5716017686492714e-09,
+          0.11637622381509821,
+          0.005414236284009229,
+          0.8782095343292915
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 496,
+          "positive_mass": 2747,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 1193,
+          "positive_mass": 2050,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.009928168218929723,
+          0.009167962162164311
+        ],
+        "exploitability_bb": 0.009548065190547017,
+        "exploitability_root_pot": 0.0023870162976367543,
+        "profile_values_bb": [
+          -0.6703365215502174,
+          0.6703365215502264
+        ],
+        "zero_sum_error_bb": 8.992806499463768e-15
+      },
+      "target_bb": 0.024867427835081016,
+      "sweeps": 512,
+      "nodes": 51,
+      "timings": {
+        "likelihood_seconds": 0.003114,
+        "native_before_serialization_seconds": 0.57226375,
+        "projection_seconds": 0.006364708,
+        "quality_seconds": 0.010832332,
+        "reconstruction_seconds": 3.75e-06,
+        "solve_seconds": 0.549368001,
+        "tree_and_solver_preparation_seconds": 0.0025705
+      },
+      "solver_memory_bytes": 4531552,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "5efbe928f770e25fccbea707bbd00c8614ee4325e67a1ef2c9973dba8896108b",
+        "retained_payload_bytes": 437842,
+        "root_sha256": "928d787a6688e4d2029eb4d1835d0fb33317c487a2017ddcd71953afc596fd81",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 512,
+          "target_bb": 0.024867427835081016
+        }
+      }
+    },
+    {
+      "id": 23,
+      "entry": 3,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.5721111669845413,
+      "reentry_seconds": 5.162501474842429e-05,
+      "actions": [
+        [
+          "fold",
+          0
+        ],
+        [
+          "call",
+          0
+        ],
+        [
+          "raise",
+          800
+        ],
+        [
+          "raise",
+          1600
+        ]
+      ],
+      "probabilities": [
+        0.007168907482606918,
+        0.7983057086818269,
+        0.13988774506353757,
+        0.054637638772029685
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "fold",
+            0
+          ],
+          [
+            "call",
+            0
+          ],
+          [
+            "raise",
+            800
+          ],
+          [
+            "raise",
+            1600
+          ]
+        ],
+        "probabilities": [
+          0.007168907482606918,
+          0.7983057086818269,
+          0.13988774506353757,
+          0.054637638772029685
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 496,
+          "positive_mass": 2747,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 1193,
+          "positive_mass": 2050,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.006485234190139577,
+          0.0050292977919812465
+        ],
+        "exploitability_bb": 0.005757265991060412,
+        "exploitability_root_pot": 0.001439316497765103,
+        "profile_values_bb": [
+          -0.6703365215502174,
+          0.6703365215502264
+        ],
+        "zero_sum_error_bb": 8.992806499463768e-15
+      },
+      "target_bb": 0.010644723613667712,
+      "sweeps": 512,
+      "nodes": 51,
+      "timings": {
+        "likelihood_seconds": 0.00373825,
+        "native_before_serialization_seconds": 0.571228958,
+        "projection_seconds": 0.006356208,
+        "quality_seconds": 0.010665419,
+        "reconstruction_seconds": 5.333e-06,
+        "solve_seconds": 0.547496623,
+        "tree_and_solver_preparation_seconds": 0.002956666
+      },
+      "solver_memory_bytes": 4531552,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "5efbe928f770e25fccbea707bbd00c8614ee4325e67a1ef2c9973dba8896108b",
+        "retained_payload_bytes": 437842,
+        "root_sha256": "97dbe30263548186e467ef141ac2f97ae85393baf290f3b1f946ee7a46f1ece2",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 512,
+          "target_bb": 0.010644723613667712
+        }
+      }
+    },
+    {
+      "id": 24,
+      "entry": 0,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.3080781669996213,
+      "reentry_seconds": 5.108301411382854e-05,
+      "actions": [
+        [
+          "check",
+          0
+        ],
+        [
+          "raise",
+          100
+        ],
+        [
+          "raise",
+          600
+        ]
+      ],
+      "probabilities": [
+        0.8440192993372141,
+        0.07318053286827113,
+        0.08280016779451463
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "check",
+            0
+          ],
+          [
+            "raise",
+            100
+          ],
+          [
+            "raise",
+            600
+          ]
+        ],
+        "probabilities": [
+          0.8440192993372141,
+          0.07318053286827113,
+          0.08280016779451463
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 296,
+          "positive_mass": 2947,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 791,
+          "positive_mass": 2452,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.03594387618963324,
+          0.03845211801627757
+        ],
+        "exploitability_bb": 0.037197997102955405,
+        "exploitability_root_pot": 0.006199666183825901,
+        "profile_values_bb": [
+          0.6748058505941601,
+          -0.6748058505941573
+        ],
+        "zero_sum_error_bb": 2.7755575615628914e-15
+      },
+      "target_bb": 0.06,
+      "sweeps": 256,
+      "nodes": 57,
+      "timings": {
+        "likelihood_seconds": 0.004861833,
+        "native_before_serialization_seconds": 0.307072042,
+        "projection_seconds": 0.006357834,
+        "quality_seconds": 0.009112501,
+        "reconstruction_seconds": 8.25e-06,
+        "solve_seconds": 0.28550329,
+        "tree_and_solver_preparation_seconds": 0.001218709
+      },
+      "solver_memory_bytes": 5067728,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "2e1abf228eab8806627e32d0fc613aa59ddad790287fe8384b01a7e85d522155",
+        "retained_payload_bytes": 490226,
+        "root_sha256": "626325e8063f674af7180cb01ece4a1feb5bc771ad4309936d47b65c92fdf0ac",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 256,
+          "target_bb": 0.06
+        }
+      }
+    },
+    {
+      "id": 25,
+      "entry": 1,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.09518241698970087,
+      "reentry_seconds": 4.112499300390482e-05,
+      "actions": [
+        [
+          "check",
+          0
+        ],
+        [
+          "raise",
+          100
+        ],
+        [
+          "raise",
+          600
+        ]
+      ],
+      "probabilities": [
+        0.9970905655750384,
+        0.002860041899113238,
+        4.939252584852824e-05
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "check",
+            0
+          ],
+          [
+            "raise",
+            100
+          ],
+          [
+            "raise",
+            600
+          ]
+        ],
+        "probabilities": [
+          0.9970905655750384,
+          0.002860041899113238,
+          4.939252584852824e-05
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 296,
+          "positive_mass": 2947,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 791,
+          "positive_mass": 2452,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.008121754672978505,
+          0.009539550081979542
+        ],
+        "exploitability_bb": 0.008830652377479023,
+        "exploitability_root_pot": 0.001471775396246504,
+        "profile_values_bb": [
+          -0.03287870957774871,
+          0.03287870957774693
+        ],
+        "zero_sum_error_bb": 1.7763568394002505e-15
+      },
+      "target_bb": 0.016942861093783262,
+      "sweeps": 64,
+      "nodes": 57,
+      "timings": {
+        "likelihood_seconds": 0.0049235,
+        "native_before_serialization_seconds": 0.094181583,
+        "projection_seconds": 0.006414083,
+        "quality_seconds": 0.006213125,
+        "reconstruction_seconds": 6.25e-06,
+        "solve_seconds": 0.072519375,
+        "tree_and_solver_preparation_seconds": 0.004095541
+      },
+      "solver_memory_bytes": 5067728,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "3792aa68204021f221880a6b0a6c9f339c7e4938077b186692e35a736dfd1c21",
+        "retained_payload_bytes": 490226,
+        "root_sha256": "95fda80e22800f8d8af9f5c97286b172f0ecd6f9bb1962f5f63e83e6715b8ea9",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 64,
+          "target_bb": 0.016942861093783262
+        }
+      }
+    },
+    {
+      "id": 26,
+      "entry": 2,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.16524491700693034,
+      "reentry_seconds": 5.2624993259087205e-05,
+      "actions": [
+        [
+          "fold",
+          0
+        ],
+        [
+          "call",
+          0
+        ],
+        [
+          "raise",
+          200
+        ],
+        [
+          "raise",
+          900
+        ]
+      ],
+      "probabilities": [
+        3.53474798660755e-07,
+        0.9915469042795348,
+        0.008450363729234321,
+        2.37851643249192e-06
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "fold",
+            0
+          ],
+          [
+            "call",
+            0
+          ],
+          [
+            "raise",
+            200
+          ],
+          [
+            "raise",
+            900
+          ]
+        ],
+        "probabilities": [
+          3.53474798660755e-07,
+          0.9915469042795348,
+          0.008450363729234321,
+          2.37851643249192e-06
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 296,
+          "positive_mass": 2947,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 791,
+          "positive_mass": 2452,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.005679105991917316,
+          0.005911509255246059
+        ],
+        "exploitability_bb": 0.0057953076235816876,
+        "exploitability_root_pot": 0.0009658846039302813,
+        "profile_values_bb": [
+          -0.026433796521800123,
+          0.026433796521802905
+        ],
+        "zero_sum_error_bb": 2.7824964554667986e-15
+      },
+      "target_bb": 0.01698583574487983,
+      "sweeps": 128,
+      "nodes": 57,
+      "timings": {
+        "likelihood_seconds": 0.004155125,
+        "native_before_serialization_seconds": 0.164234584,
+        "projection_seconds": 0.006428667,
+        "quality_seconds": 0.007695957999999999,
+        "reconstruction_seconds": 6.542e-06,
+        "solve_seconds": 0.14294125,
+        "tree_and_solver_preparation_seconds": 0.002997708
+      },
+      "solver_memory_bytes": 5067728,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "9a8426efb5250d1f6bd9ee12dd1669ac6a0949af6e0530efeebe78d32574df94",
+        "retained_payload_bytes": 490226,
+        "root_sha256": "ae10b430da8fe817b8fa0c3db7584c2a5ba5963a20b267f78ad27f9423b71e1d",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 128,
+          "target_bb": 0.01698583574487983
+        }
+      }
+    },
+    {
+      "id": 27,
+      "entry": 3,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.16435691597871482,
+      "reentry_seconds": 4.166699363850057e-05,
+      "actions": [
+        [
+          "fold",
+          0
+        ],
+        [
+          "call",
+          0
+        ],
+        [
+          "raise",
+          1200
+        ],
+        [
+          "raise",
+          2400
+        ]
+      ],
+      "probabilities": [
+        3.53474798660755e-07,
+        3.53474798660755e-07,
+        0.15343468150186387,
+        0.8465646115485389
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "fold",
+            0
+          ],
+          [
+            "call",
+            0
+          ],
+          [
+            "raise",
+            1200
+          ],
+          [
+            "raise",
+            2400
+          ]
+        ],
+        "probabilities": [
+          3.53474798660755e-07,
+          3.53474798660755e-07,
+          0.15343468150186387,
+          0.8465646115485389
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 296,
+          "positive_mass": 2947,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 791,
+          "positive_mass": 2452,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.024595438890545072,
+          0.020397909306751377
+        ],
+        "exploitability_bb": 0.022496674098648223,
+        "exploitability_root_pot": 0.0037494456831080373,
+        "profile_values_bb": [
+          -0.026433796521800123,
+          0.026433796521802905
+        ],
+        "zero_sum_error_bb": 2.7824964554667986e-15
+      },
+      "target_bb": 0.026071303161336844,
+      "sweeps": 128,
+      "nodes": 57,
+      "timings": {
+        "likelihood_seconds": 0.003699208,
+        "native_before_serialization_seconds": 0.163351917,
+        "projection_seconds": 0.006389375,
+        "quality_seconds": 0.00763,
+        "reconstruction_seconds": 4.875e-06,
+        "solve_seconds": 0.142872,
+        "tree_and_solver_preparation_seconds": 0.002748583
+      },
+      "solver_memory_bytes": 5067728,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "9a8426efb5250d1f6bd9ee12dd1669ac6a0949af6e0530efeebe78d32574df94",
+        "retained_payload_bytes": 490226,
+        "root_sha256": "ae1b737379a9b6ce96c6c1215344b3ea266aa0c88d921fec9fd8bae8d4971341",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 128,
+          "target_bb": 0.026071303161336844
+        }
+      }
+    },
+    {
+      "id": 28,
+      "entry": 0,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.3182713749993127,
+      "reentry_seconds": 4.2166997445747256e-05,
+      "actions": [
+        [
+          "check",
+          0
+        ],
+        [
+          "raise",
+          100
+        ],
+        [
+          "raise",
+          600
+        ]
+      ],
+      "probabilities": [
+        0.46208254332877835,
+        0.03782939271661101,
+        0.5000880639546103
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "check",
+            0
+          ],
+          [
+            "raise",
+            100
+          ],
+          [
+            "raise",
+            600
+          ]
+        ],
+        "probabilities": [
+          0.46208254332877835,
+          0.03782939271661101,
+          0.5000880639546103
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 254,
+          "positive_mass": 2989,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 701,
+          "positive_mass": 2542,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.04378241697114271,
+          0.04366055778361222
+        ],
+        "exploitability_bb": 0.043721487377377466,
+        "exploitability_root_pot": 0.007286914562896245,
+        "profile_values_bb": [
+          1.4974800333075404,
+          -1.4974800333075418
+        ],
+        "zero_sum_error_bb": 1.3322676295501878e-15
+      },
+      "target_bb": 0.06,
+      "sweeps": 256,
+      "nodes": 57,
+      "timings": {
+        "likelihood_seconds": 0.004105666,
+        "native_before_serialization_seconds": 0.317283959,
+        "projection_seconds": 0.006371708,
+        "quality_seconds": 0.009488208,
+        "reconstruction_seconds": 4.209e-06,
+        "solve_seconds": 0.296096,
+        "tree_and_solver_preparation_seconds": 0.001209333
+      },
+      "solver_memory_bytes": 5067728,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "9e1c021f7cfa16504e7ecdae426e2b2c205129b475215ac9776c1b69c02f48f7",
+        "retained_payload_bytes": 490226,
+        "root_sha256": "b16453797dae5d74965578bfdf1821741ebd6e4379495b8ac04f554ba20823fa",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 256,
+          "target_bb": 0.06
+        }
+      }
+    },
+    {
+      "id": 29,
+      "entry": 1,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.05625412499648519,
+      "reentry_seconds": 4.7959008952602744e-05,
+      "actions": [
+        [
+          "check",
+          0
+        ],
+        [
+          "raise",
+          100
+        ],
+        [
+          "raise",
+          600
+        ]
+      ],
+      "probabilities": [
+        0.9967956443393828,
+        0.003175218131479734,
+        2.9137529137529148e-05
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "check",
+            0
+          ],
+          [
+            "raise",
+            100
+          ],
+          [
+            "raise",
+            600
+          ]
+        ],
+        "probabilities": [
+          0.9967956443393828,
+          0.003175218131479734,
+          2.9137529137529148e-05
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 254,
+          "positive_mass": 2989,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 701,
+          "positive_mass": 2542,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.012637118845743922,
+          0.017724175795734043
+        ],
+        "exploitability_bb": 0.015180647320738982,
+        "exploitability_root_pot": 0.0025301078867898306,
+        "profile_values_bb": [
+          1.1242440494164287,
+          -1.1242440494164248
+        ],
+        "zero_sum_error_bb": 3.9968028886505635e-15
+      },
+      "target_bb": 0.019505579077653237,
+      "sweeps": 32,
+      "nodes": 57,
+      "timings": {
+        "likelihood_seconds": 0.003826584,
+        "native_before_serialization_seconds": 0.055256125,
+        "projection_seconds": 0.006322125,
+        "quality_seconds": 0.0047635,
+        "reconstruction_seconds": 4.459e-06,
+        "solve_seconds": 0.036307415999999995,
+        "tree_and_solver_preparation_seconds": 0.004022708
+      },
+      "solver_memory_bytes": 5067728,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "f5ab333fb0f1b0a0d8db34b5522d5013bca828b553c0b8357207a4fc4dba5976",
+        "retained_payload_bytes": 490226,
+        "root_sha256": "a219eee844d7e0175c327a41968d6e1cca5657352ce52f1cfb02afad190d56fe",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 32,
+          "target_bb": 0.019505579077653237
+        }
+      }
+    },
+    {
+      "id": 30,
+      "entry": 2,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.09608354198280722,
+      "reentry_seconds": 4.350001108832657e-05,
+      "actions": [
+        [
+          "fold",
+          0
+        ],
+        [
+          "call",
+          0
+        ],
+        [
+          "raise",
+          200
+        ],
+        [
+          "raise",
+          900
+        ]
+      ],
+      "probabilities": [
+        2.7951699463327374e-06,
+        4.5238773758876446e-06,
+        8.969650630807748e-06,
+        0.9999837113020469
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "fold",
+            0
+          ],
+          [
+            "call",
+            0
+          ],
+          [
+            "raise",
+            200
+          ],
+          [
+            "raise",
+            900
+          ]
+        ],
+        "probabilities": [
+          2.7951699463327374e-06,
+          4.5238773758876446e-06,
+          8.969650630807748e-06,
+          0.9999837113020469
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 254,
+          "positive_mass": 2989,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 701,
+          "positive_mass": 2542,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.009700077945284935,
+          0.014696858785977485
+        ],
+        "exploitability_bb": 0.01219846836563121,
+        "exploitability_root_pot": 0.002033078060938535,
+        "profile_values_bb": [
+          1.1245755306926475,
+          -1.12457553069265
+        ],
+        "zero_sum_error_bb": 2.4424906541753444e-15
+      },
+      "target_bb": 0.01943401398193825,
+      "sweeps": 64,
+      "nodes": 57,
+      "timings": {
+        "likelihood_seconds": 0.004455625,
+        "native_before_serialization_seconds": 0.095089,
+        "projection_seconds": 0.006312042,
+        "quality_seconds": 0.006404916,
+        "reconstruction_seconds": 5.208e-06,
+        "solve_seconds": 0.07394458400000001,
+        "tree_and_solver_preparation_seconds": 0.003956791
+      },
+      "solver_memory_bytes": 5067728,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "1bc8601cddbeeea60a2bd24e951a5783cb9a1079ed4938322b0f24d10ea8aec0",
+        "retained_payload_bytes": 490226,
+        "root_sha256": "9970c65ba9a45897a0df651327cdfb67a9620b3432f402b95e7e3170c7bbcc80",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 64,
+          "target_bb": 0.01943401398193825
+        }
+      }
+    },
+    {
+      "id": 31,
+      "entry": 3,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.16972970799542964,
+      "reentry_seconds": 4.045901005156338e-05,
+      "actions": [
+        [
+          "fold",
+          0
+        ],
+        [
+          "call",
+          0
+        ],
+        [
+          "raise",
+          1200
+        ],
+        [
+          "raise",
+          2400
+        ]
+      ],
+      "probabilities": [
+        7.231771620243104e-05,
+        0.9991928552889284,
+        0.0007344735200704716,
+        3.53474798660755e-07
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "fold",
+            0
+          ],
+          [
+            "call",
+            0
+          ],
+          [
+            "raise",
+            1200
+          ],
+          [
+            "raise",
+            2400
+          ]
+        ],
+        "probabilities": [
+          7.231771620243104e-05,
+          0.9991928552889284,
+          0.0007344735200704716,
+          3.53474798660755e-07
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 254,
+          "positive_mass": 2989,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 701,
+          "positive_mass": 2542,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.014500712383848313,
+          0.014933415134283923
+        ],
+        "exploitability_bb": 0.014717063759066118,
+        "exploitability_root_pot": 0.002452843959844353,
+        "profile_values_bb": [
+          1.115002582702703,
+          -1.1150025827027017
+        ],
+        "zero_sum_error_bb": 1.3322676295501878e-15
+      },
+      "target_bb": 0.021060406940408432,
+      "sweeps": 128,
+      "nodes": 57,
+      "timings": {
+        "likelihood_seconds": 0.003722875,
+        "native_before_serialization_seconds": 0.168729459,
+        "projection_seconds": 0.006459583,
+        "quality_seconds": 0.00793446,
+        "reconstruction_seconds": 4.917e-06,
+        "solve_seconds": 0.147682498,
+        "tree_and_solver_preparation_seconds": 0.002916083
+      },
+      "solver_memory_bytes": 5067728,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "c9de34d82b3bdb6b8b44bbfda51e0140374dc80746f96e2585797fec1755e6aa",
+        "retained_payload_bytes": 490226,
+        "root_sha256": "5d287928383873af659ce7b925d6f21f872d6382f312b2e995074e5dff52c2f6",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 128,
+          "target_bb": 0.021060406940408432
+        }
+      }
+    },
+    {
+      "id": 32,
+      "entry": 0,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.3321222910017241,
+      "reentry_seconds": 5.325002712197602e-05,
+      "actions": [
+        [
+          "check",
+          0
+        ],
+        [
+          "raise",
+          100
+        ],
+        [
+          "raise",
+          600
+        ]
+      ],
+      "probabilities": [
+        0.0073820160286716275,
+        0.5446992324017479,
+        0.4479187515695803
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "check",
+            0
+          ],
+          [
+            "raise",
+            100
+          ],
+          [
+            "raise",
+            600
+          ]
+        ],
+        "probabilities": [
+          0.0073820160286716275,
+          0.5446992324017479,
+          0.4479187515695803
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 1066,
+          "positive_mass": 2177,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 419,
+          "positive_mass": 2824,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.034897467739013255,
+          0.030654304641487995
+        ],
+        "exploitability_bb": 0.032775886190250625,
+        "exploitability_root_pot": 0.0054626476983751044,
+        "profile_values_bb": [
+          -1.5340216840093388,
+          1.5340216840093424
+        ],
+        "zero_sum_error_bb": 3.552713678800501e-15
+      },
+      "target_bb": 0.06,
+      "sweeps": 256,
+      "nodes": 57,
+      "timings": {
+        "likelihood_seconds": 0.00381825,
+        "native_before_serialization_seconds": 0.331119083,
+        "projection_seconds": 0.006428,
+        "quality_seconds": 0.010243751,
+        "reconstruction_seconds": 4.5e-06,
+        "solve_seconds": 0.30941537399999997,
+        "tree_and_solver_preparation_seconds": 0.001201542
+      },
+      "solver_memory_bytes": 5067728,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "c83a018dca0c82e1c85f28a3487f5bc9d8efe04b26baca57feedb55a0a623551",
+        "retained_payload_bytes": 490226,
+        "root_sha256": "542c745972a85310e7d8ba004949fc4d39284961e568b855bc9a37838b545511",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 256,
+          "target_bb": 0.06
+        }
+      }
+    },
+    {
+      "id": 33,
+      "entry": 1,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.09942899999441579,
+      "reentry_seconds": 4.379200981929898e-05,
+      "actions": [
+        [
+          "check",
+          0
+        ],
+        [
+          "raise",
+          100
+        ],
+        [
+          "raise",
+          600
+        ]
+      ],
+      "probabilities": [
+        0.9565618505490251,
+        0.039630481806188125,
+        0.0038076676447868344
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "check",
+            0
+          ],
+          [
+            "raise",
+            100
+          ],
+          [
+            "raise",
+            600
+          ]
+        ],
+        "probabilities": [
+          0.9565618505490251,
+          0.039630481806188125,
+          0.0038076676447868344
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 1066,
+          "positive_mass": 2177,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 419,
+          "positive_mass": 2824,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.007505187390744128,
+          0.008292699136639659
+        ],
+        "exploitability_bb": 0.007898943263691893,
+        "exploitability_root_pot": 0.001316490543948649,
+        "profile_values_bb": [
+          -1.134169148212125,
+          1.1341691482121274
+        ],
+        "zero_sum_error_bb": 2.4424906541753444e-15
+      },
+      "target_bb": 0.02000000000000001,
+      "sweeps": 64,
+      "nodes": 57,
+      "timings": {
+        "likelihood_seconds": 0.003378875,
+        "native_before_serialization_seconds": 0.098441667,
+        "projection_seconds": 0.006378541,
+        "quality_seconds": 0.007036249999999999,
+        "reconstruction_seconds": 4.375e-06,
+        "solve_seconds": 0.078639,
+        "tree_and_solver_preparation_seconds": 0.002997833
+      },
+      "solver_memory_bytes": 5067728,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "9601d1e3d4f72bd1600ae8680c71aa1c5d065546b673d5818a11f5cf3819c2b8",
+        "retained_payload_bytes": 490226,
+        "root_sha256": "c0e346b77237a06cbc7482e23bc7312480a9e62e7a575db666c02cf499470821",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 64,
+          "target_bb": 0.02000000000000001
+        }
+      }
+    },
+    {
+      "id": 34,
+      "entry": 2,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.09916795900790021,
+      "reentry_seconds": 4.349998198449612e-05,
+      "actions": [
+        [
+          "fold",
+          0
+        ],
+        [
+          "call",
+          0
+        ],
+        [
+          "raise",
+          200
+        ],
+        [
+          "raise",
+          900
+        ]
+      ],
+      "probabilities": [
+        0.00134968891306246,
+        0.9747658975187654,
+        0.022812541220912655,
+        0.0010718723472594035
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "fold",
+            0
+          ],
+          [
+            "call",
+            0
+          ],
+          [
+            "raise",
+            200
+          ],
+          [
+            "raise",
+            900
+          ]
+        ],
+        "probabilities": [
+          0.00134968891306246,
+          0.9747658975187654,
+          0.022812541220912655,
+          0.0010718723472594035
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 1066,
+          "positive_mass": 2177,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 419,
+          "positive_mass": 2824,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.012925311845576548,
+          0.011448048050402893
+        ],
+        "exploitability_bb": 0.01218667994798972,
+        "exploitability_root_pot": 0.0020311133246649535,
+        "profile_values_bb": [
+          -1.134169148212125,
+          1.1341691482121274
+        ],
+        "zero_sum_error_bb": 2.4424906541753444e-15
+      },
+      "target_bb": 0.02000000000000001,
+      "sweeps": 64,
+      "nodes": 57,
+      "timings": {
+        "likelihood_seconds": 0.003348,
+        "native_before_serialization_seconds": 0.098136416,
+        "projection_seconds": 0.006625375,
+        "quality_seconds": 0.006960458000000001,
+        "reconstruction_seconds": 4.875e-06,
+        "solve_seconds": 0.078519542,
+        "tree_and_solver_preparation_seconds": 0.002671083
+      },
+      "solver_memory_bytes": 5067728,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "9601d1e3d4f72bd1600ae8680c71aa1c5d065546b673d5818a11f5cf3819c2b8",
+        "retained_payload_bytes": 490226,
+        "root_sha256": "aa7a7b99052ddcdd32c444e8d7a5b226f917861bc9a775c4dae7765455b910b6",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 64,
+          "target_bb": 0.02000000000000001
+        }
+      }
+    },
+    {
+      "id": 35,
+      "entry": 3,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.17729799999506213,
+      "reentry_seconds": 4.8290996346622705e-05,
+      "actions": [
+        [
+          "fold",
+          0
+        ],
+        [
+          "call",
+          0
+        ],
+        [
+          "raise",
+          1200
+        ],
+        [
+          "raise",
+          2400
+        ]
+      ],
+      "probabilities": [
+        0.9974678426287409,
+        0.0003981967962074798,
+        0.0020799347220419946,
+        5.402585300993952e-05
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "fold",
+            0
+          ],
+          [
+            "call",
+            0
+          ],
+          [
+            "raise",
+            1200
+          ],
+          [
+            "raise",
+            2400
+          ]
+        ],
+        "probabilities": [
+          0.9974678426287409,
+          0.0003981967962074798,
+          0.0020799347220419946,
+          5.402585300993952e-05
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 1066,
+          "positive_mass": 2177,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 419,
+          "positive_mass": 2824,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.010632408296510576,
+          0.009211967002476396
+        ],
+        "exploitability_bb": 0.009922187649493486,
+        "exploitability_root_pot": 0.0016536979415822477,
+        "profile_values_bb": [
+          -1.124368691092075,
+          1.124368691092071
+        ],
+        "zero_sum_error_bb": 3.9968028886505635e-15
+      },
+      "target_bb": 0.02000000000000001,
+      "sweeps": 128,
+      "nodes": 57,
+      "timings": {
+        "likelihood_seconds": 0.003479042,
+        "native_before_serialization_seconds": 0.176264417,
+        "projection_seconds": 0.006385625,
+        "quality_seconds": 0.008622417,
+        "reconstruction_seconds": 4.25e-06,
+        "solve_seconds": 0.155172749,
+        "tree_and_solver_preparation_seconds": 0.002589584
+      },
+      "solver_memory_bytes": 5067728,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "8c8336e59bbb2423da0274aa2ab4eb51398af1e2f5509db9c04864ce8878531b",
+        "retained_payload_bytes": 490226,
+        "root_sha256": "3aba52fc6c992bc2fccb07a7a24088b18997967d5273f2c1c96dbb50813d1081",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 128,
+          "target_bb": 0.02000000000000001
+        }
+      }
+    },
+    {
+      "id": 36,
+      "entry": 0,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.6355830829998013,
+      "reentry_seconds": 4.57499991171062e-05,
+      "actions": [
+        [
+          "check",
+          0
+        ],
+        [
+          "raise",
+          100
+        ],
+        [
+          "raise",
+          1200
+        ]
+      ],
+      "probabilities": [
+        0.05278181920642629,
+        0.8791310477579493,
+        0.06808713303562519
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "check",
+            0
+          ],
+          [
+            "raise",
+            100
+          ],
+          [
+            "raise",
+            1200
+          ]
+        ],
+        "probabilities": [
+          0.05278181920642629,
+          0.8791310477579493,
+          0.06808713303562519
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 467,
+          "positive_mass": 2776,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 969,
+          "positive_mass": 2274,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.07724704527831089,
+          0.042123239508528476
+        ],
+        "exploitability_bb": 0.05968514239341968,
+        "exploitability_root_pot": 0.004973761866118307,
+        "profile_values_bb": [
+          -0.3656875662441813,
+          0.36568756624418375
+        ],
+        "zero_sum_error_bb": 2.4424906541753444e-15
+      },
+      "target_bb": 0.1,
+      "sweeps": 512,
+      "nodes": 60,
+      "timings": {
+        "likelihood_seconds": 0.005076958,
+        "native_before_serialization_seconds": 0.634528583,
+        "projection_seconds": 0.00643725,
+        "quality_seconds": 0.01139675,
+        "reconstruction_seconds": 5e-06,
+        "solve_seconds": 0.610331959,
+        "tree_and_solver_preparation_seconds": 0.001267625
+      },
+      "solver_memory_bytes": 5335816,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "feb6e69630539953db96d54cd4c704b8f18f8436145b1e0b7f9f5f1ac17c5808",
+        "retained_payload_bytes": 516394,
+        "root_sha256": "652a83c2fa07b35097f56f2a76a6f0caa63bca87112eafb36bf267308d73991a",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 512,
+          "target_bb": 0.1
+        }
+      }
+    },
+    {
+      "id": 37,
+      "entry": 1,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.17490737501066178,
+      "reentry_seconds": 4.862502100877464e-05,
+      "actions": [
+        [
+          "check",
+          0
+        ],
+        [
+          "raise",
+          100
+        ],
+        [
+          "raise",
+          1200
+        ]
+      ],
+      "probabilities": [
+        0.9748818870132043,
+        0.005726596697987347,
+        0.01939151628880857
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "check",
+            0
+          ],
+          [
+            "raise",
+            100
+          ],
+          [
+            "raise",
+            1200
+          ]
+        ],
+        "probabilities": [
+          0.9748818870132043,
+          0.005726596697987347,
+          0.01939151628880857
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 467,
+          "positive_mass": 2776,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 969,
+          "positive_mass": 2274,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.02070233821819123,
+          0.021229830507900393
+        ],
+        "exploitability_bb": 0.02096608436304581,
+        "exploitability_root_pot": 0.0017471736969204843,
+        "profile_values_bb": [
+          -1.1484703001789414,
+          1.1484703001789371
+        ],
+        "zero_sum_error_bb": 4.218847493575595e-15
+      },
+      "target_bb": 0.04177185346762926,
+      "sweeps": 128,
+      "nodes": 60,
+      "timings": {
+        "likelihood_seconds": 0.003953625,
+        "native_before_serialization_seconds": 0.1738515,
+        "projection_seconds": 0.006393875,
+        "quality_seconds": 0.008121918,
+        "reconstruction_seconds": 4.792e-06,
+        "solve_seconds": 0.151187124,
+        "tree_and_solver_preparation_seconds": 0.00418025
+      },
+      "solver_memory_bytes": 5335816,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "90a15fc1c5e7fb048df3908722c7b44af1fa6e9be88c2f4d3a7bf199f247e641",
+        "retained_payload_bytes": 516394,
+        "root_sha256": "e839543f45859ca355b92a20d77cd06612091405f322edaa7843932334abe3f1",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 128,
+          "target_bb": 0.04177185346762926
+        }
+      }
+    },
+    {
+      "id": 38,
+      "entry": 2,
+      "classification": "fallback",
+      "reason": "own holding has zero modeled root reach",
+      "begin_seconds": 0.01066658302443102,
+      "reentry_seconds": 3.383398870937526e-05,
+      "actions": [
+        [
+          "fold",
+          0
+        ],
+        [
+          "call",
+          0
+        ],
+        [
+          "raise",
+          200
+        ],
+        [
+          "raise",
+          1500
+        ]
+      ],
+      "probabilities": [
+        0.25,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "produced_root_strategy": null,
+      "coverage": null,
+      "lookup_tag": 0,
+      "quality": null,
+      "target_bb": null,
+      "sweeps": null,
+      "nodes": null,
+      "timings": null,
+      "solver_memory_bytes": null,
+      "binding": {
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "profile_sha256": null,
+        "retained_payload_bytes": 0,
+        "root_sha256": "d6a27149121032b0310c039a97b83d7164bf42b33cd330a3b09c1202b2dd8bda"
+      }
+    },
+    {
+      "id": 39,
+      "entry": 3,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.6338528339983895,
+      "reentry_seconds": 5.987501936033368e-05,
+      "actions": [
+        [
+          "fold",
+          0
+        ],
+        [
+          "call",
+          0
+        ],
+        [
+          "raise",
+          2400
+        ],
+        [
+          "raise",
+          4800
+        ]
+      ],
+      "probabilities": [
+        5.5716017686492714e-09,
+        5.653415467582777e-09,
+        0.3748841560027985,
+        0.6251158327721847
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "fold",
+            0
+          ],
+          [
+            "call",
+            0
+          ],
+          [
+            "raise",
+            2400
+          ],
+          [
+            "raise",
+            4800
+          ]
+        ],
+        "probabilities": [
+          5.5716017686492714e-09,
+          5.653415467582777e-09,
+          0.3748841560027985,
+          0.6251158327721847
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 467,
+          "positive_mass": 2776,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 969,
+          "positive_mass": 2274,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.016189869643489674,
+          0.01148041673883049
+        ],
+        "exploitability_bb": 0.013835143191160082,
+        "exploitability_root_pot": 0.0011529285992633402,
+        "profile_values_bb": [
+          -1.1415525266930182,
+          1.1415525266930195
+        ],
+        "zero_sum_error_bb": 1.3322676295501878e-15
+      },
+      "target_bb": 0.030972257430119766,
+      "sweeps": 512,
+      "nodes": 60,
+      "timings": {
+        "likelihood_seconds": 0.003567583,
+        "native_before_serialization_seconds": 0.632793833,
+        "projection_seconds": 0.0064185,
+        "quality_seconds": 0.011488584,
+        "reconstruction_seconds": 3.166e-06,
+        "solve_seconds": 0.608043541,
+        "tree_and_solver_preparation_seconds": 0.003262625
+      },
+      "solver_memory_bytes": 5335816,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "aeb4a7b547b6e2db9fef07526d14903388903a51a9d42d9d26f0af9f4e98225b",
+        "retained_payload_bytes": 516394,
+        "root_sha256": "bb29079ac9061147853f2c8e575c1d11c04dca491e512fb8d474e329eb200ba2",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 512,
+          "target_bb": 0.030972257430119766
+        }
+      }
+    },
+    {
+      "id": 40,
+      "entry": 0,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.3332561250135768,
+      "reentry_seconds": 4.66250057797879e-05,
+      "actions": [
+        [
+          "check",
+          0
+        ],
+        [
+          "raise",
+          100
+        ],
+        [
+          "raise",
+          1200
+        ]
+      ],
+      "probabilities": [
+        0.9360230924024936,
+        0.06385969601170885,
+        0.00011721158579770337
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "check",
+            0
+          ],
+          [
+            "raise",
+            100
+          ],
+          [
+            "raise",
+            1200
+          ]
+        ],
+        "probabilities": [
+          0.9360230924024936,
+          0.06385969601170885,
+          0.00011721158579770337
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 888,
+          "positive_mass": 2355,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 421,
+          "positive_mass": 2822,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.06001276242957054,
+          0.0683726608056332
+        ],
+        "exploitability_bb": 0.06419271161760187,
+        "exploitability_root_pot": 0.005349392634800156,
+        "profile_values_bb": [
+          -0.6295527595835486,
+          0.6295527595835572
+        ],
+        "zero_sum_error_bb": 8.548717289613705e-15
+      },
+      "target_bb": 0.1,
+      "sweeps": 256,
+      "nodes": 60,
+      "timings": {
+        "likelihood_seconds": 0.004686417,
+        "native_before_serialization_seconds": 0.332204458,
+        "projection_seconds": 0.006347916,
+        "quality_seconds": 0.010028583000000002,
+        "reconstruction_seconds": 4.75e-06,
+        "solve_seconds": 0.30990612500000003,
+        "tree_and_solver_preparation_seconds": 0.00122125
+      },
+      "solver_memory_bytes": 5335816,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "d249901a7002336bc7d697625889f7a944bf4da553845ef0f1d7689d9a7d5bda",
+        "retained_payload_bytes": 516394,
+        "root_sha256": "074df48227dd62d1bc74c5edc95a731d7c63cc29485fb69b62d28af192cdf29e",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 256,
+          "target_bb": 0.1
+        }
+      }
+    },
+    {
+      "id": 41,
+      "entry": 1,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.1783933329861611,
+      "reentry_seconds": 5.3584022680297494e-05,
+      "actions": [
+        [
+          "check",
+          0
+        ],
+        [
+          "raise",
+          100
+        ],
+        [
+          "raise",
+          1200
+        ]
+      ],
+      "probabilities": [
+        0.9999421537352104,
+        3.7169699914200005e-05,
+        2.0676564875499034e-05
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "check",
+            0
+          ],
+          [
+            "raise",
+            100
+          ],
+          [
+            "raise",
+            1200
+          ]
+        ],
+        "probabilities": [
+          0.9999421537352104,
+          3.7169699914200005e-05,
+          2.0676564875499034e-05
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 888,
+          "positive_mass": 2355,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 421,
+          "positive_mass": 2822,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.006631138462703773,
+          0.006318392826792779
+        ],
+        "exploitability_bb": 0.006474765644748276,
+        "exploitability_root_pot": 0.000539563803729023,
+        "profile_values_bb": [
+          0.20467672774649878,
+          -0.2046767277464841
+        ],
+        "zero_sum_error_bb": 1.4682699500667695e-14
+      },
+      "target_bb": 0.033380969683737306,
+      "sweeps": 128,
+      "nodes": 60,
+      "timings": {
+        "likelihood_seconds": 0.003707542,
+        "native_before_serialization_seconds": 0.177332625,
+        "projection_seconds": 0.006347416,
+        "quality_seconds": 0.00843079,
+        "reconstruction_seconds": 4e-06,
+        "solve_seconds": 0.15474546,
+        "tree_and_solver_preparation_seconds": 0.004088042
+      },
+      "solver_memory_bytes": 5335816,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "6019be5397b523e22b05293f6a17fe044e6e34950cc3e3ad0460c38ca16ef9bd",
+        "retained_payload_bytes": 516394,
+        "root_sha256": "674c289b213d9d07d306d9553bd4b00b157506bc31ea9fd4c279230cc8890b6c",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 128,
+          "target_bb": 0.033380969683737306
+        }
+      }
+    },
+    {
+      "id": 42,
+      "entry": 2,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.1800576249952428,
+      "reentry_seconds": 4.6415982069447637e-05,
+      "actions": [
+        [
+          "fold",
+          0
+        ],
+        [
+          "call",
+          0
+        ],
+        [
+          "raise",
+          200
+        ],
+        [
+          "raise",
+          1500
+        ]
+      ],
+      "probabilities": [
+        3.53474798660755e-07,
+        3.53474798660755e-07,
+        3.53474798660755e-07,
+        0.9999989395756038
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "fold",
+            0
+          ],
+          [
+            "call",
+            0
+          ],
+          [
+            "raise",
+            200
+          ],
+          [
+            "raise",
+            1500
+          ]
+        ],
+        "probabilities": [
+          3.53474798660755e-07,
+          3.53474798660755e-07,
+          3.53474798660755e-07,
+          0.9999989395756038
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 888,
+          "positive_mass": 2355,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 421,
+          "positive_mass": 2822,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.0056813946130091775,
+          0.008888653180335632
+        ],
+        "exploitability_bb": 0.007285023896672405,
+        "exploitability_root_pot": 0.0006070853247227004,
+        "profile_values_bb": [
+          0.20467672774649878,
+          -0.2046767277464841
+        ],
+        "zero_sum_error_bb": 1.4682699500667695e-14
+      },
+      "target_bb": 0.031496247341357114,
+      "sweeps": 128,
+      "nodes": 60,
+      "timings": {
+        "likelihood_seconds": 0.004672959,
+        "native_before_serialization_seconds": 0.179009208,
+        "projection_seconds": 0.006416458,
+        "quality_seconds": 0.008480249,
+        "reconstruction_seconds": 4.083e-06,
+        "solve_seconds": 0.155392667,
+        "tree_and_solver_preparation_seconds": 0.004033542
+      },
+      "solver_memory_bytes": 5335816,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "6019be5397b523e22b05293f6a17fe044e6e34950cc3e3ad0460c38ca16ef9bd",
+        "retained_payload_bytes": 516394,
+        "root_sha256": "7dfefd1187c7c8be492282ee982c2ab26ce68f23a9be181ecdf733aec2350eee",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 128,
+          "target_bb": 0.031496247341357114
+        }
+      }
+    },
+    {
+      "id": 43,
+      "entry": 3,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.6554101670044474,
+      "reentry_seconds": 5.983299342915416e-05,
+      "actions": [
+        [
+          "fold",
+          0
+        ],
+        [
+          "call",
+          0
+        ],
+        [
+          "raise",
+          2400
+        ],
+        [
+          "raise",
+          4800
+        ]
+      ],
+      "probabilities": [
+        5.5716017686492714e-09,
+        8.647781839294645e-09,
+        0.025311365909236185,
+        0.9746886198713812
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "fold",
+            0
+          ],
+          [
+            "call",
+            0
+          ],
+          [
+            "raise",
+            2400
+          ],
+          [
+            "raise",
+            4800
+          ]
+        ],
+        "probabilities": [
+          5.5716017686492714e-09,
+          8.647781839294645e-09,
+          0.025311365909236185,
+          0.9746886198713812
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 888,
+          "positive_mass": 2355,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 421,
+          "positive_mass": 2822,
+          "public_decisions": 3,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.013143656231476286,
+          0.013147484483114563
+        ],
+        "exploitability_bb": 0.013145570357295425,
+        "exploitability_root_pot": 0.0010954641964412853,
+        "profile_values_bb": [
+          0.19583321937053755,
+          -0.1958332193705317
+        ],
+        "zero_sum_error_bb": 5.856426454897701e-15
+      },
+      "target_bb": 0.03512278297490548,
+      "sweeps": 512,
+      "nodes": 60,
+      "timings": {
+        "likelihood_seconds": 0.0038665,
+        "native_before_serialization_seconds": 0.654295083,
+        "projection_seconds": 0.006526208,
+        "quality_seconds": 0.012030916000000001,
+        "reconstruction_seconds": 5.208e-06,
+        "solve_seconds": 0.6287752090000001,
+        "tree_and_solver_preparation_seconds": 0.003079292
+      },
+      "solver_memory_bytes": 5335816,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "a22e3bcc1fa3481ed4f562965a9e63da2ddc6b29257bb136e7ecca0c2728132e",
+        "retained_payload_bytes": 516394,
+        "root_sha256": "6e965500f025958c047eebd8168620d3bef565d9d3d6d7cb900b702190c9eb90",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 512,
+          "target_bb": 0.03512278297490548
+        }
+      }
+    },
+    {
+      "id": 44,
+      "entry": 0,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 1.3499137919861823,
+      "reentry_seconds": 6.462499732151628e-05,
+      "actions": [
+        [
+          "check",
+          0
+        ],
+        [
+          "raise",
+          100
+        ],
+        [
+          "raise",
+          1200
+        ]
+      ],
+      "probabilities": [
+        0.011551367497702567,
+        0.010806327393891315,
+        0.977642305108406
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "check",
+            0
+          ],
+          [
+            "raise",
+            100
+          ],
+          [
+            "raise",
+            1200
+          ]
+        ],
+        "probabilities": [
+          0.011551367497702567,
+          0.010806327393891315,
+          0.977642305108406
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 496,
+          "positive_mass": 2747,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 1124,
+          "positive_mass": 2119,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.031001618800830855,
+          0.024565524850602483
+        ],
+        "exploitability_bb": 0.02778357182571667,
+        "exploitability_root_pot": 0.0023152976521430557,
+        "profile_values_bb": [
+          1.6091099143562206,
+          -1.6091099143562293
+        ],
+        "zero_sum_error_bb": 8.659739592076221e-15
+      },
+      "target_bb": 0.1,
+      "sweeps": 1024,
+      "nodes": 60,
+      "timings": {
+        "likelihood_seconds": 0.004124209,
+        "native_before_serialization_seconds": 1.348840292,
+        "projection_seconds": 0.006489166,
+        "quality_seconds": 0.014445125999999999,
+        "reconstruction_seconds": 6.75e-06,
+        "solve_seconds": 1.322519249,
+        "tree_and_solver_preparation_seconds": 0.001242542
+      },
+      "solver_memory_bytes": 5335816,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "79802b08bb0f358124aef4a9e46a88baf5aa7a5ad8b80c217301d9f71be3cd44",
+        "retained_payload_bytes": 516394,
+        "root_sha256": "f777ee5fc841f4929d63bef3ea1972724804fe705d204a48ab14a8d62371f371",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 1024,
+          "target_bb": 0.1
+        }
+      }
+    },
+    {
+      "id": 45,
+      "entry": 1,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.10332183400169015,
+      "reentry_seconds": 4.8792018787935376e-05,
+      "actions": [
+        [
+          "check",
+          0
+        ],
+        [
+          "raise",
+          100
+        ],
+        [
+          "raise",
+          1200
+        ]
+      ],
+      "probabilities": [
+        0.9734326964958563,
+        0.0017829691387223512,
+        0.02478433436542125
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "check",
+            0
+          ],
+          [
+            "raise",
+            100
+          ],
+          [
+            "raise",
+            1200
+          ]
+        ],
+        "probabilities": [
+          0.9734326964958563,
+          0.0017829691387223512,
+          0.02478433436542125
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 496,
+          "positive_mass": 2747,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 1124,
+          "positive_mass": 2119,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.013599503127629253,
+          0.010986376928616148
+        ],
+        "exploitability_bb": 0.0122929400281227,
+        "exploitability_root_pot": 0.001024411669010225,
+        "profile_values_bb": [
+          0.8846530234782116,
+          -0.8846530234782292
+        ],
+        "zero_sum_error_bb": 1.7541523789077473e-14
+      },
+      "target_bb": 0.016675551368065904,
+      "sweeps": 64,
+      "nodes": 60,
+      "timings": {
+        "likelihood_seconds": 0.003786833,
+        "native_before_serialization_seconds": 0.102270041,
+        "projection_seconds": 0.00645675,
+        "quality_seconds": 0.007277291,
+        "reconstruction_seconds": 9e-06,
+        "solve_seconds": 0.08148779299999999,
+        "tree_and_solver_preparation_seconds": 0.003242459
+      },
+      "solver_memory_bytes": 5335816,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "f70c2b0a4b39d1be285f1e30001a5cb75d08235283d665d0b0a51bd238548b61",
+        "retained_payload_bytes": 516394,
+        "root_sha256": "526db356c73ec308d3648b9ba5679ade67cec6ba60dff2c539e587036372eb73",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 64,
+          "target_bb": 0.016675551368065904
+        }
+      }
+    },
+    {
+      "id": 46,
+      "entry": 2,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 0.18519691700930707,
+      "reentry_seconds": 4.8874993808567524e-05,
+      "actions": [
+        [
+          "fold",
+          0
+        ],
+        [
+          "call",
+          0
+        ],
+        [
+          "raise",
+          200
+        ],
+        [
+          "raise",
+          1500
+        ]
+      ],
+      "probabilities": [
+        9.956401235837518e-06,
+        0.9250164989763022,
+        0.012081337811376998,
+        0.06289220681108557
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "fold",
+            0
+          ],
+          [
+            "call",
+            0
+          ],
+          [
+            "raise",
+            200
+          ],
+          [
+            "raise",
+            1500
+          ]
+        ],
+        "probabilities": [
+          9.956401235837518e-06,
+          0.9250164989763022,
+          0.012081337811376998,
+          0.06289220681108557
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 496,
+          "positive_mass": 2747,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 1124,
+          "positive_mass": 2119,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.019045800276832225,
+          0.022549471569645263
+        ],
+        "exploitability_bb": 0.020797635923238744,
+        "exploitability_root_pot": 0.001733136326936562,
+        "profile_values_bb": [
+          0.911262708400435,
+          -0.9112627084004361
+        ],
+        "zero_sum_error_bb": 1.1102230246251565e-15
+      },
+      "target_bb": 0.031412801710912756,
+      "sweeps": 128,
+      "nodes": 60,
+      "timings": {
+        "likelihood_seconds": 0.003198208,
+        "native_before_serialization_seconds": 0.184175208,
+        "projection_seconds": 0.00643275,
+        "quality_seconds": 0.009043584,
+        "reconstruction_seconds": 5.125e-06,
+        "solve_seconds": 0.16283091600000002,
+        "tree_and_solver_preparation_seconds": 0.002655167
+      },
+      "solver_memory_bytes": 5335816,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "0d432e20a037fda3ed6f54bd5027c2726118770a4ea064ea6dfa0e37196d615f",
+        "retained_payload_bytes": 516394,
+        "root_sha256": "cdcee33ca7f9f3f18d2a4dff25105134a3c2cbd507d62415360fb52a35d4fbec",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 128,
+          "target_bb": 0.031412801710912756
+        }
+      }
+    },
+    {
+      "id": 47,
+      "entry": 3,
+      "classification": "installed",
+      "reason": null,
+      "begin_seconds": 1.346970250015147,
+      "reentry_seconds": 5.395800690166652e-05,
+      "actions": [
+        [
+          "fold",
+          0
+        ],
+        [
+          "call",
+          0
+        ],
+        [
+          "raise",
+          2400
+        ],
+        [
+          "raise",
+          4800
+        ]
+      ],
+      "probabilities": [
+        0.00024216684534379565,
+        0.910632215093452,
+        0.05061638580357609,
+        0.038509232257627514
+      ],
+      "produced_root_strategy": {
+        "actions": [
+          [
+            "fold",
+            0
+          ],
+          [
+            "call",
+            0
+          ],
+          [
+            "raise",
+            2400
+          ],
+          [
+            "raise",
+            4800
+          ]
+        ],
+        "probabilities": [
+          0.00024216684534379565,
+          0.910632215093452,
+          0.05061638580357609,
+          0.038509232257627514
+        ]
+      },
+      "coverage": [
+        {
+          "mass_unknown": 0,
+          "missing": 496,
+          "positive_mass": 2747,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 1124,
+          "positive_mass": 2119,
+          "public_decisions": 3,
+          "zero_mass": 0
+        },
+        {
+          "mass_unknown": 0,
+          "missing": 3,
+          "positive_mass": 1078,
+          "public_decisions": 1,
+          "zero_mass": 0
+        }
+      ],
+      "lookup_tag": null,
+      "quality": {
+        "best_response_gains_bb": [
+          0.03194508872652302,
+          0.03719515797315909
+        ],
+        "exploitability_bb": 0.03457012334984105,
+        "exploitability_root_pot": 0.0028808436124867546,
+        "profile_values_bb": [
+          0.8773973772191899,
+          -0.8773973772192042
+        ],
+        "zero_sum_error_bb": 1.432187701766452e-14
+      },
+      "target_bb": 0.05191164692102143,
+      "sweeps": 1024,
+      "nodes": 60,
+      "timings": {
+        "likelihood_seconds": 0.003210542,
+        "native_before_serialization_seconds": 1.345902292,
+        "projection_seconds": 0.006559916,
+        "quality_seconds": 0.014515959000000002,
+        "reconstruction_seconds": 5.667e-06,
+        "solve_seconds": 1.3188832910000001,
+        "tree_and_solver_preparation_seconds": 0.002714625
+      },
+      "solver_memory_bytes": 5335816,
+      "binding": {
+        "algorithm": "dcfr-1.5-0-2",
+        "belief_law": "three-product-action-posterior-active-marginal-projection-v1",
+        "bytes_scope": "profile f64 payload, paths, menus and holding cards; excludes allocator/engine/JSON metadata",
+        "cards": "equity-histogram-k50-v1",
+        "game": "three-player-100bb-50-100-v1",
+        "k50_sha256": [
+          "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+          "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+          "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+        ],
+        "production_menu": "min-pot-conditional-jam-v1",
+        "profile_sha256": "3abad7057fbfb225023ca26a15310df1128129d40556b3ebddec9f4ca0273535",
+        "retained_payload_bytes": 516394,
+        "root_sha256": "46a51bed3884faa883b9d2e6f48c001d8b017df2cbdddd1258d29da04c59a333",
+        "search_menu": "pot-jam-cap3-root-min-responses-v1",
+        "work": {
+          "checkpoints": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048
+          ],
+          "requested_sweeps": 2048,
+          "sweeps": 1024,
+          "target_bb": 0.05191164692102143
+        }
+      }
+    }
+  ],
+  "quote": {
+    "central_seconds": 542.7842732741847,
+    "reserved_seconds": 1493.1990464275295,
+    "allowance_seconds": 3600,
+    "already_spent_seconds": 244.84079128768644,
+    "full_panel_startup_seconds": 12.267883747961605,
+    "mean_complete_seconds": {
+      "current": 0.34062636187445605,
+      "baseline": 0.5406444791078684
+    },
+    "max_complete_seconds": {
+      "current": 1.2942931659927126,
+      "baseline": 1.3209782489866484
+    },
+    "forecast_family_bytes": 4294967296,
+    "available_bytes": 7663976448,
+    "main_admitted": true,
+    "memory_admitted": true,
+    "no_outcomes_used": true,
+    "no_main_started": true,
+    "method": "actual spent +2x startup +4x max per-version complete latency for96current/24baseline +600s proof/report; scenario not bound",
+    "disk_admitted": true
+  },
+  "no_new_arena_hands": true,
+  "no_bb128_work": true,
+  "incomplete_preflight_followup": {
+    "reason": "unexpected field in legal river request",
+    "status": "unsupported",
+    "worker_seconds_before_serialization": 1.1791e-05,
+    "original_partial_sha256": "f163f2b32c19a124cd90c25b67014df789826132f83a94807c489690c61c4f70",
+    "valid_root_begin_reused": true,
+    "no_additional_root_solve": true,
+    "retained_followup_status": "incomplete-initial; fixed repeat and main validate independently"
+  }
+}

@@ -6,16 +6,34 @@ use std::{
     path::Path,
     time::Instant,
 };
+#[path = "support/nplayer_mass_metadata.rs"]
+#[allow(dead_code)]
+mod mass;
 fn run() -> Result<(), String> {
     let a: Vec<_> = std::env::args().collect();
-    if a.len() != 4 {
-        return Err("river_live K50 POLICY SHA256".into());
+    if a.len() != 4 && a.len() != 6 {
+        return Err("river_live K50 POLICY SHA256 [MASS_DIRECTORY RECEIPT_SHA256]".into());
     }
     let tick = Instant::now();
-    let (table, load) = PolicyTable::load_profiled(Path::new(&a[2]), &a[3], false)?;
+    let (mut table, load) = PolicyTable::load_profiled(Path::new(&a[2]), &a[3], false)?;
+    let metadata = if a.len() == 6 {
+        Some(mass::MassMetadata::load(
+            Path::new(&a[4]),
+            &a[5],
+            &a[3],
+            &mut table,
+        )?)
+    } else {
+        None
+    };
     let tables = EquityTables::load(Path::new(&a[1]), false)?;
     let mut output = io::BufWriter::new(io::stdout().lock());
-    writeln!(output,"{}",json!({"status":"ready","model_sha256":a[3],"policy_load_seconds":load.total_seconds,"model_and_k50_load_seconds":tick.elapsed().as_secs_f64(),"rows":table.rows.len()})).map_err(|e|e.to_string())?;
+    let mut ready = json!({"status":"ready","model_sha256":a[3],"policy_load_seconds":load.total_seconds,"model_and_k50_load_seconds":tick.elapsed().as_secs_f64(),"rows":table.rows.len()});
+    if let Some(m) = metadata {
+        ready["mass_receipt_sha256"] = json!(m.receipt_sha256);
+        ready["mass_keyset_sha256"] = json!(m.keyset_sha256);
+    }
+    writeln!(output, "{ready}").map_err(|e| e.to_string())?;
     output.flush().map_err(|e| e.to_string())?;
     let mut input = io::stdin().lock();
     let mut sessions = live::SessionStore::new(&a[3])?;
