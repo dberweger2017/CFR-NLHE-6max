@@ -2,7 +2,8 @@
 
 Proposal [435](https://github.com/dberweger2017/CFR-NLHE-6max/issues/435).
 Completed under [PR436](https://github.com/dberweger2017/CFR-NLHE-6max/pull/436);
-[results and preserved plumbing limitations](reports/river-model-panel-m4/results.md).
+[results and preserved plumbing limitations](reports/river-model-panel-m4/results.md),
+[agent handoff](reports/river-model-panel-m4/AGENT_HANDOFF.md).
 The owner authorized execution after reviewing the prepared PR. Implementation
 and correctness qualification precede the single fixture training and cost
 preflight; measured admission still precedes the main panel. No extension or

@@ -4,7 +4,8 @@
 
 [PR436](https://github.com/dberweger2017/CFR-NLHE-6max/pull/436),
 [fixed protocol](docs/river-model-panel-m4.md),
-[results](docs/reports/river-model-panel-m4/results.md): one25M-node history-key
+[results](docs/reports/river-model-panel-m4/results.md),
+[agent handoff](docs/reports/river-model-panel-m4/AGENT_HANDOFF.md): one25M-node history-key
 fixture, all48 roots plus12 pre429 controls and reproduction. Search installs
 on34/36 second-to-act roots; two retain zero-reach blueprint fallback. All46
 installed profiles meet the capped-game target; all12 first-to-act profiles

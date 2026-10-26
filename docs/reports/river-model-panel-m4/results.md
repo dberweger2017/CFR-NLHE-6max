@@ -8,7 +8,8 @@ All48 current roots and12 historical first-to-act controls reproduce bit for bit
 all12 controls have actual installed-profile parity with the pre429 solver.
 This establishes small-fixture behavior, not stronger poker play or adoption.
 
-[Protocol](../../river-model-panel-m4.md), [all48 roots](roots.csv),
+[Agent handoff and saved-evidence verification](AGENT_HANDOFF.md),
+[protocol](../../river-model-panel-m4.md), [all48 roots](roots.csv),
 [original readout](results.json), [independent saved-output readback](verified-readback.json),
 [provenance](provenance.json), [costs](costs.json), [full-row audit](policy-audit.json).
 

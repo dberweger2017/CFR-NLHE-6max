@@ -1,6 +1,7 @@
 ## PR436 — M4 model-backed second-to-act river engineering completes
 
 [Protocol](docs/river-model-panel-m4.md), [analysis](docs/reports/river-model-panel-m4/results.md),
+[agent handoff](docs/reports/river-model-panel-m4/AGENT_HANDOFF.md),
 [all48 roots](docs/reports/river-model-panel-m4/roots.csv),
 [original readout](docs/reports/river-model-panel-m4/results.json),
 [verified accounting](docs/reports/river-model-panel-m4/verified-readback.json).
