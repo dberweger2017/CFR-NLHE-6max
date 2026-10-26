@@ -1,0 +1,18 @@
+{
+  "format": "pr438-readout-recovery-review-v1",
+  "resolved": true,
+  "reviewer_task": "/root/pr438_independent_review",
+  "scope": "Postprocessing only; never invoke full runner or native simulations",
+  "original_source": "9709d9ae81a56d8d69ebb8026283668eb95bf201",
+  "native_raw_sha256": "904f52bc28402e4c6cd83dba2cb6d90ae045ca8b6b9bb094022dc7f1ab61b768",
+  "failure": "Readout destination collided with stage log directory; FileExistsError after native verification",
+  "fix": "Separate stage logs under stages/name; regression test proves exclusive readout directory remains fresh",
+  "tests": {
+    "runner_and_readout": 7,
+    "diff_check": true
+  },
+  "preserve_original_failure": true,
+  "no_scientific_retry": true,
+  "mathematics_unchanged": true,
+  "readout_source_sha256": "1ee3bb1b6ca8c21913f3d8adb0b013efa1659522ae3d212ca578f88cfcacb7da"
+}

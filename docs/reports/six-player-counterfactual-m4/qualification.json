@@ -1,0 +1,95 @@
+{
+  "source": {
+    "commit": "d6654aeef9cc8c57fca0c0cc04279c3ed0d5a6f1",
+    "archive_sha256": "6fba9e72ebdbff53e9be02d798c79a1c5166e9cba2fd0eb8ecfb665d70792eac",
+    "archive_bytes": 9922560,
+    "scope": "native/scripts/tests/requirements/protocol; no models or traces"
+  },
+  "receipt_sha256": "9d87568bd7c1b12cae80bc82b5309f525f40c6aa9ce75e6fe1ed2e49cde55366",
+  "binary_sha256": "d429db6843a68675bdc554c0fd30640f3167c3149172b7eb5f9ae7e201d01537",
+  "fixture_receipt_sha256": "094055065cbd1025591fd3b93d2dc08a7824211639334e78b3c2113f3b0a53f8",
+  "sampled_peak_rss_bytes": 864272384,
+  "thermal_states": [
+    "nominal"
+  ],
+  "resource_samples": 156,
+  "ordinary_evidence_root": "/Users/dberweger/Local/six-player-counterfactual-m4-20261026/qualification-v1",
+  "main_started": false,
+  "mature_model_loaded": false,
+  "status": "fixture-qualification-passed",
+  "tests": {
+    "native_library": 156,
+    "native_new_example": 2,
+    "python_m4": 4,
+    "python_targeted_m1": 8,
+    "legacy_example_m1": 4
+  },
+  "roots": 24,
+  "worlds_per_root_per_pass": 8,
+  "passes": 2,
+  "world_evaluations": 384,
+  "stage_wall_seconds": 159.76511775000836,
+  "stages": [
+    {
+      "phase": "library-tests",
+      "returncode": 0,
+      "wall_seconds": 129.9300512500049,
+      "cpu_seconds": 945.6891350000001,
+      "sampled_peak_rss_bytes": 864272384
+    },
+    {
+      "phase": "example-tests",
+      "returncode": 0,
+      "wall_seconds": 4.125762624986237,
+      "cpu_seconds": 5.0809359999999515,
+      "sampled_peak_rss_bytes": 454066176
+    },
+    {
+      "phase": "python-tests",
+      "returncode": 0,
+      "wall_seconds": 1.0594157919986174,
+      "cpu_seconds": 0.07401500000000283,
+      "sampled_peak_rss_bytes": 10911744
+    },
+    {
+      "phase": "build",
+      "returncode": 0,
+      "wall_seconds": 18.43907637501252,
+      "cpu_seconds": 25.302903999999884,
+      "sampled_peak_rss_bytes": 580632576
+    },
+    {
+      "phase": "fixture-prepare",
+      "returncode": 0,
+      "wall_seconds": 3.105979917017976,
+      "cpu_seconds": 2.8690880000000902,
+      "sampled_peak_rss_bytes": 155549696
+    },
+    {
+      "phase": "fixture-run",
+      "returncode": 0,
+      "wall_seconds": 3.1048317909881007,
+      "cpu_seconds": 2.82731799999992,
+      "sampled_peak_rss_bytes": 156041216
+    }
+  ],
+  "mature_quote_status": "pending independent review, protected-input retrieval and measured mature calibration",
+  "strength_claim": false,
+  "final_example_delta": {
+    "source": "0d29d46b",
+    "receipt_sha256": "3c05298d1657bd2deda81df2d2443ca64feb5b46ef8943612a0698bb25b06357",
+    "binary_sha256": "86450bf037d59405c00db8347388379ea5fda518bf051af28224923c5b153afa",
+    "library_reuse_sha256": "37a8799e21a38f8b0fb31998f4ab1663be4b62648aef9b6e9680d170a8f3b322",
+    "sampled_peak_rss_bytes": 581681152,
+    "thermal_states": [
+      "nominal"
+    ],
+    "mature_model_loaded": false,
+    "main_started": false,
+    "stage_wall_seconds": 30.73334462600178,
+    "roots": 24,
+    "reproduced": true,
+    "source_archive_sha256": "8e591e2b533ccfd8974e4bf0f012cd338c3f3f981fadd6cc5f3514d4a0002cb1",
+    "prelaunch_import_error": "Operational delta command initially lacked PYTHONPATH; failed before creating run root or acquiring locks. Corrected environment only; all logs preserved."
+  }
+}

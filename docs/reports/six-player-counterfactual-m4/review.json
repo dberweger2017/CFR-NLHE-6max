@@ -1,0 +1,40 @@
+{
+  "format": "pr438-independent-review-v1",
+  "reviewer_task": "/root/pr438_independent_review",
+  "owner_authorized": true,
+  "base_commit": "ccf8130b761e6e07abbbcc20eaec6df6782ca661",
+  "initial_findings": [
+    {
+      "id": "P1",
+      "severity": "blocking-calibration",
+      "finding": "Mature guarded wrapper absent",
+      "resolution": "Dedicated M4/AC/nonblocking locks/source/input/review pins, capacity admission and active thermal/STOP/resource supervisor"
+    },
+    {
+      "id": "P2",
+      "severity": "reporting",
+      "finding": "Missing strata omitted nonempty strata exhausted by used blocks",
+      "resolution": "Selected-root coverage with no-candidates/whole-block-exclusion reasons and regression"
+    }
+  ],
+  "resolved": true,
+  "scope": "Guarded8world/root mature cost calibration only; direct native command is unguarded; main remains disabled/unqualified",
+  "followup_tests": {
+    "python": 8,
+    "native_example": 2,
+    "diff_check": true
+  },
+  "core_tests": {
+    "native_counterfactual": 9,
+    "native_example": 2,
+    "python": 4
+  },
+  "remaining": [
+    "actual M4 capacity admission",
+    "source qualification",
+    "mature loading/throughput/reproduction",
+    "explicit main budget and complete implementation/qualification"
+  ],
+  "note": "One follow-up provider-admission capacity failure, bounded same-reviewer retry succeeded; no extra reviewer, machine access or mature work by reviewer.",
+  "source_manifest_sha256": "09009d4cf551a3dc545c86e820763a2a4c189f77304c649a093a9f5ddd373730"
+}

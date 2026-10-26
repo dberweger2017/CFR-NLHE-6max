@@ -147,3 +147,93 @@ fn belief_showdown_share_counts_only_current_live_contenders() {
         }
     }
 }
+
+fn six_state(hero: usize, button: usize, street: usize) -> Value {
+    let mut h = Hand::from_deck(Config::new(&[10000; 6], 50, 100).unwrap(), button, &(0..52).collect::<Vec<_>>()).unwrap();
+    let mut actions = Vec::new();
+    while h.street() as usize != street || h.actor() != Some(hero) {
+        let actor = h.actor().unwrap();
+        let a = Bot::new("check-call", 0).unwrap().choose(&h.observe(actor).unwrap()).unwrap();
+        actions.push(json!([actor, a.kind.name(), a.raise_to]));
+        h.apply_mut(a).unwrap();
+    }
+    let o = h.observe(hero).unwrap();
+    let names: Vec<_> = (0..6).map(|s| if s == hero { "hero" } else { "check-call" }).collect();
+    json!({"id":format!("six-{hero}-{button}-{street}"),"hero":hero,"button":button,
+        "hole":o.hole,"board":o.board,"actions":actions,"opponents":names,
+        "street":street,"expected_key":"0".repeat(32),"stratum":"fixture","split":"fixture"})
+}
+#[test]
+fn six_all_seats_buttons_streets_preserve_visible_state_and_remove_blockers() {
+    for hero in 0..6 { for button in 0..6 { for street in 0..4 {
+        let v = six_state(hero, button, street);
+        assert!(LegalState::parse(&v).is_err());
+        let s = LegalState::parse_six_check_call(&v).unwrap();
+        let b = Belief::new(&s).unwrap();
+        let mut rng = rand::rngs::StdRng::seed_from_u64(437);
+        let reference = b.draw(&s, &mut rng).unwrap();
+        for _ in 0..8 {
+            let deck = b.deal(&s, &mut rng).unwrap();
+            let mut sorted = deck.clone(); sorted.sort_unstable();
+            assert_eq!(sorted, (0..52).collect::<Vec<_>>());
+            let h = s.replay(&deck).unwrap();
+            let o = h.observe(hero).unwrap();
+            assert_eq!(reference.observe(hero).unwrap(), o);
+            assert_eq!(s.log_likelihood(&deck).unwrap(), 0.);
+        }
+    }}}
+}
+#[test]
+fn six_refuses_private_fields_card_dependent_scripts_and_impossible_actions() {
+    let v = six_state(3, 0, 1);
+    for name in ["random", "tight-aggressive", "pot-pressure"] {
+        let mut bad = v.clone(); bad["opponents"][0] = json!(name);
+        assert!(LegalState::parse_six_check_call(&bad).is_err());
+    }
+    for name in ["deck", "rewards", "opponent_holes", "future_board"] {
+        let mut bad=v.clone(); bad[name]=json!([]);
+        assert!(LegalState::parse_six_check_call(&bad).is_err());
+    }
+    let mut bad = six_state(4, 0, 0);
+    bad["actions"] = json!([[3,"raise",200]]);
+    let s = LegalState::parse_six_check_call(&bad).unwrap();
+    assert!(Belief::new(&s).is_err());
+}
+#[test]
+fn six_branches_reproduce_with_exact_chip_accounting_and_original_parent() {
+    for street in 0..4 {
+        let s = LegalState::parse_six_check_call(&six_state(3, 0, street)).unwrap();
+        let b = Belief::new(&s).unwrap();
+        let mut rng = rand::rngs::StdRng::seed_from_u64(374);
+        for i in 0..8 {
+            let h = b.draw(&s, &mut rng).unwrap(); let parent = h.clone();
+            for (_, a) in menu(&h.observe(s.hero).unwrap()) {
+                let branch = || {
+                    let mut bot = Bot::new("check-call", i).unwrap();
+                    rollout(h.clone(), s.hero, a, &s.opponents, i, |o|bot.choose(o)).unwrap()
+                };
+                let q = branch(); assert_eq!(q, branch());
+                assert!((-100. ..=500.).contains(&q)); assert_eq!(h,parent);
+                if a.kind == Kind::Fold {
+                    assert_eq!(q,-(h.players()[s.hero].contributed as f64)/100.);
+                }
+            }
+        }
+    }
+}
+#[test]
+fn six_complete_board_tie_has_exhaustive_equal_share_value() {
+    let mut v=six_state(1,0,3);
+    // Royal flush on board: every remaining holding ties, including all600+
+    // compatible two-card holdings of one opponent enumerated below.
+    v["board"]=json!([32,36,40,44,48]);
+    let s=LegalState::parse_six_check_call(&v).unwrap();
+    let visible: Vec<_> = s.hole.iter().chain(&s.board).copied().collect();
+    let cards: Vec<_> = (0..52).filter(|c|!visible.contains(c)).collect();
+    for i in 0..cards.len() { for j in i+1..cards.len() {
+        let deck=s.deck(Some((0,[cards[i],cards[j]])), &mut rand::rngs::StdRng::seed_from_u64(53)).unwrap();
+        let h=s.replay(&deck).unwrap();
+        let q=rollout(h,s.hero,Action{kind:Kind::Check,raise_to:0},&s.opponents,0,|o|Bot::new("check-call",0)?.choose(o)).unwrap();
+        assert_eq!(q,0.);
+    }}
+}

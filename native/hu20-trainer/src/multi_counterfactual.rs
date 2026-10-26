@@ -16,7 +16,7 @@ pub struct LegalState {
     pub hole: [u8; 2],
     pub board: Vec<u8>,
     pub actions: Vec<(usize, Action)>,
-    pub opponents: [String; 3],
+    pub opponents: Vec<String>,
     pub street: usize,
     pub expected_key: String,
     pub stratum: String,
@@ -40,7 +40,16 @@ fn cards(v: &Value) -> Result<Vec<u8>, String> {
         .collect()
 }
 impl LegalState {
+    /// Historical three-player random/random+TAG boundary stays unchanged.
     pub fn parse(v: &Value) -> Result<Self, String> {
+        Self::parse_for(v, 3)
+    }
+    /// Six-player qualification is deliberately limited to public-only check-call.
+    /// Card-dependent scripts require a different joint posterior, not this path.
+    pub fn parse_six_check_call(v: &Value) -> Result<Self, String> {
+        Self::parse_for(v, 6)
+    }
+    fn parse_for(v: &Value, players: usize) -> Result<Self, String> {
         let fields = [
             "id",
             "hero",
@@ -70,7 +79,7 @@ impl LegalState {
             .try_into()
             .map_err(|_| "two own cards required")?;
         let board = cards(&v["board"])?;
-        if hero >= 3 || button >= 3 || street > 3 || board.len() != [0, 3, 4, 5][street] {
+        if hero >= players || button >= players || street > 3 || board.len() != [0, 3, 4, 5][street] {
             return Err("invalid state bounds".into());
         }
         let mut seen = 0u64;
@@ -101,7 +110,7 @@ impl LegalState {
                 Some("raise") => Kind::Raise,
                 _ => return Err("unknown public action".into()),
             };
-            if seat >= 3 || (kind != Kind::Raise && target != 0) {
+            if seat >= players || (kind != Kind::Raise && target != 0) {
                 return Err("invalid public action".into());
             }
             actions.push((
@@ -118,19 +127,17 @@ impl LegalState {
             .iter()
             .map(|x| x.as_str().map(str::to_owned).ok_or("opponent name"))
             .collect::<Result<_, _>>()?;
-        if opponents.len() != 3
+        let allowed = if players == 3 {
+            &["random", "tight-aggressive"][..]
+        } else {
+            &["check-call"][..]
+        };
+        if opponents.len() != players
             || opponents[hero] != "hero"
-            || opponents
-                .iter()
-                .filter(|x| x.as_str() == "tight-aggressive")
-                .count()
-                > 1
-            || opponents
-                .iter()
-                .enumerate()
-                .any(|(i, n)| i != hero && !["random", "tight-aggressive"].contains(&n.as_str()))
+            || opponents.iter().filter(|x| x.as_str() == "tight-aggressive").count() > 1
+            || opponents.iter().enumerate().any(|(i,n)| i != hero && !allowed.contains(&n.as_str()))
         {
-            return Err("only random/random+TAG fields supported".into());
+            return Err("opponents outside declared belief scope".into());
         }
         let key = string("expected_key")?;
         if key.len() != 32 || !key.bytes().all(|c| c.is_ascii_hexdigit()) {
@@ -143,7 +150,7 @@ impl LegalState {
             hole,
             board,
             actions,
-            opponents: opponents.try_into().unwrap(),
+            opponents,
             street,
             expected_key: key,
             stratum: string("stratum")?,
@@ -157,21 +164,22 @@ impl LegalState {
         tag: Option<(usize, [u8; 2])>,
         rng: &mut R,
     ) -> Result<Vec<u8>, String> {
+        let players = self.opponents.len();
         let mut slots = [None; 52];
         let mut place = |seat: usize, hole: [u8; 2]| {
-            let offset = (seat + 3 - (self.button + 1) % 3) % 3;
+            let offset = (seat + players - (self.button + 1) % players) % players;
             slots[offset] = Some(hole[0]);
-            slots[3 + offset] = Some(hole[1]);
+            slots[players + offset] = Some(hole[1]);
         };
         place(self.hero, self.hole);
         if let Some((seat, hole)) = tag {
-            if seat >= 3 || seat == self.hero {
+            if seat >= players || seat == self.hero {
                 return Err("invalid hidden holding seat".into());
             }
             place(seat, hole);
         }
         for (i, c) in self.board.iter().enumerate() {
-            slots[6 + i] = Some(*c);
+            slots[2 * players + i] = Some(*c);
         }
         let mut used = 0u64;
         for c in slots.iter().flatten() {
@@ -189,7 +197,7 @@ impl LegalState {
             .collect())
     }
     pub fn replay(&self, deck: &[u8]) -> Result<Hand, String> {
-        let mut h = Hand::from_deck(Config::new(&[10000; 3], 50, 100)?, self.button, deck)?;
+        let mut h = Hand::from_deck(Config::new(&vec![10000; self.opponents.len()], 50, 100)?, self.button, deck)?;
         for (seat, action) in &self.actions {
             if h.actor() != Some(*seat) {
                 return Err("public actor differs".into());
@@ -206,7 +214,7 @@ impl LegalState {
         Ok(h)
     }
     fn log_likelihood(&self, deck: &[u8]) -> Result<f64, String> {
-        let mut h = Hand::from_deck(Config::new(&[10000; 3], 50, 100)?, self.button, deck)?;
+        let mut h = Hand::from_deck(Config::new(&vec![10000; self.opponents.len()], 50, 100)?, self.button, deck)?;
         let mut log = 0.;
         for (seat, action) in &self.actions {
             if h.actor() != Some(*seat) {
@@ -316,12 +324,13 @@ impl Belief {
     ) -> Result<(Hand, f64), String> {
         let deck = self.deal(s, rng)?;
         let hand = s.replay(&deck)?;
+        let players = s.opponents.len();
         let mut ranks = Vec::new();
         for (seat, p) in hand.players().iter().enumerate() {
             if !p.folded {
-                let offset = (seat + 3 - (s.button + 1) % 3) % 3;
-                let mut cards = deck[6..11].to_vec();
-                cards.extend_from_slice(&[deck[offset], deck[offset + 3]]);
+                let offset = (seat + players - (s.button + 1) % players) % players;
+                let mut cards = deck[2 * players..2 * players + 5].to_vec();
+                cards.extend_from_slice(&[deck[offset], deck[offset + players]]);
                 ranks.push((seat, hu20_buckets::evaluate(&cards)));
             }
         }
@@ -354,13 +363,16 @@ pub fn rollout<F>(
     mut hand: Hand,
     hero: usize,
     first: Action,
-    opponents: &[String; 3],
+    opponents: &[String],
     seed: u64,
     mut choose: F,
 ) -> Result<f64, String>
 where
     F: FnMut(&Observation<'_>) -> Result<Action, String>,
 {
+    if hand.config().players() != opponents.len() || hero >= opponents.len() {
+        return Err("rollout player count differs".into());
+    }
     if hand.actor() != Some(hero) {
         return Err("rollout root actor".into());
     }
@@ -377,7 +389,7 @@ where
         .collect::<Result<_, _>>()?;
     let mut actions = 0;
     while let Some(actor) = hand.actor() {
-        if actions >= 200 {
+        if actions >= if opponents.len() == 3 { 200 } else { 10000 } {
             return Err("continuation action bound".into());
         }
         let o = hand.observe(actor)?;

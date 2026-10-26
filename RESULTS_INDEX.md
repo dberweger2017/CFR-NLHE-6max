@@ -7406,3 +7406,33 @@ rate-limit failures, not storage-capacity evidence. Research-payload Drive
 acceptance is **not claimed**. Normal/study locks unheld; existing cleaner thread
 notified at natural completion, no new observer/timer. PR417 owner review only;
 no merge/default/release authority exercised.
+
+## PR438 — fixed six-player conditional-action panel complete
+
+[Report](docs/reports/six-player-counterfactual-m4/results.md) ·
+[36 roots](docs/reports/six-player-counterfactual-m4/roots.csv) ·
+[129 actions](docs/reports/six-player-counterfactual-m4/actions.csv) ·
+[full readout](docs/reports/six-player-counterfactual-m4/results.json) ·
+[verification](docs/reports/six-player-counterfactual-m4/verification.json) ·
+[costs](docs/reports/six-player-counterfactual-m4/costs.json) ·
+[provenance/retrieval](docs/reports/six-player-counterfactual-m4/provenance.json).
+Frozen PR431 live-order10B against five check-call scripts; no player changes.
+All36 roots ×64 discovery+2,048 held-out worlds, initial/repeat;544,896 branch
+rollouts. Seven discovery-selected gains clear family95, all at missing rows;
+none of22 positive-mass roots clears. All14 missing roots and129 action values
+retained. No population-weighted strength or causal whole-regression verdict.
+
+Owner accepted900s; measured qualification/main/recovery wrappers52.76s,
+native model/K50 load11.710s, repeated continuation1.307s, sampled peak3.326GiB,
+nominal thermals, swap1MiB. Producer source9709d9ae; native/repeat SHA256
+`904f52bc28402e4c6cd83dba2cb6d90ae045ca8b6b9bb094022dc7f1ab61b768`.
+Native main passed once. Original reporting-directory collision/failure retained;
+reviewed/tested recovery source8fcfff6d ran only unchanged postprocessing.
+Definitive M4 root `~/Local/six-player-counterfactual-m4-20261026/completion-v1/`;
+original `main-v1/` and every partial/input/source preserved. Full results SHA256
+`26658294d43ec372af08a4be52b5ce2221f2c6665a4acbc9383f01bb15d225da`.
+[Historical qualification/quote](docs/reports/six-player-counterfactual-m4/qualification.md),
+[calibration](docs/reports/six-player-counterfactual-m4/calibration.json) and all
+three review receipts remain. Read ordinary evidence from retained M4 paths and
+verify provenance before use; bb128/Drive cleaner archival pending. No payload
+ZIP/Drive acceptance claim, extra worlds, automatic follow-up or PR434 outcomes.
