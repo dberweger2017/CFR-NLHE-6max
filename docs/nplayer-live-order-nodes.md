@@ -55,8 +55,8 @@ The live-order table never freezes. In #431 it held 38.6M rows at 10B and was st
 - **Primary: not shown.** 10B → 30B against the trained field is −25.4 [−33.8, −16.9].
 - **Second contrast: worse.** 30B → 50B is −10.0 [−16.5, −3.4].
 - **Harm flags:** random and random-tight, then random.
-- **Pot-pressure:** unchanged.
-- **Mechanism:** more training makes the bot play fewer big preflop pots.
-- **Decision:** the 200 BB work starts at 10B nodes.
+- **Pot-pressure:** no change established.
+- **Descriptive:** fewer hands end in 3-bet pots or all-ins as training continues.
+- **Decision:** keep 10B as the working candidate and the starting node budget for the 200 BB work.
 
 [Results](reports/nplayer-live-order-nodes/results.md).

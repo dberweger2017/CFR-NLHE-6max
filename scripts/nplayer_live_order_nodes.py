@@ -45,14 +45,18 @@ def breakdown(args):
     live.write_breakdown(args.results, {'fields': fields}, flat)
 
 
-def verdict(adjusted):
-    if adjusted['lower95_bb100'] > 0:
+def verdict(lower, upper):
+    if lower > 0:
         return 'improved'
-    return 'worse' if adjusted['upper95_bb100'] < 0 else 'not resolved'
+    return 'worse' if upper < 0 else 'not resolved'
 
 
 def ladder(args):
-    """Both contrasts' changes per field; the primary is the first contrast's trained field."""
+    """Both contrasts' changes per field; the primary is the first contrast's trained field.
+
+    The trained field is classified by its individual 95% interval, every other field by its
+    seven-test Bonferroni interval, so a secondary field is 'worse' exactly when it carries a
+    harm flag. Both interval types are exported."""
     contrasts = {}
     for spec in args.summary:
         name, path = spec.split('=', 1)
@@ -62,11 +66,19 @@ def ladder(args):
     for field in screen.FIELDS:
         entry = {}
         for name, s in contrasts.items():
-            adjusted = s['fields'][field]['change']['adjusted']
-            entry[name] = {'change': adjusted, 'verdict': verdict(adjusted), 'harm_flag': bool(s['fields'][field].get('harm_flag')),
-                           'absolute': {k: v['adjusted']['mean_bb100'] for k, v in s['fields'][field]['absolute'].items()}}
-            rows.append({'field': field, 'contrast': name, 'change_bb100': adjusted['mean_bb100'], 'lower95': adjusted['lower95_bb100'],
-                         'upper95': adjusted['upper95_bb100'], 'verdict': entry[name]['verdict'], 'harm_flag': entry[name]['harm_flag']})
+            f = s['fields'][field]
+            adjusted = f['change']['adjusted']
+            family = f.get('family_interval')
+            decision = (adjusted['lower95_bb100'], adjusted['upper95_bb100']) if field == PRIMARY else tuple(family)
+            entry[name] = {'change': adjusted, 'family_interval': family,
+                           'decision_interval': 'individual 95%' if field == PRIMARY else 'Bonferroni 95% over seven fields',
+                           'verdict': verdict(*decision), 'harm_flag': bool(f.get('harm_flag')),
+                           'absolute': {k: v['adjusted']['mean_bb100'] for k, v in f['absolute'].items()}}
+            rows.append({'field': field, 'contrast': name, 'change_bb100': adjusted['mean_bb100'],
+                         'individual_lower95': adjusted['lower95_bb100'], 'individual_upper95': adjusted['upper95_bb100'],
+                         'family_lower95': family[0] if family else None, 'family_upper95': family[1] if family else None,
+                         'decision_interval': entry[name]['decision_interval'], 'verdict': entry[name]['verdict'],
+                         'harm_flag': entry[name]['harm_flag']})
         fields[field] = entry
     result = {'format': FORMAT, 'primary': PRIMARY, 'contrasts': list(contrasts),
               'verdict': 'improved' if fields[PRIMARY][first]['verdict'] == 'improved' else 'not shown',

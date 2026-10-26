@@ -15,6 +15,10 @@ def summary(primary):
         fields[field] = {'change': {'adjusted': {'mean_bb100': (lo + hi) / 2, 'lower95_bb100': lo, 'upper95_bb100': hi}},
                          'absolute': {'control': {'adjusted': {'mean_bb100': 1.0}}, 'later': {'adjusted': {'mean_bb100': 2.0}}},
                          'harm_flag': field == 'check-call'}
+        if field != nodes.PRIMARY:
+            # Individual bounds exclude zero; the wider family bounds decide, as for harm flags.
+            fields[field]['change']['adjusted'].update(lower95_bb100=-9.0, upper95_bb100=-1.0)
+            fields[field]['family_interval'] = [-12.0, -4.0] if field == 'check-call' else [-12.0, 2.0]
     return {'fields': fields}
 
 
@@ -38,6 +42,9 @@ class LadderTests(unittest.TestCase):
         self.assertEqual((result['verdict'], result['second_contrast']), ('not shown', 'improved'))
         self.assertEqual(self.run_ladder((1, 2), (-9, -1))['second_contrast'], 'worse')
         self.assertTrue(result['fields']['check-call']['10b-30b']['harm_flag'])
+        self.assertEqual(result['fields']['check-call']['10b-30b']['verdict'], 'worse')
+        self.assertEqual(result['fields']['random']['10b-30b']['verdict'], 'not resolved')
+        self.assertEqual(result['fields']['random']['10b-30b']['family_interval'], [-12.0, 2.0])
 
 
 if __name__ == '__main__':
