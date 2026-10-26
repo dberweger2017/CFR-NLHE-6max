@@ -2,6 +2,8 @@
 
 [#431](https://github.com/dberweger2017/CFR-NLHE-6max/pull/431) follows the [screen protocol](../../nplayer-live-order-screen.md) committed before training. The six-player recipe was retrained with one change: [live-order keys](../../nplayer-live-order-keys.md) (`--key-schema live-order`) instead of full-history keys. The result is compared with #417's 10B on [#427](../nplayer-opponent-pressure/results.md)'s four banks. It is a one-lineage screen: nothing is promoted, and no default changes.
 
+For the code changes, reproduction, a per-category breakdown of every gain and loss, validity threats and next steps, see the [detailed analysis](analysis.md).
+
 **The frozen rule's verdict:**
 - **Primary, improved.** Against the trained field (five copies of #417's 3B), the paired change is **+105.4 BB/100 [+92.9, +117.9]**, all-in adjusted, over 16,384 blocks. It is positive in all four banks.
 - **Harm flag: check-call.** The change there is **−110.7 [−163.6, −57.8]** (Bonferroni over seven fields), negative in all four banks. Both models still win clearly against that field: control +290.9, live-order +180.2.
