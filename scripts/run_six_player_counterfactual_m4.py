@@ -95,7 +95,7 @@ def run(root, c):
             ('readout',[c['python'],'-m','scripts.analyze_six_player_counterfactual_m4',str(root/'native'),c['inventory'],str(root/'readout')])]:
             if (root/'STOP').exists():
                 raise RuntimeError('ownerSTOP')
-            stage=root/name;stage.mkdir(exist_ok=False)
+            stage=root/'stages'/name;stage.mkdir(parents=True,exist_ok=False)
             write(stage/'config.json',c)
             if name=='native-main':
                 write(root/'manifest.json',manifest)
