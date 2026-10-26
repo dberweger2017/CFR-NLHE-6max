@@ -109,6 +109,19 @@ an offline locked host build validates it. Release settings also match the
 historical opt-level3/thin-LTO/codegen-units1 profile. The fresh attempt retains
 the same scientific scope and includes failed setup time in its cost forecast.
 
+Continuation-framing correction, before completing preflight: the first valid
+root0 begin completed, but the harness passed solve controls inside a continuation
+observation; the strict API refused that follow-up. Preserve its raw packet and
+response. Continuations now whitelist only the eight public-observation fields.
+An explicit transport-only continuation reuses the audited checkpoint/export,
+unchanged native binaries and original root0 begin, then completes the remaining
+declared requests. It does not retrain or solve root0 again for that initial
+preflight pass: total root begins remain144. The original initial follow-up and
+release are recorded as incomplete, never passed or silently compared away;
+the planned fresh repeat and both main passes validate the correctly framed
+root0 follow-up. All root-begin float64/profile reproduction gates still apply,
+and the complete main panel has no follow-up exception. Include all prior cost.
+
 ## Fixed accounting: 144 root solves
 
 | Phase | Current root IDs | Pre429 root IDs | Passes | Root solves |

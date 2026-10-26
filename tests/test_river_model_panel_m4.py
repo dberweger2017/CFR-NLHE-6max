@@ -5,12 +5,31 @@ import tempfile
 import tomllib
 import unittest
 
-from scripts.river_model_panel_protocol import PREFLIGHT, first_actor, quote, reentry_matches, signature, verify_batch_pair
+from scripts.river_model_panel_protocol import PREFLIGHT, first_actor, public_observation, quote, reentry_matches, signature, verify_batch_pair
 from scripts.river_model_panel_m4 import Worker, baseline_lock, baseline_manifest, validate_fixture
 from scripts.river_model_panel_protocol import SEED
 
 
 class RiverModelPanelTests(unittest.TestCase):
+    def test_continuation_observation_never_contains_solve_controls(self):
+        fields=('format','button','board','seat','hole','actions','players','legal')
+        request={k:[] for k in fields}
+        request.update(mode='solve',sweeps=2048,algorithm='dcfr-1.5-0-2',seed='must-not-leak')
+        view=public_observation(request)
+        self.assertEqual(set(view),set(fields))
+        self.assertEqual(view['actions'],request['actions'])
+        self.assertEqual(request['mode'],'solve')
+
+    def test_incomplete_transport_probe_is_disclosed_without_dropping_root(self):
+        entry=dict(id=0,begin=self.response(),reentry=None,release=None,
+                   transport_issue=dict(reason='unexpected field in legal river request'))
+        later=copy.deepcopy(entry);later['reentry']=dict(status='ok');later['release']=dict(status='ok')
+        with self.assertRaises(ValueError):verify_batch_pair(dict(roots=[entry]),dict(roots=[later]),[0])
+        proof=verify_batch_pair(dict(roots=[entry]),dict(roots=[later]),[0],(0,))
+        self.assertEqual(proof['incomplete_initial_followups'],[0])
+        later['begin']['result']['probabilities']=[.9]
+        with self.assertRaises(ValueError):verify_batch_pair(dict(roots=[entry]),dict(roots=[later]),[0],(0,))
+
     def test_external_baseline_wrapper_preserves_release_profile(self):
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp);p=root/'native/hu20-trainer';p.mkdir(parents=True)

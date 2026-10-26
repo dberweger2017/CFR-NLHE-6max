@@ -11,6 +11,10 @@ PANEL_SHA = '9394fad0bba108f75cf6fbcb7955d259598b2da919711dadf0a753618098eb76'
 SEED = 2026102643601
 
 
+def public_observation(request):
+    return {k:request[k] for k in ('format','button','board','seat','hole','actions','players','legal')}
+
+
 def bits(value):
     if isinstance(value, float):
         if not math.isfinite(value):
@@ -45,6 +49,8 @@ def signature(response):
 
 
 def reentry_matches(begin, again):
+    if again.get('status')!='ok':
+        raise ValueError('same-root re-entry rejected: '+str(again.get('reason')))
     a, b = begin['result'], again['result']
     session = a['session']
     expected = {k: a[k] for k in ('actions', 'probabilities')}
@@ -71,15 +77,21 @@ def first_actor(response):
     return json.dumps(bits(out),sort_keys=True)
 
 
-def verify_batch_pair(a, b, ids):
+def verify_batch_pair(a, b, ids, incomplete_probes=()):
     for rows in (a['roots'], b['roots']):
         if [r['id'] for r in rows] != list(ids):
             raise ValueError('root inventory missing, duplicated or reordered')
     for one, two in zip(a['roots'], b['roots']):
         for key in ('begin', 'reentry', 'release'):
+            if one['id'] in incomplete_probes and key!='begin':
+                if (one.get('transport_issue',{}).get('reason')!='unexpected field in legal river request'
+                        or one[key] is not None or two[key] is None):
+                    raise ValueError('invalid incomplete-probe provenance')
+                continue
             if signature(one[key]) != signature(two[key]):
                 raise ValueError(f'reproduction mismatch root{one["id"]}/{key}')
-    return dict(roots=len(ids), float64_bits_and_profiles=True, no_exclusions=True)
+    return dict(roots=len(ids), float64_bits_and_profiles=True, no_root_exclusions=True,
+                incomplete_initial_followups=list(incomplete_probes))
 
 
 def quote(batches, already_spent, available, forecast_memory):

@@ -17,7 +17,7 @@ import tomllib
 
 from scripts.nplayer_four_player_feasibility import SOURCE, Supervisor, TABLES, sample, sha, write
 from scripts.qualify_river_second_to_act_m4 import verify_panel, test_receipt as native_test_receipt
-from scripts.river_model_panel_protocol import BASELINE, MAIN, PANEL_SHA, PREFLIGHT, SEED, first_actor, quote, reentry_matches, signature, verify_batch_pair
+from scripts.river_model_panel_protocol import BASELINE, MAIN, PANEL_SHA, PREFLIGHT, SEED, first_actor, public_observation, quote, reentry_matches, signature, verify_batch_pair
 
 
 def read(path):
@@ -142,11 +142,16 @@ def batch(root, phase, version, repeat):
                      str(root/'mass'),c['mass_sha256']],folder)
     result = dict(phase=phase,version=version,repeat=repeat,ready=worker.ready,
                   startup_wall_seconds=worker.startup,roots=[])
+    if phase=='preflight' and version=='current' and repeat==0 and c.get('carry_sha256'):
+        if sha(root/'carry.json')!=c['carry_sha256']:raise ValueError('carried first root changed')
+        result['roots']=[read(root/'carry.json')]
     if (worker.ready['model_sha256'] != c['policy_sha256'] or worker.ready['mass_receipt_sha256'] != c['mass_sha256']
             or worker.ready['rows'] != c['fixture_entries']):
         worker.close(failed=True);raise ValueError('ready model/mass/count binding differs')
     try:
         for i in ids:
+            if result['roots'] and i==0 and result['roots'][0].get('transport_issue'):
+                continue
             observation = rows[i]['request'];context=dict(hand_id=f'm4-river-panel/{i}')
             begin,t = worker.request(dict(mode='retained-begin',observation=observation,**context))
             entry = dict(id=i,entry=rows[i]['entry'],begin=begin,begin_seconds=t,
@@ -160,7 +165,7 @@ def batch(root, phase, version, repeat):
                         raise ValueError('missing original-mass diagnostics')
                 if r.get('lookup_tag') == 3:
                     raise ValueError('fallback original mass unknown')
-                again,at = worker.request(dict(mode='retained-continue',observation=observation,**context))
+                again,at = worker.request(dict(mode='retained-continue',observation=public_observation(observation),**context))
                 entry.update(reentry=again,reentry_seconds=at);write(folder/'partial.json',result)
                 reentry_matches(begin,again)
                 release,rt = worker.request(dict(mode='retained-release',**context))
@@ -187,7 +192,8 @@ def verify_phase(root, phase):
     proof = dict(phase=phase,reproduction={},first_actor_profiles=0,first_actor_classifications=0)
     for version in ('current','baseline'):
         a,b = [read(root/f'{phase}-{version}-{i}/results.json') for i in (0,1)]
-        proof['reproduction'][version] = verify_batch_pair(a,b,inventory[version])
+        incomplete=(0,) if phase=='preflight' and version=='current' and (root/'carry.json').exists() else ()
+        proof['reproduction'][version] = verify_batch_pair(a,b,inventory[version],incomplete)
     current = {r['id']:r for r in read(root/f'{phase}-current-0/results.json')['roots']}
     baseline = read(root/f'{phase}-baseline-0/results.json')['roots']
     for row in baseline:
@@ -224,17 +230,50 @@ def summary(root, c, sup, tick, proof):
                             lookup_tag=r.get('lookup_tag'),quality=r.get('quality'),target_bb=r.get('target_bb'),
                             sweeps=r.get('sweeps'),nodes=r.get('nodes'),timings=r.get('timings'),
                             solver_memory_bytes=r.get('solver_memory_bytes'),binding=s.get('binding')))
+    qualified=Path(c.get('qualified_root',str(root)))
     result=dict(status='complete',scope='small-history-policy engineering; no strength/adoption claim',
                 source=c['source']['commit'],baseline_source=BASELINE,config_sha256=sha(root/'config.json'),
+                adapter_source=c.get('adapter_source',c['source'])['commit'],
                 policy_sha256=c['policy_sha256'],mass_sha256=c['mass_sha256'],panel_sha256=PANEL_SHA,
-                native_tests=native_test_receipt(root/'measurements/native-tests/stdout.log'),
-                stage_costs=sup.costs,controller_wall_seconds=time.monotonic()-tick,
+                native_tests=native_test_receipt(qualified/'measurements/native-tests/stdout.log'),
+                stage_costs=sup.costs,prior_stage_costs=c.get('prior_stage_costs',[]),controller_wall_seconds=time.monotonic()-tick,
                 primary_root_count=48,declared_root_requests=144,
                 first_actor_proof=proof,latency_seconds={k:quantiles(v) for k,v in groups.items()},
                 installed_second_to_act=sum(r['classification']=='installed' and r['entry']!=0 for r in compact),
                 roots=compact,quote=read(root/'quote.json'),no_new_arena_hands=True,no_bb128_work=True)
+    if (root/'carry.json').exists():result['incomplete_preflight_followup']=read(root/'carry.json')['transport_issue']
     write(root/'results.json',result)
     write(root/'status.json',dict(status='complete',result_sha256=sha(root/'results.json')))
+
+
+def finish_panel(root,c,sup,tick):
+    for phase in ('preflight','main'):
+        for version in ('current','baseline'):
+            for repeat in (0,1):
+                validate_inputs(c)
+                sup.stage(f'{phase}-{version}-{repeat}',[sys.executable,'-m','scripts.river_model_panel_m4',
+                          'batch',root,'--phase',phase,'--version',version,'--repeat',repeat])
+        proof=verify_phase(root,phase)
+        if phase=='preflight':
+            batches=[read(root/f'preflight-{v}-{i}/results.json') for v in ('current','baseline') for i in (0,1)]
+            available=sample(root,Path(c['thermal']))['available_ram_bytes']
+            preparation=Path(c['preparation'])
+            if sha(preparation)!=c['preparation_sha256']:raise ValueError('preparation receipt changed')
+            value=quote(batches,time.monotonic()-tick+read(preparation)['wall_seconds'],available,c['forecast_family_bytes'])
+            value['disk_admitted']=shutil.disk_usage(root).free>=12*2**30
+            value['main_admitted'] &= value['disk_admitted']
+            write(root/'quote.json',value)
+            if not value['main_admitted']:
+                write(root/'status.json',dict(status='preflight-complete-budget-or-resource-not-admitted',no_main_started=True))
+                return
+    validate_inputs(c)
+    native_source=Path(c.get('native_source_path',str(SOURCE)))
+    for path,key in ((native_source,'source'),(Path(c['baseline_path']),'baseline')):
+        if frozen_source(path)!=c[key]:raise ValueError('native source snapshot changed')
+    if c.get('adapter_source') and frozen_source(SOURCE)!=c['adapter_source']:raise ValueError('adapter source changed')
+    if sha(root/'fixture.gz')!=c['checkpoint_sha256'] or sha(root/'fixture-average.gz')!=c['policy_sha256']:
+        raise ValueError('fixture bytes changed')
+    summary(root,c,sup,tick,proof)
 
 
 def run(root, baseline, tables, thermal, preparation):
@@ -315,35 +354,77 @@ def run(root, baseline, tables, thermal, preparation):
             if forecast>6*2**30 or now['available_ram_bytes']<forecast+2**30:
                 raise ValueError('model/solver forecast plus headroom unavailable')
             c['forecast_family_bytes']=forecast;bind()
-            for phase in ('preflight','main'):
-                for version in ('current','baseline'):
-                    for repeat in (0,1):
-                        validate_inputs(c)
-                        sup.stage(f'{phase}-{version}-{repeat}',[sys.executable,'-m','scripts.river_model_panel_m4',
-                                  'batch',root,'--phase',phase,'--version',version,'--repeat',repeat])
-                proof=verify_phase(root,phase)
-                if phase=='preflight':
-                    batches=[read(root/f'preflight-{v}-{i}/results.json') for v in ('current','baseline') for i in (0,1)]
-                    available=sample(root,Path(c['thermal']))['available_ram_bytes']
-                    if sha(preparation)!=c['preparation_sha256']:raise ValueError('preparation receipt changed')
-                    prep=read(preparation)['wall_seconds']
-                    value=quote(batches,time.monotonic()-tick+prep,available,forecast)
-                    value['disk_admitted']=shutil.disk_usage(root).free>=12*2**30
-                    value['main_admitted'] &= value['disk_admitted']
-                    write(root/'quote.json',value)
-                    if not value['main_admitted']:
-                        write(root/'status.json',dict(status='preflight-complete-budget-or-resource-not-admitted',no_main_started=True))
-                        return
-            validate_inputs(c)
-            for path,key in ((SOURCE,'source'),(baseline,'baseline')):
-                if frozen_source(path)!=c[key]:raise ValueError('source snapshot changed')
-            if sha(cp)!=c['checkpoint_sha256'] or sha(root/'fixture-average.gz')!=c['policy_sha256']:
-                raise ValueError('fixture bytes changed')
-            summary(root,c,sup,tick,proof)
+            finish_panel(root,c,sup,tick)
     except BaseException as e:
         write(root/'failure.json',dict(error=repr(e),epoch=time.time(),automatic_retry=False,preserve=True))
         write(root/'status.json',dict(status='failed'))
         raise
+
+
+def continue_transport(root,prior,preparation):
+    """One explicit framing repair: preserve root0's valid begin, never solve it twice."""
+    if root.exists():raise FileExistsError('continuation exists; no retry')
+    c=read(prior/'config.json')
+    if c['seed']!=SEED or c['target_nodes']!=25000000 or c['max_entries']!=1000000:
+        raise ValueError('wrong frozen fixture scope')
+    if read(prior/'failure.json')['error']!="RuntimeError('preflight-current-0 failed:1; preserve/no automatic retry')":
+        raise ValueError('only the diagnosed transport-framing stop is resumable')
+    if any(prior.glob('main-*')):raise ValueError('main already started')
+    partial=read(prior/'preflight-current-0/partial.json')
+    if len(partial['roots'])!=1 or partial['roots'][0]['id']!=0:raise ValueError('unexpected completed prefix')
+    old=partial['roots'][0]
+    if (old['begin']['status']!='ok' or old['reentry'].get('reason')!='unexpected field in legal river request'
+            or old['reentry']['status']!='unsupported' or old['release'] is not None):
+        raise ValueError('not the known incomplete followup')
+    wire=[json.loads(line) for line in (prior/'preflight-current-0/wire.jsonl').read_text().splitlines()]
+    if wire[-2]['value']['mode']!='retained-continue' or wire[-1]['value']!=old['reentry']:
+        raise ValueError('framing failure wire differs')
+    if wire[-2]['value']['observation']!=read_panel_first(prior):raise ValueError('wrong preserved observation')
+    validate_inputs(c)
+    if sha(prior/'fixture.gz')!=c['checkpoint_sha256'] or sha(prior/'fixture-average.gz')!=c['policy_sha256']:
+        raise ValueError('qualified fixture changed')
+    native_source=prior.parent/'source-v2'
+    if frozen_source(native_source)!=c['source']:raise ValueError('qualified native source changed')
+    for n,digest in c['source']['files'].items():
+        if n.startswith('native/') and sha(SOURCE/n)!=digest:raise ValueError('native change is not a transport repair')
+    if platform.system()!='Darwin' or 'Apple M4' not in subprocess.check_output(['sysctl','-n','machdep.cpu.brand_string'],text=True):
+        raise ValueError('M4 only')
+    if 'AC Power' not in subprocess.check_output(['pmset','-g','batt'],text=True):raise ValueError('AC required')
+    if shutil.disk_usage(root.parent).free<20*2**30:raise ValueError('20GiB actual free required')
+    root.mkdir();tick=time.monotonic()
+    try:
+        with (Path.home()/'Local/.hu20-m4-research.lock').open('a+') as normal,(root/'.study.lock').open('a+') as owned:
+            for f in (normal,owned):fcntl.flock(f,fcntl.LOCK_EX|fcntl.LOCK_NB)
+            now=sample(root,Path(c['thermal']));write(root/'admission.json',now)
+            if now['available_ram_bytes']<c['forecast_family_bytes']+2**30:raise ValueError('forecast plus headroom unavailable')
+            for name in ('fixture.gz','fixture-average.gz','mass','panel.jsonl'):
+                (root/name).symlink_to(prior/name)
+            carry=json.loads(json.dumps(old));carry['transport_issue']={**carry['reentry'],
+                'original_partial_sha256':sha(prior/'preflight-current-0/partial.json'),
+                'valid_root_begin_reused':True,'no_additional_root_solve':True,
+                'retained_followup_status':'incomplete-initial; fixed repeat and main validate independently'}
+            carry['reentry']=None;carry['release']=None;carry['reentry_seconds']=0.;carry['release_seconds']=0.
+            write(root/'carry.json',carry)
+            c.update(adapter_source=frozen_source(SOURCE),native_source_path=str(native_source),
+                     qualified_root=str(prior),carry_sha256=sha(root/'carry.json'),
+                     preparation=str(preparation),preparation_sha256=sha(preparation),
+                     normal_inode=os.fstat(normal.fileno()).st_ino,study_inode=os.fstat(owned.fileno()).st_ino,
+                     prior_stage_costs=read(prior.parent/'run-v1/stage-costs.json')+read(prior/'stage-costs.json'))
+            write(root/'config.json',c)
+            env={**os.environ,'PYTHONPATH':str(SOURCE),'RAYON_NUM_THREADS':'1','OMP_NUM_THREADS':'1',
+                 'OPENBLAS_NUM_THREADS':'1','MKL_NUM_THREADS':'1','NPLAYER_STOP_FILE':str(root/'STOP')}
+            sup=Supervisor(root,env,Path(c['thermal']))
+            sup.stage('adapter-tests',[sys.executable,'-m','unittest','tests.test_river_model_panel_m4',
+                      'tests.test_river_second_to_act_m4','tests.test_river_arena_expectation','tests.test_river_whole_hand_pilot'])
+            finish_panel(root,c,sup,tick)
+    except BaseException as e:
+        write(root/'failure.json',dict(error=repr(e),epoch=time.time(),automatic_retry=False,preserve=True))
+        write(root/'status.json',dict(status='failed'))
+        raise
+
+
+def read_panel_first(root):
+    with (root/'panel.jsonl').open() as f:return json.loads(next(f))['request']
 
 
 def main():
@@ -351,10 +432,13 @@ def main():
     a=sub.add_parser('run');a.add_argument('root',type=Path);a.add_argument('--baseline',type=Path,required=True)
     a.add_argument('--tables',type=Path,required=True);a.add_argument('--thermal',type=Path,required=True)
     a.add_argument('--preparation',type=Path,required=True)
+    d=sub.add_parser('continue-transport');d.add_argument('root',type=Path);d.add_argument('--prior',type=Path,required=True)
+    d.add_argument('--preparation',type=Path,required=True)
     b=sub.add_parser('batch');b.add_argument('root',type=Path);b.add_argument('--phase',choices=('preflight','main'),required=True)
     b.add_argument('--version',choices=('current','baseline'),required=True);b.add_argument('--repeat',type=int,choices=(0,1),required=True)
     x=p.parse_args()
     if x.command=='run':run(x.root.resolve(),x.baseline.resolve(),x.tables.resolve(),x.thermal.resolve(),x.preparation.resolve())
+    elif x.command=='continue-transport':continue_transport(x.root.resolve(),x.prior.resolve(),x.preparation.resolve())
     else:batch(x.root.resolve(),x.phase,x.version,x.repeat)
 
 
