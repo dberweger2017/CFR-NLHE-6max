@@ -77,22 +77,22 @@ def classify(counts, row_visits):
     return by_street
 
 
-def rows(args):
-    checkpoints = {'control': Path(CONTROL_CHECKPOINT), ARM: args.checkpoint}
+def rows(args, arm=ARM):
+    checkpoints = {'control': Path(CONTROL_CHECKPOINT), arm: args.checkpoint}
     if screen.sha(checkpoints['control']) != CONTROL_CHECKPOINT_SHA:
         raise ValueError('control checkpoint pin differs')
-    work = [(str(trace_path(args.out, bank, field, arm)), f'{arm}-b{bank}', field)
-            for bank in range(screen.BANKS) for field in screen.FIELDS for arm in checkpoints]
+    work = [(str(trace_path(args.out, bank, field, a)), f'{a}-b{bank}', field)
+            for bank in range(screen.BANKS) for field in screen.FIELDS for a in checkpoints]
     with Pool(args.workers) as pool:
         traces = pool.map(focal_lookups, work)
-        keys = {arm: {k for label, _, c in traces if label.startswith(arm + '-') for _, _, k in c if k} for arm in checkpoints}
+        keys = {a: {k for label, _, c in traces if label.startswith(a + '-') for _, _, k in c if k} for a in checkpoints}
         found = dict(zip(checkpoints, pool.starmap(visits, [(checkpoints[a], keys[a]) for a in checkpoints])))
-    result = {arm: {field: {s: dict.fromkeys(CLASSES, 0) for s in diagnosis.STREETS} for field in screen.FIELDS} for arm in checkpoints}
+    result = {a: {field: {s: dict.fromkeys(CLASSES, 0) for s in diagnosis.STREETS} for field in screen.FIELDS} for a in checkpoints}
     for label, field, counts in traces:
-        arm = label.rsplit('-b', 1)[0]
-        for street, by_class in classify(counts, found[arm]).items():
+        a = label.rsplit('-b', 1)[0]
+        for street, by_class in classify(counts, found[a]).items():
             for cls, n in by_class.items():
-                result[arm][field][street][cls] += n
+                result[a][field][street][cls] += n
     receipt = {'format': 'nplayer-admission-rows-v1', 'checkpoints': {a: screen.sha(p) for a, p in checkpoints.items()},
                'distinct_positive_keys': {a: len(keys[a]) for a in checkpoints}, 'decisions': result}
     diagnosis.create(args.out / 'rows.json', json.dumps(receipt, indent=1) + '\n')
@@ -137,16 +137,16 @@ def shares(by_street):
     return out
 
 
-def report(args):
-    summary = screen.report(args, arm=ARM, primary=PRIMARY, fmt=FORMAT)
+def report(args, arm=ARM, fmt=FORMAT):
+    summary = screen.report(args, arm=arm, primary=PRIMARY, fmt=fmt)
     decisions = json.loads((args.out / 'rows.json').read_text())['decisions']
     summary['training'] = json.loads((args.out / 'training.json').read_text())
     rows_out = []
     for field in screen.FIELDS:
-        summary['fields'][field]['row_classes'] = {arm: shares(decisions[arm][field]) for arm in ('control', ARM)}
-        for arm in ('control', ARM):
-            for street, s in summary['fields'][field]['row_classes'][arm].items():
-                rows_out.append({'field': field, 'arm': arm, 'street': street, **s})
+        summary['fields'][field]['row_classes'] = {a: shares(decisions[a][field]) for a in ('control', arm)}
+        for a in ('control', arm):
+            for street, s in summary['fields'][field]['row_classes'][a].items():
+                rows_out.append({'field': field, 'arm': a, 'street': street, **s})
     (args.results / 'summary.json').write_text(json.dumps(summary, indent=1) + '\n')
     with (args.results / 'rows.csv').open('w', newline='') as f:
         w = csv.DictWriter(f, list(rows_out[0]))

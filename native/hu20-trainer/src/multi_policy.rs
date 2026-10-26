@@ -5,7 +5,7 @@ use crate::{
     gz::Gzip,
     multi_cfr::Trainer,
     multi_checkpoint,
-    multi_holdem::{self, MENU, SCHEMA},
+    multi_holdem::{self, KeySchema, MENU},
     nplayer::{Action, Config, Observation},
 };
 use flate2::read::MultiGzDecoder as GzDecoder;
@@ -65,6 +65,8 @@ pub struct PolicyTable {
     pub mode: Mode,
     pub source_checkpoint_sha256: String,
     config: Config,
+    /// The key schema of `identity`; every lookup keys observations with it.
+    pub schema: KeySchema,
     pub rows: Rows,
     pub binary_source_policy_sha256: Option<String>,
     pub binary_mass_metadata: Option<Value>,
@@ -267,7 +269,7 @@ impl TextReader {
 fn cash_config(identity: &Value) -> Result<Config, String> {
     let n = identity["players"].as_u64().ok_or("missing N")?;
     if !(2..=6).contains(&n)
-        || identity["schema"] != SCHEMA
+        || KeySchema::from_identity(identity).is_none()
         || identity["game"] != "nlhe-cash"
         || identity["menu"] != MENU
         || identity["utility_unit"] != "big-blind"
@@ -413,6 +415,7 @@ impl PolicyTable {
             mode: Mode::parse(h["strategy"].as_str().unwrap())?,
             source_checkpoint_sha256: h["source_checkpoint_sha256"].as_str().unwrap().to_owned(),
             config: cash_config(&h["identity"])?,
+            schema: KeySchema::from_identity(&h["identity"]).ok_or("unsupported key schema")?,
             rows,
             binary_source_policy_sha256: None,
             binary_mass_metadata: None,
@@ -420,6 +423,10 @@ impl PolicyTable {
     }
     pub fn config(&self) -> Config {
         self.config
+    }
+    /// The observation's key and identity under this table's schema.
+    pub fn decision(&self, observation: &Observation<'_>, tables: &EquityTables) -> crate::multi_cfr::Decision {
+        multi_holdem::observation_decision_for(self.schema, observation, tables)
     }
     pub fn distribution(
         &self,
@@ -439,7 +446,7 @@ impl PolicyTable {
         if observation.actor != Some(observation.seat) || observation.legal.is_none() {
             return Err("policy requires its acting-seat observation".into());
         }
-        let d = multi_holdem::observation_decision(observation, tables);
+        let d = self.decision(observation, tables);
         if let Some(row) = self.rows.get(&d.key) {
             if (row.owner as usize, row.street as usize, row.code) != (d.owner, d.street, d.code) {
                 return Err("policy key/action identity mismatch".into());
@@ -498,7 +505,7 @@ mod tests {
     use std::io::Write;
     fn fixture(n: usize, scope: usize) -> Trainer {
         let mut t = Trainer::new(&SmallGame::new(Kind::Kuhn, n), 11, scope, 100, false);
-        t.identity = json!({"schema":SCHEMA,"game":"nlhe-cash","players":n,"stacks":vec![2000;n],"small_blind":50,"big_blind":100,"menu":MENU,"card_tables":EQUITY_K50_SHA256,"utility_unit":"big-blind"});
+        t.identity = json!({"schema":multi_holdem::SCHEMA,"game":"nlhe-cash","players":n,"stacks":vec![2000;n],"small_blind":50,"big_blind":100,"menu":MENU,"card_tables":EQUITY_K50_SHA256,"utility_unit":"big-blind"});
         for street in 0..2 {
             let d = Decision {
                 key: [street as u8; 16],
@@ -515,6 +522,25 @@ mod tests {
             t.table.insert(d.key, e);
         }
         t
+    }
+    #[test]
+    fn tables_carry_their_key_schema_and_refuse_unknown_ones() {
+        let dir = std::env::temp_dir().join(format!("nplayer-schema-{}", std::process::id()));
+        std::fs::create_dir(&dir).unwrap();
+        for (name, expected) in [(multi_holdem::SCHEMA, Some(KeySchema::History)),
+                                 (multi_holdem::LIVE_ORDER_SCHEMA, Some(KeySchema::LiveOrder)), ("other", None)] {
+            let mut t = fixture(3, 3);
+            t.identity["schema"] = json!(name);
+            let path = dir.join(format!("{}.gz", expected.map_or("other", |s| s.name())));
+            if expected.is_none() {
+                assert!(write_trainer(&t, &"a".repeat(64), Mode::Average, &path, Gzip::Compatible).is_err());
+                continue;
+            }
+            write_trainer(&t, &"a".repeat(64), Mode::Average, &path, Gzip::Compatible).unwrap();
+            let table = PolicyTable::load(&path, &crate::export::sha256_file(&path)).unwrap();
+            assert_eq!(Some(table.schema), expected);
+        }
+        std::fs::remove_dir_all(dir).unwrap();
     }
     #[test]
     fn strategy_scope_is_explicit_and_export_is_deterministic_for_all_n() {

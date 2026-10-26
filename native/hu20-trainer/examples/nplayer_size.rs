@@ -51,7 +51,7 @@ fn main() {
     let tables = EquityTables::load(Path::new(&a[8]), false).unwrap();
     let survey = Rc::new(RefCell::new(survey::Survey::default()));
     let game = survey::Observed {
-        game: CashGame { config, tables },
+        game: CashGame { config, tables, schema: Default::default() },
         survey: survey.clone(),
     };
     let mut trainer = Trainer::new(&game, seed, scope, cap, false);

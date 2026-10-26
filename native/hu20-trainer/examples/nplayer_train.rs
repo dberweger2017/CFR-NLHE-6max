@@ -3,7 +3,7 @@ use hu20_trainer::{
     cards::EquityTables,
     multi_cfr::{Game, Sampling, Trainer},
     multi_checkpoint,
-    multi_holdem::CashGame,
+    multi_holdem::{CashGame, KeySchema},
     nplayer::Config,
 };
 use serde_json::json;
@@ -71,6 +71,7 @@ fn train() -> Result<(), String> {
             "--prune-bb",
             "--prune-after",
             "--opponent-pot-raise",
+            "--key-schema",
         ]
         .contains(&key.as_str())
         {
@@ -177,7 +178,12 @@ fn train() -> Result<(), String> {
         return Err("--traverser-admission needs --fast".into());
     }
     let tables = EquityTables::load(Path::new(required("--card-buckets")?), false)?;
-    let game = CashGame { config, tables };
+    let schema = match options.get("--key-schema").map(String::as_str) {
+        None | Some("history") => KeySchema::History,
+        Some("live-order") => KeySchema::LiveOrder,
+        Some(_) => return Err("--key-schema is history or live-order".into()),
+    };
+    let game = CashGame { config, tables, schema };
     let mut trainer = if let Some(path) = options.get("--resume") {
         let path = Path::new(path);
         let expected = required("--resume-sha256")?;

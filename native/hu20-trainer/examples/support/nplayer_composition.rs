@@ -126,7 +126,7 @@ impl Policy {
         {
             return Err("composition requires matching acting-seat observation/K50".into());
         }
-        let decision = multi_holdem::observation_decision(view, tables);
+        let decision = self.base.decision(view, tables);
         let selection = select(&self.base, &self.donor, &decision)?;
         let choices = multi_holdem::menu(view);
         // Exactly the existing Policy::choose sampler: one draw per decision,

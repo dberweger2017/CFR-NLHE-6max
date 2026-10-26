@@ -118,6 +118,10 @@ pub fn query(
         if model.table.config() != view.config {
             return Err("shared model/game identity differs".into());
         }
+        // `d` is keyed by the released history schema.
+        if model.table.schema != multi_holdem::KeySchema::History {
+            return Err("shared queries support history keys only".into());
+        }
         let mut value = distribution(&model.table, d)?;
         value["alias"] = json!(alias);
         queries.push(value);
