@@ -100,7 +100,14 @@ fn run(m: &Value) -> Result<(), String> {
         return Err("mode".into());
     }
     let root = m["belief_root"].as_u64().ok_or("belief_root")?;
-    if !qualification && root != 20261026437001 {
+    if !qualification
+        && root
+            != if phase == "calibrate" {
+                20261026437002
+            } else {
+                20261026437001
+            }
+    {
         return Err("frozen belief root differs".into());
     }
     if phase == "main" {

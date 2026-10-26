@@ -69,7 +69,7 @@ Evaluate that unchanged choice on held-out worlds. Report every action and the
 original root-mixture value, plus paired action-minus-mixture contrasts. Repeat
 the entire fixed workload with identical streams; require exact float64 values,
 profiles, support/work counters. Reproduction is verification, not extra samples.
-Calibration uses separate domain/root and fixed8 worlds per root, no outcomes
+Calibration uses separate domain and root `20261026437002`, fixed8 worlds per root, no outcomes
 for root/settings selection. Retain values sealed until main admission/readout.
 
 Hero net whole-hand return in this equal-stack unraked game lies in[−100,500]BB.
@@ -98,7 +98,9 @@ forecast plus4GiB disk and1GiB available-RAM headroom. Refuse insufficient space
 or memory; do not close apps, loosen gates or alter machine settings.
 Thermal serious/critical/missing state, owner STOP, invalid play, nonfinite
 values, privacy/accounting/reproduction mismatch or resource exhaustion stop
-terminally. No outcome-driven extension or scientific retry. A plumbing fix
+terminally. Mature calibration additionally stops at kernel critical memory
+pressure, available RAM below512MiB or free disk below256MiB, as prospective
+resource protection (not an elapsed-time/RSS/swap cutoff). No outcome-driven extension or scientific retry. A plumbing fix
 requires a recorded new source qualification; preserve the prior attempt.
 
 Report transfer/hash/decompression, builds/tests, model/K50 loads, belief/rollout,

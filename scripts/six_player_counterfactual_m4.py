@@ -84,6 +84,13 @@ def select(all_candidates):
     return selected, counts
 
 
+def panel_coverage(chosen, counts):
+    filled = {r['stratum'] for r in chosen}
+    missing = [k for k in counts if k not in filled]
+    return dict(missing_strata=missing, missing_reasons={
+        k: ('no-candidates' if counts[k] == 0 else 'whole-block-exclusion') for k in missing})
+
+
 def validate_header(header):
     pins = header['policies']
     g = header['identity']
@@ -159,7 +166,7 @@ def extract(inventory, output):
             f.write(json.dumps(legal, sort_keys=True, allow_nan=False)+'\n')
     dump(output/'inventory.json', dict(format='six-player-conditional-panel-v1', model_sha256=MODEL,
          checkpoint_sha256=CHECKPOINT, roots=len(chosen), candidate_counts=counts,
-         missing_strata=[k for k, n in counts.items() if not n], states_sha256=sha(path), banks=provenance,
+         **panel_coverage(chosen, counts), states_sha256=sha(path), banks=provenance,
          no_rewards_or_hidden_cards_selected=True, no_counterfactual_values_used=True))
 
 

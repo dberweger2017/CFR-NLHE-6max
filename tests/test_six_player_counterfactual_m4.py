@@ -33,6 +33,17 @@ class ConditionalPanelTests(unittest.TestCase):
         self.assertEqual(len(roots),1)
         self.assertEqual(len(counts),36)
         self.assertEqual(c.select(list(reversed(candidates))),(roots,counts))
+    def test_nonempty_stratum_excluded_by_whole_block_is_reported(self):
+        _, block, root = list(c.candidates(0, self.row()))[0]
+        first = copy.deepcopy(root);first['stratum'] = 'seat3/flop'
+        chosen, counts = c.select([('0', block, first), ('1', block, root)])
+        coverage = c.panel_coverage(chosen, counts)
+        self.assertEqual(len(chosen), 1)
+        self.assertGreater(counts[root['stratum']], 0)
+        self.assertIn(root['stratum'], coverage['missing_strata'])
+        self.assertEqual(coverage['missing_reasons'][root['stratum']], 'whole-block-exclusion')
+        self.assertEqual(coverage['missing_reasons']['seat0/flop'], 'no-candidates')
+
     def test_quote_is_counts_and_cost_only(self):
         r=dict(status='passed',calibration_only=True,float64_and_work_reproduced=True,
                roots=1,load_and_k50_seconds=20,costs=[dict(worlds_per_pass=8,seconds_including_repeat=8)])
