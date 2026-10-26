@@ -21,6 +21,7 @@ use std::{
 };
 const MODEL: &str = "f894a59f8a92424d735438726d16834901a7dcaf6d560c98b950fb72a143c9ea";
 const CHECKPOINT: &str = "75245fbb0a00617ae67281e25cd7184b4a27fbf72e5aa2b175ba5a37c93771d8";
+const AVERAGE: &str = "13822eb3ee8004ccf417a71274fe54a779e6bdf73a4b5b7c45201dbe1fe81dd8";
 const MASS: &str = "806e7b9c92b7fbfd8f6ea2de30535d4dc7a525cc096091c458fe1e6c15000bda";
 fn fresh(p: &Path) -> Result<BufWriter<File>, String> {
     Ok(BufWriter::new(
@@ -147,7 +148,8 @@ fn execute(
     }
     if qualification {
         table.rows.tag_all_mass(true);
-    } else if table.source_checkpoint_sha256 != CHECKPOINT
+    } else if table.binary_source_policy_sha256.as_deref() != Some(AVERAGE)
+        || table.source_checkpoint_sha256 != CHECKPOINT
         || table
             .binary_mass_metadata
             .as_ref()

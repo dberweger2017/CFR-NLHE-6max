@@ -102,7 +102,7 @@ def validate_header(header):
 
 
 def extract(inventory, output):
-    """Inventory must bind original trace and original successful replay receipt."""
+    """Bind trace bytes and the original verification receipt (not a new replay)."""
     if len(inventory['banks']) != 4 or {b['bank'] for b in inventory['banks']} != set(range(4)):
         raise ValueError('exactly four original banks required')
     output = Path(output)
