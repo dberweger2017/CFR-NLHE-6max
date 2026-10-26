@@ -1,5 +1,18 @@
 # Roadmap
 
+## M4 model-backed river panel — proposed; no execution
+
+[Proposal435](https://github.com/dberweger2017/CFR-NLHE-6max/issues/435),
+[fixed plan](docs/river-model-panel-m4.md): explicitly permit one tiny three-player
+history-key engineering fixture to close PR433's missing-input gap. Reuse48 legal
+roots and12 pre429 controls, with reproduction and a separate24-request cost
+preflight:144 root solves total, no arena/strength study. Provisional20min
+central/60min compute and8GiB new M4 SSD; measured admission precedes main.
+Implementation, fixture training and all model-backed requests remain unstarted.
+PR434 keeps bb128; cleaner uploads and existing research inputs stay untouched.
+Search adoption, mature-model performance and scientific continuation remain
+separate decisions.
+
 ## Separate M4 river fixture qualification passes; model panel remains unrun
 
 [Proposal432](https://github.com/dberweger2017/CFR-NLHE-6max/issues/432),
