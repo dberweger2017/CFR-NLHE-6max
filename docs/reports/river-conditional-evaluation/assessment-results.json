@@ -1,0 +1,126 @@
+{
+  "status": "settled",
+  "lineups": [
+    {
+      "lineup": "trained",
+      "blocks": 128,
+      "sampled_mean_bb100": 2.897135416666667,
+      "integrated_mean_bb100": 8.32681590521522,
+      "sampled_sd_bb100": 157.68061915077433,
+      "integrated_sd_bb100": 101.40443194340367,
+      "integrated_over_sampled_variance": 0.4135778201857236,
+      "variance_ratio_bootstrap95": [
+        0.12281468825378847,
+        0.6307357601864537
+      ],
+      "bootstrap_defined_replicates": 10000,
+      "sampled_largest_centered_square_share": 0.5328297715430768,
+      "integrated_largest_centered_square_share": 0.8053200617406229,
+      "cold_variance_times_cost_ratio": 0.9223830390163597,
+      "amortized_variance_times_cost_ratio": 1.0980292847938886
+    },
+    {
+      "lineup": "trained-pressure",
+      "blocks": 128,
+      "sampled_mean_bb100": 26.757812499999996,
+      "integrated_mean_bb100": -1.0948564453675824,
+      "sampled_sd_bb100": 196.33745172943344,
+      "integrated_sd_bb100": 43.98810208503548,
+      "integrated_over_sampled_variance": 0.05019542648851085,
+      "variance_ratio_bootstrap95": [
+        0.008140813416486724,
+        0.748825915986325
+      ],
+      "bootstrap_defined_replicates": 10000,
+      "sampled_largest_centered_square_share": 0.7953362241034815,
+      "integrated_largest_centered_square_share": 0.3679461117135305,
+      "cold_variance_times_cost_ratio": 0.1119484841048861,
+      "amortized_variance_times_cost_ratio": 0.13326645085162706
+    },
+    {
+      "lineup": "pressure",
+      "blocks": 128,
+      "sampled_mean_bb100": -13.671874999999996,
+      "integrated_mean_bb100": -0.4316668330305184,
+      "sampled_sd_bb100": 147.5882759071942,
+      "integrated_sd_bb100": 24.80962280832118,
+      "integrated_over_sampled_variance": 0.028257686603980862,
+      "variance_ratio_bootstrap95": [
+        0.013813138669783592,
+        32.3679668618085
+      ],
+      "bootstrap_defined_replicates": 9939,
+      "sampled_largest_centered_square_share": 0.9877238271581937,
+      "integrated_largest_centered_square_share": 0.4619148418740018,
+      "cold_variance_times_cost_ratio": 0.0630217810849893,
+      "amortized_variance_times_cost_ratio": 0.07502280320004938
+    },
+    {
+      "lineup": "call",
+      "blocks": 128,
+      "sampled_mean_bb100": 0.0,
+      "integrated_mean_bb100": 0.0,
+      "sampled_sd_bb100": 0.0,
+      "integrated_sd_bb100": 0.0,
+      "integrated_over_sampled_variance": null,
+      "variance_ratio_bootstrap95": null,
+      "bootstrap_defined_replicates": 0,
+      "sampled_largest_centered_square_share": null,
+      "integrated_largest_centered_square_share": null,
+      "cold_variance_times_cost_ratio": null,
+      "amortized_variance_times_cost_ratio": null
+    },
+    {
+      "lineup": "call-pressure",
+      "blocks": 128,
+      "sampled_mean_bb100": -25.911458333333332,
+      "integrated_mean_bb100": -14.811478390121616,
+      "sampled_sd_bb100": 243.32343302901103,
+      "integrated_sd_bb100": 163.73483434739867,
+      "integrated_over_sampled_variance": 0.4528082167065939,
+      "variance_ratio_bootstrap95": [
+        0.3308727191853129,
+        0.6127366237672399
+      ],
+      "bootstrap_defined_replicates": 10000,
+      "sampled_largest_centered_square_share": 0.2108864786273393,
+      "integrated_largest_centered_square_share": 0.24887548978872168,
+      "cold_variance_times_cost_ratio": 1.0098767357249683,
+      "amortized_variance_times_cost_ratio": 1.202184106768258
+    },
+    {
+      "lineup": "random-tag",
+      "blocks": 128,
+      "sampled_mean_bb100": 14.192708333333334,
+      "integrated_mean_bb100": 0.11598121464493118,
+      "sampled_sd_bb100": 129.7684498831789,
+      "integrated_sd_bb100": 31.422625093554338,
+      "integrated_over_sampled_variance": 0.05863361808237787,
+      "variance_ratio_bootstrap95": [
+        0.0201468644997423,
+        0.11499110306490057
+      ],
+      "bootstrap_defined_replicates": 10000,
+      "sampled_largest_centered_square_share": 0.26475306349854605,
+      "integrated_largest_centered_square_share": 0.4070109005502545,
+      "cold_variance_times_cost_ratio": 0.13076778346348847,
+      "amortized_variance_times_cost_ratio": 0.15566944498851482
+    }
+  ],
+  "blocks_per_lineup": 128,
+  "root_count": 384,
+  "no_strength_gate": true,
+  "bootstrap": {
+    "replicates": 10000,
+    "seed": 2026102239001,
+    "generator": "Python random.Random"
+  },
+  "cost_basis": {
+    "sampled_cold_seconds": 728.2268419810571,
+    "sampled_amortized_seconds": 258.1629260900571,
+    "extra_expectation_cold_seconds": 895.9030189919868,
+    "extra_expectation_amortized_seconds": 427.2472657999868,
+    "scope": "Whole-panel common cost basis for each separate lineup. Conservative prefix allowance retains entire measured PR388 generation/play/replay pipeline, plus new two-pass reconstruction/enumeration. Not a measured fresh integrated pipeline or per-lineup cost/speedup."
+  },
+  "limitations": "Saved development deals, one focal lineage; paired bootstrap may miss rare tails. No automatic fresh study, target selection, cap change or retry."
+}

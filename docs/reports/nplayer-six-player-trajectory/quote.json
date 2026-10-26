@@ -1,0 +1,56 @@
+{
+  "status": "quoted-not-admitted",
+  "inventory_sha256": "dcdbda4b1b8ff93529b080df3d9721f0fb569409c05c61d2a6a76bc78bf5da8b",
+  "qualification_source": "ed5ac7804c97e12a6bd50f3aaa133703c637e55e",
+  "source_script_sha256": "2e5967b6c2285ee8bd462fa63ab5a67a694f84d5d3d1d268a7372c8000ff90ce",
+  "transfer_bytes": 7989712885,
+  "initial_trace_files": 24,
+  "paired_hand_comparisons": 786432,
+  "analysis_passes": 2,
+  "components": [
+    {
+      "name": "Ethernet single stream, cap32MiB/s; reserve16MiB/s",
+      "central_seconds": 238.1119991838932,
+      "reserved_seconds": 476.2239983677864
+    },
+    {
+      "name": "M4 destination SHA verification, central200MiB/s scenario;2minreserve",
+      "central_seconds": 38.09791986942291,
+      "reserved_seconds": 120
+    },
+    {
+      "name": "Two full scans, max pair/byte synthetic scaling;3xreserve",
+      "central_seconds": 301.23626675084233,
+      "reserved_seconds": 903.708800252527
+    },
+    {
+      "name": "Source/pin/ordinary mutex setup",
+      "central_seconds": 60,
+      "reserved_seconds": 120
+    },
+    {
+      "name": "Global reconciliation and compact reporting",
+      "central_seconds": 180,
+      "reserved_seconds": 300
+    }
+  ],
+  "central_seconds": 817.4461858041584,
+  "reserved_seconds": 1919.9327986203134,
+  "proposed_planning_seconds": 2700,
+  "accepted_planning_seconds": null,
+  "machine": "M4 only for scans, one worker; bb128 source copy only",
+  "working_memory_planning_bytes": 536870912,
+  "total_new_workspace_gib": 10,
+  "ethernet": "192.168.77.1\u2194192.168.77.2/en8,1Gbitfull-duplex,SSHauthenticated; payload throughput not measured",
+  "full_transfer_started": false,
+  "main_scan_started": false,
+  "scope": "Fixed24files/16panels/allinitialhands, no new game hands/model loads/training/outcome selection",
+  "assumptions": [
+    "Synthetic20-focal-decision-per-hand calibration, warmcache; real trace shapes maydiffer.",
+    "Actual throughput below16MiB/s or419 I/O deferrals can exceed the planning reserve.",
+    "Waiting for419 source-I/O clearance is outside this elapsed active-job estimate.",
+    "Only one capped32MiB/s nice19/ioniceidle source stream; no source copy during419criticalIO.",
+    "No automatic budget/time/RSS/disk/swap kill or extension; correctness failures retained/reported.",
+    "Raw inputs/results/failed qualification retained; no cleanup or Drive acceptance inferred."
+  ]
+}

@@ -5,9 +5,8 @@ import json
 import math
 from pathlib import Path
 
-# The compact store's segment chunks (store.rs): entry records and f64 values.
-CHUNK_ENTRIES=1<<13
-CHUNK_VALUES=1<<15
+# The compact store's record chunks (store.rs), in 8-byte words.
+CHUNK_WORDS=1<<15
 
 
 def shard_index_bytes(entries):
@@ -18,10 +17,10 @@ def shard_index_bytes(entries):
 
 
 def table_bytes(entries,shards,entry_record,payload_per_entry):
+    """Records are the fixed fields plus regrets and average, in chunks; free records are not modelled."""
     per=math.ceil(entries/shards)
-    records=math.ceil(per/CHUNK_ENTRIES)*CHUNK_ENTRIES*entry_record
-    values=math.ceil(per*payload_per_entry/8/CHUNK_VALUES)*CHUNK_VALUES*8
-    return shards*(shard_index_bytes(per)+records+values)
+    records=math.ceil(per*(entry_record+payload_per_entry)/8/CHUNK_WORDS)*CHUNK_WORDS*8
+    return shards*(shard_index_bytes(per)+records)
 
 
 def analyze(results):
@@ -37,7 +36,7 @@ def analyze(results):
         n=b['nodes'];k=b['entries'];reached=b['reached_keys']
         alpha=math.log(k/a['entries'])/math.log(n/a['nodes'])
         # The store's own byte count must equal the allocator's measured table delta.
-        assert b['index_bytes']+b['entry_bytes']+b['value_bytes']==b['table_requested_bytes']
+        assert b['index_bytes']+b['record_bytes']==b['table_requested_bytes']
         shards=header['shards'];record=header['entry_record_bytes']
         payload=(b['regret_payload_bytes']+b['average_payload_bytes'])/k
         forecasts=[]

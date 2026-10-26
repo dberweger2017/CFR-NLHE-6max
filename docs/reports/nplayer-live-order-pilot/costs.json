@@ -1,0 +1,78 @@
+{
+ "host": "bb128 (cygnus-x1), 16 threads, CPU only, alone",
+ "source_commit": "3a175fb7 (code identical to a45de355), main parity build from b3a62198",
+ "stages_utc": [
+  {
+   "stage": "build",
+   "at": "2026-10-26T05:53:07Z"
+  },
+  {
+   "stage": "parity",
+   "at": "2026-10-26T05:53:40Z"
+  },
+  {
+   "stage": "parity-passed",
+   "at": "2026-10-26T05:57:19Z"
+  },
+  {
+   "stage": "train",
+   "at": "2026-10-26T05:57:19Z"
+  },
+  {
+   "stage": "export",
+   "at": "2026-10-26T06:02:12Z"
+  },
+  {
+   "stage": "audit",
+   "at": "2026-10-26T06:03:04Z"
+  },
+  {
+   "stage": "convert",
+   "at": "2026-10-26T06:03:54Z"
+  },
+  {
+   "stage": "verify",
+   "at": "2026-10-26T06:04:36Z"
+  },
+  {
+   "stage": "arena-smoke",
+   "at": "2026-10-26T06:05:11Z"
+  },
+  {
+   "stage": "telemetry",
+   "at": "2026-10-26T06:07:48Z"
+  },
+  {
+   "stage": "done",
+   "at": "2026-10-26T06:07:48Z"
+  }
+ ],
+ "binaries_sha256": {
+  "nplayer_train": "c794c726e6d2fc3fef5618153f6bbdef8f4ff0abaa06cdbc2e5f6a7f7f544066",
+  "nplayer_policy": "1abb5a4b1322f989ddda7223cacd8d4deab2ce708c12ea63bb876d2bbe25ebb2",
+  "nplayer_inference": "0c80f20e08b28f6009b88f93cda27970c7ee164e4b9494c895fbb2781e632bb3",
+  "nplayer_paired_arena": "4d91553fb1cd5f8fcabd67f78717dd3680087b4ad3dc3093470d1aca407676e5",
+  "main nplayer_train": "64062b62fd8ba2d6d104f41a31765034c274601d7c6eecc41279fe5af74f9902"
+ },
+ "parity_sha256": {
+  "branch.gz": "69fad647251c59d8890e61ab77f9ce4c482199c32a170f83d2906557a309fb25",
+  "live16.gz": "482a0f8f54d0cdf9fd881d5250243fd7261499cc129bf15388c08beee8f4d84d",
+  "live8.gz": "482a0f8f54d0cdf9fd881d5250243fd7261499cc129bf15388c08beee8f4d84d",
+  "main.gz": "69fad647251c59d8890e61ab77f9ce4c482199c32a170f83d2906557a309fb25"
+ },
+ "live_order_header_100m": {
+  "schema": "nplayer-live-order-summary-equity-k50-v1",
+  "entries": 9114060,
+  "iteration": 5644
+ },
+ "model_pins": {
+  "checkpoint": "a204a489688d3878589027e84b210b8a48210cc4ea4289ba428f5535ede9da14",
+  "average": "28ad4dabecd2ad4414955a97346beb1d420dd6f3a0c7549c8cdb6a660de6bcc4",
+  "mass_receipt": "c5d493cd931f2dfbe90ccba33140107f8e68ae5404478d41074b73b24f3a2257",
+  "binary": "f559d638d53eb90366fb83f4c991389ecb5378668692e948a66df54f187f2dde"
+ },
+ "training_seconds": 282.187790827,
+ "peak_cpu_c": 71,
+ "peak_vrm_thermistor15_c": 71,
+ "disk": "checkpoint, average and audit on the HDD under /mnt/data2tb/nplayer-live-order-pilot-20261026/; binary (gzipped) and smoke traces on the NVMe under /home/dberweger/nplayer-live-order-pilot-20261026/. Nothing was deleted."
+}

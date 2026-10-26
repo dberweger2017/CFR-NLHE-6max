@@ -1,0 +1,4341 @@
+{
+  "status": {
+    "status": "complete",
+    "result_sha256": "f168de277f7af665137144299cb486d6dcd565c43a5438b0bd6cdc5e49590f5c",
+    "epoch": 1792779791.2548473
+  },
+  "result": {
+    "status": "complete-descriptive-diagnosis",
+    "input_results_sha256": "cdf3d1430b216afdbe28f4d9728f8668f76cd6e42932cb7f6f2e25902a3306be",
+    "initial_hands": 655360,
+    "fields": {
+      "trained": {
+        "hands": 40960,
+        "first_divergences": 13035,
+        "no_divergence_hands": 27925,
+        "paired_mean_bb100": 74.0482666015625,
+        "first_divergence_groups": {
+          "street": {
+            "preflop": {
+              "hands": 10441,
+              "sum_delta_bb100": 2320767.0,
+              "contribution_bb100": 56.6593505859375
+            },
+            "unchanged": {
+              "hands": 27925,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "flop": {
+              "hands": 1830,
+              "sum_delta_bb100": 551275.0,
+              "contribution_bb100": 13.4588623046875
+            },
+            "river": {
+              "hands": 197,
+              "sum_delta_bb100": 85650.0,
+              "contribution_bb100": 2.091064453125
+            },
+            "turn": {
+              "hands": 567,
+              "sum_delta_bb100": 75325.0,
+              "contribution_bb100": 1.8389892578125
+            }
+          },
+          "lookup_pair": {
+            "positive_mass\u2192positive_mass": {
+              "hands": 13032,
+              "sum_delta_bb100": 3018917.0,
+              "contribution_bb100": 73.7040283203125
+            },
+            "unchanged": {
+              "hands": 27925,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "zero_mass\u2192positive_mass": {
+              "hands": 3,
+              "sum_delta_bb100": 14100.0,
+              "contribution_bb100": 0.34423828125
+            }
+          },
+          "action_pair": {
+            "call\u2192fold": {
+              "hands": 2378,
+              "sum_delta_bb100": 232725.0,
+              "contribution_bb100": 5.6817626953125
+            },
+            "unchanged": {
+              "hands": 27925,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "raise\u2192raise": {
+              "hands": 2597,
+              "sum_delta_bb100": 910500.0,
+              "contribution_bb100": 22.22900390625
+            },
+            "raise\u2192call": {
+              "hands": 2231,
+              "sum_delta_bb100": 864567.0,
+              "contribution_bb100": 21.1075927734375
+            },
+            "raise\u2192check": {
+              "hands": 1004,
+              "sum_delta_bb100": 178550.0,
+              "contribution_bb100": 4.359130859375
+            },
+            "check\u2192raise": {
+              "hands": 503,
+              "sum_delta_bb100": -93750.0,
+              "contribution_bb100": -2.288818359375
+            },
+            "call\u2192raise": {
+              "hands": 1236,
+              "sum_delta_bb100": 528925.0,
+              "contribution_bb100": 12.9132080078125
+            },
+            "raise\u2192fold": {
+              "hands": 1605,
+              "sum_delta_bb100": 652975.0,
+              "contribution_bb100": 15.9417724609375
+            },
+            "fold\u2192call": {
+              "hands": 1094,
+              "sum_delta_bb100": -182025.0,
+              "contribution_bb100": -4.4439697265625
+            },
+            "fold\u2192raise": {
+              "hands": 387,
+              "sum_delta_bb100": -59450.0,
+              "contribution_bb100": -1.451416015625
+            }
+          },
+          "position": {
+            "0": {
+              "hands": 2129,
+              "sum_delta_bb100": 757600.0,
+              "contribution_bb100": 18.49609375
+            },
+            "unchanged": {
+              "hands": 27925,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "2": {
+              "hands": 3735,
+              "sum_delta_bb100": 704150.0,
+              "contribution_bb100": 17.191162109375
+            },
+            "1": {
+              "hands": 3493,
+              "sum_delta_bb100": 875425.0,
+              "contribution_bb100": 21.3726806640625
+            },
+            "3": {
+              "hands": 1845,
+              "sum_delta_bb100": 93075.0,
+              "contribution_bb100": 2.2723388671875
+            },
+            "4": {
+              "hands": 1833,
+              "sum_delta_bb100": 602767.0,
+              "contribution_bb100": 14.7159912109375
+            }
+          },
+          "street_lookup": {
+            "preflop/positive_mass\u2192positive_mass": {
+              "hands": 10441,
+              "sum_delta_bb100": 2320767.0,
+              "contribution_bb100": 56.6593505859375
+            },
+            "unchanged": {
+              "hands": 27925,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "flop/positive_mass\u2192positive_mass": {
+              "hands": 1827,
+              "sum_delta_bb100": 537175.0,
+              "contribution_bb100": 13.1146240234375
+            },
+            "river/positive_mass\u2192positive_mass": {
+              "hands": 197,
+              "sum_delta_bb100": 85650.0,
+              "contribution_bb100": 2.091064453125
+            },
+            "turn/positive_mass\u2192positive_mass": {
+              "hands": 567,
+              "sum_delta_bb100": 75325.0,
+              "contribution_bb100": 1.8389892578125
+            },
+            "flop/zero_mass\u2192positive_mass": {
+              "hands": 3,
+              "sum_delta_bb100": 14100.0,
+              "contribution_bb100": 0.34423828125
+            }
+          }
+        },
+        "reached_focal_action_groups": {
+          "3B/preflop/positive_mass/call": {
+            "decisions": 8693,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/positive_mass/raise": {
+            "decisions": 12607,
+            "raise_to_sum_bb": 182193.0,
+            "raise_to_over_pot_sum": 19514.39504903642
+          },
+          "3B/preflop/missing/call": {
+            "decisions": 534,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/positive_mass/fold": {
+            "decisions": 27966,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/positive_mass/fold": {
+            "decisions": 25984,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/positive_mass/check": {
+            "decisions": 2950,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/positive_mass/check": {
+            "decisions": 1345,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/positive_mass/call": {
+            "decisions": 375,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/positive_mass/check": {
+            "decisions": 1356,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/positive_mass/raise": {
+            "decisions": 5534,
+            "raise_to_sum_bb": 68646.0,
+            "raise_to_over_pot_sum": 3905.7078403884093
+          },
+          "3B/flop/positive_mass/call": {
+            "decisions": 1711,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/positive_mass/raise": {
+            "decisions": 2700,
+            "raise_to_sum_bb": 36493.0,
+            "raise_to_over_pot_sum": 1834.5244352339284
+          },
+          "10B/preflop/positive_mass/check": {
+            "decisions": 1513,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/positive_mass/raise": {
+            "decisions": 4185,
+            "raise_to_sum_bb": 45092.0,
+            "raise_to_over_pot_sum": 2876.7503191431124
+          },
+          "10B/turn/positive_mass/raise": {
+            "decisions": 2238,
+            "raise_to_sum_bb": 27194.0,
+            "raise_to_over_pot_sum": 1459.3050787751918
+          },
+          "10B/river/missing/raise": {
+            "decisions": 181,
+            "raise_to_sum_bb": 5297.5,
+            "raise_to_over_pot_sum": 127.40840893920453
+          },
+          "3B/turn/positive_mass/call": {
+            "decisions": 814,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/positive_mass/raise": {
+            "decisions": 9458,
+            "raise_to_sum_bb": 123681.0,
+            "raise_to_over_pot_sum": 14463.10941015311
+          },
+          "10B/flop/positive_mass/call": {
+            "decisions": 1753,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/positive_mass/call": {
+            "decisions": 1104,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/positive_mass/call": {
+            "decisions": 556,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/positive_mass/raise": {
+            "decisions": 1217,
+            "raise_to_sum_bb": 21623.0,
+            "raise_to_over_pot_sum": 849.1865920637557
+          },
+          "3B/river/missing/call": {
+            "decisions": 127,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/positive_mass/call": {
+            "decisions": 7612,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/positive_mass/check": {
+            "decisions": 3236,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/positive_mass/check": {
+            "decisions": 1649,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/positive_mass/check": {
+            "decisions": 952,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/positive_mass/fold": {
+            "decisions": 2051,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/positive_mass/fold": {
+            "decisions": 1907,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/positive_mass/fold": {
+            "decisions": 852,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/positive_mass/check": {
+            "decisions": 697,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/positive_mass/fold": {
+            "decisions": 348,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/positive_mass/fold": {
+            "decisions": 889,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/positive_mass/fold": {
+            "decisions": 466,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/missing/fold": {
+            "decisions": 414,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/missing/fold": {
+            "decisions": 321,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/missing/raise": {
+            "decisions": 360,
+            "raise_to_sum_bb": 24895.0,
+            "raise_to_over_pot_sum": 421.13812570285745
+          },
+          "10B/preflop/missing/call": {
+            "decisions": 420,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/positive_mass/raise": {
+            "decisions": 1163,
+            "raise_to_sum_bb": 16635.0,
+            "raise_to_over_pot_sum": 801.9708209014519
+          },
+          "3B/turn/missing/raise": {
+            "decisions": 297,
+            "raise_to_sum_bb": 10436.0,
+            "raise_to_over_pot_sum": 213.56710600525773
+          },
+          "3B/flop/missing/raise": {
+            "decisions": 355,
+            "raise_to_sum_bb": 15672.5,
+            "raise_to_over_pot_sum": 264.71106926208756
+          },
+          "10B/flop/missing/raise": {
+            "decisions": 248,
+            "raise_to_sum_bb": 10751.0,
+            "raise_to_over_pot_sum": 165.511514441739
+          },
+          "3B/flop/missing/fold": {
+            "decisions": 234,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/missing/call": {
+            "decisions": 66,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/missing/call": {
+            "decisions": 142,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/missing/raise": {
+            "decisions": 233,
+            "raise_to_sum_bb": 7211.0,
+            "raise_to_over_pot_sum": 158.8913964928521
+          },
+          "10B/turn/missing/call": {
+            "decisions": 122,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/missing/raise": {
+            "decisions": 188,
+            "raise_to_sum_bb": 5860.5,
+            "raise_to_over_pot_sum": 124.83206706120676
+          },
+          "10B/flop/missing/call": {
+            "decisions": 184,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/missing/raise": {
+            "decisions": 301,
+            "raise_to_sum_bb": 20931.0,
+            "raise_to_over_pot_sum": 343.25914319561366
+          },
+          "3B/flop/missing/call": {
+            "decisions": 277,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/missing/check": {
+            "decisions": 51,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/missing/fold": {
+            "decisions": 183,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/missing/check": {
+            "decisions": 64,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/missing/fold": {
+            "decisions": 144,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/missing/check": {
+            "decisions": 40,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/missing/fold": {
+            "decisions": 130,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/zero_mass/check": {
+            "decisions": 4,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/zero_mass/raise": {
+            "decisions": 13,
+            "raise_to_sum_bb": 317.5,
+            "raise_to_over_pot_sum": 5.92515431228345
+          },
+          "3B/river/missing/fold": {
+            "decisions": 110,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/missing/check": {
+            "decisions": 60,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/missing/check": {
+            "decisions": 41,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/zero_mass/raise": {
+            "decisions": 2,
+            "raise_to_sum_bb": 95.0,
+            "raise_to_over_pot_sum": 1.7142857142857142
+          },
+          "3B/turn/zero_mass/fold": {
+            "decisions": 4,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/missing/check": {
+            "decisions": 41,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/missing/fold": {
+            "decisions": 81,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/zero_mass/check": {
+            "decisions": 2,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/zero_mass/fold": {
+            "decisions": 2,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/zero_mass/call": {
+            "decisions": 3,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/zero_mass/call": {
+            "decisions": 3,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/zero_mass/raise": {
+            "decisions": 8,
+            "raise_to_sum_bb": 212.5,
+            "raise_to_over_pot_sum": 5.117765951699479
+          },
+          "3B/river/zero_mass/call": {
+            "decisions": 2,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/zero_mass/raise": {
+            "decisions": 1,
+            "raise_to_sum_bb": 68.0,
+            "raise_to_over_pot_sum": 2.0606060606060606
+          },
+          "3B/turn/zero_mass/call": {
+            "decisions": 2,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/zero_mass/call": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/zero_mass/fold": {
+            "decisions": 6,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/zero_mass/fold": {
+            "decisions": 2,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/zero_mass/fold": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/zero_mass/fold": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/zero_mass/call": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/zero_mass/raise": {
+            "decisions": 2,
+            "raise_to_sum_bb": 80.0,
+            "raise_to_over_pot_sum": 1.6886030018142835
+          }
+        },
+        "trace_sha256": [
+          "befdc4c6c514433d447b1c9cc99a278778020091270a9ecdb11fb32973caa640",
+          "b5f33dac93086133adaf206878bd4414e0b510c88f831ac1a8e34f27d9107a1b"
+        ],
+        "root": 20261023550001,
+        "blocks": 4096,
+        "seatings": 10
+      },
+      "random": {
+        "hands": 40960,
+        "first_divergences": 11566,
+        "no_divergence_hands": 29394,
+        "paired_mean_bb100": -84.10703125,
+        "first_divergence_groups": {
+          "street": {
+            "unchanged": {
+              "hands": 29394,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "preflop": {
+              "hands": 11078,
+              "sum_delta_bb100": -3422774.0,
+              "contribution_bb100": -83.563818359375
+            },
+            "flop": {
+              "hands": 419,
+              "sum_delta_bb100": -37400.0,
+              "contribution_bb100": -0.9130859375
+            },
+            "turn": {
+              "hands": 57,
+              "sum_delta_bb100": 7800.0,
+              "contribution_bb100": 0.1904296875
+            },
+            "river": {
+              "hands": 12,
+              "sum_delta_bb100": 7350.0,
+              "contribution_bb100": 0.179443359375
+            }
+          },
+          "lookup_pair": {
+            "unchanged": {
+              "hands": 29394,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "positive_mass\u2192positive_mass": {
+              "hands": 11558,
+              "sum_delta_bb100": -3427449.0,
+              "contribution_bb100": -83.6779541015625
+            },
+            "zero_mass\u2192positive_mass": {
+              "hands": 8,
+              "sum_delta_bb100": -17575.0,
+              "contribution_bb100": -0.4290771484375
+            }
+          },
+          "action_pair": {
+            "unchanged": {
+              "hands": 29394,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "fold\u2192call": {
+              "hands": 836,
+              "sum_delta_bb100": 856950.0,
+              "contribution_bb100": 20.921630859375
+            },
+            "call\u2192raise": {
+              "hands": 1033,
+              "sum_delta_bb100": 481667.0,
+              "contribution_bb100": 11.7594482421875
+            },
+            "raise\u2192call": {
+              "hands": 1985,
+              "sum_delta_bb100": -346158.0,
+              "contribution_bb100": -8.451123046875
+            },
+            "raise\u2192fold": {
+              "hands": 2163,
+              "sum_delta_bb100": -1228008.0,
+              "contribution_bb100": -29.9806640625
+            },
+            "raise\u2192raise": {
+              "hands": 2126,
+              "sum_delta_bb100": -1375075.0,
+              "contribution_bb100": -33.5711669921875
+            },
+            "call\u2192fold": {
+              "hands": 2626,
+              "sum_delta_bb100": -1745000.0,
+              "contribution_bb100": -42.6025390625
+            },
+            "raise\u2192check": {
+              "hands": 194,
+              "sum_delta_bb100": -4425.0,
+              "contribution_bb100": -0.1080322265625
+            },
+            "fold\u2192raise": {
+              "hands": 510,
+              "sum_delta_bb100": -11600.0,
+              "contribution_bb100": -0.283203125
+            },
+            "check\u2192raise": {
+              "hands": 93,
+              "sum_delta_bb100": -73375.0,
+              "contribution_bb100": -1.7913818359375
+            }
+          },
+          "position": {
+            "unchanged": {
+              "hands": 29394,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "1": {
+              "hands": 3003,
+              "sum_delta_bb100": -151000.0,
+              "contribution_bb100": -3.6865234375
+            },
+            "2": {
+              "hands": 3082,
+              "sum_delta_bb100": -800983.0,
+              "contribution_bb100": -19.5552490234375
+            },
+            "3": {
+              "hands": 1766,
+              "sum_delta_bb100": -646166.0,
+              "contribution_bb100": -15.775537109375
+            },
+            "4": {
+              "hands": 1707,
+              "sum_delta_bb100": -910875.0,
+              "contribution_bb100": -22.2381591796875
+            },
+            "0": {
+              "hands": 2008,
+              "sum_delta_bb100": -936000.0,
+              "contribution_bb100": -22.8515625
+            }
+          },
+          "street_lookup": {
+            "unchanged": {
+              "hands": 29394,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "preflop/positive_mass\u2192positive_mass": {
+              "hands": 11075,
+              "sum_delta_bb100": -3405024.0,
+              "contribution_bb100": -83.13046875
+            },
+            "flop/positive_mass\u2192positive_mass": {
+              "hands": 414,
+              "sum_delta_bb100": -37575.0,
+              "contribution_bb100": -0.9173583984375
+            },
+            "turn/positive_mass\u2192positive_mass": {
+              "hands": 57,
+              "sum_delta_bb100": 7800.0,
+              "contribution_bb100": 0.1904296875
+            },
+            "flop/zero_mass\u2192positive_mass": {
+              "hands": 5,
+              "sum_delta_bb100": 175.0,
+              "contribution_bb100": 0.0042724609375
+            },
+            "river/positive_mass\u2192positive_mass": {
+              "hands": 12,
+              "sum_delta_bb100": 7350.0,
+              "contribution_bb100": 0.179443359375
+            },
+            "preflop/zero_mass\u2192positive_mass": {
+              "hands": 3,
+              "sum_delta_bb100": -17750.0,
+              "contribution_bb100": -0.433349609375
+            }
+          }
+        },
+        "reached_focal_action_groups": {
+          "3B/preflop/positive_mass/fold": {
+            "decisions": 28207,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/positive_mass/fold": {
+            "decisions": 30639,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/positive_mass/call": {
+            "decisions": 7168,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/positive_mass/raise": {
+            "decisions": 1525,
+            "raise_to_sum_bb": 35767.0,
+            "raise_to_over_pot_sum": 1086.1940797459895
+          },
+          "3B/preflop/positive_mass/call": {
+            "decisions": 9006,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/missing/call": {
+            "decisions": 2193,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/positive_mass/raise": {
+            "decisions": 10378,
+            "raise_to_sum_bb": 300704.0,
+            "raise_to_over_pot_sum": 14472.811159144452
+          },
+          "3B/preflop/positive_mass/raise": {
+            "decisions": 14229,
+            "raise_to_sum_bb": 397072.0,
+            "raise_to_over_pot_sum": 20087.91395216868
+          },
+          "10B/preflop/missing/call": {
+            "decisions": 1938,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/missing/raise": {
+            "decisions": 1284,
+            "raise_to_sum_bb": 90107.5,
+            "raise_to_over_pot_sum": 1251.7492302009223
+          },
+          "3B/preflop/missing/fold": {
+            "decisions": 2267,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/missing/fold": {
+            "decisions": 1901,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/positive_mass/check": {
+            "decisions": 775,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/missing/call": {
+            "decisions": 738,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/missing/raise": {
+            "decisions": 503,
+            "raise_to_sum_bb": 16033.0,
+            "raise_to_over_pot_sum": 261.20297088730734
+          },
+          "3B/turn/missing/fold": {
+            "decisions": 209,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/missing/raise": {
+            "decisions": 1500,
+            "raise_to_sum_bb": 107244.5,
+            "raise_to_over_pot_sum": 1411.7965453593065
+          },
+          "3B/flop/positive_mass/fold": {
+            "decisions": 744,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/positive_mass/fold": {
+            "decisions": 686,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/positive_mass/call": {
+            "decisions": 555,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/positive_mass/raise": {
+            "decisions": 2108,
+            "raise_to_sum_bb": 53734.5,
+            "raise_to_over_pot_sum": 1569.6424162947583
+          },
+          "3B/flop/missing/fold": {
+            "decisions": 705,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/positive_mass/check": {
+            "decisions": 784,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/missing/fold": {
+            "decisions": 593,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/positive_mass/check": {
+            "decisions": 280,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/positive_mass/check": {
+            "decisions": 326,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/positive_mass/check": {
+            "decisions": 173,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/positive_mass/fold": {
+            "decisions": 130,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/positive_mass/raise": {
+            "decisions": 426,
+            "raise_to_sum_bb": 9286.5,
+            "raise_to_over_pot_sum": 298.1534042715206
+          },
+          "10B/turn/positive_mass/raise": {
+            "decisions": 357,
+            "raise_to_sum_bb": 7823.5,
+            "raise_to_over_pot_sum": 239.80452821612442
+          },
+          "10B/turn/missing/raise": {
+            "decisions": 403,
+            "raise_to_sum_bb": 11799.0,
+            "raise_to_over_pot_sum": 199.8740102206397
+          },
+          "3B/turn/positive_mass/call": {
+            "decisions": 93,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/positive_mass/check": {
+            "decisions": 29,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/zero_mass/fold": {
+            "decisions": 20,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/missing/raise": {
+            "decisions": 997,
+            "raise_to_sum_bb": 35048.0,
+            "raise_to_over_pot_sum": 555.6266680196039
+          },
+          "10B/flop/positive_mass/call": {
+            "decisions": 491,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/missing/call": {
+            "decisions": 170,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/missing/raise": {
+            "decisions": 847,
+            "raise_to_sum_bb": 29051.0,
+            "raise_to_over_pot_sum": 487.13555784185826
+          },
+          "3B/flop/missing/check": {
+            "decisions": 231,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/missing/call": {
+            "decisions": 214,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/missing/call": {
+            "decisions": 604,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/positive_mass/call": {
+            "decisions": 126,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/positive_mass/check": {
+            "decisions": 45,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/positive_mass/raise": {
+            "decisions": 114,
+            "raise_to_sum_bb": 2892.5,
+            "raise_to_over_pot_sum": 80.65026359978366
+          },
+          "10B/turn/missing/fold": {
+            "decisions": 167,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/missing/check": {
+            "decisions": 157,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/missing/fold": {
+            "decisions": 73,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/missing/check": {
+            "decisions": 102,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/missing/fold": {
+            "decisions": 54,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/missing/check": {
+            "decisions": 73,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/missing/call": {
+            "decisions": 66,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/missing/check": {
+            "decisions": 59,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/missing/call": {
+            "decisions": 60,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/missing/raise": {
+            "decisions": 197,
+            "raise_to_sum_bb": 5120.5,
+            "raise_to_over_pot_sum": 90.76003681390556
+          },
+          "10B/river/missing/raise": {
+            "decisions": 155,
+            "raise_to_sum_bb": 4183.0,
+            "raise_to_over_pot_sum": 81.0785795965964
+          },
+          "3B/river/positive_mass/raise": {
+            "decisions": 92,
+            "raise_to_sum_bb": 2122.5,
+            "raise_to_over_pot_sum": 55.65582042234085
+          },
+          "3B/turn/positive_mass/check": {
+            "decisions": 144,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/missing/check": {
+            "decisions": 189,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/positive_mass/fold": {
+            "decisions": 124,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/zero_mass/call": {
+            "decisions": 7,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/positive_mass/fold": {
+            "decisions": 24,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/zero_mass/call": {
+            "decisions": 13,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/positive_mass/fold": {
+            "decisions": 39,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/positive_mass/call": {
+            "decisions": 24,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/positive_mass/call": {
+            "decisions": 37,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/zero_mass/raise": {
+            "decisions": 20,
+            "raise_to_sum_bb": 693.0,
+            "raise_to_over_pot_sum": 7.865800935243004
+          },
+          "10B/flop/zero_mass/fold": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/zero_mass/raise": {
+            "decisions": 7,
+            "raise_to_sum_bb": 310.5,
+            "raise_to_over_pot_sum": 6.044647229401913
+          },
+          "10B/flop/zero_mass/raise": {
+            "decisions": 7,
+            "raise_to_sum_bb": 280.0,
+            "raise_to_over_pot_sum": 2.415766118158074
+          },
+          "3B/preflop/zero_mass/raise": {
+            "decisions": 4,
+            "raise_to_sum_bb": 317.0,
+            "raise_to_over_pot_sum": 5.367069917924671
+          },
+          "3B/turn/zero_mass/check": {
+            "decisions": 4,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/zero_mass/raise": {
+            "decisions": 4,
+            "raise_to_sum_bb": 136.0,
+            "raise_to_over_pot_sum": 2.8074074074074074
+          },
+          "3B/flop/zero_mass/check": {
+            "decisions": 2,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/zero_mass/fold": {
+            "decisions": 7,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/zero_mass/call": {
+            "decisions": 4,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/zero_mass/call": {
+            "decisions": 5,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/zero_mass/call": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/zero_mass/check": {
+            "decisions": 3,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/zero_mass/fold": {
+            "decisions": 3,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/zero_mass/raise": {
+            "decisions": 2,
+            "raise_to_sum_bb": 91.5,
+            "raise_to_over_pot_sum": 1.6333333333333333
+          },
+          "10B/preflop/zero_mass/fold": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/zero_mass/check": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/zero_mass/call": {
+            "decisions": 3,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/zero_mass/check": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/zero_mass/call": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/zero_mass/fold": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/zero_mass/fold": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/zero_mass/check": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/zero_mass/fold": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          }
+        },
+        "trace_sha256": [
+          "8acd6c9144e83480bda1f2baf63fa6d01bf95b4713bddc591a7629ae4eb105fd",
+          "7b2ca716fcaf92bf5a5fd700e973f0efe974e3a7f41010cdc3c20d4a196f17cc"
+        ],
+        "root": 20261023550002,
+        "blocks": 4096,
+        "seatings": 10
+      },
+      "check-call": {
+        "hands": 40960,
+        "first_divergences": 12274,
+        "no_divergence_hands": 28686,
+        "paired_mean_bb100": -11.4126953125,
+        "first_divergence_groups": {
+          "street": {
+            "unchanged": {
+              "hands": 28686,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "flop": {
+              "hands": 1314,
+              "sum_delta_bb100": 419000.0,
+              "contribution_bb100": 10.2294921875
+            },
+            "preflop": {
+              "hands": 10946,
+              "sum_delta_bb100": -897064.0,
+              "contribution_bb100": -21.9009765625
+            },
+            "turn": {
+              "hands": 14,
+              "sum_delta_bb100": 10600.0,
+              "contribution_bb100": 0.2587890625
+            }
+          },
+          "lookup_pair": {
+            "unchanged": {
+              "hands": 28686,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "positive_mass\u2192positive_mass": {
+              "hands": 12220,
+              "sum_delta_bb100": -367264.0,
+              "contribution_bb100": -8.96640625
+            },
+            "zero_mass\u2192positive_mass": {
+              "hands": 54,
+              "sum_delta_bb100": -100200.0,
+              "contribution_bb100": -2.4462890625
+            }
+          },
+          "action_pair": {
+            "unchanged": {
+              "hands": 28686,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "raise\u2192raise": {
+              "hands": 3044,
+              "sum_delta_bb100": 366534.0,
+              "contribution_bb100": 8.948583984375
+            },
+            "raise\u2192call": {
+              "hands": 1416,
+              "sum_delta_bb100": -535916.0,
+              "contribution_bb100": -13.08388671875
+            },
+            "check\u2192raise": {
+              "hands": 1112,
+              "sum_delta_bb100": -181700.0,
+              "contribution_bb100": -4.43603515625
+            },
+            "raise\u2192fold": {
+              "hands": 1574,
+              "sum_delta_bb100": -420582.0,
+              "contribution_bb100": -10.268115234375
+            },
+            "raise\u2192check": {
+              "hands": 1558,
+              "sum_delta_bb100": 207300.0,
+              "contribution_bb100": 5.06103515625
+            },
+            "call\u2192raise": {
+              "hands": 810,
+              "sum_delta_bb100": 860000.0,
+              "contribution_bb100": 20.99609375
+            },
+            "call\u2192fold": {
+              "hands": 1842,
+              "sum_delta_bb100": -209800.0,
+              "contribution_bb100": -5.1220703125
+            },
+            "fold\u2192call": {
+              "hands": 550,
+              "sum_delta_bb100": 9000.0,
+              "contribution_bb100": 0.2197265625
+            },
+            "fold\u2192raise": {
+              "hands": 368,
+              "sum_delta_bb100": -562300.0,
+              "contribution_bb100": -13.72802734375
+            }
+          },
+          "position": {
+            "unchanged": {
+              "hands": 28686,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "2": {
+              "hands": 3504,
+              "sum_delta_bb100": 388734.0,
+              "contribution_bb100": 9.490576171875
+            },
+            "1": {
+              "hands": 3174,
+              "sum_delta_bb100": -460200.0,
+              "contribution_bb100": -11.2353515625
+            },
+            "3": {
+              "hands": 1728,
+              "sum_delta_bb100": -44500.0,
+              "contribution_bb100": -1.08642578125
+            },
+            "0": {
+              "hands": 2052,
+              "sum_delta_bb100": 116818.0,
+              "contribution_bb100": 2.852001953125
+            },
+            "4": {
+              "hands": 1816,
+              "sum_delta_bb100": -468316.0,
+              "contribution_bb100": -11.43349609375
+            }
+          },
+          "street_lookup": {
+            "unchanged": {
+              "hands": 28686,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "flop/positive_mass\u2192positive_mass": {
+              "hands": 1274,
+              "sum_delta_bb100": 529800.0,
+              "contribution_bb100": 12.9345703125
+            },
+            "preflop/positive_mass\u2192positive_mass": {
+              "hands": 10946,
+              "sum_delta_bb100": -897064.0,
+              "contribution_bb100": -21.9009765625
+            },
+            "flop/zero_mass\u2192positive_mass": {
+              "hands": 40,
+              "sum_delta_bb100": -110800.0,
+              "contribution_bb100": -2.705078125
+            },
+            "turn/zero_mass\u2192positive_mass": {
+              "hands": 14,
+              "sum_delta_bb100": 10600.0,
+              "contribution_bb100": 0.2587890625
+            }
+          }
+        },
+        "reached_focal_action_groups": {
+          "3B/preflop/positive_mass/fold": {
+            "decisions": 20544,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/positive_mass/fold": {
+            "decisions": 23042,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/positive_mass/check": {
+            "decisions": 2884,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/positive_mass/raise": {
+            "decisions": 8142,
+            "raise_to_sum_bb": 50697.0,
+            "raise_to_over_pot_sum": 4665.324963924773
+          },
+          "3B/turn/missing/raise": {
+            "decisions": 13622,
+            "raise_to_sum_bb": 246833.0,
+            "raise_to_over_pot_sum": 7552.419606319582
+          },
+          "3B/river/missing/check": {
+            "decisions": 6092,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/positive_mass/check": {
+            "decisions": 3384,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/positive_mass/raise": {
+            "decisions": 7192,
+            "raise_to_sum_bb": 42913.0,
+            "raise_to_over_pot_sum": 4141.3881673879505
+          },
+          "10B/turn/missing/raise": {
+            "decisions": 11910,
+            "raise_to_sum_bb": 212080.0,
+            "raise_to_over_pot_sum": 6624.609649609637
+          },
+          "10B/river/missing/check": {
+            "decisions": 5376,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/positive_mass/raise": {
+            "decisions": 13302,
+            "raise_to_sum_bb": 51581.0,
+            "raise_to_over_pot_sum": 14146.190476191627
+          },
+          "3B/flop/positive_mass/check": {
+            "decisions": 4018,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/positive_mass/call": {
+            "decisions": 3544,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/positive_mass/check": {
+            "decisions": 3730,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/positive_mass/raise": {
+            "decisions": 350,
+            "raise_to_sum_bb": 1914.0,
+            "raise_to_over_pot_sum": 203.59999999999968
+          },
+          "3B/river/missing/raise": {
+            "decisions": 12910,
+            "raise_to_sum_bb": 289644.0,
+            "raise_to_over_pot_sum": 6206.427621252677
+          },
+          "10B/preflop/positive_mass/raise": {
+            "decisions": 10990,
+            "raise_to_sum_bb": 42827.0,
+            "raise_to_over_pot_sum": 11105.834920635272
+          },
+          "10B/flop/missing/raise": {
+            "decisions": 4606,
+            "raise_to_sum_bb": 44217.0,
+            "raise_to_over_pot_sum": 2474.634343434273
+          },
+          "3B/preflop/positive_mass/call": {
+            "decisions": 4230,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/missing/check": {
+            "decisions": 2748,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/missing/check": {
+            "decisions": 2384,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/missing/raise": {
+            "decisions": 5384,
+            "raise_to_sum_bb": 52509.0,
+            "raise_to_over_pot_sum": 2871.16161616152
+          },
+          "10B/river/missing/raise": {
+            "decisions": 11350,
+            "raise_to_sum_bb": 250974.0,
+            "raise_to_over_pot_sum": 5535.320462724403
+          },
+          "3B/turn/missing/check": {
+            "decisions": 6268,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/missing/check": {
+            "decisions": 5534,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/positive_mass/raise": {
+            "decisions": 318,
+            "raise_to_sum_bb": 2086.0,
+            "raise_to_over_pot_sum": 190.31428571428535
+          },
+          "3B/turn/zero_mass/raise": {
+            "decisions": 60,
+            "raise_to_sum_bb": 838.0,
+            "raise_to_over_pot_sum": 39.03333333333334
+          },
+          "3B/flop/zero_mass/raise": {
+            "decisions": 80,
+            "raise_to_sum_bb": 649.0,
+            "raise_to_over_pot_sum": 49.02222222222224
+          },
+          "3B/turn/positive_mass/check": {
+            "decisions": 136,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/positive_mass/check": {
+            "decisions": 108,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/zero_mass/check": {
+            "decisions": 12,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/zero_mass/check": {
+            "decisions": 44,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/zero_mass/raise": {
+            "decisions": 14,
+            "raise_to_sum_bb": 248.0,
+            "raise_to_over_pot_sum": 6.199999999999999
+          },
+          "10B/flop/zero_mass/raise": {
+            "decisions": 6,
+            "raise_to_sum_bb": 60.0,
+            "raise_to_over_pot_sum": 6.0
+          },
+          "10B/turn/zero_mass/check": {
+            "decisions": 2,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/positive_mass/check": {
+            "decisions": 2,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          }
+        },
+        "trace_sha256": [
+          "0e1f442197ea68422adf73f47bc3dee7be136ab2f94044f3abe7db7a1dd96b7f",
+          "4d4594bdc7ec08d202ca14ca96e16c66814d7399ab35f8d1bd428aade90255a9"
+        ],
+        "root": 20261023550003,
+        "blocks": 4096,
+        "seatings": 10
+      },
+      "tight-aggressive": {
+        "hands": 40960,
+        "first_divergences": 10428,
+        "no_divergence_hands": 30532,
+        "paired_mean_bb100": 1.2093017578125,
+        "first_divergence_groups": {
+          "street": {
+            "unchanged": {
+              "hands": 30532,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "preflop": {
+              "hands": 8758,
+              "sum_delta_bb100": -5417.0,
+              "contribution_bb100": -0.1322509765625
+            },
+            "flop": {
+              "hands": 1173,
+              "sum_delta_bb100": 70150.0,
+              "contribution_bb100": 1.712646484375
+            },
+            "river": {
+              "hands": 121,
+              "sum_delta_bb100": -13750.0,
+              "contribution_bb100": -0.335693359375
+            },
+            "turn": {
+              "hands": 376,
+              "sum_delta_bb100": -1450.0,
+              "contribution_bb100": -0.035400390625
+            }
+          },
+          "lookup_pair": {
+            "unchanged": {
+              "hands": 30532,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "positive_mass\u2192positive_mass": {
+              "hands": 10428,
+              "sum_delta_bb100": 49533.0,
+              "contribution_bb100": 1.2093017578125
+            }
+          },
+          "action_pair": {
+            "unchanged": {
+              "hands": 30532,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "raise\u2192call": {
+              "hands": 1804,
+              "sum_delta_bb100": 86133.0,
+              "contribution_bb100": 2.1028564453125
+            },
+            "raise\u2192raise": {
+              "hands": 2364,
+              "sum_delta_bb100": -149850.0,
+              "contribution_bb100": -3.658447265625
+            },
+            "call\u2192fold": {
+              "hands": 1649,
+              "sum_delta_bb100": -193750.0,
+              "contribution_bb100": -4.730224609375
+            },
+            "call\u2192raise": {
+              "hands": 1171,
+              "sum_delta_bb100": 42800.0,
+              "contribution_bb100": 1.044921875
+            },
+            "raise\u2192fold": {
+              "hands": 1100,
+              "sum_delta_bb100": 61050.0,
+              "contribution_bb100": 1.490478515625
+            },
+            "fold\u2192call": {
+              "hands": 776,
+              "sum_delta_bb100": 93875.0,
+              "contribution_bb100": 2.2918701171875
+            },
+            "fold\u2192raise": {
+              "hands": 405,
+              "sum_delta_bb100": 62300.0,
+              "contribution_bb100": 1.52099609375
+            },
+            "check\u2192raise": {
+              "hands": 436,
+              "sum_delta_bb100": 60400.0,
+              "contribution_bb100": 1.474609375
+            },
+            "raise\u2192check": {
+              "hands": 723,
+              "sum_delta_bb100": -13425.0,
+              "contribution_bb100": -0.3277587890625
+            }
+          },
+          "position": {
+            "unchanged": {
+              "hands": 30532,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "1": {
+              "hands": 4017,
+              "sum_delta_bb100": -321000.0,
+              "contribution_bb100": -7.8369140625
+            },
+            "3": {
+              "hands": 1637,
+              "sum_delta_bb100": 63175.0,
+              "contribution_bb100": 1.5423583984375
+            },
+            "0": {
+              "hands": 2133,
+              "sum_delta_bb100": -107100.0,
+              "contribution_bb100": -2.61474609375
+            },
+            "4": {
+              "hands": 1710,
+              "sum_delta_bb100": 124225.0,
+              "contribution_bb100": 3.0328369140625
+            },
+            "2": {
+              "hands": 931,
+              "sum_delta_bb100": 290233.0,
+              "contribution_bb100": 7.0857666015625
+            }
+          },
+          "street_lookup": {
+            "unchanged": {
+              "hands": 30532,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "preflop/positive_mass\u2192positive_mass": {
+              "hands": 8758,
+              "sum_delta_bb100": -5417.0,
+              "contribution_bb100": -0.1322509765625
+            },
+            "flop/positive_mass\u2192positive_mass": {
+              "hands": 1173,
+              "sum_delta_bb100": 70150.0,
+              "contribution_bb100": 1.712646484375
+            },
+            "river/positive_mass\u2192positive_mass": {
+              "hands": 121,
+              "sum_delta_bb100": -13750.0,
+              "contribution_bb100": -0.335693359375
+            },
+            "turn/positive_mass\u2192positive_mass": {
+              "hands": 376,
+              "sum_delta_bb100": -1450.0,
+              "contribution_bb100": -0.035400390625
+            }
+          }
+        },
+        "reached_focal_action_groups": {
+          "3B/preflop/positive_mass/fold": {
+            "decisions": 21216,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/positive_mass/fold": {
+            "decisions": 22709,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/positive_mass/raise": {
+            "decisions": 9512,
+            "raise_to_sum_bb": 68085.0,
+            "raise_to_over_pot_sum": 16200.136750000373
+          },
+          "10B/preflop/positive_mass/call": {
+            "decisions": 5535,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/positive_mass/raise": {
+            "decisions": 2922,
+            "raise_to_sum_bb": 11986.5,
+            "raise_to_over_pot_sum": 1943.1619748826351
+          },
+          "10B/preflop/positive_mass/raise": {
+            "decisions": 7808,
+            "raise_to_sum_bb": 41618.0,
+            "raise_to_over_pot_sum": 13057.058973980598
+          },
+          "3B/preflop/positive_mass/call": {
+            "decisions": 6009,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/positive_mass/raise": {
+            "decisions": 3595,
+            "raise_to_sum_bb": 19224.5,
+            "raise_to_over_pot_sum": 2355.414179094392
+          },
+          "10B/flop/positive_mass/check": {
+            "decisions": 2746,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/positive_mass/call": {
+            "decisions": 194,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/positive_mass/check": {
+            "decisions": 678,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/positive_mass/call": {
+            "decisions": 245,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/positive_mass/check": {
+            "decisions": 1277,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/positive_mass/call": {
+            "decisions": 290,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/positive_mass/check": {
+            "decisions": 924,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/positive_mass/check": {
+            "decisions": 394,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/positive_mass/fold": {
+            "decisions": 476,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/positive_mass/fold": {
+            "decisions": 484,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/positive_mass/check": {
+            "decisions": 2593,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/positive_mass/raise": {
+            "decisions": 1629,
+            "raise_to_sum_bb": 12252.5,
+            "raise_to_over_pot_sum": 1190.3676686483986
+          },
+          "10B/river/positive_mass/fold": {
+            "decisions": 249,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/positive_mass/fold": {
+            "decisions": 307,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/missing/raise": {
+            "decisions": 28,
+            "raise_to_sum_bb": 548.0,
+            "raise_to_over_pot_sum": 23.128709605223715
+          },
+          "3B/preflop/positive_mass/check": {
+            "decisions": 478,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/positive_mass/check": {
+            "decisions": 524,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/positive_mass/call": {
+            "decisions": 133,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/positive_mass/raise": {
+            "decisions": 494,
+            "raise_to_sum_bb": 5081.5,
+            "raise_to_over_pot_sum": 368.9872730416128
+          },
+          "10B/turn/positive_mass/raise": {
+            "decisions": 1362,
+            "raise_to_sum_bb": 8134.5,
+            "raise_to_over_pot_sum": 936.3379801277401
+          },
+          "3B/turn/positive_mass/call": {
+            "decisions": 211,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/missing/fold": {
+            "decisions": 13,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/positive_mass/call": {
+            "decisions": 125,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/positive_mass/fold": {
+            "decisions": 363,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/positive_mass/fold": {
+            "decisions": 166,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/missing/call": {
+            "decisions": 12,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/positive_mass/raise": {
+            "decisions": 567,
+            "raise_to_sum_bb": 8334.0,
+            "raise_to_over_pot_sum": 450.4774565393886
+          },
+          "10B/turn/missing/raise": {
+            "decisions": 15,
+            "raise_to_sum_bb": 452.5,
+            "raise_to_over_pot_sum": 18.74525
+          },
+          "10B/turn/missing/call": {
+            "decisions": 9,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/missing/raise": {
+            "decisions": 23,
+            "raise_to_sum_bb": 590.5,
+            "raise_to_over_pot_sum": 16.950394659128772
+          },
+          "3B/river/missing/raise": {
+            "decisions": 41,
+            "raise_to_sum_bb": 1132.5,
+            "raise_to_over_pot_sum": 32.51105000361957
+          },
+          "3B/preflop/missing/raise": {
+            "decisions": 6,
+            "raise_to_sum_bb": 593.5,
+            "raise_to_over_pot_sum": 8.162921345166858
+          },
+          "10B/river/missing/call": {
+            "decisions": 12,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/zero_mass/raise": {
+            "decisions": 1,
+            "raise_to_sum_bb": 40.5,
+            "raise_to_over_pot_sum": 0.3375
+          },
+          "3B/turn/missing/call": {
+            "decisions": 9,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/missing/call": {
+            "decisions": 7,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/missing/call": {
+            "decisions": 4,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/missing/check": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/missing/fold": {
+            "decisions": 12,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/missing/check": {
+            "decisions": 14,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/missing/raise": {
+            "decisions": 10,
+            "raise_to_sum_bb": 633.0,
+            "raise_to_over_pot_sum": 12.753809523809524
+          },
+          "10B/preflop/missing/fold": {
+            "decisions": 12,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/missing/check": {
+            "decisions": 5,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/missing/fold": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/missing/fold": {
+            "decisions": 11,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/missing/raise": {
+            "decisions": 11,
+            "raise_to_sum_bb": 637.0,
+            "raise_to_over_pot_sum": 13.111666666666666
+          },
+          "3B/preflop/missing/fold": {
+            "decisions": 8,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/missing/raise": {
+            "decisions": 6,
+            "raise_to_sum_bb": 565.0,
+            "raise_to_over_pot_sum": 7.865770984839148
+          },
+          "3B/river/zero_mass/fold": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/missing/fold": {
+            "decisions": 13,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/missing/fold": {
+            "decisions": 8,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/missing/check": {
+            "decisions": 11,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/missing/check": {
+            "decisions": 6,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/missing/call": {
+            "decisions": 4,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/missing/call": {
+            "decisions": 4,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/missing/check": {
+            "decisions": 2,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/zero_mass/raise": {
+            "decisions": 1,
+            "raise_to_sum_bb": 95.5,
+            "raise_to_over_pot_sum": 3.4107142857142856
+          }
+        },
+        "trace_sha256": [
+          "4dd16a94ebce2397833ecf7242509779518034b694124e8854b11a34a9802233",
+          "39e9ccb878b1a523db4dd0a9e9323725c61ba7e29a2ea4563520698499beea29"
+        ],
+        "root": 20261023550004,
+        "blocks": 4096,
+        "seatings": 10
+      },
+      "pot-pressure": {
+        "hands": 40960,
+        "first_divergences": 10814,
+        "no_divergence_hands": 30146,
+        "paired_mean_bb100": 44.1458984375,
+        "first_divergence_groups": {
+          "street": {
+            "unchanged": {
+              "hands": 30146,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "preflop": {
+              "hands": 9063,
+              "sum_delta_bb100": 1765766.0,
+              "contribution_bb100": 43.109521484375
+            },
+            "turn": {
+              "hands": 412,
+              "sum_delta_bb100": -33100.0,
+              "contribution_bb100": -0.80810546875
+            },
+            "flop": {
+              "hands": 1199,
+              "sum_delta_bb100": 40775.0,
+              "contribution_bb100": 0.9954833984375
+            },
+            "river": {
+              "hands": 140,
+              "sum_delta_bb100": 34775.0,
+              "contribution_bb100": 0.8489990234375
+            }
+          },
+          "lookup_pair": {
+            "unchanged": {
+              "hands": 30146,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "positive_mass\u2192positive_mass": {
+              "hands": 10814,
+              "sum_delta_bb100": 1808216.0,
+              "contribution_bb100": 44.1458984375
+            }
+          },
+          "action_pair": {
+            "unchanged": {
+              "hands": 30146,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "raise\u2192raise": {
+              "hands": 2265,
+              "sum_delta_bb100": 23566.0,
+              "contribution_bb100": 0.575341796875
+            },
+            "call\u2192fold": {
+              "hands": 1876,
+              "sum_delta_bb100": 846975.0,
+              "contribution_bb100": 20.6781005859375
+            },
+            "raise\u2192call": {
+              "hands": 1851,
+              "sum_delta_bb100": 289550.0,
+              "contribution_bb100": 7.069091796875
+            },
+            "raise\u2192fold": {
+              "hands": 1346,
+              "sum_delta_bb100": 967150.0,
+              "contribution_bb100": 23.612060546875
+            },
+            "call\u2192raise": {
+              "hands": 1021,
+              "sum_delta_bb100": -178550.0,
+              "contribution_bb100": -4.359130859375
+            },
+            "fold\u2192call": {
+              "hands": 892,
+              "sum_delta_bb100": -21075.0,
+              "contribution_bb100": -0.5145263671875
+            },
+            "raise\u2192check": {
+              "hands": 778,
+              "sum_delta_bb100": -78550.0,
+              "contribution_bb100": -1.917724609375
+            },
+            "fold\u2192raise": {
+              "hands": 353,
+              "sum_delta_bb100": -108350.0,
+              "contribution_bb100": -2.645263671875
+            },
+            "check\u2192raise": {
+              "hands": 432,
+              "sum_delta_bb100": 67500.0,
+              "contribution_bb100": 1.64794921875
+            }
+          },
+          "position": {
+            "unchanged": {
+              "hands": 30146,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "3": {
+              "hands": 1793,
+              "sum_delta_bb100": 409625.0,
+              "contribution_bb100": 10.0006103515625
+            },
+            "1": {
+              "hands": 3606,
+              "sum_delta_bb100": 430450.0,
+              "contribution_bb100": 10.509033203125
+            },
+            "0": {
+              "hands": 1975,
+              "sum_delta_bb100": 295266.0,
+              "contribution_bb100": 7.208642578125
+            },
+            "2": {
+              "hands": 1735,
+              "sum_delta_bb100": 542425.0,
+              "contribution_bb100": 13.2427978515625
+            },
+            "4": {
+              "hands": 1705,
+              "sum_delta_bb100": 130450.0,
+              "contribution_bb100": 3.184814453125
+            }
+          },
+          "street_lookup": {
+            "unchanged": {
+              "hands": 30146,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "preflop/positive_mass\u2192positive_mass": {
+              "hands": 9063,
+              "sum_delta_bb100": 1765766.0,
+              "contribution_bb100": 43.109521484375
+            },
+            "turn/positive_mass\u2192positive_mass": {
+              "hands": 412,
+              "sum_delta_bb100": -33100.0,
+              "contribution_bb100": -0.80810546875
+            },
+            "flop/positive_mass\u2192positive_mass": {
+              "hands": 1199,
+              "sum_delta_bb100": 40775.0,
+              "contribution_bb100": 0.9954833984375
+            },
+            "river/positive_mass\u2192positive_mass": {
+              "hands": 140,
+              "sum_delta_bb100": 34775.0,
+              "contribution_bb100": 0.8489990234375
+            }
+          }
+        },
+        "reached_focal_action_groups": {
+          "3B/preflop/positive_mass/fold": {
+            "decisions": 23796,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/positive_mass/fold": {
+            "decisions": 25510,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/positive_mass/raise": {
+            "decisions": 10719,
+            "raise_to_sum_bb": 129623.0,
+            "raise_to_over_pot_sum": 17961.00329784613
+          },
+          "10B/preflop/positive_mass/raise": {
+            "decisions": 8223,
+            "raise_to_sum_bb": 77861.0,
+            "raise_to_over_pot_sum": 13735.624838310556
+          },
+          "3B/preflop/positive_mass/call": {
+            "decisions": 6954,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/positive_mass/raise": {
+            "decisions": 3675,
+            "raise_to_sum_bb": 33509.0,
+            "raise_to_over_pot_sum": 2430.485555377235
+          },
+          "10B/preflop/positive_mass/call": {
+            "decisions": 6374,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/positive_mass/check": {
+            "decisions": 2893,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/positive_mass/call": {
+            "decisions": 393,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/positive_mass/check": {
+            "decisions": 716,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/positive_mass/raise": {
+            "decisions": 2874,
+            "raise_to_sum_bb": 22204.0,
+            "raise_to_over_pot_sum": 1907.1154964001726
+          },
+          "3B/flop/positive_mass/fold": {
+            "decisions": 1028,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/positive_mass/fold": {
+            "decisions": 999,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/positive_mass/fold": {
+            "decisions": 575,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/positive_mass/check": {
+            "decisions": 2637,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/positive_mass/check": {
+            "decisions": 1139,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/positive_mass/fold": {
+            "decisions": 553,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/positive_mass/check": {
+            "decisions": 803,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/positive_mass/check": {
+            "decisions": 526,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/positive_mass/check": {
+            "decisions": 868,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/positive_mass/check": {
+            "decisions": 1440,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/positive_mass/raise": {
+            "decisions": 1664,
+            "raise_to_sum_bb": 21305.5,
+            "raise_to_over_pot_sum": 1157.7651341052078
+          },
+          "10B/turn/positive_mass/raise": {
+            "decisions": 1380,
+            "raise_to_sum_bb": 14435.0,
+            "raise_to_over_pot_sum": 937.8325685058784
+          },
+          "3B/river/missing/raise": {
+            "decisions": 107,
+            "raise_to_sum_bb": 4435.0,
+            "raise_to_over_pot_sum": 114.23136340619699
+          },
+          "10B/river/missing/raise": {
+            "decisions": 100,
+            "raise_to_sum_bb": 3426.0,
+            "raise_to_over_pot_sum": 93.4733904898226
+          },
+          "3B/turn/missing/raise": {
+            "decisions": 67,
+            "raise_to_sum_bb": 2078.0,
+            "raise_to_over_pot_sum": 51.94016088509462
+          },
+          "10B/river/missing/check": {
+            "decisions": 23,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/positive_mass/raise": {
+            "decisions": 624,
+            "raise_to_sum_bb": 8514.0,
+            "raise_to_over_pot_sum": 415.1913020024313
+          },
+          "3B/flop/positive_mass/call": {
+            "decisions": 526,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/positive_mass/call": {
+            "decisions": 528,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/positive_mass/fold": {
+            "decisions": 369,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/missing/raise": {
+            "decisions": 69,
+            "raise_to_sum_bb": 2616.0,
+            "raise_to_over_pot_sum": 53.28014339315374
+          },
+          "3B/flop/missing/call": {
+            "decisions": 27,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/missing/call": {
+            "decisions": 20,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/positive_mass/raise": {
+            "decisions": 721,
+            "raise_to_sum_bb": 13399.0,
+            "raise_to_over_pot_sum": 545.8173753925564
+          },
+          "3B/river/positive_mass/call": {
+            "decisions": 177,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/positive_mass/call": {
+            "decisions": 254,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/missing/fold": {
+            "decisions": 47,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/missing/fold": {
+            "decisions": 26,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/positive_mass/call": {
+            "decisions": 318,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/positive_mass/fold": {
+            "decisions": 304,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/zero_mass/call": {
+            "decisions": 3,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/missing/check": {
+            "decisions": 26,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/missing/call": {
+            "decisions": 51,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/missing/call": {
+            "decisions": 49,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/missing/call": {
+            "decisions": 37,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/missing/raise": {
+            "decisions": 51,
+            "raise_to_sum_bb": 2657.5,
+            "raise_to_over_pot_sum": 46.25966137880025
+          },
+          "3B/flop/missing/fold": {
+            "decisions": 38,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/missing/check": {
+            "decisions": 16,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/missing/check": {
+            "decisions": 16,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/missing/raise": {
+            "decisions": 37,
+            "raise_to_sum_bb": 1354.0,
+            "raise_to_over_pot_sum": 25.07686648094252
+          },
+          "3B/preflop/missing/fold": {
+            "decisions": 67,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/missing/fold": {
+            "decisions": 38,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/missing/call": {
+            "decisions": 21,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/missing/call": {
+            "decisions": 31,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/missing/call": {
+            "decisions": 38,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/missing/fold": {
+            "decisions": 30,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/missing/raise": {
+            "decisions": 32,
+            "raise_to_sum_bb": 2740.5,
+            "raise_to_over_pot_sum": 37.19341706441524
+          },
+          "10B/preflop/missing/raise": {
+            "decisions": 28,
+            "raise_to_sum_bb": 2111.0,
+            "raise_to_over_pot_sum": 28.96720616533151
+          },
+          "10B/turn/missing/check": {
+            "decisions": 22,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/missing/fold": {
+            "decisions": 23,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/missing/fold": {
+            "decisions": 23,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/zero_mass/call": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/zero_mass/raise": {
+            "decisions": 4,
+            "raise_to_sum_bb": 98.0,
+            "raise_to_over_pot_sum": 0.9189640768588136
+          },
+          "10B/flop/zero_mass/raise": {
+            "decisions": 2,
+            "raise_to_sum_bb": 96.0,
+            "raise_to_over_pot_sum": 0.8888888888888888
+          },
+          "3B/flop/zero_mass/check": {
+            "decisions": 2,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/missing/check": {
+            "decisions": 10,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/zero_mass/call": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/zero_mass/call": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          }
+        },
+        "trace_sha256": [
+          "a33beb0b168f6db3d69f2074e83dc747133200d7c66376a5370a426ed342ae68",
+          "9840516cb11d6bea9286d8b65cf5be3a0f496dd68bb750c8d4dfaca014e05676"
+        ],
+        "root": 20261023550005,
+        "blocks": 4096,
+        "seatings": 10
+      },
+      "call-pressure": {
+        "hands": 40960,
+        "first_divergences": 14615,
+        "no_divergence_hands": 26345,
+        "paired_mean_bb100": 11.91796875,
+        "first_divergence_groups": {
+          "street": {
+            "preflop": {
+              "hands": 10630,
+              "sum_delta_bb100": 617543.0,
+              "contribution_bb100": 15.0767333984375
+            },
+            "unchanged": {
+              "hands": 26345,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "flop": {
+              "hands": 2385,
+              "sum_delta_bb100": -338083.0,
+              "contribution_bb100": -8.2539794921875
+            },
+            "turn": {
+              "hands": 1208,
+              "sum_delta_bb100": 179600.0,
+              "contribution_bb100": 4.384765625
+            },
+            "river": {
+              "hands": 392,
+              "sum_delta_bb100": 29100.0,
+              "contribution_bb100": 0.71044921875
+            }
+          },
+          "lookup_pair": {
+            "positive_mass\u2192positive_mass": {
+              "hands": 14602,
+              "sum_delta_bb100": 467760.0,
+              "contribution_bb100": 11.419921875
+            },
+            "unchanged": {
+              "hands": 26345,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "zero_mass\u2192positive_mass": {
+              "hands": 13,
+              "sum_delta_bb100": 20400.0,
+              "contribution_bb100": 0.498046875
+            }
+          },
+          "action_pair": {
+            "call\u2192fold": {
+              "hands": 2072,
+              "sum_delta_bb100": 148067.0,
+              "contribution_bb100": 3.6149169921875
+            },
+            "unchanged": {
+              "hands": 26345,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "call\u2192raise": {
+              "hands": 873,
+              "sum_delta_bb100": 305950.0,
+              "contribution_bb100": 7.469482421875
+            },
+            "fold\u2192call": {
+              "hands": 603,
+              "sum_delta_bb100": -111482.0,
+              "contribution_bb100": -2.721728515625
+            },
+            "raise\u2192fold": {
+              "hands": 1621,
+              "sum_delta_bb100": 854258.0,
+              "contribution_bb100": 20.855908203125
+            },
+            "raise\u2192raise": {
+              "hands": 3417,
+              "sum_delta_bb100": 44075.0,
+              "contribution_bb100": 1.0760498046875
+            },
+            "check\u2192raise": {
+              "hands": 1245,
+              "sum_delta_bb100": -62450.0,
+              "contribution_bb100": -1.524658203125
+            },
+            "raise\u2192check": {
+              "hands": 2934,
+              "sum_delta_bb100": -207825.0,
+              "contribution_bb100": -5.0738525390625
+            },
+            "raise\u2192call": {
+              "hands": 1466,
+              "sum_delta_bb100": -307408.0,
+              "contribution_bb100": -7.505078125
+            },
+            "fold\u2192raise": {
+              "hands": 384,
+              "sum_delta_bb100": -175025.0,
+              "contribution_bb100": -4.2730712890625
+            }
+          },
+          "position": {
+            "0": {
+              "hands": 2379,
+              "sum_delta_bb100": 328683.0,
+              "contribution_bb100": 8.0244873046875
+            },
+            "unchanged": {
+              "hands": 26345,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "2": {
+              "hands": 5108,
+              "sum_delta_bb100": 134291.0,
+              "contribution_bb100": 3.2785888671875
+            },
+            "1": {
+              "hands": 3282,
+              "sum_delta_bb100": 1112267.0,
+              "contribution_bb100": 27.1549560546875
+            },
+            "3": {
+              "hands": 1863,
+              "sum_delta_bb100": -434291.0,
+              "contribution_bb100": -10.6028076171875
+            },
+            "4": {
+              "hands": 1983,
+              "sum_delta_bb100": -652790.0,
+              "contribution_bb100": -15.937255859375
+            }
+          },
+          "street_lookup": {
+            "preflop/positive_mass\u2192positive_mass": {
+              "hands": 10625,
+              "sum_delta_bb100": 605243.0,
+              "contribution_bb100": 14.7764404296875
+            },
+            "unchanged": {
+              "hands": 26345,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "flop/positive_mass\u2192positive_mass": {
+              "hands": 2383,
+              "sum_delta_bb100": -338083.0,
+              "contribution_bb100": -8.2539794921875
+            },
+            "turn/positive_mass\u2192positive_mass": {
+              "hands": 1207,
+              "sum_delta_bb100": 176400.0,
+              "contribution_bb100": 4.306640625
+            },
+            "river/zero_mass\u2192positive_mass": {
+              "hands": 5,
+              "sum_delta_bb100": 4900.0,
+              "contribution_bb100": 0.11962890625
+            },
+            "river/positive_mass\u2192positive_mass": {
+              "hands": 387,
+              "sum_delta_bb100": 24200.0,
+              "contribution_bb100": 0.5908203125
+            },
+            "turn/zero_mass\u2192positive_mass": {
+              "hands": 1,
+              "sum_delta_bb100": 3200.0,
+              "contribution_bb100": 0.078125
+            },
+            "preflop/zero_mass\u2192positive_mass": {
+              "hands": 5,
+              "sum_delta_bb100": 12300.0,
+              "contribution_bb100": 0.30029296875
+            },
+            "flop/zero_mass\u2192positive_mass": {
+              "hands": 2,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            }
+          }
+        },
+        "reached_focal_action_groups": {
+          "3B/preflop/positive_mass/call": {
+            "decisions": 5463,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/positive_mass/check": {
+            "decisions": 6277,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/positive_mass/raise": {
+            "decisions": 5863,
+            "raise_to_sum_bb": 53554.0,
+            "raise_to_over_pot_sum": 3481.147248239324
+          },
+          "3B/river/missing/raise": {
+            "decisions": 6819,
+            "raise_to_sum_bb": 136238.5,
+            "raise_to_over_pot_sum": 3716.5754475452604
+          },
+          "10B/preflop/positive_mass/fold": {
+            "decisions": 25778,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/positive_mass/fold": {
+            "decisions": 23273,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/missing/check": {
+            "decisions": 409,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/missing/raise": {
+            "decisions": 1238,
+            "raise_to_sum_bb": 43237.0,
+            "raise_to_over_pot_sum": 785.5355202622056
+          },
+          "10B/preflop/positive_mass/raise": {
+            "decisions": 9210,
+            "raise_to_sum_bb": 86791.0,
+            "raise_to_over_pot_sum": 11978.25168002377
+          },
+          "10B/flop/missing/raise": {
+            "decisions": 1019,
+            "raise_to_sum_bb": 36262.0,
+            "raise_to_over_pot_sum": 658.0784443174213
+          },
+          "10B/preflop/positive_mass/call": {
+            "decisions": 4360,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/positive_mass/raise": {
+            "decisions": 5937,
+            "raise_to_sum_bb": 41337.5,
+            "raise_to_over_pot_sum": 3205.1338226820085
+          },
+          "10B/turn/missing/raise": {
+            "decisions": 2967,
+            "raise_to_sum_bb": 64033.5,
+            "raise_to_over_pot_sum": 1696.073009701167
+          },
+          "3B/preflop/positive_mass/check": {
+            "decisions": 2890,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/positive_mass/check": {
+            "decisions": 3635,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/positive_mass/check": {
+            "decisions": 6782,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/positive_mass/raise": {
+            "decisions": 4529,
+            "raise_to_sum_bb": 35873.0,
+            "raise_to_over_pot_sum": 2615.5298922775237
+          },
+          "10B/river/missing/raise": {
+            "decisions": 5398,
+            "raise_to_sum_bb": 99180.0,
+            "raise_to_over_pot_sum": 2960.989960664057
+          },
+          "3B/flop/positive_mass/raise": {
+            "decisions": 8310,
+            "raise_to_sum_bb": 61337.0,
+            "raise_to_over_pot_sum": 4819.961294232977
+          },
+          "3B/turn/missing/check": {
+            "decisions": 1690,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/missing/check": {
+            "decisions": 3448,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/positive_mass/check": {
+            "decisions": 3669,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/positive_mass/check": {
+            "decisions": 4268,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/missing/check": {
+            "decisions": 2685,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/positive_mass/raise": {
+            "decisions": 12234,
+            "raise_to_sum_bb": 120232.5,
+            "raise_to_over_pot_sum": 16049.921788420828
+          },
+          "3B/river/positive_mass/raise": {
+            "decisions": 2020,
+            "raise_to_sum_bb": 17104.0,
+            "raise_to_over_pot_sum": 1192.2727931760703
+          },
+          "10B/river/positive_mass/raise": {
+            "decisions": 1895,
+            "raise_to_sum_bb": 12939.0,
+            "raise_to_over_pot_sum": 1068.0601407566694
+          },
+          "3B/turn/missing/raise": {
+            "decisions": 3736,
+            "raise_to_sum_bb": 82735.0,
+            "raise_to_over_pot_sum": 2140.4352061140444
+          },
+          "3B/river/positive_mass/check": {
+            "decisions": 1437,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/positive_mass/check": {
+            "decisions": 1988,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/missing/fold": {
+            "decisions": 197,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/missing/fold": {
+            "decisions": 483,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/missing/fold": {
+            "decisions": 408,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/missing/fold": {
+            "decisions": 345,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/missing/raise": {
+            "decisions": 440,
+            "raise_to_sum_bb": 30974.0,
+            "raise_to_over_pot_sum": 419.7194908330682
+          },
+          "10B/preflop/missing/raise": {
+            "decisions": 430,
+            "raise_to_sum_bb": 30020.5,
+            "raise_to_over_pot_sum": 419.16600113897607
+          },
+          "10B/preflop/missing/call": {
+            "decisions": 428,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/missing/call": {
+            "decisions": 492,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/missing/fold": {
+            "decisions": 296,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/missing/fold": {
+            "decisions": 266,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/missing/fold": {
+            "decisions": 176,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/missing/check": {
+            "decisions": 1243,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/missing/call": {
+            "decisions": 279,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/missing/call": {
+            "decisions": 301,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/positive_mass/call": {
+            "decisions": 161,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/zero_mass/raise": {
+            "decisions": 10,
+            "raise_to_sum_bb": 250.0,
+            "raise_to_over_pot_sum": 5.115588336783988
+          },
+          "10B/flop/missing/fold": {
+            "decisions": 298,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/positive_mass/fold": {
+            "decisions": 204,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/missing/call": {
+            "decisions": 183,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/zero_mass/check": {
+            "decisions": 17,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/missing/call": {
+            "decisions": 330,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/missing/call": {
+            "decisions": 251,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/zero_mass/raise": {
+            "decisions": 2,
+            "raise_to_sum_bb": 43.5,
+            "raise_to_over_pot_sum": 1.0416666666666667
+          },
+          "10B/flop/missing/check": {
+            "decisions": 298,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/positive_mass/call": {
+            "decisions": 125,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/positive_mass/call": {
+            "decisions": 19,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/positive_mass/fold": {
+            "decisions": 191,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/missing/call": {
+            "decisions": 156,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/zero_mass/raise": {
+            "decisions": 3,
+            "raise_to_sum_bb": 153.0,
+            "raise_to_over_pot_sum": 2.0919817927170867
+          },
+          "3B/turn/zero_mass/raise": {
+            "decisions": 10,
+            "raise_to_sum_bb": 206.5,
+            "raise_to_over_pot_sum": 8.528920807453417
+          },
+          "10B/river/zero_mass/raise": {
+            "decisions": 7,
+            "raise_to_sum_bb": 52.5,
+            "raise_to_over_pot_sum": 2.420758928571429
+          },
+          "3B/preflop/zero_mass/call": {
+            "decisions": 3,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/zero_mass/raise": {
+            "decisions": 8,
+            "raise_to_sum_bb": 681.5,
+            "raise_to_over_pot_sum": 7.266855035202374
+          },
+          "3B/turn/positive_mass/fold": {
+            "decisions": 21,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/positive_mass/fold": {
+            "decisions": 18,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/positive_mass/call": {
+            "decisions": 15,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/zero_mass/fold": {
+            "decisions": 3,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/zero_mass/check": {
+            "decisions": 13,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/positive_mass/call": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/positive_mass/call": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/zero_mass/fold": {
+            "decisions": 4,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/zero_mass/raise": {
+            "decisions": 10,
+            "raise_to_sum_bb": 345.0,
+            "raise_to_over_pot_sum": 6.26886645962733
+          },
+          "10B/preflop/zero_mass/call": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/zero_mass/check": {
+            "decisions": 3,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/zero_mass/check": {
+            "decisions": 3,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/zero_mass/raise": {
+            "decisions": 1,
+            "raise_to_sum_bb": 100.0,
+            "raise_to_over_pot_sum": 0.5102040816326531
+          },
+          "10B/flop/zero_mass/fold": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/zero_mass/fold": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/zero_mass/check": {
+            "decisions": 3,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          }
+        },
+        "trace_sha256": [
+          "24eebf8bf08257a298097b6566b790a92203ced42eee30d337aa9edf40c74a5a",
+          "238519ec3301639657ffb68f63005a84194e74a18359a24fabc98aa0051bbe5d"
+        ],
+        "root": 20261023550006,
+        "blocks": 4096,
+        "seatings": 10
+      },
+      "random-tight": {
+        "hands": 40960,
+        "first_divergences": 12876,
+        "no_divergence_hands": 28084,
+        "paired_mean_bb100": -37.457275390625,
+        "first_divergence_groups": {
+          "street": {
+            "unchanged": {
+              "hands": 28084,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "preflop": {
+              "hands": 10323,
+              "sum_delta_bb100": -1142825.0,
+              "contribution_bb100": -27.9010009765625
+            },
+            "flop": {
+              "hands": 1834,
+              "sum_delta_bb100": -240900.0,
+              "contribution_bb100": -5.88134765625
+            },
+            "turn": {
+              "hands": 569,
+              "sum_delta_bb100": -96050.0,
+              "contribution_bb100": -2.344970703125
+            },
+            "river": {
+              "hands": 150,
+              "sum_delta_bb100": -54475.0,
+              "contribution_bb100": -1.3299560546875
+            }
+          },
+          "lookup_pair": {
+            "unchanged": {
+              "hands": 28084,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "positive_mass\u2192positive_mass": {
+              "hands": 12875,
+              "sum_delta_bb100": -1534350.0,
+              "contribution_bb100": -37.459716796875
+            },
+            "zero_mass\u2192positive_mass": {
+              "hands": 1,
+              "sum_delta_bb100": 100.0,
+              "contribution_bb100": 0.00244140625
+            }
+          },
+          "action_pair": {
+            "unchanged": {
+              "hands": 28084,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "fold\u2192call": {
+              "hands": 1146,
+              "sum_delta_bb100": 434425.0,
+              "contribution_bb100": 10.6060791015625
+            },
+            "raise\u2192fold": {
+              "hands": 1369,
+              "sum_delta_bb100": -183500.0,
+              "contribution_bb100": -4.47998046875
+            },
+            "call\u2192raise": {
+              "hands": 1283,
+              "sum_delta_bb100": -294675.0,
+              "contribution_bb100": -7.1942138671875
+            },
+            "raise\u2192check": {
+              "hands": 940,
+              "sum_delta_bb100": -6625.0,
+              "contribution_bb100": -0.1617431640625
+            },
+            "call\u2192fold": {
+              "hands": 2384,
+              "sum_delta_bb100": -243400.0,
+              "contribution_bb100": -5.9423828125
+            },
+            "raise\u2192raise": {
+              "hands": 2651,
+              "sum_delta_bb100": -334800.0,
+              "contribution_bb100": -8.173828125
+            },
+            "fold\u2192raise": {
+              "hands": 366,
+              "sum_delta_bb100": -68200.0,
+              "contribution_bb100": -1.6650390625
+            },
+            "raise\u2192call": {
+              "hands": 2258,
+              "sum_delta_bb100": -652625.0,
+              "contribution_bb100": -15.9332275390625
+            },
+            "check\u2192raise": {
+              "hands": 479,
+              "sum_delta_bb100": -184850.0,
+              "contribution_bb100": -4.512939453125
+            }
+          },
+          "position": {
+            "unchanged": {
+              "hands": 28084,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "1": {
+              "hands": 3785,
+              "sum_delta_bb100": -415650.0,
+              "contribution_bb100": -10.147705078125
+            },
+            "2": {
+              "hands": 3150,
+              "sum_delta_bb100": 109975.0,
+              "contribution_bb100": 2.6849365234375
+            },
+            "0": {
+              "hands": 2095,
+              "sum_delta_bb100": -348625.0,
+              "contribution_bb100": -8.5113525390625
+            },
+            "4": {
+              "hands": 1898,
+              "sum_delta_bb100": -677275.0,
+              "contribution_bb100": -16.5350341796875
+            },
+            "3": {
+              "hands": 1948,
+              "sum_delta_bb100": -202675.0,
+              "contribution_bb100": -4.9481201171875
+            }
+          },
+          "street_lookup": {
+            "unchanged": {
+              "hands": 28084,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "preflop/positive_mass\u2192positive_mass": {
+              "hands": 10323,
+              "sum_delta_bb100": -1142825.0,
+              "contribution_bb100": -27.9010009765625
+            },
+            "flop/positive_mass\u2192positive_mass": {
+              "hands": 1834,
+              "sum_delta_bb100": -240900.0,
+              "contribution_bb100": -5.88134765625
+            },
+            "turn/positive_mass\u2192positive_mass": {
+              "hands": 568,
+              "sum_delta_bb100": -96150.0,
+              "contribution_bb100": -2.347412109375
+            },
+            "river/positive_mass\u2192positive_mass": {
+              "hands": 150,
+              "sum_delta_bb100": -54475.0,
+              "contribution_bb100": -1.3299560546875
+            },
+            "turn/zero_mass\u2192positive_mass": {
+              "hands": 1,
+              "sum_delta_bb100": 100.0,
+              "contribution_bb100": 0.00244140625
+            }
+          }
+        },
+        "reached_focal_action_groups": {
+          "3B/preflop/positive_mass/fold": {
+            "decisions": 25205,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/positive_mass/fold": {
+            "decisions": 27135,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/positive_mass/call": {
+            "decisions": 7802,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/positive_mass/raise": {
+            "decisions": 4394,
+            "raise_to_sum_bb": 51724.0,
+            "raise_to_over_pot_sum": 3013.9757890764554
+          },
+          "10B/turn/positive_mass/raise": {
+            "decisions": 2309,
+            "raise_to_sum_bb": 35978.5,
+            "raise_to_over_pot_sum": 1513.8819692352943
+          },
+          "3B/preflop/positive_mass/raise": {
+            "decisions": 12072,
+            "raise_to_sum_bb": 160324.0,
+            "raise_to_over_pot_sum": 19192.342249247005
+          },
+          "3B/preflop/positive_mass/call": {
+            "decisions": 8639,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/positive_mass/check": {
+            "decisions": 3301,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/positive_mass/raise": {
+            "decisions": 2896,
+            "raise_to_sum_bb": 50667.0,
+            "raise_to_over_pot_sum": 2027.0862450448485
+          },
+          "10B/preflop/positive_mass/raise": {
+            "decisions": 9069,
+            "raise_to_sum_bb": 98164.5,
+            "raise_to_over_pot_sum": 14378.061340322218
+          },
+          "3B/flop/positive_mass/raise": {
+            "decisions": 5908,
+            "raise_to_sum_bb": 82300.5,
+            "raise_to_over_pot_sum": 4225.201652453183
+          },
+          "10B/flop/positive_mass/check": {
+            "decisions": 3535,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/positive_mass/call": {
+            "decisions": 1090,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/positive_mass/call": {
+            "decisions": 600,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/positive_mass/fold": {
+            "decisions": 2549,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/positive_mass/call": {
+            "decisions": 1974,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/missing/raise": {
+            "decisions": 198,
+            "raise_to_sum_bb": 5997.5,
+            "raise_to_over_pot_sum": 138.53836775857738
+          },
+          "3B/turn/positive_mass/call": {
+            "decisions": 889,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/missing/raise": {
+            "decisions": 232,
+            "raise_to_sum_bb": 7076.0,
+            "raise_to_over_pot_sum": 172.8864506191881
+          },
+          "10B/flop/positive_mass/fold": {
+            "decisions": 2431,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/positive_mass/check": {
+            "decisions": 1594,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/positive_mass/check": {
+            "decisions": 763,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/positive_mass/fold": {
+            "decisions": 494,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/positive_mass/call": {
+            "decisions": 1807,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/positive_mass/check": {
+            "decisions": 1333,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/missing/raise": {
+            "decisions": 183,
+            "raise_to_sum_bb": 5700.0,
+            "raise_to_over_pot_sum": 136.91653579026496
+          },
+          "3B/turn/positive_mass/fold": {
+            "decisions": 964,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/positive_mass/fold": {
+            "decisions": 1023,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/positive_mass/raise": {
+            "decisions": 1032,
+            "raise_to_sum_bb": 20333.5,
+            "raise_to_over_pot_sum": 709.0204203975877
+          },
+          "10B/preflop/positive_mass/check": {
+            "decisions": 1418,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/missing/check": {
+            "decisions": 44,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/missing/fold": {
+            "decisions": 58,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/missing/raise": {
+            "decisions": 60,
+            "raise_to_sum_bb": 4662.5,
+            "raise_to_over_pot_sum": 74.73773611706211
+          },
+          "3B/preflop/missing/fold": {
+            "decisions": 113,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/missing/call": {
+            "decisions": 94,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/missing/fold": {
+            "decisions": 67,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/missing/fold": {
+            "decisions": 60,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/missing/check": {
+            "decisions": 53,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/missing/check": {
+            "decisions": 38,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/positive_mass/fold": {
+            "decisions": 342,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/positive_mass/check": {
+            "decisions": 1306,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/positive_mass/check": {
+            "decisions": 519,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/positive_mass/raise": {
+            "decisions": 1156,
+            "raise_to_sum_bb": 26050.5,
+            "raise_to_over_pot_sum": 817.4807733054511
+          },
+          "3B/river/missing/call": {
+            "decisions": 86,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/missing/call": {
+            "decisions": 101,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/missing/call": {
+            "decisions": 63,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/missing/fold": {
+            "decisions": 116,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/missing/fold": {
+            "decisions": 96,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/missing/fold": {
+            "decisions": 70,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/positive_mass/call": {
+            "decisions": 385,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/missing/raise": {
+            "decisions": 134,
+            "raise_to_sum_bb": 4353.0,
+            "raise_to_over_pot_sum": 112.12020470573582
+          },
+          "10B/preflop/missing/raise": {
+            "decisions": 44,
+            "raise_to_sum_bb": 3200.5,
+            "raise_to_over_pot_sum": 48.14899218563922
+          },
+          "10B/flop/missing/raise": {
+            "decisions": 78,
+            "raise_to_sum_bb": 2961.0,
+            "raise_to_over_pot_sum": 81.8478654025381
+          },
+          "10B/flop/missing/call": {
+            "decisions": 50,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/missing/raise": {
+            "decisions": 97,
+            "raise_to_sum_bb": 4451.5,
+            "raise_to_over_pot_sum": 92.84048452057412
+          },
+          "10B/flop/missing/check": {
+            "decisions": 6,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/missing/check": {
+            "decisions": 73,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/missing/call": {
+            "decisions": 49,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/missing/call": {
+            "decisions": 72,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/missing/call": {
+            "decisions": 67,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/missing/fold": {
+            "decisions": 72,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/zero_mass/check": {
+            "decisions": 2,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/zero_mass/raise": {
+            "decisions": 7,
+            "raise_to_sum_bb": 273.0,
+            "raise_to_over_pot_sum": 3.8309884200095565
+          },
+          "3B/preflop/zero_mass/fold": {
+            "decisions": 2,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/missing/check": {
+            "decisions": 12,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/zero_mass/raise": {
+            "decisions": 8,
+            "raise_to_sum_bb": 166.0,
+            "raise_to_over_pot_sum": 3.2058406120950877
+          },
+          "10B/flop/zero_mass/check": {
+            "decisions": 2,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/zero_mass/fold": {
+            "decisions": 3,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/zero_mass/fold": {
+            "decisions": 3,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/zero_mass/raise": {
+            "decisions": 3,
+            "raise_to_sum_bb": 61.0,
+            "raise_to_over_pot_sum": 0.6797955340328221
+          },
+          "3B/river/zero_mass/raise": {
+            "decisions": 8,
+            "raise_to_sum_bb": 110.0,
+            "raise_to_over_pot_sum": 3.6304976420948125
+          },
+          "3B/flop/zero_mass/call": {
+            "decisions": 2,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/zero_mass/check": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/zero_mass/call": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/zero_mass/check": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/zero_mass/call": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/zero_mass/fold": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/zero_mass/check": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          }
+        },
+        "trace_sha256": [
+          "dffa87472600c982a8871f773d2ba7601070a67bf8b2a236bf8a0e21daef39c1",
+          "22aeec7bdbafa404f8a6fbd69f6f460bedf51d3e31d542588d52b124f1c36db4"
+        ],
+        "root": 20261023550007,
+        "blocks": 4096,
+        "seatings": 10
+      },
+      "trained-call-pressure": {
+        "hands": 40960,
+        "first_divergences": 14179,
+        "no_divergence_hands": 26781,
+        "paired_mean_bb100": 44.503759765625,
+        "first_divergence_groups": {
+          "street": {
+            "unchanged": {
+              "hands": 26781,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "preflop": {
+              "hands": 10787,
+              "sum_delta_bb100": 1571633.0,
+              "contribution_bb100": 38.3699462890625
+            },
+            "turn": {
+              "hands": 972,
+              "sum_delta_bb100": 73425.0,
+              "contribution_bb100": 1.7926025390625
+            },
+            "flop": {
+              "hands": 2207,
+              "sum_delta_bb100": 130366.0,
+              "contribution_bb100": 3.182763671875
+            },
+            "river": {
+              "hands": 213,
+              "sum_delta_bb100": 47450.0,
+              "contribution_bb100": 1.158447265625
+            }
+          },
+          "lookup_pair": {
+            "unchanged": {
+              "hands": 26781,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "positive_mass\u2192positive_mass": {
+              "hands": 14173,
+              "sum_delta_bb100": 1835974.0,
+              "contribution_bb100": 44.823583984375
+            },
+            "zero_mass\u2192positive_mass": {
+              "hands": 6,
+              "sum_delta_bb100": -13100.0,
+              "contribution_bb100": -0.31982421875
+            }
+          },
+          "action_pair": {
+            "unchanged": {
+              "hands": 26781,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "fold\u2192raise": {
+              "hands": 360,
+              "sum_delta_bb100": -463182.0,
+              "contribution_bb100": -11.308154296875
+            },
+            "raise\u2192fold": {
+              "hands": 1911,
+              "sum_delta_bb100": 483592.0,
+              "contribution_bb100": 11.8064453125
+            },
+            "call\u2192raise": {
+              "hands": 924,
+              "sum_delta_bb100": 71900.0,
+              "contribution_bb100": 1.75537109375
+            },
+            "raise\u2192check": {
+              "hands": 2572,
+              "sum_delta_bb100": -259459.0,
+              "contribution_bb100": -6.3344482421875
+            },
+            "call\u2192fold": {
+              "hands": 2149,
+              "sum_delta_bb100": 864908.0,
+              "contribution_bb100": 21.11591796875
+            },
+            "raise\u2192call": {
+              "hands": 1642,
+              "sum_delta_bb100": 167624.0,
+              "contribution_bb100": 4.0923828125
+            },
+            "raise\u2192raise": {
+              "hands": 3195,
+              "sum_delta_bb100": 305316.0,
+              "contribution_bb100": 7.45400390625
+            },
+            "check\u2192raise": {
+              "hands": 923,
+              "sum_delta_bb100": 516200.0,
+              "contribution_bb100": 12.6025390625
+            },
+            "fold\u2192call": {
+              "hands": 503,
+              "sum_delta_bb100": 135975.0,
+              "contribution_bb100": 3.3197021484375
+            }
+          },
+          "position": {
+            "unchanged": {
+              "hands": 26781,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "1": {
+              "hands": 3471,
+              "sum_delta_bb100": 402963.0,
+              "contribution_bb100": 9.8379638671875
+            },
+            "2": {
+              "hands": 4961,
+              "sum_delta_bb100": 1860117.0,
+              "contribution_bb100": 45.4130126953125
+            },
+            "4": {
+              "hands": 1937,
+              "sum_delta_bb100": -193024.0,
+              "contribution_bb100": -4.7125
+            },
+            "0": {
+              "hands": 2048,
+              "sum_delta_bb100": -269775.0,
+              "contribution_bb100": -6.5863037109375
+            },
+            "3": {
+              "hands": 1762,
+              "sum_delta_bb100": 22593.0,
+              "contribution_bb100": 0.5515869140625
+            }
+          },
+          "street_lookup": {
+            "unchanged": {
+              "hands": 26781,
+              "sum_delta_bb100": 0.0,
+              "contribution_bb100": 0.0
+            },
+            "preflop/positive_mass\u2192positive_mass": {
+              "hands": 10784,
+              "sum_delta_bb100": 1559133.0,
+              "contribution_bb100": 38.0647705078125
+            },
+            "turn/positive_mass\u2192positive_mass": {
+              "hands": 972,
+              "sum_delta_bb100": 73425.0,
+              "contribution_bb100": 1.7926025390625
+            },
+            "flop/positive_mass\u2192positive_mass": {
+              "hands": 2206,
+              "sum_delta_bb100": 153366.0,
+              "contribution_bb100": 3.744287109375
+            },
+            "river/positive_mass\u2192positive_mass": {
+              "hands": 211,
+              "sum_delta_bb100": 50050.0,
+              "contribution_bb100": 1.221923828125
+            },
+            "flop/zero_mass\u2192positive_mass": {
+              "hands": 1,
+              "sum_delta_bb100": -23000.0,
+              "contribution_bb100": -0.5615234375
+            },
+            "preflop/zero_mass\u2192positive_mass": {
+              "hands": 3,
+              "sum_delta_bb100": 12500.0,
+              "contribution_bb100": 0.30517578125
+            },
+            "river/zero_mass\u2192positive_mass": {
+              "hands": 2,
+              "sum_delta_bb100": -2600.0,
+              "contribution_bb100": -0.0634765625
+            }
+          }
+        },
+        "reached_focal_action_groups": {
+          "3B/preflop/positive_mass/fold": {
+            "decisions": 23305,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/positive_mass/fold": {
+            "decisions": 26177,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/positive_mass/raise": {
+            "decisions": 13362,
+            "raise_to_sum_bb": 137376.5,
+            "raise_to_over_pot_sum": 17051.863343027864
+          },
+          "3B/flop/positive_mass/raise": {
+            "decisions": 7972,
+            "raise_to_sum_bb": 71127.0,
+            "raise_to_over_pot_sum": 4865.0476370758015
+          },
+          "3B/turn/missing/raise": {
+            "decisions": 4190,
+            "raise_to_sum_bb": 97347.0,
+            "raise_to_over_pot_sum": 2321.4893584948845
+          },
+          "3B/river/missing/raise": {
+            "decisions": 6343,
+            "raise_to_sum_bb": 127194.0,
+            "raise_to_over_pot_sum": 3371.8689063078373
+          },
+          "10B/preflop/positive_mass/raise": {
+            "decisions": 9817,
+            "raise_to_sum_bb": 105988.5,
+            "raise_to_over_pot_sum": 12311.619169509666
+          },
+          "10B/flop/positive_mass/raise": {
+            "decisions": 5618,
+            "raise_to_sum_bb": 51220.0,
+            "raise_to_over_pot_sum": 3329.8462879964313
+          },
+          "10B/turn/missing/raise": {
+            "decisions": 3216,
+            "raise_to_sum_bb": 78072.5,
+            "raise_to_over_pot_sum": 1788.3783587951189
+          },
+          "10B/river/missing/raise": {
+            "decisions": 4837,
+            "raise_to_sum_bb": 90464.5,
+            "raise_to_over_pot_sum": 2579.917289241686
+          },
+          "10B/turn/positive_mass/raise": {
+            "decisions": 3405,
+            "raise_to_sum_bb": 27574.0,
+            "raise_to_over_pot_sum": 1883.2461736127616
+          },
+          "3B/preflop/positive_mass/call": {
+            "decisions": 5873,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/missing/raise": {
+            "decisions": 2082,
+            "raise_to_sum_bb": 72460.0,
+            "raise_to_over_pot_sum": 1316.707771705862
+          },
+          "10B/preflop/positive_mass/call": {
+            "decisions": 4731,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/missing/raise": {
+            "decisions": 1734,
+            "raise_to_sum_bb": 61044.0,
+            "raise_to_over_pot_sum": 1118.2063117007592
+          },
+          "3B/flop/positive_mass/check": {
+            "decisions": 4871,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/missing/check": {
+            "decisions": 3070,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/missing/fold": {
+            "decisions": 770,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/positive_mass/raise": {
+            "decisions": 4632,
+            "raise_to_sum_bb": 41385.0,
+            "raise_to_over_pot_sum": 2758.9865039220076
+          },
+          "10B/preflop/positive_mass/check": {
+            "decisions": 3028,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/positive_mass/check": {
+            "decisions": 5200,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/positive_mass/check": {
+            "decisions": 3088,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/positive_mass/check": {
+            "decisions": 1182,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/positive_mass/fold": {
+            "decisions": 535,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/missing/call": {
+            "decisions": 430,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/missing/call": {
+            "decisions": 213,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/positive_mass/check": {
+            "decisions": 2449,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/missing/call": {
+            "decisions": 760,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/missing/check": {
+            "decisions": 1663,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/missing/check": {
+            "decisions": 464,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/missing/check": {
+            "decisions": 2303,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/missing/raise": {
+            "decisions": 803,
+            "raise_to_sum_bb": 51446.5,
+            "raise_to_over_pot_sum": 816.6582300763451
+          },
+          "10B/turn/missing/fold": {
+            "decisions": 445,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/missing/check": {
+            "decisions": 548,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/missing/fold": {
+            "decisions": 561,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/missing/call": {
+            "decisions": 625,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/positive_mass/fold": {
+            "decisions": 51,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/positive_mass/raise": {
+            "decisions": 1214,
+            "raise_to_sum_bb": 8425.5,
+            "raise_to_over_pot_sum": 698.425561983746
+          },
+          "3B/preflop/missing/raise": {
+            "decisions": 914,
+            "raise_to_sum_bb": 60585.5,
+            "raise_to_over_pot_sum": 900.8547542169595
+          },
+          "3B/preflop/zero_mass/fold": {
+            "decisions": 4,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/positive_mass/check": {
+            "decisions": 2269,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/positive_mass/call": {
+            "decisions": 331,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/positive_mass/call": {
+            "decisions": 268,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/missing/check": {
+            "decisions": 1197,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/missing/call": {
+            "decisions": 743,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/missing/fold": {
+            "decisions": 668,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/missing/fold": {
+            "decisions": 790,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/positive_mass/fold": {
+            "decisions": 487,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/positive_mass/raise": {
+            "decisions": 1184,
+            "raise_to_sum_bb": 12185.5,
+            "raise_to_over_pot_sum": 688.2882234652992
+          },
+          "3B/turn/missing/call": {
+            "decisions": 497,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/missing/call": {
+            "decisions": 225,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/missing/fold": {
+            "decisions": 613,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/positive_mass/check": {
+            "decisions": 703,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/missing/fold": {
+            "decisions": 237,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/missing/call": {
+            "decisions": 839,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/positive_mass/call": {
+            "decisions": 18,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/missing/fold": {
+            "decisions": 192,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/preflop/zero_mass/raise": {
+            "decisions": 10,
+            "raise_to_sum_bb": 859.0,
+            "raise_to_over_pot_sum": 11.688648508620412
+          },
+          "10B/turn/zero_mass/raise": {
+            "decisions": 7,
+            "raise_to_sum_bb": 147.5,
+            "raise_to_over_pot_sum": 3.3872605363984674
+          },
+          "3B/turn/positive_mass/fold": {
+            "decisions": 32,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/flop/zero_mass/raise": {
+            "decisions": 13,
+            "raise_to_sum_bb": 538.5,
+            "raise_to_over_pot_sum": 9.229138607237287
+          },
+          "3B/flop/zero_mass/call": {
+            "decisions": 5,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/zero_mass/call": {
+            "decisions": 2,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/zero_mass/raise": {
+            "decisions": 15,
+            "raise_to_sum_bb": 130.5,
+            "raise_to_over_pot_sum": 9.446036967418546
+          },
+          "3B/flop/zero_mass/fold": {
+            "decisions": 3,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/zero_mass/raise": {
+            "decisions": 19,
+            "raise_to_sum_bb": 424.0,
+            "raise_to_over_pot_sum": 13.81216133004926
+          },
+          "10B/preflop/zero_mass/fold": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/zero_mass/check": {
+            "decisions": 10,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/flop/zero_mass/raise": {
+            "decisions": 3,
+            "raise_to_sum_bb": 69.5,
+            "raise_to_over_pot_sum": 1.262962962962963
+          },
+          "3B/turn/zero_mass/check": {
+            "decisions": 3,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/positive_mass/call": {
+            "decisions": 12,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/zero_mass/raise": {
+            "decisions": 2,
+            "raise_to_sum_bb": 38.0,
+            "raise_to_over_pot_sum": 2.0
+          },
+          "3B/flop/zero_mass/check": {
+            "decisions": 3,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/preflop/zero_mass/raise": {
+            "decisions": 4,
+            "raise_to_sum_bb": 298.5,
+            "raise_to_over_pot_sum": 3.9210803415119777
+          },
+          "10B/flop/zero_mass/fold": {
+            "decisions": 2,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/zero_mass/check": {
+            "decisions": 2,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/positive_mass/call": {
+            "decisions": 3,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/river/positive_mass/fold": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/positive_mass/fold": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/zero_mass/fold": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/zero_mass/fold": {
+            "decisions": 3,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/river/positive_mass/call": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "10B/turn/zero_mass/check": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          },
+          "3B/turn/zero_mass/call": {
+            "decisions": 1,
+            "raise_to_sum_bb": 0.0,
+            "raise_to_over_pot_sum": 0.0
+          }
+        },
+        "trace_sha256": [
+          "95bb542d7332fec8a3b042723800387944d94bfd24e08c69807b2c30602960a4",
+          "3a6e724206fbbde0c035dd17a1e01cc43d98e920a88ff981925b8e65dfdad1a9"
+        ],
+        "root": 20261023550008,
+        "blocks": 4096,
+        "seatings": 10
+      }
+    },
+    "limitations": [
+      "Already inspected outcomes; descriptive localization, not fresh confirmation or causal attribution.",
+      "Full sampled trajectories only, no full policy probabilities or legal-belief alternative values.",
+      "After divergence reached histories differ. Category contributions reconcile but do not identify causal action value.",
+      "No new hands, training, rollouts, native model loads or outcome-selected exclusions."
+    ]
+  }
+}

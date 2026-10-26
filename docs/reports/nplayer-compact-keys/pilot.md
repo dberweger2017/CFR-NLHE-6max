@@ -1,5 +1,9 @@
 # Compact-key pilot: correctness passes; larger comparison not admitted
 
+This is the unchanged historical October18 measurement. See the
+[October26 integration and review closeout](integration-20261026.md) for current
+compatibility, compact binding requirements and additional regression tests.
+
 The fixed two-hour benchmark stopped at its predeclared cost-admission gate after successful qualification and 100M-node pilots. The 1B/3B growth and repeated steady-state comparison did not start. No failed science was retried and the original deadline was not extended.
 
 | Encoding | Training Mnodes/s | Training speedup | Training RSS GiB | Save s | Wall s | CPU s |

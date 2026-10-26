@@ -1,0 +1,45 @@
+{
+ "host": "bb128 (cygnus-x1), 16 threads, CPU only",
+ "source_commits": {
+  "part_a_scan": "52aa2606",
+  "part_a_equity": "84746fe2",
+  "fallback_manifest": "b33e9a1e",
+  "part_b_arena_binary": "52aa2606 (arena host unchanged since)",
+  "part_b_scan_equity": "fde61397",
+  "report": "fde61397"
+ },
+ "binaries_sha256": {
+  "nplayer_paired_arena": "51db6bad4c30e14cc8e12fce744245b5ad66a78e0ce4eaed2a3adf7314b58fe8",
+  "nplayer_allin_equity": "6d60084cef43dd3f2c0dd295da78bd4886c08fdafe2e1446d38911278689e53b"
+ },
+ "fallback_manifest_sha256": "172a36bac2f792d700a84dd3e90662f6cc4102c3265d66634d9260df2a85bb07",
+ "stages_utc": {
+  "part_a_scan": [
+   "2026-10-24T22:12:59Z",
+   "2026-10-24T22:15Z"
+  ],
+  "part_a_equity": [
+   "2026-10-24T22:16Z",
+   "2026-10-24T22:55:23Z"
+  ],
+  "part_b_arena": [
+   "2026-10-24T22:55:23Z",
+   "2026-10-24T23:01:04Z"
+  ],
+  "part_b_scan": [
+   "2026-10-24T23:01:04Z",
+   "2026-10-24T23:02:09Z"
+  ],
+  "part_b_equity": [
+   "2026-10-24T23:02:09Z",
+   "2026-10-24T23:31:50Z"
+  ]
+ },
+ "equity_reuse": "19 uniform-arm showdown files were byte-identical to part A request files, so part A expectations were copied; the 5 recomputed uniform files matched part A byte for byte.",
+ "peak_cpu_c": 75,
+ "peak_vrm_thermistor15_c": 96,
+ "stops": "CPU 90 C, VRM 100 C; no stop triggered",
+ "vrm_note": "VRM ran at 89-90 C, peaked at 96 C at 22:37 UTC while the owner moved a fan, then held 77-78 C at the same load.",
+ "disk": "16 GB of working files on the HDD (Part B traces about 15 GB); inputs only read",
+ "samples": 918
+}

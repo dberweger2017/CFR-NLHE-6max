@@ -1,0 +1,149 @@
+{
+ "host": "bb128 (cygnus-x1), 16 threads, CPU only",
+ "source_commit": "e997e2b4",
+ "binaries_sha256": {
+  "nplayer_train": "f150487a247b36cac83a997f51171d4c74569bddbcb2160baccbabe500e2e584",
+  "nplayer_policy": "b29b034957d49bfac1dbbf1d8bcb49fdb906cb5ef22b548316d3051de8abc836",
+  "nplayer_inference": "8674b447af9a0527cd04dc2e1cf446241a1deaceaffd282da3df3e23fc7f112c",
+  "nplayer_paired_arena": "8024b55518068cd58a17d07973958a2bb5e473bed316dfd0491ea563ea33c5c2",
+  "nplayer_allin_equity": "fb3ebe72f25f1fd17576e4a147d66a1cf516998dc5088a1e543e9583d8101257"
+ },
+ "stages_utc": [
+  {
+   "stage": "build",
+   "at": "2026-10-25T11:28:55Z"
+  },
+  {
+   "stage": "d0.15-train",
+   "at": "2026-10-25T11:44:13Z"
+  },
+  {
+   "stage": "d0.15-export",
+   "at": "2026-10-25T12:21:14Z"
+  },
+  {
+   "stage": "d0.15-audit",
+   "at": "2026-10-25T12:29:06Z"
+  },
+  {
+   "stage": "d0.15-convert",
+   "at": "2026-10-25T12:35:57Z"
+  },
+  {
+   "stage": "d0.15-verify",
+   "at": "2026-10-25T12:41:46Z"
+  },
+  {
+   "stage": "d0.15-arena-b0",
+   "at": "2026-10-25T12:47:34Z"
+  },
+  {
+   "stage": "d0.15-arena-b1",
+   "at": "2026-10-25T12:55:03Z"
+  },
+  {
+   "stage": "d0.15-arena-b2",
+   "at": "2026-10-25T13:02:39Z"
+  },
+  {
+   "stage": "d0.15-arena-b3",
+   "at": "2026-10-25T13:10:09Z"
+  },
+  {
+   "stage": "d0.15-equity",
+   "at": "2026-10-25T13:20:27Z"
+  },
+  {
+   "stage": "d0.15-report",
+   "at": "2026-10-25T14:31:56Z"
+  },
+  {
+   "stage": "d0.15-done",
+   "at": "2026-10-25T14:32:15Z"
+  },
+  {
+   "stage": "d0.30-train",
+   "at": "2026-10-25T14:32:16Z"
+  },
+  {
+   "stage": "d0.30-export",
+   "at": "2026-10-25T15:12:47Z"
+  },
+  {
+   "stage": "d0.30-audit",
+   "at": "2026-10-25T15:20:33Z"
+  },
+  {
+   "stage": "d0.30-convert",
+   "at": "2026-10-25T15:27:20Z"
+  },
+  {
+   "stage": "d0.30-verify",
+   "at": "2026-10-25T15:33:03Z"
+  },
+  {
+   "stage": "d0.30-arena-b0",
+   "at": "2026-10-25T15:38:46Z"
+  },
+  {
+   "stage": "d0.30-arena-b1",
+   "at": "2026-10-25T15:46:05Z"
+  },
+  {
+   "stage": "d0.30-arena-b2",
+   "at": "2026-10-25T15:53:29Z"
+  },
+  {
+   "stage": "d0.30-arena-b3",
+   "at": "2026-10-25T16:00:48Z"
+  },
+  {
+   "stage": "d0.30-equity",
+   "at": "2026-10-25T16:11:10Z"
+  },
+  {
+   "stage": "d0.30-report",
+   "at": "2026-10-25T17:23:43Z"
+  },
+  {
+   "stage": "d0.30-done",
+   "at": "2026-10-25T17:24:04Z"
+  },
+  {
+   "stage": "done",
+   "at": "2026-10-25T17:24:04Z"
+  }
+ ],
+ "disk_wait": "15% waited 11:29-11:44 UTC for 45 GB of HDD free space (plumbing).",
+ "training": {
+  "d15": {
+   "nodes": 10000015253,
+   "iterations": 664866,
+   "frozen_at": 54323,
+   "entries": 250003321,
+   "active_seconds": 2164.2,
+   "pressured_actions": 462181541
+  },
+  "d30": {
+   "nodes": 10000004864,
+   "iterations": 1306649,
+   "frozen_at": 144409,
+   "entries": 250000122,
+   "active_seconds": 2374.5,
+   "pressured_actions": 965549876
+  },
+  "d05_pr427": {
+   "iterations": 448818,
+   "frozen_at": 31021,
+   "pressured_actions": 152961237
+  },
+  "control_417": {
+   "iterations": 390401,
+   "frozen_at": 23678
+  }
+ },
+ "space": "Arena traces gzip-compressed per bank after scanning, model binaries gzip-compressed after the arena; #426 and #427 raw traces and #427 binary were gzip-compressed (SHA256 recorded first, gzip -t verified) to make room. Nothing was deleted.",
+ "peak_cpu_c": 75,
+ "peak_vrm_thermistor15_c": 77,
+ "disk": "49 GB working files on the HDD"
+}

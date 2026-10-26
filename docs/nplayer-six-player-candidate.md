@@ -1,0 +1,36 @@
+# Six-player 100 BB: four fixed checkpoints and five paired contrasts
+
+[Proposal416](https://github.com/dberweger2017/CFR-NLHE-6max/issues/416).
+**Complete and verified:** main October23 18:37–22:42 UTC /20:37–00:42 Madrid,
+115 stages RC0, source `128f021b` /config `b7289278` unchanged. [Final results and
+analysis](reports/nplayer-six-player-candidate/results.md) preserve all40 gates:
+6 pass, none of the five adjusted trained-field tests pass. No release acceptance,
+selected winner or automatic extension. [Completed source qualification and launch](reports/nplayer-six-player-candidate/main-launch.json)
+and [saved five-player diagnosis](reports/nplayer-six-player-candidate/five-player-diagnosis.md)
+remain provenance. The following is the predeclared protocol, not authorization
+for another run.
+
+Owner-authorized six-player 100 BB development trajectory, following PR415. Owner explicitly requested 3B/6B/10B/15B and five paired contrasts (3→6,6→10,10→15,3→10,3→15), then said "you can start and I will organize the extra space" after the provisional 5–6h runtime/12h reserve and 240GiB all-NVMe scenario.
+
+First perform bounded descriptive analysis of all eight existing PR415 fields: first unequal action at an identical public prefix, source-bound lookup status, action/sizing shifts and reconciled paired-return contributions. No new hands/models/rollouts. This is exploratory localization, not causal attribution or fresh confirmation.
+
+Then one fresh six-player100BB lineage, seed2026102361001; unpruned K50/v1,16threads/eightroots, full float64 average, parallelgzip,250M whole-iteration freeze. Four checkpoints3/6/10/15B, no extensions. Twelve balanced forward/reverse seatings,4096 independent deal blocks per field. Eight fixed five-opponent fields: own3B×5; random×5; check-call×5; TAG×5; pressure×5; three-call/two-pressure; random/fourTAG; own3B/two-call/two-pressure. All checkpoints face the same frozen field, same fresh deals/buttons/identity action streams. Roots20261023650001–8; fixture20261023659901–8.
+
+Use the existing paired runner for three3B-anchored jobs, derive adjacent contrasts from the saved candidate arms. Per pass2,359,296 physical hand instances,1,572,864 distinct checkpoint/deal/seating instances; identical repeat and independent replay of every initial instance. Repeated3B arms are duplicates, not extra observations. Statistical unit mean12seatings per independent dealblock. One family40 one-sided95% Student-t/Bonferroni bounds, trained-field margin0 and scripted/mixed margin−5; ordinary absolute/paired intervals descriptive. Correlated deltas, additivity, per-seat/support/tails/costs all retained; no selection of a release winner from these data.
+
+Tiny exact-source six-player qualification before main: four-checkpoint thread/resume/export/keyset/full-row binary/mass parity;12seating balance, all8fields, all5contrasts, cross-job baseline trace identity, serial/parallel and gzip/binary payload, independent engine replay/byte reproduction/selfzero and legacy3P regression. Native trainer/recipe unchanged.
+
+Publish a deterministic component quote from PR415; proposed12h planning allocation covers qualification/diagnosis/report and fixed science (not archival), not an elapsed stop. Owner explicitly permits starting while arranging additional storage, overriding the earlier240GiB prelaunch wait for this fixed attempt; manually track actual free minus remaining output growth. Only CPU90/Thermistor15100/missing-nonfinite, ownerSTOP/mutex/correctness cause automatic stops; no time/RSS/disk/swap kill. Preserve all partials/failures and original inputs; no scientific retry/reduced-case acceptance, no default/search/release changes. Normal compute mutex nonblocking. No cleanup/Drive payload upload/new schedules/subagents/other machines by this task.
+
+Development result only: own-ancestor field is not Nash/general superiority; one seed is not training-seed confirmation. Keep all adverse/inconclusive outcomes, fixed count and no outcome extension. Choose future capacity/history/visitation work prospectively after diagnosis and sprint; no automatic follow-up. Original PR413/415 links, K50/shared environment/legacy/source/proofs and release KEEP remain protected. Owner cleaner owns storage and archival.
+
+
+## Concrete preparation and owner sequencing
+
+Implementation is isolated in `scripts/nplayer_six_player_candidate.py`; native trainer and arena bytes are unchanged. Existing paired runner loads two readonly models per process, eight workers. Main executes three baseline-anchored jobs with initial/repeat, all48initial trace files independently replayed, cross-job3B byte identity and all40 contrast/field readouts before a global proof barrier. Four checkpoints remain retained; absolute returns, same-membership aggregate visit/mass changes, per-seat/lookup coverage, extreme blocks/tail concentration and exact costs accompany all five contrasts. The adjacent block deltas must sum to3B→15B; they are not independent confirmations.
+
+[Reproducible component quote](../configs/research/nplayer-six-player-candidate.json): **5h51m central /11h37m reserve**, accepted planning scope12h. It includes600s build/qualification,600s saved-trace diagnosis and900s reporting central allowances; initial coding/review wall is not a measured compute component. Six-player rates and row sizes remain scenarios, not guarantees. The owner permits admission before240GiBfree while arranging the rest; this changes storage sequencing, not targets, statistics, guards, retention or budget. Record actual free space and remaining-output forecast at phase boundaries. No automatic disk/time/RSS/swap cutoff or cleanup occurs.
+
+Exact-source qualification uses tiny50K/100K/150K/200Ktargets and10Kcap, fresh reference checkpoints/thread1 versus resumed16, full-row auditing/conversion, all three pair-job baselines identical, every40contrast/field shape/two blocks/twelve seatings, byte reproduction/independent replay, serial/parallel, gzip/binary payload, source mass tags and identical-policy zero. Legacy three-player20/100/200 matches the protected prior binary. Main requires that qualification plus same-source completed PR415 descriptive diagnosis and an immutable owner start-during-space-arrangement receipt. No failed correctness proof may be bypassed; output roots are one-use, no automatic retry/recovery.
+
+The eight five-opponent fields are explicitly expanded for six seats as written above. These are comparable development designs, not identical games to PR413/415. One-sided family40 uses df4095; 3B→10B continuity is retained but no cross-player-count causal inference. No all40pass requirement is reinterpreted as release acceptance. Report all flags and uncertainty; prospectively choose any subsequent controlled improvement. Full raw arrays/models/traces/source/failure/partial evidence remains host-owned, Git compact only. Owner cleaner manages archival; Drive payload acceptance pending until its receipt.

@@ -1,5 +1,12 @@
 # Compact information keys: correctness and bb128 benchmark
 
+**Historical October18 protocol.** The pilot completed and the larger benchmark
+was refused before launch. [October26 integration/review closeout](reports/nplayer-compact-keys/integration-20261026.md)
+records current schema compatibility, required compact encoding bindings and
+byte-order/test guarantees. The overnight rationale below is historical, not a
+current allocation or launch instruction. History remains the default; live-order
+remains separately opt-in. No refused compute is restarted by this integration.
+
 Owner-authorized proposal [#343](https://github.com/dberweger2017/CFR-NLHE-6max/issues/343).
 
 Implements the design discussion in [#327](https://github.com/dberweger2017/CFR-NLHE-6max/issues/327).
@@ -62,8 +69,10 @@ never enter the observation encoder.
 ## Correctness before performance
 
 - Native regression suite, existing v1 checkpoints/export fixtures and CLI checks.
-- Adversarial legal-history tests: calls, short all-ins, folds, checks, repeated
-  betting streets, maximum chip values, uneven stacks and every button position.
+- Legal-history tests: calls, short all-ins, folds, checks, repeated betting
+  streets, uneven stacks and every button position. Later golden fixtures cover
+  the engine's maximum legal chip value; `u64::MAX` is a varint-only arithmetic
+  test, not a legal-stack run. Postflop payload tests use synthetic card labels.
 - Bidirectional v1-to-compact key mapping on legal playouts and training traversals.
 - Full row equality after rekeying: actor/street/actions, visit counts, regret
   bits, average bits, total nodes, iterations and counters.

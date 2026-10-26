@@ -1,0 +1,372 @@
+{
+  "stages": [
+    {
+      "phase": "initial-controls",
+      "command": [
+        "/home/dberweger/river-exact-beliefs-20261021/venv/bin/python",
+        "-m",
+        "scripts.qualify_river_exact",
+        "measure",
+        "--inputs",
+        "/home/dberweger/river-continuation-qualification-20261021/main-v1",
+        "--out",
+        "/home/dberweger/river-exact-beliefs-20261021/main-v1/initial/controls",
+        "--phase",
+        "controls",
+        "--binary",
+        "/home/dberweger/river-exact-beliefs-20261021/target/release/examples/river_live",
+        "--k50",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "--model",
+        "/home/dberweger/nplayer-v06-acceptance-20261020/main-v1/inputs/2026101935003/candidate.bin"
+      ],
+      "returncode": 0,
+      "wall_seconds": 165.48964892799268,
+      "user_cpu_seconds": 536.997559,
+      "system_cpu_seconds": 15.629432
+    },
+    {
+      "phase": "initial-projected",
+      "command": [
+        "/home/dberweger/river-exact-beliefs-20261021/venv/bin/python",
+        "-m",
+        "scripts.qualify_river_exact",
+        "measure",
+        "--inputs",
+        "/home/dberweger/river-continuation-qualification-20261021/main-v1",
+        "--out",
+        "/home/dberweger/river-exact-beliefs-20261021/main-v1/initial/projected",
+        "--phase",
+        "projected",
+        "--binary",
+        "/home/dberweger/river-exact-beliefs-20261021/target/release/examples/river_live",
+        "--k50",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "--model",
+        "/home/dberweger/nplayer-v06-acceptance-20261020/main-v1/inputs/2026101935003/candidate.bin"
+      ],
+      "returncode": 0,
+      "wall_seconds": 500.4906174229691,
+      "user_cpu_seconds": 2457.889582,
+      "system_cpu_seconds": 27.127386
+    },
+    {
+      "phase": "initial-exact",
+      "command": [
+        "/home/dberweger/river-exact-beliefs-20261021/venv/bin/python",
+        "-m",
+        "scripts.qualify_river_exact",
+        "measure",
+        "--inputs",
+        "/home/dberweger/river-continuation-qualification-20261021/main-v1",
+        "--out",
+        "/home/dberweger/river-exact-beliefs-20261021/main-v1/initial/exact",
+        "--phase",
+        "exact",
+        "--binary",
+        "/home/dberweger/river-exact-beliefs-20261021/target/release/examples/river_live",
+        "--k50",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "--model",
+        "/home/dberweger/nplayer-v06-acceptance-20261020/main-v1/inputs/2026101935003/candidate.bin"
+      ],
+      "returncode": 0,
+      "wall_seconds": 510.4561495889793,
+      "user_cpu_seconds": 2471.392703,
+      "system_cpu_seconds": 28.69143499999999
+    },
+    {
+      "phase": "repeat-controls",
+      "command": [
+        "/home/dberweger/river-exact-beliefs-20261021/venv/bin/python",
+        "-m",
+        "scripts.qualify_river_exact",
+        "measure",
+        "--inputs",
+        "/home/dberweger/river-continuation-qualification-20261021/main-v1",
+        "--out",
+        "/home/dberweger/river-exact-beliefs-20261021/main-v1/repeat/controls",
+        "--phase",
+        "controls",
+        "--binary",
+        "/home/dberweger/river-exact-beliefs-20261021/target/release/examples/river_live",
+        "--k50",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "--model",
+        "/home/dberweger/nplayer-v06-acceptance-20261020/main-v1/inputs/2026101935003/candidate.bin"
+      ],
+      "returncode": 0,
+      "wall_seconds": 165.47768414899474,
+      "user_cpu_seconds": 537.3159969999997,
+      "system_cpu_seconds": 14.834807000000012
+    },
+    {
+      "phase": "repeat-projected",
+      "command": [
+        "/home/dberweger/river-exact-beliefs-20261021/venv/bin/python",
+        "-m",
+        "scripts.qualify_river_exact",
+        "measure",
+        "--inputs",
+        "/home/dberweger/river-continuation-qualification-20261021/main-v1",
+        "--out",
+        "/home/dberweger/river-exact-beliefs-20261021/main-v1/repeat/projected",
+        "--phase",
+        "projected",
+        "--binary",
+        "/home/dberweger/river-exact-beliefs-20261021/target/release/examples/river_live",
+        "--k50",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "--model",
+        "/home/dberweger/nplayer-v06-acceptance-20261020/main-v1/inputs/2026101935003/candidate.bin"
+      ],
+      "returncode": 0,
+      "wall_seconds": 500.26807239901973,
+      "user_cpu_seconds": 2454.47803,
+      "system_cpu_seconds": 28.707988999999998
+    },
+    {
+      "phase": "repeat-exact",
+      "command": [
+        "/home/dberweger/river-exact-beliefs-20261021/venv/bin/python",
+        "-m",
+        "scripts.qualify_river_exact",
+        "measure",
+        "--inputs",
+        "/home/dberweger/river-continuation-qualification-20261021/main-v1",
+        "--out",
+        "/home/dberweger/river-exact-beliefs-20261021/main-v1/repeat/exact",
+        "--phase",
+        "exact",
+        "--binary",
+        "/home/dberweger/river-exact-beliefs-20261021/target/release/examples/river_live",
+        "--k50",
+        "/home/dberweger/cygnus-qualification-20261014/tables",
+        "--model",
+        "/home/dberweger/nplayer-v06-acceptance-20261020/main-v1/inputs/2026101935003/candidate.bin"
+      ],
+      "returncode": 0,
+      "wall_seconds": 508.38528964901343,
+      "user_cpu_seconds": 2466.9346889999997,
+      "system_cpu_seconds": 29.024990000000003
+    },
+    {
+      "phase": "verify",
+      "command": [
+        "/home/dberweger/river-exact-beliefs-20261021/venv/bin/python",
+        "-m",
+        "scripts.qualify_river_exact",
+        "verify",
+        "--inputs",
+        "/home/dberweger/river-exact-beliefs-20261021/main-v1",
+        "--out",
+        "/home/dberweger/river-exact-beliefs-20261021/main-v1/verification"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.049846327980049,
+      "user_cpu_seconds": 0.2458409999999276,
+      "system_cpu_seconds": 0.05219299999998839
+    }
+  ],
+  "wall_seconds": 2352.617308464949,
+  "model_load_instances": 22,
+  "startups": [
+    {
+      "phase": "initial-controls",
+      "model_and_k50_load_seconds": 120.554827656,
+      "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+      "policy_load_seconds": 115.631307363,
+      "rows": 250000475,
+      "status": "ready"
+    },
+    {
+      "phase": "initial-projected",
+      "model_and_k50_load_seconds": 130.227742996,
+      "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+      "policy_load_seconds": 124.72607704,
+      "rows": 250000475,
+      "status": "ready"
+    },
+    {
+      "phase": "initial-projected",
+      "model_and_k50_load_seconds": 130.227067937,
+      "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+      "policy_load_seconds": 124.72156959,
+      "rows": 250000475,
+      "status": "ready"
+    },
+    {
+      "phase": "initial-projected",
+      "model_and_k50_load_seconds": 130.227198539,
+      "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+      "policy_load_seconds": 124.723523897,
+      "rows": 250000475,
+      "status": "ready"
+    },
+    {
+      "phase": "initial-projected",
+      "model_and_k50_load_seconds": 130.227617163,
+      "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+      "policy_load_seconds": 124.725463241,
+      "rows": 250000475,
+      "status": "ready"
+    },
+    {
+      "phase": "initial-projected",
+      "model_and_k50_load_seconds": 130.226454378,
+      "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+      "policy_load_seconds": 124.721729766,
+      "rows": 250000475,
+      "status": "ready"
+    },
+    {
+      "phase": "initial-exact",
+      "model_and_k50_load_seconds": 130.429434729,
+      "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+      "policy_load_seconds": 124.945925137,
+      "rows": 250000475,
+      "status": "ready"
+    },
+    {
+      "phase": "initial-exact",
+      "model_and_k50_load_seconds": 130.428245047,
+      "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+      "policy_load_seconds": 124.936825436,
+      "rows": 250000475,
+      "status": "ready"
+    },
+    {
+      "phase": "initial-exact",
+      "model_and_k50_load_seconds": 130.427776479,
+      "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+      "policy_load_seconds": 124.943408522,
+      "rows": 250000475,
+      "status": "ready"
+    },
+    {
+      "phase": "initial-exact",
+      "model_and_k50_load_seconds": 130.427483686,
+      "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+      "policy_load_seconds": 124.939207295,
+      "rows": 250000475,
+      "status": "ready"
+    },
+    {
+      "phase": "initial-exact",
+      "model_and_k50_load_seconds": 130.427363632,
+      "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+      "policy_load_seconds": 124.937767919,
+      "rows": 250000475,
+      "status": "ready"
+    },
+    {
+      "phase": "repeat-controls",
+      "model_and_k50_load_seconds": 120.298259364,
+      "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+      "policy_load_seconds": 115.365320204,
+      "rows": 250000475,
+      "status": "ready"
+    },
+    {
+      "phase": "repeat-projected",
+      "model_and_k50_load_seconds": 130.172111537,
+      "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+      "policy_load_seconds": 124.670221718,
+      "rows": 250000475,
+      "status": "ready"
+    },
+    {
+      "phase": "repeat-projected",
+      "model_and_k50_load_seconds": 130.17236548,
+      "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+      "policy_load_seconds": 124.680812434,
+      "rows": 250000475,
+      "status": "ready"
+    },
+    {
+      "phase": "repeat-projected",
+      "model_and_k50_load_seconds": 130.170765091,
+      "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+      "policy_load_seconds": 124.674885494,
+      "rows": 250000475,
+      "status": "ready"
+    },
+    {
+      "phase": "repeat-projected",
+      "model_and_k50_load_seconds": 130.170766509,
+      "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+      "policy_load_seconds": 124.67344103799999,
+      "rows": 250000475,
+      "status": "ready"
+    },
+    {
+      "phase": "repeat-projected",
+      "model_and_k50_load_seconds": 130.170476819,
+      "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+      "policy_load_seconds": 124.675860889,
+      "rows": 250000475,
+      "status": "ready"
+    },
+    {
+      "phase": "repeat-exact",
+      "model_and_k50_load_seconds": 129.878783046,
+      "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+      "policy_load_seconds": 124.459172173,
+      "rows": 250000475,
+      "status": "ready"
+    },
+    {
+      "phase": "repeat-exact",
+      "model_and_k50_load_seconds": 129.879172765,
+      "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+      "policy_load_seconds": 124.455325271,
+      "rows": 250000475,
+      "status": "ready"
+    },
+    {
+      "phase": "repeat-exact",
+      "model_and_k50_load_seconds": 129.87892029,
+      "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+      "policy_load_seconds": 124.452745811,
+      "rows": 250000475,
+      "status": "ready"
+    },
+    {
+      "phase": "repeat-exact",
+      "model_and_k50_load_seconds": 129.879066861,
+      "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+      "policy_load_seconds": 124.460166919,
+      "rows": 250000475,
+      "status": "ready"
+    },
+    {
+      "phase": "repeat-exact",
+      "model_and_k50_load_seconds": 129.879900031,
+      "model_sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+      "policy_load_seconds": 124.461579337,
+      "rows": 250000475,
+      "status": "ready"
+    }
+  ],
+  "summed_worker_startup_seconds": 2844.3818000349993,
+  "summed_worker_policy_load_seconds": 2724.9823364940003,
+  "child_cpu_seconds": 11069.322633,
+  "sampled_family_peak_rss_bytes": 80319725568,
+  "min_available_ram_bytes": 51319205888,
+  "max_cpu_c": 71.0,
+  "max_thermistor15_c": 81.5,
+  "first_swap_bytes": 367697920,
+  "last_swap_bytes": 367697920,
+  "last_nvme_free_bytes": 175527444480,
+  "last_hdd_free_bytes": 531569541120,
+  "readout": {
+    "returncode": 0,
+    "wall_seconds": 0.380545380001422,
+    "user_cpu_seconds": 0.352081,
+    "system_cpu_seconds": 0.028006,
+    "max_rss_kib": 61180,
+    "no_measurements_repeated": true
+  },
+  "startup_sum_scope": "sum of worker elapsed startup times, including parallel overlap; not stage wall or CPU time",
+  "rss_scope": "sampled entire worker family, not an exact instantaneous or per-model peak"
+}

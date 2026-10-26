@@ -1,0 +1,609 @@
+{
+  "status": "complete-cost-only",
+  "rows": [
+    {
+      "checkpoint": {
+        "checkpoint": "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint25000000-train.gz",
+        "counts": {
+          "decisions": [
+            1879541,
+            2554485,
+            3971459,
+            6813604
+          ],
+          "discarded_keys": 0,
+          "discarded_visits": 0,
+          "missing": [
+            1170494,
+            2137892,
+            3716344,
+            6667784
+          ],
+          "nodes": 25010502,
+          "terminals": 9791413,
+          "traverser": [
+            1126588,
+            1123174,
+            1133543,
+            1131814,
+            0,
+            0
+          ]
+        },
+        "elapsed_seconds": 8.913111291,
+        "entries": 13691524,
+        "frozen_at": null,
+        "identity": {
+          "big_blind": 100,
+          "card_tables": [
+            "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+            "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+            "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+          ],
+          "game": "nlhe-cash",
+          "menu": "min-pot-conditional-jam-v1",
+          "players": 4,
+          "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+          "small_blind": 50,
+          "stacks": [
+            10000,
+            10000,
+            10000,
+            10000
+          ],
+          "utility_unit": "big-blind"
+        },
+        "iteration": 1290,
+        "save_seconds": 5.3763042500000005,
+        "sha256": "fa409b1459e4b9812d1e1c8b01ec4038e48aa2d49c646b6fb3fb608469af8edf",
+        "stop_reason": "nodes",
+        "stage_wall_seconds": 12.390053958981298,
+        "active_seconds": 3.5368070409999994
+      },
+      "policy": "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint25000000-average.gz",
+      "policy_sha256": "8a705e2cff30d7afdd4f4afaa58259c0e2034cf64ed5455593ea5742749ad91d",
+      "audit": {
+        "by_street": [
+          {
+            "entries": 1170076,
+            "visits": 348388,
+            "zero_visit_entries": 883403,
+            "decisions": 1879541,
+            "missing_decisions": 1170494,
+            "missing_decision_share": 0.6227552365178519,
+            "visits_per_key": 0.2977481804600727
+          },
+          {
+            "entries": 2137657,
+            "visits": 646764,
+            "zero_visit_entries": 1547268,
+            "decisions": 2554485,
+            "missing_decisions": 2137892,
+            "missing_decision_share": 0.8369170302428866,
+            "visits_per_key": 0.3025574261913862
+          },
+          {
+            "entries": 3716178,
+            "visits": 1224863,
+            "zero_visit_entries": 2538318,
+            "decisions": 3971459,
+            "missing_decisions": 3716344,
+            "missing_decision_share": 0.935762902248267,
+            "visits_per_key": 0.3296028876980597
+          },
+          {
+            "entries": 6667613,
+            "visits": 2295104,
+            "zero_visit_entries": 4403041,
+            "decisions": 6813604,
+            "missing_decisions": 6667784,
+            "missing_decision_share": 0.9785986975468489,
+            "visits_per_key": 0.3442167384339793
+          }
+        ],
+        "status": "passed",
+        "checkpoint_sha256": "fa409b1459e4b9812d1e1c8b01ec4038e48aa2d49c646b6fb3fb608469af8edf",
+        "policy_sha256": "8a705e2cff30d7afdd4f4afaa58259c0e2034cf64ed5455593ea5742749ad91d",
+        "strategy": "average",
+        "last_average_street": 3,
+        "rows": 13691524,
+        "average_rows": 13691524,
+        "current_rows": 0,
+        "zero_mass_rows": 4102938,
+        "format": "nplayer-average-mass-v1",
+        "keyset_sha256": "9de05db1d19ba0e2c0c611b2305ec982180635f3485744b327e272678f8237c1",
+        "positive_mass_rows": 9588586,
+        "zero_keys_sha256": "14b9d41d7488424345397e7daad1800fd486f6a94d1649b8e70db4359879ee6e"
+      },
+      "self_play_coverage": {
+        "decisions_by_street": [
+          441,
+          123,
+          26,
+          9
+        ],
+        "distinct_policy_instances": 4,
+        "hands": 64,
+        "loaded_weight_tables": 1,
+        "misses_by_street": [
+          56,
+          37,
+          15,
+          5
+        ],
+        "players": 4,
+        "seat_decisions": [
+          156,
+          152,
+          145,
+          146
+        ],
+        "trace_sha256": "a7a7453f5e086b7a44d9146db15efaa3ba6b1907090b7a1544d05a6110c3658f"
+      },
+      "trace_sha256": "a7a7453f5e086b7a44d9146db15efaa3ba6b1907090b7a1544d05a6110c3658f",
+      "replay": {
+        "status": "passed",
+        "engine": {
+          "url": "https://github.com/dberweger2017/pokers.git",
+          "vcs_info": {
+            "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "vcs": "git"
+          }
+        },
+        "hands": 64,
+        "decisions": 599,
+        "players": 4,
+        "trace_sha256": "a7a7453f5e086b7a44d9146db15efaa3ba6b1907090b7a1544d05a6110c3658f"
+      },
+      "button_counts": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "no_strength_readout": true
+    },
+    {
+      "checkpoint": {
+        "checkpoint": "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint50000000-train.gz",
+        "counts": {
+          "decisions": [
+            3625081,
+            5022841,
+            7929544,
+            13726297
+          ],
+          "discarded_keys": 6005517,
+          "discarded_visits": 1910418,
+          "missing": [
+            1974556,
+            3831537,
+            7051922,
+            13156996
+          ],
+          "nodes": 50020943,
+          "terminals": 19717180,
+          "traverser": [
+            2272942,
+            2262111,
+            2279679,
+            2269505,
+            0,
+            0
+          ]
+        },
+        "elapsed_seconds": 11.490517125,
+        "entries": 20007998,
+        "frozen_at": 1933,
+        "identity": {
+          "big_blind": 100,
+          "card_tables": [
+            "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+            "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+            "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+          ],
+          "game": "nlhe-cash",
+          "menu": "min-pot-conditional-jam-v1",
+          "players": 4,
+          "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+          "small_blind": 50,
+          "stacks": [
+            10000,
+            10000,
+            10000,
+            10000
+          ],
+          "utility_unit": "big-blind"
+        },
+        "iteration": 2559,
+        "save_seconds": 7.689935666,
+        "sha256": "bbfe20f87f33f60eccc14717a1d402c2a73ee0eaada9e915adc7aa07dc99f1b2",
+        "stop_reason": "nodes",
+        "stage_wall_seconds": 26.71961658296641,
+        "active_seconds": 3.800581459
+      },
+      "policy": "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint50000000-average.gz",
+      "policy_sha256": "15c812cd07f770fd84dc0e6b292369883db6e80610d183cc2a9d80fc0fad8b74",
+      "audit": {
+        "by_street": [
+          {
+            "entries": 1592720,
+            "visits": 595761,
+            "zero_visit_entries": 1162486,
+            "decisions": 3625081,
+            "missing_decisions": 1974556,
+            "missing_decision_share": 0.5446929323786145,
+            "visits_per_key": 0.37405256416695964
+          },
+          {
+            "entries": 3020473,
+            "visits": 1080123,
+            "zero_visit_entries": 2128031,
+            "decisions": 5022841,
+            "missing_decisions": 3831537,
+            "missing_decision_share": 0.762822673463086,
+            "visits_per_key": 0.3576006142084369
+          },
+          {
+            "entries": 5427616,
+            "visits": 1951514,
+            "zero_visit_entries": 3647484,
+            "decisions": 7929544,
+            "missing_decisions": 7051922,
+            "missing_decision_share": 0.8893225133752962,
+            "visits_per_key": 0.3595527023282413
+          },
+          {
+            "entries": 9967189,
+            "visits": 3546421,
+            "zero_visit_entries": 6542131,
+            "decisions": 13726297,
+            "missing_decisions": 13156996,
+            "missing_decision_share": 0.9585247936861632,
+            "visits_per_key": 0.35580954670368947
+          }
+        ],
+        "status": "passed",
+        "checkpoint_sha256": "bbfe20f87f33f60eccc14717a1d402c2a73ee0eaada9e915adc7aa07dc99f1b2",
+        "policy_sha256": "15c812cd07f770fd84dc0e6b292369883db6e80610d183cc2a9d80fc0fad8b74",
+        "strategy": "average",
+        "last_average_street": 3,
+        "rows": 20007998,
+        "average_rows": 20007998,
+        "current_rows": 0,
+        "zero_mass_rows": 5965201,
+        "format": "nplayer-average-mass-v1",
+        "keyset_sha256": "9bfa016d572871893305608158377841e019cad47678310139f04d4f648bc44a",
+        "positive_mass_rows": 14042797,
+        "zero_keys_sha256": "672a804666865b345763cf25bb0ca02faaa0c3d272eca9a7d858d44f1a0c75b9"
+      },
+      "self_play_coverage": {
+        "decisions_by_street": [
+          401,
+          127,
+          48,
+          18
+        ],
+        "distinct_policy_instances": 4,
+        "hands": 64,
+        "loaded_weight_tables": 1,
+        "misses_by_street": [
+          39,
+          34,
+          18,
+          12
+        ],
+        "players": 4,
+        "seat_decisions": [
+          141,
+          135,
+          155,
+          163
+        ],
+        "trace_sha256": "72f9e2b9a8c4fc993069a47b601fc1a5203710bc1db27eac34be917b933b2998"
+      },
+      "trace_sha256": "72f9e2b9a8c4fc993069a47b601fc1a5203710bc1db27eac34be917b933b2998",
+      "replay": {
+        "status": "passed",
+        "engine": {
+          "url": "https://github.com/dberweger2017/pokers.git",
+          "vcs_info": {
+            "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+            "vcs": "git"
+          }
+        },
+        "hands": 64,
+        "decisions": 594,
+        "players": 4,
+        "trace_sha256": "72f9e2b9a8c4fc993069a47b601fc1a5203710bc1db27eac34be917b933b2998"
+      },
+      "button_counts": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "no_strength_readout": true
+    }
+  ],
+  "source": "6637a70e28a7349067f7ea8291c72264b0986c92",
+  "costs": [
+    {
+      "phase": "endpoint25000000-train",
+      "command": [
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/qualification-v1/target/release/examples/nplayer_train",
+        "--players",
+        "4",
+        "--stack-bb",
+        "100",
+        "--small-blind",
+        "50",
+        "--big-blind",
+        "100",
+        "--fast",
+        "--threads",
+        "10",
+        "--roots-per-seat",
+        "8",
+        "--seed",
+        "2026102240601",
+        "--nodes",
+        "25000000",
+        "--max-entries",
+        "20000000",
+        "--freeze-at-cap",
+        "--last-average-street",
+        "3",
+        "--fast-gzip",
+        "--max-seconds",
+        "1e100",
+        "--card-buckets",
+        "/Users/dberweger/Local/overnight-equity-hu100-20261009/stage-a/results/equity-bench/tables",
+        "--out",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint25000000-train.gz",
+        "--telemetry",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint25000000-train.gz.progress.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 12.390053958981298,
+      "cpu_seconds": 81.37566200000002,
+      "sampled_peak_rss_bytes": 2502213632
+    },
+    {
+      "phase": "endpoint25000000-export",
+      "command": [
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/qualification-v1/target/release/examples/nplayer_policy",
+        "export",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint25000000-train.gz",
+        "fa409b1459e4b9812d1e1c8b01ec4038e48aa2d49c646b6fb3fb608469af8edf",
+        "average",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint25000000-average.gz",
+        "--fast-gzip"
+      ],
+      "returncode": 0,
+      "wall_seconds": 14.372119750012644,
+      "cpu_seconds": 38.94255499999999,
+      "sampled_peak_rss_bytes": 1106427904
+    },
+    {
+      "phase": "endpoint25000000-audit",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.audit_nplayer_policy_parallel",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint25000000-train.gz",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint25000000-average.gz",
+        "--workers",
+        "4",
+        "--lookup-out",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint25000000-mass"
+      ],
+      "returncode": 0,
+      "wall_seconds": 17.450294916983694,
+      "cpu_seconds": 75.63844400000002,
+      "sampled_peak_rss_bytes": 315654144
+    },
+    {
+      "phase": "endpoint25000000-play-0",
+      "command": [
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/qualification-v1/target/release/examples/nplayer_policy",
+        "play",
+        "/Users/dberweger/Local/overnight-equity-hu100-20261009/stage-a/results/equity-bench/tables",
+        "64",
+        "2026102240611",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint25000000-play-0.jsonl",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint25000000-average.gz",
+        "8a705e2cff30d7afdd4f4afaa58259c0e2034cf64ed5455593ea5742749ad91d",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint25000000-average.gz",
+        "8a705e2cff30d7afdd4f4afaa58259c0e2034cf64ed5455593ea5742749ad91d",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint25000000-average.gz",
+        "8a705e2cff30d7afdd4f4afaa58259c0e2034cf64ed5455593ea5742749ad91d",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint25000000-average.gz",
+        "8a705e2cff30d7afdd4f4afaa58259c0e2034cf64ed5455593ea5742749ad91d"
+      ],
+      "returncode": 0,
+      "wall_seconds": 10.238236125034746,
+      "cpu_seconds": 10.168319000000004,
+      "sampled_peak_rss_bytes": 1310326784
+    },
+    {
+      "phase": "endpoint25000000-play-1",
+      "command": [
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/qualification-v1/target/release/examples/nplayer_policy",
+        "play",
+        "/Users/dberweger/Local/overnight-equity-hu100-20261009/stage-a/results/equity-bench/tables",
+        "64",
+        "2026102240611",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint25000000-play-1.jsonl",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint25000000-average.gz",
+        "8a705e2cff30d7afdd4f4afaa58259c0e2034cf64ed5455593ea5742749ad91d",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint25000000-average.gz",
+        "8a705e2cff30d7afdd4f4afaa58259c0e2034cf64ed5455593ea5742749ad91d",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint25000000-average.gz",
+        "8a705e2cff30d7afdd4f4afaa58259c0e2034cf64ed5455593ea5742749ad91d",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint25000000-average.gz",
+        "8a705e2cff30d7afdd4f4afaa58259c0e2034cf64ed5455593ea5742749ad91d"
+      ],
+      "returncode": 0,
+      "wall_seconds": 10.24329841695726,
+      "cpu_seconds": 10.21924199999998,
+      "sampled_peak_rss_bytes": 1310326784
+    },
+    {
+      "phase": "endpoint25000000-replay",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.check_nplayer_policy_replay",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint25000000-play-0.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.029824582976289,
+      "cpu_seconds": 0.06469800000001236,
+      "sampled_peak_rss_bytes": 10960896
+    },
+    {
+      "phase": "endpoint50000000-train",
+      "command": [
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/qualification-v1/target/release/examples/nplayer_train",
+        "--players",
+        "4",
+        "--stack-bb",
+        "100",
+        "--small-blind",
+        "50",
+        "--big-blind",
+        "100",
+        "--fast",
+        "--threads",
+        "10",
+        "--roots-per-seat",
+        "8",
+        "--seed",
+        "2026102240601",
+        "--nodes",
+        "50000000",
+        "--max-entries",
+        "20000000",
+        "--freeze-at-cap",
+        "--last-average-street",
+        "3",
+        "--fast-gzip",
+        "--max-seconds",
+        "1e100",
+        "--card-buckets",
+        "/Users/dberweger/Local/overnight-equity-hu100-20261009/stage-a/results/equity-bench/tables",
+        "--out",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint50000000-train.gz",
+        "--telemetry",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint50000000-train.gz.progress.jsonl",
+        "--resume",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint25000000-train.gz",
+        "--resume-sha256",
+        "fa409b1459e4b9812d1e1c8b01ec4038e48aa2d49c646b6fb3fb608469af8edf"
+      ],
+      "returncode": 0,
+      "wall_seconds": 26.71961658296641,
+      "cpu_seconds": 115.97674199999999,
+      "sampled_peak_rss_bytes": 3069542400
+    },
+    {
+      "phase": "endpoint50000000-export",
+      "command": [
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/qualification-v1/target/release/examples/nplayer_policy",
+        "export",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint50000000-train.gz",
+        "bbfe20f87f33f60eccc14717a1d402c2a73ee0eaada9e915adc7aa07dc99f1b2",
+        "average",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint50000000-average.gz",
+        "--fast-gzip"
+      ],
+      "returncode": 0,
+      "wall_seconds": 21.624811958987266,
+      "cpu_seconds": 58.28889600000003,
+      "sampled_peak_rss_bytes": 1632894976
+    },
+    {
+      "phase": "endpoint50000000-audit",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.audit_nplayer_policy_parallel",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint50000000-train.gz",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint50000000-average.gz",
+        "--workers",
+        "4",
+        "--lookup-out",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint50000000-mass"
+      ],
+      "returncode": 0,
+      "wall_seconds": 24.605841124954168,
+      "cpu_seconds": 110.574845,
+      "sampled_peak_rss_bytes": 307101696
+    },
+    {
+      "phase": "endpoint50000000-play-0",
+      "command": [
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/qualification-v1/target/release/examples/nplayer_policy",
+        "play",
+        "/Users/dberweger/Local/overnight-equity-hu100-20261009/stage-a/results/equity-bench/tables",
+        "64",
+        "2026102240612",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint50000000-play-0.jsonl",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint50000000-average.gz",
+        "15c812cd07f770fd84dc0e6b292369883db6e80610d183cc2a9d80fc0fad8b74",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint50000000-average.gz",
+        "15c812cd07f770fd84dc0e6b292369883db6e80610d183cc2a9d80fc0fad8b74",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint50000000-average.gz",
+        "15c812cd07f770fd84dc0e6b292369883db6e80610d183cc2a9d80fc0fad8b74",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint50000000-average.gz",
+        "15c812cd07f770fd84dc0e6b292369883db6e80610d183cc2a9d80fc0fad8b74"
+      ],
+      "returncode": 0,
+      "wall_seconds": 15.353294291999191,
+      "cpu_seconds": 14.470554000000075,
+      "sampled_peak_rss_bytes": 3444883456
+    },
+    {
+      "phase": "endpoint50000000-play-1",
+      "command": [
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/qualification-v1/target/release/examples/nplayer_policy",
+        "play",
+        "/Users/dberweger/Local/overnight-equity-hu100-20261009/stage-a/results/equity-bench/tables",
+        "64",
+        "2026102240612",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint50000000-play-1.jsonl",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint50000000-average.gz",
+        "15c812cd07f770fd84dc0e6b292369883db6e80610d183cc2a9d80fc0fad8b74",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint50000000-average.gz",
+        "15c812cd07f770fd84dc0e6b292369883db6e80610d183cc2a9d80fc0fad8b74",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint50000000-average.gz",
+        "15c812cd07f770fd84dc0e6b292369883db6e80610d183cc2a9d80fc0fad8b74",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint50000000-average.gz",
+        "15c812cd07f770fd84dc0e6b292369883db6e80610d183cc2a9d80fc0fad8b74"
+      ],
+      "returncode": 0,
+      "wall_seconds": 14.363612417015247,
+      "cpu_seconds": 14.368249000000047,
+      "sampled_peak_rss_bytes": 2214068224
+    },
+    {
+      "phase": "endpoint50000000-replay",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.check_nplayer_policy_replay",
+        "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint50000000-play-0.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.0289613750064746,
+      "cpu_seconds": 0.06411399999993783,
+      "sampled_peak_rss_bytes": 10665984
+    }
+  ],
+  "no_strength_readout": true,
+  "cap_censors_growth": true,
+  "archive": "owner-managed pending; originals retained"
+}

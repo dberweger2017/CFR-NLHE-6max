@@ -1,0 +1,294 @@
+{
+  "accounted_active_seconds": 309.9805177046801,
+  "initial_launch_utc": "2026-10-26T09:59:41.857130Z",
+  "completion_utc": "2026-10-26T10:23:48.897056Z",
+  "elapsed_dispatch_to_completion_seconds": 1447.0399260520935,
+  "elapsed_scope": "includes implementation/repair/idle gaps; active accounting excludes those gaps and final publication",
+  "summed_stage_wall_seconds": 277.56078129299567,
+  "summed_stage_cpu_seconds": 538.629935,
+  "controller_wall_seconds": 95.33372525000595,
+  "preparation": {
+    "epoch": 1793010068.907348,
+    "source": "116f1be60bafa34ef1ec940a5000083e381840ba",
+    "native_source": "469ffa3c4811f571bd6dc4fd4ed72de203cef9c3",
+    "wall_seconds": 214.64679245467414,
+    "prior_qualified_fixture_retained": true,
+    "completed_root0_begin_reused": true,
+    "extra_root_solves": 0,
+    "no_main_started": true,
+    "prior_v2_controller_seconds": 116.09804487228394,
+    "previous_preparation_and_failure_seconds": 92.86704179039225,
+    "new_source_prep_seconds": 5.681706208997639,
+    "normal_inode": 68078242
+  },
+  "phases": {
+    "adapter-tests": {
+      "wall_seconds": 1.0275432920025196,
+      "cpu_seconds": 0.07153500000000007,
+      "attempts": 1
+    },
+    "preflight-current-0": {
+      "wall_seconds": 10.224306791991694,
+      "cpu_seconds": 10.151010000000014,
+      "attempts": 2
+    },
+    "preflight-current-1": {
+      "wall_seconds": 7.155151958024362,
+      "cpu_seconds": 6.323661000000001,
+      "attempts": 1
+    },
+    "preflight-baseline-0": {
+      "wall_seconds": 6.133079207997071,
+      "cpu_seconds": 5.746057999999999,
+      "attempts": 1
+    },
+    "preflight-baseline-1": {
+      "wall_seconds": 6.134101083007408,
+      "cpu_seconds": 5.810943999999999,
+      "attempts": 1
+    },
+    "main-current-0": {
+      "wall_seconds": 19.417764457990415,
+      "cpu_seconds": 19.416886999999996,
+      "attempts": 1
+    },
+    "main-current-1": {
+      "wall_seconds": 20.453992916998686,
+      "cpu_seconds": 19.664656000000004,
+      "attempts": 1
+    },
+    "main-baseline-0": {
+      "wall_seconds": 10.229820458014729,
+      "cpu_seconds": 9.696416999999991,
+      "attempts": 1
+    },
+    "main-baseline-1": {
+      "wall_seconds": 10.235707874991931,
+      "cpu_seconds": 9.780414000000004,
+      "attempts": 1
+    },
+    "thermal-build": {
+      "wall_seconds": 2.0573967919917777,
+      "cpu_seconds": 0.8388440000000001,
+      "attempts": 2
+    },
+    "native-tests": {
+      "wall_seconds": 94.09899670898449,
+      "cpu_seconds": 325.09090100000003,
+      "attempts": 2
+    },
+    "example-tests": {
+      "wall_seconds": 28.709359167027287,
+      "cpu_seconds": 38.618311000000006,
+      "attempts": 2
+    },
+    "python-tests": {
+      "wall_seconds": 2.1154214589914773,
+      "cpu_seconds": 0.21303000000000338,
+      "attempts": 2
+    },
+    "build": {
+      "wall_seconds": 22.58103679199121,
+      "cpu_seconds": 42.957307,
+      "attempts": 2
+    },
+    "baseline-lock": {
+      "wall_seconds": 2.1139381249959115,
+      "cpu_seconds": 0.1252200000000272,
+      "attempts": 2
+    },
+    "baseline-build": {
+      "wall_seconds": 13.333616249990882,
+      "cpu_seconds": 15.335460999999995,
+      "attempts": 2
+    },
+    "panel-generate": {
+      "wall_seconds": 1.0430374999996275,
+      "cpu_seconds": 0.04301800000000355,
+      "attempts": 1
+    },
+    "fixture-train": {
+      "wall_seconds": 12.28383416600991,
+      "cpu_seconds": 21.307343000000003,
+      "attempts": 1
+    },
+    "fixture-export": {
+      "wall_seconds": 3.0652286669937894,
+      "cpu_seconds": 2.267255999999975,
+      "attempts": 1
+    },
+    "fixture-audit": {
+      "wall_seconds": 5.1474476250004955,
+      "cpu_seconds": 5.171661999999998,
+      "attempts": 1
+    }
+  },
+  "resources": [
+    {
+      "root": "run-v1",
+      "samples": 75,
+      "min_available_ram_bytes": 6669991936,
+      "max_swap_bytes": 1048576,
+      "max_family_rss_bytes": 956153856,
+      "thermal_states": [
+        "nominal"
+      ],
+      "min_free_bytes": 31438872576
+    },
+    {
+      "root": "run-v2",
+      "samples": 111,
+      "min_available_ram_bytes": 6726287360,
+      "max_swap_bytes": 1048576,
+      "max_family_rss_bytes": 1509490688,
+      "thermal_states": [
+        "nominal"
+      ],
+      "min_free_bytes": 30564417536
+    },
+    {
+      "root": "completion-v1",
+      "samples": 85,
+      "min_available_ram_bytes": 6414073856,
+      "max_swap_bytes": 1048576,
+      "max_family_rss_bytes": 1552547840,
+      "thermal_states": [
+        "nominal"
+      ],
+      "min_free_bytes": 34051682304
+    }
+  ],
+  "allocated_owned_bytes": 2669297664,
+  "post_free_bytes": 33774866432,
+  "startup": [
+    {
+      "batch": "main-current-0",
+      "ready": {
+        "mass_keyset_sha256": "d44bee187be2a3467e4088106d063d69fd48b1a9a24c4720b8220af2333b7067",
+        "mass_receipt_sha256": "f5c9e5c0c37ad8da0a9f12c101ed237d94f35ddf81363caf0e93fc8c49a472c3",
+        "model_and_k50_load_seconds": 3.0742997499999998,
+        "model_sha256": "c2c425422545bad2d789b7346262c1209cf1d1f0bcace40cf74ef7616eee28ca",
+        "policy_load_seconds": 0.484567458,
+        "rows": 1010695,
+        "status": "ready"
+      },
+      "startup_wall_seconds": 3.0764451250142884
+    },
+    {
+      "batch": "main-current-1",
+      "ready": {
+        "mass_keyset_sha256": "d44bee187be2a3467e4088106d063d69fd48b1a9a24c4720b8220af2333b7067",
+        "mass_receipt_sha256": "f5c9e5c0c37ad8da0a9f12c101ed237d94f35ddf81363caf0e93fc8c49a472c3",
+        "model_and_k50_load_seconds": 3.195933792,
+        "model_sha256": "c2c425422545bad2d789b7346262c1209cf1d1f0bcace40cf74ef7616eee28ca",
+        "policy_load_seconds": 0.511784083,
+        "rows": 1010695,
+        "status": "ready"
+      },
+      "startup_wall_seconds": 3.1983140840020496
+    },
+    {
+      "batch": "preflight-current-1",
+      "ready": {
+        "mass_keyset_sha256": "d44bee187be2a3467e4088106d063d69fd48b1a9a24c4720b8220af2333b7067",
+        "mass_receipt_sha256": "f5c9e5c0c37ad8da0a9f12c101ed237d94f35ddf81363caf0e93fc8c49a472c3",
+        "model_and_k50_load_seconds": 3.001247916,
+        "model_sha256": "c2c425422545bad2d789b7346262c1209cf1d1f0bcace40cf74ef7616eee28ca",
+        "policy_load_seconds": 0.470632792,
+        "rows": 1010695,
+        "status": "ready"
+      },
+      "startup_wall_seconds": 3.0033912920043804
+    },
+    {
+      "batch": "preflight-current-0",
+      "ready": {
+        "mass_keyset_sha256": "d44bee187be2a3467e4088106d063d69fd48b1a9a24c4720b8220af2333b7067",
+        "mass_receipt_sha256": "f5c9e5c0c37ad8da0a9f12c101ed237d94f35ddf81363caf0e93fc8c49a472c3",
+        "model_and_k50_load_seconds": 3.046109625,
+        "model_sha256": "c2c425422545bad2d789b7346262c1209cf1d1f0bcace40cf74ef7616eee28ca",
+        "policy_load_seconds": 0.466064,
+        "rows": 1010695,
+        "status": "ready"
+      },
+      "startup_wall_seconds": 3.0483630829839967
+    },
+    {
+      "batch": "preflight-baseline-0",
+      "ready": {
+        "mass_keyset_sha256": "d44bee187be2a3467e4088106d063d69fd48b1a9a24c4720b8220af2333b7067",
+        "mass_receipt_sha256": "f5c9e5c0c37ad8da0a9f12c101ed237d94f35ddf81363caf0e93fc8c49a472c3",
+        "model_and_k50_load_seconds": 3.010815625,
+        "model_sha256": "c2c425422545bad2d789b7346262c1209cf1d1f0bcace40cf74ef7616eee28ca",
+        "policy_load_seconds": 0.474230916,
+        "rows": 1010695,
+        "status": "ready"
+      },
+      "startup_wall_seconds": 3.0131676659802906
+    },
+    {
+      "batch": "preflight-baseline-1",
+      "ready": {
+        "mass_keyset_sha256": "d44bee187be2a3467e4088106d063d69fd48b1a9a24c4720b8220af2333b7067",
+        "mass_receipt_sha256": "f5c9e5c0c37ad8da0a9f12c101ed237d94f35ddf81363caf0e93fc8c49a472c3",
+        "model_and_k50_load_seconds": 3.05037175,
+        "model_sha256": "c2c425422545bad2d789b7346262c1209cf1d1f0bcace40cf74ef7616eee28ca",
+        "policy_load_seconds": 0.490947625,
+        "rows": 1010695,
+        "status": "ready"
+      },
+      "startup_wall_seconds": 3.0526972499792464
+    },
+    {
+      "batch": "main-baseline-1",
+      "ready": {
+        "mass_keyset_sha256": "d44bee187be2a3467e4088106d063d69fd48b1a9a24c4720b8220af2333b7067",
+        "mass_receipt_sha256": "f5c9e5c0c37ad8da0a9f12c101ed237d94f35ddf81363caf0e93fc8c49a472c3",
+        "model_and_k50_load_seconds": 3.208427584,
+        "model_sha256": "c2c425422545bad2d789b7346262c1209cf1d1f0bcace40cf74ef7616eee28ca",
+        "policy_load_seconds": 0.503844167,
+        "rows": 1010695,
+        "status": "ready"
+      },
+      "startup_wall_seconds": 3.210774625011254
+    },
+    {
+      "batch": "main-baseline-0",
+      "ready": {
+        "mass_keyset_sha256": "d44bee187be2a3467e4088106d063d69fd48b1a9a24c4720b8220af2333b7067",
+        "mass_receipt_sha256": "f5c9e5c0c37ad8da0a9f12c101ed237d94f35ddf81363caf0e93fc8c49a472c3",
+        "model_and_k50_load_seconds": 3.171580959,
+        "model_sha256": "c2c425422545bad2d789b7346262c1209cf1d1f0bcace40cf74ef7616eee28ca",
+        "policy_load_seconds": 0.518632334,
+        "rows": 1010695,
+        "status": "ready"
+      },
+      "startup_wall_seconds": 3.1738598749798257
+    }
+  ],
+  "quote": {
+    "central_seconds": 542.7842732741847,
+    "reserved_seconds": 1493.1990464275295,
+    "allowance_seconds": 3600,
+    "already_spent_seconds": 244.84079128768644,
+    "full_panel_startup_seconds": 12.267883747961605,
+    "mean_complete_seconds": {
+      "current": 0.34062636187445605,
+      "baseline": 0.5406444791078684
+    },
+    "max_complete_seconds": {
+      "current": 1.2942931659927126,
+      "baseline": 1.3209782489866484
+    },
+    "forecast_family_bytes": 4294967296,
+    "available_bytes": 7663976448,
+    "main_admitted": true,
+    "memory_admitted": true,
+    "no_outcomes_used": true,
+    "no_main_started": true,
+    "method": "actual spent +2x startup +4x max per-version complete latency for96current/24baseline +600s proof/report; scenario not bound",
+    "disk_admitted": true
+  },
+  "not_isolated": true,
+  "cpu_scope": "wait4 child CPU summed over all recorded stages including both plumbing failures; excludes source-preparation/hash/publication CPU"
+}

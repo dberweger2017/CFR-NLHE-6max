@@ -1,0 +1,42 @@
+{
+  "status": "proposal-only-not-authorized",
+  "question": "Qualify capped mature200BB costs before a three-lineage training allocation",
+  "seed": 2026102240001,
+  "parent_checkpoint_sha256": "704e35dd04d8290fc49c9d4505f6371bf0e8a50200e185c8881807ce727af625",
+  "targets": [
+    1000000000
+  ],
+  "entry_cap": 250000000,
+  "same_recipe": true,
+  "new_proposed_coverage_roots": [
+    2026102240201,
+    2026102240202,
+    2026102240203,
+    2026102240204
+  ],
+  "coverage_blocks_per_script": 128,
+  "initial_hands": 3072,
+  "reproduction_hands": 3072,
+  "components_seconds": {
+    "active_training": 104.81491947802095,
+    "startup_load_hash_other": 239.32218423114915,
+    "save": 122.77452663713507,
+    "export": 386.7068748433224,
+    "audit": 396.05710208681745,
+    "coverage_both_native_processes": 509.49090451608157,
+    "independent_replay": 8.058015475980937,
+    "metadata_and_verification_allowance": 120
+  },
+  "central_seconds": 1887.2245272685075,
+  "reserved_seconds": 4179.263974015036,
+  "reserve_correction": {
+    "previous_reserved_seconds": 3939.263974015036,
+    "added_seconds": 240,
+    "reason": "Include metadata in all non-training components, matching the written formula."
+  },
+  "proposed_planning_allocation_seconds": 5400,
+  "not_a_time_stop": true,
+  "assumptions": "Current minimum interval rate; linear I/O/load scaling to250M entries;2x non-training/3x active reserves plus300s. Not mature measurements or a guarantee.",
+  "decision": "Stop at1B even if unfrozen; no automatic extension, full training or strength readout; then quote the model campaign.",
+  "model_campaign_not_admitted": true
+}

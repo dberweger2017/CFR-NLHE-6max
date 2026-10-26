@@ -19,6 +19,16 @@ The [research history](research-history.md) indexes completed experiments.
   the HU20 catalog. [v0.5.2 install](releases/v0.5.2/INSTALL.md), [v0.5.3 split model/K50 install](releases/v0.5.3/INSTALL.md).
   `hu100_research.py` is an explicit research-only pin; [local HU100 play](hu100-local-play.md)
   records its retrieval gate, fixed table and off-by-default translation option.
+  `v060_bundle.py` verifies the prepared three-player 100 BB release's exact
+  binary parts, K50 tables and source manifests with Python stdlib only.
+  `scripts.build_v060_bundle` prepares assets in a fresh directory;
+  `scripts.play_v060` requires explicit seed selection and shares one model
+  across the existing three-seat table. [Release preparation](releases/v0.6.0/READINESS.md).
+  `v061_bundle.py` and `scripts.build_v061_bundle` prepare the qualified three-player
+  200 BB family without conversion; `scripts.download_v061` resumes pinned assets,
+  `scripts.play_v061` explicitly selects a seed/source and `scripts.check_v061_runtime`
+  checks integration. `scripts.plan_v061_publication` only reconciles live asset
+  metadata. [v0.6.1 readiness and quote](releases/v0.6.1/READINESS.md); publication pending.
 - `src/play_api/` and `apps/poker-web/`: durable local sessions, HTTP and the table.
   `versions.py` has the explicit release catalog. Defaults never silently fall
   back when an artifact is missing or corrupt; sessions keep their model.
@@ -42,7 +52,10 @@ The [research history](research-history.md) indexes completed experiments.
   control a bounded run; `--fast-gzip` writes the checkpoint as one gzip member per
   formatted piece (same content, faster, different `.gz` bytes); `--fast` selects the
   [fast-mode recipe](nplayer-fast-mode.md) (all cores, identical for any thread count) and
-  `--threads N` its worker count. Resume requires `--resume` plus `--resume-sha256` and
+  `--threads N` its worker count; with `--fast`, `--prune-bb B --prune-after N` enable
+  [regret-based pruning](nplayer-pruning.md), `--opponent-pot-raise P` the
+  [opponent-pressure screen's](nplayer-opponent-pressure.md) training change and
+  `--traverser-admission` [admission of new keys from traverser updates only](nplayer-traverser-admission.md). Resume requires `--resume` plus `--resume-sha256` and
   identical game/seed/averaging/cap/sampling settings. This version supports only the exact
   HU v1 sizing convention, including its conditional jam and duplicate removal.
   N-player checkpoints use a distinct N-tagged format; legacy HU commands and
@@ -165,3 +178,79 @@ block-cluster intervals. `scripts.machine_qualification.vrm_watchdog` is the
 exclusive four-CPU on-host guard while cygnus-x1's VRM heatsink is absent; it logs
 Thermistor 15 and fan1 and supplies `NPLAYER_STOP_FILE` to its child. Campaign
 entry points consume the fixed protocol and do not authorize another run.
+
+## Proposed pruning cost/strength study
+
+`scripts.nplayer_pruning_strength` builds/configures explicitly and separately
+from `run`; no subcommand is invoked by a timer. The [protocol](nplayer-pruning-strength-study.md)
+records the historical630.741s clock, node-first comparison, exact-clock resume
+and second comparison. The owner requested reviewing this implementation before
+any benchmark or training starts. It is a campaign entry point, not a default trainer.
+
+### Prepared native river prototype
+
+The opt-in `river_prepared` example uses `native/hu20-trainer/src/river.rs` for
+float64 linear terminal evaluation and simultaneous CFR, with a separate strict
+prepared-input boundary. `src/blueprint/native_river.py` exports a stipulated
+reference game to a persistent worker; it does not construct beliefs or enter
+live play. `scripts.benchmark_native_river` checks values, gradients, averages,
+best responses and fixed-work timing. [Protocol and limits](native-river-prototype.md)
+include the retained small-range quality-screen misses. No blueprint/model load,
+training or search strength study is part of this example.
+
+### Legal river decision pilot
+
+The opt-in `river_live K50 POLICY SHA256` worker loads one frozen N-player
+blueprint and handles strict public-history requests. The immutable-observation
+adapter is `src/blueprint/live_river.py`. It returns legal root action
+distributions and support/quality/latency diagnostics, without applying actions
+or installing a search player. `scripts.benchmark_live_river` runs six fixed
+engineering states and stops; `scripts.diagnose_river_numerics` retains the
+zero-regret rational oracle and scalar review control. [Protocol](live-river-pilot.md)
+and [measured results/conditional quote](reports/live-river-pilot/results.md)
+describe allocation rejections, zero reach, belief projection and the remaining
+retained-profile/strength-study work. These commands do not start an arena.
+
+### Exact native inference derivatives
+
+The optional [binary inference reader](nplayer-binary-inference.md) converts a
+pinned N-player export into a fully validated float64 derivative. The original
+gzip reader stays supported. Build `--example nplayer_inference` for conversion,
+full-row verification, load profiling and fixture benchmarks; no training runs
+through this tool. Mature loading/play qualification is tracked in PR359.
+
+## Three-player200BB feasibility
+
+`scripts.nplayer_bb200_feasibility` prepares and validates a fresh cost-only
+lineage after source-bound build/test receipts; preparation never starts science.
+[Protocol and proposed quote](nplayer-bb200-feasibility.md) define the explicit
+launch boundary,100M/200M/500M endpoints, real-K50 qualification, every-row export
+audit, scripted coverage/replay and preservation. Generic training/policy paths
+already support200BB; the duplicate arena adds200 to its stack whitelist.
+The historical100BB bounded host is not repurposed or silently widened.
+
+## Paired four-to-six-player arena
+
+The opt-in `nplayer_paired_arena batch MANIFEST.json` keeps one focal identity and
+one immutable opponent list, producing two matched arm traces. A declared cyclic
+schedule balances seats without enumerating all permutations. Existing
+`nplayer_arena` and three-player traces stay unchanged. The manifest requires
+explicit game/count/root/output fields and source-pinned full-average mass
+metadata for each model. Repeated aliases share read-only weights, with separate
+policy RNG state per labeled player. More distinct models require a separate
+memory/cost quote; the M4 qualification uses two aliases per case.
+
+`scripts.nplayer_paired_evidence replay TRACE` independently checks every hand.
+Its `pair A B REPEAT_A REPEAT_B PROOF_A PROOF_B` readout requires replay and exact
+reproduction, then reports independent-block contrasts and lookup coverage.
+The qualification-only `coverage CATALOG_JSON TRACE...` path independently
+streams original gzip exports and audited zero-key metadata to verify tags.
+These tools do not train or start a strength campaign. [Protocol and seating
+limits](nplayer-paired-arena.md), [current qualification readiness](reports/nplayer-paired-arena/results.md).
+
+
+The bounded [five-player development controller](nplayer-five-player-candidate.md),
+`scripts.nplayer_five_player_candidate`, reuses the qualified paired evidence
+and source-bound full-row model pipeline. Its metadata-only component planner is
+`scripts.plan_nplayer_five_player_candidate`; build/configure/run/readout require
+the documented bb128 source/budget/qualification gates, not automatic continuation.

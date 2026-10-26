@@ -1,0 +1,643 @@
+{
+  "root": "/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3",
+  "collected_epoch": 1792423774.7128458,
+  "files": {
+    "launch.json": {
+      "epoch": 1792416073.0231748,
+      "supervisor_pid": 492733,
+      "qualification_deadline_epoch": 1792423272.9440205,
+      "main_maximum_seconds": 28800,
+      "seeds": [
+        202610193501,
+        202610193502,
+        202610193503
+      ],
+      "targets": [
+        1000000000,
+        3000000000,
+        10000000000
+      ],
+      "cap": 250000000,
+      "output_reservation_bytes": 600000000000,
+      "rss_limit_bytes": 85899345920,
+      "address_limit_bytes": 103079215104,
+      "cpu_stop_c": 90,
+      "thermistor15_stop_c": 100,
+      "swap_guard_enabled": false,
+      "source_commit": "b9882e7e728847a58691995e64eabd4563ea0991",
+      "source_manifest_sha256": "1f0c6f9a0e9b8dd533f74173ece3f0d3eb57d0355ffb61954ce86ce410dcc300"
+    },
+    "source-receipt.json": {
+      "source_commit": "b9882e7e728847a58691995e64eabd4563ea0991",
+      "bundle_sha256": "24a1ed6b5d75058e20f006e5b932a174f50a9027c3c36ffc2a5b7b08f708af8c",
+      "source_path": "/home/dberweger/nplayer-bb100-bounded-20261019/source-continuation-v1",
+      "config_sha256": "1f0c6f9a0e9b8dd533f74173ece3f0d3eb57d0355ffb61954ce86ce410dcc300",
+      "compiled_source": "/home/dberweger/nplayer-bb100-bounded-20261019/source-review-v1",
+      "native_binaries_unchanged": true,
+      "native_source_identical_to": "/home/dberweger/nplayer-bb100-bounded-20261019/source-v4",
+      "parent_root": "/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v2",
+      "owner_authorized_additional_qualification_seconds": 7200,
+      "review_report": "docs/reports/nplayer-bb100/continuation-review.md",
+      "linux_tests": 26
+    },
+    "status.json": {
+      "status": "calibration-persistent-evaluation",
+      "at": 1792418493.7745695,
+      "seed": 2026101935003
+    },
+    "failure.json": {
+      "error": "RuntimeError('measured overnight admission refused; no final seed started')",
+      "at": 1792422122.3563495
+    },
+    "cost-quote.json": {
+      "training_seconds": 6240.035536297157,
+      "saving_seconds": 3193.9267148399995,
+      "export_seconds": 964.8394921619999,
+      "audit_seconds": 2308.6740240690415,
+      "monitoring_seconds": 0.60331423,
+      "model_load_seconds": 3520.706595183,
+      "play_seconds": 4480.366109248309,
+      "replay_seconds": 946.0040704,
+      "verification_allowance_seconds": 7449.323419217229,
+      "total_seconds_with_allowance": 36380.59909455841,
+      "post_freeze_nodes_per_second": 4830005.973934204,
+      "peak_rss_with_allowance_bytes": 88624291840.0,
+      "monitoring_fraction": 9.668442214641732e-05,
+      "main_output_bytes_with_allowance": 202008505080.0,
+      "cap": 250000000,
+      "final_seeds": [
+        202610193501,
+        202610193502,
+        202610193503
+      ],
+      "final_hands": 1769472,
+      "reproduction_hands": 1769472,
+      "scope": "one calibration trajectory; full representative matrix; no strength-based selection",
+      "remaining_output_reservation_bytes": 536609535619
+    },
+    "inherited-qualification.json": {
+      "status": "passed",
+      "parent": {
+        "root": "/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v2",
+        "files": {
+          "config.json": "588379a7b3159528cf5085bf56de43da85979ad34c821a43509511fa088a2042",
+          "small-qualification.json": "3c8b08a05e97474d7bd4af5c6e6ab4a4c828251764f91498012393b523572c61",
+          "smoke/evaluation-manifest.json": "b24be12ff70d605265258ffc5ab7c115b663e46a2da85c2fd5219cc9f7ade2c6",
+          "smoke/evaluation-verified.json": "130e46a1899776785fbce5de5b88d830dd5c21695ececd918f2df8bae5d4f203",
+          "smoke/evaluation-cost.json": "9912d628fc62865e143f91f01da79e871d1adf13e05f078afa0f1db30afa7ba5",
+          "measurements/calibration/result.json": "0ece6444f2fdd8734f33484533617cafec25ef23a59524df8a090b2704085398",
+          "validations/calibration/failure.json": "77ac0aabc269877e6dd0097228dcfc80280453b44e07a011455aa0c98d344ed1",
+          "source-receipt.json": "be20ddbbf64688caeeae55b602b508553a96c18e577d1e16f2a2dc7a4c99d9af",
+          "status.json": "c63a5695759644edb27f848f26b1e168c97b3d6b8cbea76ae2559bdcec31fce7",
+          "failure.json": "d38cf4090b0704d6c8966f5d22d670f9eb1c5754d0fdf3babfdf3bc3ffebf657"
+        },
+        "checkpoint": "/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v2/calibration/2000000000.gz",
+        "checkpoint_sha256": "43320d93b5dda9981d4f99e1d8b4898b924e38acfe8f809f6693ff79cdc41566"
+      },
+      "reused_small_fixtures": true,
+      "reused_mature_checkpoint": true,
+      "next_fixed_endpoint": 3000000000
+    },
+    "validations/calibration-parent/verified.json": {
+      "status": "passed",
+      "nodes": 2000003197,
+      "sha256": "43320d93b5dda9981d4f99e1d8b4898b924e38acfe8f809f6693ff79cdc41566"
+    },
+    "validations/calibration-continuation/verified.json": {
+      "status": "passed",
+      "nodes": 3000011203,
+      "sha256": "ea0c7dca97ae627b08a39d4196cdd824d6e0767d85ca64c829eae5dcceb2da6b"
+    },
+    "calibration-evaluation/evaluation-verified.json": {
+      "status": "passed",
+      "manifest_sha256": "a276377126c0bcf98e2055b7e68c446b5b1f9056ea6fdb8729e2351d8cc41b33",
+      "cases": 36,
+      "hands": 27648
+    },
+    "calibration-evaluation/evaluation-cost.json": {
+      "native_wall_seconds": 3590.712315640005,
+      "replay_wall_seconds": 0.8613758120045532,
+      "json_scan_seconds": 0.8913882139895577,
+      "input_verification_seconds": 36.000803653965704,
+      "native_load_seconds": 3520.706595183,
+      "native_play_seconds": 0.5230081959999999,
+      "trace_bytes": 147813136,
+      "policy_loads": 12,
+      "cases": 36,
+      "blocks": 128
+    }
+  },
+  "measurements": {
+    "verify-parent": {
+      "returncode": 0,
+      "wall_seconds": 0.07417023400194012,
+      "cpu_seconds": 0.073639,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 13320192
+      },
+      "events": [
+        {
+          "event": "complete",
+          "status": "passed",
+          "inherited_nodes": 2000003197
+        }
+      ]
+    },
+    "validate-calibration-parent": {
+      "returncode": 0,
+      "wall_seconds": 33.749080167996,
+      "cpu_seconds": 33.745297,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 47329280
+      },
+      "events": [
+        {
+          "event": "complete",
+          "status": "passed"
+        }
+      ]
+    },
+    "calibration-continuation": {
+      "returncode": 0,
+      "wall_seconds": 1568.3695089140092,
+      "cpu_seconds": 8595.457919,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 1405960192,
+        "load/0": 22870130688,
+        "train/3000000000": 23324581888,
+        "save/3000000000": 24557957120,
+        "hash/3000000000": 23890726912,
+        "export/3000000000": 24552439808
+      },
+      "events": [
+        {
+          "bytes": 9354183935,
+          "counts": {
+            "decisions": [
+              56268006,
+              130162620,
+              310408323,
+              694241318
+            ],
+            "discarded_keys": 0,
+            "discarded_visits": 0,
+            "missing": [
+              3366880,
+              13480264,
+              50344323,
+              182814149
+            ],
+            "nodes": 2088867258,
+            "terminals": 897786991,
+            "traverser": [
+              136552874,
+              136708970,
+              136462232,
+              0,
+              0,
+              0
+            ]
+          },
+          "entries": 250000475,
+          "event": "checkpoint",
+          "frozen_at": 143159,
+          "iteration": 143159,
+          "keyset_sha256": "a83858109eed965e73acd76787761d9353f2a66cccb482c0271173e3ff731425",
+          "label": "anchor",
+          "nodes": 2088867258,
+          "path": "/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3/calibration-continuation/anchor.gz",
+          "save_seconds": 197.329222003,
+          "sha256": "5d8f78f61a4e14461369d480f23f963bae049e6d2725f8889d97618a76963274",
+          "target": 3000000000
+        },
+        {
+          "checkpoint": "/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3/calibration-continuation/anchor.gz",
+          "checkpoint_sha256": "5d8f78f61a4e14461369d480f23f963bae049e6d2725f8889d97618a76963274",
+          "entries": 250000475,
+          "event": "exported",
+          "export_seconds": 155.054950462,
+          "label": "anchor",
+          "nodes": 2088867258,
+          "path": "/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3/calibration-continuation/anchor-average.gz",
+          "sha256": "eb596b27602ed20edbc4649223d2f4cdbecb9e10d1fac0c879252d680f0f0435"
+        },
+        {
+          "active_seconds": 18.644332799999965,
+          "counts": {
+            "decisions": [
+              56268006,
+              130162620,
+              310408323,
+              694241318
+            ],
+            "discarded_keys": 0,
+            "discarded_visits": 0,
+            "missing": [
+              3366880,
+              13480264,
+              50344323,
+              182814149
+            ],
+            "nodes": 2088867258,
+            "terminals": 897786991,
+            "traverser": [
+              136552874,
+              136708970,
+              136462232,
+              0,
+              0,
+              0
+            ]
+          },
+          "entries": 250000475,
+          "event": "frozen",
+          "iteration": 143159,
+          "keyset_sha256": "a83858109eed965e73acd76787761d9353f2a66cccb482c0271173e3ff731425",
+          "monitor_seconds": 0.0,
+          "nodes": 2088867258
+        },
+        {
+          "active_seconds": 207.28673819600044,
+          "counts": {
+            "decisions": [
+              77655990,
+              182088665,
+              444912134,
+              1006987900
+            ],
+            "discarded_keys": 59156511,
+            "discarded_visits": 23834433,
+            "missing": [
+              3873394,
+              15786665,
+              60820874,
+              228682286
+            ],
+            "nodes": 3000011203,
+            "terminals": 1288366514,
+            "traverser": [
+              195544151,
+              195828972,
+              195501629,
+              0,
+              0,
+              0
+            ]
+          },
+          "entries": 250000475,
+          "event": "trained",
+          "iteration": 212132,
+          "monitor_seconds": 0.019435433,
+          "nodes": 3000011203,
+          "target": 3000000000
+        },
+        {
+          "bytes": 9712092292,
+          "counts": {
+            "decisions": [
+              77655990,
+              182088665,
+              444912134,
+              1006987900
+            ],
+            "discarded_keys": 59156511,
+            "discarded_visits": 23834433,
+            "missing": [
+              3873394,
+              15786665,
+              60820874,
+              228682286
+            ],
+            "nodes": 3000011203,
+            "terminals": 1288366514,
+            "traverser": [
+              195544151,
+              195828972,
+              195501629,
+              0,
+              0,
+              0
+            ]
+          },
+          "entries": 250000475,
+          "event": "checkpoint",
+          "frozen_at": 143159,
+          "iteration": 212132,
+          "keyset_sha256": "a83858109eed965e73acd76787761d9353f2a66cccb482c0271173e3ff731425",
+          "label": "3000000000",
+          "nodes": 3000011203,
+          "path": "/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3/calibration-continuation/3000000000.gz",
+          "save_seconds": 266.16055957,
+          "sha256": "ea0c7dca97ae627b08a39d4196cdd824d6e0767d85ca64c829eae5dcceb2da6b",
+          "target": 3000000000
+        },
+        {
+          "checkpoint": "/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3/calibration-continuation/3000000000.gz",
+          "checkpoint_sha256": "ea0c7dca97ae627b08a39d4196cdd824d6e0767d85ca64c829eae5dcceb2da6b",
+          "entries": 250000475,
+          "event": "exported",
+          "export_seconds": 160.806582027,
+          "label": "3000000000",
+          "nodes": 3000011203,
+          "path": "/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3/calibration-continuation/3000000000-average.gz",
+          "sha256": "c602c3727df28160a9807716d3c9211d988e420c33ed7b0c04c2fd899afef06b"
+        },
+        {
+          "active_seconds": 207.28673819600044,
+          "event": "complete",
+          "monitor_seconds": 0.019435433,
+          "nodes": 3000011203
+        }
+      ]
+    },
+    "validate-calibration-continuation": {
+      "returncode": 0,
+      "wall_seconds": 48.984885653015226,
+      "cpu_seconds": 48.977811999999915,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 49393664
+      },
+      "events": [
+        {
+          "event": "complete",
+          "status": "passed"
+        }
+      ]
+    },
+    "calibration-anchor-audit": {
+      "returncode": 0,
+      "wall_seconds": 382.93426559100044,
+      "cpu_seconds": 2586.674171,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 388661248
+      },
+      "events": [],
+      "audit": {
+        "status": "passed",
+        "checkpoint_sha256": "5d8f78f61a4e14461369d480f23f963bae049e6d2725f8889d97618a76963274",
+        "policy_sha256": "eb596b27602ed20edbc4649223d2f4cdbecb9e10d1fac0c879252d680f0f0435",
+        "strategy": "average",
+        "last_average_street": 3
+      }
+    },
+    "calibration-final-audit": {
+      "returncode": 0,
+      "wall_seconds": 386.6237424320134,
+      "cpu_seconds": 2622.9897459999993,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 402460672
+      },
+      "events": [],
+      "audit": {
+        "status": "passed",
+        "checkpoint_sha256": "ea0c7dca97ae627b08a39d4196cdd824d6e0767d85ca64c829eae5dcceb2da6b",
+        "policy_sha256": "c602c3727df28160a9807716d3c9211d988e420c33ed7b0c04c2fd899afef06b",
+        "strategy": "average",
+        "last_average_street": 3
+      }
+    },
+    "calibration-persistent-evaluation": {
+      "returncode": 0,
+      "wall_seconds": 3628.558367540012,
+      "cpu_seconds": 3638.2691100000006,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 70899433472
+      },
+      "events": []
+    }
+  },
+  "cost_basis": {
+    "returncode": 0,
+    "wall_seconds": 3053.4585111550114,
+    "cpu_seconds": 17682.897374,
+    "sampled_peak_rss_by_phase": {
+      "parent/startup/0": 174399488,
+      "parent/train/1000000000": 15641706496,
+      "parent/save/1000000000": 16387121152,
+      "parent/hash/1000000000": 15678832640,
+      "parent/train/2000000000": 23067205632,
+      "parent/save/2000000000": 23867387904,
+      "parent/hash/2000000000": 22837989376,
+      "parent/export/2000000000": 23852257280,
+      "continuation/startup/0": 1405960192,
+      "continuation/load/0": 22870130688,
+      "continuation/train/3000000000": 23324581888,
+      "continuation/save/3000000000": 24557957120,
+      "continuation/hash/3000000000": 23890726912,
+      "continuation/export/3000000000": 24552439808
+    },
+    "derived": true,
+    "prefix_active_seconds": 423.4538568949966,
+    "prefix_monitor_seconds": 0.04089599,
+    "scope": "sum of preserved0\u21922B and authorized2B\u21923B costs; excludes stopped waiting time",
+    "monitor_probe_count": 3,
+    "events": [
+      {
+        "bytes": 9354183935,
+        "counts": {
+          "decisions": [
+            56268006,
+            130162620,
+            310408323,
+            694241318
+          ],
+          "discarded_keys": 0,
+          "discarded_visits": 0,
+          "missing": [
+            3366880,
+            13480264,
+            50344323,
+            182814149
+          ],
+          "nodes": 2088867258,
+          "terminals": 897786991,
+          "traverser": [
+            136552874,
+            136708970,
+            136462232,
+            0,
+            0,
+            0
+          ]
+        },
+        "entries": 250000475,
+        "event": "checkpoint",
+        "frozen_at": 143159,
+        "iteration": 143159,
+        "keyset_sha256": "a83858109eed965e73acd76787761d9353f2a66cccb482c0271173e3ff731425",
+        "label": "anchor",
+        "nodes": 2088867258,
+        "path": "/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3/calibration-continuation/anchor.gz",
+        "save_seconds": 197.329222003,
+        "sha256": "5d8f78f61a4e14461369d480f23f963bae049e6d2725f8889d97618a76963274",
+        "target": 3000000000
+      },
+      {
+        "checkpoint": "/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3/calibration-continuation/anchor.gz",
+        "checkpoint_sha256": "5d8f78f61a4e14461369d480f23f963bae049e6d2725f8889d97618a76963274",
+        "entries": 250000475,
+        "event": "exported",
+        "export_seconds": 155.054950462,
+        "label": "anchor",
+        "nodes": 2088867258,
+        "path": "/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3/calibration-continuation/anchor-average.gz",
+        "sha256": "eb596b27602ed20edbc4649223d2f4cdbecb9e10d1fac0c879252d680f0f0435"
+      },
+      {
+        "active_seconds": 442.09818969499656,
+        "counts": {
+          "decisions": [
+            56268006,
+            130162620,
+            310408323,
+            694241318
+          ],
+          "discarded_keys": 0,
+          "discarded_visits": 0,
+          "missing": [
+            3366880,
+            13480264,
+            50344323,
+            182814149
+          ],
+          "nodes": 2088867258,
+          "terminals": 897786991,
+          "traverser": [
+            136552874,
+            136708970,
+            136462232,
+            0,
+            0,
+            0
+          ]
+        },
+        "entries": 250000475,
+        "event": "frozen",
+        "iteration": 143159,
+        "keyset_sha256": "a83858109eed965e73acd76787761d9353f2a66cccb482c0271173e3ff731425",
+        "monitor_seconds": 0.04089599,
+        "nodes": 2088867258
+      },
+      {
+        "active_seconds": 630.740595090997,
+        "counts": {
+          "decisions": [
+            77655990,
+            182088665,
+            444912134,
+            1006987900
+          ],
+          "discarded_keys": 59156511,
+          "discarded_visits": 23834433,
+          "missing": [
+            3873394,
+            15786665,
+            60820874,
+            228682286
+          ],
+          "nodes": 3000011203,
+          "terminals": 1288366514,
+          "traverser": [
+            195544151,
+            195828972,
+            195501629,
+            0,
+            0,
+            0
+          ]
+        },
+        "entries": 250000475,
+        "event": "trained",
+        "iteration": 212132,
+        "monitor_seconds": 0.060331422999999995,
+        "nodes": 3000011203,
+        "target": 3000000000
+      },
+      {
+        "bytes": 9712092292,
+        "counts": {
+          "decisions": [
+            77655990,
+            182088665,
+            444912134,
+            1006987900
+          ],
+          "discarded_keys": 59156511,
+          "discarded_visits": 23834433,
+          "missing": [
+            3873394,
+            15786665,
+            60820874,
+            228682286
+          ],
+          "nodes": 3000011203,
+          "terminals": 1288366514,
+          "traverser": [
+            195544151,
+            195828972,
+            195501629,
+            0,
+            0,
+            0
+          ]
+        },
+        "entries": 250000475,
+        "event": "checkpoint",
+        "frozen_at": 143159,
+        "iteration": 212132,
+        "keyset_sha256": "a83858109eed965e73acd76787761d9353f2a66cccb482c0271173e3ff731425",
+        "label": "3000000000",
+        "nodes": 3000011203,
+        "path": "/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3/calibration-continuation/3000000000.gz",
+        "save_seconds": 266.16055957,
+        "sha256": "ea0c7dca97ae627b08a39d4196cdd824d6e0767d85ca64c829eae5dcceb2da6b",
+        "target": 3000000000
+      },
+      {
+        "checkpoint": "/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3/calibration-continuation/3000000000.gz",
+        "checkpoint_sha256": "ea0c7dca97ae627b08a39d4196cdd824d6e0767d85ca64c829eae5dcceb2da6b",
+        "entries": 250000475,
+        "event": "exported",
+        "export_seconds": 160.806582027,
+        "label": "3000000000",
+        "nodes": 3000011203,
+        "path": "/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3/calibration-continuation/3000000000-average.gz",
+        "sha256": "c602c3727df28160a9807716d3c9211d988e420c33ed7b0c04c2fd899afef06b"
+      },
+      {
+        "active_seconds": 630.740595090997,
+        "event": "complete",
+        "monitor_seconds": 0.060331422999999995,
+        "nodes": 3000011203
+      }
+    ]
+  },
+  "absence": {
+    "pretraining-freeze.json": true,
+    "training-progress.json": true,
+    "final-evaluation": true,
+    "results.json": true
+  },
+  "final_seed_directories": [],
+  "supervisor_command": null,
+  "owned_processes": [
+    {
+      "pid": 492788,
+      "command": "/home/dberweger/nplayer-overnight-20261018-runtime/bin/python /home/dberweger/nplayer-overnight-20261018-runtime/bin/tensorboard --logdir /mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3/tensorboard --host 127.0.0.1 --port 6007 --reload_interval 15 --load_fast=false "
+    }
+  ],
+  "mutexes": {
+    "/tmp/cfr-nplayer-bb100.lock": "free",
+    "/tmp/cfr-cygnus-exclusive.lock": "free"
+  },
+  "interpretation": {
+    "status": "terminal-admission-refusal",
+    "no_final_seed_started": true,
+    "main_budget_started": false,
+    "actual_largest_sampled_rss_bytes": 70899433472,
+    "rss_allowance_factor": 1.25,
+    "time_allowance_factor": 1.25,
+    "outcomes_read": false,
+    "archive_acceptance": "pending; open PR originals and dependencies retained"
+  }
+}

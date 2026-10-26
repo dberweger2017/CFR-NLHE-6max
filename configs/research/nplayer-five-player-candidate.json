@@ -1,0 +1,156 @@
+{
+  "status": "proposal-no-main-admitted",
+  "source_input": "docs/reports/nplayer-four-player-candidate/results.json",
+  "source_sha256": "b269b046e2a9d7c397eb7004d42751299f09119063908c92736d09e17582b134",
+  "players": 5,
+  "stack_bb": 100,
+  "seed": 2026102351001,
+  "targets": [
+    3000000000,
+    10000000000
+  ],
+  "entry_threshold": 250000000,
+  "blocks_per_field": 4096,
+  "fields": 8,
+  "seatings": 10,
+  "initial_hands": 655360,
+  "reproduction_hands": 655360,
+  "statistical_unit": "independent deal block; mean of ten paired seating contrasts; no reciprocal halving",
+  "family": "eight one-sided95 Student-t/Bonferroni; primary lower>0; seven paired safeguards lower>-5",
+  "components": [
+    {
+      "name": "active traversal",
+      "central_seconds": 2966.3921432204997,
+      "reserved_seconds": 5932.7842864409995
+    },
+    {
+      "name": "checkpoint saves",
+      "central_seconds": 362.22329387125,
+      "reserved_seconds": 724.4465877425
+    },
+    {
+      "name": "train startup/resume/hash residual",
+      "central_seconds": 595.8881415061549,
+      "reserved_seconds": 1191.7762830123097
+    },
+    {
+      "name": "average exports",
+      "central_seconds": 1073.3530330301437,
+      "reserved_seconds": 2146.7060660602874
+    },
+    {
+      "name": "source checkpoint/export audits",
+      "central_seconds": 1019.8760270098865,
+      "reserved_seconds": 2039.752054019773
+    },
+    {
+      "name": "binary conversion",
+      "central_seconds": 822.2061425699212,
+      "reserved_seconds": 1644.4122851398424
+    },
+    {
+      "name": "binary full-row audits",
+      "central_seconds": 829.7392162299366,
+      "reserved_seconds": 1659.4784324598731
+    },
+    {
+      "name": "two arena model loads",
+      "central_seconds": 596.1936212312501,
+      "reserved_seconds": 1192.3872424625001
+    },
+    {
+      "name": "play/write including reproduction",
+      "central_seconds": 31.023493538750003,
+      "reserved_seconds": 93.07048061625001
+    },
+    {
+      "name": "arena process/other residual",
+      "central_seconds": 58.07528256753518,
+      "reserved_seconds": 116.15056513507037
+    },
+    {
+      "name": "initial independent replay",
+      "central_seconds": 281.1257913999725,
+      "reserved_seconds": 562.251582799945
+    },
+    {
+      "name": "paired block verification/readout",
+      "central_seconds": 94.55117905679799,
+      "reserved_seconds": 189.10235811359598
+    },
+    {
+      "name": "global proof/tail readout",
+      "central_seconds": 269.8845108637761,
+      "reserved_seconds": 539.7690217275522
+    },
+    {
+      "name": "between-stage source/environment/input validation",
+      "central_seconds": 275.1182344914414,
+      "reserved_seconds": 550.2364689828828
+    },
+    {
+      "name": "build and tiny correctness qualification",
+      "central_seconds": 600,
+      "reserved_seconds": 1200
+    },
+    {
+      "name": "report preparation/publication",
+      "central_seconds": 900,
+      "reserved_seconds": 1500.0
+    }
+  ],
+  "central_seconds": 10775.650110587316,
+  "reserved_seconds": 21282.32371471338,
+  "proposed_allocation_seconds": 21600,
+  "storage": {
+    "model_derivatives_scenario_bytes": 100000000000,
+    "all_trace_scenario_bytes": 10737418240,
+    "manual_headroom_bytes": 32212254720,
+    "requested_free_bytes": 142949672960
+  },
+  "power_scenarios": [
+    {
+      "assumed_paired_block_sd_bb100": 400,
+      "standard_error_bb100": 6.25,
+      "approximate_adjusted_lower_distance": 15.610659215077336,
+      "primary_true_gain25_power": 0.9334894690767654,
+      "neutral_script_clears_minus5_power": 0.044781682011897805
+    },
+    {
+      "assumed_paired_block_sd_bb100": 800,
+      "standard_error_bb100": 12.5,
+      "approximate_adjusted_lower_distance": 31.22131843015467,
+      "primary_true_gain25_power": 0.30934582448715076,
+      "neutral_script_clears_minus5_power": 0.01796558549663546
+    },
+    {
+      "assumed_paired_block_sd_bb100": 1600,
+      "standard_error_bb100": 25.0,
+      "approximate_adjusted_lower_distance": 62.44263686030934,
+      "primary_true_gain25_power": 0.06710489444976314,
+      "neutral_script_clears_minus5_power": 0.010789278887610332
+    }
+  ],
+  "assumptions": {
+    "training_active_penalty": 1.5,
+    "save_row_tool_load_penalty": 1.25,
+    "train_residual_and_validation_penalty": 1.5,
+    "hand_work_penalty": 1.5,
+    "seating_hand_ratio": 0.4166666666666667,
+    "main_component_reserve": 2,
+    "play_component_reserve": 3
+  },
+  "limits": "PR413 measured four-player components; five-player mature runtime, support and variance unmeasured. Seating ratio scales only hand work, not the campaign. Scenario/reserve, not a bound or completion guarantee; no time kill or automatic extension.",
+  "excludes": [
+    "archive/upload",
+    "release packaging",
+    "extra seeds",
+    "capacity arms",
+    "search"
+  ],
+  "launch_requires": [
+    "same-source real five-player qualification",
+    "explicit accepted complete allocation",
+    "manual storage/RAM/mutex admission"
+  ]
+}

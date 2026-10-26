@@ -1,0 +1,273 @@
+{
+  "supervised_stages": [
+    {
+      "phase": "assessment-tests",
+      "returncode": 0,
+      "wall_seconds": 2.0182032639859244,
+      "user_cpu_seconds": 0.04322899999999999,
+      "system_cpu_seconds": 0.009323000000000001
+    },
+    {
+      "phase": "assess",
+      "returncode": 0,
+      "wall_seconds": 897.7291370090097,
+      "user_cpu_seconds": 884.243884,
+      "system_cpu_seconds": 13.928294999999999
+    }
+  ],
+  "batch_costs": {
+    "initial": {
+      "wall_seconds": 442.2659047570196,
+      "startup": {
+        "binary_sha256": "5351380efd82e52f381d5c2197c349e29ffac9be9bee969b2cb82aa0eb5ef282",
+        "model_and_k50_seconds": 234.284308715,
+        "model_pins": [
+          {
+            "alias": "focal",
+            "load_seconds": 114.805729297,
+            "sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189"
+          },
+          {
+            "alias": "peer",
+            "load_seconds": 114.551696739,
+            "sha256": "23599816cf632a51cace45f25d70ed4918fe5e75875c33136d8629052a8a2a70"
+          }
+        ]
+      },
+      "records_sha256": "db1344c907405e4ba5c761c9e3f964863b92c0a85d0651841e0568cb86a4a763",
+      "manifest_sha256": "ab4ff2d7ecb434631939ea9db28863fa7a75674eb15b355f3948c66309247030"
+    },
+    "repeat": {
+      "wall_seconds": 441.844871473033,
+      "startup": {
+        "binary_sha256": "5351380efd82e52f381d5c2197c349e29ffac9be9bee969b2cb82aa0eb5ef282",
+        "model_and_k50_seconds": 234.371444477,
+        "model_pins": [
+          {
+            "alias": "focal",
+            "load_seconds": 114.869225169,
+            "sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189"
+          },
+          {
+            "alias": "peer",
+            "load_seconds": 114.567736283,
+            "sha256": "23599816cf632a51cace45f25d70ed4918fe5e75875c33136d8629052a8a2a70"
+          }
+        ]
+      },
+      "records_sha256": "e53d2c0edc4c4135db82c7193b709fc958b03a61cbbdf86dc6f4dcbc13bbc764",
+      "manifest_sha256": "dca3cfc4ea845f05a1cbb3a93573fe0b3296549ed0c4d0cd0dccd6377d2453b7"
+    }
+  },
+  "resources": {
+    "samples": 446,
+    "first": {
+      "utc": "2026-10-22T00:06:41Z",
+      "phase": "assessment-tests",
+      "cpu_c": 39.0,
+      "thermistor15_c": 29.5,
+      "worker_family_rss_bytes": 15937536,
+      "live_family_cpu_seconds": 0.01,
+      "available_ram_bytes": 131776221184,
+      "swap_used_bytes": 367697920,
+      "nvme_free_bytes": 258023022592,
+      "hdd_free_bytes": 530777976832
+    },
+    "last": {
+      "utc": "2026-10-22T00:21:38Z",
+      "phase": "assess",
+      "cpu_c": 57.0,
+      "thermistor15_c": 58.0,
+      "worker_family_rss_bytes": 40198144,
+      "live_family_cpu_seconds": 11.61,
+      "available_ram_bytes": 131690807296,
+      "swap_used_bytes": 367697920,
+      "nvme_free_bytes": 258020679680,
+      "hdd_free_bytes": 530777976832
+    },
+    "max_cpu_c": 59.0,
+    "max_t15_c": 58.5,
+    "max_rss_bytes": 29720821760,
+    "min_available_ram_bytes": 101979455488,
+    "swap_growth_bytes": 0,
+    "min_nvme_free_bytes": 258020679680,
+    "min_hdd_free_bytes": 530777976832
+  },
+  "work": {
+    "initial": {
+      "trained": {
+        "roots": 74,
+        "installed": 73,
+        "symbolic_quality_fallbacks": 1,
+        "prepare_seconds": 45.02622885,
+        "enumeration_seconds": 0.136260625,
+        "max_arm_visited": 3756,
+        "total_root_seconds": 45.16328856,
+        "visited": 98731,
+        "terminals": 65053,
+        "rows/blueprint": 31744,
+        "rows/off-tree-blueprint": 1278,
+        "rows/retained": 656
+      },
+      "trained-pressure": {
+        "roots": 56,
+        "installed": 56,
+        "symbolic_quality_fallbacks": 0,
+        "prepare_seconds": 31.271786802,
+        "enumeration_seconds": 0.094248638,
+        "max_arm_visited": 2322,
+        "total_root_seconds": 31.366632852,
+        "visited": 65766,
+        "terminals": 43163,
+        "rows/blueprint": 21011,
+        "rows/off-tree-blueprint": 1036,
+        "rows/retained": 477,
+        "rows/script": 79
+      },
+      "pressure": {
+        "roots": 26,
+        "installed": 26,
+        "symbolic_quality_fallbacks": 0,
+        "prepare_seconds": 13.71278972,
+        "enumeration_seconds": 0.002840323,
+        "max_arm_visited": 86,
+        "total_root_seconds": 13.715892037,
+        "visited": 1553,
+        "terminals": 845,
+        "rows/retained": 92,
+        "rows/script": 412,
+        "rows/blueprint": 188,
+        "rows/off-tree-blueprint": 16
+      },
+      "call": {
+        "roots": 0,
+        "installed": 0,
+        "symbolic_quality_fallbacks": 0,
+        "prepare_seconds": 0,
+        "enumeration_seconds": 0,
+        "max_arm_visited": 0,
+        "total_root_seconds": 0
+      },
+      "call-pressure": {
+        "roots": 195,
+        "installed": 193,
+        "symbolic_quality_fallbacks": 2,
+        "prepare_seconds": 99.720128336,
+        "enumeration_seconds": 0.005574455,
+        "max_arm_visited": 9,
+        "total_root_seconds": 99.727659588,
+        "visited": 2722,
+        "terminals": 1168,
+        "rows/retained": 193,
+        "rows/script": 1168,
+        "rows/blueprint": 193
+      },
+      "random-tag": {
+        "roots": 33,
+        "installed": 33,
+        "symbolic_quality_fallbacks": 0,
+        "prepare_seconds": 17.860458773,
+        "enumeration_seconds": 0.054424062,
+        "max_arm_visited": 3891,
+        "total_root_seconds": 17.915243736,
+        "visited": 54246,
+        "terminals": 35822,
+        "rows/off-tree-blueprint": 786,
+        "rows/retained": 315,
+        "rows/script": 9123,
+        "rows/blueprint": 8200
+      }
+    },
+    "repeat": {
+      "trained": {
+        "roots": 74,
+        "installed": 73,
+        "symbolic_quality_fallbacks": 1,
+        "prepare_seconds": 45.032659672,
+        "enumeration_seconds": 0.136268024,
+        "max_arm_visited": 3756,
+        "total_root_seconds": 45.169738436,
+        "visited": 98731,
+        "terminals": 65053,
+        "rows/blueprint": 31744,
+        "rows/off-tree-blueprint": 1278,
+        "rows/retained": 656
+      },
+      "trained-pressure": {
+        "roots": 56,
+        "installed": 56,
+        "symbolic_quality_fallbacks": 0,
+        "prepare_seconds": 31.19267468,
+        "enumeration_seconds": 0.094625047,
+        "max_arm_visited": 2322,
+        "total_root_seconds": 31.287905161,
+        "visited": 65766,
+        "terminals": 43163,
+        "rows/blueprint": 21011,
+        "rows/off-tree-blueprint": 1036,
+        "rows/retained": 477,
+        "rows/script": 79
+      },
+      "pressure": {
+        "roots": 26,
+        "installed": 26,
+        "symbolic_quality_fallbacks": 0,
+        "prepare_seconds": 13.653689361,
+        "enumeration_seconds": 0.002847167,
+        "max_arm_visited": 86,
+        "total_root_seconds": 13.656807001,
+        "visited": 1553,
+        "terminals": 845,
+        "rows/retained": 92,
+        "rows/script": 412,
+        "rows/blueprint": 188,
+        "rows/off-tree-blueprint": 16
+      },
+      "call": {
+        "roots": 0,
+        "installed": 0,
+        "symbolic_quality_fallbacks": 0,
+        "prepare_seconds": 0,
+        "enumeration_seconds": 0,
+        "max_arm_visited": 0,
+        "total_root_seconds": 0
+      },
+      "call-pressure": {
+        "roots": 195,
+        "installed": 193,
+        "symbolic_quality_fallbacks": 2,
+        "prepare_seconds": 99.406288483,
+        "enumeration_seconds": 0.005516184,
+        "max_arm_visited": 9,
+        "total_root_seconds": 99.413754484,
+        "visited": 2722,
+        "terminals": 1168,
+        "rows/retained": 193,
+        "rows/script": 1168,
+        "rows/blueprint": 193
+      },
+      "random-tag": {
+        "roots": 33,
+        "installed": 33,
+        "symbolic_quality_fallbacks": 0,
+        "prepare_seconds": 17.801964486,
+        "enumeration_seconds": 0.054686201999999996,
+        "max_arm_visited": 3891,
+        "total_root_seconds": 17.857032691,
+        "visited": 54246,
+        "terminals": 35822,
+        "rows/off-tree-blueprint": 786,
+        "rows/retained": 315,
+        "rows/script": 9123,
+        "rows/blueprint": 8200
+      }
+    }
+  },
+  "total_wall_seconds": 899.7473402729956,
+  "total_child_cpu_seconds": 898.224731,
+  "model_and_k50_seconds": 468.655753192,
+  "profile_preparation_seconds": 414.678669163,
+  "enumeration_seconds": 0.587290727,
+  "visited_states_both_passes": 446036,
+  "other_wall_seconds": 15.825627190995629
+}

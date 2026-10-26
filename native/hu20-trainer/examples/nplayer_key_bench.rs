@@ -75,9 +75,10 @@ impl Audit {
     }
     fn legacy(&self, key: Key, schema: KeySchema) -> Key {
         let index = match schema {
-            KeySchema::V1 => return key,
+            KeySchema::History => return key,
             KeySchema::CompactBlake => 0,
             KeySchema::CompactXxh3 => 1,
+            KeySchema::LiveOrder => panic!("live-order is not an exact-history encoding"),
         };
         *self.reverse[index][key[0] as usize % SHARDS]
             .lock()
@@ -178,6 +179,7 @@ fn new_trainer<G: Game>(game: &G, seed: u64) -> Trainer {
 fn compare(reference: &Trainer, candidate: &Trainer, audit: &Audit, schema: KeySchema) {
     let mut identity = candidate.identity.clone();
     identity["schema"] = reference.identity["schema"].clone();
+    identity.as_object_mut().unwrap().remove("key_encoding");
     assert_eq!(identity, reference.identity);
     assert_eq!(
         (
@@ -258,16 +260,17 @@ fn run() -> Result<(), String> {
     let out = Path::new(&a[3]);
     std::fs::create_dir(out).map_err(|e| e.to_string())?;
     let schema = KeySchema::parse(&a[4])?;
+    if schema == KeySchema::LiveOrder { return Err("key benchmark compares exact-history encodings only".into()); }
     phase("load", 0);
     let start = Instant::now();
     let tables = EquityTables::load(Path::new(&a[2]), false)?;
     let game = CashGame {
         config: Config::new(&[2000; 3], 50, 100)?,
         tables,
-        key_schema: schema,
+        schema,
     };
     if a[1] == "audit" {
-        if schema != KeySchema::V1 || targets.len() != 1 {
+        if schema != KeySchema::History || targets.len() != 1 {
             return Err("audit needs v1 and one target".into());
         }
         let audit = Arc::new(Audit::new());
@@ -454,7 +457,7 @@ mod tests {
         let game = SmallGame::new(Kind::Kuhn, 3);
         let mut a = new_trainer(&game, 327);
         let mut b = new_trainer(&game, 327);
-        a.identity["schema"] = json!(KeySchema::V1.name());
+        a.identity["schema"] = json!(KeySchema::History.name());
         b.identity["schema"] = json!(KeySchema::CompactBlake.name());
         a.table.insert(d[0].key, Entry::new(d[0], 3));
         b.table.insert(d[1].key, Entry::new(d[1], 3));

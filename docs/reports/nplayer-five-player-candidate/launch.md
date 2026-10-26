@@ -1,0 +1,49 @@
+# Five-player fixed main launched under owner storage amendment
+
+Owner explicitly instructs **"Start with the training, we are cleaning up while you do"**, accepting the fixed six-hour allocation and authorizing launch while cleanup continues. This supersedes waiting for133.13GiBfree before admission. [Launch/owner/source/config/progress receipt](main-launch.json), [manual storage ledger](storage-ledger.json), [successful exact-source qualification](qualification.json), [prospective component budget](../../../configs/research/nplayer-five-player-candidate.json). No count, seed, endpoint, menu, nativeplayer, threads, source, limit or guard changes.
+
+Main starts **2026-10-23 14:16:17UTC /16:16:17Madrid**, scientificsupervisor **888459**, command pinnedPython`-m scripts.nplayer_five_player_candidate run --root /home/dberweger/nplayer-five-player-candidate-20261023/main-v1`. Wrapper888364 launched14:16:10UTC; it configures once and runs once, no retries or automatic later experiments. MainconfigSHA **aafa94da23019db594cc305e6a96d735f2f04178fc5f171d52395dc4d345fe22**. Frozen source **6a01b327eb56c7678cb702e1c9106c98ba614699**/874pins; bundleSHA26b83becea886eb02c087e8b802f5f0a12b7ff7214ad7845518babf0bfb90024. Native81filesbyteidenticalPR413; freshly compiled121lib+8paired+1legacytests(oneexistingignored),26pinnedPython/43localtests,56qualificationstagesRC0/320initial+320reproducedfixturehands/fullrow/keyset/thread/resume/serial/gzipbinary/selfmass/legacyproofs pass. QualificationresultSHA272e619bac9ffb40cc72e562882bbe3b972424b24eb2dc9aa3dceb56f668f1c6.
+
+Freshseed2026102351001, five-player100BB/K50/v1/unprunedfast16/eightroots/fullfloat64average/parallelgzip/250Mfreeze, exact3B/10Btargets and within-lineagemembership. Eightfixedfields×4,096independentblocks×tenbalancedforward/reverseseatings×twofocalarms =655,360initialhandinstances plusidenticalreproduction, allinitialreplayed beforeglobaloutcomes. Independent block is statisticalunit, no reciprocalhalving. Eightfamily95Student-t/Bonferroni primarylower>0/sevenscriptpairedlower>−5. Only two circular opponentorders, one lineage; not general superiority/Nash/release confirmation. No interimstrength outcomes inspected, no handextension/tuning/search/replication/default/release/merge.
+
+At14:16:35UTC/16:16Madrid baseline has **51,009,429nodes /29,133,655entries /10.616active seconds**, notyetfrozen. This early~4.81Mnodes/s is not a mature forecast. CPU51/Thermistor15 44.5°C, worker-family2.99GiB, available119.66GiB,swap440.18MiB; no failure. Admission actual119770763264bytes/**111.54GiBfree**, CPU33/T1530.5°C; both normal and owned mutexes checked/acquired by the science process, no bypass or interrupted existing job. Only CPU90/T15100/missingnonfinite plusownerSTOP/mutex/correctness automatic stops; no time/RSS/disk/swapkill.
+
+Initial complete result/report scenario remains **roughly19:00–19:30Madrid** (about3hcentral after launch), conditional on mature5P costs and concurrentI/O; six-hour complete planning allowance includes already-spent preparation/qualification/report, is not reset at phases and is not a harddeadline/runtimekill. All stages advance automatically. Source/hash/accounting/replay/thermal failure is terminal, preservepartial, no automaticretry; networkunknown doesnot authorize another attempt. Raw/source/models/traces remainownedbb128root, ownerarchivepending/noDriveclaim.
+
+## Storage and dependency coordination
+
+133.13GiB is a prospective total-growth/headroom scenario, **not a live free-space floor**. Remainingpayloadscenario =max(0,100GBmodelderivatives+10GiBtraces−alreadyretainedPR415mainpayloadallocatedbytes). Compare actualfree minus remaininggrowth against30GiBmanualheadroom, **release scratch separately**. Source/build/qualification predatingmain are baseline use, not credited as already-writtenmainpayload; partialfiles/symlinktargets conservatively not credited, inodes deduplicated. At14:18:49UTC no finalizedmainpayload had yet been saved; actual111.54GiBfree and scenarioheadroomgap21.59GiB. This is manual planning, no new automatic guard or reserved capacity.
+
+Owner-cleaner reports specific owner approval for exactlythree PR404 older3Bbaselinecheckpointrelocations,29,340,094,270bytes/27.325GiB, copied-first independentSHA verification/originalpathHDDlinks. No copy/move/delete is performed or extra permission inferred by this agent. PR415 does not read those older3Bcheckpointbytes; earlier final10Bmodels/exports/K50/env/source/proofs remainprotected. Actual reclaimedbytes/free space must be measured while415writes, not assumed138.87GiBconstant. Relocation awaits release-clearedI/Owindow, one32MiB/s nice19/ioniceidle stream; no cloudpayload/compression/mutex/science changes. Keep entire415root protected.
+
+Best prospective cleanupwindow is activecandidate3B→10Btraversal afterresumeload andbeforecheckpointsave, not any generictrainphase. Yieldduringbaseline/candidatesave, export/sourceaudit/conversion/binaryaudit, candidateresume andarenamodelloads; defer ifuncertain. Retain copy/readbacktimestamps/bytes for costcontext. No new timer/poller/observer or unattended phase-notification promise. Cleaner is notified of launch/dependencies; no interruption toreleaseupload. Shared400venv→river-whole-hand-pilot-20261021/venv link+target/manageduvPython,400legacybinary,404mainconfig,K50 and allprotectedolderinputsremainreadable.
+
+
+## Later owner priority/release coordination
+
+Owner confirms **PR415 main >v0.6.1release >cleanup**. Release publicreadback moves to protected HDD`/research/PR-412-v061-release/publication-v1/public-proof-hdd-v1` (reported up to53.3GiB,85GiBfreeadmission). **No65GiBNVMe release reservation applies.** Only download/hash checks coexist; native runtime checks(~1core/15GiB/~10–15min total) wait for normal mutex natural release. These are owner/release-agent reports, not allocations or host measurements by415. Cleanup's capped32MiB/s copy/readback yields to main's criticalI/O. Recordcopywindows for costcontext, no source/guard/mutex/priority override bycleanup. On verified natural completion/lockrelease notify existingrelease thread`ad69c027-5f20-45d1-82a0-9f068259b8af` and cleaner thread`3acb357c-8690-44ab-92e6-810355f29600`. No new timer/poller/observer is created; no automatic science restart or prior-input mutation.
+
+
+## Owner-requested narrow release-compute exception
+
+After reviewing measuredheadroom (audit~7.3/16logicalcores,0.36GiBRSS,~122GiBavailable; trainingpeak21GiB), owner asks"Can v0.6.1 then continue? How can we handle the mutex exeption". [One-use scoped exception](release-compute-exception.json) permits the previouslydescribed threefixedv0.6.1runtimechecks to overlap, sequential/maxoneCPU/nice19/idleI/O, expected~15GiB/10–15mintotal. Expectedmemory/time are estimates, not newhardstops. Originalpublicdownload/source/modelSHApreconditions remain; onlyHDDpinnedreadonlyinputs/privateoutputs. Releaseagentrecords exactcommands/PIDs/start/end/CPU/RAM/I/O/results andreturns overlapreceipts forcostlabeling. No runtimecheck started byPR415agent.
+
+PR415 **retains its normal exclusive mutex** and ownedmutex. Only the release's one-use operational wrapper may omit normalmutex acquisition for those three allowlisted invocations; a separate nonblocking exceptionlock andconsumedreceipt prevent duplicates. No unlink/unlock/generalbypass/sharedmutexcodechange, no change to frozen source/config/threads/counts/recipe/guards, no trainingrestart/budgetextension/outcomeinspection. No unrelated job gains permission, no new timer/poller/observer; no automatic retry. Priority415>release>cleanup remains. This supersedes the earlier wait-for-main-lock-release requirement only for thosechecks; other jobs continue to wait. Record observedconcurrentintervals before interpreting wall/CPUcosts. These are functionalreleasechecks, not another strength experiment.
+
+
+Release-agent scope clarification: standalone stdlib ordered HDDreconstruction/hash of the same three public models is an existing integrity precondition and may run sequentially under the sameoneCPU/nice19/idlelimits. Each requires originalpart/modelSHA verification and privateHDDscratch (~14.307GBperseed), no training/native loading in that integrity step. [Clarification receipt](release-integrity-clarification.json) references the unchanged originalexceptionSHA; the nativeallowlist remains exactlythreeone-attemptchecks. Frozen/sharedtools andPR415mutex/source/config remainunchanged; integrity andnativewindows recorded separately. No newtimer, nativecategory or broadbypass.
+
+
+## Final closeout (October23)
+
+[Verified results](results.md): main completed16:10:16UTC/18:10:16Madrid,
+37stagesRC0/655,360initial independentlyreplayed plus identicalreproduction.
+FullresultSHA256cdf3d1430b216afdbe28f4d9728f8668f76cd6e42932cb7f6f2e25902a3306be.
+All earlier source/qualification/storage/owner receipts remain dated provenance.
+Actual release overlap15:44:54–15:59:37UTC/883.067s is bound in
+[final cost context](release-cost-context.json); the one-use exception is consumed,
+finished, and grants no further native authorization/general mutex bypass.
+Supervisor888459exited,normalmutexinode46/noholders; release/cleaner notified.
+Cleaner reports selected PR404old3B copy/readback only after16:10:26UTC completion
+check; no expected overlap with main scientific cost, final receipt owner-managed.
+All415inputs retained, no new science/timer/cleanup/upload by this agent.

@@ -1,0 +1,120 @@
+{
+  "status": "proposal-not-main-admitted",
+  "source_input": "docs/reports/nplayer-bb200-model-campaign/results.json",
+  "source_sha256": "3784cd2d4b5b3d79a5461510bf206577aaff0927708ac407a6a4c1008d06e26d",
+  "seed": 2026102341001,
+  "players": 4,
+  "stack_bb": 100,
+  "targets": [
+    3000000000,
+    10000000000
+  ],
+  "entry_threshold": 250000000,
+  "blocks_per_lineup": 4096,
+  "lineups": 8,
+  "permutations": 24,
+  "initial_hands": 1572864,
+  "reproduction_hands": 1572864,
+  "family": "one-sided95 Student-t/Bonferroni8; trained lower>0; seven fixed scripted/mixed paired lower>-5",
+  "components": [
+    {
+      "name": "active traversal",
+      "central_seconds": 4307.363192176306,
+      "reserved_seconds": 12922.089576528919
+    },
+    {
+      "name": "two saves",
+      "central_seconds": 504.362264052,
+      "reserved_seconds": 1008.724528104
+    },
+    {
+      "name": "one capped resume and startup",
+      "central_seconds": 611.3673875759434,
+      "reserved_seconds": 1222.7347751518869
+    },
+    {
+      "name": "two average exports",
+      "central_seconds": 1333.5160321290605,
+      "reserved_seconds": 2667.032064258121
+    },
+    {
+      "name": "two checkpoint audits",
+      "central_seconds": 1266.5897308259737,
+      "reserved_seconds": 2533.1794616519473
+    },
+    {
+      "name": "two binary conversions",
+      "central_seconds": 1016.7787051079795,
+      "reserved_seconds": 2033.557410215959
+    },
+    {
+      "name": "two binary parity audits",
+      "central_seconds": 1010.4529390378157,
+      "reserved_seconds": 2020.9058780756313
+    },
+    {
+      "name": "two arena process startups",
+      "central_seconds": 744.198276597,
+      "reserved_seconds": 1488.396553194
+    },
+    {
+      "name": "play and trace write including reproduction",
+      "central_seconds": 204.21603884373332,
+      "reserved_seconds": 612.6481165312
+    },
+    {
+      "name": "initial-hand replay and pair validation",
+      "central_seconds": 1264.3471470783497,
+      "reserved_seconds": 2528.6942941566995
+    },
+    {
+      "name": "global summaries and tail readout",
+      "central_seconds": 900,
+      "reserved_seconds": 1800
+    },
+    {
+      "name": "build and correctness qualification",
+      "central_seconds": 900,
+      "reserved_seconds": 1800
+    },
+    {
+      "name": "report publication",
+      "central_seconds": 1200,
+      "reserved_seconds": 1800
+    }
+  ],
+  "central_seconds": 15263.191713424163,
+  "reserved_seconds": 34437.96265786837,
+  "proposed_allocation_seconds": 36000,
+  "storage": {
+    "model_derivatives_scenario_bytes": 100000000000,
+    "all_trace_scenario_bytes": 25769803776,
+    "manual_headroom_bytes": 32212254720,
+    "requested_free_bytes": 157982058496
+  },
+  "power_scenarios": [
+    {
+      "assumed_block_sd_bb100": 200,
+      "se_bb100": 3.125,
+      "approx_family_lower_distance": 7.805329607538668,
+      "primary_true_gain10_power": 0.7587522467075887,
+      "neutral_script_clears_minus5_power": 0.1846712950629859
+    },
+    {
+      "assumed_block_sd_bb100": 400,
+      "se_bb100": 6.25,
+      "approx_family_lower_distance": 15.610659215077336,
+      "primary_true_gain10_power": 0.1846712950629859,
+      "neutral_script_clears_minus5_power": 0.044781682011897805
+    },
+    {
+      "assumed_block_sd_bb100": 800,
+      "se_bb100": 12.5,
+      "approx_family_lower_distance": 31.22131843015467,
+      "primary_true_gain10_power": 0.044781682011897805,
+      "neutral_script_clears_minus5_power": 0.01796558549663546
+    }
+  ],
+  "limits": "PR404 three-player200BB costs only; 2x traversal/1.5x tools/4x play and proof penalties plus reserves. Fourth-player mature runtime and block SD unknown. No saturation or completion guarantee; no automatic extension, no training/main launch.",
+  "qualification": "Fresh tiny four-player100BB engineering only on bb128; M4 inaccessible; do not copy or depend on its fixture models."
+}

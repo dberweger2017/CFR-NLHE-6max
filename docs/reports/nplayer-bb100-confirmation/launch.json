@@ -1,0 +1,219 @@
+{
+  "archive_acceptance": "pending; relocation is not Drive acceptance",
+  "checked_at": 1792448203.479894,
+  "files": {
+    "fixture-v1/evaluation-verified.json": {
+      "bytes": 458,
+      "sha256": "dc4772be15e14ff055575a47a834ff4419b98dc115fa3fcfd39672c4f5d8b854"
+    },
+    "fixture-v1/failure.json": {
+      "bytes": 95,
+      "sha256": "f1344f23cedd7b6c9efa4b42ec6896a73a8bb63e36db7500a57e3c5feca3b869"
+    },
+    "fixture-v2/evaluation-verified.json": {
+      "bytes": 458,
+      "sha256": "5d1b73ee3abc5730c14d466c42b962ee461463b2a47bad7eea3b8105fd754d40"
+    },
+    "fixture-v2/relocations.jsonl": {
+      "bytes": 115611,
+      "sha256": "666b7d742cabb397cdae563940a377c215a4c786140fbed7d54deea9386d32fc"
+    },
+    "fixture-v2/results.json": {
+      "bytes": 396612,
+      "sha256": "6200a68025beff9d221446a86dfd8e985e35d44e0b082484a8fa4ba930fc5471"
+    },
+    "fixture-v2/status.json": {
+      "bytes": 55,
+      "sha256": "0d1dc05d968b3dd2de943bd1476a61fba9d8292d9963cab6c5d930da44f4080a"
+    },
+    "main-v1/admission.json": {
+      "bytes": 211,
+      "sha256": "5c2f74f7641e0207a28d292922481aa801f19e042b3198fce9493ee9049e96a8"
+    },
+    "main-v1/config.json": {
+      "bytes": 92040,
+      "sha256": "6d15cb8b9630eb0e22665d50cd35de68aa2f3dd7b3e0614d5093fa5372b523b0"
+    },
+    "main-v1/launch.json": {
+      "bytes": 442,
+      "sha256": "99b172e49696c3af4cbf247da9abc5f51c3e66f10599a11a8a8fc18d1dc84b31"
+    },
+    "main-v1/owner-launch.json": {
+      "bytes": 696,
+      "sha256": "584b978238cab00d7bc14c592779a269d7fb3a48eb12bb75b6c1855a727ecabf"
+    },
+    "main-v1/readiness.json": {
+      "bytes": 1976,
+      "sha256": "a81c1b2601156276922b51d6aa95e89635822a07d33ef7559fd665db0a4ab848"
+    },
+    "main-v1/status.json": {
+      "bytes": 73,
+      "sha256": "c8af6195b7b48f75f53922fefcddbd73bbd681e424a5d5bbea5e5e33f47f354c"
+    },
+    "qualification-v2/qualification.json": {
+      "bytes": 78941,
+      "sha256": "7f330e503e6c719fcdbad419adecc3a0fb2e1e14eb6c0d46e0b22fb75d634a4f"
+    }
+  },
+  "full_fixture": {
+    "cross_policy_loads": 9,
+    "initial_hands": 504,
+    "keysets": [
+      "b9ef2e7c330830771100ba5225f2254f525933e445ba352b659f6bcb080ee112",
+      "8737b3f51489c5f22675b8e69124511da932817c217ee37bd1c02292882f7b95"
+    ],
+    "reproduction_hands": 504,
+    "stage_returncodes": {
+      "202610200601-audit-baseline": 0,
+      "202610200601-audit-candidate": 0,
+      "202610200601-evaluation": 0,
+      "202610200601-stage-baseline": 0,
+      "202610200601-stage-candidate": 0,
+      "202610200601-stage-completed": 0,
+      "202610200601-train-baseline": 0,
+      "202610200601-train-candidate": 0,
+      "202610200602-audit-baseline": 0,
+      "202610200602-audit-candidate": 0,
+      "202610200602-evaluation": 0,
+      "202610200602-stage-baseline": 0,
+      "202610200602-stage-candidate": 0,
+      "202610200602-stage-completed": 0,
+      "202610200602-train-baseline": 0,
+      "202610200602-train-candidate": 0,
+      "cross-evaluation": 0,
+      "global-readout": 0
+    },
+    "staged_files": 232
+  },
+  "last_resource": {
+    "at": 1792448203.134665,
+    "elapsed_seconds": 39.66813396796351,
+    "phase": "train",
+    "rchar": 2769399390,
+    "read_bytes": 0,
+    "rss_bytes": 6222614528,
+    "target": 3000000000,
+    "temperatures_c": {
+      "Package id 0": 46.0,
+      "Thermistor 15": 60.0
+    },
+    "wchar": 531,
+    "write_bytes": 0
+  },
+  "launch": {
+    "at": 1792448162.8603153,
+    "authorization": "Owner requested qualified overnight training/evaluation ready for morning review, and explicitly approved staging only new completed study outputs to2TB between phases.",
+    "command": [
+      "/home/dberweger/nplayer-fast-strength-20261018-main-v5/venv/bin/python",
+      "-m",
+      "scripts.nplayer_bb100_confirmation",
+      "run",
+      "/home/dberweger/nplayer-bb100-confirmation-20261020/main-v1"
+    ],
+    "config_sha256": "6d15cb8b9630eb0e22665d50cd35de68aa2f3dd7b3e0614d5093fa5372b523b0",
+    "cwd": "/home/dberweger/nplayer-bb100-confirmation-20261020/source-v3",
+    "pid": 561159,
+    "upstream_controller": "edd5bc767bdeea6bc41e695bbe2cc0f089042f62"
+  },
+  "progress": {
+    "active_seconds": 29.948423627000164,
+    "allocation_bytes": {
+      "data": 4001759232,
+      "index": 335545344
+    },
+    "counts": {
+      "decisions": [
+        5801445,
+        12264137,
+        24836877,
+        49801429
+      ],
+      "discarded_keys": 0,
+      "discarded_visits": 0,
+      "missing": [
+        1256660,
+        4181344,
+        12759588,
+        34920979
+      ],
+      "nodes": 160468478,
+      "terminals": 67764590,
+      "traverser": [
+        10321910,
+        10285398,
+        10303744,
+        0,
+        0,
+        0
+      ]
+    },
+    "entries": 53115133,
+    "event": "progress",
+    "frozen_at": null,
+    "iteration": 9178,
+    "monitor_seconds": 0.0,
+    "nodes": 160468478,
+    "nodes_per_second": 5358161.0838217465
+  },
+  "qualification": {
+    "initial_hands": 216,
+    "legacy_parity_hands": 120,
+    "status": "passed"
+  },
+  "readiness": {
+    "at": 1792448162.8549707,
+    "binary_hashes": {
+      "arena": "99aaba3227f2860c1887edf708a61529402bb2d8eee03a2298b992a1dbabe340",
+      "legacy": "11ed35b173b8d212379ff93f34093547d79e8a97da2dbd8df877621a0947057d",
+      "reference": "1da1242f61c3e7f9f058cca50bb97287d20a2d60f253f41fbe5d87e073945fc3",
+      "train": "8818e1673453e0fa0e32f212b4ff036d56ef378e3b1b16ee1eef9c485ab0f2df"
+    },
+    "config_sha256": "6d15cb8b9630eb0e22665d50cd35de68aa2f3dd7b3e0614d5093fa5372b523b0",
+    "fixture": {
+      "path": "/home/dberweger/nplayer-bb100-confirmation-20261020/fixture-v2/results.json",
+      "sha256": "6200a68025beff9d221446a86dfd8e985e35d44e0b082484a8fa4ba930fc5471"
+    },
+    "hdd_free_bytes": 1027626876928,
+    "meminfo": {
+      "MemAvailable": "129053308 kB",
+      "MemTotal": "131820432 kB",
+      "SwapFree": "25563280 kB",
+      "SwapTotal": "25787388 kB"
+    },
+    "nvme_free_bytes": 38380318720,
+    "owner_authorization": "Owner requested qualified overnight training/evaluation ready for morning review, and explicitly approved staging only new completed study outputs to2TB between phases.",
+    "qualification_sha256": "7f330e503e6c719fcdbad419adecc3a0fb2e1e14eb6c0d46e0b22fb75d634a4f",
+    "references_verified": {
+      "baseline": "c602c3727df28160a9807716d3c9211d988e420c33ed7b0c04c2fd899afef06b",
+      "candidate": "a85364b71c478be213e0356c5201911755228c864472427b64699346191facbd"
+    },
+    "resource_policy": {
+      "address_limit_bytes": null,
+      "cpu_stop_c": 90,
+      "disk_check_enabled": false,
+      "rss_limit_bytes": null,
+      "runtime_limit_seconds": null,
+      "swap_check_enabled": false,
+      "thermistor15_stop_c": 100
+    },
+    "source_bundle_sha256": "05cb04fe18ca7e0db46134d9596dc759e5a0210d4899ab00929473b7e32b8f4c",
+    "source_files": 700,
+    "source_snapshot_commit": "312a33b6f99977c618b19ba00fafe1ab015b4001",
+    "status": "ready",
+    "temperatures_c": {
+      "Package id 0": 47.0,
+      "Thermistor 15": 42.5
+    },
+    "upstream_controller": "edd5bc767bdeea6bc41e695bbe2cc0f089042f62"
+  },
+  "setup_failures": [
+    "Partial shared clone failed before science due to unavailable promisor blob; shared Git left unchanged; exact standalone selected-source snapshot used.",
+    "Absolute-path launch helper initially lacked scripts import path, before root configuration or children; invoked from qualified source with python -c.",
+    "fixture-v1 passed all504initial/reproduction hands but readout rejected supervised phase; preserved, fixed with regression test; fresh fixture-v2 completed."
+  ],
+  "status": {
+    "at": 1792448163.470772,
+    "status": "202610200601-train-baseline"
+  },
+  "supervisor_identity": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/venv/bin/python -m scripts.nplayer_bb100_confirmation run /home/dberweger/nplayer-bb100-confirmation-20261020/main-v1 "
+}

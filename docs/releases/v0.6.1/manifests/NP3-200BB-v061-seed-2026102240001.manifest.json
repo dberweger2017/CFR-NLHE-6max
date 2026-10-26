@@ -1,0 +1,194 @@
+{
+  "card_tables": {
+    "flop-k50.bin": {
+      "bytes": 12867944,
+      "sha256": "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111"
+    },
+    "river-k50.bin": {
+      "bytes": 1231562564,
+      "sha256": "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+    },
+    "turn-k50.bin": {
+      "bytes": 139600524,
+      "sha256": "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f"
+    }
+  },
+  "dependencies": {
+    "flop-k50.bin": {
+      "bytes": 12867944,
+      "sha256": "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+      "url": "https://github.com/dberweger2017/CFR-NLHE-6max/releases/download/v0.5.3/flop-k50.bin"
+    },
+    "river-k50.bin": {
+      "bytes": 1231562564,
+      "sha256": "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629",
+      "url": "https://github.com/dberweger2017/CFR-NLHE-6max/releases/download/v0.5.3/river-k50.bin"
+    },
+    "turn-k50.bin": {
+      "bytes": 139600524,
+      "sha256": "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+      "url": "https://github.com/dberweger2017/CFR-NLHE-6max/releases/download/v0.5.3/turn-k50.bin"
+    }
+  },
+  "evidence": {
+    "acceptance_pr": 404,
+    "adverse_relative_regressions_pr": 357,
+    "committed_results_sha256": "3784cd2d4b5b3d79a5461510bf206577aaff0927708ac407a6a4c1008d06e26d",
+    "frozen_source": "f11edfe5227882980f57925ab0ca93b3a2f790a7",
+    "initial_hands": 10543104,
+    "original_results_sha256": "6909662e4b2372c13981467723759ba5a37ffde7daa3899514e8d52c72c969b8",
+    "reproduction_hands": 10543104,
+    "research_merge": "bbb71f408db6b1964541e22978628f8c60105313",
+    "simultaneous_gates_passed": 30
+  },
+  "format": "nplayer-v061-release-v1",
+  "model": {
+    "bytes": 14304919746,
+    "file": "NP3-200BB-v061-seed-2026102240001.bin",
+    "metadata": {
+      "byte_order": "little",
+      "dtype": "float64",
+      "format": "nplayer-policy-binary-v1",
+      "mass": {
+        "keyset_sha256": "c37fdf1c6d0a2e92d6193ae285db4c990e5fbecd859c734a33268ae34d41bb11",
+        "positive_mass_rows": 184507886,
+        "receipt_sha256": "b6202c4eaa665f1391f08457308fb5c05e6f1eaeb5a494b1093af355a5331252",
+        "zero_keys_sha256": "a40c9f1a82c588e764470671607b6ef42d7523bae88f7f510ece8242a955757f",
+        "zero_mass_rows": 65494651
+      },
+      "policy": {
+        "continuation": "none",
+        "entries": 250002537,
+        "format": "nplayer-policy-v1",
+        "identity": {
+          "big_blind": 100,
+          "card_tables": [
+            "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+            "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+            "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+          ],
+          "game": "nlhe-cash",
+          "menu": "min-pot-conditional-jam-v1",
+          "players": 3,
+          "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+          "small_blind": 50,
+          "stacks": [
+            20000,
+            20000,
+            20000
+          ],
+          "utility_unit": "big-blind"
+        },
+        "last_average_street": 3,
+        "missing": "uniform",
+        "players": 3,
+        "source_checkpoint_sha256": "9e824a45b87e0722385e82452f4ea4574f802edd784e9e91181bf24e17f32570",
+        "strategy": "average"
+      },
+      "record_bytes": 32,
+      "source_policy_sha256": "f6ca935e809ebda4f93e6ecd1c87ff74189c6d64d8a5687b2c3ebfc03c01f563"
+    },
+    "sha256": "c29eac794d048793988c30f1f9e5024bf970e87883e026cfd72f0d006f24bfa3"
+  },
+  "parts": [
+    {
+      "bytes": 1073741824,
+      "file": "NP3-200BB-v061-seed-2026102240001.bin.part-001",
+      "sha256": "9d48398d5a6d1a34eda24bca162a1b132dc86042eb36b070b88f40190a8df213"
+    },
+    {
+      "bytes": 1073741824,
+      "file": "NP3-200BB-v061-seed-2026102240001.bin.part-002",
+      "sha256": "0cf4354d4c8a2c4f3d5ebd3465ff6e515322632fd084d467377ae88d0648a422"
+    },
+    {
+      "bytes": 1073741824,
+      "file": "NP3-200BB-v061-seed-2026102240001.bin.part-003",
+      "sha256": "16415ccd39e3d500d169feae3d3ef9ddb702e3bf8e0ba4fe053ee79d06ef4b74"
+    },
+    {
+      "bytes": 1073741824,
+      "file": "NP3-200BB-v061-seed-2026102240001.bin.part-004",
+      "sha256": "38edf32fdf6ffce635bf2593a03b95d4fca3558bdcb32e95244b14fad608f1a2"
+    },
+    {
+      "bytes": 1073741824,
+      "file": "NP3-200BB-v061-seed-2026102240001.bin.part-005",
+      "sha256": "f719e2ebfbaa33ca082a2d211436be87ade57513d72e56a5a5834cdfe3fc566a"
+    },
+    {
+      "bytes": 1073741824,
+      "file": "NP3-200BB-v061-seed-2026102240001.bin.part-006",
+      "sha256": "889d030acd9995401b216efb674c6172fe2bd6204bd8d46de2efae0f0897ba43"
+    },
+    {
+      "bytes": 1073741824,
+      "file": "NP3-200BB-v061-seed-2026102240001.bin.part-007",
+      "sha256": "fbac44256d3a8c0d9dacae36929cb0d5da7bd113d1b2d7268d5de7773c493843"
+    },
+    {
+      "bytes": 1073741824,
+      "file": "NP3-200BB-v061-seed-2026102240001.bin.part-008",
+      "sha256": "c3924d8d731606e0bb916106c067e458ddcb82e72a5b514706a44983c6c336a3"
+    },
+    {
+      "bytes": 1073741824,
+      "file": "NP3-200BB-v061-seed-2026102240001.bin.part-009",
+      "sha256": "b77c22cb0cc5aa194abf0306c2e00f521f2f15bcaf755ef14af2d2377a8ef11f"
+    },
+    {
+      "bytes": 1073741824,
+      "file": "NP3-200BB-v061-seed-2026102240001.bin.part-010",
+      "sha256": "3ab80de1e250a1e84c720a300d79baba7c911d44e81a454b5575969972099a00"
+    },
+    {
+      "bytes": 1073741824,
+      "file": "NP3-200BB-v061-seed-2026102240001.bin.part-011",
+      "sha256": "b95b06905d722ba6372d72fc2059465e25701c806d7eceeee1c375e5e58a8aee"
+    },
+    {
+      "bytes": 1073741824,
+      "file": "NP3-200BB-v061-seed-2026102240001.bin.part-012",
+      "sha256": "33881c9efb33196723ec4856fcce79a127d3900f6370b5152ce6d988e663b904"
+    },
+    {
+      "bytes": 1073741824,
+      "file": "NP3-200BB-v061-seed-2026102240001.bin.part-013",
+      "sha256": "d56082daeb08681c784a716a63577f2d943d292ce9b2a0ffb240b0b46b863570"
+    },
+    {
+      "bytes": 346276034,
+      "file": "NP3-200BB-v061-seed-2026102240001.bin.part-014",
+      "sha256": "eb7619d800d831dce56fada97442725822ef22026cac952bda478ef97cf423a1"
+    }
+  ],
+  "publication_approved": false,
+  "seed": "2026102240001",
+  "source_assets": {
+    "INSTALL.md": {
+      "bytes": 4751,
+      "sha256": "19f02cb87bf0695d0beaa32387d9d623101d2a1566306fe43c49793f93f4a9eb"
+    },
+    "MODEL_CARD.md": {
+      "bytes": 4275,
+      "sha256": "59c1ecfee631bcb382cf11e1de6b9c5017b3115340103f319adc848141231114"
+    },
+    "RELEASE_NOTES.md": {
+      "bytes": 1547,
+      "sha256": "01b45690be68be7d0a42cded0552983d5442be82361e3f8cf9272c031d7b0210"
+    },
+    "verify_v061_bundle.py": {
+      "bytes": 24593,
+      "sha256": "889ed7cc3c49da556f28edae66ba368561c2e3b13c644ce57076b3f699a3f2bd"
+    }
+  },
+  "source_commit": "61585713154124802de9b434b04797e05f8a54e8",
+  "table": {
+    "big_blind": 100,
+    "players": 3,
+    "search": false,
+    "small_blind": 50,
+    "stack_bb": 200
+  },
+  "version": "v0.6.1"
+}

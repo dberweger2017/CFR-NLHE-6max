@@ -1,0 +1,125 @@
+{
+  "observed_utc": "2026-10-18T08:38:14.087113+00:00",
+  "status": "all-primary-play-and-independent-replay-complete;last-reproduction-running",
+  "primary_hands": 983040,
+  "final_outcomes_read": false,
+  "compute_released": false,
+  "live": {
+    "now_utc": "2026-10-18T08:38:14.087113+00:00",
+    "evaluation-failed.json": null,
+    "evaluation-complete.json": null,
+    "global-barrier.json": null,
+    "event-delivery.json": null,
+    "last_resource": {
+      "utc": "2026-10-18T08:38:13.921722+00:00",
+      "active_jobs": {
+        "5B-reproduce": {
+          "kind": "single-seed-5B-reproduce",
+          "cpus": [
+            0,
+            1
+          ]
+        }
+      },
+      "package_c": 53.0,
+      "vrm_c": 61.0,
+      "family_rss_bytes": 17580240896,
+      "free_disk_bytes": 77040828416
+    },
+    "completed_stages": {
+      "cache-5B.result.json": {
+        "cpus": [
+          0,
+          1
+        ],
+        "elapsed_seconds": 1541.354558881023,
+        "exit_code": 0,
+        "status": "passed"
+      },
+      "offload-20B.result.json": {
+        "cpus": [
+          6
+        ],
+        "elapsed_seconds": 494.68229846298345,
+        "exit_code": 0,
+        "status": "passed"
+      },
+      "admit-5B.result.json": {
+        "cpus": [
+          0,
+          1
+        ],
+        "elapsed_seconds": 9.62146353998105,
+        "exit_code": 0,
+        "status": "passed"
+      },
+      "restore-5B.result.json": {
+        "cpus": [
+          6
+        ],
+        "elapsed_seconds": 47.27935097401496,
+        "exit_code": 0,
+        "status": "passed"
+      },
+      "5B-replay.result.json": {
+        "cpus": [
+          0,
+          1
+        ],
+        "elapsed_seconds": 1508.3170811549935,
+        "exit_code": 0,
+        "status": "passed"
+      },
+      "5B-play.result.json": {
+        "cpus": [
+          0,
+          1
+        ],
+        "elapsed_seconds": 1281.7547873590083,
+        "exit_code": 0,
+        "status": "passed"
+      },
+      "20B-replay.result.json": {
+        "cpus": [
+          0,
+          1
+        ],
+        "elapsed_seconds": 1693.4636323710001,
+        "exit_code": 0,
+        "status": "passed"
+      },
+      "20B-reproduce.result.json": {
+        "cpus": [
+          0,
+          1
+        ],
+        "elapsed_seconds": 1617.9980342009949,
+        "exit_code": 0,
+        "status": "passed"
+      },
+      "20B-play.result.json": {
+        "cpus": [
+          0,
+          1
+        ],
+        "elapsed_seconds": 1381.3298533839989,
+        "exit_code": 0,
+        "status": "passed"
+      },
+      "20B-verify.result.json": {
+        "cpus": [
+          0,
+          1
+        ],
+        "elapsed_seconds": 4.239410602021962,
+        "exit_code": 0,
+        "status": "passed"
+      }
+    },
+    "guard_result": null,
+    "compute_lock_free": false,
+    "supervisor_pid_exists": true
+  },
+  "compute_eta_madrid": "around11:00,11:50 conservative buffer",
+  "clock_credit": false
+}

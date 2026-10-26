@@ -1,0 +1,263 @@
+{
+  "status": "provisional-not-admitted",
+  "basis": "docs/reports/nplayer-six-player-candidate/costs.json",
+  "basis_sha256": "0be5adb66f508b24f82cea5dfc67a6fa54d082558e54a2f7b41eeb7f8e4938d2",
+  "basis_raw_result_sha256": "361e40b70f195d578592d1155738340917d753fdd2cbd3866236adee3bd3e5c1",
+  "players": 6,
+  "stack_bb": 100,
+  "seed": 2026102361001,
+  "capacity": 500000000,
+  "control_capacity": 250000000,
+  "target": 10000000000,
+  "components": [
+    {
+      "name": "fresh0to10B active traversal;1.5x observed seconds",
+      "central_seconds": 2740.007194752,
+      "reserved_seconds": 5480.014389504
+    },
+    {
+      "name": "one500M checkpoint save;2x10B250M save",
+      "central_seconds": 256.377680482,
+      "reserved_seconds": 512.755360964
+    },
+    {
+      "name": "fresh startup/hash residual;2x priorfresh",
+      "central_seconds": 68.48603505821984,
+      "reserved_seconds": 136.97207011643968
+    },
+    {
+      "name": "one500M endpoint export/audit/convert/binaryaudit;2x perendpoint",
+      "central_seconds": 2891.9818134157103,
+      "reserved_seconds": 5783.963626831421
+    },
+    {
+      "name": "three-model arena plus peer reload initial+repeat;2.5x prior job",
+      "central_seconds": 1381.9556238074438,
+      "reserved_seconds": 2763.9112476148875
+    },
+    {
+      "name": "initial independent replay;1.25x onejob",
+      "central_seconds": 442.862890822386,
+      "reserved_seconds": 885.725781644772
+    },
+    {
+      "name": "eight paired summaries;1.25x onecontrast",
+      "central_seconds": 157.81226924667135,
+      "reserved_seconds": 315.6245384933427
+    },
+    {
+      "name": "global proof/readout conservative wholepriorallowance",
+      "central_seconds": 744.3107760419371,
+      "reserved_seconds": 1488.6215520838741
+    },
+    {
+      "name": "inline shared-query evidence/readout allowance; unmeasured",
+      "central_seconds": 900,
+      "reserved_seconds": 1800
+    },
+    {
+      "name": "fresh build/source qualification allowance",
+      "central_seconds": 900,
+      "reserved_seconds": 1800
+    },
+    {
+      "name": "compact reporting allowance",
+      "central_seconds": 900,
+      "reserved_seconds": 1800
+    }
+  ],
+  "central_seconds": 11383.794283626368,
+  "reserved_seconds": 22767.588567252737,
+  "proposed_planning_seconds": 25200,
+  "accepted_planning_seconds": null,
+  "arena_resident_models": 3,
+  "linear_training_peak_gib": 41.29228973388672,
+  "linear_arena_peak_gib": 55.37548065185547,
+  "memory_planning_allowance_gib": 75,
+  "no_automatic_memory_stop": true,
+  "storage": {
+    "new_model_artifacts_gib": 54.88142929598689,
+    "new_artifact_evidence_aux_allowance_gib": 95,
+    "working_allowance_gib": 25,
+    "new_free_scenario_gib": 120,
+    "headroom_included": true,
+    "no_live_floor_or_automatic_disk_stop": true
+  },
+  "blocks_per_field": 4096,
+  "seatings": 12,
+  "fields": 8,
+  "initial_hand_instances": 786432,
+  "reproduction_hand_instances": 786432,
+  "statistics": "one family8 one-sided95Studentt/Bonferroni,trainedlower>0,script/mixedlower>-5,df4095; powerbelow normalapproximations using older3Bto10BSE, NOT measuredcapacityvariance",
+  "reference_power": [
+    {
+      "field": "trained",
+      "reference_se_bb100": 19.481594336054847,
+      "margin_bb100": 0,
+      "normal_reference_power": [
+        {
+          "true_delta_bb100": 0,
+          "pass_probability": 0.00625
+        },
+        {
+          "true_delta_bb100": 25,
+          "pass_probability": 0.11228931208
+        },
+        {
+          "true_delta_bb100": 50,
+          "pass_probability": 0.527433384523
+        },
+        {
+          "true_delta_bb100": 75,
+          "pass_probability": 0.911825475174
+        }
+      ]
+    },
+    {
+      "field": "random",
+      "reference_se_bb100": 26.41941439895411,
+      "margin_bb100": -5,
+      "normal_reference_power": [
+        {
+          "true_delta_bb100": 0,
+          "pass_probability": 0.010487040604
+        },
+        {
+          "true_delta_bb100": 10,
+          "pass_probability": 0.026807062715
+        },
+        {
+          "true_delta_bb100": 25,
+          "pass_probability": 0.086571032224
+        }
+      ]
+    },
+    {
+      "field": "check-call",
+      "reference_se_bb100": 29.889903376898854,
+      "margin_bb100": -5,
+      "normal_reference_power": [
+        {
+          "true_delta_bb100": 0,
+          "pass_probability": 0.00989185232
+        },
+        {
+          "true_delta_bb100": 10,
+          "pass_probability": 0.022974376513
+        },
+        {
+          "true_delta_bb100": 25,
+          "pass_probability": 0.067584925535
+        }
+      ]
+    },
+    {
+      "field": "tight-aggressive",
+      "reference_se_bb100": 9.87812752278644,
+      "margin_bb100": -5,
+      "normal_reference_power": [
+        {
+          "true_delta_bb100": 0,
+          "pass_probability": 0.023210958976
+        },
+        {
+          "true_delta_bb100": 10,
+          "pass_probability": 0.163740816358
+        },
+        {
+          "true_delta_bb100": 25,
+          "pass_probability": 0.705162602064
+        }
+      ]
+    },
+    {
+      "field": "pot-pressure",
+      "reference_se_bb100": 14.838566043620109,
+      "margin_bb100": -5,
+      "normal_reference_power": [
+        {
+          "true_delta_bb100": 0,
+          "pass_probability": 0.015357494664
+        },
+        {
+          "true_delta_bb100": 10,
+          "pass_probability": 0.068530369924
+        },
+        {
+          "true_delta_bb100": 25,
+          "pass_probability": 0.317056148975
+        }
+      ]
+    },
+    {
+      "field": "call-pressure",
+      "reference_se_bb100": 21.712068836706383,
+      "margin_bb100": -5,
+      "normal_reference_power": [
+        {
+          "true_delta_bb100": 0,
+          "pass_probability": 0.011682326873
+        },
+        {
+          "true_delta_bb100": 10,
+          "pass_probability": 0.035393188497
+        },
+        {
+          "true_delta_bb100": 25,
+          "pass_probability": 0.132214178589
+        }
+      ]
+    },
+    {
+      "field": "random-tight",
+      "reference_se_bb100": 13.094995642565692,
+      "margin_bb100": -5,
+      "normal_reference_power": [
+        {
+          "true_delta_bb100": 0,
+          "pass_probability": 0.01717749792
+        },
+        {
+          "true_delta_bb100": 10,
+          "pass_probability": 0.08815091935
+        },
+        {
+          "true_delta_bb100": 25,
+          "pass_probability": 0.418101003944
+        }
+      ]
+    },
+    {
+      "field": "trained-call-pressure",
+      "reference_se_bb100": 23.159047674708408,
+      "margin_bb100": -5,
+      "normal_reference_power": [
+        {
+          "true_delta_bb100": 0,
+          "pass_probability": 0.011250364763
+        },
+        {
+          "true_delta_bb100": 10,
+          "pass_probability": 0.032156021884
+        },
+        {
+          "true_delta_bb100": 25,
+          "pass_probability": 0.114620672178
+        }
+      ]
+    }
+  ],
+  "assumptions": [
+    "1.5xtraversalseconds/2xrowwork and storage are scenarios, keymix/freeze/compression maydiffer.",
+    "Three resident tables:250Mcontrol+500Mcandidate+250Mpeer. Prior runtime included sharedhostcleanup.",
+    "Inline diagnostics and larger capacity require exactsource smallqualification and calibrated cost before main; quote mayneed revision."
+  ],
+  "launch_requires": [
+    "owner accepted complete quote",
+    "exact source and diagnostic parity qualification",
+    "protected control+peer pins",
+    "manual fresh actual storage/RAM/thermal/normalmutex review"
+  ],
+  "no_training_or_main_started": true,
+  "no_automatic_extension": true
+}

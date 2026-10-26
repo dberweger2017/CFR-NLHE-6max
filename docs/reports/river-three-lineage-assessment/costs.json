@@ -1,0 +1,968 @@
+{
+  "preparation": {
+    "status": "complete",
+    "source": "930843ba019f067cf64343b1bdd6cea7b0040199",
+    "wall_seconds": 3223.680448425992,
+    "no_final_hands_started": true
+  },
+  "preparation_stages": [
+    {
+      "phase": "stage-model-2026101935003",
+      "returncode": 0,
+      "wall_seconds": 6.059166560997255,
+      "user_cpu_seconds": 0.029366000000000003,
+      "system_cpu_seconds": 4.229457
+    },
+    {
+      "phase": "stage-model-202610200601",
+      "returncode": 0,
+      "wall_seconds": 1653.8590165679925,
+      "user_cpu_seconds": 1.8001399999999999,
+      "system_cpu_seconds": 35.04869600000001
+    },
+    {
+      "phase": "stage-model-202610200602",
+      "returncode": 0,
+      "wall_seconds": 1439.2480036880006,
+      "user_cpu_seconds": 1.466758,
+      "system_cpu_seconds": 27.668203
+    },
+    {
+      "phase": "build",
+      "returncode": 0,
+      "wall_seconds": 18.18008915503742,
+      "user_cpu_seconds": 32.736129000000005,
+      "system_cpu_seconds": 1.4452789999999993
+    },
+    {
+      "phase": "native-tests",
+      "returncode": 0,
+      "wall_seconds": 36.39272106997669,
+      "user_cpu_seconds": 120.45436999999998,
+      "system_cpu_seconds": 38.012518
+    }
+  ],
+  "main_stages": [
+    {
+      "phase": "python-tests",
+      "returncode": 0,
+      "wall_seconds": 2.018268204003107,
+      "user_cpu_seconds": 1.7167249999999998,
+      "system_cpu_seconds": 0.985086
+    },
+    {
+      "phase": "environment",
+      "returncode": 0,
+      "wall_seconds": 2.0190651530283503,
+      "user_cpu_seconds": 1.714311,
+      "system_cpu_seconds": 0.869884
+    },
+    {
+      "phase": "qualification-2026101935003",
+      "returncode": 0,
+      "wall_seconds": 482.17974783299724,
+      "user_cpu_seconds": 469.20849999999996,
+      "system_cpu_seconds": 17.508463999999996
+    },
+    {
+      "phase": "qualification-202610200601",
+      "returncode": 0,
+      "wall_seconds": 472.1181165840244,
+      "user_cpu_seconds": 459.664055,
+      "system_cpu_seconds": 14.011941
+    },
+    {
+      "phase": "qualification-202610200602",
+      "returncode": 0,
+      "wall_seconds": 472.14153308601817,
+      "user_cpu_seconds": 461.0515529999999,
+      "system_cpu_seconds": 13.927433
+    },
+    {
+      "phase": "measure-2026101935003",
+      "returncode": 0,
+      "wall_seconds": 4271.887323582952,
+      "user_cpu_seconds": 8196.991667999999,
+      "system_cpu_seconds": 26.366122000000004
+    },
+    {
+      "phase": "measure-202610200601",
+      "returncode": 0,
+      "wall_seconds": 4299.697359399986,
+      "user_cpu_seconds": 8391.053575,
+      "system_cpu_seconds": 26.139798999999996
+    },
+    {
+      "phase": "measure-202610200602",
+      "returncode": 0,
+      "wall_seconds": 4278.960431504005,
+      "user_cpu_seconds": 8282.223045000002,
+      "system_cpu_seconds": 25.893427000000003
+    },
+    {
+      "phase": "readout",
+      "returncode": 0,
+      "wall_seconds": 18.154619742010254,
+      "user_cpu_seconds": 17.74687499999709,
+      "system_cpu_seconds": 1.214821999999998
+    }
+  ],
+  "measurement_components": {
+    "2026101935003": {
+      "wall_seconds": 4271.537721149973,
+      "batches": {
+        "initial": {
+          "wall_seconds": 2098.1422562050284,
+          "startup": {
+            "model_and_k50_load_seconds": 234.956375293,
+            "model_pins": [
+              {
+                "average_scope": 3,
+                "policy_load_seconds": 114.733336151,
+                "sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+                "source_checkpoint_sha256": "788e75acf8b98d88518faf3da683048ec05604ba001c8a59bb1ec5f740b52b80",
+                "strategy": "average"
+              },
+              {
+                "average_scope": 3,
+                "policy_load_seconds": 115.20763279,
+                "sha256": "23599816cf632a51cace45f25d70ed4918fe5e75875c33136d8629052a8a2a70",
+                "source_checkpoint_sha256": "d03db22316af0e8bd04e76f5303603709bd77b2bf13dcc13ea07482ca10170ca",
+                "strategy": "average"
+              }
+            ],
+            "resident_models": 2,
+            "shared_read_only_tables": true,
+            "threads": 4
+          },
+          "case_play_seconds": {
+            "trained-off": 0.369812908,
+            "trained-on": 513.104346621,
+            "call-pressure-off": 0.789035725,
+            "call-pressure-on": 1347.750769704
+          },
+          "play_and_write_seconds": 1862.013964958,
+          "manifest_sha256": "0f54b6013e3184dc5d878788caf249b55218d12f95542505d53cfa020b6cfe6f"
+        },
+        "repeat": {
+          "wall_seconds": 2136.458227520983,
+          "startup": {
+            "model_and_k50_load_seconds": 236.009325193,
+            "model_pins": [
+              {
+                "average_scope": 3,
+                "policy_load_seconds": 115.177657167,
+                "sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+                "source_checkpoint_sha256": "788e75acf8b98d88518faf3da683048ec05604ba001c8a59bb1ec5f740b52b80",
+                "strategy": "average"
+              },
+              {
+                "average_scope": 3,
+                "policy_load_seconds": 115.702732027,
+                "sha256": "23599816cf632a51cace45f25d70ed4918fe5e75875c33136d8629052a8a2a70",
+                "source_checkpoint_sha256": "d03db22316af0e8bd04e76f5303603709bd77b2bf13dcc13ea07482ca10170ca",
+                "strategy": "average"
+              }
+            ],
+            "resident_models": 2,
+            "shared_read_only_tables": true,
+            "threads": 4
+          },
+          "case_play_seconds": {
+            "trained-off": 0.360336086,
+            "trained-on": 522.088781928,
+            "call-pressure-off": 0.793137961,
+            "call-pressure-on": 1376.045099954
+          },
+          "play_and_write_seconds": 1899.2873559290001,
+          "manifest_sha256": "a301f04ffcc841f079997a8c0f37581045d7864aeb85e8d447b66ed9ac5bb415"
+        }
+      },
+      "verification_seconds": 36.89640504401177,
+      "binary_sha256": "d3c9047aa449f14ac5a341443239d714709183d70ed1409e8fc1937db3bff0f3"
+    },
+    "202610200601": {
+      "wall_seconds": 4298.60851941898,
+      "batches": {
+        "initial": {
+          "wall_seconds": 2132.213265785016,
+          "startup": {
+            "model_and_k50_load_seconds": 239.964973402,
+            "model_pins": [
+              {
+                "average_scope": 3,
+                "policy_load_seconds": 117.053896865,
+                "sha256": "23599816cf632a51cace45f25d70ed4918fe5e75875c33136d8629052a8a2a70",
+                "source_checkpoint_sha256": "d03db22316af0e8bd04e76f5303603709bd77b2bf13dcc13ea07482ca10170ca",
+                "strategy": "average"
+              },
+              {
+                "average_scope": 3,
+                "policy_load_seconds": 117.743161477,
+                "sha256": "2911937c047c644324d7a78a944949192f19d44eda373ca333d94a0dcaec8984",
+                "source_checkpoint_sha256": "94836638f4818414307425278bdc291948a060107ed0064552f329d4960d7200",
+                "strategy": "average"
+              }
+            ],
+            "resident_models": 2,
+            "shared_read_only_tables": true,
+            "threads": 4
+          },
+          "case_play_seconds": {
+            "trained-off": 0.377329825,
+            "trained-on": 480.897815892,
+            "call-pressure-off": 0.785479911,
+            "call-pressure-on": 1408.939668272
+          },
+          "play_and_write_seconds": 1891.0002939,
+          "manifest_sha256": "7f8519871b355d763ca680292e02ade533d90c8a0cea19eee4fd81773310dc93"
+        },
+        "repeat": {
+          "wall_seconds": 2128.678905020992,
+          "startup": {
+            "model_and_k50_load_seconds": 238.865587275,
+            "model_pins": [
+              {
+                "average_scope": 3,
+                "policy_load_seconds": 117.005443541,
+                "sha256": "23599816cf632a51cace45f25d70ed4918fe5e75875c33136d8629052a8a2a70",
+                "source_checkpoint_sha256": "d03db22316af0e8bd04e76f5303603709bd77b2bf13dcc13ea07482ca10170ca",
+                "strategy": "average"
+              },
+              {
+                "average_scope": 3,
+                "policy_load_seconds": 116.813335471,
+                "sha256": "2911937c047c644324d7a78a944949192f19d44eda373ca333d94a0dcaec8984",
+                "source_checkpoint_sha256": "94836638f4818414307425278bdc291948a060107ed0064552f329d4960d7200",
+                "strategy": "average"
+              }
+            ],
+            "resident_models": 2,
+            "shared_read_only_tables": true,
+            "threads": 4
+          },
+          "case_play_seconds": {
+            "trained-off": 0.383884454,
+            "trained-on": 480.926011823,
+            "call-pressure-off": 0.79425625,
+            "call-pressure-on": 1406.444899542
+          },
+          "play_and_write_seconds": 1888.549052069,
+          "manifest_sha256": "13392755c653a9c597eba7bce9f60ae15035c6dde041d3dd37771dd2ec095a95"
+        }
+      },
+      "verification_seconds": 37.6739593790262,
+      "binary_sha256": "d3c9047aa449f14ac5a341443239d714709183d70ed1409e8fc1937db3bff0f3"
+    },
+    "202610200602": {
+      "wall_seconds": 4276.92306230095,
+      "batches": {
+        "initial": {
+          "wall_seconds": 2129.950624676014,
+          "startup": {
+            "model_and_k50_load_seconds": 235.963264084,
+            "model_pins": [
+              {
+                "average_scope": 3,
+                "policy_load_seconds": 115.518253749,
+                "sha256": "2911937c047c644324d7a78a944949192f19d44eda373ca333d94a0dcaec8984",
+                "source_checkpoint_sha256": "94836638f4818414307425278bdc291948a060107ed0064552f329d4960d7200",
+                "strategy": "average"
+              },
+              {
+                "average_scope": 3,
+                "policy_load_seconds": 115.372867675,
+                "sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+                "source_checkpoint_sha256": "788e75acf8b98d88518faf3da683048ec05604ba001c8a59bb1ec5f740b52b80",
+                "strategy": "average"
+              }
+            ],
+            "resident_models": 2,
+            "shared_read_only_tables": true,
+            "threads": 4
+          },
+          "case_play_seconds": {
+            "trained-off": 0.374336704,
+            "trained-on": 472.047175273,
+            "call-pressure-off": 0.806489897,
+            "call-pressure-on": 1419.530641571
+          },
+          "play_and_write_seconds": 1892.758643445,
+          "manifest_sha256": "32902624c38b243fa25f266d2d26e42dd37932b16c875385e0338aaafeff0fed"
+        },
+        "repeat": {
+          "wall_seconds": 2109.915084894048,
+          "startup": {
+            "model_and_k50_load_seconds": 235.567062222,
+            "model_pins": [
+              {
+                "average_scope": 3,
+                "policy_load_seconds": 115.036668646,
+                "sha256": "2911937c047c644324d7a78a944949192f19d44eda373ca333d94a0dcaec8984",
+                "source_checkpoint_sha256": "94836638f4818414307425278bdc291948a060107ed0064552f329d4960d7200",
+                "strategy": "average"
+              },
+              {
+                "average_scope": 3,
+                "policy_load_seconds": 115.453097865,
+                "sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+                "source_checkpoint_sha256": "788e75acf8b98d88518faf3da683048ec05604ba001c8a59bb1ec5f740b52b80",
+                "strategy": "average"
+              }
+            ],
+            "resident_models": 2,
+            "shared_read_only_tables": true,
+            "threads": 4
+          },
+          "case_play_seconds": {
+            "trained-off": 0.361213314,
+            "trained-on": 465.601251409,
+            "call-pressure-off": 0.785108599,
+            "call-pressure-on": 1406.426632309
+          },
+          "play_and_write_seconds": 1873.174205631,
+          "manifest_sha256": "ffaec16bc86de1a0cf112c14f9d05c5d3edcc34e0473b545ca7256074eb9e1d2"
+        }
+      },
+      "verification_seconds": 37.016762604005635,
+      "binary_sha256": "d3c9047aa449f14ac5a341443239d714709183d70ed1409e8fc1937db3bff0f3"
+    }
+  },
+  "resources": {
+    "preparation": {
+      "samples": 1558,
+      "by_phase": {
+        "stage-model-2026101935003": {
+          "samples": 3,
+          "first": {
+            "utc": "2026-10-22T08:13:41Z",
+            "phase": "stage-model-2026101935003",
+            "cpu_c": 38.0,
+            "thermistor15_c": 30.0,
+            "worker_family_rss_bytes": 2412544,
+            "live_family_cpu_seconds": 0.01,
+            "available_ram_bytes": 131364618240,
+            "swap_used_bytes": 367697920,
+            "nvme_free_bytes": 256648089600,
+            "hdd_free_bytes": 517443198976
+          },
+          "last": {
+            "utc": "2026-10-22T08:13:45Z",
+            "phase": "stage-model-2026101935003",
+            "cpu_c": 46.0,
+            "thermistor15_c": 32.5,
+            "worker_family_rss_bytes": 2412544,
+            "live_family_cpu_seconds": 4.04,
+            "available_ram_bytes": 131406798848,
+            "swap_used_bytes": 367697920,
+            "nvme_free_bytes": 243141656576,
+            "hdd_free_bytes": 517442691072
+          },
+          "max_cpu_c": 46.0,
+          "max_thermistor15_c": 32.5,
+          "max_worker_family_rss_bytes": 2412544,
+          "max_swap_used_bytes": 367697920,
+          "min_available_ram_bytes": 131364618240,
+          "min_nvme_free_bytes": 243141656576,
+          "min_hdd_free_bytes": 517442691072
+        },
+        "stage-model-202610200601": {
+          "samples": 817,
+          "first": {
+            "utc": "2026-10-22T08:14:10Z",
+            "phase": "stage-model-202610200601",
+            "cpu_c": 39.0,
+            "thermistor15_c": 39.5,
+            "worker_family_rss_bytes": 2068480,
+            "live_family_cpu_seconds": 0.0,
+            "available_ram_bytes": 131423895552,
+            "swap_used_bytes": 367697920,
+            "nvme_free_bytes": 242559180800,
+            "hdd_free_bytes": 517439664128
+          },
+          "last": {
+            "utc": "2026-10-22T08:41:42Z",
+            "phase": "stage-model-202610200601",
+            "cpu_c": 33.0,
+            "thermistor15_c": 30.0,
+            "worker_family_rss_bytes": 2330624,
+            "live_family_cpu_seconds": 29.49,
+            "available_ram_bytes": 131378159616,
+            "swap_used_bytes": 367697920,
+            "nvme_free_bytes": 228413267968,
+            "hdd_free_bytes": 517400711168
+          },
+          "max_cpu_c": 55.0,
+          "max_thermistor15_c": 54.5,
+          "max_worker_family_rss_bytes": 2330624,
+          "max_swap_used_bytes": 367697920,
+          "min_available_ram_bytes": 131300179968,
+          "min_nvme_free_bytes": 228413267968,
+          "min_hdd_free_bytes": 517400711168
+        },
+        "stage-model-202610200602": {
+          "samples": 711,
+          "first": {
+            "utc": "2026-10-22T08:42:06Z",
+            "phase": "stage-model-202610200602",
+            "cpu_c": 51.0,
+            "thermistor15_c": 38.5,
+            "worker_family_rss_bytes": 2134016,
+            "live_family_cpu_seconds": 0.0,
+            "available_ram_bytes": 131355545600,
+            "swap_used_bytes": 367697920,
+            "nvme_free_bytes": 228410363904,
+            "hdd_free_bytes": 517375275008
+          },
+          "last": {
+            "utc": "2026-10-22T09:06:04Z",
+            "phase": "stage-model-202610200602",
+            "cpu_c": 32.0,
+            "thermistor15_c": 29.5,
+            "worker_family_rss_bytes": 2396160,
+            "live_family_cpu_seconds": 22.82,
+            "available_ram_bytes": 131397427200,
+            "swap_used_bytes": 372154368,
+            "nvme_free_bytes": 214272098304,
+            "hdd_free_bytes": 517356756992
+          },
+          "max_cpu_c": 55.0,
+          "max_thermistor15_c": 55.0,
+          "max_worker_family_rss_bytes": 2396160,
+          "max_swap_used_bytes": 372154368,
+          "min_available_ram_bytes": 131300028416,
+          "min_nvme_free_bytes": 214272098304,
+          "min_hdd_free_bytes": 517356756992
+        },
+        "build": {
+          "samples": 9,
+          "first": {
+            "utc": "2026-10-22T09:06:29Z",
+            "phase": "build",
+            "cpu_c": 40.0,
+            "thermistor15_c": 38.5,
+            "worker_family_rss_bytes": 16781312,
+            "live_family_cpu_seconds": 0.0,
+            "available_ram_bytes": 131400953856,
+            "swap_used_bytes": 372154368,
+            "nvme_free_bytes": 214261690368,
+            "hdd_free_bytes": 517355278336
+          },
+          "last": {
+            "utc": "2026-10-22T09:06:45Z",
+            "phase": "build",
+            "cpu_c": 52.0,
+            "thermistor15_c": 43.0,
+            "worker_family_rss_bytes": 314597376,
+            "live_family_cpu_seconds": 9.030000000000001,
+            "available_ram_bytes": 131053449216,
+            "swap_used_bytes": 372154368,
+            "nvme_free_bytes": 214139494400,
+            "hdd_free_bytes": 517353451520
+          },
+          "max_cpu_c": 52.0,
+          "max_thermistor15_c": 43.0,
+          "max_worker_family_rss_bytes": 1132367872,
+          "max_swap_used_bytes": 372154368,
+          "min_available_ram_bytes": 130659553280,
+          "min_nvme_free_bytes": 214139494400,
+          "min_hdd_free_bytes": 517353451520
+        },
+        "native-tests": {
+          "samples": 18,
+          "first": {
+            "utc": "2026-10-22T09:06:47Z",
+            "phase": "native-tests",
+            "cpu_c": 42.0,
+            "thermistor15_c": 43.5,
+            "worker_family_rss_bytes": 19996672,
+            "live_family_cpu_seconds": 0.0,
+            "available_ram_bytes": 131285626880,
+            "swap_used_bytes": 372154368,
+            "nvme_free_bytes": 214143422464,
+            "hdd_free_bytes": 517352906752
+          },
+          "last": {
+            "utc": "2026-10-22T09:07:21Z",
+            "phase": "native-tests",
+            "cpu_c": 62.0,
+            "thermistor15_c": 54.0,
+            "worker_family_rss_bytes": 784904192,
+            "live_family_cpu_seconds": 113.43,
+            "available_ram_bytes": 130573897728,
+            "swap_used_bytes": 372154368,
+            "nvme_free_bytes": 214139232256,
+            "hdd_free_bytes": 517352423424
+          },
+          "max_cpu_c": 64.0,
+          "max_thermistor15_c": 54.0,
+          "max_worker_family_rss_bytes": 784904192,
+          "max_swap_used_bytes": 372154368,
+          "min_available_ram_bytes": 130559270912,
+          "min_nvme_free_bytes": 214131982336,
+          "min_hdd_free_bytes": 517352423424
+        }
+      },
+      "first": {
+        "utc": "2026-10-22T08:13:41Z",
+        "phase": "stage-model-2026101935003",
+        "cpu_c": 38.0,
+        "thermistor15_c": 30.0,
+        "worker_family_rss_bytes": 2412544,
+        "live_family_cpu_seconds": 0.01,
+        "available_ram_bytes": 131364618240,
+        "swap_used_bytes": 367697920,
+        "nvme_free_bytes": 256648089600,
+        "hdd_free_bytes": 517443198976
+      },
+      "last": {
+        "utc": "2026-10-22T09:07:21Z",
+        "phase": "native-tests",
+        "cpu_c": 62.0,
+        "thermistor15_c": 54.0,
+        "worker_family_rss_bytes": 784904192,
+        "live_family_cpu_seconds": 113.43,
+        "available_ram_bytes": 130573897728,
+        "swap_used_bytes": 372154368,
+        "nvme_free_bytes": 214139232256,
+        "hdd_free_bytes": 517352423424
+      },
+      "max_cpu_c": 64.0,
+      "max_thermistor15_c": 55.0,
+      "max_worker_family_rss_bytes": 1132367872,
+      "max_swap_used_bytes": 372154368,
+      "min_available_ram_bytes": 130559270912,
+      "min_nvme_free_bytes": 214131982336,
+      "min_hdd_free_bytes": 517352423424
+    },
+    "main-v1": {
+      "samples": 7087,
+      "by_phase": {
+        "python-tests": {
+          "samples": 1,
+          "first": {
+            "utc": "2026-10-22T09:08:34Z",
+            "phase": "python-tests",
+            "cpu_c": 45.0,
+            "thermistor15_c": 53.5,
+            "worker_family_rss_bytes": 15360000,
+            "live_family_cpu_seconds": 0.01,
+            "available_ram_bytes": 131357147136,
+            "swap_used_bytes": 372416512,
+            "nvme_free_bytes": 214136401920,
+            "hdd_free_bytes": 517349879808
+          },
+          "last": {
+            "utc": "2026-10-22T09:08:34Z",
+            "phase": "python-tests",
+            "cpu_c": 45.0,
+            "thermistor15_c": 53.5,
+            "worker_family_rss_bytes": 15360000,
+            "live_family_cpu_seconds": 0.01,
+            "available_ram_bytes": 131357147136,
+            "swap_used_bytes": 372416512,
+            "nvme_free_bytes": 214136401920,
+            "hdd_free_bytes": 517349879808
+          },
+          "max_cpu_c": 45.0,
+          "max_thermistor15_c": 53.5,
+          "max_worker_family_rss_bytes": 15360000,
+          "max_swap_used_bytes": 372416512,
+          "min_available_ram_bytes": 131357147136,
+          "min_nvme_free_bytes": 214136401920,
+          "min_hdd_free_bytes": 517349879808
+        },
+        "environment": {
+          "samples": 1,
+          "first": {
+            "utc": "2026-10-22T09:08:37Z",
+            "phase": "environment",
+            "cpu_c": 45.0,
+            "thermistor15_c": 53.0,
+            "worker_family_rss_bytes": 18939904,
+            "live_family_cpu_seconds": 0.06,
+            "available_ram_bytes": 131366428672,
+            "swap_used_bytes": 372416512,
+            "nvme_free_bytes": 214136311808,
+            "hdd_free_bytes": 517349879808
+          },
+          "last": {
+            "utc": "2026-10-22T09:08:37Z",
+            "phase": "environment",
+            "cpu_c": 45.0,
+            "thermistor15_c": 53.0,
+            "worker_family_rss_bytes": 18939904,
+            "live_family_cpu_seconds": 0.06,
+            "available_ram_bytes": 131366428672,
+            "swap_used_bytes": 372416512,
+            "nvme_free_bytes": 214136311808,
+            "hdd_free_bytes": 517349879808
+          },
+          "max_cpu_c": 45.0,
+          "max_thermistor15_c": 53.0,
+          "max_worker_family_rss_bytes": 18939904,
+          "max_swap_used_bytes": 372416512,
+          "min_available_ram_bytes": 131366428672,
+          "min_nvme_free_bytes": 214136311808,
+          "min_hdd_free_bytes": 517349879808
+        },
+        "qualification-2026101935003": {
+          "samples": 239,
+          "first": {
+            "utc": "2026-10-22T09:08:40Z",
+            "phase": "qualification-2026101935003",
+            "cpu_c": 44.0,
+            "thermistor15_c": 52.0,
+            "worker_family_rss_bytes": 15790080,
+            "live_family_cpu_seconds": 0.0,
+            "available_ram_bytes": 131363680256,
+            "swap_used_bytes": 372416512,
+            "nvme_free_bytes": 214136307712,
+            "hdd_free_bytes": 517349879808
+          },
+          "last": {
+            "utc": "2026-10-22T09:16:40Z",
+            "phase": "qualification-2026101935003",
+            "cpu_c": 55.0,
+            "thermistor15_c": 59.5,
+            "worker_family_rss_bytes": 2211917824,
+            "live_family_cpu_seconds": 242.99,
+            "available_ram_bytes": 129080733696,
+            "swap_used_bytes": 372416512,
+            "nvme_free_bytes": 213838438400,
+            "hdd_free_bytes": 517333860352
+          },
+          "max_cpu_c": 61.0,
+          "max_thermistor15_c": 59.5,
+          "max_worker_family_rss_bytes": 29729689600,
+          "max_swap_used_bytes": 372416512,
+          "min_available_ram_bytes": 101597245440,
+          "min_nvme_free_bytes": 213838438400,
+          "min_hdd_free_bytes": 517333860352
+        },
+        "qualification-202610200601": {
+          "samples": 234,
+          "first": {
+            "utc": "2026-10-22T09:16:42Z",
+            "phase": "qualification-202610200601",
+            "cpu_c": 46.0,
+            "thermistor15_c": 58.5,
+            "worker_family_rss_bytes": 15826944,
+            "live_family_cpu_seconds": 0.0,
+            "available_ram_bytes": 131286650880,
+            "swap_used_bytes": 372416512,
+            "nvme_free_bytes": 213838295040,
+            "hdd_free_bytes": 517333860352
+          },
+          "last": {
+            "utc": "2026-10-22T09:24:32Z",
+            "phase": "qualification-202610200601",
+            "cpu_c": 59.0,
+            "thermistor15_c": 59.0,
+            "worker_family_rss_bytes": 29726937088,
+            "live_family_cpu_seconds": 236.54000000000002,
+            "available_ram_bytes": 101562867712,
+            "swap_used_bytes": 372416512,
+            "nvme_free_bytes": 213837455360,
+            "hdd_free_bytes": 517325082624
+          },
+          "max_cpu_c": 59.0,
+          "max_thermistor15_c": 59.5,
+          "max_worker_family_rss_bytes": 29726937088,
+          "max_swap_used_bytes": 372416512,
+          "min_available_ram_bytes": 101562867712,
+          "min_nvme_free_bytes": 213837455360,
+          "min_hdd_free_bytes": 517325082624
+        },
+        "qualification-202610200602": {
+          "samples": 234,
+          "first": {
+            "utc": "2026-10-22T09:24:35Z",
+            "phase": "qualification-202610200602",
+            "cpu_c": 43.0,
+            "thermistor15_c": 58.5,
+            "worker_family_rss_bytes": 15249408,
+            "live_family_cpu_seconds": 0.01,
+            "available_ram_bytes": 131314384896,
+            "swap_used_bytes": 372416512,
+            "nvme_free_bytes": 213837291520,
+            "hdd_free_bytes": 517324419072
+          },
+          "last": {
+            "utc": "2026-10-22T09:32:25Z",
+            "phase": "qualification-202610200602",
+            "cpu_c": 59.0,
+            "thermistor15_c": 59.5,
+            "worker_family_rss_bytes": 29728645120,
+            "live_family_cpu_seconds": 235.5,
+            "available_ram_bytes": 101573881856,
+            "swap_used_bytes": 372416512,
+            "nvme_free_bytes": 213836378112,
+            "hdd_free_bytes": 517310226432
+          },
+          "max_cpu_c": 59.0,
+          "max_thermistor15_c": 59.5,
+          "max_worker_family_rss_bytes": 29728645120,
+          "max_swap_used_bytes": 372416512,
+          "min_available_ram_bytes": 101573881856,
+          "min_nvme_free_bytes": 213836378112,
+          "min_hdd_free_bytes": 517310226432
+        },
+        "measure-2026101935003": {
+          "samples": 2117,
+          "first": {
+            "utc": "2026-10-22T09:32:28Z",
+            "phase": "measure-2026101935003",
+            "cpu_c": 45.0,
+            "thermistor15_c": 59.5,
+            "worker_family_rss_bytes": 15667200,
+            "live_family_cpu_seconds": 0.01,
+            "available_ram_bytes": 131334459392,
+            "swap_used_bytes": 372416512,
+            "nvme_free_bytes": 213836189696,
+            "hdd_free_bytes": 517310222336
+          },
+          "last": {
+            "utc": "2026-10-22T10:43:38Z",
+            "phase": "measure-2026101935003",
+            "cpu_c": 61.0,
+            "thermistor15_c": 64.0,
+            "worker_family_rss_bytes": 128700416,
+            "live_family_cpu_seconds": 35.27,
+            "available_ram_bytes": 129802334208,
+            "swap_used_bytes": 378445824,
+            "nvme_free_bytes": 213175758848,
+            "hdd_free_bytes": 490043142144
+          },
+          "max_cpu_c": 67.0,
+          "max_thermistor15_c": 69.5,
+          "max_worker_family_rss_bytes": 29738250240,
+          "max_swap_used_bytes": 378445824,
+          "min_available_ram_bytes": 100963164160,
+          "min_nvme_free_bytes": 213175758848,
+          "min_hdd_free_bytes": 490043142144
+        },
+        "measure-202610200601": {
+          "samples": 2131,
+          "first": {
+            "utc": "2026-10-22T10:43:40Z",
+            "phase": "measure-202610200601",
+            "cpu_c": 57.0,
+            "thermistor15_c": 64.0,
+            "worker_family_rss_bytes": 15888384,
+            "live_family_cpu_seconds": 0.0,
+            "available_ram_bytes": 129841811456,
+            "swap_used_bytes": 378445824,
+            "nvme_free_bytes": 213146808320,
+            "hdd_free_bytes": 490043142144
+          },
+          "last": {
+            "utc": "2026-10-22T11:55:18Z",
+            "phase": "measure-202610200601",
+            "cpu_c": 61.0,
+            "thermistor15_c": 64.5,
+            "worker_family_rss_bytes": 129695744,
+            "live_family_cpu_seconds": 36.79,
+            "available_ram_bytes": 130551173120,
+            "swap_used_bytes": 378445824,
+            "nvme_free_bytes": 212485238784,
+            "hdd_free_bytes": 422468403200
+          },
+          "max_cpu_c": 68.0,
+          "max_thermistor15_c": 70.0,
+          "max_worker_family_rss_bytes": 29738000384,
+          "max_swap_used_bytes": 378445824,
+          "min_available_ram_bytes": 100937850880,
+          "min_nvme_free_bytes": 212485238784,
+          "min_hdd_free_bytes": 422468403200
+        },
+        "measure-202610200602": {
+          "samples": 2121,
+          "first": {
+            "utc": "2026-10-22T11:55:20Z",
+            "phase": "measure-202610200602",
+            "cpu_c": 53.0,
+            "thermistor15_c": 64.0,
+            "worker_family_rss_bytes": 14426112,
+            "live_family_cpu_seconds": 0.0,
+            "available_ram_bytes": 130794295296,
+            "swap_used_bytes": 378445824,
+            "nvme_free_bytes": 212455993344,
+            "hdd_free_bytes": 422456926208
+          },
+          "last": {
+            "utc": "2026-10-22T13:06:37Z",
+            "phase": "measure-202610200602",
+            "cpu_c": 50.0,
+            "thermistor15_c": 63.0,
+            "worker_family_rss_bytes": 0,
+            "live_family_cpu_seconds": 37.07,
+            "available_ram_bytes": 130906824704,
+            "swap_used_bytes": 378445824,
+            "nvme_free_bytes": 211767996416,
+            "hdd_free_bytes": 422151622656
+          },
+          "max_cpu_c": 66.0,
+          "max_thermistor15_c": 69.0,
+          "max_worker_family_rss_bytes": 29738618880,
+          "max_swap_used_bytes": 378445824,
+          "min_available_ram_bytes": 101966327808,
+          "min_nvme_free_bytes": 211767996416,
+          "min_hdd_free_bytes": 422151622656
+        },
+        "readout": {
+          "samples": 9,
+          "first": {
+            "utc": "2026-10-22T13:06:40Z",
+            "phase": "readout",
+            "cpu_c": 44.0,
+            "thermistor15_c": 61.5,
+            "worker_family_rss_bytes": 15355904,
+            "live_family_cpu_seconds": 0.0,
+            "available_ram_bytes": 130922655744,
+            "swap_used_bytes": 378445824,
+            "nvme_free_bytes": 211767996416,
+            "hdd_free_bytes": 422151622656
+          },
+          "last": {
+            "utc": "2026-10-22T13:06:56Z",
+            "phase": "readout",
+            "cpu_c": 57.0,
+            "thermistor15_c": 61.5,
+            "worker_family_rss_bytes": 213446656,
+            "live_family_cpu_seconds": 18.25,
+            "available_ram_bytes": 130739064832,
+            "swap_used_bytes": 378445824,
+            "nvme_free_bytes": 211767988224,
+            "hdd_free_bytes": 422151622656
+          },
+          "max_cpu_c": 58.0,
+          "max_thermistor15_c": 61.5,
+          "max_worker_family_rss_bytes": 216838144,
+          "max_swap_used_bytes": 378445824,
+          "min_available_ram_bytes": 130728034304,
+          "min_nvme_free_bytes": 211767988224,
+          "min_hdd_free_bytes": 422151622656
+        }
+      },
+      "first": {
+        "utc": "2026-10-22T09:08:34Z",
+        "phase": "python-tests",
+        "cpu_c": 45.0,
+        "thermistor15_c": 53.5,
+        "worker_family_rss_bytes": 15360000,
+        "live_family_cpu_seconds": 0.01,
+        "available_ram_bytes": 131357147136,
+        "swap_used_bytes": 372416512,
+        "nvme_free_bytes": 214136401920,
+        "hdd_free_bytes": 517349879808
+      },
+      "last": {
+        "utc": "2026-10-22T13:06:56Z",
+        "phase": "readout",
+        "cpu_c": 57.0,
+        "thermistor15_c": 61.5,
+        "worker_family_rss_bytes": 213446656,
+        "live_family_cpu_seconds": 18.25,
+        "available_ram_bytes": 130739064832,
+        "swap_used_bytes": 378445824,
+        "nvme_free_bytes": 211767988224,
+        "hdd_free_bytes": 422151622656
+      },
+      "max_cpu_c": 68.0,
+      "max_thermistor15_c": 70.0,
+      "max_worker_family_rss_bytes": 29738618880,
+      "max_swap_used_bytes": 378445824,
+      "min_available_ram_bytes": 100937850880,
+      "min_nvme_free_bytes": 211767988224,
+      "min_hdd_free_bytes": 422151622656
+    }
+  },
+  "main_supervised_stage_wall_seconds": 14299.176465089025,
+  "preparation_and_main_child_cpu_seconds": 26671.178201000002,
+  "measurement_and_readout_wall_seconds": 12868.699734228954,
+  "measurement_and_readout_child_cpu_seconds": 24967.629332999997,
+  "measurement_load_seconds": 1421.326587469,
+  "measurement_play_write_seconds": 11306.783515932,
+  "measurement_verification_seconds": 111.5871270270436,
+  "expectation_evaluation_seconds_included_in_play": 16.59973356,
+  "expectation_cost_receipt": {
+    "main-v1/measurement/2026101935003/initial/call-pressure-on.expectations.jsonl": {
+      "roots": 5953,
+      "total_evaluation_seconds": 0.372082108,
+      "sha256": "1a87b8e5086b8a1121383a940434ac8b291bbcdef17d971e141feca2529f4120"
+    },
+    "main-v1/measurement/2026101935003/initial/trained-on.expectations.jsonl": {
+      "roots": 1105,
+      "total_evaluation_seconds": 2.352803427,
+      "sha256": "c88300d07fdcb1d342c78185dd24e95c4b5d0535ed811e2eeadcaeb19f1a320b"
+    },
+    "main-v1/measurement/2026101935003/repeat/call-pressure-on.expectations.jsonl": {
+      "roots": 5953,
+      "total_evaluation_seconds": 0.383122432,
+      "sha256": "3313617885d3aec87a904ae38cc52899ecf393b2618522cb9097f5fe2b6d0111"
+    },
+    "main-v1/measurement/2026101935003/repeat/trained-on.expectations.jsonl": {
+      "roots": 1105,
+      "total_evaluation_seconds": 2.425358303,
+      "sha256": "24ec0b76cf9e13f1ed6e992c001ecf01373b8dddfdde9ab9c0b497f2b58663f2"
+    },
+    "main-v1/measurement/202610200601/initial/call-pressure-on.expectations.jsonl": {
+      "roots": 6033,
+      "total_evaluation_seconds": 0.393925429,
+      "sha256": "8817f44321692fa6b867b83b17524f914b81b7139d021b9ca4d8ac2e3d483c70"
+    },
+    "main-v1/measurement/202610200601/initial/trained-on.expectations.jsonl": {
+      "roots": 1098,
+      "total_evaluation_seconds": 2.471298635,
+      "sha256": "bcba3b30950e4a78d12f07aaedbe42f2b8fa459c762b932fb0b8d0376c47d53a"
+    },
+    "main-v1/measurement/202610200601/repeat/call-pressure-on.expectations.jsonl": {
+      "roots": 6033,
+      "total_evaluation_seconds": 0.388913641,
+      "sha256": "6dc94a7a050f0952d85432a807cf376f3869365e16560dc9bc2c6e6592c46773"
+    },
+    "main-v1/measurement/202610200601/repeat/trained-on.expectations.jsonl": {
+      "roots": 1098,
+      "total_evaluation_seconds": 2.465667501,
+      "sha256": "76086d816cba20f6b51615a53aff7768df96b7abc92ddaa77180d4513aecc686"
+    },
+    "main-v1/measurement/202610200602/initial/call-pressure-on.expectations.jsonl": {
+      "roots": 5988,
+      "total_evaluation_seconds": 0.372894916,
+      "sha256": "c34605ec3497ca6f014d91f47659ab9bbfbb3a7cb35bca1d0ff0ff8987278cbc"
+    },
+    "main-v1/measurement/202610200602/initial/trained-on.expectations.jsonl": {
+      "roots": 1084,
+      "total_evaluation_seconds": 2.32564955,
+      "sha256": "258febaa84d18ed912a9cefb48c64fdd8653576fbe04ba01c2c9160fcac662d6"
+    },
+    "main-v1/measurement/202610200602/repeat/call-pressure-on.expectations.jsonl": {
+      "roots": 5988,
+      "total_evaluation_seconds": 0.367556511,
+      "sha256": "b7107bfdbcad26bb4126b4eb884642e9f1efc7566f0d1836eff6d261beef80b8"
+    },
+    "main-v1/measurement/202610200602/repeat/trained-on.expectations.jsonl": {
+      "roots": 1084,
+      "total_evaluation_seconds": 2.280461107,
+      "sha256": "31ef7913be6a8854b9c25cae9794ebdc432a66b3d817434aff44f552307e6ca7"
+    }
+  },
+  "excludes_archive_and_publication_cost": true,
+  "main_admission": {
+    "status": "admitted",
+    "central_seconds": 17687.59085533298,
+    "reserved_seconds": 41877.24404193702,
+    "accepted_planning_allowance_seconds": 43200,
+    "per_lineup_play_seconds_per_block_per_pass": {
+      "trained": 0.25592269928515626,
+      "call-pressure": 0.3249708254013672
+    },
+    "model_start_seconds": 237.995553112,
+    "fixed_qualification_readout_archive_seconds": 5027.514002953016,
+    "cost_only_no_outcomes": true,
+    "main_started": false,
+    "no_resizing": true,
+    "assumptions": "Max prior1024-block and each fixed4-block qualification rate; max model start;3x play/2x loads,>=600s proof, fixed allowance covers spent preflight+300s. Planning allowance is not a time stop."
+  }
+}

@@ -9,6 +9,7 @@ import resource
 import selectors
 import signal
 import subprocess
+import sys
 import time
 
 GIB = 1024**3
@@ -94,7 +95,7 @@ def group_metrics(pgid):
 
 
 def enforce(row, remaining, elapsed, max_seconds=4 * 3600, rss_limit=24 * GIB,
-            cpu_limit=80, thermistor_limit=85):
+            cpu_limit=80, thermistor_limit=85, swap_limit_bytes=256 * 1024**2):
     t = row['temperatures_c']
     exceeded = {name: dict(reading_c=t[name], limit_c=limit)
                 for name, limit in [('Package id 0', cpu_limit),
@@ -104,7 +105,7 @@ def enforce(row, remaining, elapsed, max_seconds=4 * 3600, rss_limit=24 * GIB,
         raise RuntimeError('thermal stop: ' + json.dumps(exceeded, sort_keys=True))
     if row['available_ram_bytes'] < 8 * GIB or row['rss_bytes'] > rss_limit:
         raise RuntimeError('memory stop')
-    if row['swap_growth_bytes'] > 256 * 1024**2:
+    if swap_limit_bytes is not None and row['swap_growth_bytes'] > swap_limit_bytes:
         raise RuntimeError('swap growth stop')
     if remaining < 0 or row['free_disk_bytes'] < FLOOR + remaining:
         raise RuntimeError('disk reservation stop')
@@ -114,14 +115,19 @@ def enforce(row, remaining, elapsed, max_seconds=4 * 3600, rss_limit=24 * GIB,
 
 class Supervisor:
     def __init__(self, root, lock_fd, cpus=None, max_seconds=4 * 3600, rss_limit=24 * GIB,
-                 cpu_limit=80, thermistor_limit=85):
+                 cpu_limit=80, thermistor_limit=85, swap_limit_bytes=256 * 1024**2,
+                 address_limit=48 * GIB, protect_group=False, extra_lock_fds=()):
         self.root = root
+        self.address_limit = address_limit
+        self.protect_group = protect_group
+        self.extra_lock_fds = tuple(extra_lock_fds)
         self.lock_fd = lock_fd
         self.cpus = set(cpus) if cpus is not None else {0, 1, 2, 3}
         self.max_seconds = max_seconds
         self.rss_limit = rss_limit
         self.cpu_limit = cpu_limit
         self.thermistor_limit = thermistor_limit
+        self.swap_limit_bytes = swap_limit_bytes
         self.started = time.monotonic()
         m = memory()
         self.swap = m['SwapTotal'] - m['SwapFree']
@@ -138,13 +144,15 @@ class Supervisor:
         row = dict(at=time.time(), phase=phase, target=target,
                    temperatures_c=sensors(), available_ram_bytes=m['MemAvailable'],
                    fan1_rpm=fan_rpm(),
+                   swap_used_bytes=m['SwapTotal'] - m['SwapFree'],
                    swap_growth_bytes=m['SwapTotal'] - m['SwapFree'] - self.swap,
                    free_disk_bytes=disk.f_bavail * disk.f_frsize,
                    remaining_output_reservation_bytes=self.remaining,
                    **(group_metrics(process.pid) if process else dict(rss_bytes=0)))
         try:
             enforce(row, self.remaining, time.monotonic() - self.started,
-                    self.max_seconds, self.rss_limit, self.cpu_limit, self.thermistor_limit)
+                    self.max_seconds, self.rss_limit, self.cpu_limit, self.thermistor_limit,
+                    self.swap_limit_bytes)
         except RuntimeError as error:
             # Preserve the exact crossing sample even though it fails enforcement.
             error.resource_sample = row
@@ -156,13 +164,17 @@ class Supervisor:
         folder.mkdir(parents=True, exist_ok=False)
         write(folder / 'command.json', dict(command=command, cwd=str(cwd),
                                           rayon_threads=env['RAYON_NUM_THREADS']))
+        guardian_pid = os.getpid()
         def limits():
             import ctypes
             if ctypes.CDLL(None).prctl(1, signal.SIGTERM) != 0:
                 raise RuntimeError('cannot set parent-death signal')
+            if os.getppid() != guardian_pid:
+                raise RuntimeError('guardian exited before parent-death registration')
             os.sched_setaffinity(0, self.cpus)
             os.nice(10)
-            resource.setrlimit(resource.RLIMIT_AS, (48 * GIB,) * 2)
+            if self.address_limit is not None:
+                resource.setrlimit(resource.RLIMIT_AS, (self.address_limit,) * 2)
         child = None
         events, peaks = [], {}
         phase, target = 'startup', 0
@@ -171,16 +183,23 @@ class Supervisor:
         try:
             with (folder / 'stdout.log').open('x') as out, \
                     (folder / 'resources.jsonl').open('x') as trace:
-                child = subprocess.Popen(command, cwd=cwd, env=env,
+                launch_command = ([sys.executable, '-m', 'scripts.guarded_process_group', str(folder), '--']
+                                  + command if self.protect_group else command)
+                write(folder / 'launch-command.json', dict(command=launch_command))
+                child = subprocess.Popen(launch_command, cwd=cwd, env=env,
                     stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                     start_new_session=True, preexec_fn=limits, bufsize=0,
-                    pass_fds=(self.lock_fd,))
+                    pass_fds=(self.lock_fd,) + self.extra_lock_fds)
                 selector = selectors.DefaultSelector()
                 selector.register(child.stdout, selectors.EVENT_READ)
                 last_sample = 0
                 eof = False
                 pending = b''
                 while not (eof and child.poll() is not None):
+                    if child.poll() is not None and self.protect_group:
+                        from scripts.guarded_process_group import live_group_members
+                        if live_group_members(child.pid):
+                            raise RuntimeError('stage leader exited with live descendants')
                     if time.monotonic() - last_sample >= .5:
                         row = self.sample(child, phase, target)
                         trace.write(json.dumps(row) + '\n'); trace.flush()
@@ -219,12 +238,24 @@ class Supervisor:
                 raise RuntimeError(f'{label} failed with exit {code}')
             return result
         except BaseException as error:
-            if child is not None and child.poll() is None:
-                os.killpg(child.pid, signal.SIGTERM)
-                try:
-                    child.wait(timeout=10)
-                except subprocess.TimeoutExpired:
-                    os.killpg(child.pid, signal.SIGKILL); child.wait()
+            if child is not None:
+                from scripts.guarded_process_group import live_group_members
+                # A reaped leader does not imply its native/replay descendants
+                # exited. Signal and wait for the owned group, then escalate.
+                if live_group_members(child.pid):
+                    try:
+                        os.killpg(child.pid, signal.SIGTERM)
+                    except ProcessLookupError:
+                        pass
+                    until = time.monotonic() + 10
+                    while live_group_members(child.pid) and time.monotonic() < until:
+                        time.sleep(.05)
+                    if live_group_members(child.pid):
+                        try:
+                            os.killpg(child.pid, signal.SIGKILL)
+                        except ProcessLookupError:
+                            pass
+                child.wait()
             failure = dict(error=repr(error), phase=phase, target=target)
             if hasattr(error, 'resource_sample'):
                 failure['resource_sample'] = error.resource_sample

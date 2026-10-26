@@ -1,0 +1,719 @@
+{
+  "status": "qualified-engineering-main-unstarted",
+  "pr": 423,
+  "issue": 422,
+  "execution_source": "c8b257e635e042ae2742268be2fc095e9d46ab15",
+  "source_files": 1403,
+  "source_manifest_sha256": "36a4e3954008ac015fea7dbef9833c91f67d11da58d2061feb79cb6b723ba6bb",
+  "source_bundle_sha256": "19deabc33775376baaec002a8c51ef5c7a2abaf70b1735d5a4bb9fb1ebaebef7",
+  "qualification_root": "m4:/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2",
+  "raw_result_sha256": "c488e06f8382297f311e41bc564b2ef72df929517d773297b234d86a1e17eff3",
+  "binary_sha256": "4a4861c18e7c56a81f29ccda79d148f5563294f988d66c8b0af6fa1e4c2c43aa",
+  "legacy_sha256": "2a869d75719e58036eb107c8159843e77b2a3ef130334cc7ec6c8b598d5d73e1",
+  "config_sha256": "f35c04487c3667de8eb36fdf5d83ca6d601460c3c7c478c7cc2635ce7ad6e3fe",
+  "native_library_tests": 121,
+  "paired_native_tests": 15,
+  "focused_python_tests": 23,
+  "initial_hands": 384,
+  "reproduction_hands": 384,
+  "stages": 28,
+  "complete_wall_seconds": 88.94863779201114,
+  "stage_wall_seconds": 88.24002383099287,
+  "stage_cpu_seconds": 218.99747099999993,
+  "peak_sampled_family_rss_bytes": 1194328064,
+  "thermal_states": [
+    "nominal"
+  ],
+  "selection_audits": {
+    "trained": {
+      "status": "passed",
+      "trace_sha256": "596d51c53747e770e9902f86e67c0a59ccb5e6c3aac314ea6902edff4e4de909",
+      "hands": 24,
+      "decisions": 60,
+      "selection_counts": {
+        "uniform": 56,
+        "base": 4
+      },
+      "by_street": {
+        "preflop": {
+          "uniform": 53,
+          "base": 4
+        },
+        "flop": {
+          "uniform": 3
+        }
+      },
+      "exact_source_float64": true,
+      "no_exclusions": true
+    },
+    "random": {
+      "status": "passed",
+      "trace_sha256": "be8a506782b8f2f392c6a3427a5054c23dc5ba5c7f1cf046b99c48506e5aecff",
+      "hands": 24,
+      "decisions": 68,
+      "selection_counts": {
+        "uniform": 64,
+        "base": 2,
+        "donor": 2
+      },
+      "by_street": {
+        "preflop": {
+          "uniform": 39,
+          "base": 2,
+          "donor": 2
+        },
+        "flop": {
+          "uniform": 20
+        },
+        "turn": {
+          "uniform": 5
+        }
+      },
+      "exact_source_float64": true,
+      "no_exclusions": true
+    },
+    "check-call": {
+      "status": "passed",
+      "trace_sha256": "7bf1e31278dc5b99e60b5bde24846de4fd43903a83e96884140535f17c198b50",
+      "hands": 24,
+      "decisions": 72,
+      "selection_counts": {
+        "uniform": 64,
+        "base": 6,
+        "donor": 2
+      },
+      "by_street": {
+        "preflop": {
+          "uniform": 16,
+          "base": 6,
+          "donor": 2
+        },
+        "flop": {
+          "uniform": 16
+        },
+        "turn": {
+          "uniform": 16
+        },
+        "river": {
+          "uniform": 16
+        }
+      },
+      "exact_source_float64": true,
+      "no_exclusions": true
+    },
+    "tight-aggressive": {
+      "status": "passed",
+      "trace_sha256": "c309bc6b324b5feae78f37730a8220fb6ea7e29e4a49748a488cc48aa76a9d1f",
+      "hands": 24,
+      "decisions": 30,
+      "selection_counts": {
+        "uniform": 28,
+        "base": 2
+      },
+      "by_street": {
+        "preflop": {
+          "uniform": 18,
+          "base": 2
+        },
+        "flop": {
+          "uniform": 10
+        }
+      },
+      "exact_source_float64": true,
+      "no_exclusions": true
+    },
+    "pot-pressure": {
+      "status": "passed",
+      "trace_sha256": "b055fd12b69606f4e00e1fe8ff38c9ebe881b46761efc30494f8d1da7f07fb6e",
+      "hands": 24,
+      "decisions": 27,
+      "selection_counts": {
+        "uniform": 23,
+        "base": 4
+      },
+      "by_street": {
+        "preflop": {
+          "uniform": 21,
+          "base": 4
+        },
+        "flop": {
+          "uniform": 1
+        },
+        "turn": {
+          "uniform": 1
+        }
+      },
+      "exact_source_float64": true,
+      "no_exclusions": true
+    },
+    "call-pressure": {
+      "status": "passed",
+      "trace_sha256": "fe4129cd3e29fb2870b96fe650805ea0967662f80980ffec2435522003dc5a14",
+      "hands": 24,
+      "decisions": 59,
+      "selection_counts": {
+        "uniform": 54,
+        "base": 4,
+        "donor": 1
+      },
+      "by_street": {
+        "preflop": {
+          "uniform": 23,
+          "base": 4,
+          "donor": 1
+        },
+        "flop": {
+          "uniform": 11
+        },
+        "turn": {
+          "uniform": 15
+        },
+        "river": {
+          "uniform": 5
+        }
+      },
+      "exact_source_float64": true,
+      "no_exclusions": true
+    },
+    "random-tight": {
+      "status": "passed",
+      "trace_sha256": "d9c3e405360b0a05cbc3f987f41f77b7f1a901047c1f845753ae826b72f04e94",
+      "hands": 24,
+      "decisions": 67,
+      "selection_counts": {
+        "uniform": 61,
+        "base": 5,
+        "donor": 1
+      },
+      "by_street": {
+        "preflop": {
+          "uniform": 33,
+          "base": 5,
+          "donor": 1
+        },
+        "flop": {
+          "uniform": 21
+        },
+        "turn": {
+          "uniform": 5
+        },
+        "river": {
+          "uniform": 2
+        }
+      },
+      "exact_source_float64": true,
+      "no_exclusions": true
+    },
+    "trained-call-pressure": {
+      "status": "passed",
+      "trace_sha256": "76bd1fb197e357bbbf26b4776d79df579d539b88590d6445ac0ec90776404f2d",
+      "hands": 24,
+      "decisions": 45,
+      "selection_counts": {
+        "uniform": 42,
+        "base": 3
+      },
+      "by_street": {
+        "preflop": {
+          "uniform": 31,
+          "base": 3
+        },
+        "flop": {
+          "uniform": 10
+        },
+        "turn": {
+          "uniform": 1
+        }
+      },
+      "exact_source_float64": true,
+      "no_exclusions": true
+    }
+  },
+  "proofs": {
+    "trained": {
+      "blocks": 2,
+      "hands_per_arm": 24,
+      "trace_sha256": [
+        "80afe556e048f65aaf04326c55ca59bd1e7155da02a6a579597058a03fdb0a24",
+        "596d51c53747e770e9902f86e67c0a59ccb5e6c3aac314ea6902edff4e4de909"
+      ]
+    },
+    "random": {
+      "blocks": 2,
+      "hands_per_arm": 24,
+      "trace_sha256": [
+        "ea57a2eaf866c4870dd00e407f80cdd5e6f101dfee3104f847b61ccddd3116df",
+        "be8a506782b8f2f392c6a3427a5054c23dc5ba5c7f1cf046b99c48506e5aecff"
+      ]
+    },
+    "check-call": {
+      "blocks": 2,
+      "hands_per_arm": 24,
+      "trace_sha256": [
+        "1bf996c63687e42aa1d2c4a4e05fb03a051c918f41526c09694320f61b96376d",
+        "7bf1e31278dc5b99e60b5bde24846de4fd43903a83e96884140535f17c198b50"
+      ]
+    },
+    "tight-aggressive": {
+      "blocks": 2,
+      "hands_per_arm": 24,
+      "trace_sha256": [
+        "cabb23f112094e4692087f28231da083e9bf5fbd7f2a7b6374bc647bb8917f72",
+        "c309bc6b324b5feae78f37730a8220fb6ea7e29e4a49748a488cc48aa76a9d1f"
+      ]
+    },
+    "pot-pressure": {
+      "blocks": 2,
+      "hands_per_arm": 24,
+      "trace_sha256": [
+        "690309c3c6bb3d7b9dcea8f4ddac0985d099b28a2c3f00099b4b90ad96a74e93",
+        "b055fd12b69606f4e00e1fe8ff38c9ebe881b46761efc30494f8d1da7f07fb6e"
+      ]
+    },
+    "call-pressure": {
+      "blocks": 2,
+      "hands_per_arm": 24,
+      "trace_sha256": [
+        "47160ee28103f19644443b88cc42a29f524ff89c61c59098c33aa83f7decd821",
+        "fe4129cd3e29fb2870b96fe650805ea0967662f80980ffec2435522003dc5a14"
+      ]
+    },
+    "random-tight": {
+      "blocks": 2,
+      "hands_per_arm": 24,
+      "trace_sha256": [
+        "c16403139b9a9a3d960f90f04bc974974d5f559beb56710d58b1e998c43b8402",
+        "d9c3e405360b0a05cbc3f987f41f77b7f1a901047c1f845753ae826b72f04e94"
+      ]
+    },
+    "trained-call-pressure": {
+      "blocks": 2,
+      "hands_per_arm": 24,
+      "trace_sha256": [
+        "8316f53e943355f17231509832256796694d9137dbeae1eba32b190e985930a5",
+        "76bd1fb197e357bbbf26b4776d79df579d539b88590d6445ac0ec90776404f2d"
+      ]
+    }
+  },
+  "flags": {
+    "all_initial_replayed": true,
+    "all_nine_selector_combinations": true,
+    "exact_original_zero_mass_precedence": true,
+    "identity_composition_rng_parity": true,
+    "composition_self_exact_zero": true,
+    "diagnostics_rng_parity": true,
+    "serial_parallel_parity": true,
+    "old_ordinary_arena_byte_parity": true,
+    "corrupted_selection_refused": true,
+    "no_strength_claim": true,
+    "no_main_started": true
+  },
+  "stage_costs": [
+    {
+      "phase": "native-tests",
+      "command": [
+        "/Users/dberweger/.cargo/bin/cargo",
+        "test",
+        "--release",
+        "--locked",
+        "--offline",
+        "--manifest-path",
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/source-v2/native/hu20-trainer/Cargo.toml",
+        "--lib",
+        "--example",
+        "nplayer_paired_arena"
+      ],
+      "returncode": 0,
+      "wall_seconds": 38.749882957999944,
+      "cpu_seconds": 184.582699,
+      "sampled_peak_rss_bytes": 1194328064
+    },
+    {
+      "phase": "native-build",
+      "command": [
+        "/Users/dberweger/.cargo/bin/cargo",
+        "build",
+        "--release",
+        "--locked",
+        "--offline",
+        "--manifest-path",
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/source-v2/native/hu20-trainer/Cargo.toml",
+        "--example",
+        "nplayer_paired_arena"
+      ],
+      "returncode": 0,
+      "wall_seconds": 4.13106025000161,
+      "cpu_seconds": 8.472259000000008,
+      "sampled_peak_rss_bytes": 462962688
+    },
+    {
+      "phase": "python-tests",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "unittest",
+        "tests.test_nplayer_composition",
+        "tests.test_nplayer_paired_evidence",
+        "tests.test_nplayer_shared_observations",
+        "-q"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.0484132909914479,
+      "cpu_seconds": 0.12579800000000319,
+      "sampled_peak_rss_bytes": 311296
+    },
+    {
+      "phase": "arena-initial",
+      "command": [
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/build/release/examples/nplayer_paired_arena",
+        "batch",
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/initial-manifest.json"
+      ],
+      "returncode": 0,
+      "wall_seconds": 3.082161999991513,
+      "cpu_seconds": 2.803590000000014,
+      "sampled_peak_rss_bytes": 160022528
+    },
+    {
+      "phase": "arena-repeat",
+      "command": [
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/build/release/examples/nplayer_paired_arena",
+        "batch",
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/repeat-manifest.json"
+      ],
+      "returncode": 0,
+      "wall_seconds": 3.0853436670004157,
+      "cpu_seconds": 2.788351999999989,
+      "sampled_peak_rss_bytes": 160022528
+    },
+    {
+      "phase": "arena-serial",
+      "command": [
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/build/release/examples/nplayer_paired_arena",
+        "batch",
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/serial-manifest.json"
+      ],
+      "returncode": 0,
+      "wall_seconds": 3.083424249998643,
+      "cpu_seconds": 2.780401999999995,
+      "sampled_peak_rss_bytes": 160006144
+    },
+    {
+      "phase": "arena-diagnostics-off",
+      "command": [
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/build/release/examples/nplayer_paired_arena",
+        "batch",
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/diagnostics-off-manifest.json"
+      ],
+      "returncode": 0,
+      "wall_seconds": 3.0855270409956574,
+      "cpu_seconds": 2.7822829999999783,
+      "sampled_peak_rss_bytes": 160808960
+    },
+    {
+      "phase": "replay-trained-0",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/initial/trained-a.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.0494638339878293,
+      "cpu_seconds": 0.10000300000000095,
+      "sampled_peak_rss_bytes": 311296
+    },
+    {
+      "phase": "replay-trained-1",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/initial/trained-b.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.0426707500009798,
+      "cpu_seconds": 0.08734100000000922,
+      "sampled_peak_rss_bytes": 360448
+    },
+    {
+      "phase": "replay-random-0",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/initial/random-a.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.032013874995755,
+      "cpu_seconds": 0.07257400000000302,
+      "sampled_peak_rss_bytes": 311296
+    },
+    {
+      "phase": "replay-random-1",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/initial/random-b.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.0403287920053117,
+      "cpu_seconds": 0.08713799999998173,
+      "sampled_peak_rss_bytes": 376832
+    },
+    {
+      "phase": "replay-check-call-0",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/initial/check-call-a.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.031013209008961,
+      "cpu_seconds": 0.07556199999997659,
+      "sampled_peak_rss_bytes": 311296
+    },
+    {
+      "phase": "replay-check-call-1",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/initial/check-call-b.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.0381585830036784,
+      "cpu_seconds": 0.08727500000001953,
+      "sampled_peak_rss_bytes": 311296
+    },
+    {
+      "phase": "replay-tight-aggressive-0",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/initial/tight-aggressive-a.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.0303991249966202,
+      "cpu_seconds": 0.06774000000000058,
+      "sampled_peak_rss_bytes": 311296
+    },
+    {
+      "phase": "replay-tight-aggressive-1",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/initial/tight-aggressive-b.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.0445035000011558,
+      "cpu_seconds": 0.09151199999999449,
+      "sampled_peak_rss_bytes": 311296
+    },
+    {
+      "phase": "replay-pot-pressure-0",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/initial/pot-pressure-a.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.0369225000031292,
+      "cpu_seconds": 0.0792420000000078,
+      "sampled_peak_rss_bytes": 311296
+    },
+    {
+      "phase": "replay-pot-pressure-1",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/initial/pot-pressure-b.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.0459978330036392,
+      "cpu_seconds": 0.09274699999998859,
+      "sampled_peak_rss_bytes": 311296
+    },
+    {
+      "phase": "replay-call-pressure-0",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/initial/call-pressure-a.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.0338142910040915,
+      "cpu_seconds": 0.0793340000000029,
+      "sampled_peak_rss_bytes": 311296
+    },
+    {
+      "phase": "replay-call-pressure-1",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/initial/call-pressure-b.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.0339857500075595,
+      "cpu_seconds": 0.08037600000000111,
+      "sampled_peak_rss_bytes": 311296
+    },
+    {
+      "phase": "replay-random-tight-0",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/initial/random-tight-a.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.0303048329951707,
+      "cpu_seconds": 0.0703370000000092,
+      "sampled_peak_rss_bytes": 311296
+    },
+    {
+      "phase": "replay-random-tight-1",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/initial/random-tight-b.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.0408996250043856,
+      "cpu_seconds": 0.08754399999997986,
+      "sampled_peak_rss_bytes": 311296
+    },
+    {
+      "phase": "replay-trained-call-pressure-0",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/initial/trained-call-pressure-a.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.032484666997334,
+      "cpu_seconds": 0.07458599999999649,
+      "sampled_peak_rss_bytes": 360448
+    },
+    {
+      "phase": "replay-trained-call-pressure-1",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.nplayer_paired_evidence",
+        "replay",
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/initial/trained-call-pressure-b.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.038968583001406,
+      "cpu_seconds": 0.08448900000000492,
+      "sampled_peak_rss_bytes": 311296
+    },
+    {
+      "phase": "arena-identity",
+      "command": [
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/build/release/examples/nplayer_paired_arena",
+        "batch",
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/identity-manifest.json"
+      ],
+      "returncode": 0,
+      "wall_seconds": 3.0648559169931104,
+      "cpu_seconds": 2.637964000000025,
+      "sampled_peak_rss_bytes": 158466048
+    },
+    {
+      "phase": "arena-self",
+      "command": [
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/build/release/examples/nplayer_paired_arena",
+        "batch",
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/self-manifest.json"
+      ],
+      "returncode": 0,
+      "wall_seconds": 3.0719600830052514,
+      "cpu_seconds": 2.6670069999999697,
+      "sampled_peak_rss_bytes": 159727616
+    },
+    {
+      "phase": "arena-self-repeat",
+      "command": [
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/build/release/examples/nplayer_paired_arena",
+        "batch",
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/self-repeat-manifest.json"
+      ],
+      "returncode": 0,
+      "wall_seconds": 3.0776774160040077,
+      "cpu_seconds": 2.677880000000002,
+      "sampled_peak_rss_bytes": 160677888
+    },
+    {
+      "phase": "arena-plain",
+      "command": [
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/build/release/examples/nplayer_paired_arena",
+        "batch",
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/plain-manifest.json"
+      ],
+      "returncode": 0,
+      "wall_seconds": 3.0787825000006706,
+      "cpu_seconds": 2.680538000000027,
+      "sampled_peak_rss_bytes": 159727616
+    },
+    {
+      "phase": "arena-legacy",
+      "command": [
+        "/Users/dberweger/Local/nplayer-paired-arena-20261023/build-dev-v3/target/release/examples/nplayer_paired_arena",
+        "batch",
+        "/Users/dberweger/Local/nplayer-missing-row-composition-20261024/qualification-v2/legacy-manifest.json"
+      ],
+      "returncode": 0,
+      "wall_seconds": 3.0790047079935903,
+      "cpu_seconds": 2.6808989999999824,
+      "sampled_peak_rss_bytes": 159662080
+    }
+  ],
+  "input_fixture_bytes": 4268484,
+  "input_fixture_files": 12,
+  "main_started": false,
+  "target_host_qualification_completed": false,
+  "owner_budget_accepted": false,
+  "prior_successful_qualification": "qualification-v1 retained; same player before campaign orchestration added; no failed scientific attempt",
+  "resource_review": {
+    "utc": "2026-10-24T15:11:52.467297+00:00",
+    "thermal": {
+      "cpu_c": 34.0,
+      "thermistor15_c": 29.5
+    },
+    "available_ram_bytes": 131813597184,
+    "swap_used_bytes": 475168768,
+    "nvme_free_bytes": 34705985536,
+    "hdd_free_bytes": 20626386944,
+    "mature_root_exists": false,
+    "no_reservation_or_main_launch": true
+  },
+  "proposal_sha256": "fd90f6dbee89f8768f8e2ad92a0b4159815c7a7291ed125a0ce4a4847b8988bd",
+  "archive": "ordinary working/final evidence retained; cleaner owns completed stable ZIP sets/Drive upload; research-payload acceptance pending"
+}

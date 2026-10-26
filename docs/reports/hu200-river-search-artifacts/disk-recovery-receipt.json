@@ -1,0 +1,150 @@
+{
+  "pr": 317,
+  "status": "disk-plumbing-stop-recovered-existing-final",
+  "stop_at": 1792292956.026981,
+  "stop_reason": "free_disk",
+  "stop_disk_bytes": 16575827968,
+  "completed_blocks_at_stop": 26842,
+  "source": "5c5fb990557585fa12f4496e124bb7372a42ad1e",
+  "deadline": 1792698723.6186519,
+  "offload": {
+    "active_inputs_retained": true,
+    "arrival": {
+      "at": 1792293253.9315648,
+      "bytes": 9695325845,
+      "destination": "/research/PR-317-HU200-river-search/research/pilot-02",
+      "end_of_pr_cleanup_unchanged": true,
+      "files": 410,
+      "final_research_complete": false,
+      "manifest_sha256": "2d06d49d06e89e2689b8cab75dfef7c5b4775612095f455075f2e1b13a1b6a23",
+      "pr": 317,
+      "status": "IN_PROGRESS-every-file-size-sha256-verified"
+    },
+    "at": 1792293358.521715,
+    "disk_free_after_bytes": 26227961856,
+    "disk_free_before_bytes": 16531255296,
+    "drive_id": "15Qv-9-hp-DH3P3Yr5cGBb6TYWe5hPkEq",
+    "end_of_pr_cleanup_unchanged": true,
+    "files": 410,
+    "final_research_complete": false,
+    "live_sqlite_copied": false,
+    "manifest_sha256": "2d06d49d06e89e2689b8cab75dfef7c5b4775612095f455075f2e1b13a1b6a23",
+    "pr": 317,
+    "removed_root": "/Users/dberweger/Local/hu200-river-search/results/hu200-river-search/pilot-02",
+    "restore_command": "rsync -a bb128-lan:/research/PR-317-HU200-river-search/research/pilot-02/ FRESH_RESTORE_ROOT/",
+    "retired_bytes": 9695325845,
+    "status": "IN_PROGRESS-verified-owned-inactive-pilot-retired"
+  },
+  "continuation": {
+    "at": 1792293447.028619,
+    "completed_ancestor_repeated": false,
+    "deadline": 1792698723.6186519,
+    "hand_path": "/Users/dberweger/Local/hu200-river-search/results/hu200-river-search/final-20261017/blocks/direct/26843/1-search",
+    "hand_sha256": "9f5f013e8ec17cc7f06d19e67b3f65116db98076cc1f4c120bb1ce3f23e504f4",
+    "interruption_body_retained": true,
+    "native_reproduction_solves": 0,
+    "native_request_sha256s": [
+      "acaef0e4876ab057baa419197a8a0d5f64095ca0a9eed45102978b41d5347c24"
+    ],
+    "prefix_actions": 7,
+    "prefix_files_unchanged": true,
+    "primary_timing_unknown": true,
+    "source": "5c5fb990557585fa12f4496e124bb7372a42ad1e",
+    "status": "same-recorded-hand-continued-replayed-and-reproduced"
+  },
+  "validation": [
+    {
+      "at": 1792293440.278775,
+      "completed_ancestor_repeated": false,
+      "deadline": 1792698723.6186519,
+      "native_validation_solves": 0,
+      "original_files_unchanged": true,
+      "prefix_actions": 7,
+      "prefix_sha256": "c48976f4952d2531f115d740843f87a3a04795e2c0c91a474eb86acb2dfd6f3a",
+      "scientific_request_sha256": "acaef0e4876ab057baa419197a8a0d5f64095ca0a9eed45102978b41d5347c24",
+      "source": "5c5fb990557585fa12f4496e124bb7372a42ad1e",
+      "status": "recorded-state-and-pending-request-exactly-validated"
+    },
+    {
+      "at": 1792293380.248246,
+      "completed_ancestor_repeated": false,
+      "deadline": 1792698723.6186519,
+      "native_validation_solves": 0,
+      "original_files_unchanged": true,
+      "prefix_actions": 7,
+      "prefix_sha256": "c48976f4952d2531f115d740843f87a3a04795e2c0c91a474eb86acb2dfd6f3a",
+      "scientific_request_sha256": "acaef0e4876ab057baa419197a8a0d5f64095ca0a9eed45102978b41d5347c24",
+      "source": "5c5fb990557585fa12f4496e124bb7372a42ad1e",
+      "status": "recorded-state-and-pending-request-exactly-validated"
+    }
+  ],
+  "resume": {
+    "status": "existing-detached-launcher-resumed-recorded-state",
+    "at": 1792293479.8074539,
+    "pid": 36789,
+    "deadline": 1792698723.6186519,
+    "source": "5c5fb990557585fa12f4496e124bb7372a42ad1e",
+    "completed_before_stop": 26842,
+    "original_launcher_retained": true,
+    "original_locks_retained": true
+  },
+  "administration": {
+    "status": "IN_PROGRESS-every-file-size-sha256-verified",
+    "pr": 317,
+    "at": 1792293555.2735434,
+    "files": 28,
+    "bytes": 138010400,
+    "manifest_sha256": "1e2751455ec17b4516dfc7fb08a5c80f5419bad97e979a05d6a2dc1d3f475f1b",
+    "destination": "/research/PR-317-HU200-river-search/recovery-20261018/current-administration",
+    "drive_coverage_pending": true
+  },
+  "latest_status": {
+    "at": 1792293579.746009,
+    "latest_progress": {
+      "status": "verified-transferred-retired",
+      "panel": "direct",
+      "block": 26877,
+      "completed_blocks": 26879,
+      "total_blocks": 145408,
+      "elapsed_seconds": 97.3300530910492
+    },
+    "latest_guard": {
+      "at": 1792293576.281763,
+      "family_rss_bytes": 6262849536,
+      "breaches": {
+        "critical_pressure": false,
+        "family_rss": false,
+        "free_disk": false,
+        "free_memory": false,
+        "swap_growth": false
+      },
+      "stop": []
+    },
+    "free_disk_bytes": 25935118336,
+    "admitted_searches": 3,
+    "workers": [
+      {
+        "pid": 36819,
+        "create_time": 1792293481.77699,
+        "alive": true
+      },
+      {
+        "pid": 36818,
+        "create_time": 1792293481.774728,
+        "alive": true
+      },
+      {
+        "pid": 36816,
+        "create_time": 1792293481.763957,
+        "alive": true
+      }
+    ],
+    "attempt": "/Users/dberweger/Local/hu200-river-search/results/hu200-river-search/final-control-20261017/attempts/1792293479863325000",
+    "current_stop_exists": false,
+    "current_receipt_exists": false,
+    "no_effect_readout": true,
+    "snapshot": "/Users/dberweger/Local/hu200-river-search/results/hu200-river-search/final-control-20261017/monitor-1792293579.json"
+  },
+  "final_research_complete": false,
+  "drive_closeout_pending": true
+}

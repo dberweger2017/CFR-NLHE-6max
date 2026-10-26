@@ -1,0 +1,62 @@
+{
+  "checked_at_utc": "2026-10-19T20:09:15.948686+00:00",
+  "root": "/home/dberweger/nplayer-bb100-10b-20261019/main-v1",
+  "files": {
+    "owner-launch.json": {
+      "sha256": "3952a31f6435130821f7643c82b00d726bae67dc72496945c5c47dfd6d13f7bb",
+      "value": {
+        "authorization": "Owner: perfect, now start the run, while its running you can continue with the cleanup",
+        "authorized_at_utc": "2026-10-19T20:08:18.832250+00:00",
+        "epoch": 1792440498.8322723,
+        "pid": 544891,
+        "command": [
+          "/home/dberweger/nplayer-fast-strength-20261018-main-v5/venv/bin/python",
+          "-m",
+          "scripts.nplayer_bb100_continuation",
+          "run",
+          "/home/dberweger/nplayer-bb100-10b-20261019/main-v1"
+        ],
+        "cwd": "/home/dberweger/nplayer-bb100-10b-20261019/source-v1",
+        "source_commit": "ecb08ada3caf85506f434bff51f05a9ff5c8b8ee",
+        "config_sha256": "eb43aa2598151eb291441552e52b1e73915a9a218de8049f8d3645c846cee856",
+        "log": "/home/dberweger/nplayer-bb100-10b-20261019/main-v1/supervisor.log",
+        "cleanup_scope": "Only completed PR339/340/342 evidence and compact receipts; no study roots or shared inputs."
+      }
+    },
+    "launch.json": {
+      "sha256": "ee7b464399091ede0bfe1a17f0a23b767d969a55c041a965d0eeaa083f76cb91",
+      "value": {
+        "pid": 544891,
+        "at": 1792440499.4509544,
+        "resource_policy": {
+          "cpu_stop_c": 90,
+          "thermistor15_stop_c": 100,
+          "runtime_limit_seconds": null,
+          "rss_limit_bytes": null,
+          "address_limit_bytes": null,
+          "disk_check_enabled": false,
+          "swap_check_enabled": false
+        },
+        "config_sha256": "eb43aa2598151eb291441552e52b1e73915a9a218de8049f8d3645c846cee856",
+        "source_commit": "ecb08ada3caf85506f434bff51f05a9ff5c8b8ee"
+      }
+    },
+    "admission.json": {
+      "sha256": "0a146fa8825d416ade0fc19a71379e0df9b5514354e1e943d943a4188073cb28",
+      "value": {
+        "at": 1792440499.4524066,
+        "phase": "admission",
+        "target": 0,
+        "temperatures_c": {
+          "Thermistor 15": 32.0,
+          "Package id 0": 36.0
+        },
+        "elapsed_seconds": 0.0027452760259620845,
+        "rss_bytes": 0
+      }
+    }
+  },
+  "supervisor_cmdline": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/venv/bin/python -m scripts.nplayer_bb100_continuation run /home/dberweger/nplayer-bb100-10b-20261019/main-v1",
+  "free_NVMe_bytes": 64360255488,
+  "failure_exists": false
+}

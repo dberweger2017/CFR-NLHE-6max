@@ -1,0 +1,85 @@
+{
+  "observed_utc": "2026-10-18T08:12:45.081647+00:00",
+  "status": "compute-reservation-still-held",
+  "estimated_release_madrid": "October18 around11:00;11:50 conservative buffer",
+  "release_confirmed": false,
+  "scientific_stage": "5B-replay; primary play done; reproduction/global verification remain",
+  "live": {
+    "now_utc": "2026-10-18T08:12:45.081647+00:00",
+    "evaluation-failed.json": null,
+    "evaluation-complete.json": null,
+    "global-barrier.json": null,
+    "event-delivery.json": null,
+    "last_resource": {
+      "utc": "2026-10-18T08:12:43.464688+00:00",
+      "active_jobs": {
+        "5B-replay": {
+          "kind": "single-seed-5B-replay",
+          "cpus": [
+            0,
+            1
+          ]
+        }
+      },
+      "package_c": 52.0,
+      "vrm_c": 61.0,
+      "family_rss_bytes": 286322688,
+      "free_disk_bytes": 77224124416
+    },
+    "completed_stages": [
+      "cache-5B.result.json",
+      "offload-20B.result.json",
+      "admit-5B.result.json",
+      "restore-5B.result.json",
+      "5B-play.result.json",
+      "20B-replay.result.json",
+      "20B-reproduce.result.json",
+      "20B-play.result.json",
+      "20B-verify.result.json"
+    ],
+    "exclusive_compute_lock_free": false,
+    "supervisor_pid_exists": true
+  },
+  "cost": {
+    "5B-play.result.json": {
+      "value": {
+        "cpus": [
+          0,
+          1
+        ],
+        "elapsed_seconds": 1281.7547873590083,
+        "exit_code": 0,
+        "status": "passed"
+      },
+      "age_seconds": 760.53653383255
+    },
+    "5B-replay.plan.json": {
+      "value": {
+        "command": [
+          "/home/dberweger/hu200-capacity-20261015/repo-evaluation-single-seed-20261018/.venv/bin/python",
+          "-m",
+          "scripts.finish_hu200_capacity_single_seed",
+          "step",
+          "--base",
+          "/home/dberweger/hu200-capacity-20261015",
+          "--name",
+          "5B-replay"
+        ],
+        "cpus": [
+          0,
+          1
+        ],
+        "kind": "single-seed-5B-replay",
+        "name": "5B-replay",
+        "original_deadline": 1792354954.5604858,
+        "reserve_bytes": 64000000,
+        "rss_gib": 38,
+        "stop_file": "/home/dberweger/hu200-capacity-20261015/evaluation-single-seed-20261018/5B-replay.stop"
+      },
+      "age_seconds": 759.9845836162567
+    }
+  },
+  "clock_credit": false,
+  "archive_compute_note": "Archive I/O may continue after verified compute release; verify all owned compute exit and free machine mutex before release; archival work respects next agent compute priority/mutex/resource limits.",
+  "publication_setup_error": "Initial local inline publication script had unterminated triple-quoted string; failed at parse before any write or scientific work."
+}

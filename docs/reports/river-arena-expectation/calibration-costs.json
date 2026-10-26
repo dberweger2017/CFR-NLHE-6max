@@ -1,0 +1,211 @@
+{
+  "supervised_stages": {
+    "qualification-v1": [
+      {
+        "phase": "build",
+        "returncode": 0,
+        "wall_seconds": 18.162221923004836,
+        "user_cpu_seconds": 33.801284,
+        "system_cpu_seconds": 1.640517
+      },
+      {
+        "phase": "native-tests",
+        "returncode": 0,
+        "wall_seconds": 36.349932559998706,
+        "user_cpu_seconds": 120.68059400000001,
+        "system_cpu_seconds": 38.092148
+      },
+      {
+        "phase": "python-tests",
+        "returncode": 0,
+        "wall_seconds": 2.0218494049622677,
+        "user_cpu_seconds": 0.045725000000004457,
+        "system_cpu_seconds": 0.02359899999999726
+      }
+    ],
+    "calibration-v1": [
+      {
+        "phase": "calibrate",
+        "returncode": 0,
+        "wall_seconds": 470.0483322290238,
+        "user_cpu_seconds": 463.057442,
+        "system_cpu_seconds": 13.168011
+      }
+    ]
+  },
+  "batch_costs": {
+    "wall_seconds": 468.63002336001955,
+    "batches": {
+      "initial": {
+        "wall_seconds": 234.212382357975,
+        "startup": {
+          "model_and_k50_load_seconds": 231.086790564,
+          "model_pins": [
+            {
+              "average_scope": 3,
+              "policy_load_seconds": 113.255435756,
+              "sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+              "source_checkpoint_sha256": "788e75acf8b98d88518faf3da683048ec05604ba001c8a59bb1ec5f740b52b80",
+              "strategy": "average"
+            },
+            {
+              "average_scope": 3,
+              "policy_load_seconds": 112.997588765,
+              "sha256": "23599816cf632a51cace45f25d70ed4918fe5e75875c33136d8629052a8a2a70",
+              "source_checkpoint_sha256": "d03db22316af0e8bd04e76f5303603709bd77b2bf13dcc13ea07482ca10170ca",
+              "strategy": "average"
+            }
+          ],
+          "resident_models": 2,
+          "shared_read_only_tables": true,
+          "threads": 4
+        },
+        "play_and_write_seconds": 3.0723013189999997,
+        "trace_bytes": 1035267
+      },
+      "repeat": {
+        "wall_seconds": 234.24605479900492,
+        "startup": {
+          "model_and_k50_load_seconds": 231.157457387,
+          "model_pins": [
+            {
+              "average_scope": 3,
+              "policy_load_seconds": 113.29881278,
+              "sha256": "d835f61f4a5407bd47e8f8a5da849ef82c16ad21fce32f15dce72d5997275189",
+              "source_checkpoint_sha256": "788e75acf8b98d88518faf3da683048ec05604ba001c8a59bb1ec5f740b52b80",
+              "strategy": "average"
+            },
+            {
+              "average_scope": 3,
+              "policy_load_seconds": 113.028152522,
+              "sha256": "23599816cf632a51cace45f25d70ed4918fe5e75875c33136d8629052a8a2a70",
+              "source_checkpoint_sha256": "d03db22316af0e8bd04e76f5303603709bd77b2bf13dcc13ea07482ca10170ca",
+              "strategy": "average"
+            }
+          ],
+          "resident_models": 2,
+          "shared_read_only_tables": true,
+          "threads": 4
+        },
+        "play_and_write_seconds": 3.035133508,
+        "trace_bytes": 1035267
+      }
+    },
+    "verification_seconds": 0.15357842401135713,
+    "binary_sha256": "aaa1308888998f6013d88c21c556dd802617143f79504ad51d5b52b9157bb886",
+    "reference_values_reused": true,
+    "no_profile_reconstructions": true
+  },
+  "resources": {
+    "qualification-v1": {
+      "samples": 28,
+      "first": {
+        "utc": "2026-10-22T01:55:24Z",
+        "phase": "build",
+        "cpu_c": 37.0,
+        "thermistor15_c": 29.0,
+        "worker_family_rss_bytes": 16822272,
+        "live_family_cpu_seconds": 0.01,
+        "available_ram_bytes": 131786694656,
+        "swap_used_bytes": 367697920,
+        "nvme_free_bytes": 257723207680,
+        "hdd_free_bytes": 530768904192
+      },
+      "last": {
+        "utc": "2026-10-22T01:56:18Z",
+        "phase": "python-tests",
+        "cpu_c": 43.0,
+        "thermistor15_c": 52.0,
+        "worker_family_rss_bytes": 15724544,
+        "live_family_cpu_seconds": 0.02,
+        "available_ram_bytes": 131700731904,
+        "swap_used_bytes": 367697920,
+        "nvme_free_bytes": 257600749568,
+        "hdd_free_bytes": 530768904192
+      },
+      "maxima": {
+        "cpu_c": 67.0,
+        "thermistor15_c": 52.0,
+        "worker_family_rss_bytes": 971558912,
+        "swap_used_bytes": 367697920
+      },
+      "minima": {
+        "available_ram_bytes": 130844352512,
+        "nvme_free_bytes": 257593499648,
+        "hdd_free_bytes": 530768904192
+      }
+    },
+    "calibration-v1": {
+      "samples": 233,
+      "first": {
+        "utc": "2026-10-22T01:56:21Z",
+        "phase": "calibrate",
+        "cpu_c": 45.0,
+        "thermistor15_c": 49.0,
+        "worker_family_rss_bytes": 15974400,
+        "live_family_cpu_seconds": 0.01,
+        "available_ram_bytes": 131702566912,
+        "swap_used_bytes": 367697920,
+        "nvme_free_bytes": 257599877120,
+        "hdd_free_bytes": 530768904192
+      },
+      "last": {
+        "utc": "2026-10-22T02:04:10Z",
+        "phase": "calibrate",
+        "cpu_c": 58.0,
+        "thermistor15_c": 59.5,
+        "worker_family_rss_bytes": 29740777472,
+        "live_family_cpu_seconds": 236.95,
+        "available_ram_bytes": 101972955136,
+        "swap_used_bytes": 367697920,
+        "nvme_free_bytes": 257597485056,
+        "hdd_free_bytes": 530768900096
+      },
+      "maxima": {
+        "cpu_c": 60.0,
+        "thermistor15_c": 59.5,
+        "worker_family_rss_bytes": 29740777472,
+        "swap_used_bytes": 367697920
+      },
+      "minima": {
+        "available_ram_bytes": 101972955136,
+        "nvme_free_bytes": 257597485056,
+        "hdd_free_bytes": 530768900096
+      }
+    }
+  },
+  "work": {
+    "initial": {
+      "roots": 12,
+      "methods": {
+        "full-positive-support-enumeration": 12
+      },
+      "total_evaluation_seconds": 0.008227279,
+      "max_evaluation_seconds": 0.001733034,
+      "total_arm_visited": 5737,
+      "max_arm_visited": 1160,
+      "lineups": {
+        "call-pressure": 7,
+        "random-tag": 1,
+        "trained": 3,
+        "trained-pressure": 1
+      }
+    },
+    "repeat": {
+      "roots": 12,
+      "methods": {
+        "full-positive-support-enumeration": 12
+      },
+      "total_evaluation_seconds": 0.008189011999999999,
+      "max_evaluation_seconds": 0.001769175,
+      "total_arm_visited": 5737,
+      "max_arm_visited": 1160,
+      "lineups": {
+        "call-pressure": 7,
+        "random-tag": 1,
+        "trained": 3,
+        "trained-pressure": 1
+      }
+    }
+  }
+}

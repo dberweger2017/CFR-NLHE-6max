@@ -1,0 +1,1323 @@
+{
+  "archive_status": "pending; open PR355 originals and dependencies retained; compact metadata only retrieved",
+  "costs": {
+    "baseline-audit": {
+      "cpu_seconds": 2771.991932,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 407056384
+      },
+      "wall_seconds": 398.3225117640104
+    },
+    "candidate-audit": {
+      "cpu_seconds": 2771.6740420000033,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 406532096
+      },
+      "wall_seconds": 425.0900760369841
+    },
+    "continue-10b": {
+      "cpu_seconds": 19353.433967999998,
+      "sampled_peak_rss_by_phase": {
+        "export/10000000000": 25060704256,
+        "hash/10000000000": 24436285440,
+        "load/0": 23453470720,
+        "save/10000000000": 25081937920,
+        "startup/0": 1406066688,
+        "train/10000000000": 24043368448
+      },
+      "wall_seconds": 2305.3162347879843
+    },
+    "evaluation": {
+      "cpu_seconds": 1216.4544370000017,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 70902714368
+      },
+      "wall_seconds": 766.285897186026
+    },
+    "readout": {
+      "cpu_seconds": 120.79374699999983,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 141144064
+      },
+      "wall_seconds": 120.8976394230267
+    }
+  },
+  "direct_statistic": "mean oriented singleton contrast, not pooled individual-player return",
+  "endpoint": {
+    "checkpoint": {
+      "bytes": 11009014184,
+      "counts": {
+        "decisions": [
+          232541893,
+          568164767,
+          1486375091,
+          3447148672
+        ],
+        "discarded_keys": 546253363,
+        "discarded_visits": 221762814,
+        "missing": [
+          7747434,
+          31655800,
+          143094174,
+          613779719
+        ],
+        "nodes": 10000009599,
+        "terminals": 4265779176,
+        "traverser": [
+          641612076,
+          641549005,
+          641782661,
+          0,
+          0,
+          0
+        ]
+      },
+      "entries": 250000475,
+      "event": "checkpoint",
+      "frozen_at": 143159,
+      "iteration": 756434,
+      "keyset_sha256": "a83858109eed965e73acd76787761d9353f2a66cccb482c0271173e3ff731425",
+      "label": "10000000000",
+      "nodes": 10000009599,
+      "path": "/home/dberweger/nplayer-bb100-10b-20261019/main-v1/candidate/10000000000.gz",
+      "save_seconds": 146.293163881,
+      "sha256": "788e75acf8b98d88518faf3da683048ec05604ba001c8a59bb1ec5f740b52b80",
+      "target": 10000000000
+    },
+    "complete": {
+      "active_seconds": 1502.585087352,
+      "event": "complete",
+      "monitor_seconds": 0.0,
+      "nodes": 10000009599
+    },
+    "model": {
+      "checkpoint": "/home/dberweger/nplayer-bb100-10b-20261019/main-v1/candidate/10000000000.gz",
+      "checkpoint_sha256": "788e75acf8b98d88518faf3da683048ec05604ba001c8a59bb1ec5f740b52b80",
+      "path": "/home/dberweger/nplayer-bb100-10b-20261019/main-v1/candidate/10000000000-average.gz",
+      "scope": 3,
+      "sha256": "a85364b71c478be213e0356c5201911755228c864472427b64699346191facbd",
+      "strategy": "average"
+    },
+    "trained": {
+      "active_seconds": 1502.585087352,
+      "counts": {
+        "decisions": [
+          232541893,
+          568164767,
+          1486375091,
+          3447148672
+        ],
+        "discarded_keys": 546253363,
+        "discarded_visits": 221762814,
+        "missing": [
+          7747434,
+          31655800,
+          143094174,
+          613779719
+        ],
+        "nodes": 10000009599,
+        "terminals": 4265779176,
+        "traverser": [
+          641612076,
+          641549005,
+          641782661,
+          0,
+          0,
+          0
+        ]
+      },
+      "entries": 250000475,
+      "event": "trained",
+      "iteration": 756434,
+      "monitor_seconds": 0.0,
+      "nodes": 10000009599,
+      "target": 10000000000
+    }
+  },
+  "evaluation_cost": {
+    "input_verification_seconds": 100.3222527350299,
+    "native_load_seconds": 502.128028644,
+    "native_play_seconds": 22.499267561,
+    "native_wall_seconds": 624.3867233559722,
+    "policy_loads": 2,
+    "replay_wall_seconds": 41.48664750199532,
+    "trace_bytes": 6309355244
+  },
+  "final_hands": 884736,
+  "improvement_evidence": true,
+  "mass_audits": {
+    "baseline": {
+      "average_rows": 250000475,
+      "by_street": [
+        {
+          "decisions": 77655990,
+          "entries": 3366396,
+          "missing_decision_share": 0.04987888249187217,
+          "missing_decisions": 3873394,
+          "visits": 18746388,
+          "visits_per_key": 5.568681759365209,
+          "zero_visit_entries": 1521295
+        },
+        {
+          "decisions": 182088665,
+          "entries": 13479562,
+          "missing_decision_share": 0.08669768104456145,
+          "missing_decisions": 15786665,
+          "visits": 56170057,
+          "visits_per_key": 4.167053573402459,
+          "zero_visit_entries": 6989078
+        },
+        {
+          "decisions": 444912134,
+          "entries": 50343002,
+          "missing_decision_share": 0.1367031136084951,
+          "missing_decisions": 60820874,
+          "visits": 149671732,
+          "visits_per_key": 2.9730394703120804,
+          "zero_visit_entries": 24629366
+        },
+        {
+          "decisions": 1006987900,
+          "entries": 182811515,
+          "missing_decision_share": 0.2270953662899028,
+          "missing_decisions": 228682286,
+          "visits": 338452142,
+          "visits_per_key": 1.851372119529779,
+          "zero_visit_entries": 89152055
+        }
+      ],
+      "checkpoint_sha256": "ea0c7dca97ae627b08a39d4196cdd824d6e0767d85ca64c829eae5dcceb2da6b",
+      "current_rows": 0,
+      "format": "nplayer-average-mass-v1",
+      "keyset_sha256": "a83858109eed965e73acd76787761d9353f2a66cccb482c0271173e3ff731425",
+      "last_average_street": 3,
+      "policy_sha256": "c602c3727df28160a9807716d3c9211d988e420c33ed7b0c04c2fd899afef06b",
+      "positive_mass_rows": 170271210,
+      "rows": 250000475,
+      "status": "passed",
+      "strategy": "average",
+      "zero_keys_sha256": "6be840e22ecb839b7cd108ba784741112202c40414b822c5613c9c39da14ba02",
+      "zero_mass_rows": 79729265
+    },
+    "candidate": {
+      "average_rows": 250000475,
+      "by_street": [
+        {
+          "decisions": 232541893,
+          "entries": 3366396,
+          "missing_decision_share": 0.03331629367960809,
+          "missing_decisions": 7747434,
+          "visits": 52513217,
+          "visits_per_key": 15.599239364590499,
+          "zero_visit_entries": 1287082
+        },
+        {
+          "decisions": 568164767,
+          "entries": 13479562,
+          "missing_decision_share": 0.05571588003801721,
+          "missing_decisions": 31655800,
+          "visits": 167507120,
+          "visits_per_key": 12.426747990772993,
+          "zero_visit_entries": 6014688
+        },
+        {
+          "decisions": 1486375091,
+          "entries": 50343002,
+          "missing_decision_share": 0.09627056781725898,
+          "missing_decisions": 143094174,
+          "visits": 462450186,
+          "visits_per_key": 9.185987478458276,
+          "zero_visit_entries": 20864767
+        },
+        {
+          "decisions": 3447148672,
+          "entries": 182811515,
+          "missing_decision_share": 0.17805432181835412,
+          "missing_decisions": 613779719,
+          "visits": 1020710405,
+          "visits_per_key": 5.583403239123093,
+          "zero_visit_entries": 72812721
+        }
+      ],
+      "checkpoint_sha256": "788e75acf8b98d88518faf3da683048ec05604ba001c8a59bb1ec5f740b52b80",
+      "current_rows": 0,
+      "format": "nplayer-average-mass-v1",
+      "keyset_sha256": "a83858109eed965e73acd76787761d9353f2a66cccb482c0271173e3ff731425",
+      "last_average_street": 3,
+      "policy_sha256": "a85364b71c478be213e0356c5201911755228c864472427b64699346191facbd",
+      "positive_mass_rows": 181458908,
+      "rows": 250000475,
+      "status": "passed",
+      "strategy": "average",
+      "zero_keys_sha256": "45af8328c11b51ca5fd53242306271d18ea4c08f3f4af74d3bbf288425b0c69a",
+      "zero_mass_rows": 68541567
+    }
+  },
+  "maximum_sampled_RSS_bytes": 70902714368,
+  "maximum_sampled_temperatures_c": {
+    "Package id 0": 74.0,
+    "Thermistor 15": 91.5
+  },
+  "measured_child_cpu_seconds": 26234.348126,
+  "models": {
+    "baseline": {
+      "checkpoint": "/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3/calibration-continuation/3000000000.gz",
+      "checkpoint_sha256": "ea0c7dca97ae627b08a39d4196cdd824d6e0767d85ca64c829eae5dcceb2da6b",
+      "mass": "/home/dberweger/nplayer-bb100-10b-20261019/main-v1/baseline-mass",
+      "mass_sha256": "18bfeade8262d7e9b886ec46513300256b0a002a4f38348140fba2decc0f7fcc",
+      "path": "/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3/calibration-continuation/3000000000-average.gz",
+      "scope": 3,
+      "sha256": "c602c3727df28160a9807716d3c9211d988e420c33ed7b0c04c2fd899afef06b",
+      "strategy": "average"
+    },
+    "candidate": {
+      "checkpoint": "/home/dberweger/nplayer-bb100-10b-20261019/main-v1/candidate/10000000000.gz",
+      "checkpoint_sha256": "788e75acf8b98d88518faf3da683048ec05604ba001c8a59bb1ec5f740b52b80",
+      "mass": "/home/dberweger/nplayer-bb100-10b-20261019/main-v1/candidate-mass",
+      "mass_sha256": "2d957c76b9e35690cf7eb56087bb96e703e034b6533b73f3be7c72e0aaea01a0",
+      "path": "/home/dberweger/nplayer-bb100-10b-20261019/main-v1/candidate/10000000000-average.gz",
+      "scope": 3,
+      "sha256": "a85364b71c478be213e0356c5201911755228c864472427b64699346191facbd",
+      "strategy": "average"
+    }
+  },
+  "no_automatic_adoption": true,
+  "pooled_singleton_matched_counts": {
+    "baseline": {
+      "missing/missing": 5367,
+      "positive_mass/positive_mass": 892037,
+      "zero_mass/positive_mass": 227,
+      "zero_mass/zero_mass": 183
+    },
+    "candidate": {
+      "missing/missing": 4919,
+      "positive_mass/positive_mass": 913201,
+      "zero_mass/positive_mass": 1175,
+      "zero_mass/zero_mass": 102
+    }
+  },
+  "pooled_singleton_own_lookup": {
+    "baseline": {
+      "flop": {
+        "missing": 328,
+        "positive_mass": 191186,
+        "zero_mass": 44
+      },
+      "preflop": {
+        "missing": 138,
+        "positive_mass": 452278,
+        "zero_mass": 12
+      },
+      "river": {
+        "missing": 4035,
+        "positive_mass": 108768,
+        "zero_mass": 235
+      },
+      "turn": {
+        "missing": 866,
+        "positive_mass": 139805,
+        "zero_mass": 119
+      }
+    },
+    "candidate": {
+      "flop": {
+        "missing": 273,
+        "positive_mass": 197064,
+        "zero_mass": 10
+      },
+      "preflop": {
+        "missing": 208,
+        "positive_mass": 453026,
+        "zero_mass": 2
+      },
+      "river": {
+        "missing": 3696,
+        "positive_mass": 116845,
+        "zero_mass": 56
+      },
+      "turn": {
+        "missing": 742,
+        "positive_mass": 147441,
+        "zero_mass": 34
+      }
+    }
+  },
+  "reproduction_hands": 884736,
+  "root_wall_seconds": 4366.156060934067,
+  "rows": [
+    {
+      "baseline_absolute": {
+        "lower95_bb100": -38.62102469160699,
+        "mean_bb100": -25.260416666666668,
+        "standard_error_bb100": 6.815754712749784,
+        "upper95_bb100": -11.899808641726347
+      },
+      "by_position": {
+        "baseline": [
+          {
+            "lower95_bb100": -17.49185703622386,
+            "mean_bb100": 9.45587158203125,
+            "standard_error_bb100": 13.747062108619483,
+            "upper95_bb100": 36.40360020028636
+          },
+          {
+            "lower95_bb100": -70.52749660533927,
+            "mean_bb100": -39.7613525390625,
+            "standard_error_bb100": 15.694981173119276,
+            "upper95_bb100": -8.995208472785738
+          },
+          {
+            "lower95_bb100": -77.07357098101348,
+            "mean_bb100": -45.47576904296875,
+            "standard_error_bb100": 16.11924150979832,
+            "upper95_bb100": -13.877967104924025
+          }
+        ],
+        "candidate": [
+          {
+            "lower95_bb100": 12.77779086589938,
+            "mean_bb100": 40.44036865234375,
+            "standard_error_bb100": 14.111733879387414,
+            "upper95_bb100": 68.10294643878812
+          },
+          {
+            "lower95_bb100": 0.8983051321965121,
+            "mean_bb100": 31.787109375,
+            "standard_error_bb100": 15.7575547981121,
+            "upper95_bb100": 62.67591361780349
+          },
+          {
+            "lower95_bb100": -9.905010139324467,
+            "mean_bb100": 22.38616943359375,
+            "standard_error_bb100": 16.472959834127757,
+            "upper95_bb100": 54.67734900651197
+          }
+        ]
+      },
+      "by_seat": {
+        "baseline": [
+          {
+            "lower95_bb100": -46.31601449473631,
+            "mean_bb100": -16.88385009765625,
+            "standard_error_bb100": 15.014467367155683,
+            "upper95_bb100": 12.548314299423808
+          },
+          {
+            "lower95_bb100": -51.078201756177094,
+            "mean_bb100": -20.93048095703125,
+            "standard_error_bb100": 15.379499924844236,
+            "upper95_bb100": 9.217239842114594
+          },
+          {
+            "lower95_bb100": -67.91283213600468,
+            "mean_bb100": -37.9669189453125,
+            "standard_error_bb100": 15.276550182151443,
+            "upper95_bb100": -8.021005754620326
+          }
+        ],
+        "candidate": [
+          {
+            "lower95_bb100": 20.94079927960065,
+            "mean_bb100": 50.30975341796875,
+            "standard_error_bb100": 14.982221408146488,
+            "upper95_bb100": 79.67870755633685
+          },
+          {
+            "lower95_bb100": -1.2111747332787992,
+            "mean_bb100": 28.65753173828125,
+            "standard_error_bb100": 15.237164095919557,
+            "upper95_bb100": 58.526238209841296
+          },
+          {
+            "lower95_bb100": -16.089586492446013,
+            "mean_bb100": 15.6463623046875,
+            "standard_error_bb100": 16.18971548105235,
+            "upper95_bb100": 47.38231110182102
+          }
+        ]
+      },
+      "candidate_absolute": {
+        "lower95_bb100": 17.966895022017994,
+        "mean_bb100": 31.537882486979168,
+        "standard_error_bb100": 6.923077273003863,
+        "upper95_bb100": 45.10886995194034
+      },
+      "group": "direct",
+      "opponent": null,
+      "score": {
+        "lower95_bb100": 18.983757124042064,
+        "mean_bb100": 28.399149576822918,
+        "standard_error_bb100": 4.80315007839746,
+        "upper95_bb100": 37.81454202960377
+      }
+    },
+    {
+      "baseline_absolute": {
+        "lower95_bb100": 333.28641001302594,
+        "mean_bb100": 365.4388427734375,
+        "standard_error_bb100": 16.402179803798592,
+        "upper95_bb100": 397.59127553384906
+      },
+      "by_position": {
+        "baseline": [
+          {
+            "lower95_bb100": 350.0430255468167,
+            "mean_bb100": 411.96441650390625,
+            "standard_error_bb100": 31.588458507874687,
+            "upper95_bb100": 473.8858074609958
+          },
+          {
+            "lower95_bb100": 360.410798232682,
+            "mean_bb100": 419.99053955078125,
+            "standard_error_bb100": 30.393893894290926,
+            "upper95_bb100": 479.5702808688805
+          },
+          {
+            "lower95_bb100": 202.99243672229494,
+            "mean_bb100": 264.361572265625,
+            "standard_error_bb100": 31.30673200022276,
+            "upper95_bb100": 325.73070780895506
+          }
+        ],
+        "candidate": [
+          {
+            "lower95_bb100": 305.5111829933828,
+            "mean_bb100": 362.9119873046875,
+            "standard_error_bb100": 29.28233518789654,
+            "upper95_bb100": 420.3127916159922
+          },
+          {
+            "lower95_bb100": 306.91498658760736,
+            "mean_bb100": 362.89215087890625,
+            "standard_error_bb100": 28.55608222414664,
+            "upper95_bb100": 418.86931517020514
+          },
+          {
+            "lower95_bb100": 218.66614115416073,
+            "mean_bb100": 270.2117919921875,
+            "standard_error_bb100": 26.29539853015822,
+            "upper95_bb100": 321.75744283021425
+          }
+        ]
+      },
+      "by_seat": {
+        "baseline": [
+          {
+            "lower95_bb100": 358.9156130383204,
+            "mean_bb100": 420.80230712890625,
+            "standard_error_bb100": 31.570758315566916,
+            "upper95_bb100": 482.6890012194921
+          },
+          {
+            "lower95_bb100": 276.5315764558437,
+            "mean_bb100": 338.38348388671875,
+            "standard_error_bb100": 31.553012316326292,
+            "upper95_bb100": 400.2353913175938
+          },
+          {
+            "lower95_bb100": 277.97331320860366,
+            "mean_bb100": 337.1307373046875,
+            "standard_error_bb100": 30.17845380422512,
+            "upper95_bb100": 396.28816140077134
+          }
+        ],
+        "candidate": [
+          {
+            "lower95_bb100": 321.0129676525884,
+            "mean_bb100": 377.08282470703125,
+            "standard_error_bb100": 28.603368330890966,
+            "upper95_bb100": 433.1526817614741
+          },
+          {
+            "lower95_bb100": 249.2454474683127,
+            "mean_bb100": 305.218505859375,
+            "standard_error_bb100": 28.55398764814865,
+            "upper95_bb100": 361.1915642504373
+          },
+          {
+            "lower95_bb100": 260.70820928558567,
+            "mean_bb100": 313.714599609375,
+            "standard_error_bb100": 27.04057734354762,
+            "upper95_bb100": 366.72098993316433
+          }
+        ]
+      },
+      "candidate_absolute": {
+        "lower95_bb100": 302.44861174093086,
+        "mean_bb100": 332.00531005859375,
+        "standard_error_bb100": 15.07799686031388,
+        "upper95_bb100": 361.56200837625664
+      },
+      "group": "script",
+      "opponent": "random",
+      "score": {
+        "lower95_bb100": -63.52197376214164,
+        "lower_family95": -75.41492893218467,
+        "mean_bb100": -33.43353271484375,
+        "standard_error_bb100": 15.349259066997488,
+        "upper95_bb100": -3.3450916675458586,
+        "upper_family95": 8.547863502497158
+      }
+    },
+    {
+      "baseline_absolute": {
+        "lower95_bb100": 231.64589496985272,
+        "mean_bb100": 261.24267578125,
+        "standard_error_bb100": 15.09844446607096,
+        "upper95_bb100": 290.8394565926473
+      },
+      "by_position": {
+        "baseline": [
+          {
+            "lower95_bb100": 155.61671043538956,
+            "mean_bb100": 199.786376953125,
+            "standard_error_bb100": 22.53262816833416,
+            "upper95_bb100": 243.95604347086044
+          },
+          {
+            "lower95_bb100": 144.30850305379946,
+            "mean_bb100": 198.40087890625,
+            "standard_error_bb100": 27.59457989875571,
+            "upper95_bb100": 252.49325475870054
+          },
+          {
+            "lower95_bb100": 309.29054446151133,
+            "mean_bb100": 385.540771484375,
+            "standard_error_bb100": 38.8981431989616,
+            "upper95_bb100": 461.79099850723867
+          }
+        ],
+        "candidate": [
+          {
+            "lower95_bb100": 166.70668720037872,
+            "mean_bb100": 208.319091796875,
+            "standard_error_bb100": 21.228071522492495,
+            "upper95_bb100": 249.93149639337128
+          },
+          {
+            "lower95_bb100": 136.28478303489246,
+            "mean_bb100": 185.99853515625,
+            "standard_error_bb100": 25.360877265249368,
+            "upper95_bb100": 235.71228727760754
+          },
+          {
+            "lower95_bb100": 247.5940807108824,
+            "mean_bb100": 304.30908203125,
+            "standard_error_bb100": 28.932480977760918,
+            "upper95_bb100": 361.0240833516176
+          }
+        ]
+      },
+      "by_seat": {
+        "baseline": [
+          {
+            "lower95_bb100": 238.8105935688583,
+            "mean_bb100": 300.3265380859375,
+            "standard_error_bb100": 31.38162484588043,
+            "upper95_bb100": 361.84248260301666
+          },
+          {
+            "lower95_bb100": 148.07512668158995,
+            "mean_bb100": 205.2642822265625,
+            "standard_error_bb100": 29.174365095975343,
+            "upper95_bb100": 262.45343777153505
+          },
+          {
+            "lower95_bb100": 217.76517205131685,
+            "mean_bb100": 278.13720703125,
+            "standard_error_bb100": 30.79807304912024,
+            "upper95_bb100": 338.5092420111831
+          }
+        ],
+        "candidate": [
+          {
+            "lower95_bb100": 185.36006552172734,
+            "mean_bb100": 235.33935546875,
+            "standard_error_bb100": 25.496338217573694,
+            "upper95_bb100": 285.31864541577266
+          },
+          {
+            "lower95_bb100": 151.66252187535974,
+            "mean_bb100": 199.42626953125,
+            "standard_error_bb100": 24.36610576229218,
+            "upper95_bb100": 247.19001718714026
+          },
+          {
+            "lower95_bb100": 212.45033430796533,
+            "mean_bb100": 263.861083984375,
+            "standard_error_bb100": 26.22658031272898,
+            "upper95_bb100": 315.2718336607847
+          }
+        ]
+      },
+      "candidate_absolute": {
+        "lower95_bb100": 208.09322695115907,
+        "mean_bb100": 232.87556966145834,
+        "standard_error_bb100": 12.642416333552825,
+        "upper95_bb100": 257.6579123717576
+      },
+      "group": "script",
+      "opponent": "check-call",
+      "score": {
+        "lower95_bb100": -57.90477905111837,
+        "lower_family95": -69.58003399195917,
+        "mean_bb100": -28.367106119791668,
+        "standard_error_bb100": 15.068291286559989,
+        "upper95_bb100": 1.1705668115350356,
+        "upper_family95": 12.84582175237583
+      }
+    },
+    {
+      "baseline_absolute": {
+        "lower95_bb100": 35.740438102185735,
+        "mean_bb100": 46.41571044921875,
+        "standard_error_bb100": 5.445862768622219,
+        "upper95_bb100": 57.090982796251765
+      },
+      "by_position": {
+        "baseline": [
+          {
+            "lower95_bb100": 30.805909136864315,
+            "mean_bb100": 49.34234619140625,
+            "standard_error_bb100": 9.456142113910138,
+            "upper95_bb100": 67.87878324594818
+          },
+          {
+            "lower95_bb100": 45.9722185286187,
+            "mean_bb100": 68.096923828125,
+            "standard_error_bb100": 11.28665432978929,
+            "upper95_bb100": 90.2216291276313
+          },
+          {
+            "lower95_bb100": 1.328772357606045,
+            "mean_bb100": 21.807861328125,
+            "standard_error_bb100": 10.447162801504325,
+            "upper95_bb100": 42.28695029864396
+          }
+        ],
+        "candidate": [
+          {
+            "lower95_bb100": 45.691122139043536,
+            "mean_bb100": 62.4542236328125,
+            "standard_error_bb100": 8.55149614397651,
+            "upper95_bb100": 79.21732512658147
+          },
+          {
+            "lower95_bb100": 38.161207622422694,
+            "mean_bb100": 57.1319580078125,
+            "standard_error_bb100": 9.677701875712193,
+            "upper95_bb100": 76.1027083932023
+          },
+          {
+            "lower95_bb100": 9.992813759008172,
+            "mean_bb100": 28.3355712890625,
+            "standard_error_bb100": 9.357338816236457,
+            "upper95_bb100": 46.67832881911683
+          }
+        ]
+      },
+      "by_seat": {
+        "baseline": [
+          {
+            "lower95_bb100": 32.818918357736884,
+            "mean_bb100": 52.3345947265625,
+            "standard_error_bb100": 9.95568936196801,
+            "upper95_bb100": 71.85027109538811
+          },
+          {
+            "lower95_bb100": 26.50571488519637,
+            "mean_bb100": 47.59063720703125,
+            "standard_error_bb100": 10.756221454498597,
+            "upper95_bb100": 68.67555952886613
+          },
+          {
+            "lower95_bb100": 18.64516072350597,
+            "mean_bb100": 39.3218994140625,
+            "standard_error_bb100": 10.547991447049878,
+            "upper95_bb100": 59.99863810461903
+          }
+        ],
+        "candidate": [
+          {
+            "lower95_bb100": 38.6423008312948,
+            "mean_bb100": 56.6925048828125,
+            "standard_error_bb100": 9.20809615105646,
+            "upper95_bb100": 74.74270893433021
+          },
+          {
+            "lower95_bb100": 36.61741056313082,
+            "mean_bb100": 54.4952392578125,
+            "standard_error_bb100": 9.120160920225354,
+            "upper95_bb100": 72.37306795249418
+          },
+          {
+            "lower95_bb100": 18.509716531784147,
+            "mean_bb100": 36.7340087890625,
+            "standard_error_bb100": 9.296905171322033,
+            "upper95_bb100": 54.95830104634085
+          }
+        ]
+      },
+      "candidate_absolute": {
+        "lower95_bb100": 39.82415845282629,
+        "mean_bb100": 49.3072509765625,
+        "standard_error_bb100": 4.837686461532578,
+        "upper95_bb100": 58.79034350029871
+      },
+      "group": "script",
+      "opponent": "tight-aggressive",
+      "score": {
+        "lower95_bb100": -7.135388941286552,
+        "lower_family95": -11.098699053503639,
+        "mean_bb100": 2.8915405273437496,
+        "standard_error_bb100": 5.1151183877750155,
+        "upper95_bb100": 12.918469995974052,
+        "upper_family95": 16.881780108191137
+      }
+    },
+    {
+      "baseline_absolute": {
+        "lower95_bb100": 22.014070956527817,
+        "mean_bb100": 35.768636067708336,
+        "standard_error_bb100": 7.016727218054218,
+        "upper95_bb100": 49.523201178888854
+      },
+      "by_position": {
+        "baseline": [
+          {
+            "lower95_bb100": 15.605748382975897,
+            "mean_bb100": 45.3582763671875,
+            "standard_error_bb100": 15.177897027296096,
+            "upper95_bb100": 75.11080435139911
+          },
+          {
+            "lower95_bb100": -0.8272503772417359,
+            "mean_bb100": 30.0872802734375,
+            "standard_error_bb100": 15.77067881802152,
+            "upper95_bb100": 61.00181092411674
+          },
+          {
+            "lower95_bb100": 6.744329371970185,
+            "mean_bb100": 31.8603515625,
+            "standard_error_bb100": 12.812638937620234,
+            "upper95_bb100": 56.97637375302982
+          }
+        ],
+        "candidate": [
+          {
+            "lower95_bb100": 43.342755090800225,
+            "mean_bb100": 70.806884765625,
+            "standard_error_bb100": 14.010497943905836,
+            "upper95_bb100": 98.27101444044978
+          },
+          {
+            "lower95_bb100": 12.301623601554404,
+            "mean_bb100": 40.0970458984375,
+            "standard_error_bb100": 14.179502920766033,
+            "upper95_bb100": 67.89246819532059
+          },
+          {
+            "lower95_bb100": 10.544929915946195,
+            "mean_bb100": 33.87298583984375,
+            "standard_error_bb100": 11.900529287723451,
+            "upper95_bb100": 57.2010417637413
+          }
+        ]
+      },
+      "by_seat": {
+        "baseline": [
+          {
+            "lower95_bb100": 4.178515470714984,
+            "mean_bb100": 31.12640380859375,
+            "standard_error_bb100": 13.74714358767909,
+            "upper95_bb100": 58.074292146472516
+          },
+          {
+            "lower95_bb100": 6.4163368436157455,
+            "mean_bb100": 36.0015869140625,
+            "standard_error_bb100": 15.092562196205067,
+            "upper95_bb100": 65.58683698450926
+          },
+          {
+            "lower95_bb100": 10.676965237079742,
+            "mean_bb100": 40.17791748046875,
+            "standard_error_bb100": 15.049558665903836,
+            "upper95_bb100": 69.67886972385776
+          }
+        ],
+        "candidate": [
+          {
+            "lower95_bb100": 10.67557909904286,
+            "mean_bb100": 36.24420166015625,
+            "standard_error_bb100": 13.043527614470783,
+            "upper95_bb100": 61.812824221269636
+          },
+          {
+            "lower95_bb100": 25.2295436590991,
+            "mean_bb100": 51.31988525390625,
+            "standard_error_bb100": 13.309676352312032,
+            "upper95_bb100": 77.41022684871339
+          },
+          {
+            "lower95_bb100": 30.067685475850322,
+            "mean_bb100": 57.21282958984375,
+            "standard_error_bb100": 13.847771267434453,
+            "upper95_bb100": 84.35797370383717
+          }
+        ]
+      },
+      "candidate_absolute": {
+        "lower95_bb100": 35.27833846894192,
+        "mean_bb100": 48.25897216796875,
+        "standard_error_bb100": 6.621915345728884,
+        "upper95_bb100": 61.23960586699558
+      },
+      "group": "script",
+      "opponent": "pot-pressure",
+      "score": {
+        "lower95_bb100": -0.7519667939570986,
+        "lower_family95": -5.986206561364499,
+        "mean_bb100": 12.490336100260416,
+        "standard_error_bb100": 6.755402762392341,
+        "upper95_bb100": 25.73263899447793,
+        "upper_family95": 30.966878761885333
+      }
+    },
+    {
+      "baseline_absolute": {
+        "lower95_bb100": 139.75593013971402,
+        "mean_bb100": 161.865234375,
+        "standard_error_bb100": 11.278797660703187,
+        "upper95_bb100": 183.97453861028598
+      },
+      "by_position": {
+        "baseline": [
+          {
+            "lower95_bb100": 164.02544192196225,
+            "mean_bb100": 210.75439453125,
+            "standard_error_bb100": 23.83821742050073,
+            "upper95_bb100": 257.4833471405377
+          },
+          {
+            "lower95_bb100": 77.66051069462469,
+            "mean_bb100": 119.94476318359375,
+            "standard_error_bb100": 21.570806705713522,
+            "upper95_bb100": 162.2290156725628
+          },
+          {
+            "lower95_bb100": 109.00883093915945,
+            "mean_bb100": 154.89654541015625,
+            "standard_error_bb100": 23.409069825204295,
+            "upper95_bb100": 200.78425988115305
+          }
+        ],
+        "candidate": [
+          {
+            "lower95_bb100": 176.2810953346014,
+            "mean_bb100": 221.50115966796875,
+            "standard_error_bb100": 23.06847607651252,
+            "upper95_bb100": 266.7212240013361
+          },
+          {
+            "lower95_bb100": 100.92755999786762,
+            "mean_bb100": 140.4998779296875,
+            "standard_error_bb100": 20.187345660822864,
+            "upper95_bb100": 180.0721958615074
+          },
+          {
+            "lower95_bb100": 167.32333477593562,
+            "mean_bb100": 209.912109375,
+            "standard_error_bb100": 21.726155025426536,
+            "upper95_bb100": 252.50088397406438
+          }
+        ]
+      },
+      "by_seat": {
+        "baseline": [
+          {
+            "lower95_bb100": 124.58546934712825,
+            "mean_bb100": 170.306396484375,
+            "standard_error_bb100": 23.323985257652296,
+            "upper95_bb100": 216.02732362162175
+          },
+          {
+            "lower95_bb100": 89.95983338179335,
+            "mean_bb100": 133.67919921875,
+            "standard_error_bb100": 22.302912650788606,
+            "upper95_bb100": 177.39856505570665
+          },
+          {
+            "lower95_bb100": 136.03787159118704,
+            "mean_bb100": 181.610107421875,
+            "standard_error_bb100": 23.248132162379147,
+            "upper95_bb100": 227.18234325256296
+          }
+        ],
+        "candidate": [
+          {
+            "lower95_bb100": 134.0024789955859,
+            "mean_bb100": 176.0955810546875,
+            "standard_error_bb100": 21.473293595473237,
+            "upper95_bb100": 218.1886831137891
+          },
+          {
+            "lower95_bb100": 145.19778944552394,
+            "mean_bb100": 187.64801025390625,
+            "standard_error_bb100": 21.6554734628773,
+            "upper95_bb100": 230.09823106228856
+          },
+          {
+            "lower95_bb100": 165.1308679894591,
+            "mean_bb100": 208.1695556640625,
+            "standard_error_bb100": 21.955672810785455,
+            "upper95_bb100": 251.2082433386659
+          }
+        ]
+      },
+      "candidate_absolute": {
+        "lower95_bb100": 169.25735988259925,
+        "mean_bb100": 190.6377156575521,
+        "standard_error_bb100": 10.906933304336107,
+        "upper95_bb100": 212.01807143250494
+      },
+      "group": "mixed-trained",
+      "opponent": "trained-call",
+      "score": {
+        "lower95_bb100": 5.694385443202485,
+        "lower_family95": -3.427614556594431,
+        "mean_bb100": 28.772481282552082,
+        "standard_error_bb100": 11.77301513409535,
+        "upper95_bb100": 51.85057712190168,
+        "upper_family95": 60.97257712169859
+      }
+    },
+    {
+      "baseline_absolute": {
+        "lower95_bb100": -3.1940388562866,
+        "mean_bb100": 9.64508056640625,
+        "standard_error_bb100": 6.549723526760449,
+        "upper95_bb100": 22.4841999890991
+      },
+      "by_position": {
+        "baseline": [
+          {
+            "lower95_bb100": 8.639659481604838,
+            "mean_bb100": 36.9842529296875,
+            "standard_error_bb100": 14.459656028686538,
+            "upper95_bb100": 65.32884637777016
+          },
+          {
+            "lower95_bb100": -21.81361298149421,
+            "mean_bb100": 8.7310791015625,
+            "standard_error_bb100": 15.582010087113135,
+            "upper95_bb100": 39.27577118461921
+          },
+          {
+            "lower95_bb100": -46.19645250193375,
+            "mean_bb100": -16.78009033203125,
+            "standard_error_bb100": 15.006406049575201,
+            "upper95_bb100": 12.636271837871249
+          }
+        ],
+        "candidate": [
+          {
+            "lower95_bb100": 46.18761017337515,
+            "mean_bb100": 72.19696044921875,
+            "standard_error_bb100": 13.268359597648832,
+            "upper95_bb100": 98.20631072506235
+          },
+          {
+            "lower95_bb100": -23.059089392562683,
+            "mean_bb100": 3.4027099609375,
+            "standard_error_bb100": 13.499171094218497,
+            "upper95_bb100": 29.864509314437683
+          },
+          {
+            "lower95_bb100": 14.962824312456288,
+            "mean_bb100": 40.87982177734375,
+            "standard_error_bb100": 13.221246913455493,
+            "upper95_bb100": 66.79681924223121
+          }
+        ]
+      },
+      "by_seat": {
+        "baseline": [
+          {
+            "lower95_bb100": -0.14063682661445043,
+            "mean_bb100": 29.6844482421875,
+            "standard_error_bb100": 15.214911157964169,
+            "upper95_bb100": 59.509533310989454
+          },
+          {
+            "lower95_bb100": -29.606181989080113,
+            "mean_bb100": 0.68206787109375,
+            "standard_error_bb100": 15.451189147983786,
+            "upper95_bb100": 30.970317731267613
+          },
+          {
+            "lower95_bb100": -29.63052545324968,
+            "mean_bb100": -1.4312744140625,
+            "standard_error_bb100": 14.385511333584143,
+            "upper95_bb100": 26.76797662512468
+          }
+        ],
+        "candidate": [
+          {
+            "lower95_bb100": 31.93718415376264,
+            "mean_bb100": 58.31146240234375,
+            "standard_error_bb100": 13.454523247189101,
+            "upper95_bb100": 84.68574065092486
+          },
+          {
+            "lower95_bb100": 7.052452597085431,
+            "mean_bb100": 32.90557861328125,
+            "standard_error_bb100": 13.188663656270073,
+            "upper95_bb100": 58.758704629477066
+          },
+          {
+            "lower95_bb100": -0.9148177109336508,
+            "mean_bb100": 25.262451171875,
+            "standard_error_bb100": 13.354021270728678,
+            "upper95_bb100": 51.43972005468365
+          }
+        ]
+      },
+      "candidate_absolute": {
+        "lower95_bb100": 27.49913311549647,
+        "mean_bb100": 38.826497395833336,
+        "standard_error_bb100": 5.77851968507881,
+        "upper95_bb100": 50.1538616761702
+      },
+      "group": "mixed-trained",
+      "opponent": "trained-pressure",
+      "score": {
+        "lower95_bb100": 15.455547148869273,
+        "lower_family95": 10.030169591949068,
+        "mean_bb100": 29.181416829427082,
+        "standard_error_bb100": 7.002088586628461,
+        "upper95_bb100": 42.90728650998489,
+        "upper_family95": 48.332664066905096
+      }
+    },
+    {
+      "baseline_absolute": {
+        "lower95_bb100": 106.33009097457024,
+        "mean_bb100": 126.30462646484375,
+        "standard_error_bb100": 10.189770865868033,
+        "upper95_bb100": 146.27916195511727
+      },
+      "by_position": {
+        "baseline": [
+          {
+            "lower95_bb100": 117.14703409851026,
+            "mean_bb100": 163.12103271484375,
+            "standard_error_bb100": 23.453086652066993,
+            "upper95_bb100": 209.09503133117724
+          },
+          {
+            "lower95_bb100": 78.68335634224172,
+            "mean_bb100": 117.877197265625,
+            "standard_error_bb100": 19.994270132440935,
+            "upper95_bb100": 157.07103818900828
+          },
+          {
+            "lower95_bb100": 55.72359865473129,
+            "mean_bb100": 97.9156494140625,
+            "standard_error_bb100": 21.52377109385142,
+            "upper95_bb100": 140.1077001733937
+          }
+        ],
+        "candidate": [
+          {
+            "lower95_bb100": 150.39021722782013,
+            "mean_bb100": 195.66650390625,
+            "standard_error_bb100": 23.097157234780642,
+            "upper95_bb100": 240.94279058467987
+          },
+          {
+            "lower95_bb100": 78.02163650260813,
+            "mean_bb100": 115.10009765625,
+            "standard_error_bb100": 18.91513439191501,
+            "upper95_bb100": 152.17855880989185
+          },
+          {
+            "lower95_bb100": 101.1491790385762,
+            "mean_bb100": 138.90838623046875,
+            "standard_error_bb100": 19.26240885799707,
+            "upper95_bb100": 176.6675934223613
+          }
+        ]
+      },
+      "by_seat": {
+        "baseline": [
+          {
+            "lower95_bb100": 94.03805041265447,
+            "mean_bb100": 136.14654541015625,
+            "standard_error_bb100": 21.48114611926918,
+            "upper95_bb100": 178.25504040765804
+          },
+          {
+            "lower95_bb100": 79.54494801104101,
+            "mean_bb100": 123.11553955078125,
+            "standard_error_bb100": 22.227017218822038,
+            "upper95_bb100": 166.68613109052149
+          },
+          {
+            "lower95_bb100": 77.7067188865474,
+            "mean_bb100": 119.65179443359375,
+            "standard_error_bb100": 21.39777963718113,
+            "upper95_bb100": 161.5968699806401
+          }
+        ],
+        "candidate": [
+          {
+            "lower95_bb100": 73.13203274174732,
+            "mean_bb100": 111.45172119140625,
+            "standard_error_bb100": 19.548331681786085,
+            "upper95_bb100": 149.7714096410652
+          },
+          {
+            "lower95_bb100": 106.97887920098412,
+            "mean_bb100": 147.5738525390625,
+            "standard_error_bb100": 20.70904110999061,
+            "upper95_bb100": 188.16882587714088
+          },
+          {
+            "lower95_bb100": 149.00455651251534,
+            "mean_bb100": 190.6494140625,
+            "standard_error_bb100": 21.24462700935867,
+            "upper95_bb100": 232.29427161248466
+          }
+        ]
+      },
+      "candidate_absolute": {
+        "lower95_bb100": 131.09438712593075,
+        "mean_bb100": 149.89166259765625,
+        "standard_error_bb100": 9.589205719089364,
+        "upper95_bb100": 168.68893806938175
+      },
+      "group": "mixed-script",
+      "opponent": "call-pressure",
+      "score": {
+        "lower95_bb100": 3.1695326586009216,
+        "lower_family95": -4.900824098044762,
+        "mean_bb100": 23.5870361328125,
+        "standard_error_bb100": 10.415745695642789,
+        "upper95_bb100": 44.00453960702408,
+        "upper_family95": 52.074896363669765
+      }
+    },
+    {
+      "baseline_absolute": {
+        "lower95_bb100": 187.0824748545588,
+        "mean_bb100": 206.65283203125,
+        "standard_error_bb100": 9.983584123434785,
+        "upper95_bb100": 226.2231892079412
+      },
+      "by_position": {
+        "baseline": [
+          {
+            "lower95_bb100": 172.9708350638919,
+            "mean_bb100": 211.9781494140625,
+            "standard_error_bb100": 19.899115827483083,
+            "upper95_bb100": 250.9854637642331
+          },
+          {
+            "lower95_bb100": 189.25226025586898,
+            "mean_bb100": 226.39312744140625,
+            "standard_error_bb100": 18.946970084212936,
+            "upper95_bb100": 263.5339946269435
+          },
+          {
+            "lower95_bb100": 143.11546032955624,
+            "mean_bb100": 181.58721923828125,
+            "standard_error_bb100": 19.625908611377525,
+            "upper95_bb100": 220.05897814700626
+          }
+        ],
+        "candidate": [
+          {
+            "lower95_bb100": 151.27593540599435,
+            "mean_bb100": 189.14337158203125,
+            "standard_error_bb100": 19.31762058244562,
+            "upper95_bb100": 227.01080775806815
+          },
+          {
+            "lower95_bb100": 120.92943979209636,
+            "mean_bb100": 155.42755126953125,
+            "standard_error_bb100": 17.598799803450152,
+            "upper95_bb100": 189.92566274696614
+          },
+          {
+            "lower95_bb100": 163.19581736374363,
+            "mean_bb100": 200.64544677734375,
+            "standard_error_bb100": 19.10448144949736,
+            "upper95_bb100": 238.09507619094387
+          }
+        ]
+      },
+      "by_seat": {
+        "baseline": [
+          {
+            "lower95_bb100": 181.69497609295007,
+            "mean_bb100": 219.46563720703125,
+            "standard_error_bb100": 19.26825193968848,
+            "upper95_bb100": 257.23629832111243
+          },
+          {
+            "lower95_bb100": 156.82670961177953,
+            "mean_bb100": 195.47882080078125,
+            "standard_error_bb100": 19.71791317448996,
+            "upper95_bb100": 234.13093198978297
+          },
+          {
+            "lower95_bb100": 166.7931499826169,
+            "mean_bb100": 205.0140380859375,
+            "standard_error_bb100": 19.49792986437479,
+            "upper95_bb100": 243.2349261892581
+          }
+        ],
+        "candidate": [
+          {
+            "lower95_bb100": 157.41512842561585,
+            "mean_bb100": 194.09637451171875,
+            "standard_error_bb100": 18.712499866338014,
+            "upper95_bb100": 230.77762059782165
+          },
+          {
+            "lower95_bb100": 139.061603213548,
+            "mean_bb100": 175.36773681640625,
+            "standard_error_bb100": 18.521140710324044,
+            "upper95_bb100": 211.6738704192645
+          },
+          {
+            "lower95_bb100": 138.82938333439057,
+            "mean_bb100": 175.75225830078125,
+            "standard_error_bb100": 18.835763955553393,
+            "upper95_bb100": 212.67513326717193
+          }
+        ]
+      },
+      "candidate_absolute": {
+        "lower95_bb100": 162.7799363384727,
+        "mean_bb100": 181.7387898763021,
+        "standard_error_bb100": 9.67163284092909,
+        "upper95_bb100": 200.69764341413148
+      },
+      "group": "mixed-script",
+      "opponent": "random-tight",
+      "score": {
+        "lower95_bb100": -43.53182530374332,
+        "lower_family95": -50.89081276361675,
+        "mean_bb100": -24.914042154947918,
+        "standard_error_bb100": 9.497639852952918,
+        "upper95_bb100": -6.296259006152514,
+        "upper_family95": 1.0627284537209114
+      }
+    }
+  ],
+  "scope": "One fixed training seed and host; pooled coverage is descriptive, not another strength test.",
+  "source_result_bytes": 925548,
+  "source_result_sha256": "41cffb0c7b131358b7b3906bb540cb12116f22da5200dcb0b99edc1612e83bd3",
+  "status": "verified"
+}

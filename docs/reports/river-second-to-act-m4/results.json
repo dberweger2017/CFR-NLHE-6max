@@ -1,0 +1,1002 @@
+{
+  "status": "complete-fixtures-only-input-unresolved",
+  "source": "86504259bfde570ed663e2841520250032ac4b53",
+  "config_sha256": "2fc0469a9a472029e65bdf6619d27aa185d2b6bc5a8d00ebd1cd2a4286936c6d",
+  "input_inventory_sha256": "3ab07a5df8fcb76d6bc78d1cc27fb5ba04f718be3a096363c303586a4456c0a7",
+  "native_tests": {
+    "passed": 141,
+    "failed": 0,
+    "ignored": 0
+  },
+  "panel_tests": {
+    "passed": 2,
+    "failed": 0,
+    "ignored": 0
+  },
+  "panel": {
+    "roots": 48,
+    "first_to_act": 12,
+    "second_to_act": 36,
+    "sha256": "9394fad0bba108f75cf6fbcb7955d259598b2da919711dadf0a753618098eb76",
+    "legal_generation": "native Hand + production menu; generator tests",
+    "model_requests": 0,
+    "byte_identical_reproduction": true
+  },
+  "binary_sha256": "56091282549a7233fb18ef787d5fa553f2aa4a781e80df577eafea589501b3a3",
+  "thermal_sha256": "c1b4b2d12529bf532bbe6aeb03bcd558a1ea7ba2716d886cddf742caef5bdef1",
+  "compiler": "rustc 1.89.0 (29483883e 2025-08-04)\nbinary: rustc\ncommit-hash: 29483883eed69d5fb4db01964cdf2af4d86e9cb2\ncommit-date: 2025-08-04\nhost: aarch64-apple-darwin\nrelease: 1.89.0\nLLVM version: 20.1.7\n",
+  "model_panel": "unrun",
+  "cost_preflight": "unrun-no-compatible-model",
+  "policy_loads": 0,
+  "model_solve_requests": 0,
+  "new_arena_hands": 0,
+  "new_training_nodes": 0,
+  "stage_costs": [
+    {
+      "phase": "thermal-build",
+      "command": [
+        "swiftc",
+        "/Users/dberweger/Local/river-second-to-act-m4-20261026/source-v3/scripts/support/m4_thermal_state.swift",
+        "-o",
+        "/Users/dberweger/Local/river-second-to-act-m4-20261026/qualification-v3-evidence-priced/thermal-state"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0498698330193292,
+      "cpu_seconds": 0.581005,
+      "sampled_peak_rss_bytes": 10338304
+    },
+    {
+      "phase": "native-tests",
+      "command": [
+        "/Users/dberweger/.cargo/bin/cargo",
+        "test",
+        "--release",
+        "--locked",
+        "--offline",
+        "--manifest-path",
+        "/Users/dberweger/Local/river-second-to-act-m4-20261026/source-v3/native/hu20-trainer/Cargo.toml",
+        "--lib",
+        "--",
+        "--test-threads=2"
+      ],
+      "returncode": 0,
+      "wall_seconds": 48.0751397080021,
+      "cpu_seconds": 170.004545,
+      "sampled_peak_rss_bytes": 957628416
+    },
+    {
+      "phase": "panel-tests",
+      "command": [
+        "/Users/dberweger/.cargo/bin/cargo",
+        "test",
+        "--release",
+        "--locked",
+        "--offline",
+        "--manifest-path",
+        "/Users/dberweger/Local/river-second-to-act-m4-20261026/source-v3/native/hu20-trainer/Cargo.toml",
+        "--example",
+        "nplayer_river_panel",
+        "--",
+        "--test-threads=2"
+      ],
+      "returncode": 0,
+      "wall_seconds": 11.27734720800072,
+      "cpu_seconds": 12.688748000000004,
+      "sampled_peak_rss_bytes": 563216384
+    },
+    {
+      "phase": "python-tests",
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "unittest",
+        "tests.test_river_second_to_act_m4",
+        "tests.test_river_arena_expectation",
+        "tests.test_river_whole_hand_pilot"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.0592654169886373,
+      "cpu_seconds": 0.08786799999998607,
+      "sampled_peak_rss_bytes": 10829824
+    },
+    {
+      "phase": "panel-build",
+      "command": [
+        "/Users/dberweger/.cargo/bin/cargo",
+        "build",
+        "--release",
+        "--locked",
+        "--offline",
+        "--manifest-path",
+        "/Users/dberweger/Local/river-second-to-act-m4-20261026/source-v3/native/hu20-trainer/Cargo.toml",
+        "--example",
+        "nplayer_river_panel"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.0852226249990053,
+      "cpu_seconds": 2.9837679999999978,
+      "sampled_peak_rss_bytes": 227573760
+    },
+    {
+      "phase": "panel-generate-0",
+      "command": [
+        "/Users/dberweger/Local/river-second-to-act-m4-20261026/qualification-v3-evidence-priced/target/release/examples/nplayer_river_panel",
+        "/Users/dberweger/Local/river-second-to-act-m4-20261026/qualification-v3-evidence-priced/panel-0.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.0588117500010412,
+      "cpu_seconds": 0.05682200000001103,
+      "sampled_peak_rss_bytes": 2392064
+    },
+    {
+      "phase": "panel-generate-1",
+      "command": [
+        "/Users/dberweger/Local/river-second-to-act-m4-20261026/qualification-v3-evidence-priced/target/release/examples/nplayer_river_panel",
+        "/Users/dberweger/Local/river-second-to-act-m4-20261026/qualification-v3-evidence-priced/panel-1.jsonl"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.0575082499999553,
+      "cpu_seconds": 0.056998999999990474,
+      "sampled_peak_rss_bytes": 2424832
+    }
+  ],
+  "wall_seconds": 66.98421883583069,
+  "no_bb128_work": true,
+  "no_archival_or_upload": true,
+  "proof": {
+    "epoch": 1793003356.5692632,
+    "status": "passed",
+    "all_stage_returncodes_zero": true,
+    "result_sha256": "3143526bf0fb895c8efc58ba7afd35a9185e76575716b834c72e52babfb1b670",
+    "status_sha256": "771193d750080425314dab3e842cd8b70348c6e40d59a734a95f9df22afd5b57",
+    "all_source_files_rehashed": 5990,
+    "source_clean": true,
+    "panel_sha256": "9394fad0bba108f75cf6fbcb7955d259598b2da919711dadf0a753618098eb76",
+    "reproduction_sha256": "9394fad0bba108f75cf6fbcb7955d259598b2da919711dadf0a753618098eb76",
+    "named_native_regressions": [
+      "test river::correlated::tests::exactly_blocked_conditional_reach_uses_scalar_repair_without_a_mass_floor ... ok",
+      "test river::correlated::tests::sparse_folded_law_preserves_blocked_and_zero_mass_rows_and_board_ties ... ok",
+      "test river::live::retained::tests::an_opponent_action_blocked_by_the_actual_hero_falls_back ... ok",
+      "test river::live::retained::tests::an_opponent_action_the_blueprint_never_takes_falls_back ... ok",
+      "test river::live::retained::tests::an_unconverged_second_to_act_root_falls_back_at_the_hero_decision ... ok",
+      "test river::live::retained::tests::audits_exports_and_omitted_evaluation_refuse_second_to_act_roots ... ok",
+      "test river::live::retained::tests::evaluation_branches_share_profile_bytes_but_isolate_fallback_and_history ... ok",
+      "test river::live::retained::tests::every_on_tree_hero_row_is_original_bits_in_both_orientations_and_holdings ... ok",
+      "test river::live::retained::tests::begin_nonconvergence_and_zero_reach_fallback_keep_real_blueprint_semantics ... ok",
+      "test river::live::retained::tests::exact_backend_installs_its_own_law_and_retains_original_rows_without_resolving ... ok",
+      "test river::live::retained::tests::inline_expected_values_match_independent_terminal_enumeration ... ok",
+      "test river::live::retained::tests::live_evaluation_capture_rejects_a_progressed_session ... ok",
+      "test river::live::retained::tests::live_evaluation_view_shares_payload_and_preserves_root_after_all_queries ... ok",
+      "test river::live::retained::tests::off_tree_and_unconverged_use_labeled_blueprint_without_solving ... ok",
+      "test river::live::retained::tests::exact_response_audit_preserves_profile_and_actual_blueprint_fallback ... ok",
+      "test river::live::retained::tests::only_declared_solve_failures_fall_back ... ok",
+      "test river::live::retained::tests::replay_rejects_illegal_payments_identity_changes_rollback_and_stale_sessions ... ok",
+      "test river::live::retained::tests::second_to_act_continuation_replays_the_opponent_action ... ok",
+      "test river::live::retained::tests::second_to_act_root_fixes_the_opponent_and_plays_the_taken_child ... ok",
+      "test river::live::retained::tests::snapshot_roundtrip_checks_bits_model_root_work_and_quality_bindings ... ok",
+      "test river::live::retained::tests::the_played_subtree_alone_sets_quality_and_the_scaled_target ... ok",
+      "test river::live::tests::second_to_act_roots_keep_the_river_start_and_the_opponent_action ... ok",
+      "test river::live::tests::taken_action_share_uses_compatible_pairs_and_actual_hero_support ... ok",
+      "test river::tests::nearly_blocked_chance_law_uses_stable_explicit_scalar_fallback ... ok",
+      "test river::tests::product_joint_law_matches_product_leaves_and_refuses_blocked_mass ... ok",
+      "test river::live::retained::tests::offline_full_menu_audit_keeps_the_captured_profile_and_fallback_policy_separate ... ok"
+    ],
+    "locks_released_same_inodes": {
+      "ordinary": {
+        "unheld": true,
+        "inode": 68078242
+      },
+      "study": {
+        "unheld": true,
+        "inode": 77522160
+      }
+    }
+  },
+  "resource_summary": {
+    "samples": 65,
+    "peak_sampled_family_rss_bytes": 957628416,
+    "min_available_ram_bytes": 6782369792,
+    "max_swap_used_bytes": 1048576,
+    "thermal_states": [
+      "nominal"
+    ],
+    "pressure_levels": [
+      1
+    ],
+    "final_disk_free_bytes": 32071884800,
+    "owned_root_allocated_bytes": 1878503424,
+    "cpu_seconds": 186.459755
+  },
+  "admission": {
+    "epoch": 1793003233.831328,
+    "thermal_state": "nominal",
+    "available_ram_bytes": 6892011520,
+    "swap_used_bytes": 1048576,
+    "disk_free_bytes": 32186138624,
+    "pressure": 1,
+    "worker_family_rss_bytes": 0,
+    "live_cpu_seconds": 0
+  },
+  "input_inventory": {
+    "exhaustive": false,
+    "method": "bounded-first-header-only; explicit catalog paths",
+    "candidates": [
+      {
+        "path": "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/qualification-v1/fixture-a-average.gz",
+        "bytes": 533728,
+        "inode": 77268134,
+        "mtime_ns": 1792704880046933557,
+        "header_sha256": "42822d65be02e3270bb635ef97192493439d2d26a9064f8a95e953cf67fd925e",
+        "format": "nplayer-policy-v1",
+        "players": 4,
+        "entries": 24151,
+        "strategy": "average",
+        "last_average_street": 3,
+        "disposition": "wrong-player-count"
+      },
+      {
+        "path": "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/qualification-v1/fixture-b-average.gz",
+        "bytes": 534566,
+        "inode": 77268161,
+        "mtime_ns": 1792704889460780201,
+        "header_sha256": "02a881ede2c8e858aa8770498e37db108056615d25cee89e43435b2d32c6e347",
+        "format": "nplayer-policy-v1",
+        "players": 4,
+        "entries": 24151,
+        "strategy": "average",
+        "last_average_street": 3,
+        "disposition": "wrong-player-count"
+      },
+      {
+        "path": "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint25000000-average.gz",
+        "bytes": 281165107,
+        "inode": 77268259,
+        "mtime_ns": 1792705018265302782,
+        "header_sha256": "4fe0df355ba4e966fa8b78ffa9cbccfbc3b07503a652f5f9aff871fe587cb0f0",
+        "format": "nplayer-policy-v1",
+        "players": 4,
+        "entries": 13691524,
+        "strategy": "average",
+        "last_average_street": 3,
+        "disposition": "wrong-player-count"
+      },
+      {
+        "path": "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint50000000-average.gz",
+        "bytes": 412586432,
+        "inode": 77268307,
+        "mtime_ns": 1792705106346844489,
+        "header_sha256": "5a5a0b7fe8a453d6976463c79914c1b5626af2f4763aebda68d7a22e574c4f24",
+        "format": "nplayer-policy-v1",
+        "players": 4,
+        "entries": 20007998,
+        "strategy": "average",
+        "last_average_street": 3,
+        "disposition": "wrong-player-count"
+      },
+      {
+        "path": "/Users/dberweger/Local/nplayer-five-six-feasibility-20261023/qualification-v1/players5/fixture-a-average.gz",
+        "bytes": 242844,
+        "inode": 77279169,
+        "mtime_ns": 1792708360943594171,
+        "header_sha256": "d1000f9227af4b112caace2f2bec2d65610e762ff2af79811323fadf5118f924",
+        "format": "nplayer-policy-v1",
+        "players": 5,
+        "entries": 10718,
+        "strategy": "average",
+        "last_average_street": 3,
+        "disposition": "wrong-player-count"
+      },
+      {
+        "path": "/Users/dberweger/Local/nplayer-five-six-feasibility-20261023/qualification-v1/players5/fixture-b-average.gz",
+        "bytes": 243632,
+        "inode": 77279201,
+        "mtime_ns": 1792708370365294244,
+        "header_sha256": "c4a6ece72312f0679e170fa86206c187bb7ebae09048a6a6ad9c2d7c0d574db2",
+        "format": "nplayer-policy-v1",
+        "players": 5,
+        "entries": 10718,
+        "strategy": "average",
+        "last_average_street": 3,
+        "disposition": "wrong-player-count"
+      },
+      {
+        "path": "/Users/dberweger/Local/nplayer-five-six-feasibility-20261023/main-v1/players5/endpoint25000000-average.gz",
+        "bytes": 302487371,
+        "inode": 77281501,
+        "mtime_ns": 1792708560409015440,
+        "header_sha256": "6adfe32f8de6e3b4e1c771d52378a786d4bd4a327a7fa90fdfa1a2b1a467fe6d",
+        "format": "nplayer-policy-v1",
+        "players": 5,
+        "entries": 14753432,
+        "strategy": "average",
+        "last_average_street": 3,
+        "disposition": "wrong-player-count"
+      },
+      {
+        "path": "/Users/dberweger/Local/nplayer-five-six-feasibility-20261023/main-v1/players5/endpoint50000000-average.gz",
+        "bytes": 411243085,
+        "inode": 77281558,
+        "mtime_ns": 1792708652886843637,
+        "header_sha256": "4bc9c2c09863c8c2deee91e0c638cb0f55e4e2af17789bc58295bace59a2729a",
+        "format": "nplayer-policy-v1",
+        "players": 5,
+        "entries": 20006770,
+        "strategy": "average",
+        "last_average_street": 3,
+        "disposition": "wrong-player-count"
+      },
+      {
+        "path": "/Users/dberweger/Local/nplayer-five-six-feasibility-20261023/qualification-v1/players6/fixture-a-average.gz",
+        "bytes": 354620,
+        "inode": 77281369,
+        "mtime_ns": 1792708458969742087,
+        "header_sha256": "b7430881120448ee4ead1fe1e96e150db9bf860a392513ff770dd748e72eacc3",
+        "format": "nplayer-policy-v1",
+        "players": 6,
+        "entries": 15792,
+        "strategy": "average",
+        "last_average_street": 3,
+        "disposition": "wrong-player-count"
+      },
+      {
+        "path": "/Users/dberweger/Local/nplayer-five-six-feasibility-20261023/qualification-v1/players6/fixture-b-average.gz",
+        "bytes": 355883,
+        "inode": 77281398,
+        "mtime_ns": 1792708468404236980,
+        "header_sha256": "d0bdc917b09d09e4d20d7a076a41a8107d975f1d2e5539aa38f47ca902b216cf",
+        "format": "nplayer-policy-v1",
+        "players": 6,
+        "entries": 15792,
+        "strategy": "average",
+        "last_average_street": 3,
+        "disposition": "wrong-player-count"
+      },
+      {
+        "path": "/Users/dberweger/Local/nplayer-five-six-feasibility-20261023/main-v1/players6/endpoint25000000-average.gz",
+        "bytes": 318252047,
+        "inode": 77281625,
+        "mtime_ns": 1792708740174593178,
+        "header_sha256": "ec1910d8e0ad08184034396680f326554bcb7611415b9a72d7b545b33d668db1",
+        "format": "nplayer-policy-v1",
+        "players": 6,
+        "entries": 15520261,
+        "strategy": "average",
+        "last_average_street": 3,
+        "disposition": "wrong-player-count"
+      },
+      {
+        "path": "/Users/dberweger/Local/nplayer-five-six-feasibility-20261023/main-v1/players6/endpoint50000000-average.gz",
+        "bytes": 410667788,
+        "inode": 77281684,
+        "mtime_ns": 1792708835028067466,
+        "header_sha256": "3fed01e8813dbf16421ef8c5f9a2b160228616b48e6a43e9d376148806ba2abd",
+        "format": "nplayer-policy-v1",
+        "players": 6,
+        "entries": 20002527,
+        "strategy": "average",
+        "last_average_street": 3,
+        "disposition": "wrong-player-count"
+      }
+    ],
+    "compatible_model_admitted": false,
+    "no_model_loaded": true
+  },
+  "runtime_pins": {
+    "python": "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+    "python_sha256": "5ca50299a6980ccfa9b12e582aa5262ef576dd5db23a8cf4595054e84f35f1b0",
+    "borrowed_thermal": "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/qualification-v1/thermal-state",
+    "borrowed_thermal_sha256": "c1b4b2d12529bf532bbe6aeb03bcd558a1ea7ba2716d886cddf742caef5bdef1",
+    "native_test_threads": 2,
+    "rayon_threads": 1,
+    "forecast_family_ram_bytes": 4294967296,
+    "available_headroom_bytes": 1073741824
+  },
+  "amendment_and_prior_resume_receipts": {
+    "fixture-resource-amendment.json": {
+      "sha256": "e95bf5b6a029aca270d4d3a534065164b2f1887626252a0e1b72634a1d1853b1",
+      "content": {
+        "epoch": 1793003217.926898,
+        "source": "86504259bfde570ed663e2841520250032ac4b53",
+        "reason": "prospective fixture-only engineering forecast based on measured prior same-host costs; owner requested continuation after closing optional non-Google apps",
+        "prior_receipt": "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/qualification-v1/stage-costs.json",
+        "prior_receipt_sha256": "92dc6f69cdeabee8bbce79a3231029bbc03b98265bb5df08317401a8c55dad86",
+        "prior_stages": [
+          {
+            "phase": "build",
+            "command": [
+              "/Users/dberweger/.cargo/bin/cargo",
+              "build",
+              "--release",
+              "--locked",
+              "--offline",
+              "--manifest-path",
+              "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/source-v1/native/hu20-trainer/Cargo.toml",
+              "--example",
+              "nplayer_train",
+              "--example",
+              "nplayer_policy",
+              "--example",
+              "nplayer_parity"
+            ],
+            "returncode": 0,
+            "wall_seconds": 15.386969042010605,
+            "cpu_seconds": 34.941025,
+            "sampled_peak_rss_bytes": 924106752
+          },
+          {
+            "phase": "native-tests",
+            "command": [
+              "/Users/dberweger/.cargo/bin/cargo",
+              "test",
+              "--release",
+              "--locked",
+              "--offline",
+              "--manifest-path",
+              "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/source-v1/native/hu20-trainer/Cargo.toml",
+              "--lib"
+            ],
+            "returncode": 0,
+            "wall_seconds": 35.86452558299061,
+            "cpu_seconds": 155.171442,
+            "sampled_peak_rss_bytes": 904413184
+          }
+        ],
+        "fixture_family_forecast_bytes": 4294967296,
+        "headroom_bytes": 1073741824,
+        "prior_attempts_retained": true,
+        "model_admission_unchanged": true,
+        "extra_model_requests": 0,
+        "thermal_and_STOP_guards_unchanged": true
+      }
+    },
+    "fixture-repriced-launch.json": {
+      "sha256": "4348ceae3d47c8d93b75eef1f94d5d002f6dfa2d22d0083fb03ade05da511960",
+      "content": {
+        "pid": 22739,
+        "command": [
+          "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+          "-m",
+          "scripts.qualify_river_second_to_act_m4",
+          "/Users/dberweger/Local/river-second-to-act-m4-20261026/qualification-v3-evidence-priced",
+          "--catalog",
+          "/Users/dberweger/Local/river-second-to-act-m4-20261026/catalog.json",
+          "--thermal",
+          "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/qualification-v1/thermal-state"
+        ],
+        "source": "86504259bfde570ed663e2841520250032ac4b53",
+        "epoch": 1793003233.300909,
+        "amendment": "fixture-resource-amendment.json"
+      }
+    },
+    "fixture-repriced-controller-result.json": {
+      "sha256": "bad449c6a6b524d2fde621b0c5137ee4db74c6deb710ae4bc00d642e8be8711e",
+      "content": {
+        "returncode": 0,
+        "epoch": 1793003300.809095
+      }
+    },
+    "owner-resume-launch.json": {
+      "sha256": "883aed39831e11b401e4af0c869284363996941d9c0e7ca5e5e80c339911546a",
+      "content": {
+        "pid": 22312,
+        "command": [
+          "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+          "-m",
+          "scripts.qualify_river_second_to_act_m4",
+          "/Users/dberweger/Local/river-second-to-act-m4-20261026/qualification-v2-owner-resume",
+          "--catalog",
+          "/Users/dberweger/Local/river-second-to-act-m4-20261026/catalog.json",
+          "--thermal",
+          "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/qualification-v1/thermal-state"
+        ],
+        "source": "a1f532f4ce5a7157a27a76d3a33770122480f94b",
+        "epoch": 1793003021.3526678,
+        "reason": "owner-requested continuation after closing non-Google optional apps; unchanged admission/thermal guards; original failed attempt retained"
+      }
+    },
+    "owner-resume-controller-result.json": {
+      "sha256": "6b0497d1ab00936f5bf0e7da3f3f7fe42153c377c8a28e6ff0cf255a1bd32658",
+      "content": {
+        "returncode": 1,
+        "epoch": 1793003021.717746
+      }
+    },
+    "qualification-v2-owner-resume/admission.json": {
+      "sha256": "8b39b173cd5d9db96b516b4803322a0a59f9d251b9777b9e2ce8edab5ad1814b",
+      "content": {
+        "epoch": 1793003021.71174,
+        "thermal_state": "nominal",
+        "available_ram_bytes": 6873415680,
+        "swap_used_bytes": 1048576,
+        "disk_free_bytes": 32816160768,
+        "pressure": 1,
+        "worker_family_rss_bytes": 0,
+        "live_cpu_seconds": 0
+      }
+    },
+    "qualification-v2-owner-resume/failure.json": {
+      "sha256": "4cadfaaebb904de286078e544bcb9da3f422490dbce5d700e7203af204a3e8b6",
+      "content": {
+        "error": "ValueError('6GiB conservative fixture-family forecast +1GiB headroom unavailable')",
+        "epoch": 1793003021.713753,
+        "preserve": true,
+        "automatic_retry": false
+      }
+    }
+  },
+  "optional_app_actions": [
+    {
+      "path": "/Users/dberweger/Local/river-second-to-act-m4-20261026/owner-close-optional-apps-1793002186535512000.json",
+      "sha256": "55384736cf26aaeb494f1dba739c2ad34b6a773ab5385ddd9395cbcd2834e3fe",
+      "before_available_bytes": 7932002304,
+      "after_available_bytes": 7782236160,
+      "original_processes_exited": 23,
+      "requested": 24,
+      "force_kill": false,
+      "permanent_service_changes": false,
+      "closed_names": [
+        "ACCFinderSync",
+        "Adobe Crash Processor",
+        "Adobe Desktop Service",
+        "AdobeIPCBroker",
+        "ChatGPTHelper",
+        "Core Sync",
+        "Creative Cloud",
+        "Creative Cloud Content Manager.node",
+        "Creative Cloud Helper",
+        "Creative Cloud UI Helper",
+        "Creative Cloud UI Helper (GPU)",
+        "Creative Cloud UI Helper (Renderer)",
+        "LogiPluginService",
+        "LogiPluginServiceExt",
+        "LogiPluginServiceNative",
+        "LogiRightSight",
+        "WeatherMenu",
+        "logi_crashpad_handler",
+        "logioptionsplus_agent",
+        "mediaanalysisd",
+        "ollama"
+      ]
+    }
+  ],
+  "panel_inventory": [
+    {
+      "id": 0,
+      "history": 0,
+      "board_index": 0,
+      "entry": 0,
+      "hero_seat": 1,
+      "river_start_pot_bb": 2.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 1,
+      "history": 0,
+      "board_index": 0,
+      "entry": 1,
+      "hero_seat": 2,
+      "river_start_pot_bb": 2.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 2,
+      "history": 0,
+      "board_index": 0,
+      "entry": 2,
+      "hero_seat": 2,
+      "river_start_pot_bb": 2.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 3,
+      "history": 0,
+      "board_index": 0,
+      "entry": 3,
+      "hero_seat": 2,
+      "river_start_pot_bb": 2.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 4,
+      "history": 0,
+      "board_index": 1,
+      "entry": 0,
+      "hero_seat": 2,
+      "river_start_pot_bb": 2.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 5,
+      "history": 0,
+      "board_index": 1,
+      "entry": 1,
+      "hero_seat": 0,
+      "river_start_pot_bb": 2.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 6,
+      "history": 0,
+      "board_index": 1,
+      "entry": 2,
+      "hero_seat": 0,
+      "river_start_pot_bb": 2.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 7,
+      "history": 0,
+      "board_index": 1,
+      "entry": 3,
+      "hero_seat": 0,
+      "river_start_pot_bb": 2.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 8,
+      "history": 0,
+      "board_index": 2,
+      "entry": 0,
+      "hero_seat": 0,
+      "river_start_pot_bb": 2.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 9,
+      "history": 0,
+      "board_index": 2,
+      "entry": 1,
+      "hero_seat": 1,
+      "river_start_pot_bb": 2.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 10,
+      "history": 0,
+      "board_index": 2,
+      "entry": 2,
+      "hero_seat": 1,
+      "river_start_pot_bb": 2.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 11,
+      "history": 0,
+      "board_index": 2,
+      "entry": 3,
+      "hero_seat": 1,
+      "river_start_pot_bb": 2.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 12,
+      "history": 1,
+      "board_index": 0,
+      "entry": 0,
+      "hero_seat": 2,
+      "river_start_pot_bb": 4.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 13,
+      "history": 1,
+      "board_index": 0,
+      "entry": 1,
+      "hero_seat": 0,
+      "river_start_pot_bb": 4.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 14,
+      "history": 1,
+      "board_index": 0,
+      "entry": 2,
+      "hero_seat": 0,
+      "river_start_pot_bb": 4.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 15,
+      "history": 1,
+      "board_index": 0,
+      "entry": 3,
+      "hero_seat": 0,
+      "river_start_pot_bb": 4.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 16,
+      "history": 1,
+      "board_index": 1,
+      "entry": 0,
+      "hero_seat": 0,
+      "river_start_pot_bb": 4.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 17,
+      "history": 1,
+      "board_index": 1,
+      "entry": 1,
+      "hero_seat": 1,
+      "river_start_pot_bb": 4.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 18,
+      "history": 1,
+      "board_index": 1,
+      "entry": 2,
+      "hero_seat": 1,
+      "river_start_pot_bb": 4.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 19,
+      "history": 1,
+      "board_index": 1,
+      "entry": 3,
+      "hero_seat": 1,
+      "river_start_pot_bb": 4.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 20,
+      "history": 1,
+      "board_index": 2,
+      "entry": 0,
+      "hero_seat": 1,
+      "river_start_pot_bb": 4.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 21,
+      "history": 1,
+      "board_index": 2,
+      "entry": 1,
+      "hero_seat": 2,
+      "river_start_pot_bb": 4.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 22,
+      "history": 1,
+      "board_index": 2,
+      "entry": 2,
+      "hero_seat": 2,
+      "river_start_pot_bb": 4.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 23,
+      "history": 1,
+      "board_index": 2,
+      "entry": 3,
+      "hero_seat": 2,
+      "river_start_pot_bb": 4.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 24,
+      "history": 2,
+      "board_index": 0,
+      "entry": 0,
+      "hero_seat": 0,
+      "river_start_pot_bb": 6.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 25,
+      "history": 2,
+      "board_index": 0,
+      "entry": 1,
+      "hero_seat": 1,
+      "river_start_pot_bb": 6.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 26,
+      "history": 2,
+      "board_index": 0,
+      "entry": 2,
+      "hero_seat": 1,
+      "river_start_pot_bb": 6.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 27,
+      "history": 2,
+      "board_index": 0,
+      "entry": 3,
+      "hero_seat": 1,
+      "river_start_pot_bb": 6.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 28,
+      "history": 2,
+      "board_index": 1,
+      "entry": 0,
+      "hero_seat": 1,
+      "river_start_pot_bb": 6.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 29,
+      "history": 2,
+      "board_index": 1,
+      "entry": 1,
+      "hero_seat": 2,
+      "river_start_pot_bb": 6.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 30,
+      "history": 2,
+      "board_index": 1,
+      "entry": 2,
+      "hero_seat": 2,
+      "river_start_pot_bb": 6.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 31,
+      "history": 2,
+      "board_index": 1,
+      "entry": 3,
+      "hero_seat": 2,
+      "river_start_pot_bb": 6.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 32,
+      "history": 2,
+      "board_index": 2,
+      "entry": 0,
+      "hero_seat": 2,
+      "river_start_pot_bb": 6.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 33,
+      "history": 2,
+      "board_index": 2,
+      "entry": 1,
+      "hero_seat": 0,
+      "river_start_pot_bb": 6.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 34,
+      "history": 2,
+      "board_index": 2,
+      "entry": 2,
+      "hero_seat": 0,
+      "river_start_pot_bb": 6.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 35,
+      "history": 2,
+      "board_index": 2,
+      "entry": 3,
+      "hero_seat": 0,
+      "river_start_pot_bb": 6.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 36,
+      "history": 3,
+      "board_index": 0,
+      "entry": 0,
+      "hero_seat": 1,
+      "river_start_pot_bb": 12.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 37,
+      "history": 3,
+      "board_index": 0,
+      "entry": 1,
+      "hero_seat": 2,
+      "river_start_pot_bb": 12.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 38,
+      "history": 3,
+      "board_index": 0,
+      "entry": 2,
+      "hero_seat": 2,
+      "river_start_pot_bb": 12.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 39,
+      "history": 3,
+      "board_index": 0,
+      "entry": 3,
+      "hero_seat": 2,
+      "river_start_pot_bb": 12.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 40,
+      "history": 3,
+      "board_index": 1,
+      "entry": 0,
+      "hero_seat": 2,
+      "river_start_pot_bb": 12.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 41,
+      "history": 3,
+      "board_index": 1,
+      "entry": 1,
+      "hero_seat": 0,
+      "river_start_pot_bb": 12.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 42,
+      "history": 3,
+      "board_index": 1,
+      "entry": 2,
+      "hero_seat": 0,
+      "river_start_pot_bb": 12.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 43,
+      "history": 3,
+      "board_index": 1,
+      "entry": 3,
+      "hero_seat": 0,
+      "river_start_pot_bb": 12.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 44,
+      "history": 3,
+      "board_index": 2,
+      "entry": 0,
+      "hero_seat": 0,
+      "river_start_pot_bb": 12.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 45,
+      "history": 3,
+      "board_index": 2,
+      "entry": 1,
+      "hero_seat": 1,
+      "river_start_pot_bb": 12.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 46,
+      "history": 3,
+      "board_index": 2,
+      "entry": 2,
+      "hero_seat": 1,
+      "river_start_pot_bb": 12.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    },
+    {
+      "id": 47,
+      "history": 3,
+      "board_index": 2,
+      "entry": 3,
+      "hero_seat": 1,
+      "river_start_pot_bb": 12.0,
+      "model_panel_status": "unrun-no-compatible-input"
+    }
+  ],
+  "python_tests": {
+    "status": "passed",
+    "tests": 12,
+    "stderr_sha256": "4e9583fbd8b7dfd17b1b52f963bca5e078ab351e78d6c9726b2c05ff184c10db",
+    "text": "............\n----------------------------------------------------------------------\nRan 12 tests in 0.004s\n\nOK\n"
+  }
+}

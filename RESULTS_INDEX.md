@@ -1,19 +1,1533 @@
-## PR344 pilot closeout — October18
+## PR344 integration closeout — compact history encodings remain opt-in
 
-[Measured pilot and preserved budget stop](docs/reports/nplayer-compact-keys/pilot.md). All42 stages return0; full100M logical rows match. The forecast refuses the1B/3B comparison before launch. Raw originals remain at `bb128:/mnt/data2tb/nplayer-key-benchmark-20261018`; cloud acceptance pending, no deletion.
+[Integration/review report](docs/reports/nplayer-compact-keys/integration-20261026.md),
+[historical pilot](docs/reports/nplayer-compact-keys/pilot.md).
+Current history/live-order dispatch, binary loaders, training options and arena
+caches retained. Fixed-byte key and history checkpoint/export pins, compact
+schema self-test bindings, sparse/empty-file support and 1/2/4-thread/resume
+logical-row checks address the external review. Old unbound compact prototypes
+fail closed; original files/readers are retained without migration. No default
+change, live-order speed claim or new mature benchmark; the original larger
+comparison remains refused. New integration validation is recorded in the PR.
 
-## PR344 — compact-key pilot complete; larger comparison refused
+## PR436 — M4 model-backed second-to-act river engineering completes
 
-[PR344](https://github.com/dberweger2017/CFR-NLHE-6max/pull/344),
-[proposal343](https://github.com/dberweger2017/CFR-NLHE-6max/issues/343),
-[protocol and overnight rationale](docs/nplayer-compact-key-benchmark.md).
-Owner authorized the three-variant bb128 comparison, quoted1–2 compute hours;
-this does not launch the later overnight20BB campaign. New owned root will be
-`bb128:/mnt/data2tb/nplayer-key-benchmark-20261018`. No old research roots or
-models are copied or changed. Shared pinned K50 tables and qualified PR340
-binaries/venv are read-only dependencies. Preserve all raw checkpoints, mappings,
-source, timing/resource logs and failures there; cloud archival/acceptance pending.
-Compact results and full launch/source pins will be added after verified readout.
+[Protocol](docs/river-model-panel-m4.md), [analysis](docs/reports/river-model-panel-m4/results.md),
+[agent handoff](docs/reports/river-model-panel-m4/AGENT_HANDOFF.md),
+[all48 roots](docs/reports/river-model-panel-m4/roots.csv),
+[original readout](docs/reports/river-model-panel-m4/results.json),
+[verified accounting](docs/reports/river-model-panel-m4/verified-readback.json).
+One25M-node/1M-threshold history fixture;34/36 second-to-act profiles install,
+two zero-reach blueprint fallbacks retained. All46 installed profiles meet the
+fixed capped-game target; all48 roots reproduce, all12 first-actor profiles match
+pre429 bitwise.145 native/6 example/23 Python checks pass. Exactly144 root begins;
+one preserved malformed preflight follow-up/release remains incomplete, fixed
+repeat and full main have no exception. Installed median278.5ms/p951008.2ms/max
+1349.9ms, sampled peak1.446GiB, nominal thermals. All setup failures retained;
+accounted active309.98s, elapsed dispatch-to-completion24m07s including repair
+gaps, publication excluded. Normal/study locks free;2.486GiB owned M4 originals
+retained, cleaner archive pending. No bb128, new arena hands, mature speed,
+strength/adoption/default or automatic follow-up claim.
+
+## PR433 — M4 river fixtures pass; learned-model panel unrun
+
+[Report](docs/reports/river-second-to-act-m4/results.md),
+[verified costs and proof](docs/reports/river-second-to-act-m4/results.json),
+[all48 roots](docs/reports/river-second-to-act-m4/panel.csv),
+[historical admission receipts](docs/reports/river-second-to-act-m4/admission.json),
+[fixed protocol](docs/river-second-to-act-m4-qualification.md).
+141 native library +2 generator +12 Python tests pass on M4,48-root manifest
+reproduces byte for byte. Source `86504259bfde570ed663e2841520250032ac4b53`,
+66.98s guarded wall,186.46s child CPU,0.892GiB sampled family peak, nominal thermal
+state and1MiB max swap. Prior admission refusals and prospective evidence-based
+fixture forecast amendment retained. All12 cataloged policies have4–6players;
+model panel, pre429 parity and learned-policy latency remain unrun. All5,990
+source files rehashed; locks released. Ordinary M4 evidence retained; no bb128
+work, scientific continuation or archive/upload claim.
+
+## PR425 — warmed estimator qualification complete; no mature continuation
+
+[Results](docs/reports/nplayer-warm-estimator-qualification/results.md),
+[compact proofs/costs](docs/reports/nplayer-warm-estimator-qualification/results.json),
+[independent estimator review](docs/reports/nplayer-warm-estimator-qualification/independent-review.json),
+[all missing coefficients](docs/reports/nplayer-warm-estimator-qualification/missing-coefficients.csv),
+[watch groups](docs/reports/nplayer-warm-estimator-qualification/watch-keys.csv).
+October25 00:01:57–00:20:06UTC,18m09.21s; all3mainstagesRC0. Both1,024root
+modes reproduce byte for byte, no omissions or scientific retries. Passive
+admits105,635 shadow rows,87,393 zero-update at end; ordinary90,089/59.
+No admitted targeted turn/river row or watched potential row meets the fixed
+replicated-learning proxy.434/436saved missing prefixes have zero target reach;
+never-hit keys and hidden-state limitations preserved. No training/new hands.
+
+Execution source `cc28e45d0d842ec68721d14b9224ce232bcad0dc`,703source pins;
+binary `0286d5ec5ceb7466c68e001cc03cfa3aa19600eb35eb42cc8001cd313e902d23`,
+config `094dce6bf86409bd026af020d2e372ab6dcce1e4583292e30f40da31ede06a25`,
+verified receipt `d3d864033e3159376acd3c25aaa26d9a225bfc0d85f1e1c1f5e702dfa573d639`.
+Ordinary evidence/source/config/review/inputs/first build PATH failure retained
+at `bb128:/home/dberweger/nplayer-warm-estimator-qualification-20261025/`.
+Initial artifact manifest `8a85d599bd4cb17aaacb03f2749303856b2fa399492a3b0399b5a8d4a64f1e3e`
+pins eight files1,098,614,179B; no duplicate raw repeat tree. PR413 checkpoint,
+borrowed traces/K50/runtime remain protected; cleaner received natural completion.
+Future cache `/research/PR-425-nplayer-warm-estimator-qualification/` and Drive
+`gdrive:PR-425-nplayer-warm-estimator-qualification/` are **prospective**, not
+populated/accepted claims. No archive/member/upload receipt or deletion. Use
+protected originals until cleaner publishes the complete archive-set receipts.
+
+## PR423 — missing-row composition complete; primary gain, 5/8 gates
+
+[Verified report](docs/reports/nplayer-missing-row-composition/results.md),
+[all eight panels](docs/reports/nplayer-missing-row-composition/strength.csv),
+[coverage](docs/reports/nplayer-missing-row-composition/coverage.csv),
+[selectors by street](docs/reports/nplayer-missing-row-composition/selection.csv),
+[seat/position contrasts](docs/reports/nplayer-missing-row-composition/seats.csv),
+[compact source/model/proof/tail/cost evidence](docs/reports/nplayer-missing-row-composition/results.json),
+[backup cost context](docs/reports/nplayer-missing-row-composition/backup-cost-context.json).
+
+MainOctober24 15:52:55–16:27:51UTC /17:52–18:27Madrid,34m55.67s;
+all35stagesRC0. 786,432initial hands independently replay and reproduce exactly,
+all8fields/4,096blocks/12seatings, no exclusions or scientific retries.
+Primary+10.78BB/100,ordinary95%[+2.80,+18.76],family lower+0.60 passes;
+5/8total. Random/check-call/call-pressure safeguards unresolved, not established
+losses. Keep250M/10B control; no composed promotion or automatic extension.
+
+Exact execution sourcec8b257e635e042ae2742268be2fc095e9d46ab15/1,403pins,
+config88208456262562a3ef4b1d56338dab1b5fa6445986922d38ba90f0e4da7d195b,
+raw resulta1ad792aa415cc33cd7008b24dc091855bca9adb11e9c3cb2cafa5a8e81d29e2.
+Both host small qualifications pass28stages. Peak54.05GiB/CPU63/Thermistor15 66;
+32traces10,895,414,514B. No new training/exports/search/default change.
+
+Ordinary evidence, full block vectors/source/owner/config/failures/partials and
+qualifications remain protected at
+`bb128:/home/dberweger/nplayer-missing-row-composition-20261024/` and
+`m4:/Users/dberweger/Local/nplayer-missing-row-composition-20261024/`.
+All417/419/K50/runtime dependencies retained. Cleaner notified natural completion;
+normal/study mutexes released. Later archive destinations are prospective
+`/research/PR-423-nplayer-missing-row-composition/` and matching Drive folder;
+**no payload archive/member/upload acceptance exists yet**. Both future retrieval
+paths require exact ZIP-set/member receipts; use protected originals meanwhile.
+No research deletion or upload performed here.
+
+## PR419 — six-player capacity completed; 0/8 strength gates passed
+
+[Verified report](docs/reports/nplayer-six-player-capacity/results.md),
+[compact source/model/proof/cost receipt](docs/reports/nplayer-six-player-capacity/results.json),
+[all eight strength panels](docs/reports/nplayer-six-player-capacity/strength.csv),
+[shared-observation coverage](docs/reports/nplayer-six-player-capacity/shared-coverage.csv),
+[concurrent backup cost context](docs/reports/nplayer-six-player-capacity/backup-cost-context.json).
+Main October 24 11:18:41–13:27:33 UTC /13:18–15:27 Madrid, 2h08m52s; all40RC0.
+786,432 initial hands replay independently and reproduce byte-for-byte.
+1,358,468 focal observations, both source arms, are queried against both models.
+Source `2ccf21ac608d9729fecea80583ad3f9ee5f34b64` /884 pins; config
+`2fff4245900b851bedb2625cdf6a2d274e3500e525b39d83291d369374ca1801`;
+raw result `c12ec77d688db05cbdcb1ce64c603d1914169a3cb4ce992e2748e7710057684a`.
+500M/10B versus protected 250M/10B: trained +5.26 ordinary95[−33.70,+44.22],
+all eight prospective gates unpassed. Call-pressure −65.44[−111.97,−18.91].
+Support improves in several fields, but all44,274 shared check-call river
+observations miss for both. No promotion, release acceptance or follow-up.
+
+Retain all originals at `bb128:/home/dberweger/nplayer-six-player-capacity-20261024/`,
+including failed build-v1, successful source/build/qualification-v2, main-v1,
+models, traces and proofs; prior417/shared paths remain protected. Main allocated
+67.26GiB at readout. Owner-managed archive-set packaging/Drive acceptance pending;
+no cache relocation, deletion or research-payload acceptance claimed. Existing
+[qualification](docs/reports/nplayer-six-player-capacity/qualification.md) and
+[launch](docs/reports/nplayer-six-player-capacity/launch.json) preserve prior gates.
+
+## PR317 — HU200 river search complete; cloud closeout owner-managed
+
+**October22:** the fixed primary run completed October21 at09:14:52Madrid.
+All145,408blocks/319,488hands passed the global barrier; direct gain is
++32.05[27.32,36.78]BB/100. The predeclared20 losing contexts and five direct
+conditioning audits complete on guarded M4 with unchanged pinned requests;
+independent validation passes. M4 science was released October22 at10:01:58Madrid;
+final BB/ZIP/Drive work is handed to the owner under the explicit October22
+instruction approving completion of the PR without its cloud step.
+[Final primary summary](docs/reports/hu200-river-search-artifacts/final-primary-summary.json),
+[barrier](docs/reports/hu200-river-search-artifacts/final-all-hands-verified.json),
+[interpretation and timing limitation](docs/reports/hu200-river-search.md).
+[Owner handoff, exact storage paths and outstanding acceptance criteria](docs/artifacts/pr317-owner-handoff-20261022.md).
+Scientific review is ready under that scope change; final Drive acceptance is
+not claimed. All open-PR inputs and remaining originals stay protected; cleanup
+authorization and verification requirements are unchanged.
+
+The chronological records below retain the earlier incomplete states; the
+completed scientific report and owner handoff above supersede their forecasts.
+
+**October18 recorded-state recovery:** the16GiB disk guard stopped the original
+attempt at05:09:16Madrid after26,842 retired blocks. The interrupted hand was
+preserved and its seven persisted actions and pending scientific request
+validated exactly before continuation; no completed ancestor solve or hand was
+repeated. Independent replay and fresh-player reproduction pass. The original
+launcher resumed at05:17:59Madrid with unchanged source/counts/roots/guards and
+October22 21:52:03Madrid deadline. One interrupted primary timing is unknown;
+final latency reporting must identify its continuation-only decision measurement.
+[Recovery, preservation and offload receipt](docs/reports/hu200-river-search-artifacts/disk-recovery-receipt.json).
+Owner-authorized early offload removed only410 verified inactive pilot files
+under `~/Local/hu200-river-search/results/hu200-river-search/pilot-02/`,
+freeing9,695,325,845bytes. Restore with
+`rsync -a bb128-lan:/research/PR-317-HU200-river-search/research/pilot-02/ FRESH_RESTORE_ROOT/`;
+the410-file size/SHA256 manifest and durable receipts are under the cache's
+`in-progress-offload-20261018/`. The existing accepted cost-gate ZIP/Drive ID
+`15Qv-9-hp-DH3P3Yr5cGBb6TYWe5hPkEq` remains the fallback.
+The original interrupted-hand bytes are separately retained under
+`bb128:/research/PR-317-HU200-river-search/recovery-20261018/preserved-hand/`;
+the28-file administration package, including the recovery helper, stopped guard
+and consistent SQLite backup, passes every-file size/SHA256 verification under
+`recovery-20261018/current-administration/`, manifest SHA256
+`1e2751455ec17b4516dfc7fb08a5c80f5419bad97e979a05d6a2dc1d3f475f1b`.
+These new files are **IN_PROGRESS**, with final ZIP/Drive coverage pending.
+No active input, live SQLite copy, other PR or synced folder was removed.
+End-of-PR cleanup remains unchanged. Research and diagnostics subsequently
+completed as recorded above; cloud work is owner-managed.
+
+Latest: evidence-retention source `5b6b2f6c` passes the same24 parity and amended
+10 s gate at p95 **9.834 s**, with two/three-worker parity/memory measurements.
+The owner-approved fixed calibration, source `d0849fca`, completes **352 blocks /
+1,152 primary hands**, all replayed and reproduced, in **604.32 s from the
+original clock**, including launch repair. **202 searched decisions, 67 changed
+actions, zero fallbacks/timeouts/missing EVs.** The M4 was released **October17
+at08:49:03Madrid** after calibration, then reacquired for the owner-approved
+finals: **131,072 direct +2,048 paired blocks per script**, up to three searches.
+[Final protocol](docs/hu200-river-final-protocol.md) and
+[execution declaration](docs/reports/hu200-river-search-artifacts/final-execution-declaration.json)
+fix counts, fresh roots, analysis, source and resource limits before any final
+hand. Frozen evaluation source is `5c5fb990`; search stays `d0849fca`.
+Declaration commit `fc5ddce1` precedes launch **October17 at09:52:03Madrid**.
+[Launch receipt](docs/reports/hu200-river-search-artifacts/final-launch-receipt.json)
+records the first 21 verified/transferred/retired blocks, without effect readout.
+[ETA posted on the PR](https://github.com/dberweger2017/CFR-NLHE-6max/pull/317#issuecomment-6231418082):
+The initial M4-release/review windows are **superseded**: October17 at11:42Madrid,
+1,512 blocks are closed, but disk admission now permits one search. At the recent
+rate the direct match alone projects to October26–27, beyond the unchanged
+October22 21:52Madrid safety cap. Restoring about2GB safe scratch headroom is
+recommended; a full completion/review ETA is pending. No effects were inspected.
+[Live resource finding](docs/reports/hu200-river-search.md).
+**Headroom restored October17:** the owner freed space and the dispatcher again
+admits three searches. The owner then explicitly authorized early offload of
+inactive PR317 files while this PR remains open, marked **in progress**, with
+end-of-PR cleanup unchanged. After matching current local/remote size and SHA256,
+the inactive M4 copy of `hu200-river-search-cost-gate-M4-20261016.zip` was removed,
+freeing **6,510,687,952 bytes**; free M4 disk was31.51GB afterward. Raw evidence,
+active inputs and the live final run stay local. The archive remains at
+`bb128:/research/PR-317-HU200-river-search/hu200-river-search-cost-gate-M4-20261016.zip`
+and on [Drive](https://drive.google.com/file/d/15Qv-9-hp-DH3P3Yr5cGBb6TYWe5hPkEq/view).
+[Exact removed path, hash and restoration command](docs/reports/hu200-river-search-artifacts/early-offload-receipt.json).
+Uncompressed control/receipts are in the cache's `in-progress-offload-20261017/`;
+`IN_PROGRESS-20261017.json` marks the continuing study. New administrative-file
+Drive coverage remains pending final closeout; this is no final-review claim.
+All 96 focused M4 checks and 448 existing paired-rotation prefix audits pass.
+The 352-block copied-evidence qualification verifies every file before retiring
+only those new copies; calibration originals remain unchanged. Including
+qualified transport, the forecast is **100.37 h**, upper cost **115.16 h**,
+fixed safety cap **132 h**. These replace the compute-only ETA, not the counts.
+
+The owner specifically authorizes completed final-block cable transfers to
+`bb128:/research/PR-317-HU200-river-search/final-20261017/blocks/PANEL/INDEX/`
+and exact verified M4-block retirement. Each destination retains the complete
+`transfer-manifest.json` and durable `arrival-receipt.json`. Full transfer and
+retirement receipts remain in the M4 run's `receipts.sqlite`; only manifest
+members are removed after matching arrival size/SHA256 checks. Restore an exact
+block with `rsync -a bb128-lan:/research/PR-317-HU200-river-search/final-20261017/blocks/PANEL/INDEX/ FRESH_RESTORE_ROOT/`,
+then verify every member against its transfer manifest. Final ZIP/Drive
+coverage remains pending; the seven earlier accepted archives do not cover
+these new qualification/final files. Original inputs, previous research and
+unverified files stay protected. No Slumbot play.
+
+**Earlier cost-gate record:** [Draft PR317](https://github.com/dberweger2017/CFR-NLHE-6max/pull/317), scientific
+source `11fa4fa424ec577cf8492338fd61c60ed7f3c97c`.
+[Report](docs/reports/hu200-river-search.md),
+[prospective protocol](docs/hu200-river-search.md). All correctness, search,
+cache verification and cost evaluation run on the 16 GiB M4. The fixed 24-spot
+pilot completes with zero fallback/timeouts; p50 15.03 s, p95 36.79 s, max
+39.94 s, peak family RSS 4.41 GB. The original 3-second gate fails; final strength remains
+undeclared and unrun. The owner selected lossless adapter engineering with
+full same 24 parity, then an amended 10-second gate and a count proposal before
+any strength hands. First parity passes; first amended cost still fails at
+p95 10.766536 s. Exact-source parser continuation now passes all24 parity and
+the amended cost gate: p95 9.648689 s, peak search-family RSS2.91 GB, minimum
+host available5.32 GB, zero fallback/missing actual EV. Original failures remain.
+At that earlier stage no concurrency or calibration hands had run. [Historical count/runtime/storage proposal](docs/hu200-river-search-strength-proposal.md). No Slumbot play.
+
+**Original local preservation; Drive acceptance now recorded below:**
+`hu200-river-search-cost-gate-M4-20261016.zip`, **6,510,687,952 bytes**, SHA256
+`d76736d9050babc6a40a7b419793641bc035d2ab7045663763b0a7c963a211e8`.
+Embedded `ARCHIVE-MANIFEST.json`, SHA256
+`6f41214ac6acfceeb29d29536da1c85c2dac026a39ad394b643d1cd378fd584c`;
+833 payload members /19,486,271,362 uncompressed bytes all pass local size/SHA256
+readback. [Local receipt](docs/reports/hu200-river-search-artifacts/cost-archive-local-receipt.json).
+Archive retains complete pilot outputs and native profiles, both pilot attempts,
+earlier failures, reference/replay evidence, raw resource traces, frozen real
+input journals, verified play cache, external solver source/binaries and source
+provenance. The immutable #306 blueprint and K50 tables are dependencies indexed
+below, not duplicated here; [input hashes](docs/reports/hu200-river-search-artifacts/inputs.json).
+
+The verified ZIP is copied over the private cable to
+`bb128:/research/PR-317-HU200-river-search/`; all 833 payload members are
+uncompressed at identical member paths and pass independent disk size/SHA256
+readback. [Retention receipt](docs/reports/hu200-river-search-artifacts/cost-uncompressed-retention.json).
+Drive upload was initially deferred during Slumbot play. All seven archives
+are now accepted with IDs, MD5/size and complete local coverage in the
+[closeout receipt](docs/reports/hu200-river-search-artifacts/cloud-closeout-receipt.json). Remote path is
+`gdrive:PR-317-HU200-river-search/hu200-river-search-cost-gate-M4-20261016.zip`;
+it is now an accepted restoration source.
+
+Closed archival guard streams and the cost report snapshot are additionally
+preserved in `hu200-river-search-cost-administration-20261016.zip`, 32,359 bytes,
+SHA256 `8464d1ec8bfa5cfb68d62d4696e622656bcef43e124a09ef6fa3f2d4bf6edb24`.
+Its embedded `administration/ARCHIVE-MANIFEST.json` has SHA256
+`1dc5cf5319a8e6ed3d8d277e4f17741557849373cf6dbe4bd0510002be34f918`.
+All 12 payload members pass local readback and the copied uncompressed bb128
+administrative files match. [Compact receipt](docs/reports/hu200-river-search-artifacts/cost-administration-local-receipt.json).
+This supplemental ZIP is also accepted in the closeout receipt; no science was
+run to prepare it.
+
+Retrieve the verified ZIP with
+`rsync bb128-lan:/research/PR-317-HU200-river-search/hu200-river-search-cost-gate-M4-20261016.zip RESTORE_ROOT/`
+from the M4/private cable, or use `bb128:` for the administrative host. Verify
+the whole SHA256 above, extract the named member into a fresh ignored directory,
+then verify its size/SHA256 from the embedded manifest before use. Drive fallback is `rclone copy 'gdrive:PR-317-HU200-river-search/' '/research/PR-317-HU200-river-search/'`
+with acceptance recorded in the closeout receipt. M4 originals remain protected under
+`~/Local/hu200-river-search/`, including its ignored research and preservation
+directories, and the clean pilot worktree `~/Local/hu200-river-search-pilot/`.
+The optimization worktree `~/Local/hu200-river-search-optimized/` and all
+`results/hu200-river-search/optimization-*` roots are also protected. Raw
+optimization parity, failed amended cost, builds, tests and current validation
+remain on M4. Incremental preservation is recorded below. The ZIP
+above covers the original `11fa4fa4` cost study, not this later optimization.
+Keep #306's model/tables, both runtime environments and all shared Git intact.
+No cleanup or additional scientific run is authorized by this receipt.
+
+**Incremental engineering preservation, October 17:** source `214695a3`,
+including both completed optimization cost attempts, full same-24 parity,
+external compact exporter/binary, build/test failures and guards, the restart
+continuity audit and prospective count arithmetic. **1,507 payload files /
+19,478,922,634 bytes** are sealed and copied uncompressed to
+`bb128:/research/PR-317-HU200-river-search/optimization-20261017/`.
+Every payload member passes independent bb128 disk size/SHA256 readback.
+Manifest `optimization-20261017/ARCHIVE-MANIFEST.json`, SHA256
+`fba42a1a74289a5db54a992f00651491ff5f5d61d46bd0cc145826dbbe6be1a4`.
+ZIP **`hu200-river-search-optimization-M4-20261017.zip`**, **2,359,632,223 bytes**,
+SHA256 `d4688e3feabc1998f812911204242995fa62a6e1e2c3af4b1a30729a69349021`,
+passes every member's size/SHA256 readback on bb128.
+[Archive and uncompressed receipt](docs/reports/hu200-river-search-artifacts/optimization-archive-local-receipt.json).
+
+Closed archival/readout/continuity guards, the full audit, M4 release receipt,
+all 24 timing/EV rows and the prospective count proposal are additionally retained
+in **`hu200-river-search-optimization-administration-20261017.zip`**, **110,492 bytes**,
+SHA256 `8e7419281681b3c2bad14e4a886d0e139849b6dfee850282856551879ac7f16b`.
+Its embedded `optimization-administration-20261017/ARCHIVE-MANIFEST.json` has
+SHA256 `37f8e6a30672db5cea16e5ef11847af11ca01470b1e4673db4b353657e6ba0f8`.
+All 43 payload members /485,341 bytes pass ZIP and independent uncompressed
+bb128 disk readback at the same member paths.
+[Local receipt](docs/reports/hu200-river-search-artifacts/optimization-administration-local-receipt.json),
+[uncompressed receipt](docs/reports/hu200-river-search-artifacts/optimization-administration-retention.json).
+
+Both new ZIPs remain under the same bb128 PR root. Restore either with
+`rsync bb128-lan:/research/PR-317-HU200-river-search/ZIP_NAME RESTORE_ROOT/`,
+verify its whole SHA256, extract into a fresh ignored directory, and verify
+member sizes/SHA256s from its embedded manifest. Drive acceptance is complete under the shared-uplink rule: the
+`gdrive:PR-317-HU200-river-search/ZIP_NAME` destinations have accepted IDs/MD5 in the linked closeout receipt and are
+available restore sources. Drive fallback is `rclone copy 'gdrive:PR-317-HU200-river-search/' RESTORE_ROOT/`.
+Restore through the private cable with
+`rsync -a bb128-lan:/research/PR-317-HU200-river-search/optimization-20261017/ RESTORE_ROOT/`
+and verify the relative payload paths/sizes/SHA256s from that manifest.
+The original cost-gate ZIP supplies the original external upstream dependency;
+#306 supplies model/K50 inputs. Original M4 roots and the hard-linked incremental
+preservation staging root remain protected; no original has been removed.
+
+The preservation guard completed successfully; a nonblocking common-lock check
+confirmed availability at **20:58:47 UTC /22:58 Madrid, October 16**. The M4
+reservation is released. [Guard receipt](docs/reports/hu200-river-search-artifacts/cost-preservation-guard.json).
+
+
+**Evidence-I/O/calibration preservation, October17:**
+`bb128:/research/PR-317-HU200-river-search/calibration-20261017/` contains
+**13,496 payload members /1,642,132,532 bytes**, with full ledgers/telemetry,
+outcome-independent selected bodies and all failures, every intermediate stop,
+fixed24 parity/cost/concurrency, all352 calibration blocks, verification barrier,
+frozen source/control/input provenance. All unpacked files and all ZIP members
+pass SHA256 readback. Archive **`hu200-river-search-calibration-M4-20261017.zip`**,
+**633,416,285 bytes**, SHA256
+`efa83610c98cbb4d8f93245d7472673fe5bb56f051eb310768ad08102733ad64`;
+embedded `calibration-20261017/ARCHIVE-MANIFEST.json`, SHA256
+`5a48332e0d228b50a6674868668863b76949fe6aaa387410f99a90148e426d85`.
+[Local readback receipt](docs/reports/hu200-river-search-artifacts/calibration-archive-receipt.json),
+[summary](docs/reports/hu200-river-search-artifacts/calibration-summary.json),
+[global verification barrier](docs/reports/hu200-river-search-artifacts/calibration-all-hands-verified.json),
+[release](docs/reports/hu200-river-search-artifacts/calibration-m4-release.json).
+
+The sealed source pins compact native binary SHA256
+`9e1efe275c2eab216e3af9da20d55dea9436e88aacb057a41b86b32c171cf914`,
+restorable from the prior optimization ZIP member
+`optimization-20261017/research/optimization-01/external/harness/target/release/hu20-exact-flop-tool`.
+The original cost ZIP supplies the verified play cache and original upstream;
+#306 supplies the immutable blend SHA256
+`ce3ecc2cb8ebffa1fb3e0a7f11c79d0900b74008b55d85093e1915ff4dde6485`
+and pinned K50 tables. Calibration members are rooted at
+`calibration-20261017/research/calibration-02/`; exact paths/hashes are in the
+embedded manifest. Selected native bodies/requests are already losslessly gzip
+encoded research files, with original-byte SHA256 in each native receipt.
+
+Retrieve the ZIP via
+`rsync bb128-lan:/research/PR-317-HU200-river-search/hu200-river-search-calibration-M4-20261017.zip RESTORE_ROOT/`
+or `bb128:` for the administrative host; verify archive SHA256, extract to a
+fresh ignored directory, then verify required member hashes before use. The
+Drive destination is
+`gdrive:PR-317-HU200-river-search/hu200-river-search-calibration-M4-20261017.zip`;
+acceptance is complete in the deployed-tool closeout receipt. Drive
+fallback is `rclone copy 'gdrive:PR-317-HU200-river-search/' RESTORE_ROOT/`.
+All seven archives transferred serially from bb128 after Slumbot became idle;
+Drive MD5/size acceptance covers all 16,029 current local files. No Mac synced
+folder is written.
+M4 originals, hard-linked staging, shared inputs and open roots remain intact.
+Supplemental **`hu200-river-search-calibration-administration-20261017.zip`**
+retains the closed preservation/proposal guards, M4 release, final-count
+arithmetic and administrative/report source: **112 payload members /1,121,565
+bytes**, ZIP **466,679 bytes**, SHA256
+`6a2bf2fa3968d2be8cc3635dd167af7a729b7d3ea67aeded8aab7b3ac25f7f43`.
+Embedded `calibration-administration-20261017/ARCHIVE-MANIFEST.json`, SHA256
+`ae7416c78c9450fb8e01a815dd1853b46b219392601a3f35d648ca1560764a04`.
+Both ZIP and uncompressed bb128 files pass all SHA256 readback;
+[receipt](docs/reports/hu200-river-search-artifacts/calibration-administration-archive-receipt.json).
+Retrieve this ZIP by the same bb128/private-cable command and verify the above
+hash/manifest before extraction; its Drive fallback is the same PR317 folder
+with this ZIP name after upload acceptance. A storage-only symlink-path receipt
+failure and resolved-path recovery are additionally preserved and indexed at
+closeout; no deployed tool or research result changes.
+
+
+**Drive closeout accepted October 17:** [all seven objects, IDs/URLs, MD5s and
+local coverage](docs/reports/hu200-river-search-artifacts/cloud-closeout-receipt.json).
+All **16,029 current local files** have unchanged size/mtime receipt coverage;
+no uncovered/changed files. Acceptance is remote MD5/size plus local ZIP-member
+CRC32/size, complementing the separately verified SHA256 manifests; it is not a
+remote SHA256/member audit. No original has been removed.
+
+Latest [calibration ZIP](https://drive.google.com/file/d/1U2JH2J65ulvrg5YmyidWEh2VgwQ1D-Fm/view) has Drive MD5
+`8de72cd0ca01157d0712a7d79fd60959`. The [storage closeout ZIP](https://drive.google.com/file/d/1uUh-urUYsDfHjYUhkaw4RXs9pZenqZMR/view)
+retains the failed symlink-path receipt, unchanged-tool resolved-path recovery,
+closed logs/control and the pre-closeout acceptance snapshot: **13 payload
+members /4,050,673 bytes**, ZIP **343,720 bytes**, SHA256
+`68b44362546cdf01600680c10bad89797a110b43e75918df57c7a4172d385a5f`.
+Embedded `storage-closeout-20261017/ARCHIVE-MANIFEST.json`, SHA256
+`88591d968f7076f8430d045bf37621d5e070d53ad0abcbff205a120d2adf7f90`;
+all unpacked/ZIP SHA256 readback passes. Drive MD5
+`54382b6a362d8568ee667b3f7463fb0c`. [Readback receipt](docs/reports/hu200-river-search-artifacts/storage-closeout-archive-receipt.json),
+[path plumbing record](docs/reports/hu200-river-search-artifacts/storage-upload-path-plumbing.json).
+Uncompressed copies remain under the same bb128 root at their exact ZIP member
+paths. Restore any ZIP with the private-cable command above or
+`rclone copy 'gdrive:PR-317-HU200-river-search/' RESTORE_ROOT/`, verify its recorded
+whole SHA256, extract into a fresh ignored directory and verify needed member
+hashes before research. This closeout authorizes no open-PR cleanup or final play.
+## PR421 — saved six-player trajectory completed and exactly reproduced
+
+[Results/interpretation](docs/reports/nplayer-six-player-trajectory/results.md),
+[compact partitions/proofs/costs](docs/reports/nplayer-six-player-trajectory/results.json),
+[16-panel CSV](docs/reports/nplayer-six-player-trajectory/panels.csv),
+[all descriptive partitions](docs/reports/nplayer-six-player-trajectory/partitions.csv).
+24 unique initial traces /7,989,712,885bytes; 1,179,648 physical instances,
+786,432 paired comparisons across 3B→10B and10B→15B ×eight fields. All input
+hashes/reference block means/SE/coverage reconcile; deterministic outputs match:
+`f4a408f1c2ddc9d4af9d4d080eace57d4d184d6c649b6522a5811996644a2267`.
+Inventory `dcdbda4b1b8ff93529b080df3d9721f0fb569409c05c61d2a6a76bc78bf5da8b`;
+scanner source `ed5ac7804c97e12a6bd50f3aaa133703c637e55e`.
+
+M4 waits12:18:46–13:27:33UTC on one kernel event, then active transfer/verify/two
+scans complete13:34:54UTC /15:34:54Madrid in7m21s. Copy238.30s, destination SHA
+2.92s, scans98.36/101.44s; no overlap with419main. >99.96% of first changes
+are at positive-mass rows;87.93%/82.75% begin preflop. Descriptive only: no new
+strength claim or causal attribution, prior417family decisions retained.
+
+Ordinary working/final evidence remains at
+`m4:/Users/dberweger/Local/cfr-six-player-trajectory-diagnosis-20261024/`;
+source traces/proofs remain at
+`bb128:/home/dberweger/nplayer-six-player-candidate-20261023/main-v1/`;
+source operational gate/transfer receipts at
+`bb128:/home/dberweger/nplayer-six-player-trajectory-20261024/`.
+Failed qualification-v1 and completed qualification-v2 preserved. Owner cleaner
+packages later as complete relative-path ZIP sets on bb128 HDD; research-payload
+Drive acceptance pending, no original deletion or pre-ZIP/upload claimed.
+[Qualification history](docs/reports/nplayer-six-player-trajectory/qualification.md),
+[accepted launch](docs/reports/nplayer-six-player-trajectory/launch.json).
+
+## PR396 — fresh frozen river screen is inconclusive on both panels
+
+[PR396](https://github.com/dberweger2017/CFR-NLHE-6max/pull/396), proposal395;
+[analysis](docs/reports/river-fresh-screen/results.md).
+Frozen source `6145e4d4f774afb7e0af09d3098143547ed05808`, unchanged qualified
+native binary/player, focal003/peer601. Fresh roots2026102239601/02,1,024
+six-permutation blocks per lineup,24,576 initial hands independently replayed
+plus24,576 byte-identical reproductions. All2,065 root values/profiles/work
+reproduce, no exclusions/incomplete roots/extra solves/reconstructions/retry.
+
+Trained peers−1.11[−6.30,+4.08], check-call/pressure+2.50[−6.98,+11.99]BB/100
+(simultaneous two-panel family95), both inconclusive. The old scripted adverse
+point estimate does not recur; no benefit or−5 non-inferiority is established.
+Neither predeclared clear-unacceptable-harm flag fires. Largest peer block18.1%
+of centered variation/top3 39.9%; scripted8.2%/20.5%. Variance ratios0.218/0.558,
+with sampled means+7.39/−0.99 preserved, no favorable-estimator selection.
+
+All five stages0;19 focused Python checks,73 unchanged native files/prior120
+native tests, known-deal96+96 qualification passes. Fresh screen/readout1,668.46s;
+all stages2,144.61s/3,222.34childCPU-s,27.70GiB sampled, CPU67/Thermistor15 66°C,
+no swap growth. One quality fallback and two peer off-tree events retained.
+
+[Unaltered readout/tail examples](docs/reports/river-fresh-screen/results.json) ·
+[lineups](docs/reports/river-fresh-screen/lineups.csv) ·
+[selected blocks](docs/reports/river-fresh-screen/tails.csv) ·
+[quality/off-tree/work](docs/reports/river-fresh-screen/diagnostics.json) ·
+[costs/resources](docs/reports/river-fresh-screen/costs.json) ·
+[pins](docs/reports/river-fresh-screen/provenance.json).
+
+[One prospective proposal](docs/reports/river-fresh-screen/followup-proposal.md):
+three frozen lineages,2,048 peer/4,096 check-call-pressure blocks per lineage,
+442,368 initial/reproduction instances, separate primary3/safeguard3 families,
+proposed−5 margin.4.01h central/10.72h reserve in proposed12h budget; no80h-design
+joint-power/broad-script/release guarantee and no automatic launch. Exact
+[count/power/cost arithmetic](docs/reports/river-fresh-screen/followup-proposal.json).
+
+All originals remain `bb128:/home/dberweger/river-fresh-screen-20261022/`,
+including setup bundles/logs, native/source identities and every raw trace/value.
+Protected external models/K50/env/Git stores stay read-only and uncopied.
+[Accepted archive/restoration](docs/reports/river-fresh-screen/archive.json):
+`/research/PR-396-river-fresh-screen/`,
+[fresh-screen-evidence-20261022.zip](https://drive.google.com/file/d/1jc1IVetp3cFzm8vSbOk10BCJOndyWOTZ/view),
+17,691,383bytes, SHA256`0fa30a928c46e18f517aad994a398deb7adbea9ede1e605a5545e70337ecda74`,
+manifestSHA256`d63cebffeb581ed07296cad2477df95d67e248a28d53ef0b483b526053181cb1`.
+All130 payload members plus manifest read back locally; deployed-tool receipt
+accepts Drive MD5`25e0882eb93f29079b57dfbc7994bb51`/size and covers132 unchanged
+local files. Updated04:51:54UTC. No remote SHA256/member audit claimed. Raw
+qualification/screen traces/values, partial/setup logs, both source bundles,
+qualified owned binary and offline summary input preserved. External models/
+K50/env/Git stores referenced only; KEEP/all originals retained, zero deletion.
+No cleanup, other jobs, new machine or timer.
+
+## PR394 — full inline expectations pass, evaluation engineering complete
+
+[PR394](https://github.com/dberweger2017/CFR-NLHE-6max/pull/394), proposal392;
+[report](docs/reports/river-arena-expectation/measurement.md).
+Owner-accepted unchanged source `dc58d5192ebae768a14ead940a05ff86220128af`;
+`bb128:/home/dberweger/river-arena-expectation-20261022/measurement-v1` completes
+October22,03:04:52UTC. Both passes match all384 original float64/profile/work
+records with zero new solves/reconstructions;381 enumerations and3 identical-policy
+quality cancellations each.9,216 initial hands independently replay/match PR388;
+9,216 fresh reproductions identical. No exclusions, failure, retry or new deal.
+
+Complete720.26s wall/901.42childCPU-s; loading465.81s, play/write251.20s including
+0.634s expectations, proof2.20s. Sampled27.70GiB, CPU65/Thermistor15 63°C,
+zero swap growth. Old separate workflow1,627.97s→720.26s,2.26× speedup;
+sampled-only728.23s difference is ordinary one-job variation. Preserve PR391
+variance/adverse means; primary variance × wall ratio0.409 cold/0.408 amortized.
+No strength verdict. [Proof/costs/resources/work](docs/reports/river-arena-expectation/measurement-results.json) ·
+[lineups](docs/reports/river-arena-expectation/measurement-lineups.csv) ·
+[pins/admission](docs/reports/river-arena-expectation/measurement-provenance.json).
+
+Engineering complete; [one concrete fresh strength proposal](docs/reports/river-arena-expectation/strength-study-proposal.md)
+awaits owner choice: fixed three lineages, proposed+5 primary effect/−5 safeguard
+margin, separate primary3/safeguard12 families,3,437,568 total hand instances,
+26.16h central/76.99h reserve, proposed80h budget. Normal-model nominal80% joint
+power is conditional on zero safeguard harm, not an empirical pass prediction;
+old check-call/pressure−14.81 remains adverse. No campaign/other engineering
+authorized. [Exact sizing/cost metadata](docs/reports/river-arena-expectation/strength-proposal.json).
+All originals/partial logs/protected inputs retained. [Accepted archive and restoration](docs/reports/river-arena-expectation/archive.json):
+`/research/PR-394-river-arena-expectation/`,
+[main ZIP](https://drive.google.com/file/d/1kQPBCsiOBTBcFColNfB9JLrbwn5F8ziU/view)
+6,635,240bytes, SHA256`f3dfb5ed4b08478aa891c65aa884d0c9e4a8d18845a641d2a0f915842fdc134c`,
+manifestSHA256`558077cf0c22d0865ff7be493c5188ffe47c63aa60578e0ec19dc1ca9a0b396c`;
+[closeout retrieval/administrative receipts](https://drive.google.com/file/d/1LRs38uRGTEVY-flwPYApH4tcB50TzCIv/view)
+9,995bytes, SHA256`f446514aabfd62b6f21cd6ea2b97bd6cf363ad0215481c9f06959ed40ec3b4e5`,
+manifestSHA256`39c6dfd6c4ae08c09708e635712d4596d294fdf597fc61480a38bd1598507045`.
+All payload/member SHA256 readback passes; deployed tool accepts Drive MD5/size
+and covers266 local files with no missing/changed entry. Receipt updated
+03:19:43UTC; no remote SHA256/member audit claimed. Raw qualification/calibration/
+full traces/sidecars and local partials, source bundle, qualified binary and
+offline reporting input preserved. Models/K50/env/Git dependencies external
+and uncopied; KEEP/all originals retained, zero deletion.
+
+## PR393 — inline arena expectations: small calibration passes, subsequent full measurement admitted above
+
+[PR393](https://github.com/dberweger2017/CFR-NLHE-6max/pull/393), proposal392;
+[report](docs/reports/river-arena-expectation/calibration.md).
+Frozen source `dc58d5192ebae768a14ead940a05ff86220128af`; all120 optimized native
+library tests and14 focused Python checks pass. Fixed first4 original blocks
+across12 on/off cases:288 initial hands independently replay and match PR388
+bytes;288 fresh reproductions match byte-for-byte. Both passes'12 encountered
+roots match PR391 expected float64 values, original profile hashes and work,
+with no new solver advances/profile reconstruction, exclusions or new deals.
+
+Supervised calibration470.05s/476.23childCPU-s; driver468.63s, model/K50 loading
+462.24s, play/write6.11s including inline expectations16.42ms. Sampled27.70GiB,
+CPU60/Thermistor15 59.5°C, no swap growth. Full384-root cost/parity is not yet
+measured; fixed128-block quote11m03s central/35m11s reserve requires explicit
+acceptance and has not started. This is engineering qualification, not strength.
+
+[Verification](docs/reports/river-arena-expectation/calibration-verification.json) ·
+[costs/resources/work](docs/reports/river-arena-expectation/calibration-costs.json) ·
+[CSV](docs/reports/river-arena-expectation/calibration-costs.csv) ·
+[quote](docs/reports/river-arena-expectation/full-measurement-quote.json) ·
+[source/input/binary pins](docs/reports/river-arena-expectation/provenance.json).
+
+Raw original traces/sidecars/logs/source/binary retained at
+`bb128:/home/dberweger/river-arena-expectation-20261022/`; local test partials and
+retrieved compact receipts retained in ignored `planning/arena-expectation/`.
+Archive/Drive acceptance pending. PR388/391 traces, original models/K50 and
+Git/environment dependencies remain read-only, uncopied and protected.
+No cleanup, new timer, strength launch or default change.
+
+## PR391 — complete river action-expectation assessment: variance falls, primary wall efficiency is marginal
+
+[PR391](https://github.com/dberweger2017/CFR-NLHE-6max/pull/391), proposal389;
+[analysis](docs/reports/river-conditional-evaluation/assessment.md). Assessment
+source `aff3228b79268a8b0766874f7fa60c51e6fa148a`, qualified native9998501a;
+all384 original profile/float64 strategic records reproduce in a fresh pass,
+with381 complete enumerated profiles and3 symbolic identical-policy quality
+fallbacks. No incomplete root, exclusion, new deal, scientific retry or player change.
+
+- Trained primary variance ratio0.414; full-supervised variance × wall-cost ratio
+  0.925 cold /1.104 amortized. Its CPU-cost ratio0.822 is a separate metric.
+- Trained-pressure0.050 /0.112 /0.134; pressure0.028 /0.063 /0.075;
+  check-call/pressure0.453 /1.012 /1.209; random/TAG0.059 /0.131 /0.157
+  (variance /cold-wall /amortized-wall). Check-call/check-call has no intervention,
+  so ratios are undefined. Preserve all descriptive means and adverse panels.
+- Main899.75s wall/898.22childCPU-s; loading468.66s, reconstruction414.68s,
+  enumeration0.587s/446,036states, max3,891states/arm versus200K limit.
+  Sampled27.68GiB peak, CPU59/Thermistor15 58.5°C, no swap growth or guard crossing.
+  All stages return0;11 preflight focused tests pass on host.
+- One block contributes80.5% of primary residual centered squared variation.
+  Pressure's bootstrap has61 undefined zero-denominator resamples; finite
+  percentiles condition on9,939 defined replicates. One focal lineage and saved
+  development deals do not establish fresh strength or a shorter campaign.
+
+The cost calculation keeps the whole measured PR388 generate/play/replay cost as
+a conservative future-prefix allowance, plus this assessment. Cold/amortized
+views use a common whole-panel cost basis, not marginal per-lineup timing or an
+implemented fresh pipeline. Raw precomputed ratios and separately derived full
+supervision/CPU accounting are both retained. No automatic strength campaign;
+direct arena reuse of loaded models/captured profiles is a proposed bounded
+engineering task, not a measured gain. Keep the player frozen.
+
+[Accepted allocation](docs/reports/river-conditional-evaluation/assessment-admission.md) ·
+[unaltered readout](docs/reports/river-conditional-evaluation/assessment-results.json) ·
+[derived analysis](docs/reports/river-conditional-evaluation/assessment-analysis.json) ·
+[lineups](docs/reports/river-conditional-evaluation/assessment-lineups.csv) ·
+[verification](docs/reports/river-conditional-evaluation/assessment-verification.json) ·
+[costs/resources/work](docs/reports/river-conditional-evaluation/assessment-costs.json) ·
+[pins](docs/reports/river-conditional-evaluation/assessment-provenance.json) ·
+[archive receipt/restoration](docs/reports/river-conditional-evaluation/assessment-archive.json).
+
+**Accepted archive:** cache `/research/PR-391-river-conditional-efficiency/`,
+[river-conditional-assessment-20261022.zip](https://drive.google.com/file/d/1wSdmfm9U3V2FfYvgPIKD0YMaCKMKDR-b/view),
+1,880,831bytes, SHA256`379c09a81eae8e1edc87e1ef56a83b88de40e686dd1ca859c6efe5f06979c27c`,
+manifestSHA256`c3d568c6fbc020e7c788c8cc7f9e86a1cf6106a94477ac4e0b930f2808801753`.
+All77 payload members plus embedded manifest locally read back; deployed receipt
+accepts Drive MD5`a5c6cc673e186691cb3b7acb619d2cf4`/size and covers79 local files.
+Includes original PR390 qualification/calibration and PR391 raw expected-value
+records/proofs, logs/resources, source bundles and qualified binary. External
+PR388 traces/models/K50/environments/Git stores are referenced only. Both fast
+cache retrieval and Drive fallback are in the receipt. Remote bytes not downloaded;
+no remote SHA256/member audit. KEEP and all originals at
+`bb128:/home/dberweger/river-conditional-evaluation-20261022/` remain. No deletion,
+other-job/environment change, schedule or additional experiment.
+
+## PR390 — river action-expectation fixtures and cost calibration pass
+
+[PR390](https://github.com/dberweger2017/CFR-NLHE-6max/pull/390), proposal389.
+Runtime `9998501a4a6794d7c682d39e4edb436b69e04d29`; source bundle SHA256
+`1beceaf020a3a997191f426fd12ad3d0eed60a0d5631d6bd9f6b9fbc13422142`.
+All116 native library tests, one native script-law test and seven focused Python
+tests pass. Qualification60.58s; calibration250.17s wall/249.01childCPU-s.
+All13 predeclared calibration root/profile identities match: ten installed
+profiles enumerate20 continuations,9,652 states in0.01155s; three original quality
+fallbacks cancel identical policies symbolically. Model/K50 startup234.20s,
+profile reconstruction14.07s, sampled peak27.67GiB, CPU58/Thermistor15 56.5°C,
+zero swap growth. No failure, extra convergence, policy/default change or new deal.
+
+The frozen full inventory is384 roots,381 installations,3 quality fallbacks,
+including unchanged sampled actions and all original six-permutation blocks.
+The published all384 plus reproduction quote is21.67min centrally,3h42m59s
+conservative reserve, **not admitted or started**. All-root verification/readout
+code is prepared, with11 focused local tests passing; original runtime unchanged.
+No variance-reduction, compute-efficiency or strength verdict yet.
+
+[Report](docs/reports/river-conditional-evaluation/results.md) ·
+[inventory/quote/work metadata](docs/reports/river-conditional-evaluation/calibration.json) ·
+[root work table](docs/reports/river-conditional-evaluation/calibration.csv) ·
+[costs/resources](docs/reports/river-conditional-evaluation/costs.json) ·
+[provenance](docs/reports/river-conditional-evaluation/provenance.json) ·
+[protocol](docs/river-conditional-evaluation.md).
+
+Originals remain `bb128:/home/dberweger/river-conditional-evaluation-20261022/`,
+including privileged inventory/values, source/build and raw logs/receipts.
+PR388 traces, PR367/361 models, K50 and Git/environment dependencies are read-only
+and retained. Archive/Drive acceptance pending; no deletion or external input copy.
+
+## PR388 — whole-hand river integration qualifies; strength remains inconclusive
+
+[PR388](https://github.com/dberweger2017/CFR-NLHE-6max/pull/388), proposal387.
+Frozen runtime `46caeceb88d24733f393f567c2b1e2fd6300cc4d`; focal 10B seed 2026101935003,
+fixed peer 10B seed 202610200601. Six declared pairs ×128 six-permutation blocks ×two arms;
+all 9,216 initial hand instances independently replay and all 9,216 fresh reproductions
+match byte-for-byte. No model, menu, default, training or confirmatory strength change.
+
+- Search attempts 384/4,608 search-on hands; 381 install (8.27%). Three declared-game quality misses
+  remain blueprint; 97 retained decisions use zero new solves, one continuation repeats a quality
+  fallback and one encounters an omitted 3,700-chip raise (neither all-in nor cap boundary).
+  Saved cap/all-in cases 21/91 separately qualify as public-path controls. Check-call/check-call
+  has no intervention, so its zero sample variance is uninformative.
+- Root mean0.559s/median0.430s/p951.367s/p993.057s/max3.094s. Main728.23s/12.14min,
+  910.42childCPU-s; two batches load shared models/K50 for470.06s and play/write for251.48s.
+  Sampled27.70GiB peak, CPU65/Thermistor15 64°C, zero swap growth. Four workers selected only
+  from measured1/2/4worker cost and strategic parity. All main stage return codes 0.
+- Trained-pair contrast+2.90BB/100, exploratory95%[−24.68,+30.48]; all nonzero lineup intervals
+  cross zero. Rare blocks dominate squared contrasts; no pooled strength verdict. Conditional
+  three-lineage primary-only5BB/100 effect scenarios take4.8–14.0h,2BB/100 takes27.7–82.6h;
+  unmeasured seed variance, safeguards and qualification excluded. No automatic continuation.
+- 111 native + 4 Python tests pass; 144 fixture + 144 fresh reproductions and 12 ordinary-arena parity
+  hands qualify. Retained original diagnostic-idempotence preflight failure, new-clone Git
+  setup failure and archive setup/receipt plumbing findings; no final hand retried.
+
+[Report](docs/reports/river-whole-hand-pilot/results.md) · [settled readout/proofs](docs/reports/river-whole-hand-pilot/results.json) · [lineups](docs/reports/river-whole-hand-pilot/lineups.csv) · [seat coverage](docs/reports/river-whole-hand-pilot/seat-coverage.csv) · [operational analysis](docs/reports/river-whole-hand-pilot/operational.json) · [costs/resources](docs/reports/river-whole-hand-pilot/costs.json) · [provenance](docs/reports/river-whole-hand-pilot/provenance.json) · [pre-main calibration](docs/reports/river-whole-hand-pilot/calibration.json) · [conditional next-study scenarios](docs/reports/river-whole-hand-pilot/future-cost-scenarios.json).
+
+Originals retained at `bb128:/home/dberweger/river-whole-hand-pilot-20261021{,-v2}/`,
+including all failures, traces, timings, sources/build/environment and dependency pins.
+Only compact reports were retrieved locally. External PR367/361 models, K50 and other
+PR Git/environment dependencies remain read-only, outside the archive. No deletion.
+[Archive coverage, manifest/input pins and both retrieval routes](docs/reports/river-whole-hand-pilot/archive.json).
+
+**Drive acceptance verified October22:** main ZIP10,009,536bytes, SHA256`b97d6ee5f0269a2eda0d86105f14eb1bd2cbd8d6292e1ad12c8e4fa024e0798a`, manifestSHA256`e8361a1780d40d03029194e4fe39d44b387c94c7be9569903659fcdbae07edc3`, DriveID`1dZU0DTq2tpV7Hg5eDShKyqbEUwh5zRhT`, MD5`5616038add90cf72b033a25c9baf66bd`. CloseoutZIP7,292bytes, SHA256`50d2b8ec57e67413d75aba17431e0e08d8ccd37dfae74605c5adbe6a8b75c16b`, DriveID`1RFrA8Rm7d7EkqoZMXIjBimRAl5IemSdL`, MD5`c421c4f3468e6c01f5c5273f83fa7883`. All 387 local files covered with matching size/mtime; no uncovered files. Local ZIP/member SHA256 readback and remote MD5/size acceptance are distinct. KEEP and originals retained; no deletion.
+
+## PR386 — retaining the opponent's minimum raise after a root bet: retained
+
+[PR386](https://github.com/dberweger2017/CFR-NLHE-6max/pull/386). It compares `pot-jam-cap3-root-check-min-v1` with `pot-jam-cap3-root-min-responses-v1`, a single added response, on PR380's frozen 200-root development panel.
+- **Shared settings:** the frozen v0.6 seed 2026101935003 10B, DCFR, the raise cap and the blueprint fallback.
+- **Phases:** projected and exact beliefs at the deployment target, projected beliefs at the strict target, and a response diagnosis.
+- **Verification:** every phase was reproduced exactly; source `daf39a62`.
+
+Frozen-rule verdict on projected deployment profiles, measured under the exact full-menu law:
+- **Harms:** decisions worse than the blueprint fall from **23 to 10**.
+- **Median paired worst-case change:** **+0.128 BB** (164 better / 34 worse).
+- **Latency:** median 0.474 s and p95 1.751 s, within the gates.
+
+The other views:
+- **Strict (199 matched pairs):** harms 28 → 13, median +0.127 BB.
+- **Exact beliefs:** they change neither harm count and cost about 10× the latency.
+- **Diagnosis:** the minimum-raise exposure is gone, and the remaining exposure moves one level deeper, to the opponent's minimum re-raises. Case 21, at −7.7 BB, shows the mechanism.
+
+[Report](docs/reports/river-root-min-responses/results.md) · [per-case table](docs/reports/river-root-min-responses/cases.csv) · [summary](docs/reports/river-root-min-responses/summary.json) · [protocol](docs/river-root-min-responses.md).
+**Archive:** `bb128:/research/PR-386-river-root-min-responses/`. It holds all records, logs, calibration, quote, temperatures and a source bundle; the rebuildable `source/` and `target/` are not included. ZIP `PR-386-river-root-min-responses.zip` is 270,136,649 bytes (68 files), SHA256 `3e76500fc9762c6ecc549f72fc0a8a5f8984c86ce8b3f2dcb5bf4c1d7f86d2f8`, uploaded to Drive with a receipt.
+
+## PR384 — saved-profile river harm diagnosis verified
+
+[PR384](https://github.com/dberweger2017/CFR-NLHE-6max/pull/384), proposal383. Measured runtime `895f853f407f6f618fce396f1a5c36c17f778941`; later rebase onto mergedPR382 has a byte-identical tree. Frozen v0.6 seed2026101935003; eight selected prior development cases0/53/69/75/79/113/137/195, not fresh confirmation. All24 original profile digests, root/work/quality/statuses reconstruct exactly. Two saved-snapshot exact-law audit passes reproduce all strategic quantities and profile hashes with zero advances; all four stages return0.
+
+- Minimum raises after hero's own opening bet dominate the identified omitted replies in all six installed selected cases. Expanded-exact leave-one-out WC effects:79's1→2BB +2.5119BB,113's8→16BB +4.5101BB. The same1→2BB response restriction on both profiles changes75's exact-minus-projected gap−1.3353→+0.0224BB and53's−1.1201→−0.2628BB. Effects overlap, cannot be summed, and do not predict menu-expansion or population gains.
+- Off-tree entries already play blueprint; swapping BP again changes no rows. Blanket on-tree BP replacement loses12.2529BB in75 and10.6349BB in53 after check/pot-bet entries. Actual137/195 remain blueprint, separate from uninstalled solver profiles; no quality threshold or work extension.
+- Main859.50s/14.32min,856.99childCPU-s,three119.9–120.0s starts; sampled14.81GiB, CPU60/Thermistor15 59.5°C, no swap growth. Calibration3.60min (107native/7focusedPython), local11focusedPython pass. Pre-main quote13.68–24.58min; all counts unchanged. Readout0.1045s; wrapper maxRSS is cumulative across earlier children, not isolated readout memory. No scientific/setup/resource failure.
+
+[Results and recommendation](docs/reports/river-harm-diagnosis/results.md) · [compact full readout](docs/reports/river-harm-diagnosis/results.json) · [eight-case comparisons](docs/reports/river-harm-diagnosis/cases.csv) · [1,118 response counterfactuals](docs/reports/river-harm-diagnosis/responses.csv) · [24snapshot pins](docs/reports/river-harm-diagnosis/snapshot-pins.csv) · [verification](docs/reports/river-harm-diagnosis/verification.json) · [costs](docs/reports/river-harm-diagnosis/costs.json) · [source/inputs/provenance](docs/reports/river-harm-diagnosis/provenance.json) · [pre-main qualification/quote](docs/reports/river-harm-diagnosis/calibration.json).
+
+Originals remain `bb128:/home/dberweger/river-harm-diagnosis-20261021/` (`main-v1`, `readout-v1`, `calibration-v1`, source/bundle/binary/logs); 24 float64 snapshots total 26,435,977 bytes and stay off Git. PR382/380 Git object stores, parent records, original model/K50 remain protected dependencies. Only compact derived files were retrieved locally; no originals or other jobs were modified or deleted. PR384 is merged. The model, historical harms and both convergence misses remain unchanged; this diagnosis launched no optimization, menu expansion, arena or defaults.
+
+**Archive verified October 21:** cache `bb128:/research/PR-384-river-harm-diagnosis/`; ZIP `PR-384-river-harm-diagnosis.zip`, 9,467,380 bytes, 88 evidence files + 2 metadata members, SHA256 `252455dd7e415243a4e8474edcb7212ec89357899e37c955069a3ce774f1c551`. Current Drive ID/size/MD5 match the receipt; all local members and evidence SHA256s match, including all 24 main snapshots. [Drive, receipt hashes, coverage and retrieval](docs/artifacts/river-search-archive-receipts-20261021.md#pr384). Original source/build/environment and protected dependencies remain outside this archive.
+
+## PR382 — exact modeled river beliefs verified; latency and every-root gates fail
+
+[PR382](https://github.com/dberweger2017/CFR-NLHE-6max/pull/382), proposal381. Measured source `e2a91181f77d9c5b0a4de545bccbe498391875fe`, analysis-only `49f49fc3`; frozen v0.6 seed2026101935003 and PR380's reused200-root development panel, not fresh confirmation. All seven stages return0 and20controls/400projected/200exact records independently reproduce strategic fields. Leaf error1.64e-14BB, same-profile quality error3.80e-12BB; dense oracle also checks all600capped profiles. Original400projected outputs exactly match PR380.
+
+- Actual deployment-profile/full-menu exact-law audit: menu change improves hero absolute worst-case value175/200, worsens23, ties2; paired median+0.1569BB, worst harm−2.6549BB. Blueprint regressions46→23, including two new ones. Different diagnostic/accuracy from prior strict counts.
+- Exact solving improves capped exact-law qualification147→198/200, but median3.567s/p9513.229s fails speed and original137/195 still fail every-root quality. Exact versus projected expanded WC improves105/worsens93/ties2, mean+0.0225BB;23blueprint regressions remain. No strength/default claim. All1,482exact retained rows verify with zero new solves.
+- Main39.21min/3.0748childCPUhours,22model startups, sampled74.80GiB, CPU71/Thermistor15 81.5°C, no swap growth.103native/6remote focused Python;9final local readout/driver tests pass. Fixed64-sweep controls show1.91×median paired dense/prefix cost ratio, not a projected-solver speedup or historical matched-convergence belief-gate pass.
+
+[Report and conditional90–180min pilot quote](docs/reports/river-exact-beliefs/results.md) · [compact settled results](docs/reports/river-exact-beliefs/results.json) · [both-law/both-player case audits](docs/reports/river-exact-beliefs/cases.csv) · [original miss curves](docs/reports/river-exact-beliefs/convergence-misses.csv) · [verification](docs/reports/river-exact-beliefs/verification.json) · [costs](docs/reports/river-exact-beliefs/costs.json) · [provenance/retention](docs/reports/river-exact-beliefs/provenance.json) · [pre-main calibration/quote](docs/reports/river-exact-beliefs/calibration.json).
+
+All originals remain `bb128:/home/dberweger/river-exact-beliefs-20261021/` (`main-v1/`, `readout-v3/`). Setup-v1 bundle-ref failure is retained. Post-success reporting wrapper exit127 (`/usr/bin/time` absent) is preserved; saved-data analysis recovered with Python accounting, with no measurement repeated. PR380 source Git object store, panel/deployment/proofs, original model and K50 remain protected read-only dependencies. Only compact reports were retrieved to the ignored local path in provenance. PR382 is merged; original roots/dependencies remain, with no deletion or archive restoration claimed. No pilot, training, arena or new default follows automatically.
+
+**Archive verified October 21:** cache `bb128:/research/PR-382-river-exact-beliefs/`; ZIP `PR-382-river-exact-beliefs.zip`, 3,229,811 bytes, 100 evidence files + 2 metadata members, SHA256 `425c2152222167d486eedc5ef7c2fb61410690bd31b454473757cb8be15aad1f`. Current Drive ID/size/MD5 match the receipt; all local members and evidence SHA256s match. [Drive, receipt hashes, coverage and retrieval](docs/artifacts/river-search-archive-receipts-20261021.md#pr382). Original source/build/environment and protected dependencies remain outside this archive.
+
+## PR380 — fresh river panel, exact retained continuation, belief gate failure
+
+[PR380](https://github.com/dberweger2017/CFR-NLHE-6max/pull/380), proposal379. Measured source `0bb9c621cbf5f4d89bed9fc92d0419fb9825ea66`, readout-only `dfa8da42c4c6a0f40cc1d70c8a8280a529ddc00b`. Frozen v0.6 seed2026101935003; two fresh5,000-hand traces,200 sampled first-river roots,20 preselected pot-stratified controls. No arena, training or defaults.
+
+- Strict199/200 matched pairs:181 improve/18 worsen; median opponent full-menu gain0.7433→0.3152BB, paired median reduction0.1755BB. Blueprint regressions56→32, including three new; worst paired harm2.1285BB. These are modeled engineering diagnostics, not whole-hand strength.
+- Candidate allocation2,961/2,961 and retained installation198/200; deployment median0.360s/p951.345s passes, every-root quality198/200 fails. Retained1,482 exact profile rows, zero new solves.
+- Both belief solves qualify on20/20 at0.01BB, but nine fail the unchanged0.05BB excess gate. Worst1.07138BB; large-pot stress strata fail most. Not a population failure-rate estimate.
+- All16stages0; strategic results reproduce, traces byte-identical and every initial hand independently replayed. Main77.84min/11.4675CPUhours; sampled73.43GiB, CPU74/Thermistor15 95.5C, no swap growth. Preserve pre-science missing-cargo calibration failure. Native94/focused Python8 qualification pass; initial full CI legacy disk failures and hosted-runner space fix documented.
+
+[Report and conditional pilot quote](docs/reports/river-continuation-qualification/results.md) · [compact verified results](docs/reports/river-continuation-qualification/results.json) · [200 cases](docs/reports/river-continuation-qualification/cases.csv) · [belief controls](docs/reports/river-continuation-qualification/belief-controls.csv) · [verification](docs/reports/river-continuation-qualification/verification.json) · [costs](docs/reports/river-continuation-qualification/costs.json) · [source/binary/input pins](docs/reports/river-continuation-qualification/provenance.json).
+
+Originals `bb128:/home/dberweger/river-continuation-qualification-20261021/`: main-v1, readout-v1, both calibration attempts, frozen source/bundle/binaries/logs retained. Prior PR367 model/K50 inputs remain untouched. PR380 is merged; no originals were cleaned up or deleted. The original recommendation was bounded belief engineering before a longer strength study, with no automatic follow-up.
+
+**Archive verified October 21:** cache `bb128:/research/PR-380-river-continuation-qualification/`; ZIP `PR-380-river-continuation-qualification.zip`, 6,911,055 bytes, 97 evidence files + 2 metadata members, SHA256 `4727ffe84d145d961c90b5be1461d880d8b18528c8bc86664de1eb85eb43cbf1`. Current Drive ID/size/MD5 match the receipt; all local members and evidence SHA256s match. [Drive, receipt hashes, coverage and retrieval](docs/artifacts/river-search-archive-receipts-20261021.md#pr380). Original source/build/environment and protected dependencies remain outside this archive.
+
+## PR377 — one minimum opening bet reduces selected-case river vulnerability
+
+[PR377](https://github.com/dberweger2017/CFR-NLHE-6max/pull/377), measured source `a8078b9d14addc721d1567ff15230cc47c7049cc`, frozen comparison SHA256 `efb768b8fc128ec9c41b3ef2e6a9b53c42ef7e6785e3f8f493faed596b88ee50`. Twenty selected diagnostic observations, unchanged v0.6 seed 2026101935003, cap3 versus only the opponent's minimum opening bet immediately after hero's root check. Same projected beliefs, DCFR, raise cap and blueprint fallback.
+
+- Nineteen matched-accuracy pairs qualify; one remains inconclusive. Opponent full-menu gain improves on 14 and worsens on five; paired median reduction 0.4163 BB. Regressions versus blueprint-only fall 9→4 (six removed, one new). This is selected-case engineering evidence, not population benefit or strength.
+- Deployment-target median latency 0.300→0.380 s, p95 1.951→2.692 s; each arm reaches that quality target on 18/20. Strict-target median latency 1.135→2.285 s. Maximum tree size 39→51 nodes. No arena, training or defaults.
+- Successful run: 173.78 s wall including 129.82 s loading/startup, 14.09 child CPU-minutes, sampled family RSS 72.94 GiB, CPU/Thermistor15 peaks 71/73.5 C. All 40 strict and 40 deployment records verify; the baseline reproduces the prior diagnosis exactly. Native88/Python3 qualification and release build pass.
+- Preserve the pre-solve 4,096-versus-8,192 validation refusal (131.34 s including load), its source/binary/logs, and the corrected successful attempt; no scientific outcome was retried or target extended.
+
+[Report](docs/reports/river-search-round2/results.md) · [frozen settings](docs/reports/river-search-round2/comparison-config.json) · [20-row CSV](docs/reports/river-search-round2/comparison.csv) · [compact results](docs/reports/river-search-round2/comparison-summary.json) · [verification](docs/reports/river-search-round2/verification.json) · [cost/failure receipts](docs/reports/river-search-round2/costs.json).
+
+Originals: `bb128:/home/dberweger/river-search-round2-20261021/`. Successful outputs `comparison-v2/`, supervision `comparison-run-v2/`, measured source `comparison-source-a8078b9d/`; failed pre-solve attempt `comparison-v1/`, `comparison-run/`, `comparison-source-1e3581cf/`, with both targets/qualification directories and source bundles retained. Retrieve compact evidence from those paths with `scp`; retain the original frozen PR367 model/K50 inputs at their existing paths. At-rest copy: `bb128:/research/PR-377-river-search-round2/`. Both archives are uploaded to Drive, each with a receipt:
+  - **Diagnosis:** `PR-377-river-search-round2.zip`, 20,572 bytes, SHA256 `3662ee99792eb20c88d4e384aa4f87d8c5ba11f7d3d5e979e9ed1b1ac35eaa44`. It holds the diagnosis outputs, frozen set, launch script and logs.
+  - **Comparison:** `PR-377-river-search-round2-comparison.zip`, 98,734 bytes, SHA256 `bc8e795ae2584d8077b24df13e5c6fa6ccbc4d3ea7ad79284b913e097f8488e9`. It holds both comparison attempts with their supervision, qualification, run scripts and source bundles.
+  - **Rebuildable files stay in the originals folder only:** the full source checkouts, build targets and test environment (about 0.85 GB). Existing PR350/355/357/367 inputs and other jobs remain untouched.
+
+## PR376 — v0.6 river search round 1: capped search solved fast; full menu and beliefs fail
+
+[PR376](https://github.com/dberweger2017/CFR-NLHE-6max/pull/376). This is a partial engineering qualification; concurrency and retained-strategy reuse are deferred, and no strength match was run.
+
+- **Setup:** frozen v0.6.0 seed 2026101935003 10B. Panels come from three fresh 10,000-hand self-play traces (one dev, two held-out).
+- **Frozen configuration:** cap-3 search menu, DCFR (1.5, 0, 2) stopping at the quality target by 2,048 sweeps, committed before the held-out run.
+- **Held-out coverage:** 5,580 / 5,580.
+- **Latency:** median 0.278 s, p95 0.979 s.
+- **Capped-game quality:** 598 / 600 (fail).
+- **Beliefs:** 23 / 40 exact-joint controls within 0.05 BB (fail). The excess is about 0.6% of the pot.
+- **Full menu, reported separately:** the deployed policy is more exploitable than the blueprint on 143 / 600 decisions.
+
+[Report](docs/reports/river-search-round1/results.md) · [Frozen configuration](docs/reports/river-search-round1/frozen-config.json) · stage summaries in the same folder.
+Originals and at-rest copy: `bb128:/research/PR-376-river-search-round1/` (traces, every per-decision record, launch scripts, logs, temperatures, the interrupted control file). ZIP `PR-376-river-search-round1.zip` is 8,673,018 bytes, SHA256 `8ae4a961e89c08849ff23d306b9af92c31a258bcb811134ebede3efa103e04ff`, uploaded to Drive with a receipt.
+
+## PR375 — legal river pilot: numerical cause identified; complete decisions remain costly
+
+[PR375](https://github.com/dberweger2017/CFR-NLHE-6max/pull/375), issue374.
+Measured source `bc1bb630f64918483b23928b843bf2ce82dfa244`, frozen v0.6.0
+seed2026101935003, six synthetic roots, 16/64/256 sweeps with three repetitions
+and one1024-sweep reference per supported root. All stages return0; 331.54s
+including260.91s model+K50 load. Sampled family peak14.81GiB; CPU64 C/Thermistor15
+55.5 C maximum. Three roots supported; two allocation rejections and one zero
+modeled own-reach state retained. The801-node full-menu tree costs1.92s at64
+and7.45s at256; small near-all-in controls cost114–141ms at64. No arena/defaults.
+The exact rational oracle proves the first divergent prepared regret row is a
+tie; float64 reduction noise changes later regret-matched strategies. Original
+PR37334/36 quality screen remains unchanged. Folded histories/removal enter an
+explicit projected belief law; measured projection TV4.05–8.07% is not safety.
+
+[Report/conditional quote](docs/reports/live-river-pilot/results.md) ·
+[Measurements](docs/reports/live-river-pilot/measurements.csv) ·
+[Compact data/code/model pins](docs/reports/live-river-pilot/results.json) ·
+[Numerical review](docs/reports/live-river-pilot/numerical-review.json) ·
+[Rational proof](docs/reports/live-river-pilot/rational-proof.json) ·
+[Stage/resource proof](docs/reports/live-river-pilot/verification.json).
+Originals: `bb128:/home/dberweger/live-river-pilot-20261020/`. Model/K50 inputs
+remain read-only at their existing PR367/qualification paths. Setup/source
+prerequisite refusals and the stale-module test import failure are retained;
+no frozen-model science was retried. At-rest/archive coverage is recorded by
+[retention receipt](docs/reports/live-river-pilot/retention.json). Verified at-rest
+copy: `/mnt/data2tb/research-cloud/PR-375-live-river-pilot`; 50 files / 179,355,124 bytes.
+ZIP `live-river-pilot-evidence.zip` is 178,276,486 bytes, SHA256
+`6ba0de79aa8f33e0ac5f15c98a57e19f44efa267edb3348e942c2b55bfd535ea`; embedded manifest SHA256
+`17efb51965b464708d8f1405866cf2a6c0490f0654a844c4e17be1a6b1c96504`. Every copied file and ZIP member passes
+local SHA256 readback. Drive upload/acceptance is pending while the separate
+v0.6.0 publication transfer continues; no cloud object ID or retrieval success
+is claimed. Retrieve from the at-rest path or retained NVMe root until an actual
+Drive receipt exists. No deletion or other job changes.
+
+## PR373 — prepared native river prototype, numerical checks pass; quality screen34/36
+
+[PR373](https://github.com/dberweger2017/CFR-NLHE-6max/pull/373), issue372.
+Clean measured source `7e905da4be0c640e6518f2b68eaf330104e81788`: twelve cases,
+16/64/256 sweeps, three native repetitions. Complete fixed grid72.48s;
+full1,081-holding solving30.89–36.11× faster than the dense Python reference,
+43.00MiB native-child high-water RSS. Maximum leaf absolute error1.63e-13BB.
+All identical-profile value/gradient/average/best-response checks pass;75native
+library tests and58focused Python tests pass. Full-range quality18/18; overall
+quality agreement34/36 and `quality-threshold-not-met` remain explicit. The two
+small-range discrepancies are one worse and one better at fixed work.
+
+[Report](docs/reports/native-river-prototype/results.md) ·
+[Compact JSON/source pins](docs/reports/native-river-prototype/results.json) ·
+[All36 measurements](docs/reports/native-river-prototype/measurements.csv) ·
+[Retained evidence/test proof](docs/reports/native-river-prototype/verification.json).
+NVMe originals: `bb128:/home/dberweger/native-river-prototype-20261020/`;
+verified at-rest copy: `/mnt/data2tb/research-cloud/PR-373-native-river-prototype/`.
+All earlier qualification stops, smoke runs, source bundles, exact binary and
+logs remain retained. ZIP/Drive acceptance is pending; no deletion or completed
+cloud archive is claimed. The concurrent release upload and existing models,
+environments, inputs and live search remain unchanged. No whole-decision latency,
+15ms target, playing-strength or adoption claim follows.
+
+## v0.6.0 publication authorization and source binding
+
+The owner approved publication on October 20, 2026. PR369 merged
+`1faacabf710dd6f1d73f368ee740831fec6e0878` after all five checks passed.
+The documentation follow-up records that approval before tagging; model and
+runtime source are unchanged. Fresh approved manifests must name the reviewed
+release source rather than modify the retained prepared manifests in place.
+The [release page](https://github.com/dberweger2017/CFR-NLHE-6max/releases/tag/v0.6.0)
+will record actual per-asset upload/readback status. The dedicated public
+[Drive release folder](https://drive.google.com/drive/folders/1H2MVAmOHHku1LhmZtxbkVYN3LyP8Xz0j)
+was created and its public reader permission verified; at this source commit it
+contains no models. This is not an upload or research-archive acceptance claim.
+All payload operations originate on bb128; private journals and support artifacts
+remain excluded. [Checklist](docs/releases/v0.6.0/READINESS.md).
+
+## PR369 — v0.6.0 release preparation, exact model/runtime checks pass
+
+[PR369](https://github.com/dberweger2017/CFR-NLHE-6max/pull/369), proposal368,
+follows the owner-authorized PR367 merge `606bfc58`. Frozen implementation
+`3b43d05c24b8ec661c416568679d661518a9bb8d` prepares all three qualified 100 BB
+10B averages as exact float64 binaries in 42 parts. All three reconstruct to
+their fixed PR361/367 SHA256s; 36 human/spectator integration hands replay before
+and after journal restart, with one shared table per model, privacy, restricted
+sizing and chip conservation. All 14 stages return0; 66.46min wall,
+27.33 child CPU-minutes, sampled peak14.53GiB, CPU57°C/Thermistor15 57°C.
+No new strength estimate, training, defaults, release tag or publication.
+
+[Report](docs/releases/v0.6.0/verification/qualification.md) ·
+[Compact receipt, complete model/part/source pins](docs/releases/v0.6.0/verification/qualification.json).
+Working root `bb128:/home/dberweger/v060-release-20261020-pr369/qualification-v2`;
+physical cache `/mnt/data2tb/research-cloud/PR-369-v060-release/qualification-v2/`:
+81 unique files /89,046,108,651 bytes verified by copy/readback, with original
+working paths accessible as symlinks (use physical paths for the strict bundle
+verifier). Private journals, reconstructed models and parts stay off Git.
+All old PR350/355/357/361/362/367 inputs are read-only and unchanged.
+
+The first setup's successful12.2s native build and missing-pytest failure before
+model work remain under `qualification-v1`; v2 reused the successful binary.
+108 support files plus exact280,360,960-byte source TAR are verified under
+`PR-369-v060-release/support-v1/`. Copy-manifest SHA256
+`9861d1133b36bbb63fa035c6cf7f43e6f35ce69b533931e4ee22e7f2491efff5`;
+source TAR SHA256 `8e89ed38576277ed1bef60c54671ce73b0c99ba9563764f09601a8a3f1603be7`.
+All originals retained. ZIP/Drive archive acceptance and public release links
+remain pending, with no eviction/deletion or remote-acceptance claim. Restore
+from the physical cache while present; Drive fallback is pending a verified
+archive/receipt, rather than an assumed folder. Planned public Drive whole-model
+links will supplement GitHub split downloads with the same model hashes.
+
+## PR367 — fresh v0.6 acceptance complete, all30 gates pass
+
+[PR367](https://github.com/dberweger2017/CFR-NLHE-6max/pull/367),
+[proposal366](https://github.com/dberweger2017/CFR-NLHE-6max/issues/366),
+[prospective protocol](docs/nplayer-v06-acceptance.md),
+[results and caveats](docs/reports/nplayer-v06-acceptance/results.md),
+[compact proofs](docs/reports/nplayer-v06-acceptance/results.json),
+[all30 gates](docs/reports/nplayer-v06-acceptance/gates.csv),
+[58 stage costs](docs/reports/nplayer-v06-acceptance/costs.csv),
+[seats/positions](docs/reports/nplayer-v06-acceptance/seats-and-positions.csv),
+[lookup counts](docs/reports/nplayer-v06-acceptance/lookup-counts.csv),
+[cross coverage](docs/reports/nplayer-v06-acceptance/cross-coverage.csv),
+[launch/qualification](docs/reports/nplayer-v06-acceptance/launch.md).
+
+Main-v1 completed October20 at14:31:12UTC /16:31Madrid, no failure/retry,
+all58stagesRC0. All36 cases independently replay2,635,776 initial hands and
+exactly reproduce the same count. All24absolute-profit,3own-checkpoint and
+3cyclic lower-bound tests pass in the predeclared one-sided family30.
+No training, release/default change or merge. PR357 relative adverse evidence
+and its failed scripted safeguard remain unchanged beside fresh acceptance.
+
+Frozen runtime7f36a93aae7d43d1912d9a93eddd78ca0d4430c5, source-v2/769pins;
+config3c711be0c8d05e3750498a59bff8b80887594decf52f3295c010333894b898a9.
+Source settled result200,999bytes/SHA256
+15c573e88d9b3b3c9ab81f6f3150eff6b91d577b6aa26fdad0a2af3045f32453.
+3.476h wall,2.237childCPUh; sampled peak27.69GiB, CPU69/Thermistor15 67°C.
+
+Owned root `bb128:/home/dberweger/nplayer-v06-acceptance-20261020/main-v1/`;
+all source/fixture snapshots, original inputs and partial locations retained.
+224unique verified staged files/112,380,112,386bytes at
+`bb128:/mnt/data2tb/research-cloud/PR-367-nplayer-v06-acceptance/main-v1/`,
+with original paths accessible; metadata/mass/source also retained on NVMe.
+Previous PR350/355/357/361/362 inputs untouched/read-only. Rawtrace/model files
+stay offGit. Final ZIP/manifest/member readback/Drive acceptance **pending**;
+`gdrive:PR-367-nplayer-v06-acceptance/` is a future fallback, not an accepted
+restoration claim. No deletion/cleanup. Native river remains a separate follow-up.
+
+## PR362 — matched-state diagnosis complete; aggregate cause unresolved
+
+[PR362](https://github.com/dberweger2017/CFR-NLHE-6max/pull/362), proposal360,
+[protocol](docs/nplayer-matched-regression.md),
+[results and limits](docs/reports/nplayer-matched-regression/results.md),
+[compact proofs/receipts](docs/reports/nplayer-matched-regression/results.json),
+[all64 conditional contrasts](docs/reports/nplayer-matched-regression/contrasts.csv),
+[street/position/visible-strength groups](docs/reports/nplayer-matched-regression/matched-groups.csv),
+[20 stage costs](docs/reports/nplayer-matched-regression/costs.csv),
+[dated launch](docs/reports/nplayer-matched-regression/launch.md).
+Runtimeb7214c13 completedOct20,10:14:29UTC; rootsettled/nofailure/all20RC0.
+1,970 matched states across two fixed lineages;32 selected decisions, each32
+discovery+512heldout worlds, all reproduced. Two local10B root improvements
+clear bounded family intervals under both continuations;30 inconclusive,
+no conclusively negative root mixture. One selected alternative clears zero.
+Heldout random/TAG betting/raising falls4.1–4.3pp;98.38% sampled states have
+positive mass in both. No causal attribution of aggregate regression/Nash claim.
+Thirty verified new-owned staging records/74.41GB retained under
+`bb128:/mnt/data2tb/research-cloud/PR-362-nplayer-matched-regression/main-v1/`,
+with accessible original NVMe paths. Previous inputs/source/partials/raw
+evidence retained. ZIP/Drive acceptance and future fallback
+`gdrive:PR-362-nplayer-matched-regression/` pending; no deletion/remote retrieval
+claim or default/release adoption. PR ready for owner review, not auto-merged.
+
+## PR361 — exact mature parity; 1.75–1.82× loads and 1.95× reusable job
+
+[PR361](https://github.com/dberweger2017/CFR-NLHE-6max/pull/361),
+[protocol](docs/nplayer-inference-validation.md),
+[results and limits](docs/reports/nplayer-inference-validation/results.md),
+[compact proofs/receipts](docs/reports/nplayer-inference-validation/results.json),
+[all12 loads](docs/reports/nplayer-inference-validation/loads.csv),
+[33 stage costs](docs/reports/nplayer-inference-validation/costs.csv),
+[dated launch/provenance](docs/reports/nplayer-inference-validation/launch.md).
+Runtimec06fc565 completedOct20,08:53:01UTC; all33stagesRC0/no failure.
+Two250,001,069-row audits and884,736 cross-format initial hand rows exactly
+match; reproduction/replay pass. Predeclared2× native-load gate fails;
+whole-job gate passes (635.43→325.99s), peak evaluator65.94→27.65GiB.
+Conversion+audit21.45min separate; binary pair28.30GB vs11.84GB gzip.
+76 verified new-owned staging records/52.74GB retained under
+`bb128:/mnt/data2tb/research-cloud/PR-361-nplayer-inference-validation/main-v1/`,
+accessible at original NVMe paths. Protect active PR362 dependency and all old
+inputs/partials. ZIP/Drive acceptance and fallback
+`gdrive:PR-361-nplayer-inference-validation/` remain pending; no remote retrieval
+claim, deletion, default or new strength result.
+
+## PR359 — exact binary inference, local qualification only
+
+[Merged PR359](https://github.com/dberweger2017/CFR-NLHE-6max/pull/359),
+[proposal358](https://github.com/dberweger2017/CFR-NLHE-6max/issues/358),
+[format/commands](docs/nplayer-binary-inference.md),
+[report and mature quote](docs/reports/nplayer-binary-inference/local-qualification.md),
+[compact execution/accounting receipt](docs/reports/nplayer-binary-inference/local-qualification.json),
+[six alternating loads](docs/reports/nplayer-binary-inference/loads.csv).
+
+October20 owner authorized implementation and small local qualification.
+Final generated100k-row/380k-value fixture: 3.16× median validated load speedup,
+about21% lower per-child peak RSS, 1.62× lookup-plus-digest time, 1.15× logical
+file bytes. All stored float bits and probe digests match. 63 native library,
+4 mass-helper and3 CLI tests pass; final reader changes recheck the4 binary test
+groups. These local figures are not mature performance/strength/default claims.
+The owner subsequently accepted the90–150min quote and new-output staging;
+the completed mature result belongs to PR361 above. Old inputs stay unchanged.
+
+Owned ignored Mac evidence:
+`/Users/dberweger/Local/cfr-nplayer-binary-inference-20261020/results/nplayer-binary-inference-20261020-local-v4/`.
+Contains generated source/binary fixtures, queries, per-child stdout/stderr and
+receipt; all binary/source/derivative/execution-file SHA256 pins are in compact
+JSON. Earlier development fixtures remain in adjacent local-v1/v2/v3 roots;
+no failures are concealed or samples pooled. Source implementation is this PR;
+no model, raw trace or binary enters Git.
+
+Future owning cache namespace is `PR-359-nplayer-binary-inference` under
+`bb128:/mnt/data2tb/research-cloud/` and `gdrive:`. Cache copy/ZIP/member-readback/
+Drive acceptance are **pending**, so neither is claimed as a current retrieval
+source. Retain local originals. After archival, a receipt will identify exact
+members, hashes and both bb128-cache and Drive restoration paths. No deletion,
+cleanup, other open PR root or existing PR350/355/357 input was modified.
+
+## PR357 — completed independent 100 BB 3B→10B confirmations
+
+[PR357](https://github.com/dberweger2017/CFR-NLHE-6max/pull/357),
+[proposal356](https://github.com/dberweger2017/CFR-NLHE-6max/issues/356),
+[protocol](docs/nplayer-bb100-seed-confirmation.md),
+[launch/readiness](docs/reports/nplayer-bb100-confirmation/launch.md),
+[compact source/proof/resource receipt](docs/reports/nplayer-bb100-confirmation/launch.json).
+Owner-authorized launchOctober19,22:16:02UTC /October20,00:16:02Madrid, PID561159.
+Root`bb128:/home/dberweger/nplayer-bb100-confirmation-20261020/main-v1/`;
+frozen upstreamedd5bc767bdeea6bc41e695bbe2cc0f089042f62, independently committed
+source-v3snapshot312a33b6f99977c618b19ba00fafe1ab015b4001 with700matching
+controller/config file hashes. ConfigSHA256
+`6d15cb8b9630eb0e22665d50cd35de68aa2f3dd7b3e0614d5093fa5372b523b0`.
+SourcearchiveSHA256`05cb04fe18ca7e0db46134d9596dc759e5a0210d4899ab00929473b7e32b8f4c`.
+Later evidence commits do not change the frozen snapshot.
+
+Verified completion October20,02:35:55UTC /04:35:55Madrid: all18stages returned0,
+all42cases verify2,064,384initial+2,064,384reproductionhands, fourfullaudits pass.
+Fresh primary family95 gains+35.79[+25.68,+45.91] and+31.49[+20.33,+42.66]BB/100;
+cyclic safeguards pass, script/mixed safeguards fail. No final retry/adoption/merge.
+[Final report](docs/reports/nplayer-bb100-confirmation/results.md),
+[compact proofs/endpoints/costs/relocation hashes](docs/reports/nplayer-bb100-confirmation/results.json),
+[strength](docs/reports/nplayer-bb100-confirmation/strength.csv),
+[training](docs/reports/nplayer-bb100-confirmation/training.csv),
+[seats/positions](docs/reports/nplayer-bb100-confirmation/seats-and-positions.csv),
+[lookup counts](docs/reports/nplayer-bb100-confirmation/lookup-counts.csv).
+Compact retrieval evidence is ignored locally at
+`/Users/dberweger/Local/cfr-nplayer-bb100-confirmation-20261019/results/pr357-completed-20261020T0449/`;
+input SHA256s and exact remote source paths are in finalresults.json.
+232new files/82,498,076,625bytes were verified-staged under the owned HDD namespace.
+No Research-Cloud ZIP/Drive acceptance; all source/failure/model/trace roots retained.
+
+Freshqualification-v2 and fullfixture-v2 pass47focusedtests, realK50 historical/
+resumed checkpoint/export parity,216initial+repeat diagnostic hands,120legacy
+trajectory matches, then504initial+504exact reproduction hands across42cases,
+allinitial independently replayed,232verified staged files and9cross-policyloads.
+Priorfixture-v1's readout-phase failure, partial-clone/import-path setup errors
+and all source/fixture/cache roots are retained; no final training ran there.
+The compact receipt pins exact qualification/fixture/control paths and hashes.
+
+New-owned cache namespace`PR-357-nplayer-bb100-seed-confirmation` under
+`bb128:/mnt/data2tb/research-cloud/`; approved staged main members retain
+`main-v1/<original-relative-path>`. After each completed phase, per-file
+`main-v1/relocations.jsonl` records SHA256/bytes/mtime and restoration destination
+before atomically replacing an NVMe pathname with its verified destination
+symlink. Owner explicitly authorized this open-PR relocation for NEWoutputs;
+existingPR350/355 model/build/venv inputs are unchanged protected dependencies.
+No Drive archive/upload acceptance or deletion is claimed.
+
+Restore an exact selected member with
+`rsync -a bb128:EXACT_RECORDED_HDD_DESTINATION FRESH_IGNORED_DIRECTORY/`
+and verify its recorded SHA256. Controls and nonstaged outputs remain in the
+NVMe main root; retrieve compact receipts with
+`scp bb128:EXACT_CONTROL_FILE FRESH_IGNORED_DIRECTORY/`.
+Research-Cloud ZIP/Drive archival pending. Keep all failures/partials and owned
+cache files, live source/configs, models and raw traces while this PR is open.
+
+## PR355 — completed fixed100BB3B→10B comparison
+
+**Verified completion October19,21:21:05UTC:** all five measured stages returned0,
+both250,000,475-row audits passed, all18cases passed exact reproduction and
+independent replay:884,736initial plus884,736repeat hands. Primary mean-oriented
+singleton gain+28.40[+18.98,+37.81]BB/100. Fixed3B+pot-pressure also clears zero
+after eight-panel adjustment; random/random+TAG have adverse pointwise signals
+with adjusted intervals crossing zero. One training seed/host; no automatic
+adoption/release/merge or additional compute. [Final report](docs/reports/nplayer-bb100-10b/results.md),
+[derived compact readout](docs/reports/nplayer-bb100-10b/results.json),
+[completion/provenance/resources/source hashes](docs/reports/nplayer-bb100-10b/completion.json),
+[strength](docs/reports/nplayer-bb100-10b/strength.csv),
+[all positions](docs/reports/nplayer-bb100-10b/seats-and-positions.csv),
+[lookup counts](docs/reports/nplayer-bb100-10b/lookup.csv),
+[matched transitions](docs/reports/nplayer-bb100-10b/matched-transitions.csv),
+[paths with replay references](docs/reports/nplayer-bb100-10b/paths.csv).
+
+Raw owned root`bb128:/home/dberweger/nplayer-bb100-10b-20261019/main-v1/`
+remains unchanged. Frozen controllerecb08ada/nativeb9882e7e and original
+configSHA256`eb43aa2598151eb291441552e52b1e73915a9a218de8049f8d3645c846cee856`.
+10Bcheckpoint`candidate/10000000000.gz`,11,009,014,184bytes,
+SHA256`788e75acf8b98d88518faf3da683048ec05604ba001c8a59bb1ec5f740b52b80`;
+full average`candidate/10000000000-average.gz`,6,230,067,388bytes,
+SHA256`a85364b71c478be213e0356c5201911755228c864472427b64699346191facbd`.
+Same membership SHA256 as immutablePR3503B input, with10,000,009,599nodes.
+Original raw settled result925,548bytes, SHA256
+`41cffb0c7b131358b7b3906bb540cb12116f22da5200dcb0b99edc1612e83bd3`.
+
+Compact JSON/proofs only were retrieved into ignored
+`results/pr355-final-20261019T2125/compact/`; every source file matches its
+indexed SHA256. Regenerate all report tables with
+`python3.11 docs/reports/nplayer-bb100-10b/summarize.py FRESH_COMPACT_SOURCE FRESH_OUTPUT`.
+Exact source-relative paths/hashes are in the completion receipt. Retrieve
+selected files with`rsync -a bb128:EXACT_REMOTE_FILE FRESH_IGNORED_DIRECTORY/`,
+preserving relative paths and verifying their indexed SHA256 before use.
+This does not retrain, re-evaluate or duplicate engine replay.
+
+Whole wall72.77min; extra7Bactive25.04min; peak sampled66.03GiB;
+CPU/Thermistor15max74/91.5°C; no thermal/scientific failure. Supervisor544891
+exited and both study/normal compute mutexes are free at closeout. Initial
+network timeouts were local Tailscale connectivity, not an interrupted study.
+The initial Cargo/PATH setup failure, qualification fixtures and all raw logs,
+models,6.31GBtraces, sidecars and sources stay on bb128; partial local
+report-generation output is retained in the ignored retrieval directory.
+PR355 is open: its roots and PR350/352/353 dependencies remain protected.
+Archive namespace`PR-355-nplayer-bb100-10b`; HDD/Drive archive/acceptance pending.
+No new scientific evidence is copied to the HDD, uploaded or deleted by this
+closeout. No new timer, another seed or other campaign is started.
+
+The owner-requested post-hoc script-behavior audit reads all196,608 existing
+initial random/check-call hands (blueprint identity only), with no new games.
+[Counts and exact trace pins](docs/reports/nplayer-bb100-10b/script-behavior.json),
+[reproducer](docs/reports/nplayer-bb100-10b/script_behavior.py),
+[interpretation in final report](docs/reports/nplayer-bb100-10b/results.md#why-do-returns-fall-against-random-and-check-call).
+Remote compact result:
+`bb128:/home/dberweger/nplayer-bb100-10b-20261019/posthoc-script-behavior-v1/script-behavior.json`,
+SHA256`4b18f51bd4a68704df415ae8a1fbdfee40d59f7b60f72945d44251a118f69807`.
+Retrieve only that file via`scp bb128:EXACT_REMOTE_FILE FRESH_IGNORED_DIRECTORY/`
+and verify SHA256. Local identical compact copy is in ignored
+`results/pr355-final-20261019T2125/script-behavior.json`.
+One-core wall13.81s is additional descriptive-analysis cost. Original roots,
+trace bytes and all predeclared strength results stay unchanged; archival pending.
+
+## bb128 NVMe evidence relocation — October19,2026
+
+The owner explicitly requested moving previous rounds' evidence to the2TB
+drive. Current GitHub checks show PR339/340/342 merged. **46.265GB /19,893files**
+are SHA256-verified at both source and HDD destination before releasing only
+the matching NVMe copies. NVMe free space is now**64.360GB**
+(observed gain46.270GB). [Report](docs/artifacts/nvme-relocation-20261019.md),
+[compact exact-path/manifests/runtime receipt](docs/artifacts/nvme-relocation-20261019.json),
+receiptSHA256`feab7991d204381caa9cfea4bb490934b247ac66a9c33d57ceb70d364df47b5b`.
+
+Destinations under`bb128:/mnt/data2tb/research-cloud/` are
+`PR-339-nplayer-storage-benchmark/roots/`,
+`PR-340-nplayer-fast-strength-study/roots/` and
+`PR-342-nplayer-blueprint-promotion/roots/`, retaining original root names.
+The receipt maps all13root/subdirectory relocations. Original NVMe paths now
+resolve through compatibility symlinks. Full file inventories, copier, checked
+PR statuses and initial process-inspection preflight failure remain in
+`.storage-receipts/nvme-relocation-20261019T195815Z/`. Each destination hasKEEP.
+PR340 main-v5's small controls also have a verified HDD copy; original controls
+and the shared runtime stay on NVMe. No PR350/352/353/355 root/input, shared
+Git/K50 table, other process, schedule or machine setting was moved or changed.
+
+Restore selected evidence with`rsync -a bb128:EXACT_HDD_DESTINATION/ FRESH_IGNORED_DIRECTORY/`
+and verify the relevant indexed manifest/memberSHA256s before use. These
+locations supersede earlier local-retention notes below; historical original
+paths keep working. **Drive archival/upload acceptance remains pending** for
+these relocated roots; no Drive restoration link, upload or purge is claimed.
+This specific owner-authorized local relocation does not expand the standing
+original-deletion policy. The HDD copy must be retained. The owner separately authorized PR355 launch
+during final disk sync; it started20:08:19UTC asPID544891, with its original
+configuration hash and working runtime confirmed.
+[Launch receipt](docs/reports/nplayer-bb100-10b/launch.json).
+
+## PR355 — historical qualification and launch record
+
+[PR355](https://github.com/dberweger2017/CFR-NLHE-6max/pull/355),
+[proposal354](https://github.com/dberweger2017/CFR-NLHE-6max/issues/354),
+[protocol](docs/nplayer-bb100-10b-study.md).
+The owner-authorized main campaign launchedOctober19,20:08:19UTC asPID544891,
+using the unchanged qualified source/configuration. Input verification and full
+baseline audit precede the3B→10B continuation; no outcome read at startup.
+[Launch/status/environment receipt](docs/reports/nplayer-bb100-10b/launch.json),
+[launch scope and ETA](docs/reports/nplayer-bb100-10b/launch.md).
+Qualification uses fresh owned small100BB/K50 fixtures and checks historical
+native versus resumed checkpoint/export bytes, mixed-opponent replay and
+instrumentation-on/off trajectories. The large PR350/352/353 input roots remain
+read-only protected dependencies; no copies, archival or cleanup through this
+PR. New metadata belongs to the new study root, bound to checkpoint/policy hashes.
+Archive namespace`PR-355-nplayer-bb100-10b`; Research-Cloud/Drive acceptance pending.
+Qualification passed under source`ecb08ada`. Fresh owned bb128 root:
+`/home/dberweger/nplayer-bb100-10b-20261019/` contains source-v1, failedbuild-v1,
+successfulbuild-v2 and qualification-v1. Main-v1/config.json remains frozen;
+its owner-authorized main launch is recorded above. [Qualification report](docs/reports/nplayer-bb100-10b/qualification.md),
+[compact source/native/proof/config/temperature receipt](docs/reports/nplayer-bb100-10b/qualification.json),
+[informational75–94minute forecast](docs/reports/nplayer-bb100-10b/forecast.json).
+Compact metadata was retrieved into ignored`results/pr355-qualification/`;
+raw models/traces/mass metadata stay on bb128. The report gives retrieval and
+qualificationSHA256 verification. The historical18.50GB free NVMe snapshot
+was below25.11GB predicted output; the owner-requested completed-evidence
+relocation above raises free space to64.36GB before launch. Compact launch
+metadata is retained in ignored`planning/nvme-relocation-20261019/`.
+No resource guard beyond the owner's temperature policy was introduced.
+## PR353 — unpruned100BB3B existing-trace diagnosis
+
+[PR353](https://github.com/dberweger2017/CFR-NLHE-6max/pull/353),
+[Report](docs/reports/nplayer-bb100-diagnosis/results.md),
+[compact results/input trace hashes/analyzer identity](docs/reports/nplayer-bb100-diagnosis/analysis.json),
+[all path/pot strata and example references](docs/reports/nplayer-bb100-diagnosis/paths.csv),
+[absolute and position intervals](docs/reports/nplayer-bb100-diagnosis/returns.csv),
+[read-only analyzer](docs/reports/nplayer-bb100-diagnosis/analyze.py).
+Owner authorized this short diagnosis October19; it reads eight preexisting
+`comparison-{nodes,clock}/evaluation/*-baseline/play-0.jsonl` files under
+`bb128:/home/dberweger/nplayer-pruning-strength-20261019/evaluation-recovery-v1/`.
+393,216 initial hands, two disjoint cohorts of the same fixed unpruned PR3503B
+policy. Reproductions are proofs, not extra statistical samples. Existing
+SHA256/proof receipts were checked and decision counters reconciled; no new
+training, play, model loading or engine replay. Parent PR352 status was open
+when inspected; source roots, protected PR350 inputs and all failures remain
+untouched. Only compact output returned to ignored
+`results/bb100-diagnosis-20261019/analysis.json`; it is split into readable JSON
+and complete strata CSV for Git. No raw traces were copied. Archival/Drive
+acceptance for the new diagnosis remains pending; no cleanup or upload claimed.
+The report gives the read-only recomputation/retrieval path and preserves the
+baseline checkpoint/policy pins. No archive restoration link exists yet.
+
+## PR352 — verified final pruning comparison; original failure preserved
+
+**Final completion October19,18:13:14UTC:** recovery supervisor525334 exited,
+all eight stages returned0, status complete/results settled. Both matrices
+passed10-case proofs:983,040initial hands plus983,040exact reproductions,
+all independently replayed. [Final report](docs/reports/nplayer-pruning-strength/results.md),
+[precomputed results/model hashes](docs/reports/nplayer-pruning-strength/results.json),
+[completion/manifests/audits/cost receipt](docs/reports/nplayer-pruning-strength/metadata.json),
+[ten contrasts](docs/reports/nplayer-pruning-strength/results.csv),
+[singleton coverage](docs/reports/nplayer-pruning-strength/coverage.csv).
+No measured active-training saving; direct strength differences inconclusive.
+Compact final results were retrieved into ignored
+`results/pr352-final-20261019/`; remote results SHA256
+`6a14ad28314f98770db9bf6665b4513cef09a336e0ad0fd8c95d88a524eb7a9a`
+was verified locally. Raw checkpoints/averages/traces/logs/failures remain
+on bb128 in the exact original and recovery roots below. PR352 is open;
+no raw copying/archiving/cleanup was performed. Research-Cloud archival and
+Drive acceptance remain pending; no archive restoration link exists yet.
+
+
+[PR352](https://github.com/dberweger2017/CFR-NLHE-6max/pull/352),
+[protocol](docs/nplayer-pruning-strength-study.md),
+[proposal351](https://github.com/dberweger2017/CFR-NLHE-6max/issues/351).
+The owner authorized qualification and launch on October19 after reviewing the
+implementation. Frozen controller/harness source`66150f3b5089edc4c4dabf66c2a3a439d565953f`,
+native library/arena`b9882e7e728847a58691995e64eabd4563ea0991`.
+Isolated active NVMe control/build/qualification root:
+`bb128:/home/dberweger/nplayer-pruning-strength-20261019/`.
+Per-PR archival namespace`PR-352-nplayer-pruning-strength`; no Drive upload or
+cleanup is claimed. Source bundle/partial Git object scope and hashes are in
+`deployment.json` under the control root; no research model payloads were copied
+into the deployed source. The existing K50 tables and managed Python are read-only
+shared inputs. Real-model qualification passed: exact resumed/uninterrupted checkpoint bytes,
+clock carry-over, early snapshot, two-model cache, both audit/replay/readout paths.
+16 focused Linux Python tests and4 release native example tests passed.
+Main configuration is frozen at
+`bb128:/home/dberweger/nplayer-pruning-strength-20261019/study-v1/config.json`;
+source66150f3b remains unchanged. [Compact qualification/pins](docs/reports/nplayer-pruning-strength/qualification.json).
+Main launched2026-10-19 16:41:35UTC, supervisorPID517163, after the owner explicitly
+authorized reviewing CI after launch. CI is not a compute-start gate.
+[Launch command/authorization/config receipt](docs/reports/nplayer-pruning-strength/launch.json).
+The supervisor exited17:22:33UTC when evaluation startup could not import
+`pokers`. Training and both full-average exports completed;3B hash/recipe
+verification and the250,000,119-row independent audit passed. Zero evaluation
+hands ran. The failed root/config/source/logs and both snapshots remain unchanged.
+[Failure and validated training evidence](docs/reports/nplayer-pruning-strength/startup-failure.json),
+[diagnosis and tested interpreter fix](docs/reports/nplayer-pruning-strength/startup-failure.md).
+After the owner explicitly requested resumption, an evaluation-only recovery
+launched17:44:02UTC asPID525334 at
+`bb128:/home/dberweger/nplayer-pruning-strength-20261019/evaluation-recovery-v1`.
+[Recovery launch/config/environment receipt](docs/reports/nplayer-pruning-strength/evaluation-recovery-launch.json),
+[21-test Linux and actual-parent qualification](docs/reports/nplayer-pruning-strength/evaluation-recovery-qualification.json).
+Frozen recovery controller`5ce973c98c152ebb08a5a717cc76d4dbfe0bbd08` uses the
+original unchanged native binaries and model bytes. It verified model hashes,
+inherited the completed3B audit, then ran the original nodes and clock matrices
+with their replay/reproduction/readout barriers. No training is repeated.
+Original source/root/failures remain unchanged; raw models are read in place.
+The same temperature-only resource policy applies; disk/swap checks remain manual. All480 development/reproduction hands are fixture evidence
+only, with disjoint roots and no final-outcome inference.
+Manual prelaunch sample:132.17GB available RAM,55.03GB free NVMe,1.083TB free
+HDD,227.9MB swap used; CPU37°C/Thermistor1531°C. No resource thresholds added.
+
+The two-stage comparison remains fresh pruned3B, then only the remaining time
+up to the unpruned630.740595090997s active traversal. Temperature-only automatic
+resource stops: CPU90°C/Thermistor15100°C, including missing required readings.
+Disk/swap inspection is manual; no runtime/RAM/address-space cap. Preflight
+manual sample16:31UTC:111.1GB available RAM,55.2GB free NVMe,1.083TB free HDD;
+swap26.406GB used of26.406GB. These are observations, not admission thresholds.
+All fixtures, logs, failed attempts and raw outputs remain preserved.
+
+The read-only dependency is PR350's
+`bb128:/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3/calibration-continuation/`:
+`3000000000.gz` SHA256`ea0c7dca97ae627b08a39d4196cdd824d6e0767d85ca64c829eae5dcceb2da6b`,
+`3000000000-average.gz` SHA256`c602c3727df28160a9807716d3c9211d988e420c33ed7b0c04c2fd899afef06b`.
+[Existing timing/verification receipt](docs/reports/nplayer-bb100/continuation-admission-stop.json).
+These remain protected dependencies for this open study even after PR350 merges.
+Do not copy/move/archive/clean its original roots or parent inputs through this
+implementation. Future research retrieval/archival requires the owning PR status,
+SHA256 verification and the [storage policy](docs/artifact-storage.md).
+
+## PR347 — contiguous storage, M1 validation and owner-authorized merge
+
+[PR347](https://github.com/dberweger2017/CFR-NLHE-6max/pull/347) merged October19
+14:48:06UTC as`950611b68840fa9b4c01a1e0b9e73c319b434930` after the owner-authorized
+fixed M1 check passed. [Results](docs/reports/pr347-m1/results.md),
+[compact source/protocol/identity/cost receipt](docs/reports/pr347-m1/receipt.json).
+Baseline`e0472485d1a09822889edd2bb1fa92b638dc7334`; tested PRhead`4b92f066cf974c5ab0e7d4c1811cf59976af428b`.
+All59 native integration tests and all identity/resource/performance gates pass.
+Fresh80M training/save/wall essentially unchanged; peak RSS2.201→2.127GiB.
+This is4threads/10Mkeys/one seed/two repeats per arm, not bb12816thread/250M evidence.
+
+Raw working root`/Users/dberweger/Local/cfr-nplayer-bb100-20261019/results/pr347-m1-20261019/`
+retains both pinned sources/binaries, original full protocol/runner, commands,
+resource/background-load samples, every checkpoint/export, results and input tables.
+It is protected and has not been archived or cleaned. Original K50 inputs are from
+mergedPR163: whole archive/member verification, Drive ID/member paths/pins and
+restore provenance are in[the existing receipt](docs/reports/cygnus-x1-artifacts/input-restoration.json).
+Research-Cloud destination remains`PR-347-store-entry-records`; upload acceptance,
+archive/member receipt and model retrieval IDs are pending. Do not treat the
+existing PR163 input archive as coverage for newly generated PR347 evidence.
+No bb128 job, source snapshot, setting or checkpoint was changed.
+
+## PR350 — three-player 100 BB (3B qualified; main cost admission refused)
+
+**Owner-authorized merge October19 16:19:23UTC:** all five checks pass on
+`7661d70c`; merge`b8978231cb3e1e846433adccc762069187b6ef69`. The owner cancelled
+the unlaunched12h/100GiB readmission and requested closeout as the3B result.
+PR352 now targets main and still depends on the immutable3B checkpoint/average;
+all original roots, sources, failures and parent inputs remain protected. No
+archival/copy/cleanup or Drive acceptance is claimed through this merge.
+
+[PR350](https://github.com/dberweger2017/CFR-NLHE-6max/pull/350),
+[proposal349](https://github.com/dberweger2017/CFR-NLHE-6max/issues/349),
+[protocol](docs/nplayer-bb100-admission.md), [results](docs/reports/nplayer-bb100/results.md),
+[compact receipt](docs/reports/nplayer-bb100/receipt.json) and
+[exact checkpoint paths/hashes/counts](docs/reports/nplayer-bb100/costs.csv).
+
+- **Terminal main admission refusal October19 15:02:02UTC/17:02:02Madrid:**
+  [Full cost/proof report](docs/reports/nplayer-bb100/continuation-admission-stop.md),
+  [compact source/events/hashes/stage accounting](docs/reports/nplayer-bb100/continuation-admission-stop.json).
+  V3 reaches3,000,011,203nodes; membership freezes at2,088,867,258nodes with
+  250,000,475entries and unchanged anchor/final keyset. Both every-row audits,
+  checkpoint readbacks and36x128 calibration cases pass27648 replay+27648
+  reproduction hands. Full main quote10.106h>8h and82.538GiB with25%reserve>80GiB;
+  actual sampled mature evaluation peak66.030GiB. No thermal/runtime RSS stop,
+  final10Bseed, main budget, final strength outcome or automatic retry.
+  Supervisor492733 exited; both compute locks free at compact check. Only owned
+  TensorBoard492788 remains. All raw paths below and v2parent dependencies
+  retained unchanged; no root copy/archive/cleanup, Drive acceptance pending.
+  Compact diagnostic retrieval: ignored`results/pr350-terminal-admission-20261019/`.
+- **Historical owner-authorized continuation launched October19 13:21:12UTC/15:21:12Madrid:**
+  [Historical launch and first phase](docs/reports/nplayer-bb100/continuation-launch.md),
+  [compact source/config/PID/deadline receipt](docs/reports/nplayer-bb100/continuation-launch.json),
+  [independent review and26Linux tests](docs/reports/nplayer-bb100/continuation-review.md),
+  [read-only parent pins](docs/reports/nplayer-bb100/continuation-parent-pins.json).
+  Output`bb128:/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3/`;
+  supervisor492733, controller source`b9882e7e728847a58691995e64eabd4563ea0991`,
+  control`/home/dberweger/nplayer-bb100-bounded-20261019/source-continuation-v1`.
+  Existing`binaries-v4` unchanged. Fixed2B→3B qualification deadline
+  `1792423272.9440205`=15:21:12UTC/17:21:12Madrid; main starts automatically only
+  if all unchanged mature qualification/resource/full8h cost gates pass.
+  First snapshot validated parent files; the terminal receipt above supersedes it.
+  Raw receipts/resources stay in owned root; small snapshot retrieved only to
+  ignored`results/continuation-launch-20261019-v3/`. Retrieve once into a fresh
+  ignored directory with `python3.11 docs/reports/nplayer-bb100/collect_bounded.py DEST --root /mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v3`.
+  Own TensorBoardPID492788/port6007/local8607 now reads v3; old20BB6006 untouched.
+  PR350 open: all roots and v2parent/input dependencies protected; no archival,
+  cleanup or Drive acceptance claimed. No further automatic retry/extension.
+- **Corrected attempt terminal October19 12:31:49UTC/14:31:49Madrid:**
+  native calibration returns0 at2,000,003,197nodes/244,485,627entries. The250Mcap
+  never triggered, so validation refuses the predeclared2B endpoint. No
+  pretraining-freeze, cost quote, finalseed, mature audit/eval or strength result.
+  [Full diagnosis/costs/next prospective step](docs/reports/nplayer-bb100/calibration-cap-stop.md),
+  [compact native/checkpoint/small-matrix metadata](docs/reports/nplayer-bb100/calibration-cap-stop.json).
+  Native423.45active seconds,1485.09wall,9087.44CPU seconds,22.23GiB peak.
+  Retain both1B/2B checkpoints and2Baverage in the preserved v2root below;
+  2BcheckpointSHA256`43320d93b5dda9981d4f99e1d8b4898b924e38acfe8f809f6693ff79cdc41566`,
+  averageSHA256`4637b9911b89a241be9dd4d3b03e0d80f483669516bd56009c8ada6e5ccb3bb7`.
+  Complete small matrix passes432replay+432reproduction hands/12policy loads.
+  Supervisor483894 exited. No retry/cap/endpoint/deadline change or model copy
+  toMac. The subsequently authorized continuation above uses this immutable parent.
+- **Reviewed corrected qualification launched October19** after explicit owner
+  request for a review subagent before resuming. [Independent review and fixes](docs/reports/nplayer-bb100/review-before-resume.md),
+  [23Linux/process tests + native rebuild/reuse proof](docs/reports/nplayer-bb100/review-engineering-tests.json),
+  [exact new launch](docs/reports/nplayer-bb100/reviewed-launch.json).
+  Source`c4b04bf826688be546d68c76d14db711d0c788d6`,1045files verified,
+  bundleSHA256`755685cf87023c8cd15c6798a47a01b02cb5e952b798ac9aa060151a0aa294ec`;
+  configSHA256`588379a7b3159528cf5085bf56de43da85979ad34c821a43509511fa088a2042`.
+  Output`bb128:/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v2/`,
+  supervisor483894, control`/home/dberweger/nplayer-bb100-bounded-20261019/`;
+  source-v4/binaries-v4 match the independently reviewed and engineering-tested
+  source-review-v1 bytes. Failed source-v3/root retained. Original qualification
+  cutoff1792416758.7111406 (13:32:38UTC) remains; main8h starts only if admitted.
+  No new final seed or outcomes claimed. Collector command adds
+  `--root /mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019-v2`
+  and writes to a fresh ignored destination. Own TensorBoard6007/local8607 is
+  switched to this new attempt; old20BB6006 remains untouched.
+- **Terminal October19 11:39:11UTC/13:39:11Madrid:** bounded full-matrix smoke
+  crossed80GiB familyRSS (80.105GiB);CPU53/Thermistor58,23.22GiB available RAM.
+  New batch wrapper repeatedly loaded process-lifetime fixed K50 tables.
+  No mature calibration, final10B seed, complete matrix or strength result.
+  [Diagnosis](docs/reports/nplayer-bb100/bounded-terminal.md),
+  [exact receipt](docs/reports/nplayer-bb100/bounded-terminal.json).
+  Supervisor478791 exited; root/source-v3/binaries-v3/config/deadline/partials
+  retained unchanged. Prospective wrapper fix and its engineering cache test are
+  separate; [72-case card-table reuse engineering test](docs/reports/nplayer-bb100/card-table-cache-test.json)
+  passes at1.13GiB whole-command sampled peak,13.48s including build. Test-only
+  source`source-cache-fix` and receipt`cache-fix-build` remain in control. No
+  scientific retry or deadline reset. Snapshot retrieved to
+  ignored`results/bounded-eta-20261019-check1` with the collector below.
+- **Owner-authorized capped-table qualification launched October19**, frozen
+  source`24157c92b52998e9eca06fd715ee53f7386dd2db`,1043 deployed source/config
+  files, bundleSHA256`51c60d7f56224809431230b1cfe9d0832445bfcfe5a37267ac7b19798f7d0f08`.
+  [Prospective protocol](docs/nplayer-bb100-bounded-protocol.md):250M-key cap,
+  freeze-boundary anchors, three fresh10B seeds,16threads,CPU90/Thermistor100,
+  swap telemetry only. Final seeds start automatically only after correctness,
+  mature-memory and full-cost admission; no current strength result.
+  Separate two-hour qualification and eight-hour main deadlines. Supervisor478791;
+  control`bb128:/home/dberweger/nplayer-bb100-bounded-20261019/` contains
+  `source-v3`, pinned`binaries-v3`, and all bootstrap/failed engineering build
+  receipts. `bootstrap-v3` passes57native+20focused Python tests.
+  New owned output`bb128:/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/bounded-20261019/`
+  retains source/config/binary receipts, checkpoints, raw traces and partials.
+  ConfigSHA256`d7cdfb5c0f8d3d4bc485fe633c37bee961f693498cb7aab9c5b3278face9cdbf`.
+  Lightweight status retrieval: `python3.11 docs/reports/nplayer-bb100/collect_bounded.py FRESH_IGNORED_DESTINATION`.
+  TensorBoard owns port6007 onbb128, local tunnel8607, logdir in the new output
+  root; the old20BB dashboard/process is unchanged. No model/trace copying toMac,
+  no cleanup, cloud acceptance or main-strength claim.
+- Owner authorized 100 BB only, targeting 10B per seed after cost admission;
+  200 BB is a separate future run. One calibration seed2026101935001 completes
+  100M/200M/500M with saves, all seven native stages return0, no failure,
+  exact one-vs-sixteen-thread and fresh/resume fixture hashes match. No final
+  strength seeds, poker outcomes, release/default change or long run.
+- October19 10:15:31–10:31:40UTC, 16.16min wall /0.656child CPU-hours.
+  500M has112,968,920entries /10.53GiB sampled peak; traversal5.21Mnodes/s
+  on the last interval, final save389.17s /3,989,512,255bytes.
+  CPU64C/Thermistor15 74.5C maximum; zero swap growth, existing22.85GiB
+  host swap remains telemetry only. No OS/fan/cache/other-job changes.
+- Frozen source0b8d16c9e0a7299b164a543200f535a48d216a05;
+  qualified CLI SHA256fc37a562f8d3753d920b07b5d35c6deabe75fc846196b176f749187a3b3ac790.
+  Controller/source/config originals remain at
+  `bb128:/home/dberweger/nplayer-bb100-pilot-20261019/`:
+  `source-v2`/`config-v2.json` are launched, initial `source`/`config.json`
+  are retained prelaunch provenance. Supervisor466186 exited normally.
+- All raw checkpoints, commands, resources, summaries and source/config evidence
+  remain at `bb128:/mnt/data2tb/research-cloud/PR-350-nplayer-bb100/pilot-20261019/`.
+  Original results.json SHA256`76b4e7ca27bc5587a0282c45e4c35ff68016da536cac57f6fbca7131f0cbdf3e`.
+  Compact retrieval: `/Users/dberweger/Local/cfr-nplayer-bb100-20261019/results/bb100-pilot-20261019T103150Z`;
+  no model or trace copied to the Mac. Reproduce with the report's SSH
+  `collect.py` command into a fresh ignored path, then `summarize.py`.
+  Read-only PR340 CLI/venv and PR292 K50 tables remain protected dependencies.
+- Last-interval linear scenarios give150M entries near0.719B and1.718B
+  entries /131.8GiB peak RSS at10B. These are not bounds or proof of saturation;
+  they do not admit the unchanged150M-entry full campaign. Larger-capacity
+  growth and evaluation-memory qualification was attempted under the separate
+  capped protocol above, and stopped before the mature trajectory.
+- PR350 is open. Raw originals remain protected; Drive ZIP/file IDs,
+  matching upload acceptance and cloud restoration are pending. No archival,
+  cleanup, eviction or deletion claim.
+
+## PR346 — overnight three-player20BB campaign (complete; mixed results; archival pending)
+
+**Verified complete October19 08:44:04UTC /10:44:04Madrid.** All three30B models pass export/every-row audits (328,640,906rows). All36 final lineups replay/reproduce before settled readout:1,769,472 final+1,769,472 reproduction hands. [Final report](docs/reports/nplayer-overnight/results.md), [compact receipt](docs/reports/nplayer-overnight/completion.json), [exact settled result](docs/reports/nplayer-overnight/source-results.json), [model/checkpoint pins and training costs](docs/reports/nplayer-overnight/models-and-training.csv).
+
+Same-seed oriented contrasts1541/42/43:+1.66[−1.54,+4.86],+5.89[+2.88,+8.91],+4.59[+1.46,+7.72]BB/100. All-three improvement gate fails (first inconclusive); cyclic−5 safeguard passes. Random-opponent return regresses across all three seeds; seed1542 check-call also regresses under the12-way adjustment. No default/release/stronger-family adoption. Source native4cd199a5 and full36×8192 matrix remain unchanged; later Git commits contain evidence/integration only.
+
+Final continuation2h32m19s wall/18.36 child CPU-hours; training9.91GiB/save10.49GiB peak, evaluation63.99GiB peak with33.74GiB minimum available RAM. Evaluation host swap peaks23.09GiB (telemetry only); it cannot be attributed to particular pages from these receipts. Overall campaign13h24m56s includes pauses and retained failures; exact whole-campaign CPU unknown, successful-stage receipts total54.75CPU-hours. All failures and partials remain indexed below.
+
+Raw result SHA256`e47b9e07bae8a6ad1f898a8c4175ffb070807dc1f1dac716e713566ab912a695`; evaluation manifestSHA256`99364b06c47aa6077e27da64166274f3886355bc637737c1517a7f4010cf6cde`. Compact metadata retrieved to ignored`results/overnight-complete-20261019T094456Z/`; no model/hand trace retrieval. Read-only exact-result command:`ssh bb128 cat /tmp/nplayer-overnight-20261019-finish-noswap/results.json > FRESH_DESTINATION/source-results.json`, then verify the SHA256. Original/cache paths remain as below, exact final/anchor checkpoint/export paths and hashes in the model CSV/completion receipt. PR346 merged October19; no new ZIP/Drive receipt exists, so archive/upload acceptance is pending. No deletion or cleanup.
+
+[Proposal345](https://github.com/dberweger2017/CFR-NLHE-6max/issues/345); [frozen protocol](docs/nplayer-overnight-blueprint.md). The existing PR340~3B raw checkpoints/averages are read-only inputs. New owned tmpfs workspace `/tmp/nplayer-overnight-20261018` has retained, hash-verified copies in a new per-PR2TB cache root; exact [pins/root/launch receipts](docs/reports/nplayer-overnight/launch.md) record frozen source4cd199a5 and supervisor358105. Preserve all failures and partials. No originals deleted; cloud archival/acceptance pending.
+
+October18 owner amendment requested Thermistor15 stop100°C after the next completed20B checkpoint, CPU90°C and the original deadline retained. **Terminal20:46:30UTC: old95°C guard stopped before20B, so100°C never activated. Last periodic progress17.47B;10B checkpoint retained, no further seed/final evaluation or automatic restart.** [Terminal receipt](docs/reports/nplayer-overnight/terminal-stop.md). Separate one-shot handoff code and `thermal-handoff-{armed,started,interruption,active,failure}.json` receipts live in the same owned run root; the interrupted stage and existing10B/20B checkpoints remain intact. The original frozen source/native binary are unchanged. `armed` is pending, not proof of activation; consult `active` and continuation measurements. No failed-science retry or recurring schedule.
+
+**Recovery terminal October19 01:34:58UTC/03:34:58Madrid:** seeds1541/1542 completed30B with export/audit returncode0; seed1543 stopped near12.20B, with10B saved. Absolute host swap269,004,800bytes crossed the conservative256MiB guard; CPU61°C/Thermistor94°C and82.4GiB RAM remained available. No final held-out evaluation or strength conclusion, no automatic restart; original deadline now passed. [Partial evidence and checkpoint hashes](docs/reports/nplayer-overnight/recovery-terminal.md).
+
+Explicit subsequent owner recovery: [100°C recovery launch and setup-refusal provenance](docs/reports/nplayer-overnight/recovery100.md). Fresh root `bb128:/tmp/nplayer-overnight-20261018-resume100-v2`, supervisor371963; same10B input, frozen native binary and original deadline. Prior thermal failure and initial recovery setup refusal remain intact. Combined owned storage and absolute swap are charged to the original ceilings; no cleanup or cloud acceptance.
+
+October19 owner instruction removed swap as a campaign stop condition in the updated code; absolute usage/growth remain telemetry. Historical stops and remote source copies remain retained. No new run or deadline reset.
+
+October19 owner instruction “please resume the run”: [remaining-work continuation](docs/reports/nplayer-overnight/finish-noswap.md), root `bb128:/tmp/nplayer-overnight-20261019-finish-noswap`, supervisor437572. New explicit4h allocation06:11:45–10:11:45UTC; previous expired allocation and all failed roots remain historical evidence. Reuse the two audited30B averages read-only; resume seed1543 from10B, then unchanged full final evaluation. No swap stop, CPU90°C/Thermistor15100°C; combined storage limits retained. Final traces go directly to the new owned HDD cache/evaluation path; no deletion/Drive acceptance.
+
+## PR334 — three-player search cost calibration: completed groundwork; archival pending
+
+[PR334](https://github.com/dberweger2017/CFR-NLHE-6max/pull/334), [protocol](docs/nplayer-search-cost-pilot.md), [report and retrieval commands](docs/reports/nplayer-search-cost-pilot.md).
+October 17, 2026: fixed 1,000-hand three-player blueprint baseline, seed
+`202610173401`, source `2fe300e2`; zero search solves. Raw output remains at
+`bb128:/home/dberweger/nplayer-search-cost-20261017/baseline/`; local ignored
+copy and 43 extracted legal observations are under
+`/tmp/cfr-three-player-search-cost-pilot/results/nplayer-search-cost-20261017/`.
+Trace: 2,438,056 bytes, SHA256
+`d39d160c1d0d193b29056872c74c5a1e2a3d724d4b77dbdc0b281fef2e75399f`.
+Input model: PR292 `training/2026101541/1000m-average.gz`, SHA256
+`990246065bfc1f8a13c5ca3456090689b5ab52105c860d4bca1531b3f5e3db70`;
+its [accepted archive/member provenance](docs/reports/nplayer-blueprint-phase2-artifacts/archive-model-members.json)
+and restoration links remain in the PR292 entry. Inputs were read in place.
+Drive archival of this new run is pending; no upload acceptance or cleanup is
+claimed. Preserve these active originals until closeout and dependency review.
+
+## PR342 — three-player blueprint promotion (complete; archival pending)
+
+[PR342](https://github.com/dberweger2017/CFR-NLHE-6max/pull/342),
+[proposal341](https://github.com/dberweger2017/CFR-NLHE-6max/issues/341),
+[frozen protocol](docs/nplayer-blueprint-promotion.md),
+[verified report](docs/reports/nplayer-blueprint-promotion/results.md),
+[compact receipt](docs/reports/nplayer-blueprint-promotion/completion.json).
+
+- Owner accepted15–30min bb128 compute with existing models. Frozen source
+  `d6cb8ebdb9384142b78d8ee93fa609b9dbe6b133`; later commits are evidence only.
+  `bb128:/home/dberweger/nplayer-blueprint-promotion-20261018`, PID336533,
+  October18 16:38:01–16:50:09UTC, complete/no failure. All3 stages return0,
+  all12 cases independently replay and exactly reproduce before settled readout:
+  589824 final plus589824 reproduction hands; excluded smoke144+144.
+- Same-seed contrasts1541/42/43: +5.92[+2.55,+9.30], +5.38[+1.96,+8.80],
+  +4.35[+0.87,+7.83]BB/100. Cross-seed1541vs42/42vs43/43vs41:
+  +3.02[−0.42,+6.45], +5.18[+1.71,+8.65], +5.58[+2.22,+8.94].
+  Primary improvement and cross-seed−5 noninferiority gates both pass.
+  These are oriented singleton contrasts, not pooled player return.
+- Total12.13min wall/1.142 child CPU-hours,56.22GiB sampled family RSS;
+  CPU69C/Thermistor15 81.5C max,2.75MiB swap growth,55.70GB minimum free NVMe.
+  Six workers across affinity0–15. No training, new models or environment changes.
+- [Six model/binary pins](docs/nplayer-blueprint-promotion-inputs.json) depend
+  read-only on PR292 production1B and PR340 fast600s full averages. Preserve
+  those roots and the shared tables/arena/venv; do not clean dependencies while
+  needed by this open PR. PR292 Drive restoration is indexed below; PR340 raw
+  archival remains pending. Never infer cloud acceptance for either new root.
+- All raw traces, logs, excluded smoke, frozen source and launch hashes remain
+  in the owned root. Compact metadata retrieved by SSH into ignored
+  `/tmp/cfr-nplayer-blueprint-promotion/results/promotion-completion.json`;
+  no models/raw traces copied locally. Reanalysis command and exact provenance
+  are in the report. Cloud archival/upload acceptance is pending, no deletion.
 
 ## PR340 — PR335 strength study (complete; archival pending)
 
@@ -5026,3 +6540,869 @@ Current merged-owner status, current native accepted upload/no-pending/no-confli
 - R4 members: `research/training/4/checkpoint.gz`, `research/training/4/current.gz`, `research/training/4/average.gz`; average SHA256 `db5104eb8c1d0f73fb1cbb50374e76b8add1b36ff27e3554b07ccc46e32c1c29`, actual1,000,002,794 nodes /40,858,142 entries. R8 corresponding `research/training/8/` members; average SHA256 `ef4002afa076f2f1c687ecb5d82b31127b3b64d872a546c75b35cddc345b8f30`, actual1,000,009,152 nodes /41,049,696 entries. All current/average rows audited before play.
 - Reference member: `research/releases/v0.5.0/O1B-HU100-opponent-sampled-average-seed-2026100601.jsonl.gz`, 1,173,264,021 bytes, SHA256 `47d493c2ca0a750ffec8ba5490bd8fdec0a582e0cf2fe3e4309868f6ae620fa9`; verified bundled source `b9c9bd161422e87371a2641ae4c60304c66eed79` with `--require-publication`. [Pinned GitHub release](https://github.com/dberweger2017/deepcfr-texas-no-limit-holdem-6-players/releases/tag/v0.5.0) remains an alternative retrieval path. Timing-only checkpoint members: `research/timing/1/checkpoint.gz`, `research/timing/4/checkpoint.gz`, `research/timing/8/checkpoint.gz`, all full hashes/retrieval commands in index.
 - No failed-hand reruns, outcome extensions or stage resource stops. [Final safety summary including archive/upload wait](docs/reports/hu100-roots-per-seat-artifacts/resource-summary-final-upload.json) retains all observed margins; the archive’s own live guard/upload-wait streams were excluded while mutable, with closed raw originals retained locally and compact receipts/summary in Git. All B local originals remain; no cleanup inside synced folders or eviction. Earlier C/A cleanup receipts/restoration links are indexed above, based on current accepted merged archives and unchanged original path/size/mtime/dependencies, without repeated remote downloads/hash audits. PR246 roots/uploads remain unchanged.
+
+## PR301 — HU200 capacity on cygnus-x1 (owner-approved export recovery running, October 17, 2026)
+
+October17,15:45:19UTC export-only restart under new owner approval: no training
+or completed1421/1422 audit repeat. [Source/process/closed trace pins](docs/reports/hu200-capacity-cygnus-artifacts/export-recovery-startup-20261017.json)
+verify clean immutable57c63314071f0337afb38d0ce230297066c7ac52,
+74checksPASS/guardedfreshreadmission, supervisor79721/worker79744(CPU6,1thread)/
+observer79742. Newoutput`results-export-recovery-20261017/2026101302/20000000000/`
+keeps native checkpoint at its original verified NVMe path until final audit.
+[Closed downtime ledger](docs/reports/hu200-capacity-cygnus-artifacts/export-recovery-20261017/export-recovery-20261017/deadline.json)
+credits4,809.848438s once,14:25:09.233853→15:45:19.082291UTC; all earlier clocks
+unchanged. CurrentdeadlineOct19 06:04:59UTC /08:04:59Madrid; eval24h notstarted.
+[ETA](docs/reports/hu200-capacity-cygnus-artifacts/eta-after-export-recovery-20261017.json)
+nowtonight22:45–23:45Madrid finalexport/audit, fullMon19evening/Tue20uploadcontingency.
+
+**Additional inactive-file storage COMPLETE:**21files/**70,431,280,579 bytes**,
+sourceSHA/fsync/independent full destinationreadback/identity/journalbeforeunlink.
+[Exact every-file NVMeoriginal/HDDlocation/size/mtime/SHA and removal receipt](docs/reports/hu200-capacity-cygnus-artifacts/export-recovery-20261017/storage-export-recovery-20261017/receipt.json).
+HDDroot`/mnt/data2tb/research/PR-301-hu200-capacity-cygnus/inactive-before-export-recovery-20261017/`
+mirrors each original owned-root relative path. Includes1421/1422 20B recovery and
+average files,1302 10B recovery, gate/memory models, all old1302exportpartialbytes.
+These NVMe originals are now absent; old audit receipts retain their originalpaths.
+All original bytes remain recoverable onHDD; no partial promoted to admittedmodel.
+Restoration, only after fresh admission and for an inactive absent NVMe destination:
+`rsync -a --ignore-existing /mnt/data2tb/research/PR-301-hu200-capacity-cygnus/inactive-before-export-recovery-20261017/results-recovery-20261016/2026101421/20000000000/checkpoint.average.gz /home/dberweger/hu200-capacity-20261015/results-recovery-20261016/2026101421/20000000000/checkpoint.average.gz`
+then `sha256sum` that destination; expectedSHA
+`c6a4a09ed3402fbb77ce5f89e5e1fac6010e690aa0ce292a2267a812089383be`.
+Use each receipt row's exact hash/bytes/mtime for other files; retain HDD copy.
+Active compute/caches stayNVMe. Stage only needed averages/twins, keeping full
+prospective output reservations and50GBfloor; re-admit actual cache/evaluation
+cost before final hands. Source/Git/shared dependencies/otherPRs untouched.
+
+Raw storage metadata and journal atowned`storage-export-recovery-20261017/`;
+closed guards`guards/{storage-export-recovery-20261017,storage-export-recovery-20261017-r3,export-recovery-checks-20261017,export-readmission-20261017}/`
+are pinned instartupreceipt; exactplan/result/relocation copies under
+`export-recovery-20261017/`. Currentguard`guards/export-recovery-20261017/`
+resources/utilization remain unsealed live cuts; controller/observer logs ownedroot.
+[Setup failures retained](docs/reports/hu200-capacity-cygnus-artifacts/export-recovery-setup-failures-20261017.json).
+Earlier failuremetadata Driveacceptance remains valid; no new modelbundle/cloud
+acceptance/finalunpackedcopy claimed. Final archival must include these rawtraces,
+all 21 relocated files using originalmemberhierarchy, helper/plans/sourcebundles,
+ignored local preparation/launch/collection/publication/handoff/readback metadata,
+existingeventtask scope update receipt, and old/new failure logs/partials. Private
+webhook/signeddownload URLfiles excluded. Existingeventtask only, no new schedule;
+completecloseout pending. No final hands/outcomes or merge/release/defaultchange.
+
+October17,14:25UTC NEW continuation `training_failed` event, failureSHA
+`fe8b88f140d523772d3b43f31b44a979e202716159816294bcfb744896cfe50b`,
+deduplicated from historical rootSHAcdb382… and committedf10c2a71 running snapshot.
+[Failure assessment/source copies](docs/reports/hu200-capacity-cygnus-artifacts/training-continuation-failure-20261017.json)
+plus `continuation-failure-20261017/` pin exact failure/stop/model/clock/guard
+receipts and closed raw traces. All9 owned PIDs absent; no automatic retry.
+1302 intact20B checkpoint/full save verification retained, final export scratch
+files3,124,811,357 bytes retained/unaudited.1421/1422 full audits unchanged.
+50GB prospective floor failed(69.821free−19.875reservation≈49.946GB); physical
+free66.600GB atcollection. No heat stop or newHDD/otherPR use. No clock reset.
+[ETA withdrawn](docs/reports/hu200-capacity-cygnus-artifacts/eta-after-continuation-failure-20261017.json).
+
+Partial failure-evidence ZIP **PR301-continuation-failure-20261017.zip** accepted
+in [existing PR301 Drive folder](https://drive.google.com/drive/folders/159JoTfd8HUyblui5QgSMc6w1JNz-z7px):
+[file1fck0GZA1p_Il8apHPF8lkW4W-4JrlCRJ](https://drive.google.com/file/d/1fck0GZA1p_Il8apHPF8lkW4W-4JrlCRJ/view),
+**1,410,443 bytes**,SHA256`2a863212d38771cb88d2314cbef27ffacab18bd5a5ffbb1919587c5fd4b9eb58`,
+MD5`885a0fdb267fd03cf25527c1d7ac0b09`,61 members; manifest`MANIFEST.json`
+SHA256`5a269f75ccd99596b4bb6cc6ca785d745c18070a93eae1e00f8a48d173b26d11`.
+Full local AND independently downloaded cloud whole/member readback pass.
+[Native upload/independent metadata/readback receipt](docs/reports/hu200-capacity-cygnus-artifacts/continuation-failure-archive-20261017.json).
+BB original archive/manifest/readback at owned `archives/continuation-failure-20261017/`;
+original member paths preserved. Fetch this exactDriveID to fresh ignored storage,
+check wholeSHA above, then verify size/SHA for each MANIFEST member before use.
+Models/partial model bytes are excluded and remain at indexed NVMe/HDD locations;
+this is partial evidence acceptance, not complete model archival or final retention.
+No original/transport cleanup; no newHDD copy. Archiveguard rawplan/result/readings
+at `guards/failure-evidence-archive-20261017/`; worker/plan inownedplanning.
+Local ignored collection/publication helpers, all collection/readback/connector
+receipts in `planning/failure-evidence-archive-20261017/` and new coordinator
+metadata require final archival. Exclude private endpoint/download URLs. Full
+campaign closeout incomplete; eventtask retained,terminalobserver exited,no newtask.
+
+October17,14:09UTC update: all3 native20B endpoints saved;1421/1422 final full-row
+audits and verified HDD relocations pass.1302 native save SHA
+`b27092a197083f031bf3e83e12f1715cd28cc8ddac01a172972e342e63ef1d93`,
+14,414,526,873 bytes, full gzip/row/hash readback verified; policy export/full
+current-average audit still running. No final hands or Drive acceptance.
+[Snapshot, source pins and exact receipt copies](docs/reports/hu200-capacity-cygnus-artifacts/progress-20261017-1408.json)
+index closed audit/result/offload/journal records under
+`progress-20261017-1408/` with original owned-root relative paths. Raw live
+resources/utilization remain unsealed cuts in `guards/continuation-20261017/`.
+Four relocated files39,111,722,256 bytes retain original relative paths below
+`/mnt/data2tb/research/PR-301-hu200-capacity-cygnus/inactive-models-after-20b-20261017/`;
+per-seed `continuation-20261017/offloads/SEED/receipt.json` gives each original,
+destination, bytes, mtime and SHA256, with durable `journal.jsonl` and independent
+all-byte readback. Current source absence and destination size were rechecked.
+Restore selected files only after admission, copying back to the exact original
+NVMe path and verifying recorded size/SHA/mtime; retain the HDD original.
+Twins/5B averages remain in the earlier separately indexed HDD location. Latest
+20B recovery/averages remain NVMe. Include local ignored `planning/collect_status_20261017_1408.py`,
+`status-20261017-1408-collected.json`, publication/readback/activity metadata and
+all raw closed/live phase traces in final archives; private webhook URL excluded.
+
+[PR301](https://github.com/dberweger2017/CFR-NLHE-6max/pull/301), base main
+`f949b930`, [protocol](docs/hu200-capacity-cygnus-protocol.md),
+[report](docs/reports/hu200-capacity-cygnus.md). All fresh/normalized500M full audits, exact twin parity and memory gates pass. All twins restored; all three5B saves pass every-row audits and required5B averages remain. Accidental power-off interrupted10B; the owner-approved common5B recovery is running on all three seeds with a single one-hour extension. No final hands yet.
+Owned nonsynced host root: `/home/dberweger/hu200-capacity-20261015/` on bb128.
+Open PR292 root/archives/upload processes/shared inputs remain protected.
+
+Canonical destination: [PR-301-hu200-capacity-cygnus](https://drive.google.com/drive/folders/159JoTfd8HUyblui5QgSMc6w1JNz-z7px),
+folder ID `159JoTfd8HUyblui5QgSMc6w1JNz-z7px`, under the existing research project
+`188bEt6i0RHqegCCdvpf3wPzUiRw78N2s`. No archive uploaded or accepted yet.
+Future archive receipts must supply whole/member hashes, local readback,
+Drive piece/archive IDs and separate upload/metadata acceptance.
+
+Owner October16 additionally requires an **unpacked retained copy** of the final
+uploaded evidence under `/mnt/data2tb/research/PR-301-hu200-capacity-cygnus/`
+on bb128, matching archive member hierarchy/manifests. This copy is pending;
+[retention plan](docs/reports/hu200-capacity-cygnus-artifacts/local-retention-plan.json)
+records the observed2TB mount and required member size/SHA256 receipt. Scientific
+training/evaluation/cache/scratch remain on NVMe under the unchanged budgets.
+
+The three fixed twins are restored from their already indexed #265/#278
+accepted Drive archives through read-only synced archive I/O and SSH; no model
+work runs on the coordinator. [Exact archive IDs, hashes, members and model pins](docs/reports/hu200-capacity-cygnus-artifacts/drive-inputs.json).
+Restoration on bb128 verifies whole archive/manifest/member hashes and all three pinned20B model hashes. For retrieval, download the
+named accepted archive to ignored `inputs/archives/`, verify its whole SHA256
+and embedded `ARCHIVE-MANIFEST.json` hash, extract the named member to fresh
+`inputs/seed-SEED/`, then verify its exact model SHA256. Original restoration
+commands: [#265](docs/reports/hu200-k50-frozen-artifacts/model-index.json),
+[#278 seed1421](docs/reports/hu200-v055-confirmation-artifacts/seed-2026101421-model-index.json),
+[#278 seed1422](docs/reports/hu200-v055-confirmation-artifacts/seed-2026101422-model-index.json).
+
+Qualified input dependencies remain read-only at
+`/home/dberweger/cygnus-qualification-20261014/`: `trainer-first` SHA256
+`d7049a7a024f142d1a82f75d3c673e427a80c516afd9c00b7769265dfad16436`,
+`benchmark-results/500m.gz` SHA256
+`2c4c1484b7e4ebefca2bb364223d6cd12e886f98b20784b51ff6ac6678f4312d`,
+and three #163 tables under `tables/`. All four input hashes have been freshly
+verified on bb128 before the guarded no-step memory calibration. Existing
+[qualified archive/restoration pins](docs/reports/cygnus-x1-artifacts/archive-main.json)
+and [#163 table provenance](docs/reports/cygnus-x1-artifacts/input-restoration.json)
+remain authoritative. No original removed or altered. Memory calibration output
+and full thermal/resource stream await completion and archival; no result yet.
+[Administrative failures](docs/reports/hu200-capacity-cygnus-artifacts/admin-failures.json)
+include connector413 and the corrected source-transfer prerequisite race.
+
+PR301 post-BIOS continuation: [500M every-row identity](docs/reports/hu200-capacity-cygnus-artifacts/memory-row-identity.json),
+[full69,084,815-row current/average audit with file hashes](docs/reports/hu200-capacity-cygnus-artifacts/memory-postbios-audit.json),
+[thermal/resource summary and raw trace hashes](docs/reports/hu200-capacity-cygnus-artifacts/memory-resource-summary.json),
+[owner-interruption clock](docs/reports/hu200-capacity-cygnus-artifacts/owner-interruption-restart.json),
+[21 post-BIOS test receipt](docs/reports/hu200-capacity-cygnus-artifacts/postbios-tests.json).
+Raw evidence/partials remain under the owned bb128 root; not yet archived or uploaded.
+4,734.229/5,400 active preliminary seconds used. At that preliminary receipt the72h clock was unstarted; its subsequently started fixed clock is indexed below.
+New2TB disk excluded from scientific work; owner-authorized final unpacked
+retention copy pending as declared above. Open#292 and unrelated preservation data protected.
+
+PR301 admitted source3f6eb6cb; [resource admission](docs/reports/hu200-capacity-cygnus-artifacts/admission.json),
+[active72h clock](docs/reports/hu200-capacity-cygnus-artifacts/training-clock.json),
+[three exact fresh/resumed20M identities](docs/reports/hu200-capacity-cygnus-artifacts/resume-gates.json).
+Training/audit deadline October19,02:29:18UTC; evaluation allowance unchanged24h.
+All fresh500M full audits pass; normalized1302 full audit passes, with1421/1422 underway. Global twin-prefix/mature-memory gates remain pending; no strength claim.
+Initial evaluation-fixture failure retained; three corrected barrier checks pass.
+
+PR301 continued-task [delivery verification](docs/reports/hu200-capacity-cygnus-artifacts/continuation-delivery.json)
+and [bounded metadata observer](docs/reports/hu200-capacity-cygnus-artifacts/event-observer-launch-v2.json).
+Private endpoint files are excluded from all archives/Git; task removed at closeout.
+All three input transports are complete by expected byte size; whole SHA/member restoration remains pending on bb128. No model verification is inferred from transport completion.
+No restoration/hash acceptance or final-hand result is yet claimed.
+
+PR301 input transport receipts: [1302](docs/reports/hu200-capacity-cygnus-artifacts/transport-complete-2026101302.json), [1421](docs/reports/hu200-capacity-cygnus-artifacts/transport-complete-2026101421.json), [1422](docs/reports/hu200-capacity-cygnus-artifacts/transport-complete-2026101422.json). All files remain at the indexed owned `inputs/archives/` paths; no source/archive cleanup has occurred.
+[Approved scheduling amendment](docs/hu200-capacity-scheduling-amendment.md), [36-check validation](docs/reports/hu200-capacity-cygnus-artifacts/scheduling-validation.json), [successful07:52UTC handoff](docs/reports/hu200-capacity-cygnus-artifacts/scheduling-handoff.json) and [two-audit08:19UTC snapshot](docs/reports/hu200-capacity-cygnus-artifacts/parallel-audits-live-20261016.json). Live source94b84b3255f16daa529eae8250ca9a391249b2ac at owned `repo-scheduling`; original clock SHA/deadline unchanged. Retain that source, old source dependencies, raw traces, fixtures/failures and logs through campaign archival. No third audit admission or measured ETA re-quote before first-batch completion.
+
+PR301 [first parallel batch](docs/reports/hu200-capacity-cygnus-artifacts/parallel-audit-batch.json) and [independent verification](docs/reports/hu200-capacity-cygnus-artifacts/parallel-batch-verification.json):1.7943x throughput, peak CPU/VRM61/61C; an upper limit of three audits is admitted within existing resource/output reservations. [Exact twin gates](docs/reports/hu200-capacity-cygnus-artifacts/twin-gates.json), [mature-memory admission](docs/reports/hu200-capacity-cygnus-artifacts/prefix-memory-admission.json), [actual trainer worker observation](docs/reports/hu200-capacity-cygnus-artifacts/trainer-thread-observation.json) and [re-quoted ETA](docs/reports/hu200-capacity-cygnus-artifacts/eta-after-parallel-batch.json). Original deadlines unchanged.
+
+PR301 [verified twin restoration](docs/reports/hu200-capacity-cygnus-artifacts/twins-restored.json) binds original Drive IDs/member paths to the retained models under `/home/dberweger/hu200-capacity-20261015/inputs/seed-SEED/final.average.gz`. All three SHA256s match the fixed user pins. [Cleanup receipt](docs/reports/hu200-capacity-cygnus-artifacts/transport-copy-retirements.json):12,245,806,798B of unchanged owned `inputs/archives/*.zip` transport replicas retired only after all restorations pass; their original Drive files and9,489,299,657B restored models remain. The receipt provides each exact removed path, bytes/mtime/hash, Drive restoration URL/member and retained model. PR265/278 currently MERGED verified; PR301 OPEN, so model originals/source/partials stay retained. To repeat retrieval after transport retirement, re-materialize the indexed accepted Drive ZIP via the read-only synced-file/SSH route into a fresh ignored directory, verify `drive-inputs.json` whole SHA and embedded manifest SHA, extract its exact named member and verify its listed model SHA before use. No cleanup in synced folders or other roots. New campaign output archives/upload acceptance still pending.
+
+Actual guarded input restoration command (already completed; existing verified destinations must not be reused):
+```
+cd /home/dberweger/hu200-capacity-20261015/repo-scheduling
+.venv/bin/python -m scripts.restore_hu200_capacity_twins --base /home/dberweger/hu200-capacity-20261015
+```
+For a fresh recovery, stage all three indexed ZIPs under a fresh ignored owned base's `inputs/archives/` and run that same pinned module against the fresh base; preserve existing verified models. Source paths, exact IDs/hashes/members and per-model spec/lineage are recorded in the linked restoration receipt.
+
+PR301 October16,12:05UTC: [independently verified2B milestone](docs/reports/hu200-capacity-cygnus-artifacts/milestone-2b-verification.json)
+indexes byte-identical owned source receipts under `save-2b/`, including every
+seed's audit/header/checkpoint hashes, exit0 job results, retirements and5B parent
+admission. Tables contain135.43–135.89M entries and remain unfrozen. Retained
+recoveries still match recorded size/mtime; disposable exports/old prefixes retire
+only with exact receipt-backed paths. [Per-street/role interval coverage](docs/reports/hu200-capacity-cygnus-artifacts/coverage-2b.csv).
+Three actual audits overlap2h03m; CPU/VRM peak65/74°C, no stop or swap growth.
+Raw resource/utilization traces remain active on bb128; the verification records
+fixed byte cuts, nominal sampling overhead/gaps and CPU/I/O limitations.
+[Re-quoted ETA](docs/reports/hu200-capacity-cygnus-artifacts/eta-after-2b.json)
+keeps October19 evening Madrid/October20 upload contingency, original deadlines
+unchanged. No final hands/outcomes or new output archive acceptance yet; final
+unpacked HDD retention remains required at closeout.
+
+PR301 October16,16:40UTC: [verified5B milestone](docs/reports/hu200-capacity-cygnus-artifacts/milestone-5b-verification.json)
+indexes byte-identical owned5B source receipts, all22 source size/SHA pins,
+exit0 jobs, exact retirements and10B parent admissions. All three required5B
+averages remain at their indexed owned paths (16,526,079,059B total), with full
+SHA256s, sizes/mtimes and source checkpoint hashes. Tables remain unfrozen at
+197.91–200.36M entries. [Per-street/role2B→5B coverage](docs/reports/hu200-capacity-cygnus-artifacts/coverage-5b.csv).
+Three audits overlap3h05m; peak CPU/VRM75/88°C, no threshold stop, swap growth
+0.75MiB within guard.83°C admission holds are distinguished from95°C/30s running
+VRM stops. Raw mutable trace byte cuts and sample-gap limitations are recorded.
+[Re-quoted ETA](docs/reports/hu200-capacity-cygnus-artifacts/eta-after-5b.json)
+keeps October19 evening Madrid/October20 upload contingency, original limits
+unchanged. No final hands, outcomes, output archive acceptance or HDD copy yet.
+
+PR301 accidental power-off, October16: [damage assessment](docs/reports/hu200-capacity-cygnus-artifacts/power-off-assessment.json),
+[full post-boot byte readback](docs/reports/hu200-capacity-cygnus-artifacts/power-off-byte-readback.json),
+[readback guard plan/result](docs/reports/hu200-capacity-cygnus-artifacts/power-off-readback-result.json).
+All11 checked complete files /76.175GB match pre-shutdown SHA256s. Seed1302's
+10B temporary checkpoint is incomplete;1421/1422 native10B hashes match but
+their every-row audits were interrupted. All audited5B recoveries/averages and
+twins remain intact. Old files, scratch and the truncated trace stay preserved.
+[Owner-review recovery proposal](docs/hu200-capacity-power-loss-recovery.md):
+common5B restart, about15B repeated physical nodes, exactly+3600s once proposed
+for the main deadline, unchanged fixed evaluation/guards/storage budget.
+No restart, retry, deadline change, new archive acceptance or HDD copy performed.
+
+PR301 owner-approved recovery: [authorization](docs/reports/hu200-capacity-cygnus-artifacts/recovery-approval.json),
+[single fixed deadline ledger](docs/reports/hu200-capacity-cygnus-artifacts/training-deadline-amendment-20261016.json),
+[53 guarded validation checks and preserved setup/test failures](docs/reports/hu200-capacity-cygnus-artifacts/recovery-validation.json),
+[fresh hash/resource admission](docs/reports/hu200-capacity-cygnus-artifacts/recovery-admission-20261016.json).
+Pinned sourcec48e64ce, three original5B parents, new results-recovery-20261016 paths.
+Original clock bytes unchanged; effective deadline Oct19 03:29:18UTC; evaluation
+still24h, no further automatic retries. Rebuilt1421/1422 must equal old10B hashes.
+[Launch ETA](docs/reports/hu200-capacity-cygnus-artifacts/eta-at-recovery-launch.json)
+retains Monday19 evening target/Tuesday20 contingency. Launch receipts pending;
+no recovery trainer or final hands started at the admission snapshot.
+
+PR301 recovery launched October16,19:43UTC: [startup command/parent/process proof](docs/reports/hu200-capacity-cygnus-artifacts/recovery-startup-verification.json).
+Supervisor4325, native trainers4337/4338/4339, observer4367; immutable sourcec48e64ce.
+All three use original5B recoveries and fresh results-recovery-20261016 paths.
+Actual native flags match interrupted attempts except time/output/log/stop paths.
+At19:45UTC CPU/VRM63/61°C, swap0, no stop. Existing webhook task enabled and
+deduplicated; no new schedule. Old interrupted evidence remains untouched.
+Original clock unchanged; effective approved deadline Oct19 03:29:18UTC.
+No final evaluation or archive/HDD closeout yet.
+
+PR301 October17 morning: [status/source receipt pins](docs/reports/hu200-capacity-cygnus-artifacts/status-20261017-morning.json).
+1421/1422 reproduced old10B compressed SHA256s and pass full10B audits; both
+saved20B and await final audits.1302 is finishing its10B audit. Native20B table
+counts301,153,954/301,153,964 reflect unchanged complete-iteration freezing.
+No terminal20B audit or final playing result claimed. Original disk reservations
+limit new admissions; no failure/stop/limit change. Deadline and ETA unchanged.
+
+PR301 October17,05:53UTC: [all three rebuilt10B audits verified](docs/reports/hu200-capacity-cygnus-artifacts/milestone-10b-verification.json),
+with byte-identical owned source metadata under `save-10b/`, native/checkpoint/export
+hashes, CRC/EOF/order/every-row validation, exit0 jobs and exact retirement paths.
+1421/1422 match pre-shutdown compressed hashes;1302 matches known nodes/iteration.
+[Every-street/role interval coverage](docs/reports/hu200-capacity-cygnus-artifacts/coverage-10b.csv).
+Approved redundant-file retirement totals68,083,458,565B;5B averages/current10B
+recoveries and all interrupted attempts remain. Two final20B audits are active,
+1302 continuation awaits original prospective disk reservations. CPU/VRM59/63°C,
+no stop/failure; clock/source unchanged. [Re-quoted ETA](docs/reports/hu200-capacity-cygnus-artifacts/eta-after-10b.json)
+expects training/audits Saturday17evening–Sunday18morning, Sunday18evening contingency;
+report/archive target Monday19evening Madrid/Tuesday20upload contingency.
+Ignored coordinator `planning/{collect_status_20261017_10b.py,status-20261017-10b-collected.json,verify_10b_event.py,10b-event-source-collection.json,publish_10b_event.py}`
+are metadata evidence for final archival, excluding private endpoint files.
+No final hands/outcomes, new cloud archive acceptance or final unpacked retention
+copy yet. Existing bounded event task remains until complete closeout.
+
+PR301 October17,09:21UTC: [terminal storage-guard assessment/source receipts](docs/reports/hu200-capacity-cygnus-artifacts/training-failure-20261017.json)
+records the new `training_failed` event and byte-identical failure/stop/header/plan
+copies under `failure-20261017/`. All15 recorded owned PIDs are absent. Last
+free62.767GB minus remaining reserved12.898GB leaves49.869GB below50GB floor;
+logical owned+reservations+growth+floor still248.518GB within259GB. No heat stop.
+Owned growth30.299GB versus free-space drop121.401GB since05:53 is disclosed
+without attributing other roots. PR292 and unrelated files/processes untouched.
+All3 verified10B checkpoints remain;1421/1422 native20B saves and byte-readback
+receipts exist but final audits interrupted,1302 never started20B. Preserve both
+20B exports/stop files and all old partial/scratch/model/source/dependency bytes.
+Closed recovery resource/utilization/controller/observer trace sizes/hashes are
+pinned in the assessment; no new archive uploaded/accepted or HDD copy performed.
+Current free58.237GB does not admit declared41GB archive staging above50GB floor.
+[ETA withdrawn](docs/reports/hu200-capacity-cygnus-artifacts/eta-after-failure-20261017.json);
+no reliable completion ETA/retry/evaluation admission. Original limits unchanged.
+Ignored `planning/{collect_training_failure_20261017.py,training-failure-20261017-collected.json,publish_failure_20261017.py}`
+require later archival along with current coordinator metadata; private endpoint
+files excluded. Event task retained until full closeout, terminal observer exited,
+no new task. No final hands/outcomes; owner decides any recovery and merge.
+
+PR301 October17,09:56UTC: [verified inactive model relocation](docs/reports/hu200-capacity-cygnus-artifacts/inactive-model-storage-20261017.json),
+[byte-identical manifest](docs/reports/hu200-capacity-cygnus-artifacts/inactive-model-storage-20261017/relocation-manifest.json),
+[storage amendment and continuing placement authority](docs/hu200-capacity-storage-amendment.md).
+The owner specifically authorizes moving inactive models/evidence and managing
+placement/staging/retrieval between NVMe and2TB HDD within this bounded PR301.
+All11 files /56,691,594,602B pass source SHA and independent destination every-byte
+readback, eight intact-model pinned hashes, source identity checks and durable
+pre-unlink journaling. Original NVMe copies are removed only after verification;
+all bytes remain unpacked at `/mnt/data2tb/research/PR-301-hu200-capacity-cygnus/inactive-models-20261017/<original-relative-path>`.
+The exact source/destination/bytes/SHA/mtime/removal state for every file is in the
+manifest. Three twins/three5B averages and the old interrupted10B model/partial
+files are there. Current3 audited10B recoveries and both pending20B checkpoint/
+current/average sets remain at `results-recovery-20261016/` on NVMe, metadata intact.
+Unique partial evidence is preserved rather than discarded; all original audit
+statuses remain unchanged.
+
+The HDD's `/dev/sda1` ext4 rw mount is verified. Guard passes in879.015s; CPU/VRM
+max58/63.5°C, RSS31.42MB, swap growth128.0625MiB below256MiB, NVMe minimum56.394GB.
+Final collected free NVMe111.180GB/HDD1.754TB. Manifest/journal/helper/closed guard
+trace pins and final source-absence/destination metadata checks are in the receipt.
+No cloud upload/acceptance, scientific retry, final hands or outcome read occurred.
+HDD archive staging is now authorized, removing the prior staging-space blocker;
+scientific recovery remains unapproved and the old finishETA remains withdrawn.
+
+Retrieval recipe (after required NVMe space/dependency admission and under the
+same watchdog): select one `relative_path` from the manifest, copy back while
+preserving its recorded mtime, verify its exact `bytes` and `sha256`, and retain
+the HDD copy. Example paths and command for1302's5B average:
+
+```sh
+# On bb128; do not overwrite an existing or active model.
+rel=results/2026101302/5000000000/checkpoint.average.gz
+from=/mnt/data2tb/research/PR-301-hu200-capacity-cygnus/inactive-models-20261017
+back=/home/dberweger/hu200-capacity-20261015
+cp --no-clobber --preserve=timestamps "$from/$rel" "$back/$rel"
+sha256sum "$back/$rel"
+# Expected:19b2723dff161d10c063e191c9b4fc10f61a2f85687b33009f1b4509441580a5
+```
+
+Source metadata/raw storage worker/journal/resource traces remain in bb128 owned
+`planning/`, `guards/inactive-model-offload-20261017/` and the HDD destination;
+coordinator ignored `planning/{offload_inactive_models_20261017.py,offload-inactive-models-20261017-launch.json,monitor_offload_20261017.py,collect_offload_receipts_20261017.py,offload-inactive-models-20261017-completion-collected.json,publish_offload_completion_20261017.py}`
+plus updated handoff/history need final archival. Exclude all private endpoint files.
+No PR292/source/dependency cleanup or new schedule; event task remains until full
+closeout. Future bundle manifests must use the relocation ledger for missing
+original NVMe member paths; never silently omit relocated evidence.
+
+PR301 owner-authorized post-storage continuation, October17,10:36:53UTC:
+[protocol](docs/hu200-capacity-storage-stop-continuation.md),
+[owner approval](docs/reports/hu200-capacity-cygnus-artifacts/storage-stop-restart-approval-20261017.json),
+[69-check validation with preserved fixture failure](docs/reports/hu200-capacity-cygnus-artifacts/storage-continuation-validation-20261017.json),
+[startup/resource/source/actual-command proof](docs/reports/hu200-capacity-cygnus-artifacts/storage-continuation-startup-20261017.json).
+Clean live source2f138ecd at owned `repo-continuation-20261017`; supervisor36848,
+observer36870, native1302 PID36875 on0–1/two workers, read-only validators1421/1422
+PIDs36877/36878 on6/7. Qualified trainer/exporter/auditor bytes/math unchanged.
+1302 uses audited10B parent and new `results-continuation-20261017/2026101302/20000000000/`;
+1421/1422 retain current `results-recovery-20261016/` models, exports never rewritten.
+Audit proof directories and stop files are fresh under `continuation-20261017/`.
+
+[Exact stopped-interval ledger](docs/reports/hu200-capacity-cygnus-artifacts/storage-continuation-20261017/continuation-20261017/deadline.json)
+credits4,531.262598s once,09:21:22.269998→10:36:53.532596UTC. Original clock/previous
+one-hour ledger and failure record stay byte-identical. New fixed deadline
+1792385089.2587068=October19 04:44:49UTC/06:44:49Madrid; evaluation24h unchanged.
+No further automatic retry/credit. [Re-quoted ETA](docs/reports/hu200-capacity-cygnus-artifacts/eta-after-storage-restart-20261017.json).
+[Coordinator activity log](docs/reports/hu200-capacity-cygnus-artifacts/work-activity.json)
+records returns/handbacks and background state; older exact turn-end times unknown.
+
+Readmission rehashes all3 retained10B checkpoints/binary/#163 tables and adopts
+unchanged original gates. Single-run/helper/floor memory requirement49.124GB fits;
+at10:38CPU/VRM60/71°C,free105.885GB,swap growth128.8125MiB within256MiB,no stop.
+Default20GB/native23GB/full-audit outputs unchanged; reused-input audits/storage
+reserve64MiB metadata and never repeat a native export. Max8CPUs/3helpers/other guards
+unchanged. After each fully verified20B audit, new source+target readback receipts
+relocate inactive own10B recovery/20B current to HDD
+`/mnt/data2tb/research/PR-301-hu200-capacity-cygnus/inactive-models-after-20b-20261017/<original-relative-path>`.
+Keep latest20B recovery/averageNVMe; first56.69GB HDD relocation remains intact.
+No PR292/shared dependency touched, no new Drive acceptance/final retention closeout.
+
+Current-attempt terminal receipts: `/home/dberweger/hu200-capacity-20261015/continuation-20261017/{training-failed.json,training-complete.json}`.
+Original root failure remains historical; deduplicate against the active attempt.
+New root completion explicitly supersedes old failure only when all3 final audits
+and storage moves finish. Existing webhook task reused/attempt-local delivery receipt,
+no new schedule. No final hands or playing outcome. Preserve live source unchanged.
+
+Raw BB `guards/{storage-continuation-tests-20261017,storage-continuation-tests-r2-20261017,continuation-readmission-20261017,continuation-20261017}/`,
+`planning/` bundles/plans/test fixtures and controller/observer logs, plus coordinator
+`planning/{collect_continuation_startup_20261017.py,continuation-startup-20261017-collected.json,publish_continuation_startup_20261017.py,pr-continuation-declaration-readback-20261017.json}`
+are required final evidence; closed-source pins indexed in startup/validation.
+Mutable new trace byte cuts are snapshots, not sealed hashes. Exclude privateURLs.
+Delete the existing event task only at complete closeout; owner decides merge.
+
+PR301 training completion, October17,20:11:35UTC: all three final every-row audits pass.
+[Attempt-specific completion/deduplication and closed-trace pins](docs/reports/hu200-capacity-cygnus-artifacts/training-complete-verification-20261017.json),
+[exact completion/offload/audit receipts](docs/reports/hu200-capacity-cygnus-artifacts/training-complete-20261017/),
+[ETA](docs/reports/hu200-capacity-cygnus-artifacts/eta-training-complete-20261017.json).
+Final1302 checkpoint/current relocated with full independent readback under
+`/mnt/data2tb/research/PR-301-hu200-capacity-cygnus/after-export-recovery-20261017/`
+mirroring original owned-relative paths. Average f69c6f3e… staysNVMe; all hashes,
+bytes and original paths are in the receipts. Restore selected required inputs toNVMe
+with SHA256 verification, retainingHDD originals. Raw closed guards/export-recovery-20261017,
+controller/observer logs and planning/collect_training_complete_20261017.py plus
+publication/readback helpers require final archives. No complete model archive or
+final unpackedHDD bundle exists yet. No final hands/outcomes, no source/trainer change.
+
+PR301 first cost-only evaluation procedure: [protocol](docs/hu200-capacity-evaluation-first-pilot.md),
+[config](docs/reports/hu200-capacity-cygnus-artifacts/evaluation-first-pilot-config-20261017.json)
+SHA256`99f694ab42b67a5f9db67a42c701c59a7a0c92c375c62f80def095a94924f7ea`, immutable source`2d2ec4a17d20d586b8563dc656ed339b7fba218f`.
+[Fresh roots](docs/reports/hu200-capacity-cygnus-artifacts/evaluation-roots-prepilot-20261017.json).
+BB source repo-evaluation-first-pilot-20261017, guards/evaluation-first-pilot-{checks,restore}-20261017,
+evaluation-first-pilot-20261017/config/roots/receipts plus evaluation-cache-20261017 and evaluation/
+are required final evidence. First cache seals evaluation-clock.json; no automatic restart.
+Keep all partial caches/receipts/logs, no global outcome read before six-group barrier.
+
+PR301 first cost pilot launchedOctober17 20:22:34.560486UTC, deadline`2026-10-18T20:22:34.560486+00:00`.
+[Startup/closed checks/restoration/live source process proof](docs/reports/hu200-capacity-cygnus-artifacts/evaluation-first-pilot-startup-20261017.json),
+[exact clock/restore/config/PR-readback/guard plans](docs/reports/hu200-capacity-cygnus-artifacts/evaluation-first-pilot-startup-20261017/),
+[setup/event-task scope](docs/reports/hu200-capacity-cygnus-artifacts/evaluation-first-pilot-setup-record-20261017.json).
+Twin restored to original NVMe path with full SHA/fync/readback;HDD source retained.
+Cache and output are activeNVMe; do not move them or edit immutable2d2ec4a1 source.
+Archive closed raw tests/restore guards and active evaluation guard after completion,
+all local planning/*first_pilot* helpers/configs/readbacks/bundle/handoff. Clock cannot reset.
+No final hand admission/outcomes. Coordinator return/handback is in the activity ledger.
+
+PR301 October18 status: first cost pilot complete23:33:58Madrid October17,
+all3840pilot hands replay/reproduce; no final hands.
+[Closed metadata](docs/reports/hu200-capacity-cygnus-artifacts/evaluation-first-pilot-complete-20261018/),
+[33 closed hashes/pins](docs/reports/hu200-capacity-cygnus-artifacts/evaluation-first-pilot-complete-pins-20261018.json),
+[status/cost/missed callback](docs/reports/hu200-capacity-cygnus-artifacts/status-20261018-0730.json).
+Raw completed guard and all pilot raw hand/decision traces remain ownedNVMe and
+require final archives/readback. Pilot caches are inactive, build-once and retained;
+owner-authorized HDD relocation needs full manifests/readback before NVMe removal.
+Notification HTTPError and7.94h idle disclosed; no clock credit/retry.
+Local planning/status-*-20261018.json and collect_cost_pilot_complete_20261018.py,
+publish_status_20261018.py plus PR readbacks require final archival.
+
+PR301 owner one-seed amendmentOctober18: [approval/procedure](docs/hu200-capacity-single-seed-amendment.md),
+[20Bconfig](docs/reports/hu200-capacity-cygnus-artifacts/single-seed-config-20B-20261018.json),
+[5Bconfig](docs/reports/hu200-capacity-cygnus-artifacts/single-seed-config-5B-20261018.json),
+[fresh roots](docs/reports/hu200-capacity-cygnus-artifacts/single-seed-final-roots-20261018.json).
+Owned repo-evaluation-single-seed-20261018 source42acb483, original source dependencies
+read-only/preserved; new checkout alternates flattened only after nesting failure.
+All setup failures indexed; archive planning/*single_seed* helpers/bundle/logs/PRreadbacks,
+raw guards/single-seed-{checks,preflight}-20261018 and later evaluation-single-seed-20261018.
+Only1302 final evaluation; others retained with later proposal, no new experiment.
+Inactive20Bcache/average will move with manifests/fsync/fullreadback/journal to
+/mnt/data2tb/research/PR-301-hu200-capacity-cygnus/evaluation-single-seed-20261018/
+mirroring original relative paths; active twin and5B computation remainsNVMe.
+
+PR301 selected final evaluation launchedOctober18 05:45:48.571862UTC.
+[Startup/admission/closed checks/preflight/source identity](docs/reports/hu200-capacity-cygnus-artifacts/single-seed-startup-20261018.json),
+[exact receipts](docs/reports/hu200-capacity-cygnus-artifacts/single-seed-startup-20261018/),
+[bounded existing event scope](docs/reports/hu200-capacity-cygnus-artifacts/single-seed-event-scope-20261018.json).
+18checks+positive two-group synthetic barrier/readout pass; all33oldpilot pins,
+actual selected model/cache/5Bcold/binary/cards hashes fresh under guard.
+Active source42acb483 immutable, supervisor187170; all live guard/resource/utilization,
+controller, selected match hand/decision files and final receipts must archive at closeout.
+Do not move active models/caches. Owner-authorized inactive20B relocation is recorded
+by evaluation-single-seed-20261018/offload-20B.json and offload-journal.jsonl only after success.
+[Deferred two-seed proposal](docs/hu200-capacity-deferred-seeds-follow-up.md) is unstarted;
+retain all three trained lineages/old failed artifacts. No future schedule/execution.
+Original evaluation deadline unchanged; selected forecast2026-10-18T09:49:15.571861+00:00.
+
+PR301 selected progressOctober18,09:38Madrid:
+[closed20B/full raw verification/inactive relocation/5B restoration + live guards](docs/reports/hu200-capacity-cygnus-artifacts/single-seed-progress-20261018-0938.json),
+[exact receipts](docs/reports/hu200-capacity-cygnus-artifacts/single-seed-progress-20261018-0938/).
+720896final20B direct/panel hands replay/reproduce;5Bcache building, no globalbarrier or outcomes.
+The17.899GB20Bcache plus8.835GBaverage now verifiedHDD under
+/mnt/data2tb/research/PR-301-hu200-capacity-cygnus/evaluation-single-seed-20261018/<original-relative-path>.
+OriginalNVMe20Bcache/average paths now absent; source/query metadata remains.
+5Baverage restoredNVMe with full SHA, retained originalHDD source; active twin/cache/5B stayNVMe.
+Do not move active sources. No new cloud acceptance/cleanup; all raw traces/finals need finalarchive.
+Local planning/status-return-single-20261018.json,status-single-live-20261018.json,
+publish_progress_single_20261018_0938.py and PR-readback/handoff must archive.
+
+PR301 owner next-agent compute planningOctober18:
+[held mutex, completed5B play and current replay/timing receipt](docs/reports/hu200-capacity-cygnus-artifacts/compute-availability-20261018.json).
+Estimated release11:00–11:50Madrid, not confirmed; archival I/O/Drive closeout separate.
+Verify owned workers/supervisor exit and free machine mutex before release.
+Archive local planning/compute-availability-{return,live,cost}-20261018.json and
+publish_compute_availability_20261018.py plus PR-readback/handoff.
+
+PR301 October18,10:38Madrid:
+[all983040primary/replay complete, final reproduction active, mutex held](docs/reports/hu200-capacity-cygnus-artifacts/single-seed-status-20261018-1038.json).
+No final outcomes/global barrier/release yet. Raw final hand/decision files and closed
+stage receipts remain required archive evidence; preserve activeNVMe files/source.
+Archive planning/status-latest-{return,live}-20261018.json,
+publish_status_single_20261018_1038.py and PR readback/handoff.
+
+PR301 TERMINAL owner-stopped evaluation failureOctober18:
+[owner no-retry/config diagnosis/corrected counts/compute release](docs/reports/hu200-capacity-cygnus-artifacts/terminal-owner-closeout-20261018.json),
+[closed artifacts/pins](docs/reports/hu200-capacity-cygnus-artifacts/terminal-evaluation-failure-20261018.json).
+Wrong5Bkind20B caused wrong menu/reused roots; globalbarrier refused; no outcomes.
+Actual1441792primaryhands, not983040; all raw failuredata remain required evidence.
+All3training models valid/retained. Compute released08:55:43UTC17worker identities
+absent/supervisor absent/mutexfree. Source42acb483/oldshareddependencies retained.
+Cleanup/archive/readback/Drive/unpackedHDD/index receipts pending; no scientificretry.
+
+PR301 owner cleanupOctober18:
+[25678670740B reclaimed /removed paths, retainedHDD input hashes, regeneration](docs/reports/hu200-capacity-cygnus-artifacts/cleanup-terminal-nvme-20261018.json).
+No unique model/evidence bytes deleted; freeNVMe102.584GB; source/dependencies retained.
+[Archive source/member plan](docs/reports/hu200-capacity-cygnus-artifacts/closeout-archive-plan-20261018.json),
+[bounded cleanup-only queue](docs/reports/hu200-capacity-cygnus-artifacts/cleanup-only-archive-queue-20261018.json).
+New ZIPsHDD/final-archives-20261018; matching unpackedHDD/final-research-20261018.
+Model members86.242GB +raw interrupted partials10.920GB +all actual hands/guards/source/failures.
+Cloud acceptance/final retention pending; ordered64MiB partSHA/MD5/local readback planned.
+Old cold intermediate recoveries/current/gates/memory/twins retained unchanged. External twins
+and#163cards retain their already indexed accepted Drive dependencies. No scientific retry.
+
+PR301 partial terminal summary/cleanup archive acceptedOctober18:
+[receipt](docs/reports/hu200-capacity-cygnus-artifacts/terminal-summary-archive-acceptance-20261018.json),
+Drive file1DAuNxA3noGm93Lk0lkH3zKzPTbEjt8UR in159JoTfd8HUyblui5QgSMc6w1JNz-z7px,
+PR301-terminal-summary-and-cleanup-20261018.zip,87136bytes,
+SHA2562589bd1521b1796de8bf5df84fc4dd74b03df3101eb8470c3a54f41c8c261387,
+manifest MANIFEST.json SHAe97ddf1d3287a395d175f2c34ce29e6cd95ec5ccab4a0934cfded43788b816c1.
+Full local whole/member readback passes63members; native upload success plus separate
+ID/name/size/parent acceptance. Cloud bytes not downloaded; MD5 not exposed by metadata.
+Matching unpackedHDD copy underfinal-research-20261018/terminal-summary passes member hashes.
+Retrieval: download indexed Drive file to ignored path; verify archiveSHA, extractMANIFEST.json
+and named members, verify each size/SHA. This partial ZIP contains no bulk model/raw bytes;
+bulk archive acceptance and final event-task removal are still pending, not claimed complete.
+
+
+PR301 local archive verificationOctober18,11:48UTC (bulk cloud acceptance pending):
+Five archives,98,428,284,869bytes/1468ordered64MiB transport parts, full every-member
+local readback and matching unpackedHDD members pass; all five archival guards pass.
+Source42acb48339b9347e19eab3754a5c26f145d7291b. Exact whole archive hashes,
+manifest hashes, nine model member paths/sizes/hashes and local destinations:
+`docs/reports/hu200-capacity-cygnus-artifacts/archive-local-verification-20261018.json`.
+Raw outcome bytes are preserved without reading final playing outcomes; scientific
+work is owner-stopped, no retry. PR301 holds no compute lock after archiver exit.
+As of12:03UTC,44parts/2.944GB accepted through native upload+independent metadata;
+all19evidence parts accepted, full reconstruction/index receipts pending.
+Remote bytes not downloaded; no remote hash-verification claim. Original files retained.
+
+
+PR301 first complete model archive acceptedOctober18,14:31UTC:
+Seed2026101302:429parts,28,766,826,829bytes, wholeSHA256
+`c06fd34c7f98530cacdb8c320407674abb20caa186f901e10f0830a5fa60c1c1`.
+Reconstruction manifest DriveID`1sGO5HlDCENvqavDDl1TNPApqGMxZzGFH`,
+251003bytes/SHA256`f224333b46f9d5acc22d4bfdff0134b5b502044d5a51004fbac65bbe84400ea0`.
+All part IDs/offsets/sizes/hashes/native confirmations and three model member pins:
+`docs/reports/hu200-capacity-cygnus-artifacts/drive-seed-2026101302-archive-acceptance-20261018.json`.
+Evidence archive19parts/1,266,666,621bytes likewise accepted:
+`docs/reports/hu200-capacity-cygnus-artifacts/drive-evidence-archive-acceptance-20261018.json`;
+reconstruction DriveID`13oulY17sB06P9prye55WKMlRtajJJGgh`,12255bytes,
+SHA256`70b948b4658b14c6dc43c415f01737c24339100525e999f54f506ab16b60cfb3`.
+Download the exact listed part IDs into a fresh ignored folder preserving names;
+concatenate zero-padded part numbers in order, verify wholeSHA256, extract embedded
+manifest and verify its pinnedSHA256, then verify each named model/member size/SHA256.
+Native uploads plus separate cloud ID/name/size/parent acceptance pass; remote bytes
+were not downloaded and no remote content-hash verification is claimed.
+All source models/unpackedHDD members remain retained. Two unselected interrupted
+cloud transport copies are retained and excluded from canonical reconstruction;
+exactIDs/status in`transfer-scheduling-20261018.json`. The transient403 and bounded
+successful same-part upload after backoff are in`drive-upload-rate-limit-20261018.json`.
+Other model archives, final metadata/unpacked-copy receipts and task retirement pending.
+
+
+## PR398 — final frozen river assessment: defer
+
+[PR398](https://github.com/dberweger2017/CFR-NLHE-6max/pull/398), [proposal397](https://github.com/dberweger2017/CFR-NLHE-6max/issues/397), [report](docs/reports/river-three-lineage-assessment/results.md), [unchanged readout](docs/reports/river-three-lineage-assessment/results.json), [proof/source/model provenance](docs/reports/river-three-lineage-assessment/provenance.json), [costs](docs/reports/river-three-lineage-assessment/costs.json). Three frozen100BB10B policies,2,048 peer and4,096 call-pressure blocks each;221,184 initial hands independently replay and221,184 fresh byte-identical reproductions. All21,261 root values/profiles/work reproduce, zero exclusions/extra solves/reconstructions. All9 stages0, no scientific retry/failure. Separate one-sided three-test families: peer+2.75/+1.36/+5.69, adjusted lower−1.85/−2.93/+1.40; script−3.41/−0.73/−2.18, lower−8.05/−5.14/−7.02BB/100. One peer gate, zero scripted safeguards; no material harm established. Agreed project decision: defer candidate/resume blueprint progress, no extension/tuning/default change. Preserve prior adverse panels357/388/391/396.
+
+Executed source930843ba019f067cf64343b1bdd6cea7b0040199; bundleSHA25610c437522a0eb6efaf05d8b279d77fa3815912f88affb40f17927e2340e8db4e; count-limit-only native rebuildSHA256d3c9047aa449f14ac5a341443239d714709183d70ed1409e8fc1937db3bff0f3. SoleCLIupperbound1,024→4,096; all other native bytes unchanged.120native tests/known-deal and alias qualification pass. Owner budget waiver preserved; prepared27b76d2a continuation never launched (`not-needed-original-complete`). All models/earlier inputs read-only and protected.08:13:40–13:06:59UTC Oct22,4h53m19 total; finalmeasurement/readout3h34m29, loading23m41, play/write3h08m27including16.600sinline evaluation;111.59sproof. Preparation+mainchildCPU7h24m31; sampled27.70GiB, CPU68/T1570°C, swapgrowth10.25MiBoverall. [All36tail blocks](docs/reports/river-three-lineage-assessment/tails.csv), [18physical-seat diagnostics](docs/reports/river-three-lineage-assessment/per-seat.csv); heavy tails/limited fixed-lineage inference retained.
+
+**Archive pending/blocked before copying**, because `gh` is missing onbb128; [exact status/failure](docs/reports/river-three-lineage-assessment/archive.json). No verified cache, ZIP, member hashes, DriveID/receipt or cloud acceptance exists. Originals retained at `/home/dberweger/river-three-lineage-assessment-20261022`; use this original path for now. Intended cache `/research/PR-398-river-three-lineage-assessment/`, intended Drive `gdrive:PR-398-river-three-lineage-assessment/` are future destinations, not completed restore paths. No deletion or other PR-root copy. Source/config/pins/proofs/compact costs are public Git metadata; raw traces/models remainbb128.30-minute owner monitor ends at completed handoff; no merge authority398.
+
+## PR400 — fixed three-player200BB feasibility complete
+
+[PR400](https://github.com/dberweger2017/CFR-NLHE-6max/pull/400), [proposal399](https://github.com/dberweger2017/CFR-NLHE-6max/issues/399), [protocol](docs/nplayer-bb200-feasibility.md), [analysis](docs/reports/nplayer-bb200-feasibility/results.md), [unchanged readout](docs/reports/nplayer-bb200-feasibility/results.json), [all receipts/pins](docs/reports/nplayer-bb200-feasibility/provenance.json), [costs](docs/reports/nplayer-bb200-feasibility/costs.json), [post-completion readback](docs/reports/nplayer-bb200-feasibility/verified-readback.json). Owner accepted90minute pilot allocation; it completes16:56:09–17:19:49UTC Oct22 in1,420s/6,528.50childCPU-s. Frozen execution735e3d3b5f32de5913f50686cb3a861c18734037; sourcebundle40b8343cbd3225f48434cbd8f8685489c0a2a2558d537a695e01f122da488536, config36c4e69cd780dcdcac61279ca3eceea2603230b7f4fe9182857efc88b2e57b28. Three-player200BB freshseed2026102240001, unprunedfast16/eightroots/K50/fullaverages/parallelwriter/250Mfreeze recipe. Actual endpoints100,017,787/200,021,099/500,027,427 nodes,44,585,102/79,266,287/159,384,070entries, nofreeze/discards. Lastinterval4.77Mnodes/s; traversal102.28s/saves138.90s/threeprocesswall433.15s; export246.54s/audit252.50s; coverageprocesses324.82s including276.59sload and0.1261splay. [EndpointsCSV](docs/reports/nplayer-bb200-feasibility/endpoints.csv), [streetcoverageCSV](docs/reports/nplayer-bb200-feasibility/coverage.csv).
+
+All121nativelib/200BBarenaexample/realK50qualification pass:1/16thread checkpoint and fresh/resumedcheckpoint/export/keyset identity; full-rowaudit; expectedcrossdepthrefusal exits2 with no forbiddenoutput (not a failure). All otherstages0; no scientific failure/retry/extension. Final159,384,070rows audit,3,072initial hands independentlyreplay and3,072byteidenticalreproduction; additional48+48fixturehandsverify. FinalCPSHA704e35dd04d8290fc49c9d4505f6371bf0e8a50200e185c8881807ce727af625,5,457,867,989B; averageSHAff5e74b1ee6b8171f9207d44ad44b600a31c2cc6446c5f770b6ce6d13846b97e,3,281,260,304B; keyset9eb7365e89f8877630f081a6267531be325098125584cf1a94c5dc4cf4b5466a. Sampled19.13GiBoverall/13.31GiBtraining; CPU74/T1586°C, whole swapgrowth9.75MiB; no wall/RSS/disk/swap cutoff. Keys still grow0.267/node;33.15%rows zeroaveragemass and check-callriver42.3%missing are descriptive, no strength/readiness claim.
+
+Next[fixed500M→1B mature-table proposal](docs/reports/nplayer-bb200-feasibility/next-allocation.md)/[arithmetic](docs/reports/nplayer-bb200-feasibility/next-allocation.json) is31m27scentral/**69m39s corrected reserve**,90minallocation. The original65m39s omitted the doubled120smetadata allowance; no measured result changes. Owner subsequently approves the fixed continuation inPR402 below. No full training/extra seeds/search/default/release/mergeauthority. All rawmodels/exports/massfiles/traces/source/build/resources retained at `/home/dberweger/nplayer-bb200-feasibility-20261022`; prior398sourceobjects/venv andK50protected asread-onlydependencies. No archivecopy/upload/Driveacceptance/deletion. Intended futurecache `/research/PR-400-nplayer-bb200-feasibility/`, intended Drive `gdrive:PR-400-nplayer-bb200-feasibility/` are not completedrestorepaths; use originalroot until verifiedarchival. No newtimer; passivecompletionobserverfinished.
+
+
+## PR402 — approved fixed 200 BB 500M→1B continuation running
+
+[PR402](https://github.com/dberweger2017/CFR-NLHE-6max/pull/402), [proposal401](https://github.com/dberweger2017/CFR-NLHE-6max/issues/401), [protocol](docs/nplayer-bb200-maturity.md), [status](docs/reports/nplayer-bb200-maturity/status.md), [exact launch/source/config/authorization/test/resource receipts](docs/reports/nplayer-bb200-maturity/launch.json).
+Owner accepts one fixed90minute continuation; corrected69m39sreserve includes all metadata, central31m27s. Sourceb0af16114d1e608159ed2a17118860e4a9414fe4/config4c5b60e14c87dae33689b9ff7364ca183609c4dcd9382ce5bda5f221a6059b65, supervisor842044 launches18:22:56UTC Oct22. Seed2026102240001 continues exact verified PR400parentSHA704e35dd04d8290fc49c9d4505f6371bf0e8a50200e185c8881807ce727af625 from500,027,427nodes to1B only. Same16threads/eightroots/unprunedK50/fullaverages/250Mfreeze/qualified binaries; no native rebuild or repeated500Mscience.11focusedtests pass onbb128; all native/source/input/readback pins pass.18:23:26UTC loadingparent; CPU56/T1544°C, nofailure orobservedswapgrowth. No result or strength claim yet.
+
+Four fresh128-block script fields/3,072initial+3,072reproduced hands, allinitialindependentlyreplayed, one export/full-rowaudit. Report freeze/discards/keymass/streetcoverage and completecosts, then judge250Mcapacity for a declared campaign; no more automatic cost pilots/fulltraining/seeds/search/default/release/merge. Thermal-only90CPU/100T15/missingfinite sensors; no wall/RSS/disk/swap cutoff. Passive completionobserver only, no timer. Originals at `/home/dberweger/nplayer-bb200-maturity-20261022`; PR400checkpoint/binaries/venv and398objects/K50 protected. Archivecopy/upload/acceptancepending, no deletion.
+
+
+PR402 correction after successful training: [full preserved failure/training/resource/freeze and completion-source receipts](docs/reports/nplayer-bb200-maturity/training-and-correction.json). Nativeprocess0 reaches1,000,008,098nodes,250,002,537entries,freezeiteration38,253;100-iterationtelemetrybrackets959.895M–962.122Mnodes,all19frozenobservationssameentries.114.80sactive/129.26ssave/467.20swall,20.73GiBsampledRSS,CPU73/T1584°C,noswapgrowth. Newcontroller exact-cap assertion was wrong: nativeapply freezesafterwholeiteration>=threshold and nativecheckpointreaderaccepts>=cap. Originalfailure/source/checkpoint/status remainunchanged. Completion-onlysourcea6ff4cce162c1a5a04322475cce11177f7131215,13focusedtests pass onbb128; exactsavedCPSHA55d89c553ba1756eac1af117847b30e8b18e4f901afba942ee5a906bc00249ad revalidated. One-useclaim/unchangedcounts/roots/nativeplayer/inputpins gateonlyoriginalunstartedexport/audit/coverage/proofs, no training invocation/retry. Outputcompletion-v1/supervisor842477 launched18:35:04UTC;18:35:32exportactive,CPU51/T1549°C,nofailure. Finalcoverage/capacitydecisionpending; originalarchivepending/protectedinputsretained.
+
+
+## PR402 — completed fixed 200 BB maturity; capacity candidate, not strength
+
+[Final analysis](docs/reports/nplayer-bb200-maturity/results.md), [unchanged precomputed results](docs/reports/nplayer-bb200-maturity/results.json), [compact receipts](docs/reports/nplayer-bb200-maturity/receipts.json), [source/input/failure provenance](docs/reports/nplayer-bb200-maturity/provenance.json), [closed SHA256/replay/reproduction proofs](docs/reports/nplayer-bb200-maturity/verified-readback.json), [costs/resources](docs/reports/nplayer-bb200-maturity/costs.json), [32 coverage rows](docs/reports/nplayer-bb200-maturity/coverage.csv), [table audit](docs/reports/nplayer-bb200-maturity/table-audit.csv), [fixed campaign proposal](docs/reports/nplayer-bb200-maturity/campaign-proposal.md)/[arithmetic](docs/reports/nplayer-bb200-maturity/campaign-proposal.json).
+
+Science sourceb0af16114d1e608159ed2a17118860e4a9414fe4; completion sourcea6ff4cce162c1a5a04322475cce11177f7131215; originalconfig4c5b60e14c87dae33689b9ff7364ca183609c4dcd9382ce5bda5f221a6059b65. Final18:56:37UTC Oct22:1,000,008,098nodes/250,002,537entries; native whole-iteration freeze38,253 bracketed959.895M–962.122Mnodes. Original exact-cap controller failure/status/source preserved; one-use completion of unstarted stages, no training repeat. All9 scientific stages0, all250,002,537 rows audit;3,072initial hands independently replay and3,072reproduce byte-identically. CPSHA55d89c553ba1756eac1af117847b30e8b18e4f901afba942ee5a906bc00249ad (8,788,049,377B), averageSHA1f745e803c7dd00d1a32a11b35532780ab27091c163df0f26a9fcf3b26ec5dc2 (5,191,429,099B), keysetc37fdf1c6d0a2e92d6193ae285db4c990e5fbecd859c734a33268ae34d41bb11. No strength readout.
+
+4.355Maddednodes/s;114.80sactive/129.26ssave/467.20strainprocess,396.02sexport/375.73saudit/504.32scoverage (424.92sload,0.1238splay),8.06sreplay. Disjoint stage sum1,751.34s; launch-to-complete2,020.66s includes269.33scontrollercorrection/handoff/validation/interstage overhead. ChildCPU7,751.34s once, excludes setup/publication/archive. Peak33.68GiB (training20.73), CPU74/T1587.5°C, no observed swapgrowth. Check-callriver134/490=27.3%missing vs prior214/506=42.3%, but different deals/policies/descriptiveonly; random15/45=33.3%,TAG0/40,pressure0/44 retained.33.42%rowszeroaveragemass is not playedfallbackfrequency; keygrowth censoredafterfreeze.250M defensible boundedresearchcandidate, not release-capacity proof. Propose fixed3B/10B across existing+twofreshlineages, no furthercostpilot;3h50mcentral/9h35mreserve model-only estimate excludes acceptance/conversion.30-gate200BBcount/root/effect/variance/power/budget declaration remains before confirming deals. No followup launched or mergeauthorized.
+
+All originals/rawtraces/failure/checkpoints/sources remain `/home/dberweger/nplayer-bb200-maturity-20261022`; source snapshots archived without external Git alternates. PR400/398/checkpoint/binary/environment/K50 dependencies protected/read-only and not copied. [Owned archival state](docs/reports/nplayer-bb200-maturity/archive-status.json): currentown/openPR inventory checked, freshcache `/research/PR-402-nplayer-bb200-maturity/` copy/memberSHA/ZIP/deployedupload closeout underway, cloudacceptance pending receipt. Intended `gdrive:PR-402-nplayer-bb200-maturity/evidence.zip` not yet an acceptedrestorepath. No deletion or otherjobs/cachetools/settings changes. Passive science observer finished; no timer.
+
+PR402 owned local archive now verifies: `/research/PR-402-nplayer-bb200-maturity/evidence.zip`,15,900,815,323B,SHA2566f927e16d5144f284ac7e710465351400aeee5f64514aca547790402aa777b52; embeddedARCHIVE-MANIFEST.jsonSHA2563fe335344719d06954c06ad72a4f861c111d640acf15a5e47a5e63c201c5da5d; all11,478membersSHA256readbackmatch. Uncompressedfilesatcachememberpaths; owningPR402open andopenPR371/344checkedbeforecopy. ExternalPR400/398/K50inputsnotcopied. OriginalNVMefilesretained,nodeletion. Deployedtoolupload/DriveobjectID+MD5receiptpending; `gdrive:PR-402-nplayer-bb200-maturity/evidence.zip` remains intended, not yet acceptedfallback. No remoteSHA/memberauditclaim.
+
+
+## PR404 — accepted 200 BB model campaign qualified; main waits for storage
+
+[PR404](https://github.com/dberweger2017/CFR-NLHE-6max/pull/404), proposal403, [protocol](docs/nplayer-bb200-model-campaign.md), [qualification/admission](docs/reports/nplayer-bb200-model-campaign/qualification.md), [receipt](docs/reports/nplayer-bb200-model-campaign/qualification.json). Owner accepts the complete 18-hour fixed allocation/counts; vacuum-cleaner agent will prepare 360 GiB free NVMe. At20:13:39UTC October22 actualfree206.40GiB; main has not started and no confirming hand is played. 28 focused Python tests,121 native library and6example tests pass (one existing ignored). All51 fixture stages returnzero;36real200BBcases432initial+432byteidenticalreproduction, all independently replayed; six full-row export/binary audits and checkpoint thread/resume/member parity pass. Sourcef11edfe5227882980f57925ab0ca93b3a2f790a7,855filepins,bundleSHA9ad072eb1aa04c1afd8277da5963a740b0b7e7f87fc52c9e224de10b5aef6b8d; exact config/build/proof/endpoint hashes inreceipt. No strength/capacity/release claim from tinyfixtures. Hostroot `/home/dberweger/nplayer-bb200-model-campaign-20261022`, source-v2/build-v1/qualification-v1 retained;PR400/402parent/binaries/environment/K50 protectedread-only. Fixedmain3B/10Bexisting+twofreshseeds and30gates10543104initial+repro stayaccepted. Mainreadyafteractualstorageadmission; no newtimer/cleanup/staging/upload/deletion fromthisagent. Owner-managed cloudcloseout pending; originalhostroot is current retrieval path, no completedDrivefallback claimed.
+
+
+### PR404 main launched after owner storage-sequencing amendment
+
+Owner authorizes "you can start now, the vacume cleaner is removing files as we speak" after successful qualification, superseding360GiBfree-before-start. Main launches October22 20:24:20UTC/22:24:20Madrid with206.40GiBfree, root `/home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1`, supervisor847775. [Launch/amendment](docs/reports/nplayer-bb200-model-campaign/launch.md), [operator receipt](docs/reports/nplayer-bb200-model-campaign/launch.json), [initial process/resource snapshot](docs/reports/nplayer-bb200-model-campaign/launch-snapshot.json). Sourcef11edfe5227882980f57925ab0ca93b3a2f790a7, mainconfigSHA256cd6c47f9b13f5384f68f953f615aeae8310b6b1739b0cf1958c7388552a1b7ca, one-use amendedlauncherSHA25649cc8da32d7e0004822b34e29e5b5ffb150c385aac2198aec743e0b96680b617. First existingseed3B continuation loads verified1B parent; nofailure at20:25,CPU50/T1543.5C, startupRSS1.29GiB, no strengthoutcome. Allscientificcounts/targets/roots/threads/recipe/thermalstops unchanged. Mainadvancesautomatically; no duplicates/retries/extra hands/tuning. Owner-vacuumcleans/stages/uploads; protecteddependencies/originalsretained. Cloudcloseoutpending/noDriveclaim. Full7h51central/17h33reserve remains conditional completeworkflow estimate, no18hkill/default/release/mergeauthority.
+
+
+## PR404 — completed three-lineage200BB family passes all30 acceptance gates
+
+[PR404](https://github.com/dberweger2017/CFR-NLHE-6max/pull/404), [proposal403](https://github.com/dberweger2017/CFR-NLHE-6max/issues/403), [analysis](docs/reports/nplayer-bb200-model-campaign/results.md), [lossless settled readout](docs/reports/nplayer-bb200-model-campaign/results.json), [30gatesCSV](docs/reports/nplayer-bb200-model-campaign/gates.csv), [endpoint CSV](docs/reports/nplayer-bb200-model-campaign/endpoints.csv), [costs](docs/reports/nplayer-bb200-model-campaign/costs.json), [provenance/proof SHA256s](docs/reports/nplayer-bb200-model-campaign/provenance.json). Exact same accepted sourcef11edfe5227882980f57925ab0ca93b3a2f790a7/855pins, sourcebundle9ad072eb1aa04c1afd8277da5963a740b0b7e7f87fc52c9e224de10b5aef6b8d, mainconfigcd6c47f9b13f5384f68f953f615aeae8310b6b1739b0cf1958c7388552a1b7ca; original settled resultSHA6909662e4b2372c13981467723759ba5a37ffde7daa3899514e8d52c72c969b8. Committed JSON is lossless metadata reserialization, not the original file byte stream.
+
+Three fixed seeds2026102240001/2026102261001/2026102261002 each3B/10B, K50/200BB/current menu/unprunedfast16/eightroots/fullfloat64averages/250Mfreeze. Six full-row export and binary audits, exact within-seed keysets. All49mainRC0, nine verified jobs,36cases,10,543,104initial+10,543,104byteidenticalreproduction, every initial independently replayed. All30 one-sided simultaneous95 Student-t/Bonferroni gates pass:24scriptprofit; three reciprocal mean oriented singleton improvements +79.66/+69.75/+78.25, adjustedlower+69.06/+56.94/+67.63; cyclic10B-minus-own3B vs fixedother3Bpair+77.02/+67.99/+66.06, lower+59.87/+58.57/+52.54 (margin−5, nohalving). No10B-v10Btournament/Nash/human/external/universal claim, oldPR357 adverse relative panels retained; absoluteprofit is a different criterion.
+
+Main2026-10-22 20:24:20→2026-10-23 02:49:31UTC (04:49Madrid finish),23,110.69s/6h25m,stagewall22,936.32s/childCPU110,035.96s. Sixtrainingprocesses142.63min,exports43.67,audits41.17,conversion32.95,binaryparity32.57,native45.09,replay26.19,globalreadout17.99. Native load2,191.52s/play-write292.93s included in nativewall,63,096,974,958tracebytes. Peak27.95GiB,CPU75/T1592.5°C,minimumavailable94.39GiB/freeNVMe125.19GiB,swap362.66→437.41MiB. Hostcleanup concurrent/owner-only; no storage delta attribution. Prior build/fixture/report/archive excluded from main elapsed; original accepted18h allowance unchanged, no timekill. No failure/retry/extension/additionalhands/tuning.
+
+[Seat/position intervals](docs/reports/nplayer-bb200-model-campaign/seats-positions.csv), [matched own-lineage positive/zero/missing lookup counts](docs/reports/nplayer-bb200-model-campaign/coverage.csv), [all-case policy misses](docs/reports/nplayer-bb200-model-campaign/policy-misses.csv). Check-call10Brivermissing16.75–17.09%,tablezeroaveragemass26.16–26.23% distinct quantities; cap remains real. Cross summaries omit positive/zero split; frozen readout lacks top-block/tailconcentration diagnostics, raw blocks retained/no tailrobustness claim. Onehost/threefixedseeds/cappedmembership/oneabstraction/menu and Student-t/rare-tail limitations.
+
+All models/checkpoints/exports/binaries/mass files/proofs/rawtraces/source/qualification/partialhistory retained at `/home/dberweger/nplayer-bb200-model-campaign-20261022/main-v1` and parentroot; model and protectedPR400/402/K50/build/environment paths/SHA256s inJSON. Reuse exact originals read-only; no one-use controller restart. Owner vacuum-cleaner owns archival/staging/uploads; **pending, originals retained, no cache/Drive acceptance or deletion claimed**. No release/default/merge authorization inferred. No follow-up compute launched.
+## PR406 — bounded four-player100BB M4 feasibility complete
+
+[PR406](https://github.com/dberweger2017/CFR-NLHE-6max/pull/406), [proposal405](https://github.com/dberweger2017/CFR-NLHE-6max/issues/405), [protocol](docs/nplayer-four-player-feasibility.md), [analysis](docs/reports/nplayer-four-player-feasibility/results.md), [unchanged results](docs/reports/nplayer-four-player-feasibility/results.json), [qualification](docs/reports/nplayer-four-player-feasibility/qualification.json), [prospective quote](docs/reports/nplayer-four-player-feasibility/quote.json), [launch](docs/reports/nplayer-four-player-feasibility/launch.json), [resource/hash/proof readback](docs/reports/nplayer-four-player-feasibility/resource-summary.json), [freeze/lock release](docs/reports/nplayer-four-player-feasibility/freeze-and-release.json), [endpointCSV](docs/reports/nplayer-four-player-feasibility/endpoints.csv), [streetCSV](docs/reports/nplayer-four-player-feasibility/street-coverage.csv). Owner proposed roughly1h subjectqualification; measured17m46central/33m56reserve and4.47GiBforecastvs6.85GiBavailable admitted the unchanged fixed25M/50Mscope. No unquoted large run.
+
+Frozen source6637a70e28a7349067f7ea8291c72264b0986c92/bundleSHAb07b40d50782f153d5ca300501e523bfc4c0b4ed0aab0d1d9308b7a12a0c4ef3, mainconfigSHAa9507ef317ab546cd72d539d198ea6e6c3b750867ff1b01108eab6d614130bf5, source/binary/engine/K50 pins inreceipts. Main freshseed2026102240601,4players100BB/currentK50/unprunedfast10/eightroots/fullfloat64averages/parallelgzip/20Mfreeze.25,010,502nodes/13,691,524keys then50,020,943/20,007,998;freezeiteration1933 bracket37,032,026–38,990,087nodes,wholeiterationovershoot7998valid. All12mainstagesRC0/no failure; main21:36:31–21:39:23UTC October22,171.42selapsed/169.42sstages;qualification95.89sstages/~97.88scontroller. Sampledpeak3.208GiB,nominalthermal/pressure1/zeroswapgrowth. Active3.54/3.80s,7.07/6.58Maddednodes/s; shortsmalltable/cappedratesnotmature orbb128 estimates.
+
+Sixfocusedcontroller+121nativelibtests,128independent4-playerenginefixtures,thread1/10andfresh/resumecheckpointbyteparity,fullrowexportaudits PASS. All33,699,522mainexportrowsaudited;128initial4-playerhands+128byteidenticalrepeat independentlyreplayed,one sharedweighttable/fourpolicyinstances/allbuttonpositions;72+72qualificationhandsalsoverified. No strengthreadout, payoffselection or longercontinuation. Riverlookupcoverage uses tiny9/18decisionpanels,differingdeals; no trendclaim.20Mcapcensorsgrowth/notnatural saturation; no matched3-playercontrol. Exactsource/CP/policy/tracehashreadbackpasses; finalresultSHA7e0f51220a34b547719e06d7af72727c9c02e195f070dc0a4f95881d98cefa61.
+
+Allrawmodels/exports/mass/traces/source/build/qualification retained on M4 `/Users/dberweger/Local/nplayer-four-player-feasibility-20261022` (source-v1/qualification-v1/main-v1). This is the current retrieval path. Bothnormal `~/Local/.hu20-m4-research.lock` andowned `/tmp/cfr-four-player-feasibility.lock` verifiedfree; PID14634exited. No otherjobs/PR404/371/environments changed. Owner-managed staging/archive/Driveacceptance pending; no transfer/deletion/newtimer or completedcloudfallback claimed. No merge/release/default authority or automaticfollowup.
+
+## PR408 — combined five/six-player 100 BB M4 feasibility complete
+
+[PR408](https://github.com/dberweger2017/CFR-NLHE-6max/pull/408), [proposal407](https://github.com/dberweger2017/CFR-NLHE-6max/issues/407), [protocol](docs/nplayer-five-six-feasibility.md), [analysis](docs/reports/nplayer-five-six-feasibility/results.md), [unchanged results](docs/reports/nplayer-five-six-feasibility/results.json), [qualification/source/binary/engine pins](docs/reports/nplayer-five-six-feasibility/qualification.json), [prospective quote](docs/reports/nplayer-five-six-feasibility/quote.json), [launch](docs/reports/nplayer-five-six-feasibility/launch.json), [resource/file/hash/lock proofs](docs/reports/nplayer-five-six-feasibility/proofs-and-resources.json), [pre-freeze/censored progress](docs/reports/nplayer-five-six-feasibility/training-progress.json), [endpoint CSV](docs/reports/nplayer-five-six-feasibility/endpoints.csv), [street CSV](docs/reports/nplayer-five-six-feasibility/street-coverage.csv).
+
+Fixed fresh seeds2026102305001/2026102306001, sequential five then six,100BB/K50/unprunedfast10/eightroots/fullfloat64averages/parallelgzip/20Mfreeze. Source37cf758f6b8bb1d246a09863c3d5dd54f4f8361a, bundleSHAf220108d5c41dc761bd060d0b1022992882738a1e406ca0fe8d501db6ec4ed44, combined finalreadoutSHAdba1591a66a4feadccb25ff79bff7d7ae7506162e54b1c97c8d4379e2202f70b. Qualification198.28s; shown-before-main combined quote1450.87scentral/2703.45sreserve fits3600s. Main supervisor18794,22:35:29–22:41:29UTC October22,359.46selapsed/354.25sstages/1107.07childCPU-s. All24main/46qualification stagesRC0, no scientific failure/retry/extension. Read-only collector's initial older-Python error corrected with pinned3.11; no science reran.
+
+Five-player25,000,508nodes/14,753,432keys then50,007,287/20,006,770; freezeiteration1829 bracket33,837,795–35,713,752nodes. Six-player25,010,759/15,520,261 then50,015,901/20,002,527; freezeiteration1959 bracket31,442,336–33,214,235. Whole-iteration overshoot valid, capped growth censored/not saturation. Main peaks3.04/3.06GiB; nominal thermal state, pressure1, no observed swap growth. Active windows3.84/3.99 and4.19/4.26s are small-table, not mature/bb128 estimates. Full70,282,990main rows audited,240initial+240byte-identical reproduced policy hands independently replayed;180+180qualification hands,256engine fixtures,121native tests perbuild and1/10thread/fresh-resume checkpoint bytes pass. Tiny river misses7/8 and4/4 at50M are descriptive, no strength/coverage-adequacy claim. Table-wide zero-average mass is not played zero-mass fallback; the latter is not separately instrumented.
+
+Raw files retained on M4 `/Users/dberweger/Local/nplayer-five-six-feasibility-20261023` (source-v1/qualification-v1/main-v1); use this original path for retrieval. Both research locks verifiedfree/sourceclean, all retained CP/export/trace file SHA256s readbackmatch. Source clone's shared Git store `~/Local/hu200-river-search`, read-only engine venv and K50 remain protected until standalone source archival. Cleanup/staging/uploads/Driveacceptance owner-managed pending; no accepted cache/ZIP/cloud retrieval path or deletion claimed. PR404 and all other jobs untouched. [Four-player candidate campaign draft](docs/nplayer-four-player-campaign-plan.md) is preparation only, not a launch/default/release/merge authorization.
+
+## PR412 — v0.6.1 release preparation qualified; publication pending
+
+[PR412](https://github.com/dberweger2017/CFR-NLHE-6max/pull/412), based on actual
+PR404 merge `bbb71f408db6b1964541e22978628f8c60105313`.
+[Qualified preparation](docs/releases/v0.6.1/verification/qualification.md),
+[compact source/build/model/part/runtime/resource receipt](docs/releases/v0.6.1/verification/qualification.json),
+[exact prepared manifests](docs/releases/v0.6.1/manifests/),
+[42 part SHA256s](docs/releases/v0.6.1/PART_SHA256SUMS),
+[model/dependency/research provenance](docs/releases/v0.6.1/MODEL_MANIFEST.json).
+
+Frozen implementation `61585713154124802de9b434b04797e05f8a54e8`; all three qualified
+PR404 10B binaries retained byte-identically. One-pass splitting and independent
+ordered-stream reconstruction match all whole-model hashes, followed by native
+loading of the pinned originals. No redundant whole-file copies or conversions.
+All 36 integration hands pass restricted sizing, privacy, chip conservation and
+replay before/after restart; one shared weight table per seed. Eleven stages RC0,
+12m49.94s wall, sampled14.66GiB, CPU56°C/VRM59°C, unchanged swap, no failure/retry.
+This adds no strength evaluation to PR404's 30-gate acceptance.
+
+Active original output/retrieval path:
+`bb128:/home/dberweger/v061-release-preparation-pr412-20261023/qualification-v1/`.
+Model parts/manifests/checksums are `bundles/SEED/`; private journals `runtime/SEED/`;
+raw measurements/resources/build/result and a hypothetical empty-release asset
+plan remain there. Separate self-contained source checkout `../source`, controller
+`../qualify-v1.py`, exact controller/build/result hashes in the compact receipt.
+42 parts total42,918,983,478B; 52 planned GitHub assets total42,919,046,577B, excluding
+existing hash-pinned v0.5.3 K50 dependencies. Rebuild only into fresh paths using
+`scripts.build_v061_bundle` with the pinned source and PR404 original model paths
+in the manifest; no training/conversion is required. This original host path is
+the current restoration source; no accepted Drive fallback exists for this output.
+
+PR412 is open: protect its source/output root and PR404 candidate binaries/mass/
+checkpoint/export/trace/source/build dependencies, PR400/402 parent/environment,
+K50 and existing PR369/371 release work. No research original moved/deleted,
+no HDD staging, release-asset upload, archive or Drive acceptance claimed. Owner
+vacuum-cleaner owns future research archival/storage receipts. Release-asset
+upload remains a separate explicit owner decision. Do not tag/publish/merge or
+replace defaults automatically. Both compute mutexes are released.
+
+## PR410 — paired arena engineering; final-source qualification pending
+
+[PR410](https://github.com/dberweger2017/CFR-NLHE-6max/pull/410), proposal409,
+[protocol](docs/nplayer-paired-arena.md), [report/readiness](docs/reports/nplayer-paired-arena/results.md),
+[initial results](docs/reports/nplayer-paired-arena/initial-results.json),
+[initial source/model configuration](docs/reports/nplayer-paired-arena/initial-configuration.json),
+[proof/resource/failure provenance](docs/reports/nplayer-paired-arena/initial-proof-summary.json).
+Initial source5b09752e/native857437a7 qualifies all53stages in303.38s,600initial+
+600reproduced hands,480serial, six self cases exactly zero/byte-identical,
+3326independently audited model lookup tags,36legacy three-player hands matching
+base and independently replaying. Peak5.60GiB, nominal thermal/no swap growth.
+Final native source6287b619 passes121library/8paired-example tests; latest
+orchestration sourcef6cfa7a5 is prepared but not fully fixture-qualified. Test
+naming collision/build-dev-v2 and conservative prelaunch admission decline/
+qualification-v2 retained; qualification-v3 prepared before two SSH timeouts.
+No final launch assumed, no training/strength/release/default/merge claim.
+
+All originals at M4 `/Users/dberweger/Local/nplayer-paired-arena-20261023`;
+existing PR406/408 models/mass/source, engine venv, K50 and shared Git dependencies
+remain protected. Archive/staging/Drive acceptance owner-managed pending; no
+completed cloud fallback or deletion. PR404/bb128 unchanged. Reconnect, inspect
+launch/status before any one-use execution, complete final proof barriers and
+publish final-source receipts before ready-for-review.
+
+
+## Four-player100BB candidate preparation — no main run yet
+
+[Proposal411](https://github.com/dberweger2017/CFR-NLHE-6max/issues/411), [protocol](docs/nplayer-four-player-candidate.md), [reproducible full quote](configs/research/nplayer-four-player-candidate.json). Freshseed2026102341001,fixed3B/10B,currentK50/v1/unprunedfast16/eightroots/fullfloat64averages/250Mfreeze. Eightfixedfields4,096blocks/all24permutations,1,572,864initial+same reproduction; focal-only3Bvs10B againstfixedthree3Bprimary plusscripts/mixed. One eight-test one-sided95family, primarylower>0/scriptslower>−5. Development, not v0.7 release acceptance. Counts/roots/margins/power scenarios prospective. 4h14central/9h34reserve/proposed10h includes models/conversion/arena/replay/readout/report.147.13GiBfree scenario vslast125.19GiB; ownercleanerowns space/staging/upload. Qualification relocatedtobb128becauseM4offline, freshtinyfixtures/sourcebinding required; original PR410 M4 evidence/failures remain unchanged. Local19tests pass; build/real-engine preflight pending. Main not launched/budget-admitted; protected400/402/404models/build/environment/K50 readonly, originals retained, no archive/Drive claim. No new training-strength result, merge/default/release or follow-up authority inferred.
+
+
+PR413 preflight admission: [readiness](docs/reports/nplayer-four-player-candidate/readiness.md)/[receipt](docs/reports/nplayer-four-player-candidate/readiness.json). Frozen6adc28ce/bundle9a6db8efe7107b42566753d17120de6f6eae906f78b23406bde1c29c354b4b2b;10:25:27UTC dispatch refuses normal research mutex held by v0.6.1 qualifier864834. No build/qualification/main directory or model/arena/training work created. Original source/driver/admissionfailure retained at `/home/dberweger/nplayer-four-player-candidate-20261023`; no automatic retry or lock bypass. Local19+8regressiontests pass, real bb128 fixture pending. Proposed10h/main147.13GiB storage not admitted, owner cleaner responsible. No M4 wait, no archival/Drive/deletion claim.
+
+
+### PR413 qualified and main launched under owner storage amendment
+
+Owner "approvfed" accepts complete10h planning allocation; "sotrage is beling cleared out, but you can get started" supersedes147.13GiBbeforelaunch. [Launch/forecast](docs/reports/nplayer-four-player-candidate/launch.md), [operatorreceipt](docs/reports/nplayer-four-player-candidate/launch.json), [source/config/firstsnapshot](docs/reports/nplayer-four-player-candidate/launch-snapshot.json), [qualification](docs/reports/nplayer-four-player-candidate/qualification.json), [amendment](docs/reports/nplayer-four-player-candidate/owner-amendment.json). Samefrozen6adc28cea5fe29008766142ae5b9af01ef1e0067/864pins/bundle9a6db8efe7107b42566753d17120de6f6eae906f78b23406bde1c29c354b4b2b. Build54.49s/native121lib+8paired+1legacy(oneexistingignored)/19Python;56qualificationstagesRC0,155.20childstagewall plusvalidationoverhead,768initial+768repeat allfieldhandsreplay; full-row export/binary/keyset/1-16thread/fresh-resume/serial/gzip-binarypayload/selfzero/mass/legacy20-100-200proofs pass. Source tag sample2950decisions/10positive/0zero/1161missingdistinctkeys; no playedzeroexample claim. QualificationresultSHA0602825a7d3d27ebb27584a5bc83c2f6c9b06f9f46f77eeec4927debf25267c0. Initialmutexblockedfailure/source/logs retained; no science duplicated.
+
+Main root `/home/dberweger/nplayer-four-player-candidate-20261023/main-v1`, supervisor872177,launch11:04:42UTC/13:04Madrid October23,83.98GiBfree actual. ConfigSHAf3be3047b3c1b5fb781fa5d3e8c41e43ba7a57cf54a74672f8a5125b2f03cd9c. First13:06Madrid snapshot390,823,903nodes/146,140,094entries/80.798active seconds,prefreeze,CPU61/T1570°C,11.49GiBRSS/no failure. Counts/targets/roots/seed/recipe/threads/thermalstops unchanged. Healthyonecompactstatuscheck/nooutcomesbeforeglobalproofbarrier; no restart/extra hands/tuning. Initial17:00–17:30Madrid resultforecast conditional; approved10hincludesalreadyspentbuild/qualification/report, notreset and nottimekill. No timer/observer/cleanup/upload created. Owner cleaner alone stages/uploads; all source/models/rawtraces/protected400/402/404/K50/venv/binaries retained, cloudacceptancepending/noDriveclaim. No release/default/merge or automatic next-player allocation.
+
+
+### PR413 four-player100BB development campaign complete — primary passes, safeguards unpassed
+
+[Report](docs/reports/nplayer-four-player-candidate/results.md), [compact result/provenance/costs](docs/reports/nplayer-four-player-candidate/results.json), [panels](docs/reports/nplayer-four-player-candidate/panels.csv), [coverage](docs/reports/nplayer-four-player-candidate/coverage.csv), [seat/position](docs/reports/nplayer-four-player-candidate/seats.csv), [tails](docs/reports/nplayer-four-player-candidate/tails.csv), [costs](docs/reports/nplayer-four-player-candidate/costs.csv). Main-v1 completes October23 13:05:16UTC/15:05Madrid,2h00m34s,37stageRC0/no failure/no retry. Freshseed2026102341001, fixed3B/10B,250,003,053 identical keys/freeze40389 near824Mnodes. Eight4,096block/all24permutation fields,1,572,864initial hand instances independently replayed plus byte-identical reproduction. Trained primary+53.85BB/100, family95lower+25.35; allseven scripted/mixed safeguards unpassed, random−56.03/random+TAG−35.07 adverse, not seven demonstrated losses. One seed/development only, no release acceptance/extension/default change. Focal10B check-callriver miss96.19% versus trained3.36%; table-wide zero mass24.75%, distinct from played fallback.
+
+Frozen source6adc28cea5fe29008766142ae5b9af01ef1e0067/864pins, bundle9a6db8efe7107b42566753d17120de6f6eae906f78b23406bde1c29c354b4b2b, configf3be3047b3c1b5fb781fa5d3e8c41e43ba7a57cf54a74672f8a5125b2f03cd9c. Complete hostresultsSHAef35893dc09968c2b9212ef3dd20df7e290ffe94b3d592a5a160583ae1271cc0; GitJSON is a documented compact derivative, raw block arrays remainhost. BaselineCPfee9cc669a5401a54de7d8b901066233b049505f001ddabd6f74724aade07676; candidateCP2071d1e7fcbf3294942a978cc01ca8c817b4174f3bdedda072758d68c08bd2a1. Full model/export/binary/mass/keyset/environment/K50/proof pins in compactJSON. Initialmanifest6baf0cf39f681bd6898deb71aaf2a320058d4a780a616e4db1b4a56bb8b0719b, repeatmanifestb5e0ced463f5c148de7db56d3948bc5dae9864ab84189644a65178fab5ddb190. Existing qualification and failed pre-build admission retained; source unchanged by reporting.
+
+Retrieval `bb128:/home/dberweger/nplayer-four-player-candidate-20261023/` withsource-v1/build-v1/qualification-v1/main-v1; endpointsmain-v1/baseline-train.gz,candidate-train.gz, initial/repeattracesunderarena-initial/arena-repeat. Logical traces13,613,967,004bytes. All originals/partials/source/dependencies protected, including400/402/404/K50/build/venv. Archive/cache/Drive acceptance **owner-managed pending**; no verified alternative retrieval path/DriveID/receipt, no deletion/upload/move or remote audit claim. At13:06:24UTC normal mutex free/originalsupervisorexited,112.46GiBNVMe notreserved; owner cleaner notified, release priority over heavy cleanup. Read-only one-time completion notifier finished/collected, no new schedule. PR413 ready for owner review over PR410; no merge authority or automatic next experiment.
+
+
+### PR415 fixed five-player candidate main launched
+
+[Protocol](docs/nplayer-five-player-candidate.md), [componentquote](configs/research/nplayer-five-player-candidate.json), [56stage exact-source qualification](docs/reports/nplayer-five-player-candidate/qualification.json), [launch and coordination](docs/reports/nplayer-five-player-candidate/launch.md), [source/owner/config/progress receipt](docs/reports/nplayer-five-player-candidate/main-launch.json), [remaining-growth storage ledger](docs/reports/nplayer-five-player-candidate/storage-ledger.json). Owner"Start with the training, we are cleaning up while you do" authorizes fixed6hcompleteallocation/startat111.54GiBfree, superseding133.13GiBbeforelaunchwait. Main14:16:17UTC/16:16MadridOctober23, scientificPID888459/wrapper888364, exactsource6a01b327eb56c7678cb702e1c9106c98ba614699/874pins/bundle26b83becea886eb02c087e8b802f5f0a12b7ff7214ad7845518babf0bfb90024, mainconfigaafa94da23019db594cc305e6a96d735f2f04178fc5f171d52395dc4d345fe22. Seed2026102351001/5P100BB/unprunedK50/v1/fast16/eightroots/fullaverage/250Mfreeze, fixed3B/10B,8fields4096blocks10balancedseatings/655360initial+repeat/allinitialreplay. First51.009Mnodes/29.134Mentries/10.616active s,CPU51/T1544.5,nofailure; no interimstrengthoutcome. One lineage/development only, no extension/tuning/release/default/search/replication/merge.
+
+Ownercleaner alone manages specificallyauthorizedthreePR404baselinecheckpointcopied-first/SHAverified/HDDlink relocation;415doesnotreadtheseolder3Bbytes. Allfinal10B/models/exports/K50/runtime/source/proofs andwhole415rootprotected. Remaininggrowthscenario subtractsalreadyretainedmainpayload; release scratch separate,133.13GiBnotlivefloor; manualheadroomnotnewguard. OnlyCPU90/T15100/missingnonfinite/ownerSTOP/mutex/correctnessstops, no time/RSS/disk/swapkill. Archivependingoriginalsretained/noDriveclaim; no copy/move/delete/uploadbythisagent. No timer/poller/observer/newmachine/scienceretry; allstagesautomatic. Initial19:00–19:30Madridcompleteforecastconditional, accepted6hincludespriorqualification/report/notreset. All bootstrap/admission/qualificationhistoryretained. Rawretrievalbb128:/home/dberweger/nplayer-five-player-candidate-20261023/{source-v1,build-v1,qualification-v1,main-v1}, verifiedalternateretrieval/cloudreceiptpending.
+
+
+### PR415 — verified five-player development closeout
+
+[All eight panels and analysis](docs/reports/nplayer-five-player-candidate/results.md),
+[compact provenance/result](docs/reports/nplayer-five-player-candidate/results.json),
+[panels](docs/reports/nplayer-five-player-candidate/panels.csv),
+[seats/positions](docs/reports/nplayer-five-player-candidate/seats.csv),
+[full lookup counts](docs/reports/nplayer-five-player-candidate/coverage.csv),
+[street support](docs/reports/nplayer-five-player-candidate/support.csv),
+[tails](docs/reports/nplayer-five-player-candidate/tails.csv),
+[costs](docs/reports/nplayer-five-player-candidate/costs.csv),
+[release-overlap final context](docs/reports/nplayer-five-player-candidate/release-cost-context.json).
+Completed2026-10-23 16:10:16UTC/18:10:16Madrid;37mainstagesRC0,
+655,360initialhands independentlyreplayed +samebyte-identicalreproduction,
+8fields4096blocks/10balancedseatings. Primary+74.0483/lower+31.3530 passes;
+pressure+44.1459/lower+11.1031 passes relative−5 safeguard; sixothersunpassed.
+Random−84.1070/random+TAG−37.4573 adverse; pressureabsolute−10.2501 imprecise.
+No release acceptance; frozen direction review-scripted-exploitation-tradeoff-before-replication.
+One seed/ancestorfield/twocircularorders, noNash/generalstrength/causalcapacityclaim.
+
+Source6a01b327eb56c7678cb702e1c9106c98ba614699/874pins,
+bundle26b83becea886eb02c087e8b802f5f0a12b7ff7214ad7845518babf0bfb90024,
+mainconfigaafa94da23019db594cc305e6a96d735f2f04178fc5f171d52395dc4d345fe22,
+fullhostresultcdf3d1430b216afdbe28f4d9728f8668f76cd6e42932cb7f6f2e25902a3306be.
+GitJSONcompactderivative omitsblockarrays, addsmetadata; notbyte-identicalhostcopy.
+Exactkeyset07d7d3bc561ac8f0991ba41b45efd0f9800c5e31bd05d7719eb252e7df584a6f,
+250,000,979keys/freezeiteration26597/~576Mnodes. Endpoint3BcheckpointSHA
+71e3a59c2e94deef67f4d95861694a4340c8d593b6abb72be7619bc2f029c3bd;
+10B61e5dc20a493ad28418beabb03936c1d53f59e05944716fd7d83a75978ab09ef.
+Allmodel/export/binary/mass/K50/env/manifests/replay/sourcepins incompactJSON.
+10Bcheck-callriver16,726/16,728missing; additionalnodesdonotexpandmembership.
+
+Retrievaloriginalrootbb128:/home/dberweger/nplayer-five-player-candidate-20261023/
+(source-v1/build-v1/qualification-v1/main-v1). Endpointsbaseline-train.gz/candidate-train.gz;
+rawtracesmain-v1/arena-initial/,arena-repeat/;7,200,574,062logicalbytes combined.
+Keepalloriginals/failures/partials/source/protected400/402/404/413/K50/sharedvenv.
+Archive/cache/Drive acceptance **owner-managed pending**; no accepted alternate
+retrieval path/DriveID/receipt/deletion/upload claimed. Owner cleaner's separate
+three oldPR4043Brelocations begin after maincompletion, receiptpending.
+
+Actualmain6839.30s,childCPU39019.61s,workerRSS27.74GiB/CPU74/T1591°C.
+Owner-approved release overlap883.067s at15:44:54–15:59:37UTC recorded separately;
+PUBLICATION-RECEIPT SHA101f9fc52c268a3ce81858ac397b3e4543f9dbc2f8b101cba57d96c5f180e11a
+independently verified. No causal speed correction; notisolatedbenchmark.
+One-use releaseexceptionconsumed/finished, no remainingbypass.
+Original415PIDexited,normalmutexinode46/noholders; release/cleaner notified.
+No timer/observer/extra experiment. PR415readyforreview; no mergeauthority exercised.
+
+
+### PR417 — six-player trajectory launched after exact qualification
+
+[PR417](https://github.com/dberweger2017/CFR-NLHE-6max/pull/417),proposal416,
+[protocol](docs/nplayer-six-player-candidate.md),[mainlaunch](docs/reports/nplayer-six-player-candidate/main-launch.json),
+[139stagequal](docs/reports/nplayer-six-player-candidate/qualification.json),
+[old five-player diagnosis](docs/reports/nplayer-six-player-candidate/five-player-diagnosis.md),
+[diagnosticaggregates](docs/reports/nplayer-six-player-candidate/five-player-diagnosis.json),
+[contributions](docs/reports/nplayer-six-player-candidate/diagnosis-contributions.csv),
+[reachedactions](docs/reports/nplayer-six-player-candidate/diagnosis-actions.csv).
+Source128f021b8abb5c237574aeec9522592ec77a63d5/879pins/81nativefilesidentical415,
+bundlecfa805bc44bb3feb9edb797205e5c7811e4dbb3c387acba1405417027341d70c.
+Qualificationb96779d51160eaaf8a7534581160b15bd7dc75dc2432be1be679ff21e9732de7,
+139RC0/1152physicalinitial+repeat/768distinct/5contrasts/8fields,
+thread-resume/fullrow/binary/keyset/mass/serial/gzip/selfzero/legacy/additivity pass.
+Main2026-10-23 18:37:07UTC/20:37Madrid,PID905725/controller899936,
+configb7289278d33eb938694a56e7c275404b0b2c648fbb705aa208f961ba50b6b881.
+Owner"you can start and I will organize the extra space" accepts12h planning
+and startbelow240GiBfree scenario,actual119532957696Badmission. No livefreefloor,
+no time/RSS/disk/swapkill; mainthermalCPU90/T15100/missingnonfinite unchanged.
+Fresh6P100BBseed2026102361001/3B6B10B15B/unprunedK50v1fast16/250Mfreeze;
+all5contrasts×8fields/4096blocks/12balancedseatings,40adjusteddevelopmentbounds.
+2,359,296physicalinitial+same reproduce/1,572,864distinctinstances;
+no six-player outcomes inspected, no release acceptance or automatic extension.
+
+Diagnosis of EXISTING415initialtraces completes69.42s,allhashes/returns/coverage
+reconcile: SHA f168de277f7af665137144299cb486d6dcd565c43a5438b0bd6cdc5e49590f5c.
+First differences mainly at supportedpreflopstates; matched-state action changes
+have different downstreamcontinuations, whole-hand contributions not causalvalues.
+No newhands/rollouts/model loads; no changed six-player recipe following readout.
+
+Retrievalbb128:/home/dberweger/nplayer-six-player-candidate-20261023/
+source-v1/build-v1/diagnosis-v1/qualification-v1/main-v1. Preserve allpartials/
+failures/sources/models/rawtraces/sharedK50/envlink+target/interpreter/legacy400
+binary/404config. Ownercleaner manages approved storage actions and receipts;
+no copy/deletion/upload bythisagent. Archive/Drive researchpayload acceptance pending,
+no verifiedalternatepath/cloudreceipt claimed. Old413/415rawtraces/3Bcheckpoints
+remain working original-path HDDlinks under ownerverifiedcleanercopies.
+Newmainactive, normalcompute mutexheld; no timer/observer/subagent/newmachine.
+
+
+### PR417 — verified six-player four-checkpoint trajectory
+
+[Final report](docs/reports/nplayer-six-player-candidate/results.md),
+[compact results](docs/reports/nplayer-six-player-candidate/results.json),
+[all40 contrasts/gates](docs/reports/nplayer-six-player-candidate/comparisons.csv),
+[absolute returns](docs/reports/nplayer-six-player-candidate/absolute-returns.csv),
+[models/paths/SHA256](docs/reports/nplayer-six-player-candidate/models.csv),
+[proof/completion](docs/reports/nplayer-six-player-candidate/completion.json),
+[costs/resources](docs/reports/nplayer-six-player-candidate/costs.json),
+[cleanup overlap](docs/reports/nplayer-six-player-candidate/cleanup-cost-context.json).
+Main complete **2026-10-23 22:42:24 UTC /October24 00:42 Madrid**, 4h05m17s,
+115/115 stages RC0. Source `128f021b8abb5c237574aeec9522592ec77a63d5`,
+879 source/config pins; bundle
+`cfa805bc44bb3feb9edb797205e5c7811e4dbb3c387acba1405417027341d70c`;
+config `b7289278d33eb938694a56e7c275404b0b2c648fbb705aa208f961ba50b6b881`.
+Raw settled result SHA256
+`361e40b70f195d578592d1155738340917d753fdd2cbd3866236adee3bd3e5c1`.
+All2,359,296 physical initial hand instances independently replay and reproduce;
+1,572,864 distinct checkpoint/deal/seating instances. All48 initial trace files,
+cross-job3B identity, full-row binary/mass/keyset parity and adjacent/direct
+block-delta additivity pass. One seed2026102361001 /six-player100BB;
+3B/6B/10B/15B /250,001,554 fixed keys, cap reached by~486M nodes.
+
+3B→10B trained +46.19 BB/100 ordinary95%[+7.99,+84.38], adjusted lower−12.75;
+3B→15B +44.00[+3.45,+84.56], lower−18.57; neither clears trained margin0.
+10B→15B −2.19[−27.42,+23.04]. Six of40 gates pass, none of the five trained
+contrasts. No release winner, Nash/seed reliability claim or automatic extension.
+Retain all four checkpoints; support/exploitation review precedes more nodes or
+release-lineage replication. All20,936 15B check-call river decisions miss;
+trained river misses24.23%. Fixed membership, changed visitation and one seed
+prevent causal capacity conclusions. Prior adverse panels remain.
+
+Lookup positive/zero/missing distinctions are in
+[128 focal rows](docs/reports/nplayer-six-player-candidate/lookup-coverage.csv),
+[all identity/seat/position counters](docs/reports/nplayer-six-player-candidate/coverage.json),
+[480 positional contrasts](docs/reports/nplayer-six-player-candidate/seats-and-positions.csv)
+and [retained visits](docs/reports/nplayer-six-player-candidate/retained-support.csv).
+Peak sampled family27.69GiB, CPU75/Thermistor15 93°C. Active traversal2739.87s;
+loading/resume/save/export/auditing/replay/global costs separately reported.
+Not isolated runtime: cleanup journal worker overlap5587.843s/payload5505.894s
+includes waits/throttling/guards, not CPU or causal slowdown. Cleanup's final two
+approved files ran23:05:38–23:08:59UTC, zero main overlap. All12 original paths
+remain verified HDD links, 87duplicategroups complete, net129.559GiB NVMe recovery;
+PR417 inputs unchanged. Final storage98.720GiB NVMe /19.248GiB HDD per cleaner.
+
+**Archive pending, originals retained:** read-only original
+`bb128:/home/dberweger/nplayer-six-player-candidate-20261023/main-v1/results.json`
+(verify above SHA256; contains block arrays). Source/build/diagnosis/qualification/main
+roots, all models/traces/partials/proofs, protected K50/env/interpreter/legacy400/
+404config remain retained. No payload moved/deleted/uploaded by this task.
+Cleaner metadata-only pass1 receipt accepted Drive ID
+`1m4Yo17eexVc3oVfwEufa5MDzymz7Snmm`, 1,493,969bytes,
+SHA256 `171f15a36976d9d0bc750e4ae25bfe08413e2898689797df0aef905b149e5dba`.
+Final184-member metadata ZIP SHA256
+`be9af8df6f5d906f9aa0ef538eecc31e9204efa0b73a2374897e2bca8fb7933d`
+retained at `/research/.storage-receipts/approved-reclaim-PR417-20261023-final.zip`;
+final metadata acceptance pending after two bounded API per-minute/project
+rate-limit failures, not storage-capacity evidence. Research-payload Drive
+acceptance is **not claimed**. Normal/study locks unheld; existing cleaner thread
+notified at natural completion, no new observer/timer. PR417 owner review only;
+no merge/default/release authority exercised.

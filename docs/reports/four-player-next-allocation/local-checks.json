@@ -1,0 +1,70 @@
+{
+  "status": "fixtures-independent-review-and-warmed-diagnostic-passed",
+  "native_library_tests": {
+    "passed": 121,
+    "command": "cargo test --locked --manifest-path native/hu20-trainer/Cargo.toml --lib",
+    "scope": "existing library suite; no production library source changed afterward"
+  },
+  "native_example_tests": {
+    "passed": 14,
+    "command": "cargo test --locked --manifest-path native/hu20-trainer/Cargo.toml --example nplayer_warm_estimator",
+    "thread_parity": [
+      1,
+      2,
+      8,
+      16
+    ],
+    "exhaustive_expectation_players": [
+      2,
+      3,
+      4
+    ]
+  },
+  "controller_tests": {
+    "passed": 5,
+    "command": "python3.11 -m unittest discover -s tests -p test_nplayer_warm_estimator_qualification.py -v"
+  },
+  "pricing_checks": {
+    "components_sum": true,
+    "initial_hands": 121110528,
+    "all16historical_trace_pins_match": true,
+    "cyclic_margin": -5,
+    "mixed_seatings": 24,
+    "family": 27
+  },
+  "implementation_sha256s": {
+    "native/hu20-trainer/examples/nplayer_warm_estimator.rs": "c6f19498fcbfecf5e2eac45189a7d4e070258e3225cc72fb2b1810d9cd987842",
+    "native/hu20-trainer/examples/support/warm_estimator.rs": "c1c0fb2c288413f40335c553aaf3b5fd907bcdad04a3c4414ab55590dae4b0fd",
+    "native/hu20-trainer/examples/support/warm_estimator_tests.rs": "1f628d79293f3d2b05e5d4b9cdcea82adf0100b8616680857b14d57149232ceb",
+    "native/hu20-trainer/examples/support/warm_artifacts.rs": "aaae4f1c1e232f961cc1a1159a82a7c91e43317454c5b878cd27713fe053503c",
+    "scripts/nplayer_warm_estimator_qualification.py": "9785b42e2f8634b312877737ca86cd997e7539054397f675ff8824b7ef96a740",
+    "tests/test_nplayer_warm_estimator_qualification.py": "fd86517c6021d711ec9f6eb8f63f91172e0c563954310385b690ede8629e1c25"
+  },
+  "not_claimed": [
+    "new training",
+    "new arena hands",
+    "release acceptance"
+  ],
+  "review_followup": {
+    "initial_review_source": "b6b350a53c3205cd56d3a77d85912a908e371ad5",
+    "initial_gate": "blocked on two reporting gaps; no corrected-increment bias found",
+    "corrections": "grouped/linear terminal metrics and unconditional per-key coefficients separate from update-gated ESS",
+    "two_focused_fixtures_passed": true,
+    "warm_work_before_corrections": false,
+    "independent_recheck_pending": false,
+    "approved_source": "cc28e45d0d842ec68721d14b9224ce232bcad0dc",
+    "approved_binary_sha256": "0286d5ec5ceb7466c68e001cc03cfa3aa19600eb35eb42cc8001cd313e902d23",
+    "receipt": "../nplayer-warm-estimator-qualification/independent-review.json"
+  },
+  "target_host_and_diagnostic": {
+    "native_library_tests": 121,
+    "native_example_tests": 14,
+    "controller_tests": 5,
+    "main_stages_passed": 3,
+    "root_contexts_per_mode": 1024,
+    "modes": 2,
+    "byte_identical_reproduction": true,
+    "no_training": true,
+    "results": "../nplayer-warm-estimator-qualification/results.json"
+  }
+}

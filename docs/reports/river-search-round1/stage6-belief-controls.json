@@ -1,0 +1,44 @@
+{
+  "format": "river-search-belief-controls-v1",
+  "config_sha256": "2ac3d6f03f3a44bf5d79def504c78ccc7b235c7e82e5baa3b017d50d2ac44376",
+  "controls": 40,
+  "unsupported": 0,
+  "references_qualified": 40,
+  "passes": 23,
+  "verdict": "fail",
+  "max_excess_gain_bb": {
+    "p50": 0.04780870403388704,
+    "p90": 0.15221226912619956,
+    "p100": 0.2992312618581683
+  },
+  "reference_error_bb": {
+    "p50": 0.006092178334947573,
+    "p90": 0.009174147022623258,
+    "p100": 0.00977556142382191
+  },
+  "reference_sweeps": {
+    "p50": 1024,
+    "p90": 4096,
+    "p100": 8192
+  },
+  "reference_seconds": {
+    "p50": 18.546080818,
+    "p90": 61.997987176,
+    "p100": 131.499869814
+  },
+  "projection_total_variation": {
+    "p50": 0.020932412974036807,
+    "p90": 0.035676608905204854,
+    "p100": 0.0415203799373274
+  },
+  "deployed_gain_projected_vs_exact_bb": {
+    "projected": {
+      "p50": 0.047408068900054334,
+      "p90": 0.09374223463268772
+    },
+    "exact": {
+      "p50": 0.05237328134543656,
+      "p90": 0.1589885659085537
+    }
+  }
+}

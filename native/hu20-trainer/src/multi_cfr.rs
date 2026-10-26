@@ -206,9 +206,10 @@ impl Table {
     pub fn insert(&mut self, key: Key, entry: Entry) -> bool {
         self.0.insert_view(key, entry.stored().view())
     }
-    /// Merges `tasks` shard by shard, each key's deltas summed in task order; returns the
-    /// (keys, visits) discarded when `frozen`.
-    pub fn merge_all(&mut self, tasks: Vec<Deltas>, frozen: bool, parallel: bool) -> (u64, u64) {
+    /// Merges `tasks` shard by shard, each key's deltas summed in task order. Returns the keys and
+    /// visits discarded when `frozen`, then the new keys declined because `traverser_admission`
+    /// admits only summed deltas with a traverser visit.
+    pub fn merge_all(&mut self, tasks: Vec<Deltas>, frozen: bool, traverser_admission: bool, parallel: bool) -> (u64, u64, u64) {
         use rayon::prelude::*;
         let shards = self.0 .0.len();
         let split = |deltas: Deltas| {
@@ -235,21 +236,23 @@ impl Table {
                 }
                 combined.into_iter().collect()
             };
-            let mut discarded = (0, 0);
+            let mut discarded = (0, 0, 0);
             for (key, delta) in part {
                 if frozen && !shard.contains(&key) {
-                    discarded = (discarded.0 + 1, discarded.1 + delta.visits);
+                    discarded = (discarded.0 + 1, discarded.1 + delta.visits, discarded.2);
+                } else if traverser_admission && delta.visits == 0 && !shard.contains(&key) {
+                    discarded.2 += 1;
                 } else {
                     shard.merge(key, delta.stored().view());
                 }
             }
             discarded
         };
-        let sum = |a: (u64, u64), b: (u64, u64)| (a.0 + b.0, a.1 + b.1);
+        let sum = |a: (u64, u64, u64), b: (u64, u64, u64)| (a.0 + b.0, a.1 + b.1, a.2 + b.2);
         if parallel {
-            self.0 .0.par_iter_mut().zip(by_shard).map(merge).reduce(|| (0, 0), sum)
+            self.0 .0.par_iter_mut().zip(by_shard).map(merge).reduce(|| (0, 0, 0), sum)
         } else {
-            self.0 .0.iter_mut().zip(by_shard).map(merge).fold((0, 0), sum)
+            self.0 .0.iter_mut().zip(by_shard).map(merge).fold((0, 0, 0), sum)
         }
     }
     /// Every entry, in no particular order.
@@ -317,6 +320,15 @@ fn pick(draw: f64, policy: &[f64]) -> usize {
         .expect("empty policy support")
 }
 
+const PRESSURE_SALT: u64 = 0x7072_6573_7375_7265;
+
+/// Cash-game menu labels (multi_holdem::menu): the pot-size raise is label 4; when its
+/// target equals the minimum raise the menu keeps only label 3, which is then the pot raise.
+pub fn pressure_action(d: Decision) -> Option<usize> {
+    [4u16, 3].into_iter().find(|&label| d.code & (1 << label) != 0)
+        .map(|label| (d.code & ((1 << label) - 1)).count_ones() as usize)
+}
+
 fn splitmix(mut x: u64) -> u64 {
     x = x.wrapping_add(0x9E37_79B9_7F4A_7C15);
     x = (x ^ (x >> 30)).wrapping_mul(0xBF58_476D_1CE4_E5B9);
@@ -332,8 +344,10 @@ pub fn child_path(path: u64, action: usize) -> u64 {
 /// How a traversal draws opponent actions, and whether it forks traverser subtrees.
 pub trait Sampler<S: State>: Sized {
     fn sample(&mut self, policy: &[f64], path: u64) -> usize;
+    /// An extra uniform draw in [0, 1) for opponent pressure; only drawn when pressure is on.
+    fn pressure_draw(&mut self, path: u64) -> f64;
     /// Every child's value, deltas and counts, visited in parallel; None visits in order.
-    fn fork(_t: &Traversal<'_, Self>, _state: &S, _n: usize, _path: u64, _depth: u8) -> Option<Vec<(f64, Deltas, Counts)>> {
+    fn fork(_t: &Traversal<'_, Self>, _state: &S, _n: usize, _pruned: &[bool; MAX_ACTIONS], _path: u64, _depth: u8) -> Option<Vec<(f64, Deltas, Counts)>> {
         None
     }
 }
@@ -343,6 +357,9 @@ pub struct Stream<'a, R: Rng>(pub &'a mut R);
 impl<R: Rng, S: State> Sampler<S> for Stream<'_, R> {
     fn sample(&mut self, policy: &[f64], _path: u64) -> usize {
         sample_policy(self.0, policy)
+    }
+    fn pressure_draw(&mut self, _path: u64) -> f64 {
+        self.0.gen()
     }
 }
 
@@ -354,15 +371,23 @@ impl<S: State + Clone + Send + Sync> Sampler<S> for PathSampler {
     fn sample(&mut self, policy: &[f64], path: u64) -> usize {
         pick((splitmix(self.0 ^ path) >> 11) as f64 * (1.0 / (1u64 << 53) as f64), policy)
     }
-    fn fork(t: &Traversal<'_, Self>, state: &S, n: usize, path: u64, depth: u8) -> Option<Vec<(f64, Deltas, Counts)>> {
+    fn pressure_draw(&mut self, path: u64) -> f64 {
+        // Domain-separated from the action draw at the same node.
+        (splitmix(self.0 ^ path ^ PRESSURE_SALT) >> 11) as f64 * (1.0 / (1u64 << 53) as f64)
+    }
+    fn fork(t: &Traversal<'_, Self>, state: &S, n: usize, pruned: &[bool; MAX_ACTIONS], path: u64, depth: u8) -> Option<Vec<(f64, Deltas, Counts)>> {
         use rayon::prelude::*;
         (depth < t.fork_depth).then(|| {
             (0..n).into_par_iter().map(|a| {
                 let (mut deltas, mut counts) = (Deltas::default(), Counts::default());
+                if pruned[a] {
+                    return (0., deltas, counts);
+                }
                 let mut child = state.clone();
                 child.apply(a);
                 let value = Traversal { table: t.table, deltas: &mut deltas, sampler: t.sampler, traverser: t.traverser,
-                    weight: t.weight, last_average_street: t.last_average_street, counts: &mut counts, fork_depth: t.fork_depth }
+                    weight: t.weight, last_average_street: t.last_average_street, counts: &mut counts, fork_depth: t.fork_depth,
+                    prune_below: t.prune_below, pressure: t.pressure }
                     .visit(&mut child, child_path(path, a), depth + 1);
                 (value, deltas, counts)
             }).collect()
@@ -391,6 +416,13 @@ pub struct Counts {
     pub traverser: [u64; 6],
     pub discarded_keys: u64,
     pub discarded_visits: u64,
+    /// Actions skipped by pruning; recorded under the checkpoint's `pruning`, not `counts`.
+    pub pruned: u64,
+    /// Opponent pot raises forced by pressure; recorded under `opponent_pressure`, not `counts`.
+    pub pressured: u64,
+    /// New keys with only opponent updates, declined by traverser admission and summed over
+    /// iterations; recorded under `admission`, not `counts`.
+    pub declined: u64,
 }
 impl Counts {
     fn add(&mut self, other: &Counts) {
@@ -405,6 +437,9 @@ impl Counts {
         }
         self.discarded_keys += other.discarded_keys;
         self.discarded_visits += other.discarded_visits;
+        self.pruned += other.pruned;
+        self.pressured += other.pressured;
+        self.declined += other.declined;
     }
 }
 
@@ -442,6 +477,10 @@ pub struct Traversal<'a, P> {
     pub last_average_street: usize,
     pub counts: &'a mut Counts,
     pub fork_depth: u8,
+    /// Regret-based pruning limit of this iteration; None explores every action.
+    pub prune_below: Option<f64>,
+    /// Probability that a sampled opponent decision takes the pot-size raise instead of its policy.
+    pub pressure: Option<f64>,
 }
 impl<P> Traversal<'_, P> {
     pub fn run<S: State>(&mut self, state: &mut S) -> f64
@@ -464,7 +503,8 @@ impl<P> Traversal<'_, P> {
         assert!(d.actor < state.players() && self.traverser < state.players());
         self.counts.decisions[d.street] += 1;
         let n = d.len();
-        let policy = if let Some(entry) = self.table.get(&d.key) {
+        let stored = self.table.get(&d.key);
+        let policy = if let Some(entry) = stored {
             entry.check(d);
             entry.policy(false)
         } else {
@@ -484,7 +524,14 @@ impl<P> Traversal<'_, P> {
                     *sum += self.weight * p;
                 }
             }
-            let action = self.sampler.sample(&policy[..n], path);
+            let pressured = self.pressure.and_then(|p| pressure_action(d).map(|a| (p, a)));
+            let action = match pressured {
+                Some((p, a)) if self.sampler.pressure_draw(path) < p => {
+                    self.counts.pressured += 1;
+                    a
+                }
+                _ => self.sampler.sample(&policy[..n], path),
+            };
             let saved = state.save();
             state.apply(action);
             let value = self.visit(state, child_path(path, action), depth);
@@ -492,8 +539,16 @@ impl<P> Traversal<'_, P> {
             return value;
         }
         self.counts.traverser[d.actor] += 1;
+        // Pruned: zero probability and stored regret below the limit; `value` is unchanged.
+        let mut pruned = [false; MAX_ACTIONS];
+        if let (Some(limit), Some(entry)) = (self.prune_below, stored) {
+            for a in 0..n {
+                pruned[a] = policy[a] == 0. && entry.regrets[a] < limit;
+            }
+            self.counts.pruned += pruned.iter().filter(|&&p| p).count() as u64;
+        }
         let mut values = [0.; MAX_ACTIONS];
-        if let Some(children) = P::fork(self, state, n, path, depth) {
+        if let Some(children) = P::fork(self, state, n, &pruned, path, depth) {
             for (a, (value, deltas, counts)) in children.into_iter().enumerate() {
                 values[a] = value;
                 self.counts.add(&counts);
@@ -502,7 +557,7 @@ impl<P> Traversal<'_, P> {
                 }
             }
         } else {
-            for (a, value) in values[..n].iter_mut().enumerate() {
+            for (a, value) in values[..n].iter_mut().enumerate().filter(|(a, _)| !pruned[*a]) {
                 let saved = state.save();
                 state.apply(a);
                 *value = self.visit(state, child_path(path, a), depth + 1);
@@ -515,7 +570,7 @@ impl<P> Traversal<'_, P> {
             .entry(d.key)
             .or_insert_with(|| Delta::new(d, self.last_average_street));
         delta.check(d);
-        for (a, r) in delta.regrets_mut().iter_mut().enumerate() {
+        for (a, r) in delta.regrets_mut().iter_mut().enumerate().filter(|(a, _)| !pruned[*a]) {
             *r += self.weight * (values[a] - value);
         }
         delta.visits += 1;
@@ -549,6 +604,32 @@ pub struct Trainer {
     pub sampling: Sampling,
     /// Fast mode: traversals per seat and iteration.
     pub roots_per_seat: usize,
+    /// Fast mode: regret-based pruning (docs/nplayer-pruning.md).
+    pub prune: Option<Prune>,
+    /// Fast cash-game mode: probability that a sampled opponent decision takes the pot-size
+    /// raise (docs/nplayer-opponent-pressure.md). Average strategies still record the policy.
+    pub pressure: Option<f64>,
+    /// Fast mode: a new key enters the table only with a traverser update
+    /// (docs/nplayer-traverser-admission.md). Opponent-only rows keep zero regrets and so play
+    /// exactly the uniform fallback while holding capacity.
+    pub traverser_admission: bool,
+}
+
+/// Skip traverser actions with zero probability whose regret shows an average loss above `bb`
+/// per iteration, after iteration `after`, except in about one iteration in 20.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Prune {
+    pub bb: f64,
+    pub after: u64,
+}
+impl Prune {
+    /// This iteration's limit: `-bb` per root, times the linear weights so far; None in full
+    /// iterations.
+    pub fn limit(self, seed: u64, iteration: u64, roots_per_seat: usize) -> Option<f64> {
+        let full = child_path(seed, iteration as usize) % 20 == 0;
+        let t = iteration as f64;
+        (iteration > self.after && !full).then(|| -self.bb * roots_per_seat as f64 * t * (t + 1.) / 2.)
+    }
 }
 impl Trainer {
     pub fn new<G: Game>(
@@ -572,6 +653,9 @@ impl Trainer {
             counts: Counts::default(),
             sampling: Sampling::Stream,
             roots_per_seat: 1,
+            prune: None,
+            pressure: None,
+            traverser_admission: false,
         }
     }
     /// Starts the next iteration; its linear weight.
@@ -579,6 +663,11 @@ impl Trainer {
         assert_eq!(self.sampling, sampling, "training continues with the checkpoint's sampling");
         assert!(match sampling { Sampling::Stream => self.roots_per_seat == 1, Sampling::Path => (1..=1024).contains(&self.roots_per_seat) },
             "roots per seat: 1 in production, 1 to 1024 in fast mode");
+        assert!(self.prune.map_or(true, |p| sampling == Sampling::Path && p.bb.is_finite() && p.bb > 0.),
+            "pruning: fast mode only, with a positive finite limit");
+        assert!(self.pressure.map_or(true, |p| sampling == Sampling::Path && p > 0. && p <= 1.),
+            "opponent pressure: fast mode only, probability in (0, 1]");
+        assert!(!self.traverser_admission || sampling == Sampling::Path, "traverser admission: fast mode only");
         assert_eq!(game.identity(), self.identity);
         assert_eq!(game.players(), self.players);
         assert!(
@@ -622,6 +711,8 @@ impl Trainer {
                 last_average_street: self.last_average_street,
                 counts: &mut counts,
                 fork_depth: 0,
+                prune_below: None,
+                pressure: None,
             }
             .run(&mut state);
         }
@@ -635,6 +726,7 @@ impl Trainer {
     {
         use rayon::prelude::*;
         let weight = self.begin(game, Sampling::Path);
+        let prune_below = self.prune.and_then(|p| p.limit(self.seed, self.iteration, self.roots_per_seat));
         let roots: Vec<(usize, usize)> = (0..self.players).flat_map(|p| (0..self.roots_per_seat).map(move |r| (p, r))).collect();
         let tasks: Vec<(Deltas, Counts)> = roots.into_par_iter().map(|(player, r)| {
             let (mut rng, seed) = self.fast_root(player, r);
@@ -650,6 +742,8 @@ impl Trainer {
                 last_average_street: self.last_average_street,
                 counts: &mut counts,
                 fork_depth: FORK_DEPTH,
+                prune_below,
+                pressure: self.pressure,
             }
             .run(&mut state);
             (deltas, counts)
@@ -679,9 +773,10 @@ impl Trainer {
     /// Production merges on its own thread, fast mode in parallel.
     fn apply(&mut self, tasks: Vec<Deltas>) {
         let parallel = self.sampling == Sampling::Path;
-        let (keys, visits) = self.table.merge_all(tasks, self.frozen_at.is_some(), parallel);
+        let (keys, visits, declined) = self.table.merge_all(tasks, self.frozen_at.is_some(), self.traverser_admission, parallel);
         self.counts.discarded_keys += keys;
         self.counts.discarded_visits += visits;
+        self.counts.declined += declined;
         if self.freeze_at_cap && self.frozen_at.is_none() && self.table.len() >= self.max_entries {
             self.frozen_at = Some(self.iteration);
         }

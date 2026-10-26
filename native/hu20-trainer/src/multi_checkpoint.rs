@@ -6,6 +6,11 @@ use serde_json::{json, Value};
 use std::io::{BufRead, BufReader};
 use std::path::Path;
 
+/// Sampled opponent decisions take the menu's pot-size raise with this probability.
+pub const PRESSURE_RULE: &str = "opponent-pot-raise-v1";
+/// New keys enter the table only from a traverser update.
+pub const ADMISSION_RULE: &str = "traverser-admission-v1";
+
 pub fn key_hex(key: &[u8; 16]) -> String {
     key.iter().map(|b| format!("{b:02x}")).collect()
 }
@@ -22,6 +27,15 @@ pub fn save(trainer: &Trainer, path: &Path, gzip: Gzip) -> Result<(), String> {
     if trainer.sampling == Sampling::Path {
         header["sampling"] = json!(PATH_SAMPLING);
         header["roots_per_seat"] = json!(trainer.roots_per_seat);
+    }
+    if let Some(p) = trainer.prune {
+        header["pruning"] = json!({"bb": p.bb, "after": p.after, "pruned_actions": trainer.counts.pruned});
+    }
+    if let Some(p) = trainer.pressure {
+        header["opponent_pressure"] = json!({"rule": PRESSURE_RULE, "probability": p, "pressured_actions": trainer.counts.pressured});
+    }
+    if trainer.traverser_admission {
+        header["admission"] = json!({"rule": ADMISSION_RULE, "declined_keys": trainer.counts.declined});
     }
     write_atomic(path, |file| {
         trainer.table.write_sorted(file, gzip, format!("{header}\n").as_bytes(), |key, e, out| {
@@ -82,6 +96,9 @@ pub fn load(path: &Path) -> Result<Trainer, String> {
     if h["format"] != "nplayer-cfr-v1" || h["average_rule"] != "opponent-sampled" {
         return Err("unsupported checkpoint identity".into());
     }
+    if h["game"]["game"] == "nlhe-cash" {
+        crate::multi_policy::cash_config(&h["game"])?;
+    }
     let sampling = match h.get("sampling") {
         None => Sampling::Stream,
         Some(s) if s == PATH_SAMPLING => Sampling::Path,
@@ -91,6 +108,27 @@ pub fn load(path: &Path) -> Result<Trainer, String> {
         (Sampling::Stream, None) => 1,
         (Sampling::Path, Some(r)) => usize::try_from(integer(r)?).ok().filter(|&r| (1..=1024).contains(&r)).ok_or("invalid roots per seat")?,
         _ => return Err("roots per seat belongs to fast mode".into()),
+    };
+    let (prune, pruned) = match (sampling, h.get("pruning")) {
+        (_, None) => (None, 0),
+        (Sampling::Path, Some(p)) => {
+            let bb = p["bb"].as_f64().filter(|b| b.is_finite() && *b > 0.).ok_or("invalid pruning limit")?;
+            (Some(crate::multi_cfr::Prune { bb, after: integer(&p["after"])? }), integer(&p["pruned_actions"])?)
+        }
+        _ => return Err("pruning belongs to fast mode".into()),
+    };
+    let (pressure, pressured) = match (sampling, h.get("opponent_pressure")) {
+        (_, None) => (None, 0),
+        (Sampling::Path, Some(p)) if p["rule"] == PRESSURE_RULE => {
+            let probability = p["probability"].as_f64().filter(|p| *p > 0. && *p <= 1.).ok_or("invalid pressure probability")?;
+            (Some(probability), integer(&p["pressured_actions"])?)
+        }
+        _ => return Err("unsupported opponent pressure".into()),
+    };
+    let (traverser_admission, declined) = match (sampling, h.get("admission")) {
+        (_, None) => (false, 0),
+        (Sampling::Path, Some(a)) if a["rule"] == ADMISSION_RULE => (true, integer(&a["declined_keys"])?),
+        _ => return Err("unsupported admission rule".into()),
     };
     let players = integer(&h["players"])? as usize;
     let last_average_street = integer(&h["last_average_street"])? as usize;
@@ -120,6 +158,9 @@ pub fn load(path: &Path) -> Result<Trainer, String> {
         traverser: fixed(&c["traverser"])?,
         discarded_keys: integer(&c["discarded_keys"])?,
         discarded_visits: integer(&c["discarded_visits"])?,
+        pruned,
+        pressured,
+        declined,
     };
     if counts.terminals.checked_add(
         counts
@@ -208,5 +249,8 @@ pub fn load(path: &Path) -> Result<Trainer, String> {
         counts,
         sampling,
         roots_per_seat,
+        prune,
+        pressure,
+        traverser_admission,
     })
 }

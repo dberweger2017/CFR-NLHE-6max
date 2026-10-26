@@ -1,0 +1,164 @@
+{
+  "status": "qualified-not-launched",
+  "source_commit": "ecb08ada3caf85506f434bff51f05a9ff5c8b8ee",
+  "library_commit": "b9882e7e728847a58691995e64eabd4563ea0991",
+  "control_root": "/home/dberweger/nplayer-bb100-10b-20261019",
+  "qualification_root": "/home/dberweger/nplayer-bb100-10b-20261019/qualification-v1",
+  "fixture_hands": 216,
+  "reproduction_hands": 216,
+  "diagnostics_off_hands": 216,
+  "legacy_parity_hands": 120,
+  "resume_checkpoint_sha256": "ff88bc64f36e912c7cb0a4e923959afc5478f9b0223a1f9af8c1cc1989a3eb41",
+  "resume_policy_sha256": "99fc8f943127e62022b582043df1eb898f42dd9e573115232d9043e7946c35b7",
+  "keyset_sha256": "1cd47793eb22ab79a68974a42a3757bf83f407d7ed0a160597c05406df895811",
+  "environment": {
+    "executable": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/venv/bin/python",
+    "prefix": "/home/dberweger/nplayer-fast-strength-20261018-main-v5/venv",
+    "version": [
+      3,
+      11,
+      17
+    ],
+    "scipy": "1.17.1",
+    "engine": {
+      "url": "https://github.com/dberweger2017/pokers.git",
+      "vcs_info": {
+        "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+        "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+        "vcs": "git"
+      }
+    }
+  },
+  "build_receipt_sha256": "7f7765c7db8a089f0ac354f7a09e00bb11a0d33ea2bcae8973fda02a01b93aa3",
+  "native_hashes": {
+    "train": "8818e1673453e0fa0e32f212b4ff036d56ef378e3b1b16ee1eef9c485ab0f2df",
+    "reference": "1da1242f61c3e7f9f058cca50bb97287d20a2d60f253f41fbe5d87e073945fc3",
+    "legacy": "11ed35b173b8d212379ff93f34093547d79e8a97da2dbd8df877621a0947057d",
+    "arena": "99aaba3227f2860c1887edf708a61529402bb2d8eee03a2298b992a1dbabe340"
+  },
+  "source_file_count": 699,
+  "source_files_canonical_json_sha256": "d04a346ce246695a2e8baceaad09b44b52260f038781bdbf66d6dc3e7a27364e",
+  "stages": {
+    "mixed-diagnostic-fixtures": {
+      "returncode": 0,
+      "wall_seconds": 5.077851408015704,
+      "cpu_seconds": 5.327538000000004,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 205111296
+      }
+    },
+    "resume-native": {
+      "returncode": 0,
+      "wall_seconds": 5.020245822001016,
+      "cpu_seconds": 5.257648999999998,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 174526464
+      }
+    },
+    "legacy-host-parity": {
+      "returncode": 0,
+      "wall_seconds": 4.990406181983417,
+      "cpu_seconds": 4.995256,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 176373760
+      }
+    },
+    "reference-native": {
+      "returncode": 0,
+      "wall_seconds": 4.985012645978713,
+      "cpu_seconds": 5.395120999999999,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 174891008
+      }
+    },
+    "audit-baseline": {
+      "returncode": 0,
+      "wall_seconds": 0.20184616500046104,
+      "cpu_seconds": 0.2110570000000025,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 13156352
+      }
+    },
+    "audit-candidate": {
+      "returncode": 0,
+      "wall_seconds": 0.1970894749974832,
+      "cpu_seconds": 0.20641299999999907,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 13246464
+      }
+    },
+    "first-native": {
+      "returncode": 0,
+      "wall_seconds": 5.0016013300046325,
+      "cpu_seconds": 5.264527,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 174563328
+      }
+    },
+    "diagnostics-off": {
+      "returncode": 0,
+      "wall_seconds": 5.001380823989166,
+      "cpu_seconds": 5.011112000000001,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 176115712
+      }
+    },
+    "read-fixtures": {
+      "returncode": 0,
+      "wall_seconds": 0.5781428730115294,
+      "cpu_seconds": 0.577633999999998,
+      "sampled_peak_rss_by_phase": {
+        "startup/0": 118427648
+      }
+    }
+  },
+  "temperature_max_c": {
+    "Package id 0": 54.0,
+    "Thermistor 15": 43.5
+  },
+  "evaluation_cost": {
+    "native_wall_seconds": 4.938253105996409,
+    "native_load_seconds": 4.89270112,
+    "native_play_seconds": 0.027104973,
+    "replay_wall_seconds": 0.04003370300051756,
+    "input_verification_seconds": 0.007268138026120141,
+    "policy_loads": 2,
+    "trace_bytes": 1768394
+  },
+  "prelaunch": {
+    "observed_epoch": 1792437017.6405828,
+    "main_root": "/home/dberweger/nplayer-bb100-10b-20261019/main-v1",
+    "config_sha256": "eb43aa2598151eb291441552e52b1e73915a9a218de8049f8d3645c846cee856",
+    "source_commit": "ecb08ada",
+    "main_launched": false,
+    "qualification_sha256": "5e0287bed109e2233cde72dfd012d06415d7d58737958c28939eaca67364b7dd",
+    "nvme_free_bytes": 18496344064,
+    "failed_build_log_sha256": "c25aa17cdf5d18b4b3ddbff6ba63b0dabba46d729ed4f4d7942f9fd0c3313834",
+    "compute_lock_free": true
+  },
+  "resource_policy": {
+    "cpu_stop_c": 90,
+    "thermistor15_stop_c": 100,
+    "other_resource_stops": null
+  },
+  "preserved_setup_failure": {
+    "root": "/home/dberweger/nplayer-bb100-10b-20261019/build-v1",
+    "log": "/home/dberweger/nplayer-bb100-10b-20261019/build-v1.log",
+    "error": "SSH PATH did not contain Cargo; no fixture or main science started"
+  },
+  "archival_status": "pending; open PR roots and prior model dependencies retained unchanged",
+  "focused_linux_tests": {
+    "python_passed": 32,
+    "native_passed": 3,
+    "logs": {
+      "focused-python-tests.log": {
+        "path": "/home/dberweger/nplayer-bb100-10b-20261019/focused-python-tests.log",
+        "sha256": "6a0b39ec12a5b38946e06237d2d7639dfa702cb5ed3dfeac856c9d40912e4efd"
+      },
+      "focused-native-tests.log": {
+        "path": "/home/dberweger/nplayer-bb100-10b-20261019/focused-native-tests.log",
+        "sha256": "94db492e9c7b2569e571fd8b715cde6a12f4cca76c0a1732af0ec99dd8a3d058"
+      }
+    }
+  }
+}

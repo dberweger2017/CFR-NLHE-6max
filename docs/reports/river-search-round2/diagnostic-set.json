@@ -1,0 +1,2452 @@
+{
+  "format": "river-search-round2-diagnostic-set-v1",
+  "rule": "Round 1 roots measured with DCFR at the deployment target (dev panel and former held-out panels, now development evidence), sorted by panel and hand. Two per pot band x full-menu outcome against the blueprint, then every round 1 quality-target miss, then the largest regression and the largest improvement.",
+  "bands_bb": [
+    [
+      0,
+      5
+    ],
+    [
+      5,
+      15
+    ],
+    [
+      15,
+      40
+    ],
+    [
+      40,
+      null
+    ]
+  ],
+  "strict_target": {
+    "pot_fraction": 0.002,
+    "cap_bb": 0.02
+  },
+  "strict_checkpoints": [
+    64,
+    128,
+    256,
+    512,
+    1024,
+    2048,
+    4096,
+    8192
+  ],
+  "menu": "pot-jam-cap3-v1",
+  "sources": {
+    "stage3/deployable.jsonl": "94b091d72fdff9a84203bbc54bcb31e876c702fee02dd3dc9fdc1b097cc66a1e",
+    "stage7/decisions.jsonl": "9ca026f7f563d3995bc023cb8ade6bfb40e98b18a6ca40e245d1f320b580c6cd",
+    "stage1/panel-2026102101/panel.jsonl": "4df89ecb4be2617af915a91bac5e677a974fe90826f021ecf3496ef618537513",
+    "stage1/panel-2026102102/panel.jsonl": "98af327b350ac257eed54d2c6b214b3f354319d6441b333d73a942987d435cdc",
+    "stage1/panel-2026102103/panel.jsonl": "eeab1729fd2f6aa7b391e65391687fc01d8a3b42c82e883f637e90c4e4824840"
+  },
+  "cases": [
+    {
+      "source": "round1-dev",
+      "directory": "panel-2026102101",
+      "hand": 168,
+      "pot_bb": 2.5,
+      "outcome": "regression",
+      "deployed": 0.8296379194633717,
+      "blueprint": 0.418371201982855,
+      "target_met": true,
+      "reason": "pot 0-5 BB, regression, lowest hand ids",
+      "request": {
+        "format": "nplayer-live-river-v1",
+        "mode": "classify",
+        "button": 0,
+        "board": [
+          23,
+          0,
+          15,
+          13,
+          19
+        ],
+        "seat": 2,
+        "hole": [
+          11,
+          47
+        ],
+        "actions": [
+          [
+            0,
+            0,
+            "call",
+            0,
+            100
+          ],
+          [
+            1,
+            0,
+            "fold",
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            "check",
+            0,
+            0
+          ],
+          [
+            2,
+            1,
+            "check",
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            "check",
+            0,
+            0
+          ],
+          [
+            2,
+            2,
+            "check",
+            0,
+            0
+          ],
+          [
+            0,
+            2,
+            "check",
+            0,
+            0
+          ]
+        ],
+        "players": [
+          [
+            9900,
+            0,
+            100,
+            false
+          ],
+          [
+            9950,
+            0,
+            50,
+            true
+          ],
+          [
+            9900,
+            0,
+            100,
+            false
+          ]
+        ],
+        "legal": {
+          "check": true,
+          "call_amount": 0,
+          "raise_to": [
+            100,
+            9900
+          ]
+        }
+      }
+    },
+    {
+      "source": "round1-dev",
+      "directory": "panel-2026102101",
+      "hand": 433,
+      "pot_bb": 4.5,
+      "outcome": "regression",
+      "deployed": 1.4843136032448576,
+      "blueprint": 0.9902925064352681,
+      "target_met": true,
+      "reason": "pot 0-5 BB, regression, lowest hand ids",
+      "request": {
+        "format": "nplayer-live-river-v1",
+        "mode": "classify",
+        "button": 1,
+        "board": [
+          38,
+          18,
+          10,
+          32,
+          51
+        ],
+        "seat": 0,
+        "hole": [
+          17,
+          30
+        ],
+        "actions": [
+          [
+            1,
+            0,
+            "call",
+            0,
+            100
+          ],
+          [
+            2,
+            0,
+            "fold",
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            "check",
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            "check",
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            "raise",
+            100,
+            100
+          ],
+          [
+            0,
+            1,
+            "call",
+            0,
+            100
+          ],
+          [
+            0,
+            2,
+            "check",
+            0,
+            0
+          ],
+          [
+            1,
+            2,
+            "check",
+            0,
+            0
+          ]
+        ],
+        "players": [
+          [
+            9800,
+            0,
+            200,
+            false
+          ],
+          [
+            9800,
+            0,
+            200,
+            false
+          ],
+          [
+            9950,
+            0,
+            50,
+            true
+          ]
+        ],
+        "legal": {
+          "check": true,
+          "call_amount": 0,
+          "raise_to": [
+            100,
+            9800
+          ]
+        }
+      }
+    },
+    {
+      "source": "round1-dev",
+      "directory": "panel-2026102101",
+      "hand": 72,
+      "pot_bb": 2.0,
+      "outcome": "improvement",
+      "deployed": 0.40175563304249956,
+      "blueprint": 0.9931388112225491,
+      "target_met": true,
+      "reason": "pot 0-5 BB, improvement, lowest hand ids",
+      "request": {
+        "format": "nplayer-live-river-v1",
+        "mode": "classify",
+        "button": 0,
+        "board": [
+          19,
+          29,
+          23,
+          25,
+          39
+        ],
+        "seat": 1,
+        "hole": [
+          1,
+          48
+        ],
+        "actions": [
+          [
+            0,
+            0,
+            "fold",
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            "call",
+            0,
+            50
+          ],
+          [
+            2,
+            0,
+            "check",
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            "check",
+            0,
+            0
+          ],
+          [
+            2,
+            1,
+            "check",
+            0,
+            0
+          ],
+          [
+            1,
+            2,
+            "check",
+            0,
+            0
+          ],
+          [
+            2,
+            2,
+            "check",
+            0,
+            0
+          ]
+        ],
+        "players": [
+          [
+            10000,
+            0,
+            0,
+            true
+          ],
+          [
+            9900,
+            0,
+            100,
+            false
+          ],
+          [
+            9900,
+            0,
+            100,
+            false
+          ]
+        ],
+        "legal": {
+          "check": true,
+          "call_amount": 0,
+          "raise_to": [
+            100,
+            9900
+          ]
+        }
+      }
+    },
+    {
+      "source": "round1-dev",
+      "directory": "panel-2026102101",
+      "hand": 607,
+      "pot_bb": 2.0,
+      "outcome": "improvement",
+      "deployed": 0.3140938888892445,
+      "blueprint": 0.7728804749756049,
+      "target_met": true,
+      "reason": "pot 0-5 BB, improvement, lowest hand ids",
+      "request": {
+        "format": "nplayer-live-river-v1",
+        "mode": "classify",
+        "button": 1,
+        "board": [
+          20,
+          32,
+          35,
+          1,
+          37
+        ],
+        "seat": 2,
+        "hole": [
+          5,
+          42
+        ],
+        "actions": [
+          [
+            1,
+            0,
+            "fold",
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            "call",
+            0,
+            50
+          ],
+          [
+            0,
+            0,
+            "check",
+            0,
+            0
+          ],
+          [
+            2,
+            1,
+            "check",
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            "check",
+            0,
+            0
+          ],
+          [
+            2,
+            2,
+            "check",
+            0,
+            0
+          ],
+          [
+            0,
+            2,
+            "check",
+            0,
+            0
+          ]
+        ],
+        "players": [
+          [
+            9900,
+            0,
+            100,
+            false
+          ],
+          [
+            10000,
+            0,
+            0,
+            true
+          ],
+          [
+            9900,
+            0,
+            100,
+            false
+          ]
+        ],
+        "legal": {
+          "check": true,
+          "call_amount": 0,
+          "raise_to": [
+            100,
+            9900
+          ]
+        }
+      }
+    },
+    {
+      "source": "round1-dev",
+      "directory": "panel-2026102101",
+      "hand": 82,
+      "pot_bb": 6.0,
+      "outcome": "regression",
+      "deployed": 2.211078303719547,
+      "blueprint": 1.796288183549014,
+      "target_met": true,
+      "reason": "pot 5-15 BB, regression, lowest hand ids",
+      "request": {
+        "format": "nplayer-live-river-v1",
+        "mode": "classify",
+        "button": 1,
+        "board": [
+          50,
+          23,
+          2,
+          43,
+          45
+        ],
+        "seat": 2,
+        "hole": [
+          39,
+          44
+        ],
+        "actions": [
+          [
+            1,
+            0,
+            "fold",
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            "raise",
+            300,
+            250
+          ],
+          [
+            0,
+            0,
+            "call",
+            0,
+            200
+          ],
+          [
+            2,
+            1,
+            "check",
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            "check",
+            0,
+            0
+          ],
+          [
+            2,
+            2,
+            "check",
+            0,
+            0
+          ],
+          [
+            0,
+            2,
+            "check",
+            0,
+            0
+          ]
+        ],
+        "players": [
+          [
+            9700,
+            0,
+            300,
+            false
+          ],
+          [
+            10000,
+            0,
+            0,
+            true
+          ],
+          [
+            9700,
+            0,
+            300,
+            false
+          ]
+        ],
+        "legal": {
+          "check": true,
+          "call_amount": 0,
+          "raise_to": [
+            100,
+            9700
+          ]
+        }
+      }
+    },
+    {
+      "source": "round1-dev",
+      "directory": "panel-2026102101",
+      "hand": 508,
+      "pot_bb": 6.0,
+      "outcome": "regression",
+      "deployed": 0.9462170649956306,
+      "blueprint": 0.8415368212207234,
+      "target_met": true,
+      "reason": "pot 5-15 BB, regression, lowest hand ids",
+      "request": {
+        "format": "nplayer-live-river-v1",
+        "mode": "classify",
+        "button": 1,
+        "board": [
+          23,
+          45,
+          34,
+          26,
+          8
+        ],
+        "seat": 2,
+        "hole": [
+          0,
+          40
+        ],
+        "actions": [
+          [
+            1,
+            0,
+            "fold",
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            "raise",
+            200,
+            150
+          ],
+          [
+            0,
+            0,
+            "call",
+            0,
+            100
+          ],
+          [
+            2,
+            1,
+            "check",
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            "check",
+            0,
+            0
+          ],
+          [
+            2,
+            2,
+            "raise",
+            100,
+            100
+          ],
+          [
+            0,
+            2,
+            "call",
+            0,
+            100
+          ]
+        ],
+        "players": [
+          [
+            9700,
+            0,
+            300,
+            false
+          ],
+          [
+            10000,
+            0,
+            0,
+            true
+          ],
+          [
+            9700,
+            0,
+            300,
+            false
+          ]
+        ],
+        "legal": {
+          "check": true,
+          "call_amount": 0,
+          "raise_to": [
+            100,
+            9700
+          ]
+        }
+      }
+    },
+    {
+      "source": "round1-dev",
+      "directory": "panel-2026102101",
+      "hand": 52,
+      "pot_bb": 12.0,
+      "outcome": "improvement",
+      "deployed": 0.9889276599772951,
+      "blueprint": 4.140402858807345,
+      "target_met": true,
+      "reason": "pot 5-15 BB, improvement, lowest hand ids",
+      "request": {
+        "format": "nplayer-live-river-v1",
+        "mode": "classify",
+        "button": 1,
+        "board": [
+          12,
+          14,
+          32,
+          30,
+          29
+        ],
+        "seat": 2,
+        "hole": [
+          39,
+          43
+        ],
+        "actions": [
+          [
+            1,
+            0,
+            "fold",
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            "call",
+            0,
+            50
+          ],
+          [
+            0,
+            0,
+            "raise",
+            300,
+            200
+          ],
+          [
+            2,
+            0,
+            "raise",
+            500,
+            400
+          ],
+          [
+            0,
+            0,
+            "call",
+            0,
+            200
+          ],
+          [
+            2,
+            1,
+            "check",
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            "check",
+            0,
+            0
+          ],
+          [
+            2,
+            2,
+            "check",
+            0,
+            0
+          ],
+          [
+            0,
+            2,
+            "raise",
+            100,
+            100
+          ],
+          [
+            2,
+            2,
+            "call",
+            0,
+            100
+          ]
+        ],
+        "players": [
+          [
+            9400,
+            0,
+            600,
+            false
+          ],
+          [
+            10000,
+            0,
+            0,
+            true
+          ],
+          [
+            9400,
+            0,
+            600,
+            false
+          ]
+        ],
+        "legal": {
+          "check": true,
+          "call_amount": 0,
+          "raise_to": [
+            100,
+            9400
+          ]
+        }
+      }
+    },
+    {
+      "source": "round1-dev",
+      "directory": "panel-2026102101",
+      "hand": 160,
+      "pot_bb": 6.0,
+      "outcome": "improvement",
+      "deployed": 1.1682821540960546,
+      "blueprint": 2.5699917477146808,
+      "target_met": true,
+      "reason": "pot 5-15 BB, improvement, lowest hand ids",
+      "request": {
+        "format": "nplayer-live-river-v1",
+        "mode": "classify",
+        "button": 1,
+        "board": [
+          15,
+          14,
+          42,
+          9,
+          44
+        ],
+        "seat": 2,
+        "hole": [
+          6,
+          26
+        ],
+        "actions": [
+          [
+            1,
+            0,
+            "fold",
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            "call",
+            0,
+            50
+          ],
+          [
+            0,
+            0,
+            "check",
+            0,
+            0
+          ],
+          [
+            2,
+            1,
+            "check",
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            "check",
+            0,
+            0
+          ],
+          [
+            2,
+            2,
+            "raise",
+            200,
+            200
+          ],
+          [
+            0,
+            2,
+            "call",
+            0,
+            200
+          ]
+        ],
+        "players": [
+          [
+            9700,
+            0,
+            300,
+            false
+          ],
+          [
+            10000,
+            0,
+            0,
+            true
+          ],
+          [
+            9700,
+            0,
+            300,
+            false
+          ]
+        ],
+        "legal": {
+          "check": true,
+          "call_amount": 0,
+          "raise_to": [
+            100,
+            9700
+          ]
+        }
+      }
+    },
+    {
+      "source": "round1-dev",
+      "directory": "panel-2026102101",
+      "hand": 242,
+      "pot_bb": 28.0,
+      "outcome": "regression",
+      "deployed": 14.318327264656828,
+      "blueprint": 9.169133046166785,
+      "target_met": true,
+      "reason": "pot 15-40 BB, regression, lowest hand ids",
+      "request": {
+        "format": "nplayer-live-river-v1",
+        "mode": "classify",
+        "button": 2,
+        "board": [
+          9,
+          42,
+          33,
+          14,
+          10
+        ],
+        "seat": 0,
+        "hole": [
+          36,
+          45
+        ],
+        "actions": [
+          [
+            2,
+            0,
+            "fold",
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            "call",
+            0,
+            50
+          ],
+          [
+            1,
+            0,
+            "raise",
+            200,
+            100
+          ],
+          [
+            0,
+            0,
+            "raise",
+            600,
+            500
+          ],
+          [
+            1,
+            0,
+            "raise",
+            1000,
+            800
+          ],
+          [
+            0,
+            0,
+            "call",
+            0,
+            400
+          ],
+          [
+            0,
+            1,
+            "raise",
+            100,
+            100
+          ],
+          [
+            1,
+            1,
+            "raise",
+            200,
+            200
+          ],
+          [
+            0,
+            1,
+            "raise",
+            300,
+            200
+          ],
+          [
+            1,
+            1,
+            "call",
+            0,
+            100
+          ],
+          [
+            0,
+            2,
+            "raise",
+            100,
+            100
+          ],
+          [
+            1,
+            2,
+            "call",
+            0,
+            100
+          ]
+        ],
+        "players": [
+          [
+            8600,
+            0,
+            1400,
+            false
+          ],
+          [
+            8600,
+            0,
+            1400,
+            false
+          ],
+          [
+            10000,
+            0,
+            0,
+            true
+          ]
+        ],
+        "legal": {
+          "check": true,
+          "call_amount": 0,
+          "raise_to": [
+            100,
+            8600
+          ]
+        }
+      }
+    },
+    {
+      "source": "round1-dev",
+      "directory": "panel-2026102101",
+      "hand": 244,
+      "pot_bb": 19.5,
+      "outcome": "regression",
+      "deployed": 5.101053253029117,
+      "blueprint": 3.6966351813470624,
+      "target_met": true,
+      "reason": "pot 15-40 BB, regression, lowest hand ids",
+      "request": {
+        "format": "nplayer-live-river-v1",
+        "mode": "classify",
+        "button": 1,
+        "board": [
+          32,
+          42,
+          37,
+          27,
+          12
+        ],
+        "seat": 0,
+        "hole": [
+          7,
+          11
+        ],
+        "actions": [
+          [
+            1,
+            0,
+            "call",
+            0,
+            100
+          ],
+          [
+            2,
+            0,
+            "fold",
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            "raise",
+            200,
+            100
+          ],
+          [
+            1,
+            0,
+            "call",
+            0,
+            100
+          ],
+          [
+            0,
+            1,
+            "check",
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            "check",
+            0,
+            0
+          ],
+          [
+            0,
+            2,
+            "check",
+            0,
+            0
+          ],
+          [
+            1,
+            2,
+            "raise",
+            100,
+            100
+          ],
+          [
+            0,
+            2,
+            "raise",
+            750,
+            750
+          ],
+          [
+            1,
+            2,
+            "call",
+            0,
+            650
+          ]
+        ],
+        "players": [
+          [
+            9050,
+            0,
+            950,
+            false
+          ],
+          [
+            9050,
+            0,
+            950,
+            false
+          ],
+          [
+            9950,
+            0,
+            50,
+            true
+          ]
+        ],
+        "legal": {
+          "check": true,
+          "call_amount": 0,
+          "raise_to": [
+            100,
+            9050
+          ]
+        }
+      }
+    },
+    {
+      "source": "round1-dev",
+      "directory": "panel-2026102101",
+      "hand": 323,
+      "pot_bb": 18.0,
+      "outcome": "improvement",
+      "deployed": 0.7074932588184701,
+      "blueprint": 3.494329156912066,
+      "target_met": true,
+      "reason": "pot 15-40 BB, improvement, lowest hand ids",
+      "request": {
+        "format": "nplayer-live-river-v1",
+        "mode": "classify",
+        "button": 2,
+        "board": [
+          39,
+          43,
+          13,
+          49,
+          30
+        ],
+        "seat": 0,
+        "hole": [
+          16,
+          38
+        ],
+        "actions": [
+          [
+            2,
+            0,
+            "fold",
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            "call",
+            0,
+            50
+          ],
+          [
+            1,
+            0,
+            "raise",
+            300,
+            200
+          ],
+          [
+            0,
+            0,
+            "call",
+            0,
+            200
+          ],
+          [
+            0,
+            1,
+            "raise",
+            600,
+            600
+          ],
+          [
+            1,
+            1,
+            "call",
+            0,
+            600
+          ],
+          [
+            0,
+            2,
+            "check",
+            0,
+            0
+          ],
+          [
+            1,
+            2,
+            "check",
+            0,
+            0
+          ]
+        ],
+        "players": [
+          [
+            9100,
+            0,
+            900,
+            false
+          ],
+          [
+            9100,
+            0,
+            900,
+            false
+          ],
+          [
+            10000,
+            0,
+            0,
+            true
+          ]
+        ],
+        "legal": {
+          "check": true,
+          "call_amount": 0,
+          "raise_to": [
+            100,
+            9100
+          ]
+        }
+      }
+    },
+    {
+      "source": "round1-dev",
+      "directory": "panel-2026102101",
+      "hand": 559,
+      "pot_bb": 28.5,
+      "outcome": "improvement",
+      "deployed": 3.602374312172877,
+      "blueprint": 7.29730662232045,
+      "target_met": true,
+      "reason": "pot 15-40 BB, improvement, lowest hand ids",
+      "request": {
+        "format": "nplayer-live-river-v1",
+        "mode": "classify",
+        "button": 1,
+        "board": [
+          17,
+          18,
+          43,
+          30,
+          35
+        ],
+        "seat": 0,
+        "hole": [
+          20,
+          40
+        ],
+        "actions": [
+          [
+            1,
+            0,
+            "call",
+            0,
+            100
+          ],
+          [
+            2,
+            0,
+            "fold",
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            "check",
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            "check",
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            "raise",
+            250,
+            250
+          ],
+          [
+            0,
+            1,
+            "call",
+            0,
+            250
+          ],
+          [
+            0,
+            2,
+            "raise",
+            100,
+            100
+          ],
+          [
+            1,
+            2,
+            "raise",
+            1050,
+            1050
+          ],
+          [
+            0,
+            2,
+            "call",
+            0,
+            950
+          ]
+        ],
+        "players": [
+          [
+            8600,
+            0,
+            1400,
+            false
+          ],
+          [
+            8600,
+            0,
+            1400,
+            false
+          ],
+          [
+            9950,
+            0,
+            50,
+            true
+          ]
+        ],
+        "legal": {
+          "check": true,
+          "call_amount": 0,
+          "raise_to": [
+            100,
+            8600
+          ]
+        }
+      }
+    },
+    {
+      "source": "round1-dev",
+      "directory": "panel-2026102101",
+      "hand": 2753,
+      "pot_bb": 159.5,
+      "outcome": "regression",
+      "deployed": 14.262056738960563,
+      "blueprint": 12.146512291489259,
+      "target_met": true,
+      "reason": "pot 40-inf BB, regression, lowest hand ids",
+      "request": {
+        "format": "nplayer-live-river-v1",
+        "mode": "classify",
+        "button": 2,
+        "board": [
+          9,
+          11,
+          35,
+          17,
+          49
+        ],
+        "seat": 1,
+        "hole": [
+          45,
+          48
+        ],
+        "actions": [
+          [
+            2,
+            0,
+            "raise",
+            200,
+            200
+          ],
+          [
+            0,
+            0,
+            "fold",
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            "raise",
+            650,
+            550
+          ],
+          [
+            2,
+            0,
+            "raise",
+            1100,
+            900
+          ],
+          [
+            1,
+            0,
+            "raise",
+            1550,
+            900
+          ],
+          [
+            2,
+            0,
+            "call",
+            0,
+            450
+          ],
+          [
+            1,
+            1,
+            "raise",
+            3150,
+            3150
+          ],
+          [
+            2,
+            1,
+            "raise",
+            6300,
+            6300
+          ],
+          [
+            1,
+            1,
+            "call",
+            0,
+            3150
+          ],
+          [
+            1,
+            2,
+            "raise",
+            100,
+            100
+          ],
+          [
+            2,
+            2,
+            "call",
+            0,
+            100
+          ]
+        ],
+        "players": [
+          [
+            9950,
+            0,
+            50,
+            true
+          ],
+          [
+            2050,
+            0,
+            7950,
+            false
+          ],
+          [
+            2050,
+            0,
+            7950,
+            false
+          ]
+        ],
+        "legal": {
+          "check": true,
+          "call_amount": 0,
+          "raise_to": [
+            100,
+            2050
+          ]
+        }
+      }
+    },
+    {
+      "source": "round1-former-held-out",
+      "directory": "panel-2026102102",
+      "hand": 8053,
+      "pot_bb": 54.0,
+      "outcome": "regression",
+      "deployed": 9.113800313189632,
+      "blueprint": 5.942369633153628,
+      "target_met": true,
+      "reason": "pot 40-inf BB, regression, lowest hand ids",
+      "request": {
+        "format": "nplayer-live-river-v1",
+        "mode": "classify",
+        "button": 1,
+        "board": [
+          16,
+          3,
+          46,
+          2,
+          17
+        ],
+        "seat": 2,
+        "hole": [
+          35,
+          45
+        ],
+        "actions": [
+          [
+            1,
+            0,
+            "fold",
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            "raise",
+            200,
+            150
+          ],
+          [
+            0,
+            0,
+            "call",
+            0,
+            100
+          ],
+          [
+            2,
+            1,
+            "raise",
+            100,
+            100
+          ],
+          [
+            0,
+            1,
+            "call",
+            0,
+            100
+          ],
+          [
+            2,
+            2,
+            "raise",
+            600,
+            600
+          ],
+          [
+            0,
+            2,
+            "raise",
+            2400,
+            2400
+          ],
+          [
+            2,
+            2,
+            "call",
+            0,
+            1800
+          ]
+        ],
+        "players": [
+          [
+            7300,
+            0,
+            2700,
+            false
+          ],
+          [
+            10000,
+            0,
+            0,
+            true
+          ],
+          [
+            7300,
+            0,
+            2700,
+            false
+          ]
+        ],
+        "legal": {
+          "check": true,
+          "call_amount": 0,
+          "raise_to": [
+            100,
+            7300
+          ]
+        }
+      }
+    },
+    {
+      "source": "round1-dev",
+      "directory": "panel-2026102101",
+      "hand": 114,
+      "pot_bb": 44.5,
+      "outcome": "improvement",
+      "deployed": 7.442438096813605,
+      "blueprint": 21.3426263751168,
+      "target_met": true,
+      "reason": "pot 40-inf BB, improvement, lowest hand ids",
+      "request": {
+        "format": "nplayer-live-river-v1",
+        "mode": "classify",
+        "button": 0,
+        "board": [
+          28,
+          16,
+          48,
+          23,
+          40
+        ],
+        "seat": 1,
+        "hole": [
+          10,
+          50
+        ],
+        "actions": [
+          [
+            0,
+            0,
+            "raise",
+            350,
+            350
+          ],
+          [
+            1,
+            0,
+            "raise",
+            600,
+            550
+          ],
+          [
+            2,
+            0,
+            "raise",
+            850,
+            750
+          ],
+          [
+            0,
+            0,
+            "raise",
+            1100,
+            750
+          ],
+          [
+            1,
+            0,
+            "raise",
+            1350,
+            750
+          ],
+          [
+            2,
+            0,
+            "call",
+            0,
+            500
+          ],
+          [
+            0,
+            0,
+            "call",
+            0,
+            250
+          ],
+          [
+            1,
+            1,
+            "raise",
+            100,
+            100
+          ],
+          [
+            2,
+            1,
+            "fold",
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            "raise",
+            200,
+            200
+          ],
+          [
+            1,
+            1,
+            "call",
+            0,
+            100
+          ],
+          [
+            1,
+            2,
+            "check",
+            0,
+            0
+          ],
+          [
+            0,
+            2,
+            "check",
+            0,
+            0
+          ]
+        ],
+        "players": [
+          [
+            8450,
+            0,
+            1550,
+            false
+          ],
+          [
+            8450,
+            0,
+            1550,
+            false
+          ],
+          [
+            8650,
+            0,
+            1350,
+            true
+          ]
+        ],
+        "legal": {
+          "check": true,
+          "call_amount": 0,
+          "raise_to": [
+            100,
+            8450
+          ]
+        }
+      }
+    },
+    {
+      "source": "round1-dev",
+      "directory": "panel-2026102101",
+      "hand": 127,
+      "pot_bb": 108.0,
+      "outcome": "improvement",
+      "deployed": 0.15989795349723934,
+      "blueprint": 7.685677090680581,
+      "target_met": true,
+      "reason": "pot 40-inf BB, improvement, lowest hand ids",
+      "request": {
+        "format": "nplayer-live-river-v1",
+        "mode": "classify",
+        "button": 1,
+        "board": [
+          20,
+          41,
+          44,
+          29,
+          38
+        ],
+        "seat": 2,
+        "hole": [
+          21,
+          23
+        ],
+        "actions": [
+          [
+            1,
+            0,
+            "fold",
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            "raise",
+            200,
+            150
+          ],
+          [
+            0,
+            0,
+            "raise",
+            600,
+            500
+          ],
+          [
+            2,
+            0,
+            "call",
+            0,
+            400
+          ],
+          [
+            2,
+            1,
+            "raise",
+            1200,
+            1200
+          ],
+          [
+            0,
+            1,
+            "call",
+            0,
+            1200
+          ],
+          [
+            2,
+            2,
+            "raise",
+            3600,
+            3600
+          ],
+          [
+            0,
+            2,
+            "call",
+            0,
+            3600
+          ]
+        ],
+        "players": [
+          [
+            4600,
+            0,
+            5400,
+            false
+          ],
+          [
+            10000,
+            0,
+            0,
+            true
+          ],
+          [
+            4600,
+            0,
+            5400,
+            false
+          ]
+        ],
+        "legal": {
+          "check": true,
+          "call_amount": 0,
+          "raise_to": [
+            100,
+            4600
+          ]
+        }
+      }
+    },
+    {
+      "source": "round1-former-held-out",
+      "directory": "panel-2026102102",
+      "hand": 1294,
+      "pot_bb": 66.0,
+      "outcome": "improvement",
+      "deployed": 0.2052849247542028,
+      "blueprint": 13.032301383359028,
+      "target_met": false,
+      "reason": "missed the deployment quality target in round 1",
+      "request": {
+        "format": "nplayer-live-river-v1",
+        "mode": "classify",
+        "button": 1,
+        "board": [
+          34,
+          24,
+          6,
+          13,
+          8
+        ],
+        "seat": 2,
+        "hole": [
+          26,
+          27
+        ],
+        "actions": [
+          [
+            1,
+            0,
+            "fold",
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            "raise",
+            200,
+            150
+          ],
+          [
+            0,
+            0,
+            "call",
+            0,
+            100
+          ],
+          [
+            2,
+            1,
+            "raise",
+            400,
+            400
+          ],
+          [
+            0,
+            1,
+            "raise",
+            800,
+            800
+          ],
+          [
+            2,
+            1,
+            "call",
+            0,
+            400
+          ],
+          [
+            2,
+            2,
+            "raise",
+            100,
+            100
+          ],
+          [
+            0,
+            2,
+            "raise",
+            2300,
+            2300
+          ],
+          [
+            2,
+            2,
+            "call",
+            0,
+            2200
+          ]
+        ],
+        "players": [
+          [
+            6700,
+            0,
+            3300,
+            false
+          ],
+          [
+            10000,
+            0,
+            0,
+            true
+          ],
+          [
+            6700,
+            0,
+            3300,
+            false
+          ]
+        ],
+        "legal": {
+          "check": true,
+          "call_amount": 0,
+          "raise_to": [
+            100,
+            6700
+          ]
+        }
+      }
+    },
+    {
+      "source": "round1-former-held-out",
+      "directory": "panel-2026102103",
+      "hand": 293,
+      "pot_bb": 54.0,
+      "outcome": "regression",
+      "deployed": 4.730093015409173,
+      "blueprint": 4.223417742143302,
+      "target_met": false,
+      "reason": "missed the deployment quality target in round 1",
+      "request": {
+        "format": "nplayer-live-river-v1",
+        "mode": "classify",
+        "button": 2,
+        "board": [
+          19,
+          20,
+          33,
+          6,
+          5
+        ],
+        "seat": 0,
+        "hole": [
+          4,
+          44
+        ],
+        "actions": [
+          [
+            2,
+            0,
+            "fold",
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            "raise",
+            300,
+            250
+          ],
+          [
+            1,
+            0,
+            "raise",
+            900,
+            800
+          ],
+          [
+            0,
+            0,
+            "call",
+            0,
+            600
+          ],
+          [
+            0,
+            1,
+            "check",
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            "check",
+            0,
+            0
+          ],
+          [
+            0,
+            2,
+            "check",
+            0,
+            0
+          ],
+          [
+            1,
+            2,
+            "raise",
+            1800,
+            1800
+          ],
+          [
+            0,
+            2,
+            "call",
+            0,
+            1800
+          ]
+        ],
+        "players": [
+          [
+            7300,
+            0,
+            2700,
+            false
+          ],
+          [
+            7300,
+            0,
+            2700,
+            false
+          ],
+          [
+            10000,
+            0,
+            0,
+            true
+          ]
+        ],
+        "legal": {
+          "check": true,
+          "call_amount": 0,
+          "raise_to": [
+            100,
+            7300
+          ]
+        }
+      }
+    },
+    {
+      "source": "round1-former-held-out",
+      "directory": "panel-2026102103",
+      "hand": 1934,
+      "pot_bb": 85.0,
+      "outcome": "regression",
+      "deployed": 32.526450238621855,
+      "blueprint": 18.648000518339508,
+      "target_met": true,
+      "reason": "largest regression against the blueprint",
+      "request": {
+        "format": "nplayer-live-river-v1",
+        "mode": "classify",
+        "button": 2,
+        "board": [
+          45,
+          40,
+          13,
+          16,
+          29
+        ],
+        "seat": 0,
+        "hole": [
+          38,
+          44
+        ],
+        "actions": [
+          [
+            2,
+            0,
+            "raise",
+            200,
+            200
+          ],
+          [
+            0,
+            0,
+            "raise",
+            700,
+            650
+          ],
+          [
+            1,
+            0,
+            "fold",
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            "raise",
+            1200,
+            1000
+          ],
+          [
+            0,
+            0,
+            "call",
+            0,
+            500
+          ],
+          [
+            0,
+            1,
+            "raise",
+            100,
+            100
+          ],
+          [
+            2,
+            1,
+            "raise",
+            2800,
+            2800
+          ],
+          [
+            0,
+            1,
+            "call",
+            0,
+            2700
+          ],
+          [
+            0,
+            2,
+            "raise",
+            100,
+            100
+          ],
+          [
+            2,
+            2,
+            "raise",
+            200,
+            200
+          ],
+          [
+            0,
+            2,
+            "call",
+            0,
+            100
+          ]
+        ],
+        "players": [
+          [
+            5800,
+            0,
+            4200,
+            false
+          ],
+          [
+            9900,
+            0,
+            100,
+            true
+          ],
+          [
+            5800,
+            0,
+            4200,
+            false
+          ]
+        ],
+        "legal": {
+          "check": true,
+          "call_amount": 0,
+          "raise_to": [
+            100,
+            5800
+          ]
+        }
+      }
+    },
+    {
+      "source": "round1-former-held-out",
+      "directory": "panel-2026102102",
+      "hand": 3699,
+      "pot_bb": 150.0,
+      "outcome": "improvement",
+      "deployed": 1.4927479922895945,
+      "blueprint": 33.954515215321216,
+      "target_met": true,
+      "reason": "largest improvement over the blueprint",
+      "request": {
+        "format": "nplayer-live-river-v1",
+        "mode": "classify",
+        "button": 0,
+        "board": [
+          20,
+          38,
+          8,
+          15,
+          40
+        ],
+        "seat": 1,
+        "hole": [
+          26,
+          50
+        ],
+        "actions": [
+          [
+            0,
+            0,
+            "raise",
+            200,
+            200
+          ],
+          [
+            1,
+            0,
+            "raise",
+            700,
+            650
+          ],
+          [
+            2,
+            0,
+            "raise",
+            2300,
+            2200
+          ],
+          [
+            0,
+            0,
+            "fold",
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            "call",
+            0,
+            1600
+          ],
+          [
+            1,
+            1,
+            "raise",
+            100,
+            100
+          ],
+          [
+            2,
+            1,
+            "raise",
+            5100,
+            5100
+          ],
+          [
+            1,
+            1,
+            "call",
+            0,
+            5000
+          ],
+          [
+            1,
+            2,
+            "check",
+            0,
+            0
+          ],
+          [
+            2,
+            2,
+            "check",
+            0,
+            0
+          ]
+        ],
+        "players": [
+          [
+            9800,
+            0,
+            200,
+            true
+          ],
+          [
+            2600,
+            0,
+            7400,
+            false
+          ],
+          [
+            2600,
+            0,
+            7400,
+            false
+          ]
+        ],
+        "legal": {
+          "check": true,
+          "call_amount": 0,
+          "raise_to": [
+            100,
+            2600
+          ]
+        }
+      }
+    }
+  ]
+}

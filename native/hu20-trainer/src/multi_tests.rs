@@ -205,6 +205,8 @@ fn exhaustive_sample_expectation_equals_full_tree_counterfactual_updates() {
                     last_average_street: 3,
                     counts: &mut counts,
                     fork_depth: 0,
+                    prune_below: None,
+                    pressure: None,
                 }
                 .run(&mut state);
                 assert_eq!(state, hand);
@@ -382,7 +384,7 @@ fn forks_change_only_the_order_deltas_are_summed() {
             let (mut deltas, mut counts) = (Deltas::default(), Counts::default());
             let mut state = deal;
             let value = Traversal { table: &trained.table, deltas: &mut deltas, sampler: PathSampler(seed), traverser: (seed % 3) as usize,
-                weight: 31., last_average_street: 3, counts: &mut counts, fork_depth }.run(&mut state);
+                weight: 31., last_average_street: 3, counts: &mut counts, fork_depth, prune_below: None, pressure: None }.run(&mut state);
             (value, deltas, counts)
         };
         let (v0, d0, c0) = run(0);
@@ -439,4 +441,324 @@ fn fast_mode_converges_like_the_production_recipe() {
         assert!(f < 1.25 * p, "{kind:?}: fast {f} against production {p}");
         assert!(r < 1.25 * p, "{kind:?}: fast with 4 roots {r} against production {p}");
     }
+}
+
+fn rows_text(trainer: &Trainer) -> String {
+    let path = std::env::temp_dir().join(format!("multi-rows-{}-{}.gz", std::process::id(), trainer.iteration));
+    crate::multi_checkpoint::save(trainer, &path, crate::gz::Gzip::Compatible).unwrap();
+    let text = std::io::read_to_string(flate2::read::MultiGzDecoder::new(std::fs::File::open(&path).unwrap())).unwrap();
+    std::fs::remove_file(path).unwrap();
+    text.split_once('\n').unwrap().1.to_string()
+}
+
+fn pruned_trainer(game: &SmallGame, seed: u64, steps: usize, threads: usize, prune: Option<Prune>) -> Trainer {
+    let mut t = Trainer { sampling: Sampling::Path, roots_per_seat: 2, prune, ..Trainer::new(game, seed, 3, usize::MAX, false) };
+    let pool = rayon::ThreadPoolBuilder::new().num_threads(threads).build().unwrap();
+    pool.install(|| (0..steps).for_each(|_| t.step_fast(game)));
+    t
+}
+
+#[test]
+fn pruning_that_never_triggers_changes_no_row() {
+    let game = SmallGame::new(Kind::Leduc, 3);
+    let plain = pruned_trainer(&game, 5, 60, 4, None);
+    let unreachable = pruned_trainer(&game, 5, 60, 4, Some(Prune { bb: 1e300, after: 0 }));
+    assert_eq!(unreachable.counts.pruned, 0);
+    assert!(rows_text(&plain) == rows_text(&unreachable));
+    assert_eq!(plain.counts, unreachable.counts);
+}
+
+#[test]
+fn pruning_keeps_node_values_and_the_other_updates_bit_identical() {
+    let game = SmallGame::new(Kind::Leduc, 3);
+    let trained = pruned_trainer(&game, 7, 300, 4, None);
+    let mut total = 0;
+    // Fork depth 0 skips in the unforked loop only; depth 4 also in forked children.
+    for (seed, fork_depth) in (0..60u64).flat_map(|s| [(s, 0u8), (s, 4)]) {
+        use rand::SeedableRng;
+        let deal = game.sample(&mut rand::rngs::StdRng::seed_from_u64(seed));
+        let traverser = (seed % 3) as usize;
+        let run = |prune_below| {
+            let (mut deltas, mut counts) = (Deltas::default(), Counts::default());
+            let mut state = deal;
+            let value = Traversal { table: &trained.table, deltas: &mut deltas, sampler: PathSampler(seed), traverser,
+                weight: 301., last_average_street: 3, counts: &mut counts, fork_depth, prune_below, pressure: None }.run(&mut state);
+            (value, deltas, counts)
+        };
+        let (v, d, c) = run(None);
+        // The largest limit prunes every zero-probability action.
+        let (vmax, _, cmax) = run(Some(f64::MAX));
+        assert_eq!(v.to_bits(), vmax.to_bits(), "seed {seed}: the traverser's value with every possible skip");
+        // A skipped subtree is not visited: every skip saves at least one node.
+        assert!(cmax.nodes + cmax.pruned <= c.nodes, "seed {seed} fork depth {fork_depth}");
+        let (vp, dp, cp) = run(Some(0.));
+        total += cp.pruned;
+        assert_eq!(v.to_bits(), vp.to_bits(), "seed {seed}: the traverser's value");
+        assert!(cp.nodes + cp.pruned <= c.nodes, "seed {seed} fork depth {fork_depth}");
+        // Where the root is the traverser's: pruned actions get no update, the others the same one.
+        let Some(decision) = deal.decision().filter(|d| d.actor == traverser) else { continue };
+        let Some(entry) = trained.table.get(&decision.key) else { continue };
+        let (a, b) = (&d[&decision.key], &dp[&decision.key]);
+        let policy = entry.policy(false);
+        for i in 0..decision.len() {
+            if policy[i] == 0. && entry.regrets[i] < 0. {
+                assert_eq!(b.regrets()[i].to_bits(), 0f64.to_bits(), "seed {seed}: pruned action {i}");
+            } else {
+                assert_eq!(a.regrets()[i].to_bits(), b.regrets()[i].to_bits(), "seed {seed}: action {i}");
+            }
+        }
+    }
+    assert!(total > 0, "the trained table offers actions to prune");
+}
+
+#[test]
+fn all_negative_regrets_prune_nothing() {
+    let game = SmallGame::new(Kind::Kuhn, 3);
+    let mut table = Table::default();
+    for (hand, _) in game.deals() {
+        let mut state = hand;
+        while let Some(d) = state.decision() {
+            let mut e = Entry::new(d, 3);
+            e.regrets.iter_mut().enumerate().for_each(|(i, r)| *r = -1. - i as f64);
+            table.insert(d.key, e);
+            state.apply(0);
+        }
+    }
+    for (hand, _) in game.deals() {
+        let (mut deltas, mut counts) = (Deltas::default(), Counts::default());
+        let mut state = hand;
+        Traversal { table: &table, deltas: &mut deltas, sampler: PathSampler(3), traverser: 0, weight: 1., last_average_street: 3,
+            counts: &mut counts, fork_depth: 0, prune_below: Some(0.), pressure: None }.run(&mut state);
+        assert_eq!(counts.pruned, 0, "regret matching plays uniformly; no action has zero probability");
+    }
+}
+
+#[test]
+fn pruning_is_identical_for_every_thread_count_and_resumes_exactly() {
+    let game = SmallGame::new(Kind::Leduc, 3);
+    let prune = Some(Prune { bb: 0.05, after: 20 });
+    let one = pruned_trainer(&game, 9, 80, 1, prune);
+    assert!(one.counts.pruned > 0);
+    for threads in [2, 8, 16] {
+        let many = pruned_trainer(&game, 9, 80, threads, prune);
+        assert!(checkpoint_bytes(&one, "p1") == checkpoint_bytes(&many, "pn"), "threads {threads}");
+    }
+    let mut prefix = pruned_trainer(&game, 9, 40, 4, prune);
+    let path = std::env::temp_dir().join(format!("multi-prune-{}.gz", std::process::id()));
+    crate::multi_checkpoint::save(&prefix, &path, crate::gz::Gzip::Compatible).unwrap();
+    let mut resumed = crate::multi_checkpoint::load(&path).unwrap();
+    assert_eq!((resumed.prune, resumed.counts.pruned), (prune, prefix.counts.pruned));
+    for _ in 0..40 {
+        resumed.step_fast(&game);
+        prefix.step_fast(&game);
+    }
+    assert!(checkpoint_bytes(&one, "a") == checkpoint_bytes(&resumed, "b"));
+    assert!(checkpoint_bytes(&prefix, "c") == checkpoint_bytes(&resumed, "b"));
+    // Pruning belongs to fast checkpoints.
+    let text = std::io::read_to_string(flate2::read::MultiGzDecoder::new(std::fs::File::open(&path).unwrap())).unwrap();
+    let production = text.replacen(r#""roots_per_seat":2,"#, "", 1).replacen(r#""sampling":"path-v1","#, "", 1);
+    let bad = std::env::temp_dir().join(format!("multi-prune-bad-{}.gz", std::process::id()));
+    let mut out = flate2::write::GzEncoder::new(std::fs::File::create(&bad).unwrap(), flate2::Compression::default());
+    std::io::Write::write_all(&mut out, production.as_bytes()).unwrap();
+    out.finish().unwrap();
+    assert!(crate::multi_checkpoint::load(&bad).is_err());
+    for p in [path, bad] {
+        std::fs::remove_file(p).unwrap();
+    }
+    let mut stream = Trainer { prune, ..Trainer::new(&game, 9, 3, usize::MAX, false) };
+    assert!(std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| stream.step(&game))).is_err(), "pruning needs fast mode");
+}
+
+#[test]
+fn pruning_converges_like_unpruned_fast_mode() {
+    const SEEDS: u64 = 8;
+    for (kind, iterations, after) in [(Kind::Kuhn, 10_000, 500), (Kind::Leduc, 1_000, 100)] {
+        let game = SmallGame::new(kind, 3);
+        let tree = Tree::new(game, 10_000_000);
+        let gain = |t: &Trainer| tree.evaluate(&tree.profile(&t.table, true)).gains.iter().fold(0f64, |m, g| m.max(*g));
+        let (mut plain, mut same_iterations, mut same_nodes, mut skipped) = (0., 0., 0., 0);
+        for seed in 1..=SEEDS {
+            let a = pruned_trainer(&game, seed, iterations, 8, None);
+            let mut b = pruned_trainer(&game, seed, iterations, 8, Some(Prune { bb: 0.05, after }));
+            plain += gain(&a) / SEEDS as f64;
+            same_iterations += gain(&b) / SEEDS as f64;
+            assert!(b.counts.pruned > 0 && b.counts.nodes < a.counts.nodes);
+            // Equal compute: pruning spends the nodes it saved on further iterations.
+            while b.counts.nodes < a.counts.nodes {
+                b.step_fast(&game);
+            }
+            same_nodes += gain(&b) / SEEDS as f64;
+            skipped += b.counts.pruned;
+        }
+        eprintln!("{kind:?} 3 players, {iterations} iterations: mean largest gain over {SEEDS} seeds, fast {plain:.5}, pruning at equal iterations {same_iterations:.5}, pruning at equal nodes {same_nodes:.5}; {skipped} actions skipped");
+        assert!(same_nodes < 1.25 * plain, "{kind:?}: pruning at equal nodes {same_nodes} against {plain}");
+    }
+}
+
+#[test]
+fn the_pruning_schedule_waits_for_after_and_keeps_full_iterations() {
+    let prune = Prune { bb: 0.5, after: 100 };
+    assert!((0..=100).all(|t| prune.limit(17, t, 1).is_none()), "nothing before `after`");
+    let full: Vec<u64> = (101..=20_100).filter(|&t| prune.limit(17, t, 1).is_none()).collect();
+    assert!(full.iter().all(|&t| child_path(17, t as usize) % 20 == 0));
+    // About one iteration in 20 is full: 1,000 expected in 20,000, three standard deviations.
+    assert!((900..=1_100).contains(&full.len()), "{} full iterations", full.len());
+    // The limit is bb per root under the linear weights.
+    let t = (101..).find(|&t| prune.limit(17, t, 1).is_some()).unwrap();
+    let w = (t * (t + 1) / 2) as f64;
+    assert_eq!(prune.limit(17, t, 1), Some(-0.5 * w));
+    assert_eq!(prune.limit(17, t, 8), Some(-0.5 * 8. * w));
+}
+
+#[test]
+fn the_pruned_count_is_one_per_skipped_action() {
+    // Only the traverser's first decision is stored, with one action far below any limit.
+    let game = SmallGame::new(Kind::Kuhn, 3);
+    for fork_depth in [0, 1] {
+        for (hand, _) in game.deals() {
+            let d = hand.decision().unwrap();
+            let mut table = Table::default();
+            let mut e = Entry::new(d, 3);
+            e.regrets.copy_from_slice(&[1., -100.][..d.len()]);
+            table.insert(d.key, e);
+            let (mut deltas, mut counts) = (Deltas::default(), Counts::default());
+            let mut state = hand;
+            Traversal { table: &table, deltas: &mut deltas, sampler: PathSampler(5), traverser: d.actor, weight: 1., last_average_street: 3,
+                counts: &mut counts, fork_depth, prune_below: Some(0.), pressure: None }.run(&mut state);
+            assert_eq!(counts.pruned, 1, "fork depth {fork_depth}");
+            assert_eq!(deltas[&d.key].regrets()[1].to_bits(), 0f64.to_bits(), "the pruned action gets no update");
+        }
+    }
+}
+
+#[test]
+fn opponent_pressure_round_trips_and_is_absent_from_legacy_checkpoints() {
+    let game = SmallGame::new(Kind::Leduc, 3);
+    let legacy = fast_trainer(&game, 3, 2);
+    assert!(!String::from_utf8_lossy(&checkpoint_bytes(&legacy, "legacy-pressure")).is_empty());
+    let path = std::env::temp_dir().join(format!("multi-pressure-{}.gz", std::process::id()));
+    crate::multi_checkpoint::save(&legacy, &path, crate::gz::Gzip::Compatible).unwrap();
+    let header = |path: &std::path::Path| {
+        let mut line = String::new();
+        std::io::BufRead::read_line(&mut std::io::BufReader::new(flate2::read::MultiGzDecoder::new(std::fs::File::open(path).unwrap())), &mut line).unwrap();
+        serde_json::from_str::<serde_json::Value>(&line).unwrap()
+    };
+    assert!(header(&path).get("opponent_pressure").is_none());
+    let mut pressured = Trainer { pressure: Some(0.05), ..fast_trainer(&game, 3, 2) };
+    pressured.counts.pressured = 17;
+    crate::multi_checkpoint::save(&pressured, &path, crate::gz::Gzip::Compatible).unwrap();
+    assert_eq!(header(&path)["opponent_pressure"]["probability"], 0.05);
+    let loaded = crate::multi_checkpoint::load(&path).unwrap();
+    assert_eq!((loaded.pressure, loaded.counts.pressured), (Some(0.05), 17));
+    let stream = Trainer { pressure: Some(0.05), ..Trainer::new(&game, 9, 3, usize::MAX, false) };
+    crate::multi_checkpoint::save(&stream, &path, crate::gz::Gzip::Compatible).unwrap();
+    assert!(crate::multi_checkpoint::load(&path).is_err(), "pressure belongs to fast mode");
+    std::fs::remove_file(path).unwrap();
+}
+
+fn admitted(game: &SmallGame, steps: usize, threads: usize, roots_per_seat: usize, max_entries: usize) -> Trainer {
+    let mut t = Trainer { sampling: Sampling::Path, roots_per_seat, traverser_admission: true,
+        ..Trainer::new(game, 31, 3, max_entries, max_entries != usize::MAX) };
+    let pool = rayon::ThreadPoolBuilder::new().num_threads(threads).build().unwrap();
+    pool.install(|| (0..steps).for_each(|_| t.step_fast(game)));
+    t
+}
+
+#[test]
+fn traverser_admission_stores_only_keys_with_a_traverser_update() {
+    for (kind, n) in [(Kind::Leduc, 3), (Kind::Leduc, 4)] {
+        let game = SmallGame::new(kind, n);
+        let legacy = fast_roots(&game, 6, 1, 2);
+        assert!(legacy.table.values().any(|e| e.visits == 0), "{kind:?} {n}: legacy keeps opponent-only rows");
+        let t = admitted(&game, 6, 1, 2, usize::MAX);
+        assert!(t.counts.declined > 0);
+        assert!(t.table.values().all(|e| e.visits > 0), "{kind:?} {n}");
+        // From an empty table both runs traverse identically, so the first iteration admits exactly
+        // the legacy rows with a traverser update, with identical contents.
+        let (legacy, t) = (fast_roots(&game, 1, 1, 2), admitted(&game, 1, 1, 2, usize::MAX));
+        let trained: Vec<_> = legacy.table.sorted().filter(|(_, e)| e.visits > 0).collect();
+        assert!(trained.len() < legacy.table.len());
+        assert!(t.table.sorted().eq(trained.into_iter()), "{kind:?} {n}");
+        assert_eq!(t.counts.declined as usize, legacy.table.len() - t.table.len());
+    }
+}
+
+#[test]
+fn traverser_admission_still_merges_opponent_updates_into_stored_keys() {
+    let decision = |byte: u8| Decision { key: [byte; 16], actor: 0, owner: 0, street: 0, code: 0b11 };
+    let mut table = Table::default();
+    table.insert([1; 16], Entry::new(decision(1), 3));
+    let opponent = |byte: u8| {
+        let mut d = Delta::new(decision(byte), 3);
+        d.average_mut().unwrap()[0] = 2.;
+        d
+    };
+    let mut traverser = Delta::new(decision(3), 3);
+    traverser.regrets_mut()[1] = 5.;
+    traverser.visits = 1;
+    let mut deltas = Deltas::default();
+    deltas.insert([1; 16], opponent(1));
+    deltas.insert([2; 16], opponent(2));
+    deltas.insert([3; 16], traverser);
+    for parallel in [false, true] {
+        let mut t = table.clone();
+        assert_eq!(t.merge_all(vec![deltas.clone()], false, true, parallel), (0, 0, 1));
+        assert_eq!(t.get(&[1; 16]).unwrap().average.unwrap()[0], 2., "stored key keeps opponent mass");
+        assert!(t.get(&[2; 16]).is_none(), "new opponent-only key declined");
+        assert_eq!(t.get(&[3; 16]).unwrap().regrets[1], 5.);
+        let mut legacy = table.clone();
+        assert_eq!(legacy.merge_all(vec![deltas.clone()], false, false, parallel), (0, 0, 0));
+        assert!(legacy.contains_key(&[2; 16]));
+    }
+    // A key with both kinds of update in one iteration is admitted with both.
+    let mut both = opponent(4);
+    both.visits = 1;
+    let mut t = Table::default();
+    let mut split = (Deltas::default(), Deltas::default());
+    split.0.insert([4; 16], opponent(4));
+    split.1.insert([4; 16], both);
+    assert_eq!(t.merge_all(vec![split.0, split.1], false, true, false), (0, 0, 0));
+    assert_eq!(t.get(&[4; 16]).unwrap().average.unwrap()[0], 4.);
+}
+
+#[test]
+fn traverser_admission_is_identical_for_every_thread_count_and_freezes() {
+    let game = SmallGame::new(Kind::Leduc, 3);
+    let one = admitted(&game, 30, 1, 3, usize::MAX);
+    let bytes = checkpoint_bytes(&one, "admitted-one");
+    assert!(bytes != checkpoint_bytes(&fast_roots(&game, 30, 1, 3), "admitted-legacy"));
+    for threads in [2, 8] {
+        let many = admitted(&game, 30, threads, 3, usize::MAX);
+        assert_eq!(one.counts, many.counts, "threads {threads}");
+        assert!(bytes == checkpoint_bytes(&many, "admitted-many"), "threads {threads}");
+    }
+    let cap = one.table.len() / 2;
+    let frozen = admitted(&game, 30, 4, 3, cap);
+    assert!(frozen.frozen_at.is_some() && frozen.counts.discarded_keys > 0);
+    assert!(frozen.table.values().all(|e| e.visits > 0));
+}
+
+#[test]
+fn traverser_admission_round_trips_and_is_absent_from_legacy_checkpoints() {
+    let game = SmallGame::new(Kind::Leduc, 3);
+    let path = std::env::temp_dir().join(format!("multi-admission-{}.gz", std::process::id()));
+    let header = |path: &std::path::Path| {
+        let mut line = String::new();
+        std::io::BufRead::read_line(&mut std::io::BufReader::new(flate2::read::MultiGzDecoder::new(std::fs::File::open(path).unwrap())), &mut line).unwrap();
+        serde_json::from_str::<serde_json::Value>(&line).unwrap()
+    };
+    crate::multi_checkpoint::save(&fast_trainer(&game, 3, 2), &path, crate::gz::Gzip::Compatible).unwrap();
+    assert!(header(&path).get("admission").is_none());
+    let t = admitted(&game, 3, 2, 1, usize::MAX);
+    crate::multi_checkpoint::save(&t, &path, crate::gz::Gzip::Compatible).unwrap();
+    assert_eq!(header(&path)["admission"]["rule"], "traverser-admission-v1");
+    assert_eq!(header(&path)["admission"]["declined_keys"], t.counts.declined);
+    let loaded = crate::multi_checkpoint::load(&path).unwrap();
+    assert!(loaded.traverser_admission);
+    assert_eq!(loaded.counts, t.counts);
+    assert_eq!(loaded.table, t.table);
+    let stream = Trainer { traverser_admission: true, ..Trainer::new(&game, 9, 3, usize::MAX, false) };
+    crate::multi_checkpoint::save(&stream, &path, crate::gz::Gzip::Compatible).unwrap();
+    assert!(crate::multi_checkpoint::load(&path).is_err(), "traverser admission belongs to fast mode");
+    std::fs::remove_file(path).unwrap();
 }

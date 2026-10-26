@@ -1,0 +1,27 @@
+{
+  "format": "pr415-v061-integrity-clarification-v1",
+  "original_exception_sha256": "60198dcaef339c6594d639d5055d183d9ceb0caa9b1072e9e855ec9573011398",
+  "status": "clarification-of-existing-integrity-precondition",
+  "scope": "Standalone stdlib ordered reconstruction and pinned whole-model SHA verification for each of the same three v0.6.1 models may precede its allowlisted native check; native allowlist remains exactly three one-attempt commands.",
+  "conditions": {
+    "seeds": [
+      "2026102240001",
+      "2026102261001",
+      "2026102261002"
+    ],
+    "sequential": true,
+    "one_logical_cpu": true,
+    "nice": 19,
+    "io_priority": "idle",
+    "thread_environment_one": true,
+    "hdd_only": true,
+    "per_seed_scratch_scenario_bytes": 14307000000,
+    "original_part_and_model_sha_checks_required": true,
+    "no_training_or_native_model_loading_in_integrity_step": true,
+    "fresh_private_output_and_receipts": true,
+    "no_changes_to_shared_or_frozen_tools": true,
+    "no_pr415_mutex_unlock_or_mutation": true,
+    "record_start_end_cpu_io_and_result": true
+  },
+  "limitation": "Required existing release integrity work, not a new native-check category, strength experiment or general mutex bypass. PR415>release>cleanup; retain original exception/consumed receipts unchanged."
+}

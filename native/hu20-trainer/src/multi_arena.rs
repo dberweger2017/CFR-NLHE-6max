@@ -127,3 +127,38 @@ fn hand_score(view: &Observation<'_>) -> f64 {
         [0.12, 0.40, 0.62, 0.74, 0.82, 0.88, 0.93, 0.97, 1.0][category] + high_rank as f64 / 140.,
     )
 }
+/// Probability of an observed action under the frozen script, integrating its
+/// fresh independent action draws. Does not advance or change Bot's RNG.
+pub fn action_likelihood(name: &str, view: &Observation<'_>, action: Action) -> Result<f64, String> {
+    if view.actor != Some(view.seat) || view.legal.is_none() {
+        return Err("likelihood requires the acting observation".into());
+    }
+    let choices = menu(view);
+    if name == "random" {
+        return Ok(choices.iter().filter(|(_, a)| *a == action).count() as f64 / choices.len() as f64);
+    }
+    let legal = view.legal.unwrap();
+    let passive = Action { kind: if legal.check { Kind::Check } else { Kind::Call }, raise_to: 0 };
+    if name == "check-call" { return Ok(if action == passive { 1. } else { 0. }); }
+    let (continue_at, raise_at, frequency, bluff) = match name {
+        "tight-aggressive" => (0.51, 0.67, 0.85, 0.04),
+        "pot-pressure" => (0.40, 0.60, 0.95, 0.20),
+        _ => return Err("unknown scripted bot".into()),
+    };
+    let score = hand_score(view);
+    let pot: u64 = view.players.iter().map(|p| p.contributed).sum();
+    let price = legal.call_amount as f64 / (pot + legal.call_amount).max(1) as f64;
+    let mut raising = 0.;
+    if let Some((low, high)) = legal.raise_to {
+        let a = if score >= raise_at { frequency } else { 0. };
+        let b = if price < 0.25 { bluff } else { 0. };
+        raising = a + (1. - a) * b;
+        let matched = view.players[view.seat].street_bet + legal.call_amount;
+        if action == (Action { kind: Kind::Raise, raise_to: (matched + pot + legal.call_amount).clamp(low, high) }) {
+            return Ok(raising);
+        }
+    }
+    let fallback = if legal.check || score >= continue_at + 0.35 * price { passive }
+        else { Action { kind: Kind::Fold, raise_to: 0 } };
+    Ok(if action == fallback { 1. - raising } else { 0. })
+}

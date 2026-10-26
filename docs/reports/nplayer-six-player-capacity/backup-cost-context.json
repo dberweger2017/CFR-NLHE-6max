@@ -1,0 +1,94 @@
+{
+  "scope": "Owner-authorized backup concurrency; not part of scientific controller and not isolated runtime attribution",
+  "receipt_root": "/research/.storage-receipts/full-HDD-backup-20261024/",
+  "receipt_sha256": {
+    "PR419-concurrent-backup-resource-sample.json": "62ae777a6323f645a966f78bf85b4f5f9512bdc68dd4addebec27c03b35f4c1b",
+    "FIRST-RECEIPT-SCAN-FAILURE.json": "7aecde2c404fbefe3aa8f4d79d8058e0d8b40b7210d540546307335eb742447f"
+  },
+  "science_end_utc": "2026-10-24T13:27:33.314849+00:00",
+  "archive_transfer_window_utc": [
+    "2026-10-24T12:01:31Z",
+    "2026-10-24T12:02:50Z"
+  ],
+  "receipt_scan_overlapped_science": true,
+  "post_science_work_included_in_child_cpu": true,
+  "whole_child_cpu_user_seconds": 219.45,
+  "whole_child_cpu_system_seconds": 81.76,
+  "observed_prior_sample_rss_kib": 7699952,
+  "exact_peak_rss_unavailable": true,
+  "concurrent_only_cpu_unavailable": true,
+  "child_physical_io_unavailable": true,
+  "process_sample": {
+    "epoch": 1792849194.842401,
+    "utc": "2026-10-24T13:39:54Z",
+    "scope": "Point-in-time cumulative resource sample, not isolated-science attribution; own backup processes only",
+    "processes": [
+      {
+        "pid": 931219,
+        "comm": "python3",
+        "state": "T",
+        "ppid": 1,
+        "start_ticks": 66841371,
+        "cpu_user_seconds": 1.03,
+        "cpu_system_seconds": 0.08,
+        "VmRSS": "13368 kB",
+        "VmHWM": "96800 kB",
+        "VmSize": "98240 kB",
+        "io": {
+          "rchar": 255373658,
+          "wchar": 4042664,
+          "syscr": 1051,
+          "syscw": 12,
+          "read_bytes": 239693824,
+          "write_bytes": 4071424,
+          "cancelled_write_bytes": 0
+        },
+        "exit_code_if_zombie": 19
+      },
+      {
+        "pid": 931223,
+        "comm": "python3",
+        "state": "Z",
+        "ppid": 931219,
+        "start_ticks": 66841627,
+        "cpu_user_seconds": 219.45,
+        "cpu_system_seconds": 81.76,
+        "VmRSS": null,
+        "VmHWM": null,
+        "VmSize": null,
+        "io": {
+          "unavailable": "Permission denied reading own child /proc/io; no privilege escalation attempted"
+        },
+        "exit_code_if_zombie": 256
+      }
+    ],
+    "free_bytes": {
+      "/": 34706513920,
+      "/research": 20644872192
+    },
+    "events_path": "/research/.storage-receipts/full-HDD-backup-20261024/events.jsonl",
+    "archive_transfer_window_UTC": [
+      "2026-10-24T12:01:31Z",
+      "2026-10-24T12:02:50Z"
+    ],
+    "receipt_includes_local_member_CRC_then_whole_folder_metadata_walk": true
+  },
+  "backup_failure": {
+    "epoch": 1792849351.2879496,
+    "prior_parent_pid": 931219,
+    "failed_child_pid": 931223,
+    "rc": 1,
+    "reason": "MemoryError in deployed helper whole-folder uncovered scan at 8 GiB virtual cap",
+    "source_and_written_receipt_preserved": true,
+    "deployed_tool_changed": false,
+    "failure_log": "/research/.storage-receipts/full-HDD-backup-20261024/hu200-river-final-tight_aggressive-000000-002047-20261022.zip.attempt1.log",
+    "failure_log_mtime_epoch": 1792849166.5226936,
+    "resource_sample": "/research/.storage-receipts/full-HDD-backup-20261024/PR419-concurrent-backup-resource-sample.json",
+    "replacement": "Existing multi-FILE upload API, all 15 ZIPs, one whole-folder receipt scan, 24 GiB bounded virtual memory after science completed; no automatic repeat on helper failure"
+  },
+  "all_scientific_stages_rc_zero": true,
+  "backup_finalized_jobs": 0,
+  "backup_total_jobs": 15,
+  "new_grouped_backup_pid_after_science": 936533,
+  "no_research_drive_acceptance_claim": true
+}

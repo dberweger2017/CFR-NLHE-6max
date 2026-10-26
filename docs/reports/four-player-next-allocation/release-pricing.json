@@ -1,0 +1,478 @@
+{
+  "status": "revised planning scenario, not a launched or accepted allocation",
+  "scipy_version": "1.17.1",
+  "banks": 16,
+  "family": 27,
+  "bank_df": 15,
+  "bank_critical": 3.432334350111246,
+  "uncertainty_rule": "all 27 gates require BOTH fixed pooled-block Student-t and 16-bank-mean Student-t lower bounds above the same threshold; report the smaller lower bound. No post-outcome interval switch.",
+  "sizing": "80% lower bound on per-gate probability that BOTH rules pass, conditional on listed effects and 1.5x measured four-player field-specific seating SD; exact noncentral-t scenarios. No joint or training-seed power guarantee.",
+  "rows": [
+    {
+      "gate": "random",
+      "metric": "absolute",
+      "sd": 1736.0552850556542,
+      "sd_source": "measured PR413 24-seating SD for mixed fields, eight-seating SD for homogeneous fields",
+      "effect": 100,
+      "margin": 0,
+      "blocks": 16384,
+      "blocks_per_bank": 1024,
+      "scenarios": {
+        "1": {
+          "bank_rule": 0.9995947919433799,
+          "pooled_rule": 0.9999960841850598,
+          "both_lower_bound": 0.9995908761284396,
+          "both_upper_bound": 0.9995947919433799
+        },
+        "1.5": {
+          "bank_rule": 0.9039779766132522,
+          "pooled_rule": 0.9779096685853874,
+          "both_lower_bound": 0.8818876451986397,
+          "both_upper_bound": 0.9039779766132522
+        },
+        "2": {
+          "bank_rule": 0.6057984411875572,
+          "pooled_rule": 0.783389330804316,
+          "both_lower_bound": 0.38918777199187327,
+          "both_upper_bound": 0.6057984411875572
+        }
+      }
+    },
+    {
+      "gate": "check-call",
+      "metric": "absolute",
+      "sd": 1865.4497109354988,
+      "sd_source": "measured PR413 24-seating SD for mixed fields, eight-seating SD for homogeneous fields",
+      "effect": 50,
+      "margin": 0,
+      "blocks": 81920,
+      "blocks_per_bank": 5120,
+      "scenarios": {
+        "1": {
+          "bank_rule": 0.999837947799543,
+          "pooled_rule": 0.999999074146354,
+          "both_lower_bound": 0.999837021945897,
+          "both_upper_bound": 0.999837947799543
+        },
+        "1.5": {
+          "bank_rule": 0.9294136143600817,
+          "pooled_rule": 0.9865118927682986,
+          "both_lower_bound": 0.9159255071283803,
+          "both_upper_bound": 0.9294136143600817
+        },
+        "2": {
+          "bank_rule": 0.6534875771074271,
+          "pooled_rule": 0.8246695148598667,
+          "both_lower_bound": 0.4781570919672937,
+          "both_upper_bound": 0.6534875771074271
+        }
+      }
+    },
+    {
+      "gate": "tight-aggressive",
+      "metric": "absolute",
+      "sd": 455.66290433167654,
+      "sd_source": "measured PR413 24-seating SD for mixed fields, eight-seating SD for homogeneous fields",
+      "effect": 10,
+      "margin": 0,
+      "blocks": 98304,
+      "blocks_per_bank": 6144,
+      "scenarios": {
+        "1": {
+          "bank_rule": 0.99837211444844,
+          "pooled_rule": 0.9999653018938714,
+          "both_lower_bound": 0.9983374163423115,
+          "both_upper_bound": 0.99837211444844
+        },
+        "1.5": {
+          "bank_rule": 0.8482201104224547,
+          "pooled_rule": 0.9539844673692386,
+          "both_lower_bound": 0.8022045777916933,
+          "both_upper_bound": 0.8482201104224547
+        },
+        "2": {
+          "bank_rule": 0.5237952051813056,
+          "pooled_rule": 0.7047102586253787,
+          "both_lower_bound": 0.22850546380668435,
+          "both_upper_bound": 0.5237952051813056
+        }
+      }
+    },
+    {
+      "gate": "pot-pressure",
+      "metric": "absolute",
+      "sd": 609.4229864915235,
+      "sd_source": "measured PR413 24-seating SD for mixed fields, eight-seating SD for homogeneous fields",
+      "effect": 10,
+      "margin": 0,
+      "blocks": 180224,
+      "blocks_per_bank": 11264,
+      "scenarios": {
+        "1": {
+          "bank_rule": 0.9987066447788474,
+          "pooled_rule": 0.9999758422473269,
+          "both_lower_bound": 0.9986824870261743,
+          "both_upper_bound": 0.9987066447788474
+        },
+        "1.5": {
+          "bank_rule": 0.8591743687441683,
+          "pooled_rule": 0.9592138462817129,
+          "both_lower_bound": 0.8183882150258812,
+          "both_upper_bound": 0.8591743687441683
+        },
+        "2": {
+          "bank_rule": 0.5381781457421468,
+          "pooled_rule": 0.7192577685757002,
+          "both_lower_bound": 0.25743591431784707,
+          "both_upper_bound": 0.5381781457421468
+        }
+      }
+    },
+    {
+      "gate": "call-pressure",
+      "metric": "absolute",
+      "sd": 1131.8193143004582,
+      "sd_source": "measured PR413 24-seating SD for mixed fields, eight-seating SD for homogeneous fields",
+      "effect": 50,
+      "margin": 0,
+      "blocks": 32768,
+      "blocks_per_bank": 2048,
+      "scenarios": {
+        "1": {
+          "bank_rule": 0.999943960263251,
+          "pooled_rule": 0.9999998246720775,
+          "both_lower_bound": 0.9999437849353285,
+          "both_upper_bound": 0.999943960263251
+        },
+        "1.5": {
+          "bank_rule": 0.9508385276982577,
+          "pooled_rule": 0.9924197884343515,
+          "both_lower_bound": 0.9432583161326091,
+          "both_upper_bound": 0.9508385276982577
+        },
+        "2": {
+          "bank_rule": 0.7027448590616541,
+          "pooled_rule": 0.8634178545316777,
+          "both_lower_bound": 0.5661627135933318,
+          "both_upper_bound": 0.7027448590616541
+        }
+      }
+    },
+    {
+      "gate": "random-tight",
+      "metric": "absolute",
+      "sd": 639.5189093200031,
+      "sd_source": "measured PR413 24-seating SD for mixed fields, eight-seating SD for homogeneous fields",
+      "effect": 25,
+      "margin": 0,
+      "blocks": 32768,
+      "blocks_per_bank": 2048,
+      "scenarios": {
+        "1": {
+          "bank_rule": 0.9990461453694778,
+          "pooled_rule": 0.9999850074098515,
+          "both_lower_bound": 0.9990311527793292,
+          "both_upper_bound": 0.9990461453694778
+        },
+        "1.5": {
+          "bank_rule": 0.8725343848042095,
+          "pooled_rule": 0.9652330319062455,
+          "both_lower_bound": 0.837767416710455,
+          "both_upper_bound": 0.8725343848042095
+        },
+        "2": {
+          "bank_rule": 0.5567146530008916,
+          "pooled_rule": 0.7374855561296927,
+          "both_lower_bound": 0.2942002091305844,
+          "both_upper_bound": 0.5567146530008916
+        }
+      }
+    },
+    {
+      "gate": "trained-call-pressure",
+      "metric": "absolute",
+      "sd": 695.3505357208988,
+      "sd_source": "measured PR413 24-seating SD for mixed fields, eight-seating SD for homogeneous fields",
+      "effect": 25,
+      "margin": 0,
+      "blocks": 49152,
+      "blocks_per_bank": 3072,
+      "scenarios": {
+        "1": {
+          "bank_rule": 0.9999388612595215,
+          "pooled_rule": 0.9999997991969813,
+          "both_lower_bound": 0.9999386604565028,
+          "both_upper_bound": 0.9999388612595215
+        },
+        "1.5": {
+          "bank_rule": 0.9493484370917238,
+          "pooled_rule": 0.9920531069853445,
+          "both_lower_bound": 0.9414015440770682,
+          "both_upper_bound": 0.9493484370917238
+        },
+        "2": {
+          "bank_rule": 0.6989381711832919,
+          "pooled_rule": 0.8605781942410475,
+          "both_lower_bound": 0.5595163654243396,
+          "both_upper_bound": 0.6989381711832919
+        }
+      }
+    },
+    {
+      "gate": "own-reciprocal",
+      "metric": "paired",
+      "sd": 1041.672862507765,
+      "sd_source": "PR413 eight-seating one-sided field paired SD, unmeasured proxy for this new estimand; no reciprocal-halving variance discount",
+      "effect": 25,
+      "margin": 0,
+      "blocks": 98304,
+      "blocks_per_bank": 6144,
+      "scenarios": {
+        "1": {
+          "bank_rule": 0.9997439519110696,
+          "pooled_rule": 0.9999981022101878,
+          "both_lower_bound": 0.9997420541212574,
+          "both_upper_bound": 0.9997439519110696
+        },
+        "1.5": {
+          "bank_rule": 0.9176490765201017,
+          "pooled_rule": 0.9827451081437577,
+          "both_lower_bound": 0.9003941846638595,
+          "both_upper_bound": 0.9176490765201017
+        },
+        "2": {
+          "bank_rule": 0.6303007368618759,
+          "pooled_rule": 0.8050943949545023,
+          "both_lower_bound": 0.43539513181637823,
+          "both_upper_bound": 0.6303007368618759
+        }
+      }
+    },
+    {
+      "gate": "cyclic-fixed-peer",
+      "metric": "paired",
+      "sd": 1041.672862507765,
+      "sd_source": "PR413 eight-seating one-sided field paired SD, unmeasured proxy for this new estimand; no reciprocal-halving variance discount",
+      "effect": 0,
+      "margin": -5,
+      "blocks": 2064384,
+      "blocks_per_bank": 129024,
+      "scenarios": {
+        "1": {
+          "bank_rule": 0.9984392843078317,
+          "pooled_rule": 0.9999675463987002,
+          "both_lower_bound": 0.9984068307065319,
+          "both_upper_bound": 0.9984392843078317
+        },
+        "1.5": {
+          "bank_rule": 0.8502845751470581,
+          "pooled_rule": 0.9549967174517358,
+          "both_lower_bound": 0.805281292598794,
+          "both_upper_bound": 0.8502845751470581
+        },
+        "2": {
+          "bank_rule": 0.5264541503884949,
+          "pooled_rule": 0.7074443266022045,
+          "both_lower_bound": 0.23389847699069932,
+          "both_upper_bound": 0.5264541503884949
+        }
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "gate": "random",
+      "lineages": 3,
+      "blocks_each": 16384,
+      "physical_arms": 1,
+      "seatings": 8,
+      "initial_hands": 393216,
+      "predicted_initial_trace_bytes": 1687933620.0
+    },
+    {
+      "gate": "check-call",
+      "lineages": 3,
+      "blocks_each": 81920,
+      "physical_arms": 1,
+      "seatings": 8,
+      "initial_hands": 1966080,
+      "predicted_initial_trace_bytes": 13248978660.0
+    },
+    {
+      "gate": "tight-aggressive",
+      "lineages": 3,
+      "blocks_each": 98304,
+      "physical_arms": 1,
+      "seatings": 8,
+      "initial_hands": 2359296,
+      "predicted_initial_trace_bytes": 5713332984.0
+    },
+    {
+      "gate": "pot-pressure",
+      "lineages": 3,
+      "blocks_each": 180224,
+      "physical_arms": 1,
+      "seatings": 8,
+      "initial_hands": 4325376,
+      "predicted_initial_trace_bytes": 11412880380.0
+    },
+    {
+      "gate": "call-pressure",
+      "lineages": 3,
+      "blocks_each": 32768,
+      "physical_arms": 1,
+      "seatings": 24,
+      "initial_hands": 2359296,
+      "predicted_initial_trace_bytes": 13971190464.0
+    },
+    {
+      "gate": "random-tight",
+      "lineages": 3,
+      "blocks_each": 32768,
+      "physical_arms": 1,
+      "seatings": 24,
+      "initial_hands": 2359296,
+      "predicted_initial_trace_bytes": 7256604192.0
+    },
+    {
+      "gate": "trained-call-pressure",
+      "lineages": 3,
+      "blocks_each": 49152,
+      "physical_arms": 1,
+      "seatings": 24,
+      "initial_hands": 3538944,
+      "predicted_initial_trace_bytes": 18493658460.0
+    },
+    {
+      "gate": "own-reciprocal",
+      "lineages": 3,
+      "blocks_each": 98304,
+      "physical_arms": 2,
+      "seatings": 8,
+      "initial_hands": 4718592,
+      "predicted_initial_trace_bytes": 19511072064.0
+    },
+    {
+      "gate": "cyclic-fixed-peer",
+      "lineages": 3,
+      "blocks_each": 2064384,
+      "physical_arms": 2,
+      "seatings": 8,
+      "initial_hands": 99090432,
+      "predicted_initial_trace_bytes": 409732513344.0
+    }
+  ],
+  "initial_hands": 121110528,
+  "hash_only_reproduction_hands": 121110528,
+  "components": [
+    {
+      "component": "active training, two independent seeds",
+      "central_seconds": 3955.189524294,
+      "reserve_seconds": 5932.7842864409995
+    },
+    {
+      "component": "four checkpoint saves",
+      "central_seconds": 579.557270194,
+      "reserve_seconds": 1159.114540388
+    },
+    {
+      "component": "training loads/hashes and other",
+      "central_seconds": 794.5175220082065,
+      "reserve_seconds": 1589.035044016413
+    },
+    {
+      "component": "export",
+      "central_seconds": 1717.36485284823,
+      "reserve_seconds": 3434.72970569646
+    },
+    {
+      "component": "source audit",
+      "central_seconds": 1631.8016432158183,
+      "reserve_seconds": 3263.6032864316367
+    },
+    {
+      "component": "conversion",
+      "central_seconds": 1315.529828111874,
+      "reserve_seconds": 2631.059656223748
+    },
+    {
+      "component": "binary audit",
+      "central_seconds": 1327.5827459678985,
+      "reserve_seconds": 2655.165491935797
+    },
+    {
+      "component": "arena model loading, initial plus reproduction",
+      "central_seconds": 2160,
+      "reserve_seconds": 4320
+    },
+    {
+      "component": "arena K50/setup and supervisor residual",
+      "central_seconds": 139.38067816208502,
+      "reserve_seconds": 278.76135632417004
+    },
+    {
+      "component": "all arena traversal, including hash-only reproduction",
+      "central_seconds": 6195.5323798320005,
+      "reserve_seconds": 12391.064759664001
+    },
+    {
+      "component": "independent replay of every initial hand",
+      "central_seconds": 32499.556211553747,
+      "reserve_seconds": 64999.112423107494
+    },
+    {
+      "component": "paired/absolute summaries",
+      "central_seconds": 11198.859986694064,
+      "reserve_seconds": 22397.719973388128
+    },
+    {
+      "component": "block digest and reproduction verification allowance",
+      "central_seconds": 300,
+      "reserve_seconds": 900
+    },
+    {
+      "component": "fixed bank/pooled readout",
+      "central_seconds": 16624.885869208607,
+      "reserve_seconds": 33249.771738417214
+    },
+    {
+      "component": "source/input/target-host qualification allowance",
+      "central_seconds": 1800,
+      "reserve_seconds": 3600
+    },
+    {
+      "component": "analysis/reporting",
+      "central_seconds": 900,
+      "reserve_seconds": 1800
+    }
+  ],
+  "central_hours": 23.09437736446959,
+  "reserve_hours": 45.72275618389835,
+  "model_checkpoint_export_gib": 112.74456838145852,
+  "initial_trace_gib": 466.6188398078084,
+  "digest_gib": 0.64599609375,
+  "nominal_new_retained_gib": 586.0094042830169,
+  "required_new_nvme_gib": 850.916279071942,
+  "hash_only_reproduction_storage": "no second complete raw trace tree; retain expected/observed stream and block digests, byte counts, source/model pins and independent initial replay. On first mismatch preserve that full block and stop.",
+  "staging_option": {
+    "status": "NOT admitted or assumed; requires owner/cleaner confirmation and real free space",
+    "new_nvme_peak_gib": 161.94381082057953,
+    "new_hdd_peak_gib": 700.8972538523376,
+    "condition": "all new model derivatives stay NVMe; verified stable initial banks staged to HDD with readable original paths; all originals/evidence retained; no deletion assumed",
+    "additional_copy_readback_seconds": {
+      "central": 13438.622586464882,
+      "reserve": 26877.245172929765
+    },
+    "complete_central_hours": 26.82732808293206,
+    "complete_reserve_hours": 53.188657620823285,
+    "io_assumption": "80MiB/s copy plus 64MiB/s independent readback, one stream; provisional, not an observed staging rate or an admitted allocation"
+  },
+  "storage_caveats": [
+    "all existing inputs excluded from new-output totals but protected",
+    "20GiB working headroom included; no future cleanup or compression credit",
+    "whole-job sum of retained new files bounds all-NVMe peak; 1.5x trace reserve not a completion guarantee",
+    "later cleaner ZIP creation needs separate HDD scratch; archive packaging/upload not included",
+    "single-focal generation and hash-sink implementation require tiny parity qualification; no traversal speedup claimed from writing fewer copies"
+  ],
+  "acceptance_margin_note": "cyclic margin restored to -5 BB/100 as owner requested; no silent relaxation"
+}

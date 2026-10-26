@@ -1,0 +1,51 @@
+{
+  "checked_utc": "2026-10-24T12:19:00.233260+00:00",
+  "controller": {
+    "pid": 24255,
+    "utc": "2026-10-24T12:18:46.317308+00:00",
+    "command": [
+      "/opt/homebrew/opt/python@3.11/bin/python3.11",
+      "/Users/dberweger/Local/cfr-six-player-trajectory-diagnosis-20261024/m4-main.py"
+    ],
+    "config_sha256": "d022f932a9aac337e6dae5e83537dfd07d912834b8f94998fb23b5015ec8d398",
+    "phase": "controller-started; dependency wait before payloadcopy",
+    "dependency_pid": 929267,
+    "no_timer_or_periodic_poll": true
+  },
+  "status": {
+    "status": "running",
+    "phase": "await-source-io",
+    "completed_stages": 0,
+    "utc": "2026-10-24T12:18:46.340373+00:00"
+  },
+  "failure": null,
+  "identity": "24255 /opt/homebrew/Cellar/python@3.11/3.11.14_3/Frameworks/Python.framework/Versions/3.11/Resources/Python.app/Contents/MacOS/Python /Users/dberweger/Local/cfr-six-player-trajectory-diagnosis-20261024/m4-main.py\n",
+  "controller_stderr": "",
+  "owner_approval": {
+    "reply": "approve421",
+    "accepted_planning_seconds": 2700,
+    "owner_sha256": "e50b0165524d49b970d964ceb9ca96d6adcc6e8ccb613a088ace3ef2d9ad74e8",
+    "quote_sha256": "28d0fdd010df9535cb8829212fb28acdb420ec74ae0415bb50dd5fc2cc44f204",
+    "inventory_sha256": "dcdbda4b1b8ff93529b080df3d9721f0fb569409c05c61d2a6a76bc78bf5da8b",
+    "admission_comment": "https://github.com/dberweger2017/CFR-NLHE-6max/pull/421#issuecomment-6384119990"
+  },
+  "operational_source_sha256s": {
+    "source-gate.py": "b93ca0c5c38af2036df88802f71ef0a1f8c367d2c86f0ac913fc207570a08542",
+    "source-rsync.py": "95c1bd4cac43d52b15c3fda0215fdaa6576eb5d99e21099cdf97dad66fae5d79",
+    "m4-main.py": "aa821d03aed217e9f26361bd6257c7c4792bc31634d8784485977c1bcbb5aad5",
+    "quote.json": "28d0fdd010df9535cb8829212fb28acdb420ec74ae0415bb50dd5fc2cc44f204"
+  },
+  "workflow": {
+    "dependency": "one kernel exit event for existing419PID929267; then verify successful complete state, no failure and all stages0",
+    "source_gate": "bb128:/home/dberweger/nplayer-six-player-trajectory-20261024/source-gate.py",
+    "source_sender": "bb128:/home/dberweger/nplayer-six-player-trajectory-20261024/source-rsync.py",
+    "main_root": "m4:/Users/dberweger/Local/cfr-six-player-trajectory-diagnosis-20261024/main-v1",
+    "main_worker": "m4:/Users/dberweger/Local/cfr-six-player-trajectory-diagnosis-20261024/m4-main.py",
+    "normal_M4_compute_lock_during_wait": false,
+    "normal_M4_compute_lock_during_transfer_verification_and_scans": true,
+    "no_app_schedule_or_periodic_poll": true,
+    "full_trace_transfer_started": false,
+    "full_scan_started": false,
+    "ordinary_unarchived_evidence_retained_for_owner_cleaner": true
+  }
+}

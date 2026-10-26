@@ -1,0 +1,118 @@
+{
+ "host": "bb128 (cygnus-x1), 16 threads, CPU only, alone",
+ "source_commit": "756558bf (branch), main parity build from b3a62198",
+ "stages_utc": [
+  {
+   "stage": "build",
+   "at": "2026-10-26T06:27:09Z"
+  },
+  {
+   "stage": "parity",
+   "at": "2026-10-26T06:27:42Z"
+  },
+  {
+   "stage": "parity-passed",
+   "at": "2026-10-26T06:31:21Z"
+  },
+  {
+   "stage": "train",
+   "at": "2026-10-26T06:31:21Z"
+  },
+  {
+   "stage": "export",
+   "at": "2026-10-26T06:53:51Z"
+  },
+  {
+   "stage": "audit",
+   "at": "2026-10-26T06:55:14Z"
+  },
+  {
+   "stage": "convert",
+   "at": "2026-10-26T06:56:29Z"
+  },
+  {
+   "stage": "verify",
+   "at": "2026-10-26T06:57:28Z"
+  },
+  {
+   "stage": "arena-b0",
+   "at": "2026-10-26T06:58:26Z"
+  },
+  {
+   "stage": "arena-b1",
+   "at": "2026-10-26T07:04:09Z"
+  },
+  {
+   "stage": "arena-b2",
+   "at": "2026-10-26T07:09:52Z"
+  },
+  {
+   "stage": "arena-b3",
+   "at": "2026-10-26T07:15:34Z"
+  },
+  {
+   "stage": "rows",
+   "at": "2026-10-26T07:21:49Z"
+  },
+  {
+   "stage": "training",
+   "at": "2026-10-26T07:25:15Z"
+  },
+  {
+   "stage": "equity",
+   "at": "2026-10-26T07:25:15Z"
+  },
+  {
+   "stage": "report",
+   "at": "2026-10-26T08:32:04Z"
+  },
+  {
+   "stage": "done",
+   "at": "2026-10-26T08:32:23Z"
+  }
+ ],
+ "binaries_sha256": {
+  "nplayer_train": "cc1ef0a14676c7f3c0e326c154e778e769d4c89a8cfd936b122f8cf6799ce425",
+  "nplayer_policy": "567a79f992d8fcd1c2237e5a676184ab762042e273064a7609e99ad054933195",
+  "nplayer_inference": "a43c0acb91ef9edfba936bec43a575a46e0fb99f391c5a2fe13e4f911d703b1b",
+  "nplayer_paired_arena": "89c465e1a1c05b602f5981eaaf5d8df223b4213231bd5ac0f1a1b826b8a08500",
+  "nplayer_allin_equity": "bb466b949574fb811817d690238961932130bd513b1b0ad42f3f01cc27713530",
+  "main nplayer_train": "a0c4bba6afd776d942595acabbee0c1a4dcb638490f44eb1df9ad2113bab9ee8"
+ },
+ "parity_sha256": {
+  "branch.gz": "69fad647251c59d8890e61ab77f9ce4c482199c32a170f83d2906557a309fb25",
+  "live16.gz": "482a0f8f54d0cdf9fd881d5250243fd7261499cc129bf15388c08beee8f4d84d",
+  "live8.gz": "482a0f8f54d0cdf9fd881d5250243fd7261499cc129bf15388c08beee8f4d84d",
+  "main.gz": "69fad647251c59d8890e61ab77f9ce4c482199c32a170f83d2906557a309fb25"
+ },
+ "model_pins": {
+  "checkpoint": "75245fbb0a00617ae67281e25cd7184b4a27fbf72e5aa2b175ba5a37c93771d8",
+  "average": "13822eb3ee8004ccf417a71274fe54a779e6bdf73a4b5b7c45201dbe1fe81dd8",
+  "mass_receipt": "806e7b9c92b7fbfd8f6ea2de30535d4dc7a525cc096091c458fe1e6c15000bda",
+  "binary": "f894a59f8a92424d735438726d16834901a7dcaf6d560c98b950fb72a143c9ea"
+ },
+ "training": {
+  "elapsed_seconds": 1335.306976641,
+  "entries": 38608704,
+  "frozen_at": null,
+  "iteration": 363668,
+  "save_seconds": 37.382866832,
+  "sha256": "75245fbb0a00617ae67281e25cd7184b4a27fbf72e5aa2b175ba5a37c93771d8",
+  "stop_reason": "nodes"
+ },
+ "opponent_3b_lookups_trained_field": {
+  "control": {
+   "positive_mass": 0.8927,
+   "missing": 0.1064,
+   "zero_mass": 0.0009
+  },
+  "live": {
+   "positive_mass": 0.8953,
+   "missing": 0.1038,
+   "zero_mass": 0.0009
+  }
+ },
+ "disk": "checkpoint 2.0 GB, average and audit on the HDD under /mnt/data2tb/nplayer-live-order-screen-20261026/; binary (gzipped) and arena traces on the NVMe under /home/dberweger/nplayer-live-order-screen-20261026/. Nothing was deleted.",
+ "peak_cpu_c": 74,
+ "peak_vrm_thermistor15_c": 75
+}
