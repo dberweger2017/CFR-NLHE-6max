@@ -1,5 +1,18 @@
 # Roadmap
 
+## Separate M4 engineering qualification of optional river coverage — planned
+
+[Proposal432](https://github.com/dberweger2017/CFR-NLHE-6max/issues/432),
+[fixed plan](docs/river-second-to-act-m4-qualification.md): qualify merged PR429's
+corrected second-to-act path on M4 with native correctness fixtures,48 synthetic
+legal roots,12 pre429 first-to-act controls and reproduction. Prospective30min
+central/60min allocation,8GiB new local storage; implementation and cost-only
+preflight precede admission. A compatible small three-player model is not yet
+confirmed; absence leaves the learned-model panel unrun, with no training or
+large model transfer. No execution or performance result is claimed. PR431's
+bb128 allocation and the cleaner's uploads are untouched. Search adoption and
+mature strength work remain separately deferred; no automatic continuation.
+
 ## Four-player estimator qualification complete; mature campaigns remain paused
 
 [PR425](https://github.com/dberweger2017/CFR-NLHE-6max/pull/425),
