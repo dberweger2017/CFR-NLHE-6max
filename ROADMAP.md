@@ -1,5 +1,15 @@
 # Roadmap
 
+## Six-player check-call counterfactual study: fixture qualification
+
+[PR438](https://github.com/dberweger2017/CFR-NLHE-6max/pull/438),
+[protocol](docs/six-player-counterfactual-m4.md),
+[readiness](docs/reports/six-player-counterfactual-m4/results.md): M4 small fixtures
+pass156 library/2 example/4 Python tests and24 roots with exact reproduction.
+No mature model/panel or strength claim. Independent information-boundary review,
+protected-input inventory and a measured complete quote precede main admission.
+bb128 remains with PR434; training/search/defaults stay frozen.
+
 ## Compact history key engineering integrated; adoption remains separate
 
 [PR344](https://github.com/dberweger2017/CFR-NLHE-6max/pull/344),

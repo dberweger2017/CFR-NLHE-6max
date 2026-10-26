@@ -7406,3 +7406,7 @@ rate-limit failures, not storage-capacity evidence. Research-payload Drive
 acceptance is **not claimed**. Normal/study locks unheld; existing cleaner thread
 notified at natural completion, no new observer/timer. PR417 owner review only;
 no merge/default/release authority exercised.
+
+## PR438 — six-player conditional-value fixture qualification
+
+[Readiness](docs/reports/six-player-counterfactual-m4/results.md), [compact receipt](docs/reports/six-player-counterfactual-m4/qualification.json). M4 source d6654aee;156 library/2 example/4 Python tests and24 synthetic roots ×8 worlds ×initial/repeat pass. Stage total159.77s, sampled peak0.805GiB, nominal thermals. No mature model, main panel or strength conclusion. Ordinary evidence retained at M4 `~/Local/six-player-counterfactual-m4-20261026/`; local planning/source pins retained. Independent review and measured mature quote pending. Cleaner archival pending; no payload ZIP or Drive receipt claimed.
