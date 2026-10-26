@@ -61,3 +61,7 @@ A positive primary with no harm flag would justify confirmation with more seeds,
   - A research failure is reported as is, with no retry, retuning or extra hands.
   - A qualification failure stops the run before training.
   - Plumbing problems go in the PR.
+
+## Completed — October 26
+
+The run is complete. The primary is **improved** (+105.4 [+92.9, +117.9]); pot-pressure changes by +58.4 [+50.2, +66.5], from −31.0 to +27.3. Check-call is **flagged as harmed** (−110.7 [−163.6, −57.8]). [Results](reports/nplayer-live-order-screen/results.md).
