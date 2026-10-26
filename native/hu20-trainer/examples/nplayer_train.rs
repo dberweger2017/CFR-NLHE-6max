@@ -178,11 +178,7 @@ fn train() -> Result<(), String> {
         return Err("--traverser-admission needs --fast".into());
     }
     let tables = EquityTables::load(Path::new(required("--card-buckets")?), false)?;
-    let schema = match options.get("--key-schema").map(String::as_str) {
-        None | Some("history") => KeySchema::History,
-        Some("live-order") => KeySchema::LiveOrder,
-        Some(_) => return Err("--key-schema is history or live-order".into()),
-    };
+    let schema = KeySchema::parse(options.get("--key-schema").map(String::as_str).unwrap_or("history"))?;
     let game = CashGame { config, tables, schema };
     let mut trainer = if let Some(path) = options.get("--resume") {
         let path = Path::new(path);

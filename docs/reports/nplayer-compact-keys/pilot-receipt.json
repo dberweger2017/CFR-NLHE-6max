@@ -1,0 +1,2325 @@
+{
+  "root": "/mnt/data2tb/nplayer-key-benchmark-20261018",
+  "metadata": {
+    "launch": {
+      "epoch": 1792347549.6148276,
+      "utc": "2026-10-18T18:19:09.614831+00:00",
+      "owner_authorization": "October18: Perfect let\u2019s do that now it\u2019s important to do it as efficient as possible",
+      "pr": 344,
+      "proposal": 343
+    },
+    "admission": {
+      "pid": 348826,
+      "source_commit": "94682632054cec5304cff68fdc149fe4e45fa82d",
+      "initial_sample": {
+        "at": 1792347549.6547,
+        "phase": "admission",
+        "target": 0,
+        "temperatures_c": {
+          "Thermistor 15": 32.0,
+          "Package id 0": 40.0
+        },
+        "available_ram_bytes": 132246908928,
+        "fan1_rpm": 496,
+        "swap_growth_bytes": 0,
+        "free_disk_bytes": 1238642094080,
+        "remaining_output_reservation_bytes": 100000000000,
+        "rss_bytes": 0,
+        "home_free_disk_bytes": 55703142400
+      },
+      "deadline_epoch": 1792354749.6148276,
+      "schemas": [
+        "v1",
+        "compact-blake2b-v2",
+        "compact-xxh3-v2"
+      ],
+      "cpus": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ]
+    },
+    "status": {
+      "status": "build-and-qualification",
+      "at": 1792347549.6845825
+    },
+    "failure": {
+      "error": "RuntimeError('measured workload does not fit accepted original two-hour ceiling')",
+      "at": 1792348295.6576998
+    },
+    "cost-quote": {
+      "projected_seconds": 7606.975950030169,
+      "components": {
+        "growth_seconds": 1407.1964448600002,
+        "steady_seconds": 281.439288972,
+        "serialization_seconds": 2301.0974869414417,
+        "audited_training_seconds": 741.700770272,
+        "audit_save_seconds": 165.61675342659433,
+        "load_allowance_seconds": 948.5300155520995,
+        "growth_allowance": 1.25,
+        "other_seconds": 300
+      },
+      "remaining_seconds": 6453.957219362259,
+      "at": 1792348295.6576085
+    },
+    "binary-receipts": {
+      "nplayer_key_bench": "de2b99f92c50a9fc9657ce25e4cd59fcbf01b67760e45ee5c4757ce82a9c2c88",
+      "nplayer_train": "84882c9c54b347aae7d5a02d5c54baccdf85569ba442f80fe2d7540855a7ff5f",
+      "nplayer_policy": "8deeb34f7e35418ad82c77bad59d1b4c6271eff89b394831ecb859e89c1477c9",
+      "nplayer_arena": "6d4039571fedae106f118a3a6d058783948e68f42b50cc93bba681043572aac0"
+    }
+  },
+  "stages": {
+    "audit-export-compact-blake2b-v2": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 7.945855304016732,
+        "cpu_seconds": 7.944722999999996,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 18984960
+        },
+        "events": []
+      },
+      "failure": null
+    },
+    "audit-export-compact-xxh3-v2": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 8.064196905994322,
+        "cpu_seconds": 8.062973000000007,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 19156992
+        },
+        "events": []
+      },
+      "failure": null
+    },
+    "audit-export-v1": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 7.907852737000212,
+        "cpu_seconds": 7.905818000000039,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 19308544
+        },
+        "events": []
+      },
+      "failure": null
+    },
+    "build": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 17.68316982500255,
+        "cpu_seconds": 50.737773,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 1182142464
+        },
+        "events": []
+      },
+      "failure": null
+    },
+    "export-compact-blake2b-v2": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 3.601236540998798,
+        "cpu_seconds": 5.318966999999979,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 164429824
+        },
+        "events": [
+          {
+            "bytes": 27076712,
+            "mode": "average",
+            "sha256": "2e15e724587c507d8f12117bcb8ce59e8afc405af1a22d4d961b31452e25ca98"
+          }
+        ]
+      },
+      "failure": null
+    },
+    "export-compact-xxh3-v2": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 3.6150928910064977,
+        "cpu_seconds": 5.346293999999986,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 167059456
+        },
+        "events": [
+          {
+            "bytes": 27076201,
+            "mode": "average",
+            "sha256": "789ca0ea9ee482bd61e04d9968122574be92941ec6dac28172073a4aa744e71a"
+          }
+        ]
+      },
+      "failure": null
+    },
+    "export-v1": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 4.288129259017296,
+        "cpu_seconds": 5.386516999999991,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 163557376
+        },
+        "events": [
+          {
+            "bytes": 27077988,
+            "mode": "average",
+            "sha256": "b2e165e0e45ada0f8dfbb05b473ef4952b194c135e82bcf4c0407019332dcc19"
+          }
+        ]
+      },
+      "failure": null
+    },
+    "fixture-audit": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 15.91227033501491,
+        "cpu_seconds": 23.963703000000045,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 4067328,
+          "load/0": 157691904,
+          "audit-training/3000000": 1565405184,
+          "audit-save/3000000": 1840885760,
+          "mapping-write/3000000": 1784537088,
+          "canonical-load/3000000": 1966284800,
+          "canonical-compare/3000000": 1984872448
+        },
+        "events": [
+          {
+            "entries": 1254398,
+            "event": "audit-trained",
+            "iteration": 680,
+            "nodes": 3002938,
+            "seconds": 0.681169286
+          },
+          {
+            "event": "mapping",
+            "mapping": {
+              "path": "/mnt/data2tb/nplayer-key-benchmark-20261018/fixture-audit/mapping.bin",
+              "rows": 1254398,
+              "sha256": "8cbad1e73d547b40792ab84177b41828f029f80b7f3e7d8122e49ab3c10e98a9"
+            }
+          },
+          {
+            "event": "canonical-verified",
+            "rows": 1254398,
+            "schema": "compact-blake2b-v2",
+            "target": 3000000
+          },
+          {
+            "event": "canonical-verified",
+            "rows": 1254398,
+            "schema": "compact-xxh3-v2",
+            "target": 3000000
+          },
+          {
+            "event": "complete",
+            "mode": "audit",
+            "wall_seconds": 15.881653667
+          }
+        ]
+      },
+      "failure": null
+    },
+    "fixture-compact-blake2b-v2-1": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 11.261724132986274,
+        "cpu_seconds": 11.45029299999998,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 3796992,
+          "load/0": 256765952,
+          "train/3000000": 1487749120,
+          "save/3000000": 1505124352
+        },
+        "events": [
+          {
+            "event": "loaded",
+            "nodes": 0,
+            "seconds": 4.922702233
+          },
+          {
+            "counts": {
+              "decisions": [
+                310114,
+                387083,
+                486894,
+                646058
+              ],
+              "discarded_keys": 0,
+              "discarded_visits": 0,
+              "missing": [
+                101771,
+                200310,
+                366551,
+                586453
+              ],
+              "nodes": 3002938,
+              "terminals": 1172789,
+              "traverser": [
+                189431,
+                190972,
+                188255,
+                0,
+                0,
+                0
+              ]
+            },
+            "entries": 1254398,
+            "event": "trained",
+            "iteration": 680,
+            "new_nodes": 3002938,
+            "nodes": 3002938,
+            "nodes_per_second": 1549018.0859198791,
+            "seconds": 1.938607449,
+            "target": 3000000
+          },
+          {
+            "bytes": 40288593,
+            "event": "checkpoint",
+            "hash_seconds": 0.13589344,
+            "path": "/mnt/data2tb/nplayer-key-benchmark-20261018/fixture-compact-blake2b-v2-1/3000000.gz",
+            "save_seconds": 4.23395956,
+            "sha256": "7f1a7c20321909336cd5612f72711a93ae75e3ac65a66479328abc408f3b1f08",
+            "target": 3000000
+          },
+          {
+            "event": "complete",
+            "mode": "train",
+            "wall_seconds": 11.231233866
+          }
+        ]
+      },
+      "failure": null
+    },
+    "fixture-compact-blake2b-v2-16": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 10.020515654003248,
+        "cpu_seconds": 16.064807999999974,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 4079616,
+          "load/0": 422043648,
+          "train/3000000": 1460826112,
+          "save/3000000": 1572352000,
+          "hash/3000000": 1514479616
+        },
+        "events": [
+          {
+            "event": "loaded",
+            "nodes": 0,
+            "seconds": 4.90614887
+          },
+          {
+            "counts": {
+              "decisions": [
+                310114,
+                387083,
+                486894,
+                646058
+              ],
+              "discarded_keys": 0,
+              "discarded_visits": 0,
+              "missing": [
+                101771,
+                200310,
+                366551,
+                586453
+              ],
+              "nodes": 3002938,
+              "terminals": 1172789,
+              "traverser": [
+                189431,
+                190972,
+                188255,
+                0,
+                0,
+                0
+              ]
+            },
+            "entries": 1254398,
+            "event": "trained",
+            "iteration": 680,
+            "new_nodes": 3002938,
+            "nodes": 3002938,
+            "nodes_per_second": 7739614.487745075,
+            "seconds": 0.387995811,
+            "target": 3000000
+          },
+          {
+            "bytes": 40288593,
+            "event": "checkpoint",
+            "hash_seconds": 0.137244431,
+            "path": "/mnt/data2tb/nplayer-key-benchmark-20261018/fixture-compact-blake2b-v2-16/3000000.gz",
+            "save_seconds": 4.558907972,
+            "sha256": "7f1a7c20321909336cd5612f72711a93ae75e3ac65a66479328abc408f3b1f08",
+            "target": 3000000
+          },
+          {
+            "event": "complete",
+            "mode": "train",
+            "wall_seconds": 9.990364612
+          }
+        ]
+      },
+      "failure": null
+    },
+    "fixture-compact-blake2b-v2-2": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 10.937362819997361,
+        "cpu_seconds": 11.816023000000015,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 3674112,
+          "load/0": 459419648,
+          "train/3000000": 1476096000,
+          "save/3000000": 1508024320
+        },
+        "events": [
+          {
+            "event": "loaded",
+            "nodes": 0,
+            "seconds": 4.938952887
+          },
+          {
+            "counts": {
+              "decisions": [
+                310114,
+                387083,
+                486894,
+                646058
+              ],
+              "discarded_keys": 0,
+              "discarded_visits": 0,
+              "missing": [
+                101771,
+                200310,
+                366551,
+                586453
+              ],
+              "nodes": 3002938,
+              "terminals": 1172789,
+              "traverser": [
+                189431,
+                190972,
+                188255,
+                0,
+                0,
+                0
+              ]
+            },
+            "entries": 1254398,
+            "event": "trained",
+            "iteration": 680,
+            "new_nodes": 3002938,
+            "nodes": 3002938,
+            "nodes_per_second": 2729509.773341046,
+            "seconds": 1.100174848,
+            "target": 3000000
+          },
+          {
+            "bytes": 40288593,
+            "event": "checkpoint",
+            "hash_seconds": 0.178791091,
+            "path": "/mnt/data2tb/nplayer-key-benchmark-20261018/fixture-compact-blake2b-v2-2/3000000.gz",
+            "save_seconds": 4.706013304,
+            "sha256": "7f1a7c20321909336cd5612f72711a93ae75e3ac65a66479328abc408f3b1f08",
+            "target": 3000000
+          },
+          {
+            "event": "complete",
+            "mode": "train",
+            "wall_seconds": 10.923990717
+          }
+        ]
+      },
+      "failure": null
+    },
+    "fixture-compact-blake2b-v2-4": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 10.133619717002148,
+        "cpu_seconds": 12.233136999999996,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 3928064,
+          "load/0": 308637696,
+          "train/3000000": 1441898496,
+          "save/3000000": 1521180672
+        },
+        "events": [
+          {
+            "event": "loaded",
+            "nodes": 0,
+            "seconds": 4.928029465
+          },
+          {
+            "counts": {
+              "decisions": [
+                310114,
+                387083,
+                486894,
+                646058
+              ],
+              "discarded_keys": 0,
+              "discarded_visits": 0,
+              "missing": [
+                101771,
+                200310,
+                366551,
+                586453
+              ],
+              "nodes": 3002938,
+              "terminals": 1172789,
+              "traverser": [
+                189431,
+                190972,
+                188255,
+                0,
+                0,
+                0
+              ]
+            },
+            "entries": 1254398,
+            "event": "trained",
+            "iteration": 680,
+            "new_nodes": 3002938,
+            "nodes": 3002938,
+            "nodes_per_second": 4867421.182233812,
+            "seconds": 0.616946405,
+            "target": 3000000
+          },
+          {
+            "bytes": 40288593,
+            "event": "checkpoint",
+            "hash_seconds": 0.13742044,
+            "path": "/mnt/data2tb/nplayer-key-benchmark-20261018/fixture-compact-blake2b-v2-4/3000000.gz",
+            "save_seconds": 4.43830612,
+            "sha256": "7f1a7c20321909336cd5612f72711a93ae75e3ac65a66479328abc408f3b1f08",
+            "target": 3000000
+          },
+          {
+            "event": "complete",
+            "mode": "train",
+            "wall_seconds": 10.120762269
+          }
+        ]
+      },
+      "failure": null
+    },
+    "fixture-compact-blake2b-v2-8": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 9.613092909014085,
+        "cpu_seconds": 12.728159000000016,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 3817472,
+          "load/0": 388263936,
+          "train/3000000": 1454026752,
+          "save/3000000": 1542610944
+        },
+        "events": [
+          {
+            "event": "loaded",
+            "nodes": 0,
+            "seconds": 4.90512725
+          },
+          {
+            "counts": {
+              "decisions": [
+                310114,
+                387083,
+                486894,
+                646058
+              ],
+              "discarded_keys": 0,
+              "discarded_visits": 0,
+              "missing": [
+                101771,
+                200310,
+                366551,
+                586453
+              ],
+              "nodes": 3002938,
+              "terminals": 1172789,
+              "traverser": [
+                189431,
+                190972,
+                188255,
+                0,
+                0,
+                0
+              ]
+            },
+            "entries": 1254398,
+            "event": "trained",
+            "iteration": 680,
+            "new_nodes": 3002938,
+            "nodes": 3002938,
+            "nodes_per_second": 7298669.790331745,
+            "seconds": 0.411436342,
+            "target": 3000000
+          },
+          {
+            "bytes": 40288593,
+            "event": "checkpoint",
+            "hash_seconds": 0.137631538,
+            "path": "/mnt/data2tb/nplayer-key-benchmark-20261018/fixture-compact-blake2b-v2-8/3000000.gz",
+            "save_seconds": 4.129651895,
+            "sha256": "7f1a7c20321909336cd5612f72711a93ae75e3ac65a66479328abc408f3b1f08",
+            "target": 3000000
+          },
+          {
+            "event": "complete",
+            "mode": "train",
+            "wall_seconds": 9.583905248
+          }
+        ]
+      },
+      "failure": null
+    },
+    "fixture-compact-xxh3-v2-1": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 11.951188269013073,
+        "cpu_seconds": 11.252726000000035,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 3825664,
+          "load/0": 157437952,
+          "train/3000000": 1473204224,
+          "save/3000000": 1503825920,
+          "hash/3000000": 0
+        },
+        "events": [
+          {
+            "event": "loaded",
+            "nodes": 0,
+            "seconds": 4.95550786
+          },
+          {
+            "counts": {
+              "decisions": [
+                310114,
+                387083,
+                486894,
+                646058
+              ],
+              "discarded_keys": 0,
+              "discarded_visits": 0,
+              "missing": [
+                101771,
+                200310,
+                366551,
+                586453
+              ],
+              "nodes": 3002938,
+              "terminals": 1172789,
+              "traverser": [
+                189431,
+                190972,
+                188255,
+                0,
+                0,
+                0
+              ]
+            },
+            "entries": 1254398,
+            "event": "trained",
+            "iteration": 680,
+            "new_nodes": 3002938,
+            "nodes": 3002938,
+            "nodes_per_second": 1757694.4071559473,
+            "seconds": 1.708452839,
+            "target": 3000000
+          },
+          {
+            "bytes": 40288579,
+            "event": "checkpoint",
+            "hash_seconds": 0.139155435,
+            "path": "/mnt/data2tb/nplayer-key-benchmark-20261018/fixture-compact-xxh3-v2-1/3000000.gz",
+            "save_seconds": 5.134614003,
+            "sha256": "bd3b30031fa087b07d9ed0f55799122fc52adc9829fc9aacc2ccdc13044941f3",
+            "target": 3000000
+          },
+          {
+            "event": "complete",
+            "mode": "train",
+            "wall_seconds": 11.93780283
+          }
+        ]
+      },
+      "failure": null
+    },
+    "fixture-compact-xxh3-v2-16": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 9.43715529399924,
+        "cpu_seconds": 15.52044399999999,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 4194304,
+          "load/0": 157790208,
+          "train/3000000": 1465389056,
+          "save/3000000": 1572847616,
+          "hash/3000000": 1512443904
+        },
+        "events": [
+          {
+            "event": "loaded",
+            "nodes": 0,
+            "seconds": 4.973604467
+          },
+          {
+            "counts": {
+              "decisions": [
+                310114,
+                387083,
+                486894,
+                646058
+              ],
+              "discarded_keys": 0,
+              "discarded_visits": 0,
+              "missing": [
+                101771,
+                200310,
+                366551,
+                586453
+              ],
+              "nodes": 3002938,
+              "terminals": 1172789,
+              "traverser": [
+                189431,
+                190972,
+                188255,
+                0,
+                0,
+                0
+              ]
+            },
+            "entries": 1254398,
+            "event": "trained",
+            "iteration": 680,
+            "new_nodes": 3002938,
+            "nodes": 3002938,
+            "nodes_per_second": 8544925.722290054,
+            "seconds": 0.351429386,
+            "target": 3000000
+          },
+          {
+            "bytes": 40288579,
+            "event": "checkpoint",
+            "hash_seconds": 0.135203431,
+            "path": "/mnt/data2tb/nplayer-key-benchmark-20261018/fixture-compact-xxh3-v2-16/3000000.gz",
+            "save_seconds": 3.952695812,
+            "sha256": "bd3b30031fa087b07d9ed0f55799122fc52adc9829fc9aacc2ccdc13044941f3",
+            "target": 3000000
+          },
+          {
+            "event": "complete",
+            "mode": "train",
+            "wall_seconds": 9.41299974
+          }
+        ]
+      },
+      "failure": null
+    },
+    "fixture-compact-xxh3-v2-2": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 10.360349843016593,
+        "cpu_seconds": 11.490231999999999,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 3842048,
+          "load/0": 157487104,
+          "train/3000000": 1463873536,
+          "save/3000000": 1509384192,
+          "hash/3000000": 1497161728
+        },
+        "events": [
+          {
+            "event": "loaded",
+            "nodes": 0,
+            "seconds": 4.996301589
+          },
+          {
+            "counts": {
+              "decisions": [
+                310114,
+                387083,
+                486894,
+                646058
+              ],
+              "discarded_keys": 0,
+              "discarded_visits": 0,
+              "missing": [
+                101771,
+                200310,
+                366551,
+                586453
+              ],
+              "nodes": 3002938,
+              "terminals": 1172789,
+              "traverser": [
+                189431,
+                190972,
+                188255,
+                0,
+                0,
+                0
+              ]
+            },
+            "entries": 1254398,
+            "event": "trained",
+            "iteration": 680,
+            "new_nodes": 3002938,
+            "nodes": 3002938,
+            "nodes_per_second": 3091881.9803231554,
+            "seconds": 0.971233061,
+            "target": 3000000
+          },
+          {
+            "bytes": 40288579,
+            "event": "checkpoint",
+            "hash_seconds": 0.135337094,
+            "path": "/mnt/data2tb/nplayer-key-benchmark-20261018/fixture-compact-xxh3-v2-2/3000000.gz",
+            "save_seconds": 4.243951214,
+            "sha256": "bd3b30031fa087b07d9ed0f55799122fc52adc9829fc9aacc2ccdc13044941f3",
+            "target": 3000000
+          },
+          {
+            "event": "complete",
+            "mode": "train",
+            "wall_seconds": 10.34690199
+          }
+        ]
+      },
+      "failure": null
+    },
+    "fixture-compact-xxh3-v2-4": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 9.965023492986802,
+        "cpu_seconds": 11.662817000000036,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 3858432,
+          "load/0": 157499392,
+          "train/3000000": 1444409344,
+          "save/3000000": 1520087040
+        },
+        "events": [
+          {
+            "event": "loaded",
+            "nodes": 0,
+            "seconds": 4.9503562169999995
+          },
+          {
+            "counts": {
+              "decisions": [
+                310114,
+                387083,
+                486894,
+                646058
+              ],
+              "discarded_keys": 0,
+              "discarded_visits": 0,
+              "missing": [
+                101771,
+                200310,
+                366551,
+                586453
+              ],
+              "nodes": 3002938,
+              "terminals": 1172789,
+              "traverser": [
+                189431,
+                190972,
+                188255,
+                0,
+                0,
+                0
+              ]
+            },
+            "entries": 1254398,
+            "event": "trained",
+            "iteration": 680,
+            "new_nodes": 3002938,
+            "nodes": 3002938,
+            "nodes_per_second": 5415534.136764999,
+            "seconds": 0.554504491,
+            "target": 3000000
+          },
+          {
+            "bytes": 40288579,
+            "event": "checkpoint",
+            "hash_seconds": 0.131677478,
+            "path": "/mnt/data2tb/nplayer-key-benchmark-20261018/fixture-compact-xxh3-v2-4/3000000.gz",
+            "save_seconds": 4.314590234,
+            "sha256": "bd3b30031fa087b07d9ed0f55799122fc52adc9829fc9aacc2ccdc13044941f3",
+            "target": 3000000
+          },
+          {
+            "event": "complete",
+            "mode": "train",
+            "wall_seconds": 9.951168793
+          }
+        ]
+      },
+      "failure": null
+    },
+    "fixture-compact-xxh3-v2-8": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 9.711668606993044,
+        "cpu_seconds": 12.64513299999999,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 3997696,
+          "load/0": 157597696,
+          "train/3000000": 1459363840,
+          "save/3000000": 1544081408
+        },
+        "events": [
+          {
+            "event": "loaded",
+            "nodes": 0,
+            "seconds": 4.95671359
+          },
+          {
+            "counts": {
+              "decisions": [
+                310114,
+                387083,
+                486894,
+                646058
+              ],
+              "discarded_keys": 0,
+              "discarded_visits": 0,
+              "missing": [
+                101771,
+                200310,
+                366551,
+                586453
+              ],
+              "nodes": 3002938,
+              "terminals": 1172789,
+              "traverser": [
+                189431,
+                190972,
+                188255,
+                0,
+                0,
+                0
+              ]
+            },
+            "entries": 1254398,
+            "event": "trained",
+            "iteration": 680,
+            "new_nodes": 3002938,
+            "nodes": 3002938,
+            "nodes_per_second": 7679005.658347264,
+            "seconds": 0.391058183,
+            "target": 3000000
+          },
+          {
+            "bytes": 40288579,
+            "event": "checkpoint",
+            "hash_seconds": 0.136997635,
+            "path": "/mnt/data2tb/nplayer-key-benchmark-20261018/fixture-compact-xxh3-v2-8/3000000.gz",
+            "save_seconds": 4.213247882,
+            "sha256": "bd3b30031fa087b07d9ed0f55799122fc52adc9829fc9aacc2ccdc13044941f3",
+            "target": 3000000
+          },
+          {
+            "event": "complete",
+            "mode": "train",
+            "wall_seconds": 9.698081848
+          }
+        ]
+      },
+      "failure": null
+    },
+    "fixture-v1-1": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 12.064261688006809,
+        "cpu_seconds": 12.232241999999989,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 3739648,
+          "load/0": 265101312,
+          "train/3000000": 1480945664,
+          "save/3000000": 1503633408
+        },
+        "events": [
+          {
+            "event": "loaded",
+            "nodes": 0,
+            "seconds": 4.933168119
+          },
+          {
+            "counts": {
+              "decisions": [
+                310114,
+                387083,
+                486894,
+                646058
+              ],
+              "discarded_keys": 0,
+              "discarded_visits": 0,
+              "missing": [
+                101771,
+                200310,
+                366551,
+                586453
+              ],
+              "nodes": 3002938,
+              "terminals": 1172789,
+              "traverser": [
+                189431,
+                190972,
+                188255,
+                0,
+                0,
+                0
+              ]
+            },
+            "entries": 1254398,
+            "event": "trained",
+            "iteration": 680,
+            "new_nodes": 3002938,
+            "nodes": 3002938,
+            "nodes_per_second": 1097110.6140908657,
+            "seconds": 2.737133304,
+            "target": 3000000
+          },
+          {
+            "bytes": 40291276,
+            "event": "checkpoint",
+            "hash_seconds": 0.134807118,
+            "path": "/mnt/data2tb/nplayer-key-benchmark-20261018/fixture-v1-1/3000000.gz",
+            "save_seconds": 4.238396968,
+            "sha256": "65348f9c12dca99ee253dab77bbf78cfdeab27b75c258d41095e841d270cadac",
+            "target": 3000000
+          },
+          {
+            "event": "complete",
+            "mode": "train",
+            "wall_seconds": 12.043560583
+          }
+        ]
+      },
+      "failure": null
+    },
+    "fixture-v1-16": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 9.93174202600494,
+        "cpu_seconds": 17.95770700000001,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 4173824,
+          "load/0": 197795840,
+          "train/3000000": 1447849984,
+          "save/3000000": 1575079936,
+          "hash/3000000": 1514262528
+        },
+        "events": [
+          {
+            "event": "loaded",
+            "nodes": 0,
+            "seconds": 4.945906101
+          },
+          {
+            "counts": {
+              "decisions": [
+                310114,
+                387083,
+                486894,
+                646058
+              ],
+              "discarded_keys": 0,
+              "discarded_visits": 0,
+              "missing": [
+                101771,
+                200310,
+                366551,
+                586453
+              ],
+              "nodes": 3002938,
+              "terminals": 1172789,
+              "traverser": [
+                189431,
+                190972,
+                188255,
+                0,
+                0,
+                0
+              ]
+            },
+            "entries": 1254398,
+            "event": "trained",
+            "iteration": 680,
+            "new_nodes": 3002938,
+            "nodes": 3002938,
+            "nodes_per_second": 5453494.755582893,
+            "seconds": 0.550644703,
+            "target": 3000000
+          },
+          {
+            "bytes": 40291276,
+            "event": "checkpoint",
+            "hash_seconds": 0.135300635,
+            "path": "/mnt/data2tb/nplayer-key-benchmark-20261018/fixture-v1-16/3000000.gz",
+            "save_seconds": 4.275367692,
+            "sha256": "65348f9c12dca99ee253dab77bbf78cfdeab27b75c258d41095e841d270cadac",
+            "target": 3000000
+          },
+          {
+            "event": "complete",
+            "mode": "train",
+            "wall_seconds": 9.907280956
+          }
+        ]
+      },
+      "failure": null
+    },
+    "fixture-v1-2": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 11.385539451002842,
+        "cpu_seconds": 12.778100999999984,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 3723264,
+          "load/0": 157339648,
+          "train/3000000": 1478107136,
+          "save/3000000": 1507184640,
+          "hash/3000000": 0
+        },
+        "events": [
+          {
+            "event": "loaded",
+            "nodes": 0,
+            "seconds": 4.953476906
+          },
+          {
+            "counts": {
+              "decisions": [
+                310114,
+                387083,
+                486894,
+                646058
+              ],
+              "discarded_keys": 0,
+              "discarded_visits": 0,
+              "missing": [
+                101771,
+                200310,
+                366551,
+                586453
+              ],
+              "nodes": 3002938,
+              "terminals": 1172789,
+              "traverser": [
+                189431,
+                190972,
+                188255,
+                0,
+                0,
+                0
+              ]
+            },
+            "entries": 1254398,
+            "event": "trained",
+            "iteration": 680,
+            "new_nodes": 3002938,
+            "nodes": 3002938,
+            "nodes_per_second": 1901579.8771480962,
+            "seconds": 1.579180573,
+            "target": 3000000
+          },
+          {
+            "bytes": 40291276,
+            "event": "checkpoint",
+            "hash_seconds": 0.181703286,
+            "path": "/mnt/data2tb/nplayer-key-benchmark-20261018/fixture-v1-2/3000000.gz",
+            "save_seconds": 4.65752237,
+            "sha256": "65348f9c12dca99ee253dab77bbf78cfdeab27b75c258d41095e841d270cadac",
+            "target": 3000000
+          },
+          {
+            "event": "complete",
+            "mode": "train",
+            "wall_seconds": 11.371958245
+          }
+        ]
+      },
+      "failure": null
+    },
+    "fixture-v1-4": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 10.173983972985297,
+        "cpu_seconds": 12.861959,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 3756032,
+          "load/0": 157392896,
+          "train/3000000": 1485766656,
+          "save/3000000": 1522577408
+        },
+        "events": [
+          {
+            "event": "loaded",
+            "nodes": 0,
+            "seconds": 4.969049328
+          },
+          {
+            "counts": {
+              "decisions": [
+                310114,
+                387083,
+                486894,
+                646058
+              ],
+              "discarded_keys": 0,
+              "discarded_visits": 0,
+              "missing": [
+                101771,
+                200310,
+                366551,
+                586453
+              ],
+              "nodes": 3002938,
+              "terminals": 1172789,
+              "traverser": [
+                189431,
+                190972,
+                188255,
+                0,
+                0,
+                0
+              ]
+            },
+            "entries": 1254398,
+            "event": "trained",
+            "iteration": 680,
+            "new_nodes": 3002938,
+            "nodes": 3002938,
+            "nodes_per_second": 3500695.647934613,
+            "seconds": 0.85781179,
+            "target": 3000000
+          },
+          {
+            "bytes": 40291276,
+            "event": "checkpoint",
+            "hash_seconds": 0.137498686,
+            "path": "/mnt/data2tb/nplayer-key-benchmark-20261018/fixture-v1-4/3000000.gz",
+            "save_seconds": 4.197037953,
+            "sha256": "65348f9c12dca99ee253dab77bbf78cfdeab27b75c258d41095e841d270cadac",
+            "target": 3000000
+          },
+          {
+            "event": "complete",
+            "mode": "train",
+            "wall_seconds": 10.16147289
+          }
+        ]
+      },
+      "failure": null
+    },
+    "fixture-v1-8": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 10.307280709996121,
+        "cpu_seconds": 14.192527,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 4059136,
+          "load/0": 157642752,
+          "train/3000000": 1445064704,
+          "save/3000000": 1540591616
+        },
+        "events": [
+          {
+            "event": "loaded",
+            "nodes": 0,
+            "seconds": 4.964092106
+          },
+          {
+            "counts": {
+              "decisions": [
+                310114,
+                387083,
+                486894,
+                646058
+              ],
+              "discarded_keys": 0,
+              "discarded_visits": 0,
+              "missing": [
+                101771,
+                200310,
+                366551,
+                586453
+              ],
+              "nodes": 3002938,
+              "terminals": 1172789,
+              "traverser": [
+                189431,
+                190972,
+                188255,
+                0,
+                0,
+                0
+              ]
+            },
+            "entries": 1254398,
+            "event": "trained",
+            "iteration": 680,
+            "new_nodes": 3002938,
+            "nodes": 3002938,
+            "nodes_per_second": 5345266.240748435,
+            "seconds": 0.561793906,
+            "target": 3000000
+          },
+          {
+            "bytes": 40291276,
+            "event": "checkpoint",
+            "hash_seconds": 0.137829639,
+            "path": "/mnt/data2tb/nplayer-key-benchmark-20261018/fixture-v1-8/3000000.gz",
+            "save_seconds": 4.629650918,
+            "sha256": "65348f9c12dca99ee253dab77bbf78cfdeab27b75c258d41095e841d270cadac",
+            "target": 3000000
+          },
+          {
+            "event": "complete",
+            "mode": "train",
+            "wall_seconds": 10.293427956
+          }
+        ]
+      },
+      "failure": null
+    },
+    "legacy-fixture": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 9.697039031976601,
+        "cpu_seconds": 17.70567199999998,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 1571659776
+        },
+        "events": [
+          {
+            "checkpoint": "/mnt/data2tb/nplayer-key-benchmark-20261018/legacy-fixture.gz",
+            "counts": {
+              "decisions": [
+                310114,
+                387083,
+                486894,
+                646058
+              ],
+              "discarded_keys": 0,
+              "discarded_visits": 0,
+              "missing": [
+                101771,
+                200310,
+                366551,
+                586453
+              ],
+              "nodes": 3002938,
+              "terminals": 1172789,
+              "traverser": [
+                189431,
+                190972,
+                188255,
+                0,
+                0,
+                0
+              ]
+            },
+            "elapsed_seconds": 4.5970455040000004,
+            "entries": 1254398,
+            "frozen_at": null,
+            "identity": {
+              "big_blind": 100,
+              "card_tables": [
+                "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+                "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+                "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+              ],
+              "game": "nlhe-cash",
+              "menu": "min-pot-conditional-jam-v1",
+              "players": 3,
+              "schema": "nplayer-button-live-actor-history-equity-k50-v1",
+              "small_blind": 50,
+              "stacks": [
+                2000,
+                2000,
+                2000
+              ],
+              "utility_unit": "big-blind"
+            },
+            "iteration": 680,
+            "save_seconds": 4.043366412,
+            "sha256": "65348f9c12dca99ee253dab77bbf78cfdeab27b75c258d41095e841d270cadac",
+            "stop_reason": "nodes"
+          }
+        ]
+      },
+      "failure": null
+    },
+    "native-tests": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 29.440248358005192,
+        "cpu_seconds": 79.206163,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 847011840
+        },
+        "events": []
+      },
+      "failure": null
+    },
+    "pilot-audit": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 129.50972088999697,
+        "cpu_seconds": 401.0884159999999,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 4206592,
+          "load/0": 157814784,
+          "audit-training/100000000": 4309250048,
+          "audit-save/100000000": 4495372288,
+          "mapping-write/100000000": 3808411648,
+          "canonical-load/100000000": 5689790464,
+          "canonical-compare/100000000": 5728878592
+        },
+        "events": [
+          {
+            "entries": 11656034,
+            "event": "audit-trained",
+            "iteration": 23142,
+            "nodes": 100000055,
+            "seconds": 23.178149071
+          },
+          {
+            "event": "mapping",
+            "mapping": {
+              "path": "/mnt/data2tb/nplayer-key-benchmark-20261018/pilot-audit/mapping.bin",
+              "rows": 11656034,
+              "sha256": "09888decfa6f7a5da34d87d283f12bbc16babea6ce66a977aa795d74247f2e44"
+            }
+          },
+          {
+            "event": "canonical-verified",
+            "rows": 11656034,
+            "schema": "compact-blake2b-v2",
+            "target": 100000000
+          },
+          {
+            "event": "canonical-verified",
+            "rows": 11656034,
+            "schema": "compact-xxh3-v2",
+            "target": 100000000
+          },
+          {
+            "event": "complete",
+            "mode": "audit",
+            "wall_seconds": 129.413707283
+          }
+        ]
+      },
+      "failure": null
+    },
+    "pilot-compact-blake2b-v2": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 63.22856194098131,
+        "cpu_seconds": 252.85561799999994,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 3993600,
+          "load/0": 157618176,
+          "train/100000000": 2354016256,
+          "save/100000000": 2546511872,
+          "hash/100000000": 2398547968
+        },
+        "events": [
+          {
+            "event": "loaded",
+            "nodes": 0,
+            "seconds": 4.9783238260000005
+          },
+          {
+            "counts": {
+              "decisions": [
+                8185867,
+                11744394,
+                16785551,
+                22850721
+              ],
+              "discarded_keys": 0,
+              "discarded_visits": 0,
+              "missing": [
+                385911,
+                1064224,
+                2959729,
+                7247423
+              ],
+              "nodes": 100000055,
+              "terminals": 40433522,
+              "traverser": [
+                6599967,
+                6583840,
+                6599829,
+                0,
+                0,
+                0
+              ]
+            },
+            "entries": 11656034,
+            "event": "trained",
+            "iteration": 23142,
+            "new_nodes": 100000055,
+            "nodes": 100000055,
+            "nodes_per_second": 7124325.050854892,
+            "seconds": 14.036425105,
+            "target": 100000000
+          },
+          {
+            "bytes": 429172018,
+            "event": "checkpoint",
+            "hash_seconds": 1.426675001,
+            "path": "/mnt/data2tb/nplayer-key-benchmark-20261018/pilot-compact-blake2b-v2/100000000.gz",
+            "save_seconds": 42.727340854,
+            "sha256": "33c9e1e105e538c6103599db9c53d93c0c80f7dbdc9d6b4a4e580466f8017bc1",
+            "target": 100000000
+          },
+          {
+            "event": "complete",
+            "mode": "train",
+            "wall_seconds": 63.168831738
+          }
+        ]
+      },
+      "failure": null
+    },
+    "pilot-compact-xxh3-v2": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 61.03724961701664,
+        "cpu_seconds": 235.54615200000006,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 4120576,
+          "load/0": 157765632,
+          "train/100000000": 2358685696,
+          "save/100000000": 2536841216,
+          "hash/100000000": 2396733440
+        },
+        "events": [
+          {
+            "event": "loaded",
+            "nodes": 0,
+            "seconds": 4.9800210830000005
+          },
+          {
+            "counts": {
+              "decisions": [
+                8185867,
+                11744394,
+                16785551,
+                22850721
+              ],
+              "discarded_keys": 0,
+              "discarded_visits": 0,
+              "missing": [
+                385911,
+                1064224,
+                2959729,
+                7247423
+              ],
+              "nodes": 100000055,
+              "terminals": 40433522,
+              "traverser": [
+                6599967,
+                6583840,
+                6599829,
+                0,
+                0,
+                0
+              ]
+            },
+            "entries": 11656034,
+            "event": "trained",
+            "iteration": 23142,
+            "new_nodes": 100000055,
+            "nodes": 100000055,
+            "nodes_per_second": 7848088.112692635,
+            "seconds": 12.741963847,
+            "target": 100000000
+          },
+          {
+            "bytes": 429172691,
+            "event": "checkpoint",
+            "hash_seconds": 1.427386968,
+            "path": "/mnt/data2tb/nplayer-key-benchmark-20261018/pilot-compact-xxh3-v2/100000000.gz",
+            "save_seconds": 41.824005453,
+            "sha256": "d9b9a91bf96c00df05d5c024a05f6c6b02b021d208e8e72fbce717a153372a4b",
+            "target": 100000000
+          },
+          {
+            "event": "complete",
+            "mode": "train",
+            "wall_seconds": 60.973442177
+          }
+        ]
+      },
+      "failure": null
+    },
+    "pilot-v1": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 68.58155547900242,
+        "cpu_seconds": 322.86809800000003,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 4132864,
+          "load/0": 157777920,
+          "train/100000000": 2357833728,
+          "save/100000000": 2544271360,
+          "hash/100000000": 2400866304
+        },
+        "events": [
+          {
+            "event": "loaded",
+            "nodes": 0,
+            "seconds": 4.968625113
+          },
+          {
+            "counts": {
+              "decisions": [
+                8185867,
+                11744394,
+                16785551,
+                22850721
+              ],
+              "discarded_keys": 0,
+              "discarded_visits": 0,
+              "missing": [
+                385911,
+                1064224,
+                2959729,
+                7247423
+              ],
+              "nodes": 100000055,
+              "terminals": 40433522,
+              "traverser": [
+                6599967,
+                6583840,
+                6599829,
+                0,
+                0,
+                0
+              ]
+            },
+            "entries": 11656034,
+            "event": "trained",
+            "iteration": 23142,
+            "new_nodes": 100000055,
+            "nodes": 100000055,
+            "nodes_per_second": 4968166.932538885,
+            "seconds": 20.12815921,
+            "target": 100000000
+          },
+          {
+            "bytes": 429165364,
+            "event": "checkpoint",
+            "hash_seconds": 1.458788498,
+            "path": "/mnt/data2tb/nplayer-key-benchmark-20261018/pilot-v1/100000000.gz",
+            "save_seconds": 41.965967585,
+            "sha256": "e241d0eca44bc9e1210c0bc03034e5bda41d4949c2d681e17a16c2b7ae920dcf",
+            "target": 100000000
+          },
+          {
+            "event": "complete",
+            "mode": "train",
+            "wall_seconds": 68.521610825
+          }
+        ]
+      },
+      "failure": null
+    },
+    "play-compact-blake2b-v2": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 6.890532510995399,
+        "cpu_seconds": 6.889487999999979,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 1685733376
+        },
+        "events": [
+          {
+            "blocks": 16,
+            "decisions_by_identity_street": [
+              [
+                141,
+                38,
+                10,
+                4
+              ],
+              [
+                145,
+                33,
+                9,
+                4
+              ],
+              [
+                148,
+                38,
+                7,
+                1
+              ]
+            ],
+            "hands": 96,
+            "load_seconds": 6.701547557,
+            "misses_by_identity_street": [
+              [
+                7,
+                1,
+                1,
+                3
+              ],
+              [
+                4,
+                1,
+                2,
+                2
+              ],
+              [
+                6,
+                1,
+                0,
+                0
+              ]
+            ],
+            "play_seconds": 0.005227997,
+            "status": "passed",
+            "trace_sha256": "90b01a78a9074490abc096563e65bcb3310272baa5d9e816a10e144126b1f9d9"
+          }
+        ]
+      },
+      "failure": null
+    },
+    "play-compact-xxh3-v2": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 6.90339752600994,
+        "cpu_seconds": 6.902325999999981,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 1685610496
+        },
+        "events": [
+          {
+            "blocks": 16,
+            "decisions_by_identity_street": [
+              [
+                141,
+                38,
+                10,
+                4
+              ],
+              [
+                145,
+                33,
+                9,
+                4
+              ],
+              [
+                148,
+                38,
+                7,
+                1
+              ]
+            ],
+            "hands": 96,
+            "load_seconds": 6.7191484500000005,
+            "misses_by_identity_street": [
+              [
+                7,
+                1,
+                1,
+                3
+              ],
+              [
+                4,
+                1,
+                2,
+                2
+              ],
+              [
+                6,
+                1,
+                0,
+                0
+              ]
+            ],
+            "play_seconds": 0.005259067,
+            "status": "passed",
+            "trace_sha256": "b763d204dd9e55a2db6ca7596643a75074d6bc0155c588e4d340bad0450e85e5"
+          }
+        ]
+      },
+      "failure": null
+    },
+    "play-v1": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 5.939890248992015,
+        "cpu_seconds": 5.938922000000012,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 962179072
+        },
+        "events": [
+          {
+            "blocks": 16,
+            "decisions_by_identity_street": [
+              [
+                141,
+                38,
+                10,
+                4
+              ],
+              [
+                145,
+                33,
+                9,
+                4
+              ],
+              [
+                148,
+                38,
+                7,
+                1
+              ]
+            ],
+            "hands": 96,
+            "load_seconds": 5.823673539,
+            "misses_by_identity_street": [
+              [
+                7,
+                1,
+                1,
+                3
+              ],
+              [
+                4,
+                1,
+                2,
+                2
+              ],
+              [
+                6,
+                1,
+                0,
+                0
+              ]
+            ],
+            "play_seconds": 0.005379752,
+            "status": "passed",
+            "trace_sha256": "3492075df319344a293c1b2bd4c83a65f7f04e1023aaf2e164acb7d1f7f3efe2"
+          }
+        ]
+      },
+      "failure": null
+    },
+    "python-qualification": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 86.19081430899678,
+        "cpu_seconds": 106.53346799999997,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 1594425344
+        },
+        "events": [
+          {
+            "event": "complete",
+            "status": "passed",
+            "checks": 13
+          }
+        ]
+      },
+      "failure": null
+    },
+    "replay-compact-blake2b-v2": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 0.07501412299461663,
+        "cpu_seconds": 0.07458700000005081,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 13156352
+        },
+        "events": []
+      },
+      "failure": null
+    },
+    "replay-compact-xxh3-v2": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 0.07402851700317115,
+        "cpu_seconds": 0.07359400000002836,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 13221888
+        },
+        "events": []
+      },
+      "failure": null
+    },
+    "replay-v1": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 0.0841702249890659,
+        "cpu_seconds": 0.08355099999999283,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 13115392
+        },
+        "events": []
+      },
+      "failure": null
+    },
+    "resume-final-compact-blake2b-v2": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 10.167389492999064,
+        "cpu_seconds": 14.864576999999983,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 4239360,
+          "load/0": 1393229824,
+          "train/3000000": 1466834944,
+          "save/3000000": 1578434560
+        },
+        "events": [
+          {
+            "event": "loaded",
+            "nodes": 1001842,
+            "seconds": 5.490593009
+          },
+          {
+            "counts": {
+              "decisions": [
+                310114,
+                387083,
+                486894,
+                646058
+              ],
+              "discarded_keys": 0,
+              "discarded_visits": 0,
+              "missing": [
+                101771,
+                200310,
+                366551,
+                586453
+              ],
+              "nodes": 3002938,
+              "terminals": 1172789,
+              "traverser": [
+                189431,
+                190972,
+                188255,
+                0,
+                0,
+                0
+              ]
+            },
+            "entries": 1254398,
+            "event": "trained",
+            "iteration": 680,
+            "new_nodes": 2001096,
+            "nodes": 3002938,
+            "nodes_per_second": 7597271.532672811,
+            "seconds": 0.263396667,
+            "target": 3000000
+          },
+          {
+            "bytes": 40288593,
+            "event": "checkpoint",
+            "hash_seconds": 0.136601981,
+            "path": "/mnt/data2tb/nplayer-key-benchmark-20261018/resume-final-compact-blake2b-v2/3000000.gz",
+            "save_seconds": 4.261586126,
+            "sha256": "7f1a7c20321909336cd5612f72711a93ae75e3ac65a66479328abc408f3b1f08",
+            "target": 3000000
+          },
+          {
+            "event": "complete",
+            "mode": "train",
+            "wall_seconds": 10.152238212
+          }
+        ]
+      },
+      "failure": null
+    },
+    "resume-final-compact-xxh3-v2": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 10.619943602010608,
+        "cpu_seconds": 15.182030999999949,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 4141056,
+          "load/0": 1394061312,
+          "train/3000000": 1474748416,
+          "save/3000000": 1581539328
+        },
+        "events": [
+          {
+            "event": "loaded",
+            "nodes": 1001842,
+            "seconds": 5.499037119
+          },
+          {
+            "counts": {
+              "decisions": [
+                310114,
+                387083,
+                486894,
+                646058
+              ],
+              "discarded_keys": 0,
+              "discarded_visits": 0,
+              "missing": [
+                101771,
+                200310,
+                366551,
+                586453
+              ],
+              "nodes": 3002938,
+              "terminals": 1172789,
+              "traverser": [
+                189431,
+                190972,
+                188255,
+                0,
+                0,
+                0
+              ]
+            },
+            "entries": 1254398,
+            "event": "trained",
+            "iteration": 680,
+            "new_nodes": 2001096,
+            "nodes": 3002938,
+            "nodes_per_second": 8057426.4897982245,
+            "seconds": 0.248354236,
+            "target": 3000000
+          },
+          {
+            "bytes": 40288579,
+            "event": "checkpoint",
+            "hash_seconds": 0.182208256,
+            "path": "/mnt/data2tb/nplayer-key-benchmark-20261018/resume-final-compact-xxh3-v2/3000000.gz",
+            "save_seconds": 4.674345088,
+            "sha256": "bd3b30031fa087b07d9ed0f55799122fc52adc9829fc9aacc2ccdc13044941f3",
+            "target": 3000000
+          },
+          {
+            "event": "complete",
+            "mode": "train",
+            "wall_seconds": 10.6040249
+          }
+        ]
+      },
+      "failure": null
+    },
+    "resume-final-v1": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 10.133446743973764,
+        "cpu_seconds": 16.089753999999974,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 4165632,
+          "load/0": 1395257344,
+          "train/3000000": 1459998720,
+          "save/3000000": 1580941312
+        },
+        "events": [
+          {
+            "event": "loaded",
+            "nodes": 1001842,
+            "seconds": 5.489409683
+          },
+          {
+            "counts": {
+              "decisions": [
+                310114,
+                387083,
+                486894,
+                646058
+              ],
+              "discarded_keys": 0,
+              "discarded_visits": 0,
+              "missing": [
+                101771,
+                200310,
+                366551,
+                586453
+              ],
+              "nodes": 3002938,
+              "terminals": 1172789,
+              "traverser": [
+                189431,
+                190972,
+                188255,
+                0,
+                0,
+                0
+              ]
+            },
+            "entries": 1254398,
+            "event": "trained",
+            "iteration": 680,
+            "new_nodes": 2001096,
+            "nodes": 3002938,
+            "nodes_per_second": 5470035.745255713,
+            "seconds": 0.365828688,
+            "target": 3000000
+          },
+          {
+            "bytes": 40291276,
+            "event": "checkpoint",
+            "hash_seconds": 0.136970744,
+            "path": "/mnt/data2tb/nplayer-key-benchmark-20261018/resume-final-v1/3000000.gz",
+            "save_seconds": 4.12721873,
+            "sha256": "65348f9c12dca99ee253dab77bbf78cfdeab27b75c258d41095e841d270cadac",
+            "target": 3000000
+          },
+          {
+            "event": "complete",
+            "mode": "train",
+            "wall_seconds": 10.119489287
+          }
+        ]
+      },
+      "failure": null
+    },
+    "resume-first-compact-blake2b-v2": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 7.045245779998368,
+        "cpu_seconds": 9.00041299999998,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 4206592,
+          "load/0": 157806592,
+          "train/1000000": 1434308608,
+          "save/1000000": 1474781184
+        },
+        "events": [
+          {
+            "event": "loaded",
+            "nodes": 0,
+            "seconds": 5.0000148
+          },
+          {
+            "counts": {
+              "decisions": [
+                104797,
+                130437,
+                163667,
+                215416
+              ],
+              "discarded_keys": 0,
+              "discarded_visits": 0,
+              "missing": [
+                53076,
+                93212,
+                146307,
+                208792
+              ],
+              "nodes": 1001842,
+              "terminals": 387525,
+              "traverser": [
+                63126,
+                63555,
+                60782,
+                0,
+                0,
+                0
+              ]
+            },
+            "entries": 500969,
+            "event": "trained",
+            "iteration": 221,
+            "new_nodes": 1001842,
+            "nodes": 1001842,
+            "nodes_per_second": 7940956.005999427,
+            "seconds": 0.126161384,
+            "target": 1000000
+          },
+          {
+            "bytes": 15504463,
+            "event": "checkpoint",
+            "hash_seconds": 0.055575699,
+            "path": "/mnt/data2tb/nplayer-key-benchmark-20261018/resume-first-compact-blake2b-v2/1000000.gz",
+            "save_seconds": 1.836909938,
+            "sha256": "1b66b15144d26c40135631c23e6636c040f97505a0c551afbfddc46dcfee263b",
+            "target": 1000000
+          },
+          {
+            "event": "complete",
+            "mode": "train",
+            "wall_seconds": 7.018736289
+          }
+        ]
+      },
+      "failure": null
+    },
+    "resume-first-compact-xxh3-v2": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 7.082554513996001,
+        "cpu_seconds": 8.809156000000044,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 4071424,
+          "load/0": 157663232,
+          "save/1000000": 1490624512
+        },
+        "events": [
+          {
+            "event": "loaded",
+            "nodes": 0,
+            "seconds": 4.9697206430000005
+          },
+          {
+            "counts": {
+              "decisions": [
+                104797,
+                130437,
+                163667,
+                215416
+              ],
+              "discarded_keys": 0,
+              "discarded_visits": 0,
+              "missing": [
+                53076,
+                93212,
+                146307,
+                208792
+              ],
+              "nodes": 1001842,
+              "terminals": 387525,
+              "traverser": [
+                63126,
+                63555,
+                60782,
+                0,
+                0,
+                0
+              ]
+            },
+            "entries": 500969,
+            "event": "trained",
+            "iteration": 221,
+            "new_nodes": 1001842,
+            "nodes": 1001842,
+            "nodes_per_second": 8895422.30374587,
+            "seconds": 0.112624445,
+            "target": 1000000
+          },
+          {
+            "bytes": 15503904,
+            "event": "checkpoint",
+            "hash_seconds": 0.055627688,
+            "path": "/mnt/data2tb/nplayer-key-benchmark-20261018/resume-first-compact-xxh3-v2/1000000.gz",
+            "save_seconds": 1.914506397,
+            "sha256": "425628d156ef2c7340a1a0850807c6bbbb6b80141f7a6134ca37b3cb641f16e3",
+            "target": 1000000
+          },
+          {
+            "event": "complete",
+            "mode": "train",
+            "wall_seconds": 7.052544915
+          }
+        ]
+      },
+      "failure": null
+    },
+    "resume-first-v1": {
+      "result": {
+        "returncode": 0,
+        "wall_seconds": 6.768956997024361,
+        "cpu_seconds": 9.49718300000001,
+        "sampled_peak_rss_by_phase": {
+          "startup/0": 4157440,
+          "load/0": 787021824,
+          "save/1000000": 1475674112
+        },
+        "events": [
+          {
+            "event": "loaded",
+            "nodes": 0,
+            "seconds": 4.889143811
+          },
+          {
+            "counts": {
+              "decisions": [
+                104797,
+                130437,
+                163667,
+                215416
+              ],
+              "discarded_keys": 0,
+              "discarded_visits": 0,
+              "missing": [
+                53076,
+                93212,
+                146307,
+                208792
+              ],
+              "nodes": 1001842,
+              "terminals": 387525,
+              "traverser": [
+                63126,
+                63555,
+                60782,
+                0,
+                0,
+                0
+              ]
+            },
+            "entries": 500969,
+            "event": "trained",
+            "iteration": 221,
+            "new_nodes": 1001842,
+            "nodes": 1001842,
+            "nodes_per_second": 5469704.6237097895,
+            "seconds": 0.183161993,
+            "target": 1000000
+          },
+          {
+            "bytes": 15504264,
+            "event": "checkpoint",
+            "hash_seconds": 0.084451125,
+            "path": "/mnt/data2tb/nplayer-key-benchmark-20261018/resume-first-v1/1000000.gz",
+            "save_seconds": 1.601408307,
+            "sha256": "937c8c0db3e02fe1d9d459452f5b41bb12942d93f2e56c5cb7e3b7b9a4bdbc9e",
+            "target": 1000000
+          },
+          {
+            "event": "complete",
+            "mode": "train",
+            "wall_seconds": 6.758217635
+          }
+        ]
+      },
+      "failure": null
+    }
+  },
+  "max_resources": {
+    "cpu_c": 67,
+    "thermistor15_c": 74.5,
+    "peak_family_rss_bytes": 5728878592,
+    "swap_growth_bytes": 0
+  }
+}

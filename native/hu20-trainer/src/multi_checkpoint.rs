@@ -96,6 +96,9 @@ pub fn load(path: &Path) -> Result<Trainer, String> {
     if h["format"] != "nplayer-cfr-v1" || h["average_rule"] != "opponent-sampled" {
         return Err("unsupported checkpoint identity".into());
     }
+    if h["game"]["game"] == "nlhe-cash" {
+        crate::multi_policy::cash_config(&h["game"])?;
+    }
     let sampling = match h.get("sampling") {
         None => Sampling::Stream,
         Some(s) if s == PATH_SAMPLING => Sampling::Path,

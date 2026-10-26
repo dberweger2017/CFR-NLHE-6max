@@ -1,5 +1,15 @@
 # Roadmap
 
+## Compact history key engineering integrated; adoption remains separate
+
+[PR344](https://github.com/dberweger2017/CFR-NLHE-6max/pull/344),
+[integration report](docs/reports/nplayer-compact-keys/integration-20261026.md):
+opt-in exact-history encodings coexist with unchanged history/live-order formats.
+Golden bytes, original checkpoint/export hashes and schema self-test bindings
+address review findings; no default or mature performance claim follows.
+The original 1B/3B comparison remains unrun. Current live-order confirmation
+retains its independent recipe; do not launch the historical compact controller.
+
 ## M4 model-backed second-to-act river panel completes
 
 [PR436](https://github.com/dberweger2017/CFR-NLHE-6max/pull/436),

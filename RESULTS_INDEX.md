@@ -1,3 +1,15 @@
+## PR344 integration closeout — compact history encodings remain opt-in
+
+[Integration/review report](docs/reports/nplayer-compact-keys/integration-20261026.md),
+[historical pilot](docs/reports/nplayer-compact-keys/pilot.md).
+Current history/live-order dispatch, binary loaders, training options and arena
+caches retained. Fixed-byte key and history checkpoint/export pins, compact
+schema self-test bindings, sparse/empty-file support and 1/2/4-thread/resume
+logical-row checks address the external review. Old unbound compact prototypes
+fail closed; original files/readers are retained without migration. No default
+change, live-order speed claim or new mature benchmark; the original larger
+comparison remains refused. New integration validation is recorded in the PR.
+
 ## PR436 — M4 model-backed second-to-act river engineering completes
 
 [Protocol](docs/river-model-panel-m4.md), [analysis](docs/reports/river-model-panel-m4/results.md),
@@ -1424,7 +1436,7 @@ archival/copy/cleanup or Drive acceptance is claimed through this merge.
   CPU64C/Thermistor15 74.5C maximum; zero swap growth, existing22.85GiB
   host swap remains telemetry only. No OS/fan/cache/other-job changes.
 - Frozen source0b8d16c9e0a7299b164a543200f535a48d216a05;
-  qualified CLI SHA256fc37a562f8d3753d920b07b5d35c6deabe75fc846196b176f749187a3b3ac790.
+  qualified CLI SHA256 `fc37a562f8d3753d920b07b5d35c6deabe75fc846196b176f749187a3b3ac790`.
   Controller/source/config originals remain at
   `bb128:/home/dberweger/nplayer-bb100-pilot-20261019/`:
   `source-v2`/`config-v2.json` are launched, initial `source`/`config.json`

@@ -145,7 +145,10 @@ fn run_case(a: &[String], cache: &mut HashMap<String,Arc<PolicyTable>>,
             if t.config() != config {
                 return Err("arena requires the requested three-player stack and50/100 identity".into());
             }
-            if identity.as_ref().is_some_and(|i| i != &t.identity) {
+            if identity.as_ref().is_some_and(|i: &Value| {
+                let game = |v: &Value| { let mut x=v.clone();x.as_object_mut().unwrap().remove("schema");x.as_object_mut().unwrap().remove("key_encoding");x };
+                game(i) != game(&t.identity)
+            }) {
                 return Err("mixed game identities".into());
             }
             identity = Some(t.identity.clone());
@@ -155,9 +158,20 @@ fn run_case(a: &[String], cache: &mut HashMap<String,Arc<PolicyTable>>,
         }
     }
     let tables = tables_for_case(Path::new(&a[1]), !cache.is_empty(), card_tables)?;
-    let identity = identity.unwrap_or_else(
+    let mut identity = identity.unwrap_or_else(
         || json!({"players":3,"stacks":vec![stack*100;3],"small_blind":50,"big_blind":100}),
     );
+    // Keep historical history-only headers byte-identical. Mixed encodings carry
+    // their own complete schema/witness identity on each policy pin.
+    if cache.values().any(|t| t.schema != hu20_trainer::multi_holdem::KeySchema::History) {
+        identity.as_object_mut().unwrap().remove("schema");
+        identity.as_object_mut().unwrap().remove("key_encoding");
+        for (i,spec) in [&a[5],&a[6],&a[6]].into_iter().enumerate() {
+            if let Some(t)=cache.get(spec) { pins[i]["schema"]=t.identity["schema"].clone();
+                if let Some(binding)=t.identity.get("key_encoding") { pins[i]["key_encoding"]=binding.clone(); }
+            }
+        }
+    }
     let load_seconds = started.elapsed().as_secs_f64();
     let mut out = std::io::BufWriter::new(
         std::fs::OpenOptions::new()

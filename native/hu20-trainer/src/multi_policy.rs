@@ -266,7 +266,8 @@ impl TextReader {
         )))
     }
 }
-fn cash_config(identity: &Value) -> Result<Config, String> {
+pub(crate) fn cash_config(identity: &Value) -> Result<Config, String> {
+    multi_holdem::validate_key_encoding(identity)?;
     let n = identity["players"].as_u64().ok_or("missing N")?;
     if !(2..=6).contains(&n)
         || KeySchema::from_identity(identity).is_none()
@@ -527,19 +528,74 @@ mod tests {
     fn tables_carry_their_key_schema_and_refuse_unknown_ones() {
         let dir = std::env::temp_dir().join(format!("nplayer-schema-{}", std::process::id()));
         std::fs::create_dir(&dir).unwrap();
-        for (name, expected) in [(multi_holdem::SCHEMA, Some(KeySchema::History)),
-                                 (multi_holdem::LIVE_ORDER_SCHEMA, Some(KeySchema::LiveOrder)), ("other", None)] {
-            let mut t = fixture(3, 3);
-            t.identity["schema"] = json!(name);
-            let path = dir.join(format!("{}.gz", expected.map_or("other", |s| s.name())));
-            if expected.is_none() {
-                assert!(write_trainer(&t, &"a".repeat(64), Mode::Average, &path, Gzip::Compatible).is_err());
-                continue;
+        for schema in KeySchema::ALL {
+            let mut t=fixture(3,3); t.identity["schema"]=json!(schema.name());
+            if schema.is_compact() { t.identity["key_encoding"]=multi_holdem::key_encoding_binding(schema); }
+            let path=dir.join(format!("{}.gz",schema.option()));
+            // Synthetic rows are intentionally sparse and need not contain root keys.
+            write_trainer(&t,&"a".repeat(64),Mode::Average,&path,Gzip::Compatible).unwrap();
+            let table=PolicyTable::load(&path,&crate::export::sha256_file(&path)).unwrap();
+            assert_eq!(table.schema,schema);
+            let binary=dir.join(format!("{}.bin",schema.option()));
+            crate::multi_binary::convert(&path,&crate::export::sha256_file(&path),&binary,None).unwrap();
+            let binary_table=PolicyTable::load(&binary,&crate::export::sha256_file(&binary)).unwrap();
+            assert_eq!(binary_table.schema,schema);
+            assert_eq!(binary_table.identity,table.identity);
+            for (key,row) in t.table.iter() {
+                let a=table.rows.get(&key).unwrap();let b=binary_table.rows.get(&key).unwrap();
+                assert_eq!((a.owner,a.street,a.code),(b.owner,b.street,b.code));
+                assert_eq!(a.probabilities.iter().map(|x|x.to_bits()).collect::<Vec<_>>(),b.probabilities.iter().map(|x|x.to_bits()).collect::<Vec<_>>());
+                assert_eq!(row.code,a.code);
             }
-            write_trainer(&t, &"a".repeat(64), Mode::Average, &path, Gzip::Compatible).unwrap();
-            let table = PolicyTable::load(&path, &crate::export::sha256_file(&path)).unwrap();
-            assert_eq!(Some(table.schema), expected);
+
         }
+        let mut t=fixture(3,3);t.identity["schema"]=json!("unknown-v99");
+        assert!(write_trainer(&t,&"a".repeat(64),Mode::Average,&dir.join("unknown.gz"),Gzip::Compatible).is_err());
+        std::fs::remove_dir_all(dir).unwrap();
+    }
+    #[test]
+    fn mislabelled_compact_policy_and_checkpoint_headers_fail_closed() {
+        let dir=std::env::temp_dir().join(format!("compact-binding-{}",std::process::id()));
+        std::fs::create_dir(&dir).unwrap();
+        let mut t=fixture(3,3);
+        t.identity["schema"]=json!(KeySchema::CompactXxh3.name());
+        t.identity["key_encoding"]=multi_holdem::key_encoding_binding(KeySchema::CompactXxh3);
+        let valid=dir.join("valid.gz");
+        write_trainer(&t,&"a".repeat(64),Mode::Average,&valid,Gzip::Compatible).unwrap();
+        crate::multi_checkpoint::save(&t,&dir.join("checkpoint.gz"),Gzip::Compatible).unwrap();
+        crate::multi_checkpoint::load(&dir.join("checkpoint.gz")).unwrap();
+        for target in [KeySchema::History,KeySchema::LiveOrder,KeySchema::CompactBlake] {
+            for (name,field) in [("valid.gz","identity"),("checkpoint.gz","game")] {
+                let text=std::io::read_to_string(GzDecoder::new(std::fs::File::open(dir.join(name)).unwrap())).unwrap();
+                let mut lines=text.lines();let mut h:Value=serde_json::from_str(lines.next().unwrap()).unwrap();
+                h[field]["schema"]=json!(target.name());
+                let bad=dir.join(format!("bad-{}-{name}",target.option()));
+                let mut out=GzEncoder::new(std::fs::File::create(&bad).unwrap(),Compression::default());
+                writeln!(out,"{h}").unwrap();for row in lines {writeln!(out,"{row}").unwrap();}out.finish().unwrap();
+                let error=if field=="identity" { PolicyTable::load(&bad,&crate::export::sha256_file(&bad)).err() }
+                    else { crate::multi_checkpoint::load(&bad).err() };
+                assert!(error.unwrap().contains("key encoding binding/schema mismatch"));
+            }
+        }
+        t.identity.as_object_mut().unwrap().remove("key_encoding");
+        assert!(cash_config(&t.identity).is_err(),"unbound prototype compact rows must not silently load");
+        t.identity["schema"]=json!(KeySchema::History.name());
+        assert!(cash_config(&t.identity).is_ok(),"released history headers stay unchanged");
+        // Empty compact tables are legal with a correct binding; no mandatory root-row probe.
+        t.table=Default::default();t.identity["schema"]=json!(KeySchema::CompactBlake.name());
+        t.identity["key_encoding"]=multi_holdem::key_encoding_binding(KeySchema::CompactBlake);
+        let empty=dir.join("empty.gz");write_trainer(&t,&"a".repeat(64),Mode::Average,&empty,Gzip::Compatible).unwrap();
+        assert!(PolicyTable::load(&empty,&crate::export::sha256_file(&empty)).unwrap().rows.is_empty());
+        std::fs::remove_dir_all(dir).unwrap();
+    }
+    #[test]
+    fn history_checkpoint_and_export_bytes_remain_pinned() {
+        let dir=std::env::temp_dir().join(format!("legacy-key-bytes-{}",std::process::id()));std::fs::create_dir(&dir).unwrap();
+        let t=fixture(3,3);let cp=dir.join("checkpoint.gz");let policy=dir.join("policy.gz");
+        crate::multi_checkpoint::save(&t,&cp,Gzip::Compatible).unwrap();
+        write_trainer(&t,&"a".repeat(64),Mode::Average,&policy,Gzip::Compatible).unwrap();
+        assert_eq!(crate::export::sha256_file(&cp),"d59e809bf2528035acb36834e30b617e51089476f12d2b40bf2ce841de347885");
+        assert_eq!(crate::export::sha256_file(&policy),"20e4ef9031f8dd124068240b3fcceb43aa7013bb54a78ae4bf1afb6c3d54c406");
         std::fs::remove_dir_all(dir).unwrap();
     }
     #[test]

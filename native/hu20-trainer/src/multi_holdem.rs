@@ -19,16 +19,35 @@ pub enum KeySchema {
     History,
     /// The live players' order and a capped summary of the betting (`live_order_payload`).
     LiveOrder,
+    CompactBlake,
+    CompactXxh3,
 }
 impl KeySchema {
+    pub const ALL: [Self; 4] = [Self::History, Self::LiveOrder, Self::CompactBlake, Self::CompactXxh3];
+    pub const EXACT_HISTORY: [Self; 3] = [Self::History, Self::CompactBlake, Self::CompactXxh3];
+    pub fn option(self) -> &'static str {
+        match self {
+            Self::History => "v1", Self::LiveOrder => "live-order",
+            Self::CompactBlake => "compact-blake2b-v2", Self::CompactXxh3 => "compact-xxh3-v2",
+        }
+    }
+    pub fn parse(value: &str) -> Result<Self, String> {
+        if value == "history" { return Ok(Self::History); }
+        Self::ALL.into_iter().find(|s| s.option() == value || s.name() == value)
+            .ok_or_else(|| format!("unsupported n-player key schema: {value}"))
+    }
+    pub fn is_compact(self) -> bool { matches!(self, Self::CompactBlake | Self::CompactXxh3) }
+
     pub fn name(self) -> &'static str {
         match self {
             KeySchema::History => SCHEMA,
             KeySchema::LiveOrder => LIVE_ORDER_SCHEMA,
+            Self::CompactBlake => "nplayer-button-history-equity-k50-compact-blake2b-v2",
+            Self::CompactXxh3 => "nplayer-button-history-equity-k50-compact-xxh3-v2",
         }
     }
     pub fn from_name(name: &str) -> Option<Self> {
-        [KeySchema::History, KeySchema::LiveOrder].into_iter().find(|s| s.name() == name)
+        Self::ALL.into_iter().find(|s| s.name() == name)
     }
     pub fn from_identity(identity: &Value) -> Option<Self> {
         identity["schema"].as_str().and_then(Self::from_name)
@@ -158,6 +177,54 @@ fn payload(observation: &Observation<'_>, cards: &[u8], choices: &[(u8, Action)]
     out
 }
 
+fn varint(out: &mut Vec<u8>, mut value: u64) {
+    while value >= 128 {
+        out.push(value as u8 | 128);
+        value >>= 7;
+    }
+    out.push(value as u8);
+}
+
+/// Complete legal history reconstructs live/all-in flags, contributions and menu.
+/// Initial stacks remain button-relative: omitting them would alias unequal-stack
+/// hands when the button rotates, even within one fixed physical configuration.
+fn compact_payload(observation: &Observation<'_>, cards: &[u8]) -> Vec<u8> {
+    let n = observation.config.players();
+    let relative = |seat: usize| ((seat + n - observation.button) % n) as u8;
+    let mut out = Vec::with_capacity(64);
+    // Fixed domain includes menu/card abstraction version; schemas distinguish hashes.
+    out.extend_from_slice(b"NP\x02");
+    out.extend_from_slice(&[
+        n as u8,
+        relative(observation.seat),
+        observation.street as u8,
+    ]);
+    varint(&mut out, observation.config.small_blind());
+    varint(&mut out, observation.config.big_blind());
+    for i in 0..n {
+        varint(
+            &mut out,
+            observation.config.stacks()[(observation.button + i) % n],
+        );
+    }
+    out.push(cards.len() as u8);
+    out.extend_from_slice(cards);
+    varint(&mut out, observation.history.len() as u64);
+    for event in observation.history {
+        match event {
+            Event::Board(street) => out.extend_from_slice(&[255, *street as u8]),
+            Event::Action { actor, action, .. } => {
+                out.push((relative(*actor) << 2) | kind_code(action.kind));
+                if action.kind == Kind::Raise {
+                    varint(&mut out, action.raise_to);
+                }
+            }
+        }
+    }
+    out
+}
+
+
 /// Bucket edges of the live-order summary, as exact fractions (numerator, denominator).
 const POT_EDGES_BB: [u64; 7] = [2, 4, 8, 16, 32, 64, 128];
 const SPR_EDGES: [(u64, u64); 6] = [(1, 2), (1, 1), (2, 1), (4, 1), (8, 1), (16, 1)];
@@ -263,19 +330,59 @@ fn observation_decision_with_tables(
     tables: Option<&EquityTables>,
 ) -> Decision {
     let choices = menu(observation);
-    let card_class = card_class(observation, tables);
+    let cards = card_class(observation, tables);
+    decision_from_cards(schema, observation, &cards, &choices)
+}
+fn decision_from_cards(schema: KeySchema, observation: &Observation<'_>, cards: &[u8], choices: &[(u8, Action)]) -> Decision {
     let code = choices.iter().fold(0, |c, (label, _)| c | 1 << label);
     let n = observation.config.players();
-    let (bytes, owner) = match schema {
-        KeySchema::History => (payload(observation, &card_class, &choices), (observation.seat + n - observation.button) % n),
-        KeySchema::LiveOrder => live_order_payload(observation, &card_class, code),
+    let mut owner = (observation.seat + n - observation.button) % n;
+    let key = match schema {
+        KeySchema::History => crate::key::digest16(&payload(observation, cards, choices)),
+        KeySchema::LiveOrder => {
+            let (bytes, live_owner) = live_order_payload(observation, cards, code);
+            owner = live_owner;
+            crate::key::digest16(&bytes)
+        },
+        KeySchema::CompactBlake => crate::key::digest16(&compact_payload(observation, cards)),
+        KeySchema::CompactXxh3 => xxhash_rust::xxh3::xxh3_128(&compact_payload(observation, cards)).to_le_bytes(),
     };
-    Decision {
-        key: crate::key::digest16(&bytes),
-        actor: observation.seat,
-        owner,
-        street: observation.street as usize,
-        code,
+    Decision { key, actor: observation.seat, owner, street: observation.street as usize, code }
+}
+/// Legacy compact benchmark API. Production readers dispatch through observation_decision_for.
+pub fn observation_decision_schema(observation: &Observation<'_>, tables: &EquityTables, schema: KeySchema) -> Decision {
+    observation_decision_for(schema, observation, tables)
+}
+/// Untimed audit only: all exact-history encodings share the same decision builder.
+pub fn observation_key_variants(observation: &Observation<'_>, tables: &EquityTables) -> [Decision; 3] {
+    let cards = card_class(observation, Some(tables));
+    let choices = menu(observation);
+    KeySchema::EXACT_HISTORY.map(|schema| decision_from_cards(schema, observation, &cards, &choices))
+}
+/// Compact-only header witness. No policy row is required, so empty/sparse tables remain valid.
+/// Synthetic abstract card labels exercise all street framing without loading K50.
+pub fn key_encoding_binding(schema: KeySchema) -> Value {
+    let mut bytes = Vec::new();
+    for n in [2, 3, 6] {
+        let config = Config::new(&vec![2000; n], 50, 100).unwrap();
+        let mut hand = Hand::from_deck(config, n-1, &(0..52).collect::<Vec<_>>()).unwrap();
+        while let Some(actor) = hand.actor() {
+            let obs = hand.observe(actor).unwrap();
+            let cards = if obs.board.is_empty() { card_class(&obs, None) } else { vec![obs.street as u8, 17, 0] };
+            let choices = menu(&obs);
+            bytes.extend_from_slice(&decision_from_cards(schema, &obs, &cards, &choices).key);
+            let action = choices.iter().find(|(_, a)| matches!(a.kind, Kind::Call | Kind::Check)).unwrap().1;
+            hand.apply_mut(action).unwrap();
+        }
+    }
+    json!({"schema":schema.name(), "probe":"nplayer-passive-key-selftest-v1", "digest":crate::multi_checkpoint::key_hex(&crate::key::digest16(&bytes))})
+}
+pub fn validate_key_encoding(identity: &Value) -> Result<(), String> {
+    let Some(schema) = KeySchema::from_identity(identity) else { return Err("unsupported key schema".into()); };
+    match identity.get("key_encoding") {
+        Some(binding) if *binding == key_encoding_binding(schema) => Ok(()),
+        None if !schema.is_compact() => Ok(()),
+        _ => Err("key encoding binding/schema mismatch (unbound prototype compact files are unsupported)".into()),
     }
 }
 
@@ -296,9 +403,11 @@ impl Game for CashGame {
         self.config.players()
     }
     fn identity(&self) -> Value {
-        json!({"schema":self.schema.name(),"game":"nlhe-cash","players":self.players(),"stacks":self.config.stacks(),
+        let mut identity = json!({"schema":self.schema.name(),"game":"nlhe-cash","players":self.players(),"stacks":self.config.stacks(),
             "small_blind":self.config.small_blind(),"big_blind":self.config.big_blind(),"menu":MENU,
-            "card_tables":self.tables.sha256,"utility_unit":"big-blind"})
+            "card_tables":self.tables.sha256,"utility_unit":"big-blind"});
+        if self.schema.is_compact() { identity["key_encoding"] = key_encoding_binding(self.schema); }
+        identity
     }
     fn sample(&self, rng: &mut rand::rngs::StdRng) -> CashState {
         let mut deck: Vec<u8> = (0..52).collect();
@@ -607,5 +716,109 @@ mod tests {
         let (history, live_order) = (keys(KeySchema::History), keys(KeySchema::LiveOrder));
         assert!(live_order < history, "{live_order} live-order keys against {history} history keys");
     }
+    #[test]
+    fn compact_records_biject_on_legal_multiway_histories() {
+        use rand::{Rng, SeedableRng};
+        use std::collections::HashMap;
+        let mut forward = HashMap::new();
+        let mut reverse = HashMap::new();
+        let mut rng = rand::rngs::StdRng::seed_from_u64(327);
+        let mut decisions = 0;
+        for n in 2..=6 {
+            for uneven in [false, true] {
+                for depth in [2000, 10000] {
+                    let stacks: Vec<u64> = (0..n)
+                        .map(|i| if uneven { 50 + i as u64 * depth } else { depth })
+                        .collect();
+                    let config = Config::new(&stacks, 50, 100).unwrap();
+                    for button in 0..n {
+                        for _ in 0..20 {
+                            let mut deck: Vec<u8> = (0..52).collect();
+                            deck.shuffle(&mut rng);
+                            let mut hand = Hand::from_deck(config, button, &deck).unwrap();
+                            while let Some(actor) = hand.actor() {
+                                let observation = hand.observe(actor).unwrap();
+                                // Abstract card labels stand in for the pinned table in this byte-framing test.
+                                let cards = if observation.board.is_empty() {
+                                    card_class(&observation, None)
+                                } else {
+                                    vec![observation.street as u8, observation.hole[0] / 4, 0]
+                                };
+                                let actions = menu(&observation);
+                                let old = payload(&observation, &cards, &actions);
+                                let new = compact_payload(&observation, &cards);
+                                if let Some(previous) = forward.insert(old.clone(), new.clone()) {
+                                    assert_eq!(previous, new);
+                                }
+                                if let Some(previous) = reverse.insert(new, old.clone()) {
+                                    assert_eq!(previous, old);
+                                }
+                                decisions += 1;
+                                hand.apply_mut(actions[rng.gen_range(0..actions.len())].1)
+                                    .unwrap();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        assert!(decisions > 10_000);
+    }
+
+    #[test]
+    fn compact_keys_retain_initial_configuration_and_schema_domains() {
+        let deck: Vec<u8> = (0..52).collect();
+        let mut keys = std::collections::HashSet::new();
+        for stacks in [vec![2000; 3], vec![2000, 3000, 2000]] {
+            let config = Config::new(&stacks, 50, 100).unwrap();
+            for button in 0..3 {
+                let hand = Hand::from_deck(config, button, &deck).unwrap();
+                let view = hand.observe(hand.actor().unwrap()).unwrap();
+                let cards = card_class(&view, None);
+                let bytes = compact_payload(&view, &cards);
+                if stacks[0] != stacks[1] {
+                    assert!(keys.insert(bytes));
+                }
+                for schema in KeySchema::EXACT_HISTORY {
+                    assert_eq!(KeySchema::from_name(schema.name()).unwrap(), schema);
+                    assert_eq!(KeySchema::parse(schema.option()).unwrap(), schema);
+                    let d = observation_decision_with_tables(schema, &view, None);
+                    assert_eq!(
+                        (d.owner, d.street, d.code),
+                        (
+                            (view.seat + 3 - button) % 3,
+                            0,
+                            menu(&view).iter().fold(0, |c, (label, _)| c | 1 << label)
+                        )
+                    );
+                }
+            }
+        }
+        assert!(KeySchema::from_name("v1").is_none());
+        assert!(KeySchema::parse("compact-v99").is_err());
+        let mut bytes = Vec::new();
+        for number in [0, 127, 128, 16383, 16384, u64::MAX] {
+            varint(&mut bytes, number);
+        }
+        let mut offset = 0;
+        for expected in [0, 127, 128, 16383, 16384, u64::MAX] {
+            let (mut actual, mut shift) = (0u64, 0);
+            loop {
+                let b = bytes[offset];
+                offset += 1;
+                actual |= ((b & 127) as u64) << shift;
+                if b & 128 == 0 {
+                    break;
+                }
+                shift += 7;
+            }
+            assert_eq!(actual, expected);
+        }
+        assert_eq!(offset, bytes.len());
+    }
 }
 
+
+#[cfg(test)]
+#[path = "multi_key_tests.rs"]
+mod key_tests;
