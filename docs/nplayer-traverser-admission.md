@@ -79,3 +79,7 @@ A positive primary with no harm flag would justify confirmation with more seeds 
   - Plumbing problems go in the PR for the owner.
 - **Evidence:** compact results go in Git; working files stay on bb128 for the vacuum cleaner.
 - **Before this protocol:** one #427 control trace (random field, bank 0) was used to time the row join. All 32,305 of its positive-mass keys were found in the control checkpoint. No row classes or results were inspected.
+
+## Completed — October 26
+
+The run is complete. The primary is **not shown** (+1.5 [−9.9, +12.9]), and check-call is **flagged as harmed** (−53.5 [−99.8, −7.1]). [Results](reports/nplayer-traverser-admission/results.md).
