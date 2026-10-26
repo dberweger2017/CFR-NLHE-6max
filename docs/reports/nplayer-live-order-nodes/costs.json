@@ -1,0 +1,157 @@
+{
+ "host": "bb128 (cygnus-x1), 16 threads, CPU only, alone",
+ "source_commit": "5392dfce",
+ "stages_utc": [
+  {
+   "stage": "build",
+   "at": "2026-10-26T15:55:57Z"
+  },
+  {
+   "stage": "qualification",
+   "at": "2026-10-26T15:56:15Z"
+  },
+  {
+   "stage": "qualification-passed",
+   "at": "2026-10-26T15:58:36Z"
+  },
+  {
+   "stage": "live-30b-train",
+   "at": "2026-10-26T15:58:36Z"
+  },
+  {
+   "stage": "live-30b-export",
+   "at": "2026-10-26T16:44:20Z"
+  },
+  {
+   "stage": "live-30b-audit",
+   "at": "2026-10-26T16:46:03Z"
+  },
+  {
+   "stage": "live-30b-convert",
+   "at": "2026-10-26T16:47:38Z"
+  },
+  {
+   "stage": "live-30b-verify",
+   "at": "2026-10-26T16:48:58Z"
+  },
+  {
+   "stage": "live-50b-train",
+   "at": "2026-10-26T16:50:08Z"
+  },
+  {
+   "stage": "live-50b-export",
+   "at": "2026-10-26T17:36:13Z"
+  },
+  {
+   "stage": "live-50b-audit",
+   "at": "2026-10-26T17:38:11Z"
+  },
+  {
+   "stage": "live-50b-convert",
+   "at": "2026-10-26T17:39:56Z"
+  },
+  {
+   "stage": "live-50b-verify",
+   "at": "2026-10-26T17:41:21Z"
+  },
+  {
+   "stage": "10b-30b-arena-b0",
+   "at": "2026-10-26T17:42:50Z"
+  },
+  {
+   "stage": "10b-30b-arena-b1",
+   "at": "2026-10-26T17:46:57Z"
+  },
+  {
+   "stage": "10b-30b-arena-b2",
+   "at": "2026-10-26T17:51:04Z"
+  },
+  {
+   "stage": "10b-30b-arena-b3",
+   "at": "2026-10-26T17:55:12Z"
+  },
+  {
+   "stage": "10b-30b-rows",
+   "at": "2026-10-26T17:59:19Z"
+  },
+  {
+   "stage": "10b-30b-equity",
+   "at": "2026-10-26T18:00:50Z"
+  },
+  {
+   "stage": "10b-30b-report",
+   "at": "2026-10-26T19:03:41Z"
+  },
+  {
+   "stage": "30b-50b-arena-b0",
+   "at": "2026-10-26T19:04:09Z"
+  },
+  {
+   "stage": "30b-50b-arena-b1",
+   "at": "2026-10-26T19:08:22Z"
+  },
+  {
+   "stage": "30b-50b-arena-b2",
+   "at": "2026-10-26T19:12:34Z"
+  },
+  {
+   "stage": "30b-50b-arena-b3",
+   "at": "2026-10-26T19:16:47Z"
+  },
+  {
+   "stage": "30b-50b-rows",
+   "at": "2026-10-26T19:21:00Z"
+  },
+  {
+   "stage": "30b-50b-equity",
+   "at": "2026-10-26T19:22:40Z"
+  },
+  {
+   "stage": "30b-50b-report",
+   "at": "2026-10-26T20:23:45Z"
+  },
+  {
+   "stage": "ladder",
+   "at": "2026-10-26T20:24:04Z"
+  },
+  {
+   "stage": "done",
+   "at": "2026-10-26T20:26:05Z"
+  }
+ ],
+ "binaries_sha256": {
+  "nplayer_train": "adaa93f201633e216ef9780107e4c2837885c22fae529781fe386cf7f63f58e3",
+  "nplayer_policy": "8b0ff68e1e5b0dd8e9832b69e3aaa9ce1c9fc093e3ca905c4e68828ce0e65431",
+  "nplayer_inference": "d41e9dc85324c6308469ee704726a58a3b7fadc64fd4cd0ded5f876d496c688f",
+  "nplayer_paired_arena": "4b271a9c98a3d3455d7341e4adcac259ac405d52c04ede12dcf101068e440546",
+  "nplayer_allin_equity": "bbff971d22ca440002494c24e3ef620ddd6686b66afec39298e7dd1b8e1c9b60"
+ },
+ "qualification": {
+  "resume": "a3b03465f2796a42d1882df168f7b578fd60c64f166c75cdb83397b5ceb12d44",
+  "checkpoint_10b": "75245fbb0a00617ae67281e25cd7184b4a27fbf72e5aa2b175ba5a37c93771d8",
+  "binary_10b": "f894a59f8a92424d735438726d16834901a7dcaf6d560c98b950fb72a143c9ea"
+ },
+ "model_pins": [
+  {
+   "name": "live-30b",
+   "checkpoint": "2e0d49bf5d1979426d11ff5eb479f2dfee214b53a88135a39284ebf4d8d3ddc2",
+   "average": "3c899a6bd1ac6d6fdae181d91b2254136b3d95ab517d4882c6d41e156b45828d",
+   "mass_receipt": "4a287d818f045a24d0ea541ae519aa131b02c6415c659fb348fa83f1f40b3b67",
+   "binary": "076be058487a1801bb8da7e297f28566ddc7ea54531e3a6c55cb08fd80ec8c0c"
+  },
+  {
+   "name": "live-50b",
+   "checkpoint": "8ecb64f9b2c1d3d5b20ae7702c47e6f30fd5731d8522988b17ed85064bff42e9",
+   "average": "e64e2ae6ff37c2933f2e580fb76da4b97d81bbe2c39a0f316acba502138044eb",
+   "mass_receipt": "75d5cdc9fe19bb0af43199e046f044737e4a0a64057c3a853f18836ab88d773b",
+   "binary": "1b5f8cf125b2ad9d3341a3e928a0c6626b83898c4813bda54061a53d3255de76"
+  }
+ ],
+ "training_seconds": {
+  "live-30b": 2674.466549349,
+  "live-50b": 2678.830079921
+ },
+ "peak_cpu_c": 76,
+ "peak_vrm_thermistor15_c": 76,
+ "disk": "working files on the HDD under /mnt/data2tb/nplayer-live-order-nodes-20261026/; binaries gzipped after use. Nothing was deleted."
+}
