@@ -42,6 +42,6 @@ Released models and the default keep the history schema. Policy tables carry the
 ## Rules
 
 - **Stops:** CPU 90 °C, VRM (Thermistor 15) 100 °C, and below 10 GB free on the NVMe.
-- **Disk:** working files under `/home/dberweger/nplayer-live-order-pilot-20261026/`.
+- **Disk:** checkpoints, averages and audits under `/mnt/data2tb/nplayer-live-order-pilot-20261026/` on the HDD; the binary and arena traces under `/home/dberweger/nplayer-live-order-pilot-20261026/` on the NVMe. Stops below 5 GB free on the HDD.
 - **Expected cost:** under an hour.
 - **Failures:** a qualification failure stops the pilot. Plumbing problems go in the PR.
