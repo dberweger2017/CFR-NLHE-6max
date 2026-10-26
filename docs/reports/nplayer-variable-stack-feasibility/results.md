@@ -7,7 +7,7 @@
 One research policy can now represent the declared27 ordered stack tuples from
 {20,50,100}BB, with independently uniform stacks and button at each new hand.
 **The small guarded qualification passes. The5M→25M→100M pilot has not started.**
-This is a three-depth grid, not arbitrary20–100BB interpolation or a release.
+This is a three-depth grid, not arbitrary20–100 BB interpolation or a release.
 
 ## What changed and why
 
@@ -34,11 +34,11 @@ directly; no new importance-weight correction is necessary.
 
 [Verification and summaries](qualification.json), [complete costs](costs.json),
 [retention/provenance](provenance.json), [review](review.json).
-Source4f3a9183; frozen baseline2474309d.
+Source `4f3a9183`; frozen baseline `2474309d`.
 
-- M1:160 library tests pass in213.08s; all native examples compile including
+- M1: 160 library tests pass in213.08s; all native examples compile including
   their test configurations. Four pilot-guard tests pass without real training.
-- M4: all16 guarded stages return0; complete81.04s including targeted tests,
+- M4: all 16 guarded stages return0; complete81.04s including targeted tests,
   source/baseline builds, fixture work and independent proofs. Nominal thermals;
   sampled family peak1,412,792,320bytes(1.316GiB), swap1MiB before/after.
 - New identity/key fixtures cover undeclared distribution/depth refusal, hidden-
@@ -49,9 +49,9 @@ Source4f3a9183; frozen baseline2474309d.
   fixture cap does not bind. Two-thread continuous training matches a saved/
   resumed one-thread continuation byte for byte, also checking observer parity.
 - Full-row float64 average/export/binary parity passes for all62,957 rows.
-  Mixture inference accepts all27 configurations and rejects an undeclared90BB
+  Mixture inference accepts all 27 configurations and rejects an undeclared90BB
   stack. Actual global native worker count is fixed at2.
-- All81 played hands cover27tuples×3buttons, with five settled multi-pot hands;
+- All 81 played hands cover27 tuples×3buttons, with five settled multi-pot hands;
   initial and repeat traces are byte-identical. Every initial AND repeated hand
   passes the pinned independent engine's state/action/settlement replay.
 - Separate old/new100k-node fixed fixtures produce byte-identical checkpoints
@@ -86,7 +86,7 @@ Of2,962 predetermined watch keys,2,953 are never reached by a traverser update;
 nine receive one nonzero root-aggregated regret contribution, none repeats.
 Across retained rows,43,444/62,957 have no traverser visit yet. This does NOT
 establish admission waste or failure: opponent averaging has a distinct role,
-the fixture runs only12 iterations, and zero final regrets can hide cancellation.
+the fixture runs only 12 iterations, and zero final regrets can hide cancellation.
 [Learning cells](learning-cells.csv) distinguish these quantities. Full raw watch
 records, including never-reached keys, remain ordinary retained evidence.
 
@@ -101,7 +101,7 @@ Coverage or nonzero updates alone cannot establish playing-strength success.
 
 [Machine-readable quote and arithmetic](pilot-quote.json): fixed endpoints5M,
 25M,100M nodes; fresh seed20261026441011;10M retained-key threshold with whole-
-iteration freeze;2 workers; one lineage; all27 configurations. Retain checkpoints,
+iteration freeze;2 workers; one lineage; all 27 configurations. Retain checkpoints,
 averages, inference binaries, update/watch diagnostics, common panels,81 played
 hands per endpoint, exact play reproduction and independent replay. No strength
 arena or extra training beyond100M.

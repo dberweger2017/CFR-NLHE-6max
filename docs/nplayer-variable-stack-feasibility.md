@@ -9,7 +9,7 @@ measured compute/storage quote before the M4 pilot; no bb128 science.
 
 Unraked three-player cash,50/100 blinds, K50 and production min/pot/conditional-
 jam menu. Each starting stack is independently uniform on{2,000,5,000,10,000}
-chips: all27 ordered20/50/100BB tuples have probability1/27. Button is independently
+chips: all 27 ordered20/50/100 BB tuples have probability1/27. Button is independently
 uniform. Stacks are public and fixed during a hand; each root is a new hand,
 not a persistent bankroll session. The target chance law equals the sampler,
 so no importance-weight change is introduced. Report actual root frequencies;
@@ -26,7 +26,7 @@ fixed-game identities, root RNG and defaults stay unchanged.
 The stack distribution is part of checkpoint/export identity and resume checks.
 Readers reject undeclared depths/distributions; mixture policies do not pretend
 to have one fixed configuration. Ordinary fixed-only consumers must fail closed.
-No old100BB model is relabeled or resumed into the mixture.
+No old100 BB model is relabeled or resumed into the mixture.
 
 ## Qualification before dependent training
 
@@ -39,7 +39,7 @@ legacy fixed-format golden/byte parity. Unsupported identities fail closed.
 
 ## Prospective science measurements
 
-On a fixed balanced panel covering all27 tuples × three buttons, retain every
+On a fixed balanced panel covering all 27 tuples × three buttons, retain every
 observation, including unsupported paths and sparse streets. Measure:
 
 - Per tuple/seat/street root and decision denominators, all-in/side-pot exposure.
@@ -57,7 +57,7 @@ observation, including unsupported paths and sparse streets. Measure:
 - Training, save, load, export, auditing, play, independent replay/reproduction,
   readout, complete wall/CPU, sampled peak RAM, thermal/swap and retained bytes.
 
-No aggregate-only success gate: retain all27 configurations and uncertainty in
+No aggregate-only success gate: retain all 27 configurations and uncertainty in
 sparse strata. Equal-depth tuples are internal strata, not independently trained
 fixed-depth controls. This first lineage cannot establish strength, transfer to
 unseen depths, convergence or an advantage over independently trained specialists.
@@ -74,7 +74,7 @@ A final retained-row audit separately reports zero traverser visits, repeated
 visits, zero final regrets and zero average mass. None alone proves useful learning.
 
 A bounded watch set is frozen from324 synthetic common-panel hands before any
-training, covering27tuples×3buttons×2continuation styles×2deals. Retain never-reached
+training, covering27 tuples×3buttons×2continuation styles×2deals. Retain never-reached
 watch keys. Nominal weight ESS=(sum iteration-weight×visits)^2/sum squared root
 weights is a concentration proxy only; adaptive policy updates prevent treating
 it as independent statistical sample size. Common panels retain physical-seat,
@@ -83,7 +83,7 @@ Played81-hand panels balance tuple/button and reproduce exactly; independent
 engine replay is a separate required proof. Their returns are not read for a
 strength claim.
 
-The qualification build runs only12 tiny iterations (fixture seed20261026441001,
+The qualification build runs only 12 tiny iterations (fixture seed20261026441001,
 100k protective entries), then thread/resume/observer byte parity, full-row
 export/binary parity and81 played fixtures/reproduction. Legacy history/live-order
 checkpoints AND averages must match a frozen baseline build byte for byte.
