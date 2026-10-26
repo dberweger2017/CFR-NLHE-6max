@@ -1,0 +1,3525 @@
+{
+  "complete": {
+    "config_sha256": "9818feeb4671e4d2d8d3eb9d29d69a4a793ee9bad8b0613a8c20e1e61bc00a37",
+    "native_readout_sha256": "38f1f894efb473d60d0b023b86fba2362231ea7908a52a165145aca79c79466c",
+    "no_extra_training": true,
+    "no_strength_claim": true,
+    "qualification_sha256": "1017519a733c3fe89fabd921f3d61179d81ecedb553af1ab53cf0d11f022e7a3",
+    "source_manifest_sha256": "5aee84ea07b879241b63d5d7a9c9d7287e8455ce82125240d719129b21088969",
+    "stages": [
+      {
+        "command": [
+          "/Users/dberweger/Local/nplayer-stack-buckets-20261026/source-v3/native/hu20-trainer/target/release/examples/nplayer_stack_buckets",
+          "pilot",
+          "/Users/dberweger/Local/nplayer-stack-buckets-20261026/main-v1/manifest.json"
+        ],
+        "phase": "native-pilot",
+        "pid": 80443,
+        "returncode": 0,
+        "sampled_peak_rss_bytes": 3026337792,
+        "system_cpu_seconds": 3.855174,
+        "user_cpu_seconds": 197.362445,
+        "wall_seconds": 132.82327945902944
+      },
+      {
+        "command": [
+          "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+          "-m",
+          "scripts.check_nplayer_policy_replay",
+          "/Users/dberweger/Local/nplayer-stack-buckets-20261026/main-v1/native/5000000/initial.jsonl"
+        ],
+        "phase": "replay-5000000-initial",
+        "pid": 81160,
+        "returncode": 0,
+        "sampled_peak_rss_bytes": 10076160,
+        "system_cpu_seconds": 0.02614800000000006,
+        "user_cpu_seconds": 0.06654199999999832,
+        "wall_seconds": 1.04792904201895
+      },
+      {
+        "command": [
+          "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+          "-m",
+          "scripts.check_nplayer_policy_replay",
+          "/Users/dberweger/Local/nplayer-stack-buckets-20261026/main-v1/native/5000000/repeat.jsonl"
+        ],
+        "phase": "replay-5000000-repeat",
+        "pid": 81168,
+        "returncode": 0,
+        "sampled_peak_rss_bytes": 11829248,
+        "system_cpu_seconds": 0.02335300000000018,
+        "user_cpu_seconds": 0.0755619999999908,
+        "wall_seconds": 1.0501582089927979
+      },
+      {
+        "command": [
+          "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+          "-m",
+          "scripts.check_nplayer_policy_replay",
+          "/Users/dberweger/Local/nplayer-stack-buckets-20261026/main-v1/native/25000000/initial.jsonl"
+        ],
+        "phase": "replay-25000000-initial",
+        "pid": 81171,
+        "returncode": 0,
+        "sampled_peak_rss_bytes": 11370496,
+        "system_cpu_seconds": 0.02142799999999978,
+        "user_cpu_seconds": 0.07336500000002388,
+        "wall_seconds": 1.045688834041357
+      },
+      {
+        "command": [
+          "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+          "-m",
+          "scripts.check_nplayer_policy_replay",
+          "/Users/dberweger/Local/nplayer-stack-buckets-20261026/main-v1/native/25000000/repeat.jsonl"
+        ],
+        "phase": "replay-25000000-repeat",
+        "pid": 81177,
+        "returncode": 0,
+        "sampled_peak_rss_bytes": 12730368,
+        "system_cpu_seconds": 0.021171000000000273,
+        "user_cpu_seconds": 0.07237100000000396,
+        "wall_seconds": 1.047081208031159
+      },
+      {
+        "command": [
+          "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+          "-m",
+          "scripts.check_nplayer_policy_replay",
+          "/Users/dberweger/Local/nplayer-stack-buckets-20261026/main-v1/native/100000000/initial.jsonl"
+        ],
+        "phase": "replay-100000000-initial",
+        "pid": 81183,
+        "returncode": 0,
+        "sampled_peak_rss_bytes": 11845632,
+        "system_cpu_seconds": 0.023089999999999833,
+        "user_cpu_seconds": 0.07588799999999196,
+        "wall_seconds": 1.0507545419968665
+      },
+      {
+        "command": [
+          "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+          "-m",
+          "scripts.check_nplayer_policy_replay",
+          "/Users/dberweger/Local/nplayer-stack-buckets-20261026/main-v1/native/100000000/repeat.jsonl"
+        ],
+        "phase": "replay-100000000-repeat",
+        "pid": 81191,
+        "returncode": 0,
+        "sampled_peak_rss_bytes": 11927552,
+        "system_cpu_seconds": 0.02435400000000021,
+        "user_cpu_seconds": 0.07897599999998306,
+        "wall_seconds": 1.051392124965787
+      }
+    ],
+    "status": "passed",
+    "wall_seconds": 141.8181980419904
+  },
+  "endpoints": [
+    {
+      "actual_nodes": 5002267,
+      "audit_seconds": 2.387401417,
+      "average_sha256": "cc067f5eb699c041a9cf9acedbb26cbdfd1a2dd6f456e18cc45df228036a91ea",
+      "binary_verification": {
+        "binary_sha256": "631e2ec495a32180747b1762a4a03b52e35ecda5ff792e522189bb74d1c11b0a",
+        "rows": 2861886,
+        "source_policy_sha256": "cc067f5eb699c041a9cf9acedbb26cbdfd1a2dd6f456e18cc45df228036a91ea",
+        "status": "passed",
+        "verify_seconds": 2.109119334
+      },
+      "buttons_cumulative": [
+        [
+          160,
+          144,
+          158
+        ],
+        [
+          175,
+          164,
+          171
+        ],
+        [
+          156,
+          151,
+          184
+        ],
+        [
+          179,
+          176,
+          160
+        ],
+        [
+          169,
+          151,
+          172
+        ],
+        [
+          145,
+          167,
+          164
+        ],
+        [
+          154,
+          150,
+          170
+        ],
+        [
+          161,
+          158,
+          161
+        ],
+        [
+          171,
+          141,
+          168
+        ],
+        [
+          190,
+          160,
+          148
+        ],
+        [
+          154,
+          171,
+          183
+        ],
+        [
+          158,
+          162,
+          169
+        ],
+        [
+          159,
+          159,
+          157
+        ],
+        [
+          145,
+          173,
+          150
+        ],
+        [
+          164,
+          153,
+          171
+        ],
+        [
+          178,
+          174,
+          162
+        ],
+        [
+          183,
+          158,
+          169
+        ],
+        [
+          167,
+          168,
+          140
+        ],
+        [
+          183,
+          159,
+          179
+        ],
+        [
+          169,
+          157,
+          170
+        ],
+        [
+          168,
+          156,
+          155
+        ],
+        [
+          163,
+          170,
+          144
+        ],
+        [
+          173,
+          156,
+          142
+        ],
+        [
+          180,
+          169,
+          162
+        ],
+        [
+          161,
+          158,
+          179
+        ],
+        [
+          172,
+          138,
+          167
+        ],
+        [
+          162,
+          157,
+          170
+        ]
+      ],
+      "checkpoint_sha256": "d274a8f383ba1d15ef41d2b4c106638a74d3861b886847dd8cbc280e9d88cb0a",
+      "conversion_seconds": 2.6266965,
+      "counts": {
+        "decisions": [
+          325007,
+          521000,
+          815697,
+          1318596
+        ],
+        "discarded_keys": 0,
+        "discarded_visits": 0,
+        "missing": [
+          280799,
+          493898,
+          803343,
+          1312643
+        ],
+        "nodes": 5002267,
+        "terminals": 2021967,
+        "traverser": [
+          304406,
+          316312,
+          306138,
+          0,
+          0,
+          0
+        ]
+      },
+      "entries": 2861886,
+      "export_seconds": 2.238884292,
+      "frozen_at": null,
+      "independent_replays": "all initial/repeat passed; trace SHA identical",
+      "initial_repeat": {
+        "columns": [
+          "missing",
+          "zero_average_mass",
+          "positive_average_mass"
+        ],
+        "hands": 81,
+        "lookup_cells": [
+          [
+            [
+              3,
+              1,
+              6
+            ],
+            [
+              9,
+              1,
+              2
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              3,
+              1,
+              7
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              9,
+              0,
+              8
+            ],
+            [
+              2,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              4,
+              2,
+              7
+            ],
+            [
+              2,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              12,
+              0,
+              3
+            ],
+            [
+              6,
+              0,
+              1
+            ],
+            [
+              5,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              4,
+              1,
+              7
+            ],
+            [
+              0,
+              0,
+              2
+            ],
+            [
+              2,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              10,
+              0,
+              8
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              6,
+              1,
+              6
+            ],
+            [
+              2,
+              0,
+              0
+            ],
+            [
+              2,
+              0,
+              0
+            ],
+            [
+              2,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              3,
+              2,
+              4
+            ],
+            [
+              2,
+              0,
+              2
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              9,
+              0,
+              7
+            ],
+            [
+              4,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              17,
+              0,
+              7
+            ],
+            [
+              3,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              7,
+              0,
+              8
+            ],
+            [
+              2,
+              0,
+              2
+            ],
+            [
+              11,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              1,
+              0,
+              8
+            ],
+            [
+              1,
+              0,
+              3
+            ],
+            [
+              4,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              5,
+              0,
+              8
+            ],
+            [
+              3,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              5,
+              0,
+              7
+            ],
+            [
+              3,
+              0,
+              2
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              7,
+              2,
+              7
+            ],
+            [
+              3,
+              0,
+              0
+            ],
+            [
+              4,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              5,
+              1,
+              8
+            ],
+            [
+              9,
+              2,
+              0
+            ],
+            [
+              2,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              2,
+              0,
+              5
+            ],
+            [
+              5,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              3,
+              0,
+              10
+            ],
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              3,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              11,
+              2,
+              6
+            ],
+            [
+              3,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              14,
+              0,
+              4
+            ],
+            [
+              2,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              7,
+              0,
+              8
+            ],
+            [
+              2,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              10,
+              0,
+              8
+            ],
+            [
+              5,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              13,
+              1,
+              6
+            ],
+            [
+              2,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              9,
+              2,
+              7
+            ],
+            [
+              11,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              8,
+              1,
+              6
+            ],
+            [
+              6,
+              0,
+              1
+            ],
+            [
+              2,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              9,
+              0,
+              8
+            ],
+            [
+              11,
+              0,
+              1
+            ],
+            [
+              2,
+              0,
+              0
+            ],
+            [
+              5,
+              0,
+              0
+            ]
+          ]
+        ],
+        "sha256": "04a5e2d51f4222ae258d0b1c25c63c61e4c24d9e496a4cf573a6c7de5edded77",
+        "side_pot_hands": 2
+      },
+      "learning_totals": {
+        "declined_at_frozen_table": 0,
+        "nonzero_regret_root_aggregates": 915432,
+        "opponent_only_root_aggregates": 2032058,
+        "retained_nonzero_regret_root_aggregates": 915432,
+        "root_key_contributions": 2950697,
+        "traverser_visits": 926856,
+        "unseen_before_merge": 2862014,
+        "zero_regret_root_aggregates_with_visits": 3207
+      },
+      "load_seconds": 0.590490167,
+      "no_strength_claim": true,
+      "play_repeat_panels_readout_seconds": 0.409538959,
+      "played_support_totals": [
+        339,
+        20,
+        204
+      ],
+      "reference_retained_row_totals": [
+        2876747,
+        1964147,
+        12979,
+        1967316,
+        891506
+      ],
+      "reference_street_support": {
+        "heldout": [
+          [
+            492,
+            80,
+            684,
+            1256
+          ],
+          [
+            528,
+            47,
+            179,
+            754
+          ],
+          [
+            543,
+            8,
+            14,
+            565
+          ],
+          [
+            515,
+            0,
+            1,
+            516
+          ]
+        ],
+        "original": [
+          [
+            513,
+            56,
+            681,
+            1250
+          ],
+          [
+            536,
+            39,
+            172,
+            747
+          ],
+          [
+            536,
+            12,
+            19,
+            567
+          ],
+          [
+            508,
+            1,
+            1,
+            510
+          ]
+        ],
+        "union": [
+          [
+            1005,
+            136,
+            1365,
+            2506
+          ],
+          [
+            1064,
+            86,
+            351,
+            1501
+          ],
+          [
+            1079,
+            20,
+            33,
+            1132
+          ],
+          [
+            1023,
+            1,
+            2,
+            1026
+          ]
+        ]
+      },
+      "reference_support": {
+        "heldout": [
+          2078,
+          135,
+          878,
+          3091
+        ],
+        "original": [
+          2093,
+          108,
+          873,
+          3074
+        ],
+        "union": [
+          4171,
+          243,
+          1751,
+          6165
+        ]
+      },
+      "reference_watch_summary": {
+        "any_nonzero_root_regret": 394,
+        "keys": 2962,
+        "never_reached": 2568,
+        "nominal_ess_quantiles_reached": [
+          1.0,
+          1.0,
+          1.0,
+          1.3948213405050223,
+          5.5255528149205935
+        ],
+        "reached": 394,
+        "repeated": 121
+      },
+      "retained_row_totals": [
+        2861886,
+        1952876,
+        16260,
+        1956040,
+        886231
+      ],
+      "retained_rows": {
+        "by_street": [
+          [
+            279277,
+            210669,
+            2814,
+            210672,
+            58427
+          ],
+          [
+            490054,
+            349469,
+            3749,
+            349482,
+            132424
+          ],
+          [
+            795352,
+            538450,
+            4133,
+            538560,
+            253709
+          ],
+          [
+            1297203,
+            854288,
+            5564,
+            857326,
+            441671
+          ]
+        ],
+        "columns": [
+          "retained_rows",
+          "no_traverser_visit",
+          "two_or_more_traverser_visits",
+          "all_zero_final_regrets",
+          "zero_average_mass"
+        ],
+        "limits": "Final-row audit; cancellation can zero regrets. Visits are update opportunities, not proof of nonzero learning. Pathwise zero target reach/underflow is not implemented."
+      },
+      "root_range": [
+        462,
+        521
+      ],
+      "roots_cumulative": [
+        462,
+        510,
+        491,
+        515,
+        492,
+        476,
+        474,
+        480,
+        480,
+        498,
+        508,
+        489,
+        475,
+        468,
+        488,
+        514,
+        510,
+        475,
+        521,
+        496,
+        479,
+        477,
+        471,
+        511,
+        498,
+        477,
+        489
+      ],
+      "save_seconds": 3.390783209,
+      "street_support": {
+        "heldout": [
+          [
+            489,
+            81,
+            686,
+            1256
+          ],
+          [
+            520,
+            49,
+            185,
+            754
+          ],
+          [
+            544,
+            8,
+            13,
+            565
+          ],
+          [
+            515,
+            0,
+            1,
+            516
+          ]
+        ],
+        "original": [
+          [
+            512,
+            58,
+            680,
+            1250
+          ],
+          [
+            527,
+            40,
+            180,
+            747
+          ],
+          [
+            537,
+            12,
+            18,
+            567
+          ],
+          [
+            507,
+            1,
+            2,
+            510
+          ]
+        ],
+        "union": [
+          [
+            1001,
+            139,
+            1366,
+            2506
+          ],
+          [
+            1047,
+            89,
+            365,
+            1501
+          ],
+          [
+            1081,
+            20,
+            31,
+            1132
+          ],
+          [
+            1022,
+            1,
+            3,
+            1026
+          ]
+        ]
+      },
+      "support": {
+        "heldout": [
+          2068,
+          138,
+          885,
+          3091
+        ],
+        "original": [
+          2083,
+          111,
+          880,
+          3074
+        ],
+        "union": [
+          4151,
+          249,
+          1765,
+          6165
+        ]
+      },
+      "target_nodes": 5000000,
+      "training_seconds": 1.512120208,
+      "watch_summary": {
+        "attempted_nonzero": 399,
+        "attempted_reached": 399,
+        "attempted_repeated": 123,
+        "declined_keys": 0,
+        "keys": 2962,
+        "never_reached": 2563,
+        "nominal_ess_median_reached": 1.0,
+        "retained_nonzero": 399,
+        "retained_reached": 399,
+        "retained_repeated": 123
+      }
+    },
+    {
+      "actual_nodes": 25002991,
+      "audit_seconds": 8.668274792,
+      "average_sha256": "cf85a39702aacec34af97a18d739475e0453d63c9869553e5224f140bde84fd3",
+      "binary_verification": {
+        "binary_sha256": "460d50aae5803feadaed0b7e0199aa15f16a28193b4827d56fa6d8a034a5b926",
+        "rows": 10000186,
+        "source_policy_sha256": "cf85a39702aacec34af97a18d739475e0453d63c9869553e5224f140bde84fd3",
+        "status": "passed",
+        "verify_seconds": 7.651787292
+      },
+      "buttons_cumulative": [
+        [
+          801,
+          793,
+          813
+        ],
+        [
+          819,
+          860,
+          853
+        ],
+        [
+          890,
+          763,
+          815
+        ],
+        [
+          852,
+          819,
+          827
+        ],
+        [
+          843,
+          815,
+          819
+        ],
+        [
+          808,
+          789,
+          826
+        ],
+        [
+          873,
+          869,
+          828
+        ],
+        [
+          823,
+          780,
+          775
+        ],
+        [
+          820,
+          797,
+          876
+        ],
+        [
+          819,
+          846,
+          812
+        ],
+        [
+          837,
+          825,
+          823
+        ],
+        [
+          793,
+          870,
+          860
+        ],
+        [
+          806,
+          848,
+          786
+        ],
+        [
+          822,
+          834,
+          792
+        ],
+        [
+          809,
+          840,
+          820
+        ],
+        [
+          854,
+          782,
+          810
+        ],
+        [
+          824,
+          823,
+          815
+        ],
+        [
+          805,
+          843,
+          860
+        ],
+        [
+          865,
+          828,
+          804
+        ],
+        [
+          846,
+          791,
+          808
+        ],
+        [
+          819,
+          833,
+          815
+        ],
+        [
+          812,
+          809,
+          798
+        ],
+        [
+          830,
+          820,
+          801
+        ],
+        [
+          855,
+          852,
+          847
+        ],
+        [
+          818,
+          846,
+          834
+        ],
+        [
+          842,
+          772,
+          822
+        ],
+        [
+          864,
+          825,
+          832
+        ]
+      ],
+      "checkpoint_sha256": "3c01b5473f9c142551633f461252b0164a448db957ee4b984e1515d69a897045",
+      "conversion_seconds": 8.902638833,
+      "counts": {
+        "decisions": [
+          1622031,
+          2579441,
+          4062260,
+          6599499
+        ],
+        "discarded_keys": 3303580,
+        "discarded_visits": 1076162,
+        "missing": [
+          1088230,
+          2101949,
+          3794882,
+          6453039
+        ],
+        "nodes": 25002991,
+        "terminals": 10139760,
+        "traverser": [
+          1540626,
+          1568105,
+          1544608,
+          0,
+          0,
+          0
+        ]
+      },
+      "entries": 10000186,
+      "export_seconds": 8.488998958,
+      "frozen_at": 2051,
+      "independent_replays": "all initial/repeat passed; trace SHA identical",
+      "initial_repeat": {
+        "columns": [
+          "missing",
+          "zero_average_mass",
+          "positive_average_mass"
+        ],
+        "hands": 81,
+        "lookup_cells": [
+          [
+            [
+              1,
+              1,
+              9
+            ],
+            [
+              1,
+              0,
+              5
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              4,
+              0,
+              8
+            ],
+            [
+              2,
+              0,
+              2
+            ],
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              4,
+              0,
+              10
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              1,
+              1,
+              11
+            ],
+            [
+              0,
+              0,
+              3
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              7,
+              0,
+              11
+            ],
+            [
+              2,
+              0,
+              2
+            ],
+            [
+              0,
+              0,
+              2
+            ],
+            [
+              3,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              1,
+              0,
+              11
+            ],
+            [
+              1,
+              1,
+              2
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              3,
+              0,
+              10
+            ],
+            [
+              2,
+              0,
+              3
+            ],
+            [
+              3,
+              0,
+              0
+            ],
+            [
+              2,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              6,
+              0,
+              13
+            ],
+            [
+              2,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              4,
+              1,
+              9
+            ],
+            [
+              0,
+              0,
+              3
+            ],
+            [
+              3,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              0,
+              0,
+              9
+            ],
+            [
+              1,
+              1,
+              2
+            ],
+            [
+              2,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              13,
+              0,
+              9
+            ],
+            [
+              0,
+              0,
+              2
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              2,
+              0,
+              11
+            ],
+            [
+              1,
+              2,
+              2
+            ],
+            [
+              6,
+              2,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              3,
+              0,
+              11
+            ],
+            [
+              2,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              2,
+              0,
+              12
+            ],
+            [
+              9,
+              0,
+              3
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              0,
+              1,
+              12
+            ],
+            [
+              7,
+              0,
+              2
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              4,
+              0,
+              10
+            ],
+            [
+              3,
+              0,
+              2
+            ],
+            [
+              2,
+              0,
+              2
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              4,
+              1,
+              9
+            ],
+            [
+              9,
+              2,
+              2
+            ],
+            [
+              3,
+              0,
+              0
+            ],
+            [
+              2,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              0,
+              0,
+              9
+            ],
+            [
+              2,
+              0,
+              3
+            ],
+            [
+              7,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              6,
+              0,
+              8
+            ],
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              2
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              5,
+              2,
+              10
+            ],
+            [
+              3,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              6,
+              1,
+              9
+            ],
+            [
+              4,
+              0,
+              2
+            ],
+            [
+              3,
+              0,
+              2
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              2,
+              0,
+              12
+            ],
+            [
+              3,
+              0,
+              1
+            ],
+            [
+              2,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              4,
+              0,
+              9
+            ],
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              8,
+              0,
+              10
+            ],
+            [
+              0,
+              0,
+              2
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              1,
+              0,
+              11
+            ],
+            [
+              11,
+              0,
+              6
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              3,
+              1,
+              10
+            ],
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              1,
+              0,
+              10
+            ],
+            [
+              8,
+              1,
+              2
+            ],
+            [
+              4,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ]
+        ],
+        "sha256": "f4284089f5fe259cafbb826c56da0949bb0a3b1872866d736a4e047949bae36e",
+        "side_pot_hands": 4
+      },
+      "learning_totals": {
+        "declined_at_frozen_table": 3303667,
+        "nonzero_regret_root_aggregates": 4594298,
+        "opponent_only_root_aggregates": 10099800,
+        "retained_nonzero_regret_root_aggregates": 3531489,
+        "root_key_contributions": 14710448,
+        "traverser_visits": 4653339,
+        "unseen_before_merge": 13304196,
+        "zero_regret_root_aggregates_with_visits": 16350
+      },
+      "load_seconds": 2.174170541,
+      "no_strength_claim": true,
+      "play_repeat_panels_readout_seconds": 0.683728125,
+      "played_support_totals": [
+        215,
+        18,
+        337
+      ],
+      "reference_retained_row_totals": [
+        10003912,
+        6669711,
+        165398,
+        6681077,
+        3053802
+      ],
+      "reference_street_support": {
+        "heldout": [
+          [
+            224,
+            23,
+            1009,
+            1256
+          ],
+          [
+            292,
+            35,
+            427,
+            754
+          ],
+          [
+            483,
+            22,
+            60,
+            565
+          ],
+          [
+            509,
+            1,
+            6,
+            516
+          ]
+        ],
+        "original": [
+          [
+            234,
+            29,
+            987,
+            1250
+          ],
+          [
+            304,
+            34,
+            409,
+            747
+          ],
+          [
+            462,
+            33,
+            72,
+            567
+          ],
+          [
+            503,
+            2,
+            5,
+            510
+          ]
+        ],
+        "union": [
+          [
+            458,
+            52,
+            1996,
+            2506
+          ],
+          [
+            596,
+            69,
+            836,
+            1501
+          ],
+          [
+            945,
+            55,
+            132,
+            1132
+          ],
+          [
+            1012,
+            3,
+            11,
+            1026
+          ]
+        ]
+      },
+      "reference_support": {
+        "heldout": [
+          1508,
+          81,
+          1502,
+          3091
+        ],
+        "original": [
+          1503,
+          98,
+          1473,
+          3074
+        ],
+        "union": [
+          3011,
+          179,
+          2975,
+          6165
+        ]
+      },
+      "reference_watch_summary": {
+        "any_nonzero_root_regret": 905,
+        "keys": 2962,
+        "never_reached": 2057,
+        "nominal_ess_quantiles_reached": [
+          1.0,
+          1.0,
+          1.6196621232561483,
+          3.1507066634563077,
+          11.653149018308723
+        ],
+        "reached": 905,
+        "repeated": 522
+      },
+      "retained_row_totals": [
+        10000186,
+        6655757,
+        183100,
+        6667188,
+        3051063
+      ],
+      "retained_rows": {
+        "by_street": [
+          [
+            845488,
+            592144,
+            31792,
+            592171,
+            166068
+          ],
+          [
+            1606362,
+            1088312,
+            54617,
+            1088381,
+            401647
+          ],
+          [
+            2819723,
+            1876546,
+            51222,
+            1876941,
+            880183
+          ],
+          [
+            4728613,
+            3098755,
+            45469,
+            3109695,
+            1603165
+          ]
+        ],
+        "columns": [
+          "retained_rows",
+          "no_traverser_visit",
+          "two_or_more_traverser_visits",
+          "all_zero_final_regrets",
+          "zero_average_mass"
+        ],
+        "limits": "Final-row audit; cancellation can zero regrets. Visits are update opportunities, not proof of nonzero learning. Pathwise zero target reach/underflow is not implemented."
+      },
+      "root_range": [
+        2378,
+        2570
+      ],
+      "roots_cumulative": [
+        2407,
+        2532,
+        2468,
+        2498,
+        2477,
+        2423,
+        2570,
+        2378,
+        2493,
+        2477,
+        2485,
+        2523,
+        2440,
+        2448,
+        2469,
+        2446,
+        2462,
+        2508,
+        2497,
+        2445,
+        2467,
+        2419,
+        2451,
+        2554,
+        2498,
+        2436,
+        2521
+      ],
+      "save_seconds": 12.905593207999999,
+      "street_support": {
+        "heldout": [
+          [
+            213,
+            28,
+            1015,
+            1256
+          ],
+          [
+            279,
+            38,
+            437,
+            754
+          ],
+          [
+            481,
+            23,
+            61,
+            565
+          ],
+          [
+            510,
+            2,
+            4,
+            516
+          ]
+        ],
+        "original": [
+          [
+            232,
+            29,
+            989,
+            1250
+          ],
+          [
+            299,
+            32,
+            416,
+            747
+          ],
+          [
+            468,
+            28,
+            71,
+            567
+          ],
+          [
+            503,
+            2,
+            5,
+            510
+          ]
+        ],
+        "union": [
+          [
+            445,
+            57,
+            2004,
+            2506
+          ],
+          [
+            578,
+            70,
+            853,
+            1501
+          ],
+          [
+            949,
+            51,
+            132,
+            1132
+          ],
+          [
+            1013,
+            4,
+            9,
+            1026
+          ]
+        ]
+      },
+      "support": {
+        "heldout": [
+          1483,
+          91,
+          1517,
+          3091
+        ],
+        "original": [
+          1502,
+          91,
+          1481,
+          3074
+        ],
+        "union": [
+          2985,
+          182,
+          2998,
+          6165
+        ]
+      },
+      "target_nodes": 25000000,
+      "training_seconds": 6.398523834,
+      "watch_summary": {
+        "attempted_nonzero": 904,
+        "attempted_reached": 904,
+        "attempted_repeated": 523,
+        "declined_keys": 33,
+        "keys": 2962,
+        "never_reached": 2058,
+        "nominal_ess_median_reached": 1.6097563857891024,
+        "retained_nonzero": 871,
+        "retained_reached": 871,
+        "retained_repeated": 523
+      }
+    },
+    {
+      "actual_nodes": 100005809,
+      "audit_seconds": 8.794936667,
+      "average_sha256": "74486d0d44d78eba2c7e256fbaa70e94ad9c060f790625d6e712970c23f2d903",
+      "binary_verification": {
+        "binary_sha256": "1d02a20074528cc0853edb06744c15abd5bf40c0298eaf57bf047750e3c63069",
+        "rows": 10000186,
+        "source_policy_sha256": "74486d0d44d78eba2c7e256fbaa70e94ad9c060f790625d6e712970c23f2d903",
+        "status": "passed",
+        "verify_seconds": 7.771541708
+      },
+      "buttons_cumulative": [
+        [
+          3276,
+          3259,
+          3359
+        ],
+        [
+          3269,
+          3384,
+          3446
+        ],
+        [
+          3477,
+          3303,
+          3428
+        ],
+        [
+          3473,
+          3398,
+          3427
+        ],
+        [
+          3333,
+          3296,
+          3394
+        ],
+        [
+          3406,
+          3305,
+          3285
+        ],
+        [
+          3390,
+          3313,
+          3296
+        ],
+        [
+          3386,
+          3293,
+          3262
+        ],
+        [
+          3427,
+          3342,
+          3346
+        ],
+        [
+          3394,
+          3284,
+          3308
+        ],
+        [
+          3420,
+          3274,
+          3348
+        ],
+        [
+          3336,
+          3340,
+          3396
+        ],
+        [
+          3370,
+          3392,
+          3289
+        ],
+        [
+          3332,
+          3262,
+          3386
+        ],
+        [
+          3356,
+          3375,
+          3374
+        ],
+        [
+          3428,
+          3285,
+          3296
+        ],
+        [
+          3322,
+          3331,
+          3316
+        ],
+        [
+          3281,
+          3424,
+          3448
+        ],
+        [
+          3454,
+          3314,
+          3269
+        ],
+        [
+          3380,
+          3251,
+          3317
+        ],
+        [
+          3302,
+          3352,
+          3341
+        ],
+        [
+          3287,
+          3329,
+          3306
+        ],
+        [
+          3373,
+          3297,
+          3290
+        ],
+        [
+          3516,
+          3394,
+          3322
+        ],
+        [
+          3348,
+          3436,
+          3395
+        ],
+        [
+          3372,
+          3246,
+          3319
+        ],
+        [
+          3351,
+          3293,
+          3406
+        ]
+      ],
+      "checkpoint_sha256": "ffbfeaec96f65ce2baa448c4d92d14e797f70ca6f0dcd8cb2eaacdf2a3115a21",
+      "conversion_seconds": 9.012143292,
+      "counts": {
+        "decisions": [
+          6502622,
+          10281539,
+          16158167,
+          26376046
+        ],
+        "discarded_keys": 41214556,
+        "discarded_visits": 13445646,
+        "missing": [
+          3882534,
+          7685173,
+          14636090,
+          25527706
+        ],
+        "nodes": 100005809,
+        "terminals": 40687435,
+        "traverser": [
+          6220678,
+          6242397,
+          6229578,
+          0,
+          0,
+          0
+        ]
+      },
+      "entries": 10000186,
+      "export_seconds": 9.022787125,
+      "frozen_at": 2051,
+      "independent_replays": "all initial/repeat passed; trace SHA identical",
+      "initial_repeat": {
+        "columns": [
+          "missing",
+          "zero_average_mass",
+          "positive_average_mass"
+        ],
+        "hands": 81,
+        "lookup_cells": [
+          [
+            [
+              5,
+              0,
+              7
+            ],
+            [
+              5,
+              0,
+              6
+            ],
+            [
+              2,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              3,
+              0,
+              10
+            ],
+            [
+              3,
+              0,
+              1
+            ],
+            [
+              4,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              5,
+              0,
+              11
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              2,
+              0,
+              12
+            ],
+            [
+              0,
+              0,
+              3
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              3,
+              0,
+              11
+            ],
+            [
+              1,
+              0,
+              2
+            ],
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              2,
+              0,
+              2
+            ]
+          ],
+          [
+            [
+              3,
+              0,
+              7
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              6,
+              0,
+              10
+            ],
+            [
+              3,
+              0,
+              2
+            ],
+            [
+              3,
+              0,
+              0
+            ],
+            [
+              2,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              1,
+              0,
+              8
+            ],
+            [
+              0,
+              0,
+              2
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              0,
+              0,
+              9
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              5,
+              0,
+              12
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              12,
+              0,
+              9
+            ],
+            [
+              0,
+              0,
+              2
+            ],
+            [
+              4,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              2,
+              0,
+              12
+            ],
+            [
+              2,
+              2,
+              3
+            ],
+            [
+              6,
+              2,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              2,
+              0,
+              9
+            ],
+            [
+              1,
+              0,
+              2
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              2,
+              0,
+              10
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              2,
+              0,
+              14
+            ],
+            [
+              4,
+              0,
+              3
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              3,
+              0,
+              11
+            ],
+            [
+              3,
+              0,
+              4
+            ],
+            [
+              3,
+              2,
+              2
+            ],
+            [
+              3,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              5,
+              0,
+              10
+            ],
+            [
+              2,
+              1,
+              5
+            ],
+            [
+              2,
+              0,
+              0
+            ],
+            [
+              2,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              1,
+              0,
+              11
+            ],
+            [
+              0,
+              0,
+              6
+            ],
+            [
+              7,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              5,
+              0,
+              9
+            ],
+            [
+              1,
+              0,
+              2
+            ],
+            [
+              4,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              8,
+              0,
+              11
+            ],
+            [
+              2,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              7,
+              1,
+              10
+            ],
+            [
+              4,
+              0,
+              2
+            ],
+            [
+              3,
+              0,
+              2
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              4,
+              0,
+              11
+            ],
+            [
+              3,
+              0,
+              2
+            ],
+            [
+              2,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              4,
+              0,
+              10
+            ],
+            [
+              2,
+              0,
+              4
+            ],
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              3,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              5,
+              1,
+              13
+            ],
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              5,
+              0,
+              12
+            ],
+            [
+              11,
+              0,
+              1
+            ],
+            [
+              3,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              4,
+              0,
+              10
+            ],
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              2,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              1,
+              0,
+              12
+            ],
+            [
+              7,
+              0,
+              2
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ]
+        ],
+        "sha256": "1c62d7d68a6945ac65c6adeb9e4dccbefc328ee80c2ed3610525b1e7df92ff8f",
+        "side_pot_hands": 4
+      },
+      "learning_totals": {
+        "declined_at_frozen_table": 41215696,
+        "nonzero_regret_root_aggregates": 18450677,
+        "opponent_only_root_aggregates": 40178874,
+        "retained_nonzero_regret_root_aggregates": 5172650,
+        "root_key_contributions": 58695324,
+        "traverser_visits": 18692653,
+        "unseen_before_merge": 51216225,
+        "zero_regret_root_aggregates_with_visits": 65773
+      },
+      "load_seconds": 2.189852125,
+      "no_strength_claim": true,
+      "play_repeat_panels_readout_seconds": 0.702429084,
+      "played_support_totals": [
+        221,
+        9,
+        354
+      ],
+      "reference_retained_row_totals": [
+        10003912,
+        6188917,
+        706785,
+        6199766,
+        2769450
+      ],
+      "reference_street_support": {
+        "heldout": [
+          [
+            224,
+            11,
+            1021,
+            1256
+          ],
+          [
+            292,
+            9,
+            453,
+            754
+          ],
+          [
+            483,
+            13,
+            69,
+            565
+          ],
+          [
+            509,
+            1,
+            6,
+            516
+          ]
+        ],
+        "original": [
+          [
+            234,
+            10,
+            1006,
+            1250
+          ],
+          [
+            304,
+            7,
+            436,
+            747
+          ],
+          [
+            462,
+            11,
+            94,
+            567
+          ],
+          [
+            503,
+            2,
+            5,
+            510
+          ]
+        ],
+        "union": [
+          [
+            458,
+            21,
+            2027,
+            2506
+          ],
+          [
+            596,
+            16,
+            889,
+            1501
+          ],
+          [
+            945,
+            24,
+            163,
+            1132
+          ],
+          [
+            1012,
+            3,
+            11,
+            1026
+          ]
+        ]
+      },
+      "reference_support": {
+        "heldout": [
+          1508,
+          34,
+          1549,
+          3091
+        ],
+        "original": [
+          1503,
+          30,
+          1541,
+          3074
+        ],
+        "union": [
+          3011,
+          64,
+          3090,
+          6165
+        ]
+      },
+      "reference_watch_summary": {
+        "any_nonzero_root_regret": 1486,
+        "keys": 2962,
+        "never_reached": 1476,
+        "nominal_ess_quantiles_reached": [
+          1.0,
+          1.0,
+          2.4338820679606785,
+          6.256796823932916,
+          36.70432423334975
+        ],
+        "reached": 1486,
+        "repeated": 1027
+      },
+      "retained_row_totals": [
+        10000186,
+        6172377,
+        748272,
+        6183199,
+        2768362
+      ],
+      "retained_rows": {
+        "by_street": [
+          [
+            845488,
+            467948,
+            140555,
+            467977,
+            118281
+          ],
+          [
+            1606362,
+            911697,
+            231984,
+            911765,
+            306975
+          ],
+          [
+            2819723,
+            1753865,
+            208692,
+            1754248,
+            790364
+          ],
+          [
+            4728613,
+            3038867,
+            167041,
+            3049209,
+            1552742
+          ]
+        ],
+        "columns": [
+          "retained_rows",
+          "no_traverser_visit",
+          "two_or_more_traverser_visits",
+          "all_zero_final_regrets",
+          "zero_average_mass"
+        ],
+        "limits": "Final-row audit; cancellation can zero regrets. Visits are update opportunities, not proof of nonzero learning. Pathwise zero target reach/underflow is not implemented."
+      },
+      "root_range": [
+        9894,
+        10298
+      ],
+      "roots_cumulative": [
+        9894,
+        10099,
+        10208,
+        10298,
+        10023,
+        9996,
+        9999,
+        9941,
+        10115,
+        9986,
+        10042,
+        10072,
+        10051,
+        9980,
+        10105,
+        10009,
+        9969,
+        10153,
+        10037,
+        9948,
+        9995,
+        9922,
+        9960,
+        10232,
+        10179,
+        9937,
+        10050
+      ],
+      "save_seconds": 13.828511459,
+      "street_support": {
+        "heldout": [
+          [
+            213,
+            11,
+            1032,
+            1256
+          ],
+          [
+            279,
+            5,
+            470,
+            754
+          ],
+          [
+            481,
+            12,
+            72,
+            565
+          ],
+          [
+            510,
+            2,
+            4,
+            516
+          ]
+        ],
+        "original": [
+          [
+            232,
+            12,
+            1006,
+            1250
+          ],
+          [
+            299,
+            4,
+            444,
+            747
+          ],
+          [
+            468,
+            13,
+            86,
+            567
+          ],
+          [
+            503,
+            2,
+            5,
+            510
+          ]
+        ],
+        "union": [
+          [
+            445,
+            23,
+            2038,
+            2506
+          ],
+          [
+            578,
+            9,
+            914,
+            1501
+          ],
+          [
+            949,
+            25,
+            158,
+            1132
+          ],
+          [
+            1013,
+            4,
+            9,
+            1026
+          ]
+        ]
+      },
+      "support": {
+        "heldout": [
+          1483,
+          30,
+          1578,
+          3091
+        ],
+        "original": [
+          1502,
+          31,
+          1541,
+          3074
+        ],
+        "union": [
+          2985,
+          61,
+          3119,
+          6165
+        ]
+      },
+      "target_nodes": 100000000,
+      "training_seconds": 24.566167959,
+      "watch_summary": {
+        "attempted_nonzero": 1507,
+        "attempted_reached": 1507,
+        "attempted_repeated": 1071,
+        "declined_keys": 276,
+        "keys": 2962,
+        "never_reached": 1455,
+        "nominal_ess_median_reached": 2.4318886438575396,
+        "retained_nonzero": 1231,
+        "retained_reached": 1231,
+        "retained_repeated": 990
+      }
+    }
+  ],
+  "freeze_observation_bracket": {
+    "first_observed_frozen": {
+      "elapsed_seconds": 4.479488792,
+      "entries": 10000186,
+      "frozen_at": 2051,
+      "nodes": 18894598,
+      "target_nodes": 25000000
+    },
+    "last_observed_before_freeze": {
+      "elapsed_seconds": 4.196816167,
+      "entries": 9763555,
+      "frozen_at": null,
+      "nodes": 18007135,
+      "target_nodes": 25000000
+    }
+  },
+  "limits": [
+    "Fixed synthetic panels, not population coverage or strength.",
+    "Keys also add original aggressor context; not pure numerical coarsening.",
+    "One adaptive lineage; different keys change visitation.",
+    "Weight ESS is concentration proxy, not independent sample size.",
+    "Declined updates are attempted root-key aggregates, not retained learning.",
+    "Cap censoring is not natural saturation."
+  ],
+  "max_entries": 10000000,
+  "no_extra_training": true,
+  "no_strength_claim": true,
+  "qualified_source": "8425ecbd36b40cb51b26d3ba771fccc8aefba587",
+  "seed": 20261026441011,
+  "status": "complete",
+  "support_columns": [
+    "missing",
+    "zero_average_mass",
+    "positive_average_mass",
+    "observations"
+  ],
+  "targets": [
+    5000000,
+    25000000,
+    100000000
+  ],
+  "threads": 2
+}

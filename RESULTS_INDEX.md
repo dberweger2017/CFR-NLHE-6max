@@ -1,3 +1,26 @@
+## PR444 — bucketed variable-stack key qualification and fixed M4 pilot
+
+[Protocol](docs/nplayer-stack-buckets.md),
+[complete report](docs/reports/nplayer-stack-buckets/results.md),
+[agent handoff](docs/reports/nplayer-stack-buckets/AGENT_HANDOFF.md),
+[all support cells](docs/reports/nplayer-stack-buckets/panel-cells.csv),
+[learning](docs/reports/nplayer-stack-buckets/learning-cells.csv),
+[costs](docs/reports/nplayer-stack-buckets/costs.json),
+[source/model/trace pins](docs/reports/nplayer-stack-buckets/provenance.json).
+Source8425ecbd, one same-seed 5M/25M/100M candidate, two workers, 10M threshold.
+All seven main stages pass, all rows audit, 243 initial +243 repeated hands
+independently replay with identical traces. 141.82s main wall, 2.82 GiB sampled
+peak; original positive support unchanged and held-out +29/3,091 at 100M. No
+observed fixed-panel reference-key merges; adverse cells and sparse rivers remain.
+No strength/adoption/automatic continuation. M4 ordinary tree
+`/Users/dberweger/Local/nplayer-stack-buckets-20261026` retains source-v1 unused
+preparation, source-v2/qualification-v1 compile failure before training,
+source-v3/qualification-v2 passed proofs, main-v1 complete and published-readout-v1
+raw inputs/helpers/reports. Reference PR441 inputs unchanged; research locks free.
+No bb128 transfer, archive ZIP or Drive acceptance: cleaner archival pending,
+originals/models/traces/watch records retained; restoration currently uses these
+retained M4 paths and indexed SHA256s, no claimed cloud fallback yet.
+
 ## PR344 integration closeout — compact history encodings remain opt-in
 
 [Integration/review report](docs/reports/nplayer-compact-keys/integration-20261026.md),
