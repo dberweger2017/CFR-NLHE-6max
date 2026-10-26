@@ -142,7 +142,7 @@ fn run(c: &Value) -> Result<(), String> {
     let table_tick = Instant::now();
     let tables = EquityTables::load(Path::new(c["tables"].as_str().ok_or("tables")?), false)?;
     emit(json!({"event":"tables-loaded","seconds":table_tick.elapsed().as_secs_f64()}));
-    let game = CashGame { config, tables };
+    let game = CashGame { config, tables, schema: Default::default() };
     let mut clock = Clock::new(0., clock_target)?;
     let mut t = if mode == "nodes" {
         if !c["input"].is_null() || !c["input_sha256"].is_null() || !c["input_clock"].is_null() {

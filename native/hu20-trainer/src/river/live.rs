@@ -830,7 +830,7 @@ fn blueprint_row(
     table: &PolicyTable,
     tables: &EquityTables,
 ) -> Result<(Vec<f64>, u8), String> {
-    let d = multi_holdem::observation_decision(obs, tables);
+    let d = table.decision(obs, tables);
     match table.rows.get(&d.key) {
         Some(r) => {
             if (r.owner as usize, r.street as usize, r.code) != (d.owner, d.street, d.code) {

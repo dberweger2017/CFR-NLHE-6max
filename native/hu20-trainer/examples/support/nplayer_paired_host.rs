@@ -252,7 +252,7 @@ fn play(
                     Player::Model(policy, alias) => {
                         let t = tables.ok_or("K50 required")?;
                         let action = policy.choose(&view, t)?;
-                        let d = multi_holdem::observation_decision(&view, t);
+                        let d = models[alias].table.decision(&view, t);
                         let row = models[alias].table.rows.get(&d.key);
                         if row.is_some_and(|r| {
                             (r.owner as usize, r.street as usize, r.code)

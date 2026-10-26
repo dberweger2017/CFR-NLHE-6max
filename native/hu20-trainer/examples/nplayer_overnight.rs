@@ -88,7 +88,7 @@ fn run() -> Result<(),String> {
     if threads!=16 { return Err("campaign requires16 threads".into()); }
     rayon::ThreadPoolBuilder::new().num_threads(16).build_global().map_err(|e|e.to_string())?;
     let tables=EquityTables::load(Path::new(c["tables"].as_str().ok_or("tables")?),false)?;
-    let game=CashGame{config:Config::new(&[2000;3],50,100)?,tables};
+    let game=CashGame{config:Config::new(&[2000;3],50,100)?,tables,schema:Default::default()};
     let input=Path::new(c["input"].as_str().ok_or("input")?);
     if hu20_trainer::export::sha256_file(input)!=c["input_sha256"].as_str().ok_or("input hash")? { return Err("input SHA mismatch".into()); }
     emit(json!({"event":"phase","phase":"load","target":0}));

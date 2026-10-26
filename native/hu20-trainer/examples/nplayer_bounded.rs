@@ -98,7 +98,7 @@ fn run() -> Result<(),String> {
     let gzip=if parallel {Gzip::Parallel} else {Gzip::Compatible};
     let config=Config::new(&[10000;3],50,100)?;
     let tables=EquityTables::load(Path::new(c["tables"].as_str().ok_or("tables")?),false)?;
-    let game=CashGame{config,tables};
+    let game=CashGame{config,tables,schema:Default::default()};
     let mut t=if let Some(input)=c["input"].as_str() {
         let input=Path::new(input);
         if hu20_trainer::export::sha256_file(input)!=c["input_sha256"].as_str().ok_or("input hash")? { return Err("input SHA mismatch".into()); }

@@ -4,7 +4,6 @@ use hu20_trainer::{
     export::sha256_file,
     multi_arena::{stream_seed, Bot, PERMUTATIONS},
     multi_checkpoint::key_hex,
-    multi_holdem,
     multi_policy::{Policy, PolicyTable},
     nplayer::{Config, Hand},
 };
@@ -90,7 +89,10 @@ fn block(
                     let a = policy.choose(&o, tables)?;
                     misses[id][street] += policy.misses - old;
                     let lookup = if diagnostics {
-                        let d = multi_holdem::observation_decision(&o, tables);
+                        if models[0].table.schema != models[1].table.schema {
+                            return Err("matched membership needs one key schema".into());
+                        }
+                        let d = models[0].table.decision(&o, tables);
                         let rows = [
                             models[0].table.rows.get(&d.key),
                             models[1].table.rows.get(&d.key),

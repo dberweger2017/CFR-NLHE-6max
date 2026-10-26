@@ -39,6 +39,7 @@ fn run() -> Result<(), String> {
     let game = CashGame {
         config: Config::new(&[2000; 3], 50, 100)?,
         tables,
+        schema: Default::default(),
     };
     let mut trainer = multi_checkpoint::load(input)?;
     if trainer.identity != game.identity()

@@ -331,6 +331,7 @@ fn run() -> Result<(), String> {
     let game = CashGame {
         config: Config::new(&[10000; 4], 50, 100)?,
         tables,
+        schema: Default::default(),
     };
     if game.identity() != trainer.identity {
         return Err("warm game/card/menu identity differs".into());
