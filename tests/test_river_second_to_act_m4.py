@@ -4,7 +4,12 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from scripts.qualify_river_second_to_act_m4 import fixture_memory_admitted, inventory, test_receipt, verify_panel
+from scripts.qualify_river_second_to_act_m4 import (
+    fixture_memory_admitted,
+    inventory,
+    test_receipt as native_test_receipt,
+    verify_panel,
+)
 
 
 class M4QualificationTests(unittest.TestCase):
@@ -38,9 +43,9 @@ class M4QualificationTests(unittest.TestCase):
                          'test result: ok. 2 passed; 0 failed; 1 ignored'):
                 p.write_text(text)
                 with self.assertRaises(ValueError):
-                    test_receipt(p)
+                    native_test_receipt(p)
             p.write_text('test result: ok. 137 passed; 0 failed; 0 ignored')
-            self.assertEqual(test_receipt(p)['passed'], 137)
+            self.assertEqual(native_test_receipt(p)['passed'], 137)
 
     def test_incomplete_panel_is_rejected(self):
         with tempfile.TemporaryDirectory() as tmp:
