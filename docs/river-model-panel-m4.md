@@ -1,9 +1,10 @@
 # Planned model-backed second-to-act river qualification on M4
 
 Proposal [435](https://github.com/dberweger2017/CFR-NLHE-6max/issues/435).
-**Planning only. No implementation, fixture training, model load, preflight or
-panel has started.** The owner requested preparation of this PR; execution is
-a separate next step after implementation and admission.
+The owner authorized execution after reviewing the prepared PR. Implementation
+and correctness qualification precede the single fixture training and cost
+preflight; measured admission still precedes the main panel. No extension or
+additional training endpoint is authorized.
 
 ## Question and scope
 
@@ -87,6 +88,18 @@ for the second-to-act subtree. No target, menu or work-level sweep.
 
 Each process loads one policy/K50 once. Versions run sequentially, with one
 worker and one retained session at a time, `RAYON_NUM_THREADS=1`.
+
+Implementation detail fixed before execution: ordinary normalized exports do
+not identify original zero average mass. The existing full-row audit produces
+a pinned mass receipt/zero-key sidecar; the optional worker arguments attach it
+through the existing validated metadata loader, without altering probabilities.
+Both versions use this same worker shell. The pre429 solver library and its
+native source snapshot remain unmodified: an external owned Cargo wrapper builds
+the shared shell against that library. Its registry dependency versions and
+checksums must equal the pre429 lockfile. This is solver-version parity with an
+identical diagnostic transport adapter, not a claim to reproduce the historical
+unmodified worker executable. Calls without the optional mass arguments retain
+their existing behavior. Sidecar attachment is included in complete startup.
 
 ## Fixed accounting: 144 root solves
 
