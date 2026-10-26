@@ -1,3 +1,21 @@
+## PR436 — M4 model-backed second-to-act river engineering completes
+
+[Protocol](docs/river-model-panel-m4.md), [analysis](docs/reports/river-model-panel-m4/results.md),
+[all48 roots](docs/reports/river-model-panel-m4/roots.csv),
+[original readout](docs/reports/river-model-panel-m4/results.json),
+[verified accounting](docs/reports/river-model-panel-m4/verified-readback.json).
+One25M-node/1M-threshold history fixture;34/36 second-to-act profiles install,
+two zero-reach blueprint fallbacks retained. All46 installed profiles meet the
+fixed capped-game target; all48 roots reproduce, all12 first-actor profiles match
+pre429 bitwise.145 native/6 example/23 Python checks pass. Exactly144 root begins;
+one preserved malformed preflight follow-up/release remains incomplete, fixed
+repeat and full main have no exception. Installed median278.5ms/p951008.2ms/max
+1349.9ms, sampled peak1.446GiB, nominal thermals. All setup failures retained;
+accounted active309.98s, elapsed dispatch-to-completion24m07s including repair
+gaps, publication excluded. Normal/study locks free;2.486GiB owned M4 originals
+retained, cleaner archive pending. No bb128, new arena hands, mature speed,
+strength/adoption/default or automatic follow-up claim.
+
 ## PR433 — M4 river fixtures pass; learned-model panel unrun
 
 [Report](docs/reports/river-second-to-act-m4/results.md),
