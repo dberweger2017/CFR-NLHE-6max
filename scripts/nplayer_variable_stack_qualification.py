@@ -5,7 +5,6 @@ import json
 import os
 from pathlib import Path
 import platform
-import resource
 import subprocess
 import sys
 import time
@@ -20,6 +19,8 @@ def source_manifest(root):
     files=[]
     for d in ['native/hu20-trainer/src','native/hu20-trainer/examples','native/hu20-buckets/src']:
         files.extend(p for p in (root/d).rglob('*.rs'))
+    for d in ['scripts','src']:
+        if (root/d).exists():files.extend(p for p in (root/d).rglob('*.py'))
     files.extend(root/n for n in ['native/hu20-trainer/Cargo.toml','native/hu20-trainer/Cargo.lock','native/hu20-buckets/Cargo.toml'])
     return {str(p.relative_to(root)):sha(p) for p in sorted(files)}
 
@@ -31,7 +32,7 @@ def run(root,baseline,tables,thermal):
         raise ValueError('AC required')
     root.mkdir(parents=True,exist_ok=False);locks=[];clock=time.monotonic()
     stages=[];manifest=source_manifest(SOURCE);old_manifest=source_manifest(baseline)
-    config=dict(thermal=str(thermal),python=sys.executable,source_manifest=manifest,baseline_manifest=old_manifest)
+    config=dict(thermal=str(thermal),thermal_sha256=sha(thermal),python=sys.executable,python_sha256=sha(sys.executable),source_manifest=manifest,baseline_manifest=old_manifest)
     write(root/'config.json',config)
     try:
         for p in [Path.home()/'Local/.hu20-m4-research.lock',root.parent/'.variable-stack.lock']:
@@ -49,6 +50,8 @@ def run(root,baseline,tables,thermal):
             write(root/'status.json',dict(status='running',phase=name))
             stages.append(run_guarded(folder,config,phase=name,command=[str(c) for c in command],owner_stop=root/'STOP'))
             write(root/'stage-costs.json',stages)
+        for test in ['stack_owner_tests','multi_stacks::tests','multi_key_tests::exact_key_bytes']:
+            stage('unit-'+test.replace('::','-'),['cargo','test','--locked','--manifest-path',SOURCE/'native/hu20-trainer/Cargo.toml','--lib',test])
         cargo=['cargo','build','--locked','--release','--manifest-path']
         stage('build-new',cargo+[SOURCE/'native/hu20-trainer/Cargo.toml','--example','nplayer_variable_stack','--example','nplayer_train','--example','nplayer_policy','--example','nplayer_parity'])
         stage('build-baseline',cargo+[baseline/'native/hu20-trainer/Cargo.toml','--example','nplayer_train','--example','nplayer_policy'])
@@ -69,7 +72,7 @@ def run(root,baseline,tables,thermal):
             if sha(root/f'{schema}-old.gz')!=sha(root/f'{schema}-new.gz') or sha(root/f'{schema}-old-average.gz')!=sha(root/f'{schema}-new-average.gz'):
                 raise ValueError('legacy checkpoint/export bytes changed:'+schema)
             parity.append(dict(schema=schema,checkpoint_sha256=sha(root/f'{schema}-new.gz'),average_sha256=sha(root/f'{schema}-new-average.gz')))
-        if source_manifest(SOURCE)!=manifest or source_manifest(baseline)!=old_manifest:raise ValueError('source changed during fixtures')
+        if source_manifest(SOURCE)!=manifest or source_manifest(baseline)!=old_manifest or sha(thermal)!=config['thermal_sha256'] or sha(sys.executable)!=config['python_sha256']:raise ValueError('source/runtime changed during fixtures')
         proof=json.loads((root/'native/verified.json').read_text())
         if proof['status']!='passed' or not proof['no_pilot_started']:raise ValueError('native proof incomplete')
         write(root/'COMPLETE.json',dict(status='passed',fixture_only=True,no_pilot_started=True,native=proof,legacy_byte_parity=parity,

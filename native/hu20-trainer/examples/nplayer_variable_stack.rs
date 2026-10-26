@@ -349,6 +349,18 @@ fn play(
         json!({"hands":81,"side_pot_hands":side_pot_hands,"lookup_cells":exposure,"columns":["missing","zero_average_mass","positive_average_mass"],"sha256":hash(path)?}),
     )
 }
+fn retained_rows(t: &Trainer) -> Value {
+    let mut row_audit = vec![[0u64; 5]; 4];
+    for e in t.table.values() {
+        let c = &mut row_audit[e.street as usize];
+        c[0] += 1;
+        c[1] += u64::from(e.visits == 0);
+        c[2] += u64::from(e.visits >= 2);
+        c[3] += u64::from(e.regrets.iter().all(|r| *r == 0.));
+        c[4] += u64::from(e.average.is_none_or(|v| v.iter().all(|p| *p == 0.)));
+    }
+    json!({"by_street":row_audit,"columns":["retained_rows","no_traverser_visit","two_or_more_traverser_visits","all_zero_final_regrets","zero_average_mass"],"limits":"Final-row audit; cancellation can zero regrets. Visits are update opportunities, not proof of nonzero learning. Pathwise zero target reach/underflow is not implemented."})
+}
 fn qualify(tables: &'static EquityTables, out: &Path) -> Result<(), String> {
     let started = Instant::now();
     let game = StackMixtureGame::new(tables);
@@ -429,19 +441,7 @@ fn qualify(tables: &'static EquityTables, out: &Path) -> Result<(), String> {
     let initial = play(&out.join("initial.jsonl"), table.clone(), &a, tables)?;
     let repeat = play(&out.join("repeat.jsonl"), table, &a, tables)?;
     assert_eq!(initial, repeat);
-    let mut row_audit = vec![[0u64; 5]; 4];
-    for e in a.table.values() {
-        let c = &mut row_audit[e.street as usize];
-        c[0] += 1;
-        c[1] += u64::from(e.visits == 0);
-        c[2] += u64::from(e.visits >= 2);
-        c[3] += u64::from(e.regrets.iter().all(|r| *r == 0.));
-        c[4] += u64::from(e.average.is_none_or(|v| v.iter().all(|p| *p == 0.)));
-    }
-    write(
-        &out.join("retained-rows.json"),
-        json!({"by_street":row_audit,"columns":["retained_rows","no_traverser_visit","two_or_more_traverser_visits","all_zero_final_regrets","zero_average_mass"],"limits":"Final-row audit; zero regrets can reflect cancellation and visit count does not prove nonzero learning. Pathwise zero target reach/underflow attribution is not implemented."}),
-    )?;
+    write(&out.join("retained-rows.json"), retained_rows(&a))?;
     write(&out.join("learning.json"), ledger.value())?;
     write(
         &out.join("common-panel.json"),
@@ -451,7 +451,7 @@ fn qualify(tables: &'static EquityTables, out: &Path) -> Result<(), String> {
         &out.join("verified.json"),
         json!({"status":"passed","fixture_only":true,"iterations":12,"checkpoint":source,
       "thread_resume_and_observer_byte_parity":true,"rows_audited":rows,"binary_verified":proof,"play":initial,
-      "root_counts_include_both_continuation_paths":game.counts(),"root_button_counts_include_both_paths":game.buttons(),"nodes":a.counts.nodes,"wall_seconds":started.elapsed().as_secs_f64(),"no_pilot_started":true}),
+      "root_counts_include_both_continuation_paths":game.counts(),"root_button_counts_include_both_paths":game.buttons(),"nodes":a.counts.nodes,"wall_seconds":started.elapsed().as_secs_f64(),"no_pilot_started":true,"effective_global_threads":rayon::current_num_threads()}),
     )
 }
 fn pilot(manifest: &Path) -> Result<(), String> {
@@ -544,6 +544,7 @@ fn pilot(manifest: &Path) -> Result<(), String> {
         if initial != repeat {
             return Err("pilot play/reproduction differ".into());
         }
+        write(&root.join("retained-rows.json"), retained_rows(&t))?;
         write(&root.join("learning.json"), ledger.value())?;
         write(
             &root.join("common-panel.json"),
@@ -566,6 +567,11 @@ fn pilot(manifest: &Path) -> Result<(), String> {
 fn main() {
     let a: Vec<String> = std::env::args().collect();
     let result = (|| -> Result<(), String> {
+        rayon::ThreadPoolBuilder::new()
+            .num_threads(2)
+            .build_global()
+            .map_err(|e| e.to_string())?;
+        assert_eq!(rayon::current_num_threads(), 2);
         match a.get(1).map(String::as_str) {
             Some("qualify") if a.len() == 4 => {
                 let out = Path::new(&a[3]);
