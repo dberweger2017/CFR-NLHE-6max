@@ -4,10 +4,14 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from scripts.qualify_river_second_to_act_m4 import inventory, test_receipt, verify_panel
+from scripts.qualify_river_second_to_act_m4 import fixture_memory_admitted, inventory, test_receipt, verify_panel
 
 
 class M4QualificationTests(unittest.TestCase):
+    def test_evidence_priced_fixture_admission_preserves_one_gib_headroom(self):
+        self.assertTrue(fixture_memory_admitted(5 * 2**30))
+        self.assertFalse(fixture_memory_admitted(5 * 2**30 - 1))
+
     def test_wrong_game_is_rejected_without_reading_policy_rows(self):
         with tempfile.TemporaryDirectory() as tmp:
             p = Path(tmp)/'four.gz'

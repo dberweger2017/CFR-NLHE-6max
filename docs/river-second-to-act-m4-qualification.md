@@ -5,8 +5,9 @@ Owner authorized implementation and execution after the planning review.
 The bounded input inventory has not identified a compatible local three-player
 model. The first execution therefore follows the fixture-only branch below;
 the model-backed preflight, version comparison and latency panel remain unrun.
-The first fixture-only attempt stopped before builds/tests at memory admission;
-see the [admission report](reports/river-second-to-act-m4/results.md). No retry ran.
+The first fixture-only attempt and a later owner-requested continuation stopped
+before builds/tests at memory admission; see the
+[admission report](reports/river-second-to-act-m4/results.md). Both remain retained.
 
 The question is whether the corrected optional path from
 [PR429](https://github.com/dberweger2017/CFR-NLHE-6max/pull/429) behaves correctly
@@ -175,9 +176,17 @@ at least12GiB modeled disk headroom at the8GiB envelope. Recheck actual space,
 manual RAM/swap and the6GiB family-memory forecast before the model load. Hold
 `~/Local/.hu20-m4-research.lock` nonblocking and a new study lock, preserving their
 inodes. Occupied normal lock means wait for a later owner decision, not bypass.
-The implemented fixture-only branch conservatively reserves6GiB family RAM plus
-1GiB available headroom at admission; it does not reduce that forecast after an
-admission failure.
+Prospective fixture-only resource amendment, October26: the initial6GiB family
+forecast plus1GiB headroom refused two attempts before any build/test. After the
+owner requested closing non-Google apps and continuation, we checked preserved
+same-host PR406 receipts: native tests sampled904,413,184B peak and release builds
+924,106,752B. These are older source and sampled peaks, not exact current bounds.
+The fixture-only branch is now priced at4GiB family RAM plus1GiB available
+headroom, more than4.6times the largest prior sample, with two build/test threads.
+The initial attempts remain immutable; this is a new prospective engineering
+attempt, not a changed result or a model admission. The separate model forecast
+ceiling remains6GiB and needs its own provenance-based admission. No thermal/STOP
+guard or during-run cutoff changes; no additional solves or samples.
 
 Use the existing M4 thermal-state interface (`nominal`, `fair`, `serious`,
 `critical`) through an owned source-bound helper. Serious/critical, missing or

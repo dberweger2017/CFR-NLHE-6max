@@ -18,6 +18,16 @@ import time
 
 from scripts.nplayer_four_player_feasibility import SOURCE, Supervisor, sample, sha, write
 
+# Prospective fixture-only amendment: prior same-host full native/build samples
+# peaked below 0.87GiB. Reserve 4GiB for the family plus 1GiB available headroom.
+# This does not admit a model, alter its separate <=6GiB forecast or add work.
+FIXTURE_FAMILY_BYTES = 4 * 2**30
+FIXTURE_HEADROOM_BYTES = 2**30
+
+
+def fixture_memory_admitted(available):
+    return available >= FIXTURE_FAMILY_BYTES + FIXTURE_HEADROOM_BYTES
+
 
 def inventory(paths):
     rows = []
@@ -90,8 +100,8 @@ def run(root, catalog, thermal):
                 fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
             admission = sample(root, thermal)
             write(root / 'admission.json', admission)
-            if admission['available_ram_bytes'] < 7 * 2**30:
-                raise ValueError('6GiB conservative fixture-family forecast +1GiB headroom unavailable')
+            if not fixture_memory_admitted(admission['available_ram_bytes']):
+                raise ValueError('4GiB evidence-priced fixture-family forecast +1GiB headroom unavailable')
             paths = json.loads(catalog.read_text())
             inv = inventory(paths)
             write(root / 'input-inventory.json', inv)
@@ -103,7 +113,8 @@ def run(root, catalog, thermal):
                      python=sys.executable, python_sha256=sha(sys.executable),
                      catalog_sha256=sha(catalog), inventory_sha256=sha(root/'input-inventory.json'),
                      borrowed_thermal=str(thermal), borrowed_thermal_sha256=sha(thermal),
-                     admission=admission, forecast_family_ram_bytes=6*2**30,
+                     admission=admission, forecast_family_ram_bytes=FIXTURE_FAMILY_BYTES,
+                     available_headroom_bytes=FIXTURE_HEADROOM_BYTES,
                      ordinary_lock_inode=os.fstat(ordinary.fileno()).st_ino,
                      study_lock_inode=os.fstat(study.fileno()).st_ino,
                      native_test_threads=2, rayon_threads=1, started_epoch=started)
