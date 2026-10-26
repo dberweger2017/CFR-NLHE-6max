@@ -1,18 +1,23 @@
 # Roadmap
 
-## Six-player check-call counterfactual study: review/calibration pass
+## Six-player check-call conditional panel complete; player stays frozen
 
 [PR438](https://github.com/dberweger2017/CFR-NLHE-6max/pull/438),
-[protocol](docs/six-player-counterfactual-m4.md),
-[readiness and quote](docs/reports/six-player-counterfactual-m4/results.md):
-one authorized independent reviewer clears core correctness and both fixed
-operational/reporting findings. M4 source70143736 qualifies; all36 fixed roots,
-8 worlds/root plus repeat reproduce under the exact PR431 model. Peak2.182GiB,
-nominal thermals, no stops/retries. Full fixed-panel compute quote2m14s central/
-10m31s reserve; proposed15min allocation requires acceptance. Main is disabled;
-discovery/held-out statistical readout still needs implementation/qualification.
-No strength claim, training/search/default changes or bb128 science. Ordinary
-inputs/evidence preserved; cleaner archival pending.
+[report](docs/reports/six-player-counterfactual-m4/results.md),
+[all actions](docs/reports/six-player-counterfactual-m4/actions.csv):
+36 fixed roots,64 discovery+2,048 held-out worlds/root plus exact reproduction.
+Seven selected alternatives clear the declared family95 bound, all at missing
+keys using uniform fallback; none of22 positive-mass roots clears. Four gaining
+choices check and three raise, pointing to state-dependent fallback errors,
+not a universal reduction in aggression. Supported preflop patterns remain
+inconclusive; this does not explain PR431's whole-game regression or establish
+strength/equilibrium progress. All results and adverse/inconclusive estimates
+retained. Accepted15min M4 allocation used52.76s of measured qualification/main/
+recovery wrappers, nominal thermals, sampled peak3.326GiB. Native work ran once;
+a reporting path collision was fixed/reviewed/tested and only postprocessing
+recovered from unchanged verified files. No tuning, arena, defaults or training.
+A focused fallback/admission proposal is a future decision; PR434 remains separate.
+Evidence retained on M4; cleaner archival pending, no Drive acceptance claim.
 
 ## Compact history key engineering integrated; adoption remains separate
 

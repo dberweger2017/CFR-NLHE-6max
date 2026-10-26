@@ -135,3 +135,14 @@ not add a new testing family; identical reference actions have exact zero
 contrast. Ordinary normal95 intervals stay auxiliary. Report all roots/actions,
 support counters and inconclusive/adverse findings; no population-weighted
 strength, regression attribution or policy adoption verdict.
+
+
+## Completed fixed-panel handoff
+
+The owner-approved panel and exact reproduction are complete; see the
+[full report](reports/six-player-counterfactual-m4/results.md). Native source
+9709d9ae ran once. A reporting-directory collision was preserved, fixed and
+independently reviewed/qualified under8fcfff6d; only postprocessing of unchanged
+verified files ran in completion-v1. All36 roots and129 actions are published.
+The declared counts, selection, intervals and interpretation above are unchanged.
+No extra worlds, player change, arena or training follows automatically.

@@ -7407,8 +7407,32 @@ acceptance is **not claimed**. Normal/study locks unheld; existing cleaner threa
 notified at natural completion, no new observer/timer. PR417 owner review only;
 no merge/default/release authority exercised.
 
-## PR438 — six-player conditional-value fixture qualification
+## PR438 — fixed six-player conditional-action panel complete
 
-[Readiness](docs/reports/six-player-counterfactual-m4/results.md), [compact receipt](docs/reports/six-player-counterfactual-m4/qualification.json). M4 source d6654aee;156 library/2 example/4 Python tests and24 synthetic roots ×8 worlds ×initial/repeat pass. Stage total159.77s, sampled peak0.805GiB, nominal thermals. No mature model, main panel or strength conclusion. Ordinary evidence retained at M4 `~/Local/six-player-counterfactual-m4-20261026/`; local planning/source pins retained. Independent review and measured mature quote pending. Cleaner archival pending; no payload ZIP or Drive receipt claimed.
+[Report](docs/reports/six-player-counterfactual-m4/results.md) ·
+[36 roots](docs/reports/six-player-counterfactual-m4/roots.csv) ·
+[129 actions](docs/reports/six-player-counterfactual-m4/actions.csv) ·
+[full readout](docs/reports/six-player-counterfactual-m4/results.json) ·
+[verification](docs/reports/six-player-counterfactual-m4/verification.json) ·
+[costs](docs/reports/six-player-counterfactual-m4/costs.json) ·
+[provenance/retrieval](docs/reports/six-player-counterfactual-m4/provenance.json).
+Frozen PR431 live-order10B against five check-call scripts; no player changes.
+All36 roots ×64 discovery+2,048 held-out worlds, initial/repeat;544,896 branch
+rollouts. Seven discovery-selected gains clear family95, all at missing rows;
+none of22 positive-mass roots clears. All14 missing roots and129 action values
+retained. No population-weighted strength or causal whole-regression verdict.
 
-PR438 follow-up: [independent review](docs/reports/six-player-counterfactual-m4/review.json) resolves guarded-calibration and missing-stratum findings. [Mature calibration](docs/reports/six-player-counterfactual-m4/calibration.json), source70143736:36 roots/129legal actions ×8worlds ×initial/repeat pass; sampled peak2.182GiB, nominal thermals. Native load12.21s; wrapper14.86s including validation/setup/readout. Fixed full-panel quote134.40s central/630.98s reserve, proposed900sM4 allocation pending acceptance and main readout qualification. No main/strength result. Ordinary M4 evidence and protected originals retained; archive/Drive acceptance pending.
+Owner accepted900s; measured qualification/main/recovery wrappers52.76s,
+native model/K50 load11.710s, repeated continuation1.307s, sampled peak3.326GiB,
+nominal thermals, swap1MiB. Producer source9709d9ae; native/repeat SHA256
+`904f52bc28402e4c6cd83dba2cb6d90ae045ca8b6b9bb094022dc7f1ab61b768`.
+Native main passed once. Original reporting-directory collision/failure retained;
+reviewed/tested recovery source8fcfff6d ran only unchanged postprocessing.
+Definitive M4 root `~/Local/six-player-counterfactual-m4-20261026/completion-v1/`;
+original `main-v1/` and every partial/input/source preserved. Full results SHA256
+`26658294d43ec372af08a4be52b5ce2221f2c6665a4acbc9383f01bb15d225da`.
+[Historical qualification/quote](docs/reports/six-player-counterfactual-m4/qualification.md),
+[calibration](docs/reports/six-player-counterfactual-m4/calibration.json) and all
+three review receipts remain. Read ordinary evidence from retained M4 paths and
+verify provenance before use; bb128/Drive cleaner archival pending. No payload
+ZIP/Drive acceptance claim, extra worlds, automatic follow-up or PR434 outcomes.

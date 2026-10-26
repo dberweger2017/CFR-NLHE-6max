@@ -1,0 +1,461 @@
+{
+  "completion": {
+    "no_new_simulations": true,
+    "original_evidence_unchanged": true,
+    "provenance_sha256": "4b0a2d6a4c235811d88d2d865ca441c073138124c7b46c22984817871234fe36",
+    "readout_verified_sha256": "381f2bfd8924391ae61d8a2e336ed95685ff3ebe26d67157624bedaf0fe74ef5",
+    "results_sha256": "26658294d43ec372af08a4be52b5ce2221f2c6665a4acbc9383f01bb15d225da",
+    "roots": 36,
+    "stages": [
+      {
+        "command": [
+          "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+          "-m",
+          "unittest",
+          "tests.test_run_six_player_counterfactual_m4",
+          "tests.test_analyze_six_player_counterfactual_m4",
+          "-v"
+        ],
+        "phase": "recovery-tests",
+        "pid": 52822,
+        "returncode": 0,
+        "sampled_peak_rss_bytes": 12156928,
+        "system_cpu_seconds": 0.015131,
+        "user_cpu_seconds": 0.072212,
+        "wall_seconds": 1.0221977919864003
+      },
+      {
+        "command": [
+          "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+          "-m",
+          "scripts.analyze_six_player_counterfactual_m4",
+          "/Users/dberweger/Local/six-player-counterfactual-m4-20261026/main-v1/native",
+          "/Users/dberweger/Local/six-player-counterfactual-m4-20261026/panel-v1/inventory.json",
+          "/Users/dberweger/Local/six-player-counterfactual-m4-20261026/completion-v1/readout"
+        ],
+        "phase": "readout-only",
+        "pid": 52828,
+        "returncode": 0,
+        "sampled_peak_rss_bytes": 12009472,
+        "system_cpu_seconds": 0.028863999999999997,
+        "user_cpu_seconds": 0.502248,
+        "wall_seconds": 1.0508851249760482
+      }
+    ],
+    "status": "passed"
+  },
+  "final_readout_recovered_without_new_simulations": true,
+  "format": "pr438-final-verification-v1",
+  "main_qualification": {
+    "binary_sha256": "d520e796c16edcaa9770fd8875f240d680afdf7d4330d4dab8888888eb9330ff",
+    "fixture_native_verified_sha256": "a2f277cab913ec75b79db8035af09c42f952b7b2882462b14a16932697cca8c1",
+    "fixture_readout_verified_sha256": "21f685a8d59fb393bccebc2f09a7d1d1ee8da21bc95c5d148bb5de4d5aa0b469",
+    "full_work_fixture_readout_passed": true,
+    "library_reuse_sha256": "ba3716a73240c966fd615918636eb78627634f2c328418cd4d0bdcdb97e5da7c",
+    "qualification_wall_seconds": 35.01363808300812,
+    "source": "9709d9ae81a56d8d69ebb8026283668eb95bf201",
+    "source_manifest_sha256": "9e6f36d4eaa1e5fb1470cabc19ef50fc081c90464f2198d14796f57bb6fda4a5",
+    "stages": [
+      {
+        "command": [
+          "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+          "-m",
+          "unittest",
+          "tests.test_six_player_counterfactual_m4",
+          "tests.test_calibrate_six_player_counterfactual_m4",
+          "tests.test_analyze_six_player_counterfactual_m4",
+          "-v"
+        ],
+        "cpu_seconds": 0.172603,
+        "phase": "python-tests",
+        "returncode": 0,
+        "sampled_peak_rss_bytes": 30687232,
+        "wall_seconds": 2.0715345409989823
+      },
+      {
+        "command": [
+          "cargo",
+          "test",
+          "--locked",
+          "--manifest-path",
+          "/Users/dberweger/Local/six-player-counterfactual-m4-20261026/source-v4/native/hu20-trainer/Cargo.toml",
+          "--example",
+          "six_player_counterfactual"
+        ],
+        "cpu_seconds": 13.246099999999998,
+        "phase": "example-tests",
+        "returncode": 0,
+        "sampled_peak_rss_bytes": 479576064,
+        "wall_seconds": 8.212029457994504
+      },
+      {
+        "command": [
+          "cargo",
+          "build",
+          "--locked",
+          "--release",
+          "--manifest-path",
+          "/Users/dberweger/Local/six-player-counterfactual-m4-20261026/source-v4/native/hu20-trainer/Cargo.toml",
+          "--example",
+          "six_player_counterfactual"
+        ],
+        "cpu_seconds": 23.580871000000002,
+        "phase": "build",
+        "returncode": 0,
+        "sampled_peak_rss_bytes": 596230144,
+        "wall_seconds": 16.392133082990767
+      },
+      {
+        "command": [
+          "/Users/dberweger/Local/six-player-counterfactual-m4-20261026/source-v4/native/hu20-trainer/target/release/examples/six_player_counterfactual",
+          "fixture",
+          "/Users/dberweger/Local/overnight-equity-hu100-20261009/stage-a/results/equity-bench/tables",
+          "/Users/dberweger/Local/six-player-counterfactual-m4-20261026/main-qualification-v1/fixture"
+        ],
+        "cpu_seconds": 2.622213000000003,
+        "phase": "fixture-prepare",
+        "returncode": 0,
+        "sampled_peak_rss_bytes": 155516928,
+        "wall_seconds": 3.1007600000011735
+      },
+      {
+        "command": [
+          "/Users/dberweger/Local/six-player-counterfactual-m4-20261026/source-v4/native/hu20-trainer/target/release/examples/six_player_counterfactual",
+          "/Users/dberweger/Local/six-player-counterfactual-m4-20261026/main-qualification-v1/fixture/full-manifest.json"
+        ],
+        "cpu_seconds": 3.8938399999999986,
+        "phase": "full-work-fixture",
+        "returncode": 0,
+        "sampled_peak_rss_bytes": 1390657536,
+        "wall_seconds": 4.123622125014663
+      },
+      {
+        "command": [
+          "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+          "-m",
+          "scripts.analyze_six_player_counterfactual_m4",
+          "/Users/dberweger/Local/six-player-counterfactual-m4-20261026/main-qualification-v1/fixture/full-run-v1",
+          "/Users/dberweger/Local/six-player-counterfactual-m4-20261026/main-qualification-v1/fixture/inventory.json",
+          "/Users/dberweger/Local/six-player-counterfactual-m4-20261026/main-qualification-v1/fixture/readout-v1",
+          "--fixture"
+        ],
+        "cpu_seconds": 0.3521990000000059,
+        "phase": "fixture-readout",
+        "returncode": 0,
+        "sampled_peak_rss_bytes": 11485184,
+        "wall_seconds": 1.061931458010804
+      }
+    ],
+    "status": "passed"
+  },
+  "native": {
+    "calibration_only": false,
+    "continuation_seconds_including_repeat": 1.307489667,
+    "costs": [
+      {
+        "actions": 3,
+        "hero_lookups": 12672,
+        "id": "2|1150|0|7",
+        "seconds_including_repeat": 0.033775167,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 4,
+        "hero_lookups": 18594,
+        "id": "2|3566|6|1",
+        "seconds_including_repeat": 0.053672958,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 4,
+        "hero_lookups": 18600,
+        "id": "2|3248|6|1",
+        "seconds_including_repeat": 0.050953458,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 4,
+        "hero_lookups": 18626,
+        "id": "0|1771|6|2",
+        "seconds_including_repeat": 0.049414875,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 3,
+        "hero_lookups": 0,
+        "id": "3|124|6|26",
+        "seconds_including_repeat": 0.014517333,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 3,
+        "hero_lookups": 6336,
+        "id": "0|521|6|16",
+        "seconds_including_repeat": 0.022079666,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 3,
+        "hero_lookups": 12672,
+        "id": "0|2058|5|6",
+        "seconds_including_repeat": 0.030146833,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 4,
+        "hero_lookups": 18609,
+        "id": "2|3003|5|1",
+        "seconds_including_repeat": 0.047159833,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 4,
+        "hero_lookups": 18624,
+        "id": "1|3643|7|3",
+        "seconds_including_repeat": 0.048944709,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 3,
+        "hero_lookups": 18419,
+        "id": "2|1889|5|5",
+        "seconds_including_repeat": 0.040436167,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 3,
+        "hero_lookups": 0,
+        "id": "1|3449|7|21",
+        "seconds_including_repeat": 0.014515459,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 3,
+        "hero_lookups": 6336,
+        "id": "1|2829|7|19",
+        "seconds_including_repeat": 0.022287958,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 3,
+        "hero_lookups": 12151,
+        "id": "1|810|8|12",
+        "seconds_including_repeat": 0.030492125,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 4,
+        "hero_lookups": 18538,
+        "id": "3|239|4|0",
+        "seconds_including_repeat": 0.04680875,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 4,
+        "hero_lookups": 18600,
+        "id": "0|3028|8|1",
+        "seconds_including_repeat": 0.047642375,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 4,
+        "hero_lookups": 18438,
+        "id": "3|3253|4|4",
+        "seconds_including_repeat": 0.046461375,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 3,
+        "hero_lookups": 0,
+        "id": "1|2001|4|32",
+        "seconds_including_repeat": 0.014225125,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 4,
+        "hero_lookups": 6336,
+        "id": "2|1993|8|16",
+        "seconds_including_repeat": 0.024926666,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 3,
+        "hero_lookups": 12672,
+        "id": "0|3945|3|11",
+        "seconds_including_repeat": 0.031659291,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 4,
+        "hero_lookups": 18429,
+        "id": "3|2150|9|4",
+        "seconds_including_repeat": 0.043524709,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 4,
+        "hero_lookups": 18597,
+        "id": "2|1188|9|0",
+        "seconds_including_repeat": 0.045910125,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 3,
+        "hero_lookups": 18426,
+        "id": "2|2887|9|5",
+        "seconds_including_repeat": 0.039772875,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 3,
+        "hero_lookups": 0,
+        "id": "1|1509|9|26",
+        "seconds_including_repeat": 0.013976125,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 4,
+        "hero_lookups": 6336,
+        "id": "1|3187|9|19",
+        "seconds_including_repeat": 0.0252135,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 3,
+        "hero_lookups": 12012,
+        "id": "3|1738|2|14",
+        "seconds_including_repeat": 0.030505125,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 4,
+        "hero_lookups": 18608,
+        "id": "3|857|10|2",
+        "seconds_including_repeat": 0.048257667,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 4,
+        "hero_lookups": 18571,
+        "id": "3|3077|10|2",
+        "seconds_including_repeat": 0.046894,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 3,
+        "hero_lookups": 18429,
+        "id": "1|1154|10|5",
+        "seconds_including_repeat": 0.040710375,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 4,
+        "hero_lookups": 0,
+        "id": "3|3908|2|21",
+        "seconds_including_repeat": 0.017190875,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 4,
+        "hero_lookups": 6336,
+        "id": "1|2000|2|19",
+        "seconds_including_repeat": 0.025342625,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 3,
+        "hero_lookups": 12672,
+        "id": "3|154|11|6",
+        "seconds_including_repeat": 0.030125625,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 4,
+        "hero_lookups": 18587,
+        "id": "2|1939|1|1",
+        "seconds_including_repeat": 0.046089667,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 4,
+        "hero_lookups": 18622,
+        "id": "2|2321|11|3",
+        "seconds_including_repeat": 0.046423875,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 4,
+        "hero_lookups": 18399,
+        "id": "1|856|11|4",
+        "seconds_including_repeat": 0.043652417,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 4,
+        "hero_lookups": 0,
+        "id": "2|2403|11|26",
+        "seconds_including_repeat": 0.017569917,
+        "worlds_per_pass": 2112
+      },
+      {
+        "actions": 4,
+        "hero_lookups": 6336,
+        "id": "1|1479|1|19",
+        "seconds_including_repeat": 0.024885709,
+        "worlds_per_pass": 2112
+      }
+    ],
+    "discovery_worlds": 64,
+    "float64_and_work_reproduced": true,
+    "full_panel_work": true,
+    "heldout_worlds": 2048,
+    "load_and_k50_seconds": 11.7096665,
+    "main_started": true,
+    "model_sha256": "f894a59f8a92424d735438726d16834901a7dcaf6d560c98b950fb72a143c9ea",
+    "policy_load_seconds": 9.047136292,
+    "qualification_only": false,
+    "root_profiles_reproduced": true,
+    "roots": 36,
+    "roots_sha256": "68d9613acc410cf5a792b54f10a2e4c86510d5dd370e7563be506dce4ead4213",
+    "source_checkpoint_sha256": "75245fbb0a00617ae67281e25cd7184b4a27fbf72e5aa2b175ba5a37c93771d8",
+    "states_sha256": "590e2c06130428d8b6de551fd7b50c63b161b45debf481551e7e1d74e7118a4a",
+    "status": "passed",
+    "threads": 2,
+    "wall_seconds": 13.018441042,
+    "worlds_repeat_sha256": "904f52bc28402e4c6cd83dba2cb6d90ae045ca8b6b9bb094022dc7f1ab61b768",
+    "worlds_sha256": "904f52bc28402e4c6cd83dba2cb6d90ae045ca8b6b9bb094022dc7f1ab61b768"
+  },
+  "no_exclusions": true,
+  "original_evidence_unchanged": true,
+  "original_failure": {
+    "error": "RuntimeError('calibration failed:1; no automatic retry')",
+    "no_retry": true,
+    "terminal": true
+  },
+  "owner_admission": {
+    "allocation_seconds": 900,
+    "authorization": "Owner selected Approve the15-minute allocation in this thread after measured quote; no extension/player changes/arena.",
+    "discovery_worlds": 64,
+    "heldout_worlds": 2048,
+    "inventory_sha256": "7f1b3697090b8a89af4e92daf59659d8cc634c9d623ea636dab08e0d2576938e",
+    "model_sha256": "f894a59f8a92424d735438726d16834901a7dcaf6d560c98b950fb72a143c9ea",
+    "quote_sha256": "c3a17322f2bf24cf5ceaa59a280c00080ec51c358739ae1a274fe9092cbfbb24",
+    "repetitions": 2,
+    "roots": 36,
+    "source": "9709d9ae81a56d8d69ebb8026283668eb95bf201",
+    "source_manifest_sha256": "9e6f36d4eaa1e5fb1470cabc19ef50fc081c90464f2198d14796f57bb6fda4a5",
+    "states_sha256": "590e2c06130428d8b6de551fd7b50c63b161b45debf481551e7e1d74e7118a4a",
+    "status": "owner-approved",
+    "study": "PR438"
+  },
+  "readout": {
+    "actions_sha256": "10ac501c64ff25cdc8294b95f1addc0fb88dc8a228900aa54f508faad0086917",
+    "fixture_only": false,
+    "no_exclusions": true,
+    "results_sha256": "26658294d43ec372af08a4be52b5ce2221f2c6665a4acbc9383f01bb15d225da",
+    "roots": 36,
+    "status": "passed"
+  },
+  "roots": 36,
+  "status": "passed"
+}
