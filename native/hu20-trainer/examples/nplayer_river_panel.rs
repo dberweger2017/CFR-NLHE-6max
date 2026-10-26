@@ -3,7 +3,7 @@ use hu20_trainer::{
     game::{Kind, Street},
     multi_holdem,
     nplayer::{Action, Config, Event, Hand},
-    river::live::whole_hand::{eligibility, observation_request, MENU},
+    river::live::whole_hand::{observation_request, MENU},
 };
 use serde_json::{json, Value};
 use std::{fs::OpenOptions, io::Write};
@@ -164,6 +164,7 @@ fn main() {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use hu20_trainer::river::live::whole_hand::eligibility;
     #[test]
     fn all_48_roots_are_legal_balanced_and_exactly_repeatable() {
         let a = panel().unwrap();

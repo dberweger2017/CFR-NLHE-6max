@@ -1,3 +1,15 @@
+## PR433 — M4 river qualification implementation; admission blocked
+
+[Report](docs/reports/river-second-to-act-m4/results.md),
+[admission and bounded input receipts](docs/reports/river-second-to-act-m4/admission.json),
+[fixed protocol](docs/river-second-to-act-m4-qualification.md).
+Two native generator and11 Python checks pass locally. M4 source
+`d1da0e569adc3e336dbfb8d1d5987b9143a05ea7` stopped at RAM admission before any
+build/test/load; later snapshot6.833GiB available versus7GiB required. All12
+cataloged policies have4–6players; no three-player input admitted. Full M4 tests,
+model panel, pre429 parity and learned-policy latency remain unrun. Original
+failure/source/logs retained on M4; no retry, bb128 work or archive/upload claim.
+
 ## PR425 — warmed estimator qualification complete; no mature continuation
 
 [Results](docs/reports/nplayer-warm-estimator-qualification/results.md),

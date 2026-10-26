@@ -5,6 +5,8 @@ Owner authorized implementation and execution after the planning review.
 The bounded input inventory has not identified a compatible local three-player
 model. The first execution therefore follows the fixture-only branch below;
 the model-backed preflight, version comparison and latency panel remain unrun.
+The first fixture-only attempt stopped before builds/tests at memory admission;
+see the [admission report](reports/river-second-to-act-m4/results.md). No retry ran.
 
 The question is whether the corrected optional path from
 [PR429](https://github.com/dberweger2017/CFR-NLHE-6max/pull/429) behaves correctly
@@ -173,6 +175,9 @@ at least12GiB modeled disk headroom at the8GiB envelope. Recheck actual space,
 manual RAM/swap and the6GiB family-memory forecast before the model load. Hold
 `~/Local/.hu20-m4-research.lock` nonblocking and a new study lock, preserving their
 inodes. Occupied normal lock means wait for a later owner decision, not bypass.
+The implemented fixture-only branch conservatively reserves6GiB family RAM plus
+1GiB available headroom at admission; it does not reduce that forecast after an
+admission failure.
 
 Use the existing M4 thermal-state interface (`nominal`, `fair`, `serious`,
 `critical`) through an owned source-bound helper. Serious/critical, missing or

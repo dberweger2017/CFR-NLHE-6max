@@ -1,15 +1,16 @@
 # Roadmap
 
-## Separate M4 engineering qualification of optional river coverage — planned
+## Separate M4 engineering qualification — implemented, admission blocked
 
 [Proposal432](https://github.com/dberweger2017/CFR-NLHE-6max/issues/432),
-[fixed plan](docs/river-second-to-act-m4-qualification.md): qualify merged PR429's
-corrected second-to-act path on M4 with native correctness fixtures,48 synthetic
-legal roots,12 pre429 first-to-act controls and reproduction. Prospective30min
-central/60min allocation,8GiB new local storage; implementation and cost-only
-preflight precede admission. A compatible small three-player model is not yet
-confirmed; absence leaves the learned-model panel unrun, with no training or
-large model transfer. No execution or performance result is claimed. PR431's
+[fixed plan](docs/river-second-to-act-m4-qualification.md),
+[PR433 admission report](docs/reports/river-second-to-act-m4/results.md): the legal
+48-root generator and fixture-only controller are implemented;2 native generator
+and11 Python checks pass locally. The M4 attempt stopped before builds/tests at
+RAM admission; a later snapshot had6.833GiB available versus7GiB required. No
+compatible small three-player model was found in the bounded12-policy catalog.
+Full M4 qualification,12 pre429 controls, reproduction and learned-policy latency
+remain unrun. No automatic retry, training or mature-model transfer. PR431's
 bb128 allocation and the cleaner's uploads are untouched. Search adoption and
 mature strength work remain separately deferred; no automatic continuation.
 

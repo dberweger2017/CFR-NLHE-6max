@@ -30,7 +30,8 @@ def inventory(paths):
             raise ValueError('policy header exceeds bound')
         h = json.loads(line)
         after = p.stat()
-        if before != after:
+        if (before.st_dev, before.st_ino, before.st_size, before.st_mtime_ns, before.st_ctime_ns) != (
+                after.st_dev, after.st_ino, after.st_size, after.st_mtime_ns, after.st_ctime_ns):
             raise ValueError('input metadata changed during header inventory')
         identity = h.get('identity', {})
         players = h.get('players', identity.get('players'))
@@ -88,6 +89,7 @@ def run(root, catalog, thermal):
             for lock in (ordinary, study):
                 fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
             admission = sample(root, thermal)
+            write(root / 'admission.json', admission)
             if admission['available_ram_bytes'] < 7 * 2**30:
                 raise ValueError('6GiB conservative fixture-family forecast +1GiB headroom unavailable')
             paths = json.loads(catalog.read_text())
