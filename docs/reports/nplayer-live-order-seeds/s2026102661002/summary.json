@@ -1,0 +1,1382 @@
+{
+ "format": "nplayer-live-order-seed-v1",
+ "primary": "trained",
+ "verdict": "improved",
+ "harm_flags": [
+  "check-call"
+ ],
+ "fields": {
+  "trained": {
+   "change": {
+    "realized": {
+     "mean_bb100": 108.81817118326823,
+     "standard_error_bb100": 10.660857729791111,
+     "lower95_bb100": 87.9217301759205,
+     "upper95_bb100": 129.71461219061598
+    },
+    "adjusted": {
+     "mean_bb100": 113.19205077329018,
+     "standard_error_bb100": 6.3907768815236015,
+     "lower95_bb100": 100.66543279557364,
+     "upper95_bb100": 125.71866875100672
+    }
+   },
+   "absolute": {
+    "control": {
+     "realized": {
+      "mean_bb100": 70.59227498372395,
+      "standard_error_bb100": 9.147131120662575,
+      "lower95_bb100": 52.66290281742404,
+      "upper95_bb100": 88.52164715002387
+     },
+     "adjusted": {
+      "mean_bb100": 68.65741038743433,
+      "standard_error_bb100": 5.4882847832918875,
+      "lower95_bb100": 57.89977510963662,
+      "upper95_bb100": 79.41504566523203
+     }
+    },
+    "live": {
+     "realized": {
+      "mean_bb100": 179.4104461669922,
+      "standard_error_bb100": 8.224304952563454,
+      "lower95_bb100": 163.2899136898134,
+      "upper95_bb100": 195.53097864417097
+     },
+     "adjusted": {
+      "mean_bb100": 181.8494611607245,
+      "standard_error_bb100": 4.720871344106888,
+      "lower95_bb100": 172.59603971511808,
+      "upper95_bb100": 191.10288260633092
+     }
+    }
+   },
+   "per_bank_change": [
+    {
+     "realized": 134.92572021484375,
+     "adjusted": 115.35636283444519
+    },
+    {
+     "realized": 81.70625813802083,
+     "adjusted": 98.955078114673
+    },
+    {
+     "realized": 117.72456868489583,
+     "adjusted": 112.81270378911651
+    },
+    {
+     "realized": 100.9161376953125,
+     "adjusted": 125.64405835492599
+    }
+   ],
+   "untrained_share": {
+    "control": {
+     "preflop": 0.06138298751756634,
+     "flop": 0.16511595611720595,
+     "turn": 0.20987408550241377,
+     "river": 0.29805549929106745,
+     "all": 0.0924906303453047
+    },
+    "live": {
+     "preflop": 2.1622369638733448e-05,
+     "flop": 0.0011750035969497867,
+     "turn": 0.0005958109904211925,
+     "river": 0.00038434929664078716,
+     "all": 0.00023393940969288954
+    }
+   },
+   "verdict": "improved",
+   "row_classes": {
+    "control": {
+     "preflop": {
+      "learned": 0.9213193353724064,
+      "opponent_only": 0.01729767711002728,
+      "zero_mass": 0.00012399768537653963,
+      "missing": 0.061258989832189796
+     },
+     "flop": {
+      "learned": 0.8122020089802342,
+      "opponent_only": 0.02268203490255983,
+      "zero_mass": 0.0005554784057769754,
+      "missing": 0.16456047771142898
+     },
+     "turn": {
+      "learned": 0.7794256706315632,
+      "opponent_only": 0.010700243866022993,
+      "zero_mass": 0.0008958343701786692,
+      "missing": 0.20897825113223512
+     },
+     "river": {
+      "learned": 0.69657686854365,
+      "opponent_only": 0.00536763216528256,
+      "zero_mass": 0.0012153129430828439,
+      "missing": 0.2968401863479846
+     },
+     "all": {
+      "learned": 0.8902679356294408,
+      "opponent_only": 0.017241434025254434,
+      "zero_mass": 0.00026657103959531976,
+      "missing": 0.09222405930570939
+     }
+    },
+    "live": {
+     "preflop": {
+      "learned": 0.9982485880592626,
+      "opponent_only": 0.0017297895710986758,
+      "zero_mass": 4.32447392774669e-06,
+      "missing": 1.729789571098676e-05
+     },
+     "flop": {
+      "learned": 0.9915831374994005,
+      "opponent_only": 0.007241858903649705,
+      "zero_mass": 0.00021581698719485876,
+      "missing": 0.0009591866097549279
+     },
+     "turn": {
+      "learned": 0.9967917869746551,
+      "opponent_only": 0.0026124020349236905,
+      "zero_mass": 9.166322929556808e-05,
+      "missing": 0.0005041477611256245
+     },
+     "river": {
+      "learned": 0.9966945960488892,
+      "opponent_only": 0.0029210546544699823,
+      "zero_mass": 0.0,
+      "missing": 0.00038434929664078716
+     },
+     "all": {
+      "learned": 0.9971764812913455,
+      "opponent_only": 0.002589579298961569,
+      "zero_mass": 3.898990161548159e-05,
+      "missing": 0.00019494950807740795
+     }
+    }
+   }
+  },
+  "random": {
+   "change": {
+    "realized": {
+     "mean_bb100": 186.71031697591147,
+     "standard_error_bb100": 18.075302881222015,
+     "lower95_bb100": 151.280756810981,
+     "upper95_bb100": 222.13987714084195
+    },
+    "adjusted": {
+     "mean_bb100": 184.7733161789978,
+     "standard_error_bb100": 10.075571825434382,
+     "lower95_bb100": 165.02409922086005,
+     "upper95_bb100": 204.52253313713553
+    }
+   },
+   "absolute": {
+    "control": {
+     "realized": {
+      "mean_bb100": 349.46819559733075,
+      "standard_error_bb100": 17.429600046358,
+      "lower95_bb100": 315.30428323851515,
+      "upper95_bb100": 383.63210795614634
+     },
+     "adjusted": {
+      "mean_bb100": 354.31663820304345,
+      "standard_error_bb100": 10.030050826824768,
+      "lower95_bb100": 334.6566473546758,
+      "upper95_bb100": 373.9766290514111
+     }
+    },
+    "live": {
+     "realized": {
+      "mean_bb100": 536.1785125732422,
+      "standard_error_bb100": 16.041030152512615,
+      "lower95_bb100": 504.73634827698965,
+      "upper95_bb100": 567.6206768694948
+     },
+     "adjusted": {
+      "mean_bb100": 539.0899543820412,
+      "standard_error_bb100": 8.280285297153824,
+      "lower95_bb100": 522.8596943390368,
+      "upper95_bb100": 555.3202144250457
+     }
+    }
+   },
+   "per_bank_change": [
+    {
+     "realized": 168.4730428059896,
+     "adjusted": 172.99650585232393
+    },
+    {
+     "realized": 161.6576944986979,
+     "adjusted": 193.11727575579386
+    },
+    {
+     "realized": 180.762451171875,
+     "adjusted": 160.93802037802402
+    },
+    {
+     "realized": 235.94807942708334,
+     "adjusted": 212.04146272984934
+    }
+   ],
+   "untrained_share": {
+    "control": {
+     "preflop": 0.16419068406907508,
+     "flop": 0.6255679147736174,
+     "turn": 0.7985645933014354,
+     "river": 0.8530326594090202,
+     "all": 0.20627340537341457
+    },
+    "live": {
+     "preflop": 0.0004240125856445982,
+     "flop": 0.02198665096191598,
+     "turn": 0.014590347923681257,
+     "river": 0.007692307692307693,
+     "all": 0.0018560157284494934
+    }
+   },
+   "family_interval": [
+    157.665517279908,
+    211.8811150780876
+   ],
+   "harm_flag": false,
+   "row_classes": {
+    "control": {
+     "preflop": {
+      "learned": 0.770531723759039,
+      "opponent_only": 0.0652775921718859,
+      "zero_mass": 0.0003674996659093946,
+      "missing": 0.1638231844031657
+     },
+     "flop": {
+      "learned": 0.2892579246958066,
+      "opponent_only": 0.08517416053057601,
+      "zero_mass": 0.0015666614444618519,
+      "missing": 0.6240012533291556
+     },
+     "turn": {
+      "learned": 0.17177033492822966,
+      "opponent_only": 0.02966507177033493,
+      "zero_mass": 0.003110047846889952,
+      "missing": 0.7954545454545454
+     },
+     "river": {
+      "learned": 0.13452566096423016,
+      "opponent_only": 0.012441679626749611,
+      "zero_mass": 0.0023328149300155523,
+      "missing": 0.8506998444790047
+     },
+     "all": {
+      "learned": 0.7278905317292681,
+      "opponent_only": 0.06583606289731737,
+      "zero_mass": 0.0004931922463376224,
+      "missing": 0.20578021312707692
+     }
+    },
+    "live": {
+     "preflop": {
+      "learned": 0.9843194598000404,
+      "opponent_only": 0.015256527614314981,
+      "zero_mass": 6.736648556970252e-05,
+      "missing": 0.0003566461000748957
+     },
+     "flop": {
+      "learned": 0.9097631200104699,
+      "opponent_only": 0.06825022902761418,
+      "zero_mass": 0.0017667844522968198,
+      "missing": 0.02021986650961916
+     },
+     "turn": {
+      "learned": 0.9632435465768799,
+      "opponent_only": 0.022166105499438832,
+      "zero_mass": 0.0016835016835016834,
+      "missing": 0.012906846240179574
+     },
+     "river": {
+      "learned": 0.9825174825174825,
+      "opponent_only": 0.009790209790209791,
+      "zero_mass": 0.002097902097902098,
+      "missing": 0.005594405594405594
+     },
+     "all": {
+      "learned": 0.9798552601173032,
+      "opponent_only": 0.018288724154247378,
+      "zero_mass": 0.00019440480950162677,
+      "missing": 0.0016616109189478666
+     }
+    }
+   }
+  },
+  "check-call": {
+   "change": {
+    "realized": {
+     "mean_bb100": -96.45538330078125,
+     "standard_error_bb100": 19.7669666711274,
+     "lower95_bb100": -135.20078853990697,
+     "upper95_bb100": -57.70997806165552
+    },
+    "adjusted": {
+     "mean_bb100": -106.5572668004919,
+     "standard_error_bb100": 19.43258873516534,
+     "lower95_bb100": -144.64725490620404,
+     "upper95_bb100": -68.46727869477976
+    }
+   },
+   "absolute": {
+    "control": {
+     "realized": {
+      "mean_bb100": 267.92856852213544,
+      "standard_error_bb100": 20.79119080304812,
+      "lower95_bb100": 227.17557255312173,
+      "upper95_bb100": 308.6815644911492
+     },
+     "adjusted": {
+      "mean_bb100": 276.9877681025752,
+      "standard_error_bb100": 19.765447567620054,
+      "lower95_bb100": 238.24534047159602,
+      "upper95_bb100": 315.7301957335544
+     }
+    },
+    "live": {
+     "realized": {
+      "mean_bb100": 171.47318522135416,
+      "standard_error_bb100": 20.460810677811843,
+      "lower95_bb100": 131.36777024178633,
+      "upper95_bb100": 211.57860020092198
+     },
+     "adjusted": {
+      "mean_bb100": 170.43050130208334,
+      "standard_error_bb100": 19.423597560276168,
+      "lower95_bb100": 132.3581368773564,
+      "upper95_bb100": 208.50286572681028
+     }
+    }
+   },
+   "per_bank_change": [
+    {
+     "realized": -79.70784505208334,
+     "adjusted": -84.64717158564815
+    },
+    {
+     "realized": -133.92333984375,
+     "adjusted": -131.6401728877315
+    },
+    {
+     "realized": -100.38859049479167,
+     "adjusted": -117.03762478298611
+    },
+    {
+     "realized": -71.8017578125,
+     "adjusted": -92.90409794560185
+    }
+   ],
+   "untrained_share": {
+    "control": {
+     "preflop": 0.006581624348958333,
+     "flop": 0.7739269141531323,
+     "turn": 0.9997099767981439,
+     "river": 1.0,
+     "all": 0.5456546299008327
+    },
+    "live": {
+     "preflop": 0.0,
+     "flop": 0.5785369476420349,
+     "turn": 0.9806688364168542,
+     "river": 0.9994777572045768,
+     "all": 0.4891806614021173
+    }
+   },
+   "family_interval": [
+    -158.83963018872265,
+    -54.27490341226115
+   ],
+   "harm_flag": true,
+   "row_classes": {
+    "control": {
+     "preflop": {
+      "learned": 0.9112752278645834,
+      "opponent_only": 0.08214314778645833,
+      "zero_mass": 0.0,
+      "missing": 0.006581624348958333
+     },
+     "flop": {
+      "learned": 0.1523864766324163,
+      "opponent_only": 0.07368660921445144,
+      "zero_mass": 0.00045575074577394763,
+      "missing": 0.7734711634073583
+     },
+     "turn": {
+      "learned": 0.0,
+      "opponent_only": 0.0002900232018561485,
+      "zero_mass": 0.0,
+      "missing": 0.9997099767981439
+     },
+     "river": {
+      "learned": 0.0,
+      "opponent_only": 0.0,
+      "zero_mass": 0.0,
+      "missing": 1.0
+     },
+     "all": {
+      "learned": 0.4056152977112013,
+      "opponent_only": 0.04873007238796603,
+      "zero_mass": 9.205406083936566e-05,
+      "missing": 0.5455625758399933
+     }
+    },
+    "live": {
+     "preflop": {
+      "learned": 0.9188944498697916,
+      "opponent_only": 0.08110555013020833,
+      "zero_mass": 0.0,
+      "missing": 0.0
+     },
+     "flop": {
+      "learned": 0.18894301129289442,
+      "opponent_only": 0.23252004106507065,
+      "zero_mass": 0.008715405954435247,
+      "missing": 0.5698215416875997
+     },
+     "turn": {
+      "learned": 0.0006989799261702453,
+      "opponent_only": 0.018632183656975602,
+      "zero_mass": 0.0022279985146676567,
+      "missing": 0.9784408379021865
+     },
+     "river": {
+      "learned": 0.0,
+      "opponent_only": 0.0005222427954232541,
+      "zero_mass": 9.495323553150074e-05,
+      "missing": 0.9993828039690452
+     },
+     "all": {
+      "learned": 0.42679488947894756,
+      "opponent_only": 0.08402444911893514,
+      "zero_mass": 0.002176799199972413,
+      "missing": 0.4870038622021449
+     }
+    }
+   }
+  },
+  "tight-aggressive": {
+   "change": {
+    "realized": {
+     "mean_bb100": 23.66015116373698,
+     "standard_error_bb100": 3.8474411698024857,
+     "lower95_bb100": 16.118747885335488,
+     "upper95_bb100": 31.201554442138473
+    },
+    "adjusted": {
+     "mean_bb100": 23.422500898216637,
+     "standard_error_bb100": 2.914795694412211,
+     "lower95_bb100": 17.709184219526712,
+     "upper95_bb100": 29.13581757690656
+    }
+   },
+   "absolute": {
+    "control": {
+     "realized": {
+      "mean_bb100": 10.37750244140625,
+      "standard_error_bb100": 4.092276407333402,
+      "lower95_bb100": 2.356195460389168,
+      "upper95_bb100": 18.398809422423334
+     },
+     "adjusted": {
+      "mean_bb100": 11.748765988775498,
+      "standard_error_bb100": 2.7370094295941247,
+      "lower95_bb100": 6.3839297315348,
+      "upper95_bb100": 17.113602246016196
+     }
+    },
+    "live": {
+     "realized": {
+      "mean_bb100": 34.03765360514323,
+      "standard_error_bb100": 3.042765911828521,
+      "lower95_bb100": 28.073501377690214,
+      "upper95_bb100": 40.00180583259624
+     },
+     "adjusted": {
+      "mean_bb100": 35.171266886992136,
+      "standard_error_bb100": 2.136684345324037,
+      "lower95_bb100": 30.9831331077918,
+      "upper95_bb100": 39.35940066619247
+     }
+    }
+   },
+   "per_bank_change": [
+    {
+     "realized": 29.55169677734375,
+     "adjusted": 31.440316531396647
+    },
+    {
+     "realized": 31.572469075520832,
+     "adjusted": 27.724422842884852
+    },
+    {
+     "realized": 23.067220052083332,
+     "adjusted": 25.34437329951567
+    },
+    {
+     "realized": 10.44921875,
+     "adjusted": 9.180890919069373
+    }
+   ],
+   "untrained_share": {
+    "control": {
+     "preflop": 0.002141606258912064,
+     "flop": 0.008276726241508936,
+     "turn": 0.0352997405434931,
+     "river": 0.12829500841278743,
+     "all": 0.008784797818596885
+    },
+    "live": {
+     "preflop": 0.0,
+     "flop": 0.0,
+     "turn": 0.00023234200743494423,
+     "river": 0.00055005500550055,
+     "all": 4.144716936556818e-05
+    }
+   },
+   "family_interval": [
+    15.580395568115183,
+    31.26460622831809
+   ],
+   "harm_flag": false,
+   "row_classes": {
+    "control": {
+     "preflop": {
+      "learned": 0.9972403099094019,
+      "opponent_only": 0.0006180838316860134,
+      "zero_mass": 0.0,
+      "missing": 0.002141606258912064
+     },
+     "flop": {
+      "learned": 0.9901074985161248,
+      "opponent_only": 0.0016157752423662864,
+      "zero_mass": 0.0,
+      "missing": 0.008276726241508936
+     },
+     "turn": {
+      "learned": 0.9634712549501571,
+      "opponent_only": 0.0012290045063498567,
+      "zero_mass": 0.00027311211252219035,
+      "missing": 0.035026628430970916
+     },
+     "river": {
+      "learned": 0.8707234997195737,
+      "opponent_only": 0.000981491867638811,
+      "zero_mass": 0.00014021312394840157,
+      "missing": 0.12815479528883902
+     },
+     "all": {
+      "learned": 0.9904204274028198,
+      "opponent_only": 0.0007947747785833563,
+      "zero_mass": 2.1137627089982878e-05,
+      "missing": 0.008763660191506902
+     }
+    },
+    "live": {
+     "preflop": {
+      "learned": 0.9999836211461922,
+      "opponent_only": 1.637885380781053e-05,
+      "zero_mass": 0.0,
+      "missing": 0.0
+     },
+     "flop": {
+      "learned": 0.999899946638207,
+      "opponent_only": 0.00010005336179295624,
+      "zero_mass": 0.0,
+      "missing": 0.0
+     },
+     "turn": {
+      "learned": 0.9994191449814126,
+      "opponent_only": 0.00034851301115241634,
+      "zero_mass": 0.00011617100371747211,
+      "missing": 0.00011617100371747211
+     },
+     "river": {
+      "learned": 0.9982581591492482,
+      "opponent_only": 0.0011917858452511918,
+      "zero_mass": 0.0,
+      "missing": 0.00055005500550055
+     },
+     "all": {
+      "learned": 0.9998549349072205,
+      "opponent_only": 0.00010361792341392045,
+      "zero_mass": 8.289433873113636e-06,
+      "missing": 3.3157735492454546e-05
+     }
+    }
+   }
+  },
+  "pot-pressure": {
+   "change": {
+    "realized": {
+     "mean_bb100": 45.11909484863281,
+     "standard_error_bb100": 6.414478221782152,
+     "lower95_bb100": 32.546019665402326,
+     "upper95_bb100": 57.6921700318633
+    },
+    "adjusted": {
+     "mean_bb100": 50.25394675367711,
+     "standard_error_bb100": 4.059670567857869,
+     "lower95_bb100": 42.29655076541172,
+     "upper95_bb100": 58.2113427419425
+    }
+   },
+   "absolute": {
+    "control": {
+     "realized": {
+      "mean_bb100": -17.264297485351562,
+      "standard_error_bb100": 6.208063995737814,
+      "lower95_bb100": -29.43277832852632,
+      "upper95_bb100": -5.095816642176803
+     },
+     "adjusted": {
+      "mean_bb100": -22.005380524425,
+      "standard_error_bb100": 3.7891382681345256,
+      "lower95_bb100": -29.432503772444214,
+      "upper95_bb100": -14.578257276405788
+     }
+    },
+    "live": {
+     "realized": {
+      "mean_bb100": 27.85479736328125,
+      "standard_error_bb100": 4.842091730278926,
+      "lower95_bb100": 18.36377077250407,
+      "upper95_bb100": 37.34582395405843
+     },
+     "adjusted": {
+      "mean_bb100": 28.248566229252116,
+      "standard_error_bb100": 2.8919945610823623,
+      "lower95_bb100": 22.579942252557117,
+      "upper95_bb100": 33.917190205947115
+     }
+    }
+   },
+   "per_bank_change": [
+    {
+     "realized": 49.540201822916664,
+     "adjusted": 46.817004794618946
+    },
+    {
+     "realized": 35.683207194010414,
+     "adjusted": 46.928280608549954
+    },
+    {
+     "realized": 39.88848876953125,
+     "adjusted": 46.939812403924535
+    },
+    {
+     "realized": 55.364481608072914,
+     "adjusted": 60.33068920761502
+    }
+   ],
+   "untrained_share": {
+    "control": {
+     "preflop": 0.009702768000232401,
+     "flop": 0.03848936041955513,
+     "turn": 0.0950204474380563,
+     "river": 0.20426864632873218,
+     "all": 0.024991885751379422
+    },
+    "live": {
+     "preflop": 4.913835887709022e-06,
+     "flop": 0.00047848320822991116,
+     "turn": 0.001098901098901099,
+     "river": 0.001046207497820401,
+     "all": 0.00018689772209056315
+    }
+   },
+   "family_interval": [
+    39.33161546998341,
+    61.176278037370814
+   ],
+   "harm_flag": false,
+   "row_classes": {
+    "control": {
+     "preflop": {
+      "learned": 0.9866804816523755,
+      "opponent_only": 0.003616750347392018,
+      "zero_mass": 1.9366802395673455e-05,
+      "missing": 0.009683401197836727
+     },
+     "flop": {
+      "learned": 0.9546084754958105,
+      "opponent_only": 0.006902164084634396,
+      "zero_mass": 0.00015070227259027065,
+      "missing": 0.038338658146964855
+     },
+     "turn": {
+      "learned": 0.8996271349530912,
+      "opponent_only": 0.005352417608852538,
+      "zero_mass": 0.00036083714216983404,
+      "missing": 0.09465961029588646
+     },
+     "river": {
+      "learned": 0.7914395081777056,
+      "opponent_only": 0.004291845493562232,
+      "zero_mass": 0.0008119707690523141,
+      "missing": 0.20345667555967986
+     },
+     "all": {
+      "learned": 0.9708490900719338,
+      "opponent_only": 0.0041590241766868204,
+      "zero_mass": 8.302952076870239e-05,
+      "missing": 0.02490885623061072
+     }
+    },
+    "live": {
+     "preflop": {
+      "learned": 0.999695342174962,
+      "opponent_only": 0.00029974398915025036,
+      "zero_mass": 0.0,
+      "missing": 4.913835887709022e-06
+     },
+     "flop": {
+      "learned": 0.9971291007506206,
+      "opponent_only": 0.002392416041149556,
+      "zero_mass": 0.0,
+      "missing": 0.00047848320822991116
+     },
+     "turn": {
+      "learned": 0.9964416535845108,
+      "opponent_only": 0.002459445316588174,
+      "zero_mass": 0.00010465724751439037,
+      "missing": 0.0009942438513867084
+     },
+     "river": {
+      "learned": 0.9966870095902354,
+      "opponent_only": 0.002266782911944202,
+      "zero_mass": 8.71839581517001e-05,
+      "missing": 0.0009590235396687009
+     },
+     "all": {
+      "learned": 0.9990131800273618,
+      "opponent_only": 0.0007999222505476103,
+      "zero_mass": 1.121386332543379e-05,
+      "missing": 0.00017568385876512937
+     }
+    }
+   }
+  },
+  "call-pressure": {
+   "change": {
+    "realized": {
+     "mean_bb100": 24.561309814453125,
+     "standard_error_bb100": 13.486157827171045,
+     "lower95_bb100": -1.8730267646527388,
+     "upper95_bb100": 50.995646393558985
+    },
+    "adjusted": {
+     "mean_bb100": 10.76855299286743,
+     "standard_error_bb100": 11.015991850683523,
+     "lower95_bb100": -10.82398952854394,
+     "upper95_bb100": 32.3610955142788
+    }
+   },
+   "absolute": {
+    "control": {
+     "realized": {
+      "mean_bb100": 58.658233642578125,
+      "standard_error_bb100": 14.151306685574951,
+      "lower95_bb100": 30.920132935572745,
+      "upper95_bb100": 86.3963343495835
+     },
+     "adjusted": {
+      "mean_bb100": 70.11499944589502,
+      "standard_error_bb100": 11.187695738888683,
+      "lower95_bb100": 48.185898622933024,
+      "upper95_bb100": 92.04410026885702
+     }
+    },
+    "live": {
+     "realized": {
+      "mean_bb100": 83.21954345703125,
+      "standard_error_bb100": 13.351083768834256,
+      "lower95_bb100": 57.049966727760946,
+      "upper95_bb100": 109.38912018630155
+     },
+     "adjusted": {
+      "mean_bb100": 80.88355243876245,
+      "standard_error_bb100": 10.501968269901102,
+      "lower95_bb100": 60.29855205931117,
+      "upper95_bb100": 101.46855281821374
+     }
+    }
+   },
+   "per_bank_change": [
+    {
+     "realized": 54.596577962239586,
+     "adjusted": 16.654801837227485
+    },
+    {
+     "realized": -27.516621907552086,
+     "adjusted": -20.96575615481818
+    },
+    {
+     "realized": -12.203063964843748,
+     "adjusted": -2.4418034411589535
+    },
+    {
+     "realized": 83.36834716796875,
+     "adjusted": 49.82696973021937
+    }
+   ],
+   "untrained_share": {
+    "control": {
+     "preflop": 0.06935525419986384,
+     "flop": 0.45598421286494684,
+     "turn": 0.926876828079298,
+     "river": 0.9982069672131147,
+     "all": 0.4073852817974105
+    },
+    "live": {
+     "preflop": 0.0033041950729850683,
+     "flop": 0.11649344654422358,
+     "turn": 0.3142395744276622,
+     "river": 0.7481907924419339,
+     "all": 0.1735872057012706
+    }
+   },
+   "family_interval": [
+    -18.86939678666945,
+    40.40650277240431
+   ],
+   "harm_flag": false,
+   "row_classes": {
+    "control": {
+     "preflop": {
+      "learned": 0.907630595985059,
+      "opponent_only": 0.02301414981507719,
+      "zero_mass": 0.0001104016781055072,
+      "missing": 0.06924485252175833
+     },
+     "flop": {
+      "learned": 0.39679552523589223,
+      "opponent_only": 0.147220261899161,
+      "zero_mass": 0.00045740871428944825,
+      "missing": 0.4555268041506574
+     },
+     "turn": {
+      "learned": 0.028924276893077673,
+      "opponent_only": 0.04419889502762431,
+      "zero_mass": 0.0010192926995006943,
+      "missing": 0.9258575353797973
+     },
+     "river": {
+      "learned": 0.0,
+      "opponent_only": 0.001793032786885246,
+      "zero_mass": 0.00037568306010928964,
+      "missing": 0.9978312841530055
+     },
+     "all": {
+      "learned": 0.546525133282559,
+      "opponent_only": 0.046089584920030464,
+      "zero_mass": 0.00035700685453160703,
+      "missing": 0.4070282749428789
+     }
+    },
+    "live": {
+     "preflop": {
+      "learned": 0.9508042066911112,
+      "opponent_only": 0.045891598235903726,
+      "zero_mass": 0.00014871201453659942,
+      "missing": 0.003155483058448469
+     },
+     "flop": {
+      "learned": 0.7065842297416386,
+      "opponent_only": 0.17692232371413785,
+      "zero_mass": 0.002433940886010435,
+      "missing": 0.11405950565821316
+     },
+     "turn": {
+      "learned": 0.3510655140749185,
+      "opponent_only": 0.3346949114974193,
+      "zero_mass": 0.007488679902473006,
+      "missing": 0.3067508945251892
+     },
+     "river": {
+      "learned": 0.028640522639909044,
+      "opponent_only": 0.22316868491815706,
+      "zero_mass": 0.0230279186443125,
+      "missing": 0.7251628737976215
+     },
+     "all": {
+      "learned": 0.6881525405744208,
+      "opponent_only": 0.1382602537243086,
+      "zero_mass": 0.0048242659342666,
+      "missing": 0.168762939767004
+     }
+    }
+   }
+  },
+  "random-tight": {
+   "change": {
+    "realized": {
+     "mean_bb100": 2.0920664469401045,
+     "standard_error_bb100": 5.970602892431262,
+     "lower95_bb100": -9.610964798973939,
+     "upper95_bb100": 13.795097692854146
+    },
+    "adjusted": {
+     "mean_bb100": 1.3432584635503235,
+     "standard_error_bb100": 4.460235634030965,
+     "lower95_bb100": -7.399288634226629,
+     "upper95_bb100": 10.085805561327277
+    }
+   },
+   "absolute": {
+    "control": {
+     "realized": {
+      "mean_bb100": 113.24560546875,
+      "standard_error_bb100": 5.962797903258537,
+      "lower95_bb100": 101.55787285076484,
+      "upper95_bb100": 124.93333808673516
+     },
+     "adjusted": {
+      "mean_bb100": 110.43158829465291,
+      "standard_error_bb100": 4.12854647329174,
+      "lower95_bb100": 102.33918803832525,
+      "upper95_bb100": 118.52398855098058
+     }
+    },
+    "live": {
+     "realized": {
+      "mean_bb100": 115.33767191569011,
+      "standard_error_bb100": 4.715229017575052,
+      "lower95_bb100": 106.09531004394773,
+      "upper95_bb100": 124.58003378743248
+     },
+     "adjusted": {
+      "mean_bb100": 111.77484675820324,
+      "standard_error_bb100": 3.45916542203275,
+      "lower95_bb100": 104.99450618821602,
+      "upper95_bb100": 118.55518732819046
+     }
+    }
+   },
+   "per_bank_change": [
+    {
+     "realized": 5.142049153645835,
+     "adjusted": 5.751551873692057
+    },
+    {
+     "realized": -0.36773681640624956,
+     "adjusted": -2.02528832139677
+    },
+    {
+     "realized": -1.9317626953125009,
+     "adjusted": 1.263727821450615
+    },
+    {
+     "realized": 5.525716145833334,
+     "adjusted": 0.38304248045539196
+    }
+   ],
+   "untrained_share": {
+    "control": {
+     "preflop": 0.012237237573515249,
+     "flop": 0.04318573573295276,
+     "turn": 0.12418821920929703,
+     "river": 0.27586206896551724,
+     "all": 0.037361775348566516
+    },
+    "live": {
+     "preflop": 0.0,
+     "flop": 0.00012724496473496692,
+     "turn": 0.0001655958137378287,
+     "river": 0.000564334085778781,
+     "all": 6.85507743121553e-05
+    }
+   },
+   "family_interval": [
+    -10.656772175371062,
+    13.34328910247171
+   ],
+   "harm_flag": false,
+   "row_classes": {
+    "control": {
+     "preflop": {
+      "learned": 0.9840629241264395,
+      "opponent_only": 0.00369983830004524,
+      "zero_mass": 8.958446247082905e-06,
+      "missing": 0.012228279127268166
+     },
+     "flop": {
+      "learned": 0.951142661205123,
+      "opponent_only": 0.005671603061924268,
+      "zero_mass": 0.00014827720423331417,
+      "missing": 0.043037458528719444
+     },
+     "turn": {
+      "learned": 0.8700391173901485,
+      "opponent_only": 0.005772663400554479,
+      "zero_mass": 0.0004937146329421594,
+      "missing": 0.12369450457635486
+     },
+     "river": {
+      "learned": 0.7185097106619104,
+      "opponent_only": 0.005628220372572335,
+      "zero_mass": 0.0012683313515655964,
+      "missing": 0.27459373761395167
+     },
+     "all": {
+      "learned": 0.9583523115463448,
+      "opponent_only": 0.004285913105088692,
+      "zero_mass": 0.00012335838457450848,
+      "missing": 0.037238416963992
+     }
+    },
+    "live": {
+     "preflop": {
+      "learned": 0.9998669749178914,
+      "opponent_only": 0.00013302508210858517,
+      "zero_mass": 0.0,
+      "missing": 0.0
+     },
+     "flop": {
+      "learned": 0.9991638188031702,
+      "opponent_only": 0.0007089362320948157,
+      "zero_mass": 0.0,
+      "missing": 0.00012724496473496692
+     },
+     "turn": {
+      "learned": 0.9990395442803206,
+      "opponent_only": 0.0007948599059415778,
+      "zero_mass": 3.311916274756574e-05,
+      "missing": 0.00013247665099026297
+     },
+     "river": {
+      "learned": 0.9984762979683973,
+      "opponent_only": 0.0009593679458239278,
+      "zero_mass": 0.0,
+      "missing": 0.000564334085778781
+     },
+     "all": {
+      "learned": 0.999591811298414,
+      "opponent_only": 0.00033963792727386034,
+      "zero_mass": 3.11594428691615e-06,
+      "missing": 6.543483002523914e-05
+     }
+    }
+   }
+  },
+  "trained-call-pressure": {
+   "change": {
+    "realized": {
+     "mean_bb100": 111.82956949869792,
+     "standard_error_bb100": 13.900554965070288,
+     "lower95_bb100": 84.5829694446254,
+     "upper95_bb100": 139.07616955277044
+    },
+    "adjusted": {
+     "mean_bb100": 108.43286547799364,
+     "standard_error_bb100": 10.106392507581276,
+     "lower95_bb100": 88.62323662968602,
+     "upper95_bb100": 128.24249432630126
+    }
+   },
+   "absolute": {
+    "control": {
+     "realized": {
+      "mean_bb100": 57.708109537760414,
+      "standard_error_bb100": 14.069682097460582,
+      "lower95_bb100": 30.130001903874714,
+      "upper95_bb100": 85.28621717164611
+     },
+     "adjusted": {
+      "mean_bb100": 49.73878766751487,
+      "standard_error_bb100": 9.774318251188852,
+      "lower95_bb100": 30.58006049003361,
+      "upper95_bb100": 68.89751484499612
+     }
+    },
+    "live": {
+     "realized": {
+      "mean_bb100": 169.53767903645834,
+      "standard_error_bb100": 12.059589290290177,
+      "lower95_bb100": 145.8995719943593,
+      "upper95_bb100": 193.1757860785574
+     },
+     "adjusted": {
+      "mean_bb100": 158.17165314550851,
+      "standard_error_bb100": 8.272681610988712,
+      "lower95_bb100": 141.9562971546371,
+      "upper95_bb100": 174.38700913637993
+     }
+    }
+   },
+   "per_bank_change": [
+    {
+     "realized": 128.51708984375,
+     "adjusted": 118.66415070190175
+    },
+    {
+     "realized": 129.37750244140625,
+     "adjusted": 106.80998041988907
+    },
+    {
+     "realized": 92.44535319010417,
+     "adjusted": 115.12948235664918
+    },
+    {
+     "realized": 96.97833251953125,
+     "adjusted": 93.12784843353458
+    }
+   ],
+   "untrained_share": {
+    "control": {
+     "preflop": 0.0896815198438967,
+     "flop": 0.4007325138273106,
+     "turn": 0.6791612057667104,
+     "river": 0.9355042601066923,
+     "all": 0.3054761732814741
+    },
+    "live": {
+     "preflop": 0.001126778127143328,
+     "flop": 0.04609761848620608,
+     "turn": 0.1002422983731395,
+     "river": 0.14478938192452617,
+     "all": 0.03440691280439906
+    }
+   },
+   "family_interval": [
+    81.24214514595235,
+    135.62358581003494
+   ],
+   "harm_flag": false,
+   "row_classes": {
+    "control": {
+     "preflop": {
+      "learned": 0.8886725594797711,
+      "opponent_only": 0.021645920676332264,
+      "zero_mass": 0.00012114446910599708,
+      "missing": 0.0895603753747907
+     },
+     "flop": {
+      "learned": 0.5189133883954389,
+      "opponent_only": 0.08035409777725055,
+      "zero_mass": 0.0008007236168982339,
+      "missing": 0.39993179021041236
+     },
+     "turn": {
+      "learned": 0.2568202439762073,
+      "opponent_only": 0.06401855025708236,
+      "zero_mass": 0.00044359310414356285,
+      "missing": 0.6787176126625668
+     },
+     "river": {
+      "learned": 0.04424443152226127,
+      "opponent_only": 0.020251308371046443,
+      "zero_mass": 0.0003033903875812201,
+      "missing": 0.9352008697191111
+     },
+     "all": {
+      "learned": 0.6573883976931568,
+      "opponent_only": 0.037135429025369086,
+      "zero_mass": 0.00029918806549123584,
+      "missing": 0.30517698521598285
+     }
+    },
+    "live": {
+     "preflop": {
+      "learned": 0.9792503585203132,
+      "opponent_only": 0.01962286335254349,
+      "zero_mass": 9.798070670811547e-05,
+      "missing": 0.0010287974204352124
+     },
+     "flop": {
+      "learned": 0.832990871425203,
+      "opponent_only": 0.12091151008859097,
+      "zero_mass": 0.0023747768383467513,
+      "missing": 0.043722841647859334
+     },
+     "turn": {
+      "learned": 0.7781700703819084,
+      "opponent_only": 0.12158763124495212,
+      "zero_mass": 0.0049382716049382715,
+      "missing": 0.09530402676820122
+     },
+     "river": {
+      "learned": 0.7355604296721219,
+      "opponent_only": 0.1196501884033519,
+      "zero_mass": 0.00570834036330915,
+      "missing": 0.13908104156121703
+     },
+     "all": {
+      "learned": 0.9074103168368682,
+      "opponent_only": 0.05818277035873265,
+      "zero_mass": 0.001598654924821874,
+      "missing": 0.03280825787957718
+     }
+    }
+   }
+  }
+ },
+ "traces": {
+  "control-b0/call-pressure": "9c4816745c30bcb4b0175571a2c34bff32206527a7de246211e4e1c2353f6dc3",
+  "control-b0/check-call": "416b7727cbfc54ac2e234f16dafb0cd61e09b112b97fc06b9ef47d0a159015f9",
+  "control-b0/pot-pressure": "eb6a86a80adedee7574a2fe7a7e46a93a82758b6d33d06908e180c3da0e1f7e7",
+  "control-b0/random": "9b3c298f701bdacd56cda15b3a3e32d18ee71cd9f9ed5e3bebd72e08d2cd971a",
+  "control-b0/random-tight": "5abc6ed6c34197539ed95f18820605dda65073186a851d0b0f34634d504308bb",
+  "control-b0/tight-aggressive": "5e110852f665ecc0711513b9a1a5d98015fa5b7229442b7f9fd59e2cd00e9f4b",
+  "control-b0/trained": "e4b3cdd9a66c7a67ad999373b0ef3716624948b8162639c978c77b3b1062dff4",
+  "control-b0/trained-call-pressure": "5ae3b5ae038d68b1ab7e5fe715a656a5647171742c943754a15083ae707852eb",
+  "control-b1/call-pressure": "fe9211d2102145ad6a9e34788ac3791b44d3c70abb901ae0a294fcd7c40dd58d",
+  "control-b1/check-call": "ea65ed282f904786cbf0f39ffdb6a7734f0cdefe972107da21f1cc9cc02e0f3b",
+  "control-b1/pot-pressure": "34a34eccbf4a5ac8e5baf983d43c86a9cab1bd20e5ce3c95e0ffff200c688f04",
+  "control-b1/random": "b416dc28c84d9364620c3b5480489070fb04ad78057169233569b820fbd0774b",
+  "control-b1/random-tight": "e822681ecf73177236026cb39ad51a47d2c040d66fa67d1cfa306fc260beb1f8",
+  "control-b1/tight-aggressive": "bf70ebcaa5b814de9a62d474647ac38d9914853f1b5fe6e30d68e9fe6f9bcc62",
+  "control-b1/trained": "06de218827fdfc3a3b8b3f3e26abc987861e33426e62a3aeba3085860c011bfa",
+  "control-b1/trained-call-pressure": "cfdfc28000c21a0ef7a0cd994b4ed4374d1919971a3c3e8c9c19e68f0b1b5c64",
+  "control-b2/call-pressure": "d14fb045645ddbf8c91b4464c2a29b6d7b764dacb4d6c999b05b14317057f171",
+  "control-b2/check-call": "616294947bfba67538b6ef2910046838ce94f92fedb38b5d0f1c5cbbd0272b56",
+  "control-b2/pot-pressure": "62da193a3d91b8bc59e0a2fdf835c917a6b1b667e8183af03f41619b1e28fd8a",
+  "control-b2/random": "18f62e465e03cc9109a54509613a26f2315f0e24d1e212279b899e5f93cb73da",
+  "control-b2/random-tight": "cfd250177a7518b111bd13f3648762c9474d930ab28d1c8dd573f4df8dff0a5d",
+  "control-b2/tight-aggressive": "2d90bfd1fa9f4b1974b0e78cfc2a62bb991ff6e957e74c3c325390c6be1e8e6f",
+  "control-b2/trained": "7ecaf890de590f35d0dadfe11c12c90c2676a506035fe05842735fe3a57b10a4",
+  "control-b2/trained-call-pressure": "45ead7877d6449579b2c6a7e629c7b84339782a45b4530a29e48dfce5105fe59",
+  "control-b3/call-pressure": "2690cb499281c6389441b781efe90221f4bf6eeaae20896b5a25aa488ee4cc9f",
+  "control-b3/check-call": "b3b612f24edb7131738506a65f4fc23588b8b614334b71bcf30e9ea525597c2a",
+  "control-b3/pot-pressure": "0ed6e6a974d74c6ac26e3c16e78556ac47d1e9836002cafa47727da8bf4b831b",
+  "control-b3/random": "c351d30c9011a1ab735a775f3daf374ce0ff10e53dedf840b8504b00be13d423",
+  "control-b3/random-tight": "7dddba86c692cab61a90b49cca895268072ed9b02353923dcb7b88cbfd238ad7",
+  "control-b3/tight-aggressive": "4a919590124ace2cf9978b9f84a33c763007904c17cd8096a129046e8cd68c50",
+  "control-b3/trained": "4c848db38b137fb123161be94b2d8d6d9051e9ce1ed4f16e4c4e1192e9439b2a",
+  "control-b3/trained-call-pressure": "0724aec76957f09212e7c427e5026935768725854f3d63677ef80cfbefa72393",
+  "live-b0/call-pressure": "a1861a716cba38c909938bf7172d4a201b170e335b845afd1bb1f243fd5e9f6d",
+  "live-b0/check-call": "a3f0de2b70aed60390d46bc4ab181268d7e73c8fb5a54e6051782a4e6c54f6ac",
+  "live-b0/pot-pressure": "354af29a92d448e3f15a0696bed18dd93d93634076f8e13b56376f3d2c0739e4",
+  "live-b0/random": "e05d6aff513424e0fc94a40805628473d6f57279191353cf2a73deef7e1e72fe",
+  "live-b0/random-tight": "bf732a86ff3da93ff5be1089f4f4b00607e9572e6e9aceb4183bc2a0ba729f7a",
+  "live-b0/tight-aggressive": "d5c857c13983b456b8e6be1c81a7dc9a90019566742f78c9990311846de41714",
+  "live-b0/trained": "01364b9fd589bd3bbb0087655df98a75c80779f5b93da36822a67f326bade792",
+  "live-b0/trained-call-pressure": "1a5fc10b490f8a3fda82197b0a937507d2f97b2b431caa5b2ac0e2595b7be775",
+  "live-b1/call-pressure": "42340db211203316cc485c159263153a8d0e94677e9f48d2cbf05b2d293ca30d",
+  "live-b1/check-call": "99a109d6d2d7bd967b8892903ce7360240e81dc3bdaff4902afcf6abd367d5ac",
+  "live-b1/pot-pressure": "1a05dc72d944cbeb07f7fea7d886d2ba5f8b4361d3364eff8a30736f468dd727",
+  "live-b1/random": "3144a82318af6d307ef16947f249672af87df54b0b2cdfcaeb02e4958be7887c",
+  "live-b1/random-tight": "9ccfb033eeae193cdd4109b7ea88f8cdf736c4176819352450dc0ea07d111426",
+  "live-b1/tight-aggressive": "4eeb4c8cd72c358f6c95a87b2a8c8ca229e63b258d860905f6a269117951b7d7",
+  "live-b1/trained": "d15c5d947b175044742dd2d9468e68ed75c84ee3ee104de4ab43555a2e3a0292",
+  "live-b1/trained-call-pressure": "30d581f39943dc829b31061d8fdc5b8dddc1ab04da31112b11c99911cfca9494",
+  "live-b2/call-pressure": "72d1d14c1ef80522151d650fc00a569696dd6efc7f22c5355518ff048952b300",
+  "live-b2/check-call": "ffcf3dd1eea5a6b66fe998b39d813e44fe228e79677ead426d728e67a7ca25e1",
+  "live-b2/pot-pressure": "b941b422a52bc32d2e4075f3497c1b77b018e7eeb5ff27e9ac08f7a3d67288ce",
+  "live-b2/random": "88094329a69f2a882c8f62ac0fd241c688b821f101540a5f40ee232afb932546",
+  "live-b2/random-tight": "9028f299a124194c37109c4178a613cace8f72debf3c9e21a8fe6e66e2d58cae",
+  "live-b2/tight-aggressive": "0f651a0458cc9cbbbf1552263fe78ed0fe7abdbcfc4f663c8e7e432ef2f2233b",
+  "live-b2/trained": "449c39b1a8448b04accd8a10a4a1e7d3c5e93a87e9ef4d96bbe410cb50196192",
+  "live-b2/trained-call-pressure": "4924add88d6347303a8cf2dbc7c93175152f22ca8e625838788b8de173de1c04",
+  "live-b3/call-pressure": "ec82b1c345364437ba9e6975868d18185b51bb8310c266c0336bb904dee81c75",
+  "live-b3/check-call": "8861ffffb0a9820909d0421193661fde220a29c52441999cc8172b2495e9460c",
+  "live-b3/pot-pressure": "5397d0182716c8c6125d177745b9a36886ea37edba4f6fd00f883b9a8cf4f517",
+  "live-b3/random": "2bd23b1012a9051208bd66285d17f8b50fe610f8a53c00c93cb5ff6fc24b0e15",
+  "live-b3/random-tight": "6f402b647848dc1d7e6883be8a94e26b086415bc5f2051edceeb49170eeb87ab",
+  "live-b3/tight-aggressive": "73b82361648c34254ddbfbd327d8f601f9f22e3cb5b24cc21f6066c346925e87",
+  "live-b3/trained": "323c1ca041fafe9a01569c2a58249f7fd74e78a4e155ac081cc5bf7627a80e38",
+  "live-b3/trained-call-pressure": "6ab8979f5910385f3e9f5e4684d2a2b75d95d79a4ec079b46ae007964f8291a1"
+ },
+ "training": {
+  "control": {
+   "iterations": 389539,
+   "nodes": 10000016348,
+   "entries": 250005084,
+   "frozen_at": 23864,
+   "declined_keys": null,
+   "missing_decision_share": 0.669849336569952,
+   "discarded_traverser_visit_share": 0.684154437698597,
+   "opponent_only_rows": 150148054,
+   "zero_mass_rows": 58787529,
+   "learned_rows": 41069501,
+   "by_street": [
+    {
+     "entries": 35401185,
+     "visits": 70487537,
+     "zero_visit_entries": 23802985,
+     "decisions": 762245206,
+     "missing_decisions": 285111189,
+     "missing_decision_share": 0.37404130161233184,
+     "visits_per_key": 1.9911067101284887
+    },
+    {
+     "entries": 44448037,
+     "visits": 117626854,
+     "zero_visit_entries": 28251620,
+     "decisions": 877597815,
+     "missing_decisions": 474070356,
+     "missing_decision_share": 0.5401909028226102,
+     "visits_per_key": 2.646390300656022
+    },
+    {
+     "entries": 63605803,
+     "visits": 178098992,
+     "zero_visit_entries": 37429373,
+     "decisions": 1512176250,
+     "missing_decisions": 977369192,
+     "missing_decision_share": 0.64633285438784,
+     "visits_per_key": 2.800043134429102
+    },
+    {
+     "entries": 106550059,
+     "visits": 210693555,
+     "zero_visit_entries": 60664076,
+     "decisions": 2870146159,
+     "missing_decisions": 2297392781,
+     "missing_decision_share": 0.8004445257242385,
+     "visits_per_key": 1.977413780690633
+    }
+   ]
+  },
+  "live": {
+   "iterations": 368666,
+   "nodes": 10000001004,
+   "entries": 38929242,
+   "frozen_at": null,
+   "declined_keys": null,
+   "missing_decision_share": 0.006604838274042107,
+   "discarded_traverser_visit_share": 0.0,
+   "opponent_only_rows": 14611785,
+   "zero_mass_rows": 5484330,
+   "learned_rows": 18833127,
+   "by_street": [
+    {
+     "entries": 1200739,
+     "visits": 79556207,
+     "zero_visit_entries": 341308,
+     "decisions": 526461385,
+     "missing_decisions": 1238236,
+     "missing_decision_share": 0.002351997763330733,
+     "visits_per_key": 66.25603649086105
+    },
+    {
+     "entries": 6302135,
+     "visits": 199968331,
+     "zero_visit_entries": 2723157,
+     "decisions": 744632206,
+     "missing_decisions": 6449748,
+     "missing_decision_share": 0.00866165597999934,
+     "visits_per_key": 31.730251890827475
+    },
+    {
+     "entries": 10327477,
+     "visits": 495388622,
+     "zero_visit_entries": 3602553,
+     "decisions": 1622823192,
+     "missing_decisions": 10585187,
+     "missing_decision_share": 0.0065226988695882525,
+     "visits_per_key": 47.96801987552236
+    },
+    {
+     "entries": 21098891,
+     "visits": 1065015646,
+     "zero_visit_entries": 7944767,
+     "decisions": 3147426751,
+     "missing_decisions": 21628926,
+     "missing_decision_share": 0.00687193943214979,
+     "visits_per_key": 50.47732821597116
+    }
+   ]
+  }
+ }
+}

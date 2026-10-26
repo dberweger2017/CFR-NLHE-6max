@@ -30,13 +30,18 @@ def sha(path):
         return hashlib.file_digest(f, 'sha256').hexdigest()
 
 
-def manifest(args, arm='pressure'):
+def model(binary, mass):
+    return {'path': str(binary), 'sha256': sha(binary), 'mass': str(mass), 'mass_sha256': sha(Path(mass) / 'receipt.json')}
+
+
+def manifest(args, arm='pressure', control=None, root=ROOT):
+    """`control` replaces #417's 10B as the control focal; `root` places a new set of banks."""
     old = json.loads(Path(CONTROL_MANIFEST).read_text())
     keep = ('path', 'sha256', 'mass', 'mass_sha256')
     if old['models']['candidate']['sha256'] != CONTROL_SHA:
         raise ValueError('control 10B pin differs')
     receipt = args.mass / 'receipt.json'
-    models = {'ten': {k: old['models']['candidate'][k] for k in keep},
+    models = {'ten': control or {k: old['models']['candidate'][k] for k in keep},
               'three': {k: old['models']['baseline'][k] for k in keep},
               arm: {'path': str(args.binary), 'sha256': sha(args.binary), 'mass': str(args.mass), 'mass_sha256': sha(receipt)}}
     by_name = {c['name']: c for c in old['cases']}
@@ -49,7 +54,7 @@ def manifest(args, arm='pressure'):
             case = by_name[field]
             opponents = ['three' if o == 'baseline' else o for o in case['opponents']]
             row = {k: case[k] for k in ('players', 'stack_bb', 'blocks', 'schedule')}
-            row.update(name=f'b{bank}-{field}', root=ROOT + 100 * bank + index, focals=['ten', arm], opponents=opponents,
+            row.update(name=f'b{bank}-{field}', root=root + 100 * bank + index, focals=['ten', arm], opponents=opponents,
                        traces=[str(folder / f'{field}-{a}.jsonl') for a in ('control', arm)], summary=str(folder / f'{field}-cost.json'))
             (late if 'three' in opponents else cases).append(row)
         # 10B-only fields first so the 3B loads once, for the trained fields at the end.
@@ -61,7 +66,7 @@ def manifest(args, arm='pressure'):
 
 def jobs(out, arm='pressure'):
     arena = json.loads((out / 'arena-manifest-b0.json').read_text())
-    pins = {'control': CONTROL_SHA, arm: arena['models'][arm]['sha256']}
+    pins = {'control': arena['models']['ten']['sha256'], arm: arena['models'][arm]['sha256']}
     work = []
     for bank in range(BANKS):
         for field in FIELDS:
