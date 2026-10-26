@@ -6,8 +6,11 @@ The bounded input inventory has not identified a compatible local three-player
 model. The first execution therefore follows the fixture-only branch below;
 the model-backed preflight, version comparison and latency panel remain unrun.
 The first fixture-only attempt and a later owner-requested continuation stopped
-before builds/tests at memory admission; see the
-[admission report](reports/river-second-to-act-m4/results.md). Both remain retained.
+before builds/tests at memory admission. Both remain retained. After the
+prospective evidence-based resource amendment below, M4 fixture qualification
+passes:141 native +2 generator +12 Python tests,66.98s,0.892GiB sampled peak;
+see [results](reports/river-second-to-act-m4/results.md). The learned-model panel
+is still unrun, with no compatible input admitted.
 
 The question is whether the corrected optional path from
 [PR429](https://github.com/dberweger2017/CFR-NLHE-6max/pull/429) behaves correctly
