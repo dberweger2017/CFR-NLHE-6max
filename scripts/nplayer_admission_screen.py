@@ -77,9 +77,10 @@ def classify(counts, row_visits):
     return by_street
 
 
-def rows(args, arm=ARM):
-    checkpoints = {'control': Path(CONTROL_CHECKPOINT), arm: args.checkpoint}
-    if screen.sha(checkpoints['control']) != CONTROL_CHECKPOINT_SHA:
+def rows(args, arm=ARM, control=(CONTROL_CHECKPOINT, CONTROL_CHECKPOINT_SHA)):
+    """`control` is the control's training checkpoint and its pinned SHA256."""
+    checkpoints = {'control': Path(control[0]), arm: args.checkpoint}
+    if screen.sha(checkpoints['control']) != control[1]:
         raise ValueError('control checkpoint pin differs')
     work = [(str(trace_path(args.out, bank, field, a)), f'{a}-b{bank}', field)
             for bank in range(screen.BANKS) for field in screen.FIELDS for a in checkpoints]
