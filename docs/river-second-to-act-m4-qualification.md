@@ -1,8 +1,10 @@
-# Planned M4 qualification of second-to-act river search
+# M4 qualification of second-to-act river search
 
 Proposal [432](https://github.com/dberweger2017/CFR-NLHE-6max/issues/432).
-**Planning PR only: implementation, input admission and execution remain pending.**
-No M4 build, solve, training or arena run is claimed by this document.
+Owner authorized implementation and execution after the planning review.
+The bounded input inventory has not identified a compatible local three-player
+model. The first execution therefore follows the fixture-only branch below;
+the model-backed preflight, version comparison and latency panel remain unrun.
 
 The question is whether the corrected optional path from
 [PR429](https://github.com/dberweger2017/CFR-NLHE-6max/pull/429) behaves correctly
@@ -46,6 +48,17 @@ Verify all three production hashes from `cards::EQUITY_K50_SHA256` locally befor
 use. Existing shared inputs/runtime remain unchanged. An absent/invalid model
 permits native fixture qualification only; record the model-based panel unrun.
 Do not silently substitute an untrained policy, fetch a mature model or train one.
+
+The implemented fixture-only command is
+`python -m scripts.qualify_river_second_to_act_m4 ROOT --catalog PATHS.json --thermal EXISTING_HELPER`.
+It checks M4/AC/free-space/RAM admission, takes the ordinary and owned study locks
+nonblocking, records only bounded policy headers from the existing paired-arena
+catalog, then builds a source-bound thermal helper. Under thermal/STOP supervision
+it runs the full native library, the legal panel generator tests and relevant
+Python fixtures, and generates the48-root manifest twice. It does not load a
+policy or send any solve request. A potential three-player catalog entry stops
+this branch for complete input admission; wrong-game entries cannot be substituted.
+No pre429 worker build or latency preflight is useful without the matching model.
 
 ## Fixed panel
 
