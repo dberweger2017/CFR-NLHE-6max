@@ -1,0 +1,311 @@
+{
+  "status": "blocked-at-memory-admission",
+  "model_panel": "unrun",
+  "m4_build_tests": "unrun",
+  "evidence_root": "m4:/Users/dberweger/Local/river-second-to-act-m4-20261026/",
+  "source": "d1da0e569adc3e336dbfb8d1d5987b9143a05ea7",
+  "required_available_bytes": 7516192768,
+  "fixture_family_forecast_bytes": 6442450944,
+  "local_validation": {
+    "native_generator_tests": 2,
+    "python_tests": 11
+  },
+  "receipts": {
+    "launch.json": {
+      "sha256": "aeee9c15e33a583524631afefc9564f0f54f1c9f114f68f42bfc66f5e99f5381",
+      "content": {
+        "pid": 17916,
+        "command": [
+          "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+          "-m",
+          "scripts.qualify_river_second_to_act_m4",
+          "/Users/dberweger/Local/river-second-to-act-m4-20261026/qualification-v1",
+          "--catalog",
+          "/Users/dberweger/Local/river-second-to-act-m4-20261026/catalog.json",
+          "--thermal",
+          "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/qualification-v1/thermal-state"
+        ],
+        "source": "d1da0e569adc3e336dbfb8d1d5987b9143a05ea7",
+        "epoch": 1792997608.631333
+      }
+    },
+    "controller-result.json": {
+      "sha256": "029ee839f72d52e5aa09b38e55d6e4b73d7975879fb41f1a0523ffb47540cc79",
+      "content": {
+        "returncode": 1,
+        "epoch": 1792997609.1679208
+      }
+    },
+    "preparation.json": {
+      "sha256": "a936c347e3f89eb4f45b8e8162442227e529f7de68420df267eb6205684a66e4",
+      "content": {
+        "source": "d1da0e569adc3e336dbfb8d1d5987b9143a05ea7",
+        "epoch": 1792997577.601059,
+        "disk_free_bytes": 33485021184,
+        "method": "shared local Git objects plus small source fetch; no payload copy",
+        "normal_lock_inode": 3
+      }
+    },
+    "preparation-correction.json": {
+      "sha256": "fcb6b0f0db77014f443eb27542058d9b053056e5c04c5910963d87d6b38b4062",
+      "content": {
+        "note": "preparation.json normal_lock_inode erroneously recorded Python file descriptor, not inode; use config.json actual fstat inode",
+        "actual_normal_lock_inode": 68078242
+      }
+    },
+    "qualification-v1/failure.json": {
+      "sha256": "c5393081f745d215caadc92895cdf178871c18d3153650dd08b12b60c43d7886",
+      "content": {
+        "error": "ValueError('6GiB conservative fixture-family forecast +1GiB headroom unavailable')",
+        "epoch": 1792997609.162838,
+        "preserve": true,
+        "automatic_retry": false
+      }
+    },
+    "qualification-v1/status.json": {
+      "sha256": "c709949deb369b8416c50ce201899cde7f92a8486684d909d190730cc422264a",
+      "content": {
+        "status": "failed"
+      }
+    },
+    "post-admission-resource-snapshot.json": {
+      "sha256": "1debf5a754492c3e4d3c0bcf2d5210795f0cddb5d59a3580ef88f31ea815d039",
+      "content": {
+        "epoch": 1792997670.560686,
+        "virtual_memory": {
+          "total": 17179869184,
+          "available": 7337132032,
+          "percent": 57.3,
+          "used": 7585054720,
+          "free": 1528119296,
+          "active": 5826969600,
+          "inactive": 5325471744,
+          "wired": 1758085120
+        },
+        "swap": {
+          "total": 1073741824,
+          "used": 1048576,
+          "free": 1072693248,
+          "percent": 0.1,
+          "sin": 363933696000,
+          "sout": 16795385856
+        },
+        "largest_rss_processes": [
+          {
+            "pid": 51306,
+            "name": "mediaanalysisd",
+            "rss": 604635136
+          },
+          {
+            "pid": 51563,
+            "name": "com.apple.WebKit.WebContent",
+            "rss": 234143744
+          },
+          {
+            "pid": 17345,
+            "name": "spotlightknowledged",
+            "rss": 217677824
+          },
+          {
+            "pid": 51150,
+            "name": "corespotlightd",
+            "rss": 142311424
+          },
+          {
+            "pid": 51337,
+            "name": "Spotlight",
+            "rss": 141803520
+          },
+          {
+            "pid": 51234,
+            "name": "WallpaperAerialsExtension",
+            "rss": 123895808
+          },
+          {
+            "pid": 51550,
+            "name": "Google Drive",
+            "rss": 117751808
+          },
+          {
+            "pid": 51882,
+            "name": "LogiPluginService",
+            "rss": 99631104
+          }
+        ],
+        "disk_free_bytes": 33438511104,
+        "thermal": "nominal",
+        "memory_pressure": "The system has 17179869184 (1048576 pages with a page size of 16384).\nSystem-wide memory free percentage: 79%\n",
+        "no_workload_interrupted": true,
+        "no_retry": true,
+        "normal_lock_released": true
+      }
+    },
+    "input-inventory-readonly.json": {
+      "sha256": "3ab07a5df8fcb76d6bc78d1cc27fb5ba04f718be3a096363c303586a4456c0a7",
+      "content": {
+        "exhaustive": false,
+        "method": "bounded-first-header-only; explicit catalog paths",
+        "candidates": [
+          {
+            "path": "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/qualification-v1/fixture-a-average.gz",
+            "bytes": 533728,
+            "inode": 77268134,
+            "mtime_ns": 1792704880046933557,
+            "header_sha256": "42822d65be02e3270bb635ef97192493439d2d26a9064f8a95e953cf67fd925e",
+            "format": "nplayer-policy-v1",
+            "players": 4,
+            "entries": 24151,
+            "strategy": "average",
+            "last_average_street": 3,
+            "disposition": "wrong-player-count"
+          },
+          {
+            "path": "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/qualification-v1/fixture-b-average.gz",
+            "bytes": 534566,
+            "inode": 77268161,
+            "mtime_ns": 1792704889460780201,
+            "header_sha256": "02a881ede2c8e858aa8770498e37db108056615d25cee89e43435b2d32c6e347",
+            "format": "nplayer-policy-v1",
+            "players": 4,
+            "entries": 24151,
+            "strategy": "average",
+            "last_average_street": 3,
+            "disposition": "wrong-player-count"
+          },
+          {
+            "path": "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint25000000-average.gz",
+            "bytes": 281165107,
+            "inode": 77268259,
+            "mtime_ns": 1792705018265302782,
+            "header_sha256": "4fe0df355ba4e966fa8b78ffa9cbccfbc3b07503a652f5f9aff871fe587cb0f0",
+            "format": "nplayer-policy-v1",
+            "players": 4,
+            "entries": 13691524,
+            "strategy": "average",
+            "last_average_street": 3,
+            "disposition": "wrong-player-count"
+          },
+          {
+            "path": "/Users/dberweger/Local/nplayer-four-player-feasibility-20261022/main-v1/endpoint50000000-average.gz",
+            "bytes": 412586432,
+            "inode": 77268307,
+            "mtime_ns": 1792705106346844489,
+            "header_sha256": "5a5a0b7fe8a453d6976463c79914c1b5626af2f4763aebda68d7a22e574c4f24",
+            "format": "nplayer-policy-v1",
+            "players": 4,
+            "entries": 20007998,
+            "strategy": "average",
+            "last_average_street": 3,
+            "disposition": "wrong-player-count"
+          },
+          {
+            "path": "/Users/dberweger/Local/nplayer-five-six-feasibility-20261023/qualification-v1/players5/fixture-a-average.gz",
+            "bytes": 242844,
+            "inode": 77279169,
+            "mtime_ns": 1792708360943594171,
+            "header_sha256": "d1000f9227af4b112caace2f2bec2d65610e762ff2af79811323fadf5118f924",
+            "format": "nplayer-policy-v1",
+            "players": 5,
+            "entries": 10718,
+            "strategy": "average",
+            "last_average_street": 3,
+            "disposition": "wrong-player-count"
+          },
+          {
+            "path": "/Users/dberweger/Local/nplayer-five-six-feasibility-20261023/qualification-v1/players5/fixture-b-average.gz",
+            "bytes": 243632,
+            "inode": 77279201,
+            "mtime_ns": 1792708370365294244,
+            "header_sha256": "c4a6ece72312f0679e170fa86206c187bb7ebae09048a6a6ad9c2d7c0d574db2",
+            "format": "nplayer-policy-v1",
+            "players": 5,
+            "entries": 10718,
+            "strategy": "average",
+            "last_average_street": 3,
+            "disposition": "wrong-player-count"
+          },
+          {
+            "path": "/Users/dberweger/Local/nplayer-five-six-feasibility-20261023/main-v1/players5/endpoint25000000-average.gz",
+            "bytes": 302487371,
+            "inode": 77281501,
+            "mtime_ns": 1792708560409015440,
+            "header_sha256": "6adfe32f8de6e3b4e1c771d52378a786d4bd4a327a7fa90fdfa1a2b1a467fe6d",
+            "format": "nplayer-policy-v1",
+            "players": 5,
+            "entries": 14753432,
+            "strategy": "average",
+            "last_average_street": 3,
+            "disposition": "wrong-player-count"
+          },
+          {
+            "path": "/Users/dberweger/Local/nplayer-five-six-feasibility-20261023/main-v1/players5/endpoint50000000-average.gz",
+            "bytes": 411243085,
+            "inode": 77281558,
+            "mtime_ns": 1792708652886843637,
+            "header_sha256": "4bc9c2c09863c8c2deee91e0c638cb0f55e4e2af17789bc58295bace59a2729a",
+            "format": "nplayer-policy-v1",
+            "players": 5,
+            "entries": 20006770,
+            "strategy": "average",
+            "last_average_street": 3,
+            "disposition": "wrong-player-count"
+          },
+          {
+            "path": "/Users/dberweger/Local/nplayer-five-six-feasibility-20261023/qualification-v1/players6/fixture-a-average.gz",
+            "bytes": 354620,
+            "inode": 77281369,
+            "mtime_ns": 1792708458969742087,
+            "header_sha256": "b7430881120448ee4ead1fe1e96e150db9bf860a392513ff770dd748e72eacc3",
+            "format": "nplayer-policy-v1",
+            "players": 6,
+            "entries": 15792,
+            "strategy": "average",
+            "last_average_street": 3,
+            "disposition": "wrong-player-count"
+          },
+          {
+            "path": "/Users/dberweger/Local/nplayer-five-six-feasibility-20261023/qualification-v1/players6/fixture-b-average.gz",
+            "bytes": 355883,
+            "inode": 77281398,
+            "mtime_ns": 1792708468404236980,
+            "header_sha256": "d0bdc917b09d09e4d20d7a076a41a8107d975f1d2e5539aa38f47ca902b216cf",
+            "format": "nplayer-policy-v1",
+            "players": 6,
+            "entries": 15792,
+            "strategy": "average",
+            "last_average_street": 3,
+            "disposition": "wrong-player-count"
+          },
+          {
+            "path": "/Users/dberweger/Local/nplayer-five-six-feasibility-20261023/main-v1/players6/endpoint25000000-average.gz",
+            "bytes": 318252047,
+            "inode": 77281625,
+            "mtime_ns": 1792708740174593178,
+            "header_sha256": "ec1910d8e0ad08184034396680f326554bcb7611415b9a72d7b545b33d668db1",
+            "format": "nplayer-policy-v1",
+            "players": 6,
+            "entries": 15520261,
+            "strategy": "average",
+            "last_average_street": 3,
+            "disposition": "wrong-player-count"
+          },
+          {
+            "path": "/Users/dberweger/Local/nplayer-five-six-feasibility-20261023/main-v1/players6/endpoint50000000-average.gz",
+            "bytes": 410667788,
+            "inode": 77281684,
+            "mtime_ns": 1792708835028067466,
+            "header_sha256": "3fed01e8813dbf16421ef8c5f9a2b160228616b48e6a43e9d376148806ba2abd",
+            "format": "nplayer-policy-v1",
+            "players": 6,
+            "entries": 20002527,
+            "strategy": "average",
+            "last_average_street": 3,
+            "disposition": "wrong-player-count"
+          }
+        ],
+        "compatible_model_admitted": false,
+        "no_model_loaded": true
+      }
+    }
+  }
+}

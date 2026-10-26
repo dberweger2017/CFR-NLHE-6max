@@ -1,5 +1,20 @@
 # Roadmap
 
+## Separate M4 river fixture qualification passes; model panel remains unrun
+
+[Proposal432](https://github.com/dberweger2017/CFR-NLHE-6max/issues/432),
+[fixed plan](docs/river-second-to-act-m4-qualification.md),
+[PR433 results](docs/reports/river-second-to-act-m4/results.md):141 native library,
+2 legal-generator and12 Python tests pass on M4; all48 observations reproduce.
+Guarded fixture execution66.98s, sampled peak0.892GiB, nominal thermals. Two prior
+RAM refusals are preserved; a prospective fixture-only forecast amendment uses
+prior same-host costs,4GiB family +1GiB headroom. No compatible three-player model
+was admitted from the12-policy catalog. Learned-model panel,12 pre429 controls,
+learned-profile reproduction and latency remain unrun. No training, mature-model
+transfer or automatic scientific continuation. PR431's
+bb128 allocation and the cleaner's uploads are untouched. Search adoption and
+mature strength work remain separately deferred; no automatic continuation.
+
 ## Four-player estimator qualification complete; mature campaigns remain paused
 
 [PR425](https://github.com/dberweger2017/CFR-NLHE-6max/pull/425),

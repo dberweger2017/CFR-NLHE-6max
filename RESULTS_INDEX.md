@@ -1,3 +1,19 @@
+## PR433 — M4 river fixtures pass; learned-model panel unrun
+
+[Report](docs/reports/river-second-to-act-m4/results.md),
+[verified costs and proof](docs/reports/river-second-to-act-m4/results.json),
+[all48 roots](docs/reports/river-second-to-act-m4/panel.csv),
+[historical admission receipts](docs/reports/river-second-to-act-m4/admission.json),
+[fixed protocol](docs/river-second-to-act-m4-qualification.md).
+141 native library +2 generator +12 Python tests pass on M4,48-root manifest
+reproduces byte for byte. Source `86504259bfde570ed663e2841520250032ac4b53`,
+66.98s guarded wall,186.46s child CPU,0.892GiB sampled family peak, nominal thermal
+state and1MiB max swap. Prior admission refusals and prospective evidence-based
+fixture forecast amendment retained. All12 cataloged policies have4–6players;
+model panel, pre429 parity and learned-policy latency remain unrun. All5,990
+source files rehashed; locks released. Ordinary M4 evidence retained; no bb128
+work, scientific continuation or archive/upload claim.
+
 ## PR425 — warmed estimator qualification complete; no mature continuation
 
 [Results](docs/reports/nplayer-warm-estimator-qualification/results.md),
