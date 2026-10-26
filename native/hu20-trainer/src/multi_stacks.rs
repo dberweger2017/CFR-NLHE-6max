@@ -58,7 +58,10 @@ impl CashIdentity {
                 || n != 3
                 || i["small_blind"] != 50
                 || i["big_blind"] != 100
-                || i["schema"] != multi_holdem::STACK_OWNER_SCHEMA
+                || !matches!(
+                    KeySchema::from_identity(i),
+                    Some(KeySchema::StackOwner | KeySchema::StackBuckets)
+                )
             {
                 return Err("unsupported stack distribution/schema".into());
             }
@@ -100,6 +103,7 @@ impl CashIdentity {
 }
 pub struct StackMixtureGame {
     pub tables: &'static EquityTables,
+    schema: KeySchema,
     pub root_counts: [AtomicU64; 27],
     pub button_counts: [[AtomicU64; 3]; 27],
 }
@@ -107,9 +111,21 @@ impl StackMixtureGame {
     pub fn new(tables: &'static EquityTables) -> Self {
         Self {
             tables,
+            schema: KeySchema::StackOwner,
             root_counts: std::array::from_fn(|_| AtomicU64::new(0)),
             button_counts: std::array::from_fn(|_| std::array::from_fn(|_| AtomicU64::new(0))),
         }
+    }
+    pub fn with_schema(tables: &'static EquityTables, schema: KeySchema) -> Result<Self, String> {
+        if !matches!(schema, KeySchema::StackOwner | KeySchema::StackBuckets) {
+            return Err("unsupported mixture key schema".into());
+        }
+        let mut game = Self::new(tables);
+        game.schema = schema;
+        Ok(game)
+    }
+    pub fn schema(&self) -> KeySchema {
+        self.schema
     }
     pub fn buttons(&self) -> [[u64; 3]; 27] {
         std::array::from_fn(|i| {
@@ -126,7 +142,7 @@ impl Game for StackMixtureGame {
         3
     }
     fn identity(&self) -> Value {
-        json!({"schema":multi_holdem::STACK_OWNER_SCHEMA,"game":"nlhe-cash","players":3,
+        json!({"schema":self.schema.name(),"game":"nlhe-cash","players":3,
           "stack_distribution":declaration(),"small_blind":50,"big_blind":100,"menu":MENU,
           "card_tables":self.tables.sha256,"utility_unit":"big-blind"})
     }
@@ -139,7 +155,7 @@ impl Game for StackMixtureGame {
         let state = CashGame {
             config: config(index).unwrap(),
             tables: self.tables,
-            schema: KeySchema::StackOwner,
+            schema: self.schema,
         }
         .sample(rng);
         self.button_counts[index][state.hand.button()].fetch_add(1, Ordering::Relaxed);
@@ -170,5 +186,21 @@ mod tests {
         identity["stack_distribution"] = declaration();
         identity["stacks"] = json!([2000, 2000, 2000]);
         assert!(CashIdentity::parse(&identity).is_err());
+    }
+    #[test]
+    fn bucketed_mixture_is_versioned_and_fixed_only_refuses_it() {
+        for schema in [
+            multi_holdem::STACK_OWNER_SCHEMA,
+            multi_holdem::STACK_BUCKETS_SCHEMA,
+        ] {
+            let mut i = json!({"schema":schema,"game":"nlhe-cash","players":3,"stack_distribution":declaration(),"small_blind":50,"big_blind":100,"menu":MENU,"card_tables":EQUITY_K50_SHA256,"utility_unit":"big-blind"});
+            let identity = CashIdentity::parse(&i).unwrap();
+            assert!(identity.fixed().is_err());
+            for n in 0..27 {
+                assert!(identity.accepts(config(n).unwrap()));
+            }
+            i["schema"] = json!(multi_holdem::LIVE_ORDER_SCHEMA);
+            assert!(CashIdentity::parse(&i).is_err());
+        }
     }
 }
