@@ -2,8 +2,8 @@
 
 PR438 / proposal437 / [fixed protocol](../../six-player-counterfactual-m4.md).
 This prepares a bounded conditional-action study of the frozen PR431 live-order
-10B model against five check-call scripts. **No mature model or main panel has
-run. No strength or mechanism verdict follows.**
+10B model against five check-call scripts. **Guarded mature cost calibration
+now passes; no main panel has run. No strength or mechanism verdict follows.**
 
 ## What is implemented
 
@@ -19,8 +19,9 @@ The native example loads one shared read-only live-order average. Mature cost
 calibration binds the binary, checkpoint, source average and embedded mass
 receipt. It independently reconstructs archived keys, preserves menu order,
 reports support, and compares float64 action values and work counts across
-identical repeated worlds. Main mode currently refuses execution pending review
-and measured admission; the qualification command cannot launch it.
+identical repeated worlds. Main mode currently refuses execution pending the explicit full-panel budget
+and readout implementation/qualification; the qualification/calibration commands
+cannot launch it.
 
 The streaming extractor samples36 declared seat/street/action strata without
 using rewards, original opponent cards or future outcomes. It bounds memory by
@@ -63,22 +64,65 @@ is reused. An operational delta command first lacked PYTHONPATH and stopped
 before creating a run root or taking locks; its corrected environment and logs
 are retained. No scientific workload was retried.
 
-## Remaining gates and resource scope
+## Independent review and measured calibration
 
-Independent information-boundary review is required by CONTRIBUTING before the
-mature panel. The owner has been asked to authorize one reviewer; none has been
-spawned for this PR. Then retrieve only the protected frozen PR431 model and
-four original check-call banks, freeze their inventory, and measure mature
-memory/loading/continuation cost on M4. Publish the complete quote before main
-admission; the initial2–6h scenario is not a measured ETA or approved launch.
+One owner-authorized independent reviewer found no blocking posterior/privacy/
+branch/RNG defect. [Review receipt](review.json) records two findings and their
+follow-up resolution: a guarded mature wrapper was missing, and missing-stratum
+reporting omitted whole-block conflicts. Both are fixed and tests pass. One
+same-reviewer follow-up provider-capacity refusal was retried successfully;
+no second reviewer was started.
+
+The protected frozen PR431 model and four original check-call banks were copied
+to M4 over the direct Ethernet link, leaving originals untouched. Raw binary SHA
+matches. Source `70143736` passes2 example tests,8 Python tests and24 synthetic roots/
+reproduction on M4; the full library receipt is reused on byte-identical files.
+Outcome-blind extraction fills all36 strata. Both review conditions are resolved.
+
+[Calibration receipt](calibration.json), [all root costs](calibration-costs.csv):
+36 roots ×8 worlds ×initial/repeat,129 legal root actions,2,064 branch rollouts.
+Every float64 value and work counter reproduces. No conditional returns were
+read to choose roots, settings, work or this quote; raw calibration values remain
+sealed. One mature model, two workers, normal/study locks and frozen source/input/
+review gates. All stages return0. No stop or retry.
+
+- Native model/K50 loading:12.2075s; native wall12.2175s.
+- Supervised child stage12.2593s; stage child CPU11.3680user+0.9189system seconds
+  includes native work and periodic guard helper children.
+- Complete wrapper14.8639s; parent CPU2.1241user+0.4964system seconds excludes
+  child CPU. The2.6045s outside the child stage includes input validation/setup/
+  quote/readout; it is not omitted from cost reporting.
+- Sampled process-family peak2,342,469,632bytes(2.1816GiB), all thermal samples
+  nominal; swap1MiB before/after. Fresh process with ordinary warm caches after
+  copying/decompression/hash checks; no cold-load or isolated-runtime claim.
+- Input transfer/decompression stage wall99.25s, source qualification/extraction
+  stages53.35s, already spent and separate from initial fixture159.77s.
+  One capped Ethernet stream copies old protected PR431 inputs. No bb128 science;
+  its ordinary source read overlaps PR434, so no isolated campaign claim.
+
+### Reviewable main allocation, not launched
+
+Keep all36 roots and129 legal actions:64 discovery+2,048 held-out worlds/root,
+plus exact reproduction,544,896 branch rollouts. Linear continuation projection
+is only2.19s; measured loading and deliberately conservative proof/readout
+allowances dominate the quote. Central **134.40s(2m14s)**, reserve
+**630.98s(10m31s)**; propose **15 minutes M4 compute**. Counts, family256 and
+selection rules remain fixed. This quote is compute only; main discovery/
+held-out contrast/readout implementation and qualification still remain.
+
+The initial2–6h scenario is superseded by measured costs, not an approved launch.
+Main remains disabled pending explicit budget acceptance and source/readout
+qualification. No budget extension, extra roots/worlds, player changes or arena
+continuation follows automatically.
 
 Read-only prefix inspection confirms38,608,704rows,118,811,398probabilities,
 2,185,971,050raw binary bytes and1,098,358,004compressed bytes. These establish
 storage/representation inputs, not peak resident memory or available capacity.
-The qualification loaded only synthetic rows and real pinned K50 tables.
+The first qualification loaded only synthetic rows and real pinned K50 tables;
+the separately guarded calibration above loaded the exact frozen mature binary.
 
 Ordinary source, manifests, logs, raw fixture worlds, resource samples and all
 partials remain at M4 `~/Local/six-player-counterfactual-m4-20261026/` and this
 PR's ignored local `planning/counterfactual/`. Inputs are untouched. No bb128
-science, model transfer, cleanup, compression/upload, schedules or subagents
-were started. Cleaner-owned archival remains pending; no Drive acceptance claim.
+science, cleanup, compression/upload or schedules were started. One authorized
+reviewer and protected-input copies to M4 are recorded above. Cleaner-owned archival remains pending; no Drive acceptance claim.

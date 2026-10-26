@@ -1,0 +1,103 @@
+{
+  "format": "six-player-counterfactual-calibration-report-v1",
+  "status": "passed",
+  "source": "7014373641cb7f5dbaaf143d3494e170f514c216",
+  "roots": 36,
+  "legal_root_actions": 129,
+  "worlds_per_root_per_pass": 8,
+  "repeated": true,
+  "branch_rollouts_including_repeat": 2064,
+  "float64_and_work_reproduced": true,
+  "source_qualification": {
+    "native_example_tests": 2,
+    "python_tests": 8,
+    "synthetic_roots": 24,
+    "synthetic_worlds_per_pass": 8,
+    "full_library_receipt_reused_on_identical_bytes": true
+  },
+  "model_sha256": "f894a59f8a92424d735438726d16834901a7dcaf6d560c98b950fb72a143c9ea",
+  "source_checkpoint_sha256": "75245fbb0a00617ae67281e25cd7184b4a27fbf72e5aa2b175ba5a37c93771d8",
+  "states_sha256": "590e2c06130428d8b6de551fd7b50c63b161b45debf481551e7e1d74e7118a4a",
+  "native_verified_sha256": "a585b1cb00921e8a5682e4772a4575208666c4cdba27bdb9b6ef1397114611ec",
+  "config_sha256": "867a080b563a04bb3be3aa5a0ea823beebaf43c1ccc9b86a581065becb364b7e",
+  "complete_sha256": "7039a4fe9191157dc5ae19b62bd7c71cb54bd7a3592db2567725678b95ec454d",
+  "input_receipt_sha256": "3bba6295a55631def4b1e040af44a96dfb07ea7bbe513406ae181ce7e240c16e",
+  "panel_inventory_sha256": "7f1b3697090b8a89af4e92daf59659d8cc634c9d623ea636dab08e0d2576938e",
+  "admission": {
+    "sample": {
+      "epoch": 1793028186.701791,
+      "thermal_state": "nominal",
+      "available_ram_bytes": 7345094656,
+      "swap_used_bytes": 1048576,
+      "disk_free_bytes": 25465442304,
+      "pressure": 1,
+      "worker_family_rss_bytes": 0,
+      "live_cpu_seconds": 0
+    },
+    "raw_binary_bytes": 2185971050,
+    "table_bytes": 1384031032,
+    "forecast_family_rss_bytes": 4643743906,
+    "ram_headroom_bytes": 1073741824,
+    "forecast_additional_disk_bytes": 1073741824,
+    "disk_headroom_bytes": 4294967296,
+    "main_started": false
+  },
+  "after": {
+    "epoch": 1793028200.207891,
+    "thermal_state": "nominal",
+    "available_ram_bytes": 8684421120,
+    "swap_used_bytes": 1048576,
+    "disk_free_bytes": 25465344000,
+    "pressure": 1,
+    "worker_family_rss_bytes": 0,
+    "live_cpu_seconds": 0
+  },
+  "model_and_k50_load_seconds": 12.207459625,
+  "measured_root_work_seconds_including_repeat": 0.008294959,
+  "native_wall_seconds": 12.217473,
+  "child_cost": {
+    "phase": "mature-calibration",
+    "returncode": 0,
+    "pid": 49683,
+    "wall_seconds": 12.259332041983726,
+    "user_cpu_seconds": 11.36795500000001,
+    "system_cpu_seconds": 0.9188870000000002,
+    "sampled_peak_rss_bytes": 2342469632,
+    "cpu_scope": "Stage RUSAGE_CHILDREN delta includes native worker and periodic guard helper children; not native-PID-only CPU."
+  },
+  "wrapper_cost": {
+    "wall_seconds": 14.863878208008828,
+    "user_cpu_seconds": 2.124129,
+    "system_cpu_seconds": 0.49641,
+    "scope": "Entire wrapper including validation/setup/readout; child stage has separate costs. Parent CPU excludes child CPU."
+  },
+  "wrapper_validation_setup_readout_wall_seconds": 2.604546166025102,
+  "sampled_peak_rss_bytes": 2342469632,
+  "thermal_states": [
+    "nominal"
+  ],
+  "swap_before_bytes": 1048576,
+  "swap_after_bytes": 1048576,
+  "cache_context": "Fresh native process; ordinary warm caches following copy/decompression/hash verification. No global cache flush.",
+  "input_preparation_stage_wall_seconds": 99.24589179002214,
+  "source_qualification_and_extraction_stage_wall_seconds": 53.35393087400007,
+  "initial_qualification_cost_separate": true,
+  "no_values_read_for_quote": true,
+  "main_started": false,
+  "frozen_main_plan": {
+    "roots": 36,
+    "discovery_worlds": 64,
+    "heldout_worlds": 2048,
+    "repetitions": 2,
+    "branch_rollouts": 544896,
+    "central_seconds": 134.39732880100001,
+    "reserved_seconds": 630.984526778,
+    "proposed_allocation_seconds": 900,
+    "assumptions": "Fixed same roots/menu; linear worlds extrapolation; 3x continuation/2x load reserve +600s proof allowance. Not a completion guarantee.",
+    "explicit_budget_acceptance_required": true,
+    "readout_implementation_and_qualification_pending": true
+  },
+  "ordinary_evidence_root": "/Users/dberweger/Local/six-player-counterfactual-m4-20261026",
+  "archive_pending": true,
+  "protected_originals_unchanged": true
+}
