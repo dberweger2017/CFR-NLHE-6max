@@ -59,6 +59,26 @@ def validate_fixture(header, summary):
         raise ValueError('fixture recipe/identity/endpoint changed')
 
 
+def baseline_manifest(baseline, worker):
+    profile=tomllib.loads((baseline/'native/hu20-trainer/Cargo.toml').read_text())['profile']['release']
+    if profile != {'opt-level':3,'lto':'thin','codegen-units':1}:
+        raise ValueError('baseline release profile changed')
+    return ('[package]\nname="river-m4-baseline-worker"\nversion="0.0.0"\nedition="2021"\n'
+            '[dependencies]\nhu20-trainer={path='+json.dumps(str(baseline/'native/hu20-trainer'))+'}\n'
+            'serde_json={version="1",features=["float_roundtrip"]}\n'
+            '[[bin]]\nname="river_m4_baseline"\npath='+json.dumps(str(worker))+'\n'
+            '[profile.release]\nopt-level=3\nlto="thin"\ncodegen-units=1\n')
+
+
+def baseline_lock(original):
+    text=original.read_text()
+    if any(p['name']=='river-m4-baseline-worker' for p in tomllib.loads(text)['package']):
+        raise ValueError('unexpected wrapper in historical lockfile')
+    # Add only the owned root package, retaining every historical dependency pin.
+    # --locked host builds validate this without resolving unused target crates.
+    return text+'\n[[package]]\nname = "river-m4-baseline-worker"\nversion = "0.0.0"\ndependencies = [\n "hu20-trainer",\n "serde_json",\n]\n'
+
+
 class Worker:
     def __init__(self, command, folder):
         self.folder = folder
@@ -217,7 +237,7 @@ def summary(root, c, sup, tick, proof):
     write(root/'status.json',dict(status='complete',result_sha256=sha(root/'results.json')))
 
 
-def run(root, baseline, tables, thermal):
+def run(root, baseline, tables, thermal, preparation):
     if root.exists():raise FileExistsError('attempt exists; preserve/no retry')
     if platform.system()!='Darwin' or 'Apple M4' not in subprocess.check_output(['sysctl','-n','machdep.cpu.brand_string'],text=True):
         raise ValueError('M4 only')
@@ -232,6 +252,7 @@ def run(root, baseline, tables, thermal):
             c=dict(source=frozen_source(SOURCE),baseline=frozen_source(baseline),baseline_path=str(baseline),
                    tables=str(tables),python=sys.executable,python_sha256=sha(sys.executable),
                    thermal=str(thermal),thermal_sha256=sha(thermal),admission=admission,
+                   preparation=str(preparation),preparation_sha256=sha(preparation),
                    normal_inode=os.fstat(normal.fileno()).st_ino,study_inode=os.fstat(owned.fileno()).st_ino,
                    seed=SEED,target_nodes=25000000,max_entries=1000000)
             if c['baseline']['commit']!=BASELINE:raise ValueError('wrong baseline snapshot')
@@ -253,10 +274,10 @@ def run(root, baseline, tables, thermal):
             names=('nplayer_train','nplayer_policy','river_live','nplayer_river_panel')
             sup.stage('build',[cargo,'build',*flags,*[a for name in names for a in ('--example',name)]])
             wrapper=root/'baseline-worker';wrapper.mkdir()
-            text='[package]\nname="river-m4-baseline-worker"\nversion="0.0.0"\nedition="2021"\n[dependencies]\nhu20-trainer={path='+json.dumps(str(baseline/'native/hu20-trainer'))+'}\nserde_json={version="1",features=["float_roundtrip"]}\n[[bin]]\nname="river_m4_baseline"\npath='+json.dumps(str(SOURCE/'native/hu20-trainer/examples/river_live.rs'))+'\n'
+            text=baseline_manifest(baseline,SOURCE/'native/hu20-trainer/examples/river_live.rs')
             (wrapper/'Cargo.toml').write_text(text)
-            shutil.copy2(baseline/'native/hu20-trainer/Cargo.lock',wrapper/'Cargo.lock')
-            sup.stage('baseline-lock',[cargo,'metadata','--offline','--no-deps','--format-version','1','--manifest-path',wrapper/'Cargo.toml'])
+            (wrapper/'Cargo.lock').write_text(baseline_lock(baseline/'native/hu20-trainer/Cargo.lock'))
+            sup.stage('baseline-lock',[cargo,'metadata','--offline','--locked','--no-deps','--format-version','1','--manifest-path',wrapper/'Cargo.toml'])
             def packages(path):
                 x=tomllib.loads(path.read_text())['package']
                 return {(a['name'],a['version'],a.get('source'),a.get('checksum')) for a in x if a['name']!='river-m4-baseline-worker'}
@@ -304,7 +325,8 @@ def run(root, baseline, tables, thermal):
                 if phase=='preflight':
                     batches=[read(root/f'preflight-{v}-{i}/results.json') for v in ('current','baseline') for i in (0,1)]
                     available=sample(root,Path(c['thermal']))['available_ram_bytes']
-                    prep=read(root.parent/'preparation.json')['wall_seconds']
+                    if sha(preparation)!=c['preparation_sha256']:raise ValueError('preparation receipt changed')
+                    prep=read(preparation)['wall_seconds']
                     value=quote(batches,time.monotonic()-tick+prep,available,forecast)
                     value['disk_admitted']=shutil.disk_usage(root).free>=12*2**30
                     value['main_admitted'] &= value['disk_admitted']
@@ -328,10 +350,11 @@ def main():
     p=argparse.ArgumentParser(description=__doc__);sub=p.add_subparsers(dest='command',required=True)
     a=sub.add_parser('run');a.add_argument('root',type=Path);a.add_argument('--baseline',type=Path,required=True)
     a.add_argument('--tables',type=Path,required=True);a.add_argument('--thermal',type=Path,required=True)
+    a.add_argument('--preparation',type=Path,required=True)
     b=sub.add_parser('batch');b.add_argument('root',type=Path);b.add_argument('--phase',choices=('preflight','main'),required=True)
     b.add_argument('--version',choices=('current','baseline'),required=True);b.add_argument('--repeat',type=int,choices=(0,1),required=True)
     x=p.parse_args()
-    if x.command=='run':run(x.root.resolve(),x.baseline.resolve(),x.tables.resolve(),x.thermal.resolve())
+    if x.command=='run':run(x.root.resolve(),x.baseline.resolve(),x.tables.resolve(),x.thermal.resolve(),x.preparation.resolve())
     else:batch(x.root.resolve(),x.phase,x.version,x.repeat)
 
 

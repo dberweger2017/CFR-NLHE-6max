@@ -101,6 +101,14 @@ identical diagnostic transport adapter, not a claim to reproduce the historical
 unmodified worker executable. Calls without the optional mass arguments retain
 their existing behavior. Sidecar attachment is included in complete startup.
 
+Pre-science plumbing correction: the first implementation's owned wrapper lock
+omitted its new root package; the baseline build refused `--locked` before any
+fixture training or root request. Preserve that attempt. The corrected wrapper
+copies every historical lock entry unchanged and adds only its owned root entry;
+an offline locked host build validates it. Release settings also match the
+historical opt-level3/thin-LTO/codegen-units1 profile. The fresh attempt retains
+the same scientific scope and includes failed setup time in its cost forecast.
+
 ## Fixed accounting: 144 root solves
 
 | Phase | Current root IDs | Pre429 root IDs | Passes | Root solves |

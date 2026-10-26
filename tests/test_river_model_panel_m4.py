@@ -2,14 +2,36 @@ import copy
 from pathlib import Path
 import sys
 import tempfile
+import tomllib
 import unittest
 
 from scripts.river_model_panel_protocol import PREFLIGHT, first_actor, quote, reentry_matches, signature, verify_batch_pair
-from scripts.river_model_panel_m4 import Worker, validate_fixture
+from scripts.river_model_panel_m4 import Worker, baseline_lock, baseline_manifest, validate_fixture
 from scripts.river_model_panel_protocol import SEED
 
 
 class RiverModelPanelTests(unittest.TestCase):
+    def test_external_baseline_wrapper_preserves_release_profile(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);p=root/'native/hu20-trainer';p.mkdir(parents=True)
+            (p/'Cargo.toml').write_text('[profile.release]\nopt-level=3\nlto="thin"\ncodegen-units=1\n')
+            x=tomllib.loads(baseline_manifest(root,root/'worker.rs'))
+            self.assertEqual(x['profile']['release'],dict(**{'opt-level':3,'lto':'thin','codegen-units':1}))
+            self.assertEqual(x['dependencies']['hu20-trainer']['path'],str(p))
+            self.assertEqual(x['bin'][0]['path'],str(root/'worker.rs'))
+
+    def test_wrapper_lock_adds_only_root_and_retains_dependency_bytes(self):
+        text='version=4\n[[package]]\nname="serde_json"\nversion="1.0.151"\nchecksum="unchanged"\n'
+        with tempfile.TemporaryDirectory() as tmp:
+            p=Path(tmp)/'Cargo.lock';p.write_text(text)
+            result=baseline_lock(p)
+            self.assertTrue(result.startswith(text))
+            packages=tomllib.loads(result)['package']
+            self.assertEqual(packages[0],tomllib.loads(text)['package'][0])
+            self.assertEqual(packages[1]['dependencies'],['hu20-trainer','serde_json'])
+            p.write_text(result)
+            with self.assertRaises(ValueError):baseline_lock(p)
+
     def test_fixture_cannot_silently_change_seed_scope_or_stop_early(self):
         game=dict(stacks=[10000]*3,small_blind=50,big_blind=100,
                   schema='nplayer-button-live-actor-history-equity-k50-v1')
