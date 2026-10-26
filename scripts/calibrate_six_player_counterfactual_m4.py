@@ -51,17 +51,17 @@ def validate_config(c):
         raise ValueError('frozen panel inventory differs')
 
 
-def run_guarded(root, config):
+def run_guarded(root, config, *, phase="mature-calibration", command=None, owner_stop=None):
     """Supervise only this child/process group; preserve every terminal failure."""
-    folder = root/'measurements/mature-calibration'
+    folder = root/'measurements'/phase
     folder.mkdir(parents=True, exist_ok=False)
     config_pin = sha(root/'config.json')
-    command = [config['binary'], str(root/'manifest.json')]
+    command = command or [config['binary'], str(root/'manifest.json')]
     before = resource.getrusage(resource.RUSAGE_CHILDREN)
     tick = time.monotonic();peak = 0;child = None
     try:
         with (folder/'stdout.log').open('x') as out, (folder/'stderr.log').open('x') as err:
-            write(root/'status.json', dict(status='running', phase='mature-calibration'))
+            write(root/'status.json', dict(status='running', phase=phase))
             child = subprocess.Popen(command, cwd=SOURCE, env=dict(os.environ, RAYON_NUM_THREADS='2'),
                                      stdout=out, stderr=err, start_new_session=True)
             with (root/'resources.jsonl').open('x') as log:
@@ -69,7 +69,7 @@ def run_guarded(root, config):
                     x = sample(root, config['thermal'], child.pid)
                     peak = max(peak, x['worker_family_rss_bytes'])
                     log.write(json.dumps(x)+'\n');log.flush()
-                    if (x['thermal_state'] not in ('nominal','fair') or (root/'STOP').exists()
+                    if (x['thermal_state'] not in ('nominal','fair') or (root/'STOP').exists() or (owner_stop is not None and owner_stop.exists())
                             or sha(root/'config.json') != config_pin):
                         raise RuntimeError('thermal/STOP/config terminal stop')
                     # Prospective protective floors, distinct from admission
@@ -87,7 +87,7 @@ def run_guarded(root, config):
         raise
     finally:
         after = resource.getrusage(resource.RUSAGE_CHILDREN)
-        cost = dict(phase='mature-calibration',command=command,
+        cost = dict(phase=phase,command=command,
                     returncode=child.returncode if child is not None else None,
                     pid=child.pid if child is not None else None,
                     wall_seconds=time.monotonic()-tick,

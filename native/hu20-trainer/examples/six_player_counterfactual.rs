@@ -93,10 +93,46 @@ fn worlds(
         })
         .collect()
 }
+fn full_work(m: &Value) -> bool {
+    m["mode"] == "main" || m["mode"] == "qualification-main"
+}
+fn admit_main(m: &Value) -> Result<(), String> {
+    let path = required(m, "owner_admission")
+        .map_err(|_| "main panel requires separately reviewed measured admission")?;
+    let pin = required(m, "owner_admission_sha256")?;
+    if sha256_file(Path::new(path)) != pin {
+        return Err("owner admission changed".into());
+    }
+    let a: Value = serde_json::from_slice(&std::fs::read(path).map_err(|e| e.to_string())?)
+        .map_err(|e| e.to_string())?;
+    if a["study"] != "PR438"
+        || a["status"] != "owner-approved"
+        || a["allocation_seconds"] != 900
+        || a["discovery_worlds"] != 64
+        || a["heldout_worlds"] != 2048
+        || a["repetitions"] != 2
+        || a["model_sha256"] != MODEL
+        || a["states_sha256"] != m["states_sha256"]
+    {
+        return Err("frozen owner admission differs".into());
+    }
+    Ok(())
+}
+fn equal_bits(a: &[World], b: &[World]) -> bool {
+    a.len() == b.len()
+        && a.iter().zip(b).all(|(x, y)| {
+            x.lookups == y.lookups
+                && x.q.len() == y.q.len()
+                && x.q
+                    .iter()
+                    .zip(&y.q)
+                    .all(|(p, q)| p.to_bits() == q.to_bits())
+        })
+}
 fn run(m: &Value) -> Result<(), String> {
     let phase = required(m, "mode")?;
-    let qualification = phase == "qualification";
-    if !["qualification", "calibrate", "main"].contains(&phase) {
+    let qualification = phase == "qualification" || phase == "qualification-main";
+    if !["qualification", "qualification-main", "calibrate", "main"].contains(&phase) {
         return Err("mode".into());
     }
     let root = m["belief_root"].as_u64().ok_or("belief_root")?;
@@ -111,7 +147,10 @@ fn run(m: &Value) -> Result<(), String> {
         return Err("frozen belief root differs".into());
     }
     if phase == "main" {
-        return Err("main panel requires a separately reviewed measured admission; not enabled by qualification PR".into());
+        admit_main(m)?;
+    }
+    if full_work(m) && (m["discovery_worlds"] != 64 || m["heldout_worlds"] != 2048) {
+        return Err("fixed discovery/heldout counts differ".into());
     }
     let threads = m["threads"].as_u64().ok_or("threads")? as usize;
     if !(1..=2).contains(&threads) {
@@ -187,6 +226,7 @@ fn execute(
         return Err("one to36 roots required".into());
     }
     let mut raw = fresh(&output.join("worlds.jsonl"))?;
+    let mut repeated = fresh(&output.join("worlds.repeat.jsonl"))?;
     let mut roots = fresh(&output.join("roots.jsonl"))?;
     let mut progress = fresh(&output.join("progress.jsonl"))?;
     let solve_start = Instant::now();
@@ -217,35 +257,70 @@ fn execute(
             &mut roots,
             &json!({"id":s.id,"hero":s.hero,"street":s.street,"stratum":s.stratum,"key":s.expected_key,"actions":actions,"probabilities":p,"found":found,"status":status}),
         )?;
-        // Calibration is a different RNG domain; its values cannot select settings.
-        let domain = if qualification {
-            "fixture"
+        // Independent discovery/heldout domains; calibration never shares them.
+        let phases: Vec<(&str, u64)> = if full_work(m) {
+            vec![("discovery", 64), ("heldout", 2048)]
         } else {
-            "calibration"
+            vec![(
+                if qualification {
+                    "fixture"
+                } else {
+                    "calibration"
+                },
+                8,
+            )]
         };
-        let first = pool.install(|| worlds(s, &belief, tables, &model, root, domain, 8))?;
-        let repeat = pool.install(|| worlds(s, &belief, tables, &model, root, domain, 8))?;
-        if first != repeat {
-            return Err(format!("float64/work reproduction differs: {}", s.id));
+        let mut hero_lookups = 0u64;
+        for (domain, count) in &phases {
+            let first =
+                pool.install(|| worlds(s, &belief, tables, &model, root, domain, *count))?;
+            let repeat =
+                pool.install(|| worlds(s, &belief, tables, &model, root, domain, *count))?;
+            if !equal_bits(&first, &repeat) {
+                return Err(format!("float64/work reproduction differs: {}", s.id));
+            }
+            hero_lookups += first
+                .iter()
+                .map(|w| w.lookups.iter().sum::<u64>())
+                .sum::<u64>();
+            for (i, (x, y)) in first.iter().zip(&repeat).enumerate() {
+                emit(
+                    &mut raw,
+                    &json!({"id":s.id,"phase":domain,"world":i,"values":x.q,"lookups":x.lookups}),
+                )?;
+                emit(
+                    &mut repeated,
+                    &json!({"id":s.id,"phase":domain,"world":i,"values":y.q,"lookups":y.lookups}),
+                )?;
+            }
         }
-        for (i, w) in first.iter().enumerate() {
-            emit(
-                &mut raw,
-                &json!({"id":s.id,"phase":domain,"world":i,"values":w.q,"lookups":w.lookups}),
-            )?;
+        let (repeat_p, repeat_found) = model.distribution(&hand.observe(s.hero)?, tables)?;
+        if found != repeat_found
+            || p.len() != repeat_p.len()
+            || !p
+                .iter()
+                .zip(&repeat_p)
+                .all(|(a, b)| a.to_bits() == b.to_bits())
+        {
+            return Err("root policy profile reproduction differs".into());
         }
         let seconds = timer.elapsed().as_secs_f64();
-        let cost = json!({"id":s.id,"seconds_including_repeat":seconds,"worlds_per_pass":8,"actions":actions.len(),"hero_lookups":first.iter().map(|w|w.lookups.iter().sum::<u64>()).sum::<u64>()});
+        let cost = json!({"id":s.id,"seconds_including_repeat":seconds,"worlds_per_pass":if full_work(m){2112}else{8},"actions":actions.len(),"hero_lookups":hero_lookups});
         emit(&mut progress, &cost)?;
         progress.flush().map_err(|e| e.to_string())?;
         costs.push(cost);
     }
     roots.flush().map_err(|e| e.to_string())?;
     raw.flush().map_err(|e| e.to_string())?;
+    repeated.flush().map_err(|e| e.to_string())?;
+    if sha256_file(&output.join("worlds.jsonl")) != sha256_file(&output.join("worlds.repeat.jsonl"))
+    {
+        return Err("byte reproduction differs".into());
+    }
     let mut w = fresh(&output.join("verified.json"))?;
     emit(
         &mut w,
-        &json!({"status":"passed","qualification_only":qualification,"calibration_only":!qualification,"main_started":false,"roots":states.len(),"threads":pool.current_num_threads(),"model_sha256":pin,"source_checkpoint_sha256":model.source_checkpoint_sha256,"states_sha256":sha256_file(input),"worlds_sha256":sha256_file(&output.join("worlds.jsonl")),"roots_sha256":sha256_file(&output.join("roots.jsonl")),"float64_and_work_reproduced":true,"policy_load_seconds":load.total_seconds,"load_and_k50_seconds":load_seconds,"continuation_seconds_including_repeat":solve_start.elapsed().as_secs_f64(),"wall_seconds":start.elapsed().as_secs_f64(),"costs":costs}),
+        &json!({"status":"passed","qualification_only":qualification,"calibration_only":!qualification && !full_work(m),"main_started":m["mode"]=="main","full_panel_work":full_work(m),"discovery_worlds":if full_work(m){64}else{0},"heldout_worlds":if full_work(m){2048}else{0},"root_profiles_reproduced":true,"worlds_repeat_sha256":sha256_file(&output.join("worlds.repeat.jsonl")),"roots":states.len(),"threads":pool.current_num_threads(),"model_sha256":pin,"source_checkpoint_sha256":model.source_checkpoint_sha256,"states_sha256":sha256_file(input),"worlds_sha256":sha256_file(&output.join("worlds.jsonl")),"roots_sha256":sha256_file(&output.join("roots.jsonl")),"float64_and_work_reproduced":true,"policy_load_seconds":load.total_seconds,"load_and_k50_seconds":load_seconds,"continuation_seconds_including_repeat":solve_start.elapsed().as_secs_f64(),"wall_seconds":start.elapsed().as_secs_f64(),"costs":costs}),
     )?;
     Ok(())
 }
@@ -329,6 +404,29 @@ fn main() {
 mod tests {
     use super::*;
     #[test]
+    fn bit_reproduction_rejects_signed_zero_and_work_changes() {
+        assert!(!equal_bits(
+            &[World {
+                q: vec![0.],
+                lookups: [0; 3]
+            }],
+            &[World {
+                q: vec![-0.],
+                lookups: [0; 3]
+            }]
+        ));
+        assert!(!equal_bits(
+            &[World {
+                q: vec![1.],
+                lookups: [0; 3]
+            }],
+            &[World {
+                q: vec![1.],
+                lookups: [1; 3]
+            }]
+        ));
+    }
+    #[test]
     fn domains_and_ids_do_not_share_random_streams() {
         let mut seeds = std::collections::BTreeSet::new();
         for id in ["a", "b"] {
@@ -340,6 +438,32 @@ mod tests {
                 }
             }
         }
+    }
+    #[test]
+    fn owner_admission_binds_budget_and_observations() {
+        let path = std::env::temp_dir().join(format!(
+            "pr438-admission-{}-{}.json",
+            std::process::id(),
+            std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .unwrap()
+                .as_nanos()
+        ));
+        let mut a = json!({"study":"PR438","status":"owner-approved","allocation_seconds":900,"discovery_worlds":64,"heldout_worlds":2048,"repetitions":2,"model_sha256":MODEL,"states_sha256":"d".repeat(64)});
+        {
+            let mut w = fresh(&path).unwrap();
+            emit(&mut w, &a).unwrap();
+        }
+        let mut m = json!({"owner_admission":path,"owner_admission_sha256":sha256_file(&path),"states_sha256":"d".repeat(64)});
+        assert!(admit_main(&m).is_ok());
+        m["states_sha256"] = json!("e".repeat(64));
+        assert!(admit_main(&m).is_err());
+        a["allocation_seconds"] = json!(901);
+        std::fs::write(&path, a.to_string()).unwrap();
+        m["states_sha256"] = json!("d".repeat(64));
+        m["owner_admission_sha256"] = json!(sha256_file(&path));
+        assert!(admit_main(&m).is_err());
+        std::fs::remove_file(&path).unwrap();
     }
     #[test]
     fn main_requires_reviewed_admission() {

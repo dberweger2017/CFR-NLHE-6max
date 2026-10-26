@@ -110,3 +110,28 @@ quoting the main. No elapsed-time kill or automatic continuation into an arena.
 On completion publish all roots/action values/support/uncertainty and limitations;
 retain every ordinary input/source/raw output/failure/partial for cleaner-owned
 archival. No ZIP/cloud upload or protected-input cleanup by this study.
+
+
+## Approved main implementation and readout qualification
+
+Owner accepted the900sM4 allocation after the published134.40scentral/
+630.98sreserve quote. No counts/settings change:36 frozen roots,64discovery+
+2,048held-out worlds/root, initial+exact reproduction. Main/root/schema/model
+pins are unchanged. The guarded runner binds source, native binary, approved
+inventory, resolved review, full-work fixture qualification and owner receipt.
+The native entry point independently checks its fixed-count owner receipt.
+A fresh synthetic24-root qualification exercises both full-count phases and
+proof-gated statistics before main. The earlier156-test library receipt may
+be reused only with exact byte equality of its library source.
+
+Readout selects by discovery means only, deterministic menu-order ties. Every
+held-out action is compared to the original frozen root mixture using the
+family256 empirical-Bernstein bounds. The unchanged formula is based on
+[Maurer–Pontil2009 theorem4](https://www.learningtheory.org/colt2009/papers/012.pdf),
+with L=ln(4×256/0.05), unbiased sample variance, n=2,048, and width600Σ|c|.
+For explanatory action-minus-call/check values, subtract the already-simultaneous
+action-minus-mixture interval endpoints. These derived, conservative bounds do
+not add a new testing family; identical reference actions have exact zero
+contrast. Ordinary normal95 intervals stay auxiliary. Report all roots/actions,
+support counters and inconclusive/adverse findings; no population-weighted
+strength, regression attribution or policy adoption verdict.
