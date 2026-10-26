@@ -1,0 +1,115 @@
+{
+ "host": "bb128 (cygnus-x1), 16 threads, CPU only, alone",
+ "source_commit": "bccc71f3 (branch), main parity build from e6ae0bec",
+ "stages_utc": [
+  {
+   "stage": "build",
+   "at": "2026-10-25T21:15:15Z"
+  },
+  {
+   "stage": "parity",
+   "at": "2026-10-25T21:15:48Z"
+  },
+  {
+   "stage": "parity-passed",
+   "at": "2026-10-25T21:20:02Z"
+  },
+  {
+   "stage": "train",
+   "at": "2026-10-25T21:20:02Z"
+  },
+  {
+   "stage": "export",
+   "at": "2026-10-25T21:54:31Z"
+  },
+  {
+   "stage": "audit",
+   "at": "2026-10-25T22:01:58Z"
+  },
+  {
+   "stage": "convert",
+   "at": "2026-10-25T22:09:04Z"
+  },
+  {
+   "stage": "verify",
+   "at": "2026-10-25T22:14:58Z"
+  },
+  {
+   "stage": "arena-b0",
+   "at": "2026-10-25T22:20:47Z"
+  },
+  {
+   "stage": "arena-b1",
+   "at": "2026-10-25T22:28:15Z"
+  },
+  {
+   "stage": "arena-b2",
+   "at": "2026-10-25T22:35:38Z"
+  },
+  {
+   "stage": "arena-b3",
+   "at": "2026-10-25T22:43:01Z"
+  },
+  {
+   "stage": "rows",
+   "at": "2026-10-25T22:53:17Z"
+  },
+  {
+   "stage": "training",
+   "at": "2026-10-25T22:57:23Z"
+  },
+  {
+   "stage": "equity",
+   "at": "2026-10-25T22:57:23Z"
+  },
+  {
+   "stage": "report",
+   "at": "2026-10-26T00:07:22Z"
+  },
+  {
+   "stage": "done",
+   "at": "2026-10-26T00:07:41Z"
+  }
+ ],
+ "binaries_sha256": {
+  "nplayer_train": "cfa109336cdb75e6476dcceefff48f05f1a418fac00d96b6418bef50589169f0",
+  "nplayer_policy": "99539507e3cdf468c5979512f3509e58e869a2593e46c1a8774d380483ed5f93",
+  "nplayer_inference": "7dceec2409b7bee29a751efb3edf3297627b386047118dacc7c9ea1a870a3c3b",
+  "nplayer_paired_arena": "27edd8f50adfe3685ac9d2f356cbd4434f9f58278501d42a0f77c83fdbb3f2b6",
+  "nplayer_allin_equity": "4f15544f73598d8d82664cdc2e851335880c469ace060d4e4df9edd4758e9d72",
+  "main nplayer_train": "31cb4c54edac22b34a335ac9a457ca6242484637e589f271663853dc5643e6fb"
+ },
+ "parity_sha256": {
+  "admission16.gz": "f628860fd6417606361bacb108f9dddd77049bf2ea98b2eb088e95b7186f7b9f",
+  "admission8.gz": "f628860fd6417606361bacb108f9dddd77049bf2ea98b2eb088e95b7186f7b9f",
+  "branch.gz": "69fad647251c59d8890e61ab77f9ce4c482199c32a170f83d2906557a309fb25",
+  "main.gz": "69fad647251c59d8890e61ab77f9ce4c482199c32a170f83d2906557a309fb25"
+ },
+ "admission_header_100m": {
+  "admission": {
+   "declined_keys": 46552704,
+   "rule": "traverser-admission-v1"
+  },
+  "entries": 15835892,
+  "rows_with_zero_visits": 0
+ },
+ "model_pins": {
+  "checkpoint": "491110d9b16358df4589f80ee0bb8fd9d93b357c65e4d0881767cd3e34476c84",
+  "average": "98317f7e68e8f50165d9bc8eda2aaf6b0931ba6e9eb343975ecc4b911d28a0e3",
+  "mass_receipt": "abebccce1a003b3fbaed81d63e7416d81d9f00f4615fbfa860172e30bd7b3413",
+  "binary": "84692560e966cb4de379b695cc48a93341ad4dbc48fe99432720688e397603b0"
+ },
+ "training": {
+  "nodes": 10000003557,
+  "iterations": 392449,
+  "frozen_at": 78568,
+  "entries": 250001516,
+  "active_seconds": 2003.5,
+  "save_seconds": 154.6,
+  "stop_reason": "nodes"
+ },
+ "peak_cpu_c": 76,
+ "peak_vrm_thermistor15_c": 76,
+ "peak_used_memory_mib": 45828,
+ "disk": "33 GB of working files on the NVMe under /home/dberweger/nplayer-traverser-admission-20261025/ after compressing traces and the binary; 41 GB free at the end. Nothing was deleted."
+}

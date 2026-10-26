@@ -53,7 +53,9 @@ The [research history](research-history.md) indexes completed experiments.
   formatted piece (same content, faster, different `.gz` bytes); `--fast` selects the
   [fast-mode recipe](nplayer-fast-mode.md) (all cores, identical for any thread count) and
   `--threads N` its worker count; with `--fast`, `--prune-bb B --prune-after N` enable
-  [regret-based pruning](nplayer-pruning.md). Resume requires `--resume` plus `--resume-sha256` and
+  [regret-based pruning](nplayer-pruning.md), `--opponent-pot-raise P` the
+  [opponent-pressure screen's](nplayer-opponent-pressure.md) training change and
+  `--traverser-admission` [admission of new keys from traverser updates only](nplayer-traverser-admission.md). Resume requires `--resume` plus `--resume-sha256` and
   identical game/seed/averaging/cap/sampling settings. This version supports only the exact
   HU v1 sizing convention, including its conditional jam and duplicate removal.
   N-player checkpoints use a distinct N-tagged format; legacy HU commands and

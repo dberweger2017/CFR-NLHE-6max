@@ -2,7 +2,8 @@
 
 `manifest` builds the paired arena on fresh banks, `scan` and `equity` reuse the
 loss-diagnosis scanner and exact all-in tool, and `report` applies the decision
-rule of docs/nplayer-opponent-pressure.md.
+rule of docs/nplayer-opponent-pressure.md. Later one-arm screens against the same
+control and banks reuse these steps with their own arm name and primary field.
 """
 import argparse
 import csv
@@ -29,7 +30,7 @@ def sha(path):
         return hashlib.file_digest(f, 'sha256').hexdigest()
 
 
-def manifest(args):
+def manifest(args, arm='pressure'):
     old = json.loads(Path(CONTROL_MANIFEST).read_text())
     keep = ('path', 'sha256', 'mass', 'mass_sha256')
     if old['models']['candidate']['sha256'] != CONTROL_SHA:
@@ -37,7 +38,7 @@ def manifest(args):
     receipt = args.mass / 'receipt.json'
     models = {'ten': {k: old['models']['candidate'][k] for k in keep},
               'three': {k: old['models']['baseline'][k] for k in keep},
-              'pressure': {'path': str(args.binary), 'sha256': sha(args.binary), 'mass': str(args.mass), 'mass_sha256': sha(receipt)}}
+              arm: {'path': str(args.binary), 'sha256': sha(args.binary), 'mass': str(args.mass), 'mass_sha256': sha(receipt)}}
     by_name = {c['name']: c for c in old['cases']}
     # One manifest per bank, so each bank's traces can be scanned and compressed before the next.
     for bank in range(BANKS):
@@ -48,23 +49,23 @@ def manifest(args):
             case = by_name[field]
             opponents = ['three' if o == 'baseline' else o for o in case['opponents']]
             row = {k: case[k] for k in ('players', 'stack_bb', 'blocks', 'schedule')}
-            row.update(name=f'b{bank}-{field}', root=ROOT + 100 * bank + index, focals=['ten', 'pressure'], opponents=opponents,
-                       traces=[str(folder / f'{field}-{arm}.jsonl') for arm in ARMS], summary=str(folder / f'{field}-cost.json'))
+            row.update(name=f'b{bank}-{field}', root=ROOT + 100 * bank + index, focals=['ten', arm], opponents=opponents,
+                       traces=[str(folder / f'{field}-{a}.jsonl') for a in ('control', arm)], summary=str(folder / f'{field}-cost.json'))
             (late if 'three' in opponents else cases).append(row)
         # 10B-only fields first so the 3B loads once, for the trained fields at the end.
         target = args.out / f'arena-manifest-b{bank}.json'
         diagnosis.create(target, json.dumps({'format': 'nplayer-paired-manifest-v1', 'tables': old['tables'], 'threads': 16,
                                              'models': models, 'cases': cases + late}, indent=1) + '\n')
-    print(json.dumps({'manifests': BANKS, 'pressure_sha256': models['pressure']['sha256']}))
+    print(json.dumps({'manifests': BANKS, f'{arm}_sha256': models[arm]['sha256']}))
 
 
-def jobs(out):
+def jobs(out, arm='pressure'):
     arena = json.loads((out / 'arena-manifest-b0.json').read_text())
-    pins = {'control': CONTROL_SHA, 'pressure': arena['models']['pressure']['sha256']}
+    pins = {'control': CONTROL_SHA, arm: arena['models'][arm]['sha256']}
     work = []
     for bank in range(BANKS):
         for field in FIELDS:
-            for arm in ARMS:
+            for arm in pins:
                 trace = out / 'arena' / f'b{bank}' / f'{field}-{arm}.jsonl'
                 if not trace.exists():
                     continue
@@ -72,8 +73,8 @@ def jobs(out):
     return work
 
 
-def scan(args):
-    work = [j for j in jobs(args.out) if not (args.out / 'receipts' / f'{j[2]}--{j[3]}.json').exists()]
+def scan(args, arm='pressure'):
+    work = [j for j in jobs(args.out, arm) if not (args.out / 'receipts' / f'{j[2]}--{j[3]}.json').exists()]
     with Pool(args.workers) as pool:
         for receipt in pool.imap_unordered(diagnosis.scan_file, work):
             print(json.dumps({k: receipt[k] for k in ('label', 'field', 'hands', 'mean_bb100')}), flush=True)
@@ -91,35 +92,37 @@ def untrained_share(receipts, arm, field):
     return shares
 
 
-def report(args):
+def report(args, arm='pressure', primary=PRIMARY, fmt='nplayer-pressure-screen-v1'):
+    """Writes summary.json and fields.csv for `arm` minus control; returns the summary."""
+    names = ('control', arm)
     receipts = {(r['label'], r['field']): r for r in (json.loads(p.read_text()) for p in (args.out / 'receipts').glob('*.json'))}
     family = diagnosis.t_quantile(1 - 0.05 / (2 * (len(FIELDS) - 1)), 4 * 4096 - 1)
     fields, rows = {}, []
     for field in FIELDS:
         deltas = {'realized': [], 'adjusted': []}
-        absolute = {arm: {'realized': [], 'adjusted': []} for arm in ARMS}
+        absolute = {name: {'realized': [], 'adjusted': []} for name in names}
         per_bank = []
         for bank in range(BANKS):
-            arms = {}
-            for arm in ARMS:
-                label = f'{arm}-b{bank}'
+            means = {}
+            for name in names:
+                label = f'{name}-b{bank}'
                 hands = diagnosis.hand_rows(args.out, label, field)
                 seatings = receipts[label, field]['seatings']
-                arms[arm] = {key: diagnosis.block_means(hands, key, seatings, 100) for key in ('reward', 'adjusted')}
+                means[name] = {key: diagnosis.block_means(hands, key, seatings, 100) for key in ('reward', 'adjusted')}
             bank_delta = {}
-            for key, name in (('reward', 'realized'), ('adjusted', 'adjusted')):
-                d = [p - c for c, p in zip(arms['control'][key], arms['pressure'][key])]
-                deltas[name] += d
-                bank_delta[name] = sum(d) / len(d)
-                for arm in ARMS:
-                    absolute[arm][name] += arms[arm][key]
+            for key, kind in (('reward', 'realized'), ('adjusted', 'adjusted')):
+                d = [p - c for c, p in zip(means['control'][key], means[arm][key])]
+                deltas[kind] += d
+                bank_delta[kind] = sum(d) / len(d)
+                for name in names:
+                    absolute[name][kind] += means[name][key]
             per_bank.append(bank_delta)
         entry = {'change': {k: diagnosis.interval(v) for k, v in deltas.items()},
-                 'absolute': {arm: {k: diagnosis.interval(v) for k, v in values.items()} for arm, values in absolute.items()},
+                 'absolute': {name: {k: diagnosis.interval(v) for k, v in values.items()} for name, values in absolute.items()},
                  'per_bank_change': per_bank,
-                 'untrained_share': {arm: untrained_share(receipts, arm, field) for arm in ARMS}}
+                 'untrained_share': {name: untrained_share(receipts, name, field) for name in names}}
         adjusted = entry['change']['adjusted']
-        if field == PRIMARY:
+        if field == primary:
             entry['verdict'] = 'improved' if adjusted['lower95_bb100'] > 0 else 'not shown'
         else:
             half = family * adjusted['standard_error_bb100']
@@ -129,11 +132,11 @@ def report(args):
         rows.append({'field': field, 'change_adjusted_bb100': adjusted['mean_bb100'], 'lower95': adjusted['lower95_bb100'],
                      'upper95': adjusted['upper95_bb100'], 'change_realized_bb100': entry['change']['realized']['mean_bb100'],
                      'control_adjusted_bb100': entry['absolute']['control']['adjusted']['mean_bb100'],
-                     'pressure_adjusted_bb100': entry['absolute']['pressure']['adjusted']['mean_bb100'],
+                     f'{arm}_adjusted_bb100': entry['absolute'][arm]['adjusted']['mean_bb100'],
                      'control_untrained_share': entry['untrained_share']['control']['all'],
-                     'pressure_untrained_share': entry['untrained_share']['pressure']['all'],
+                     f'{arm}_untrained_share': entry['untrained_share'][arm]['all'],
                      'verdict_or_harm': entry.get('verdict', 'harm' if entry.get('harm_flag') else 'no harm flag')})
-    summary = {'format': 'nplayer-pressure-screen-v1', 'primary': PRIMARY, 'verdict': fields[PRIMARY]['verdict'],
+    summary = {'format': fmt, 'primary': primary, 'verdict': fields[primary]['verdict'],
                'harm_flags': [f for f in FIELDS if fields[f].get('harm_flag')], 'fields': fields,
                'traces': {f'{k[0]}/{k[1]}': v['sha256'] for k, v in sorted(receipts.items())}}
     args.results.mkdir(parents=True, exist_ok=True)
@@ -142,7 +145,8 @@ def report(args):
         w = csv.DictWriter(f, list(rows[0]))
         w.writeheader()
         w.writerows(rows)
-    print(json.dumps({'verdict': summary['verdict'], 'harm_flags': summary['harm_flags'], 'primary': fields[PRIMARY]['change']['adjusted']}))
+    print(json.dumps({'verdict': summary['verdict'], 'harm_flags': summary['harm_flags'], 'primary': fields[primary]['change']['adjusted']}))
+    return summary
 
 
 def main():
