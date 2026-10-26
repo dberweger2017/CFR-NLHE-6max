@@ -142,7 +142,7 @@ fn run_case(a: &[String], cache: &mut HashMap<String,Arc<PolicyTable>>,
                 new_weight_tables+=1;
             }
             let t = &cache[spec];
-            if t.config() != config {
+            if t.config()? != config {
                 return Err("arena requires the requested three-player stack and50/100 identity".into());
             }
             if identity.as_ref().is_some_and(|i: &Value| {

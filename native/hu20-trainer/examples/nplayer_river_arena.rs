@@ -225,7 +225,7 @@ fn run() -> Result<(), String> {
             sha,
             false,
         )?;
-        if table.config() != Config::new(&[10000; 3], 50, 100)? {
+        if table.config()? != Config::new(&[10000; 3], 50, 100)? {
             return Err("requires three-player100BB".into());
         }
         loaded.push(Model{pin:json!({"sha256":sha,"source_checkpoint_sha256":table.source_checkpoint_sha256,

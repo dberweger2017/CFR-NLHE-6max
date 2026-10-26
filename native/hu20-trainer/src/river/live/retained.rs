@@ -65,7 +65,7 @@ impl Captured {
             return Err("saved profile format/model mismatch".into());
         }
         let original = &snapshot["observation"];
-        let root = reconstruct(original, table.config())?;
+        let root = reconstruct(original, table.config()?)?;
         if !root.prefix.is_empty() {
             return Err(FIRST_TO_ACT_ONLY.into());
         }
@@ -410,7 +410,7 @@ impl SessionStore {
                         (out, cap, reason)
                     }
                     Err(e) if falls_back(&e) => {
-                        let root = reconstruct(observation, table.config())?;
+                        let root = reconstruct(observation, table.config()?)?;
                         let decision = root.decision()?;
                         let mut obs = decision.observe(root.seat)?;
                         obs.hole = root.hole;

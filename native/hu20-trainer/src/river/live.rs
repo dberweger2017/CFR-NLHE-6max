@@ -1225,7 +1225,7 @@ fn request_impl(
     capture: Option<&mut Option<retained::Captured>>,
 ) -> Result<Value, String> {
     let started = Instant::now();
-    let root = reconstruct(v, table.config())?;
+    let root = reconstruct(v, table.config()?)?;
     if table.mode != crate::multi_policy::Mode::Average || table.scope != 3 {
         return Err("full-street average blueprint required".into());
     }

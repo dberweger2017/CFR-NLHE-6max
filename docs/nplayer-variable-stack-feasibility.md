@@ -62,6 +62,35 @@ sparse strata. Equal-depth tuples are internal strata, not independently trained
 fixed-depth controls. This first lineage cannot establish strength, transfer to
 unseen depths, convergence or an advantage over independently trained specialists.
 
+## Qualified observer definitions
+
+Read-only callbacks see immutable per-root aggregated deltas before the unchanged
+merge. They do not consume RNG, change arithmetic or influence admission.
+Report nonzero/zero aggregate regret vectors separately from positive iteration-
+weight update opportunities and opponent-only average updates. Cancellation can
+make a root aggregate zero; these are not individual path-level zero-weight
+counts. Full pathwise target-reach/underflow attribution is explicitly deferred.
+A final retained-row audit separately reports zero traverser visits, repeated
+visits, zero final regrets and zero average mass. None alone proves useful learning.
+
+A bounded watch set is frozen from324 synthetic common-panel hands before any
+training, covering27tuples×3buttons×2continuation styles×2deals. Retain never-reached
+watch keys. Nominal weight ESS=(sum iteration-weight×visits)^2/sum squared root
+weights is a concentration proxy only; adaptive policy updates prevent treating
+it as independent statistical sample size. Common panels retain physical-seat,
+hero-depth, public-state signature and provisional contribution-layer exposure.
+Played81-hand panels balance tuple/button and reproduce exactly; independent
+engine replay is a separate required proof. Their returns are not read for a
+strength claim.
+
+The qualification build runs only12 tiny iterations (fixture seed20261026441001,
+100k protective entries), then thread/resume/observer byte parity, full-row
+export/binary parity and81 played fixtures/reproduction. Legacy history/live-order
+checkpoints AND averages must match a frozen baseline build byte for byte.
+The future pilot seed is20261026441011; common-panel seed20261026441002. The
+native pilot entry requires a matching accepted owner receipt. No pilot is
+launched by qualification.
+
 ## Budget and stop
 
 Provisional pilot endpoints5M,25M,100M nodes, one fresh seed and10M retained-key

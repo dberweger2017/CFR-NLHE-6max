@@ -13,6 +13,7 @@ pub mod small_exact;
 pub mod multi_checkpoint;
 pub mod multi_holdem;
 pub mod multi_policy;
+pub mod multi_stacks;
 pub mod multi_binary;
 pub mod multi_arena;
 pub mod policy_expectation;

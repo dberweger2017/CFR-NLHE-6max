@@ -76,7 +76,7 @@ fn run() -> Result<(), String> {
                     "need matching game identity and one distinct policy instance per seat".into(),
                 );
             }
-            let config = policies[0].table.config();
+            let config = policies[0].table.config()?;
             let tables = EquityTables::load(Path::new(&a[2]), false)?;
             let mut out = std::io::BufWriter::new(
                 std::fs::OpenOptions::new()

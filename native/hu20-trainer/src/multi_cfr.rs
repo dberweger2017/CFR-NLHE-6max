@@ -39,6 +39,8 @@ pub trait Game {
     fn players(&self) -> usize;
     fn identity(&self) -> serde_json::Value;
     fn sample(&self, rng: &mut rand::rngs::StdRng) -> Self::State;
+    /// Optional public root context for diagnostics only; never enters a decision.
+    fn root_label(&self, _state: &Self::State) -> Option<u64> { None }
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -724,13 +726,22 @@ impl Trainer {
     where
         G::State: Clone + Send + Sync,
     {
+        self.step_fast_observed(game, |_, _, _, _| {});
+    }
+    /// Observe immutable per-root aggregated deltas before the SAME deterministic
+    /// merge. No new sampler, arithmetic, traversal or update order is introduced.
+    pub fn step_fast_observed<G: Game + Sync>(
+        &mut self, game: &G,
+        mut observe: impl FnMut(Option<u64>, f64, &Table, &Deltas),
+    ) where G::State: Clone + Send + Sync {
         use rayon::prelude::*;
         let weight = self.begin(game, Sampling::Path);
         let prune_below = self.prune.and_then(|p| p.limit(self.seed, self.iteration, self.roots_per_seat));
         let roots: Vec<(usize, usize)> = (0..self.players).flat_map(|p| (0..self.roots_per_seat).map(move |r| (p, r))).collect();
-        let tasks: Vec<(Deltas, Counts)> = roots.into_par_iter().map(|(player, r)| {
+        let tasks: Vec<(Option<u64>, Deltas, Counts)> = roots.into_par_iter().map(|(player, r)| {
             let (mut rng, seed) = self.fast_root(player, r);
             let mut state = game.sample(&mut rng);
+            let label = game.root_label(&state);
             assert_eq!(state.players(), self.players);
             let (mut deltas, mut counts) = (Deltas::default(), Counts::default());
             Traversal {
@@ -746,10 +757,11 @@ impl Trainer {
                 pressure: self.pressure,
             }
             .run(&mut state);
-            (deltas, counts)
+            (label, deltas, counts)
         }).collect();
         let mut all = Vec::with_capacity(tasks.len());
-        for (deltas, counts) in tasks {
+        for (label, deltas, counts) in tasks {
+            observe(label, weight, &self.table, &deltas);
             self.counts.add(&counts);
             all.push(deltas);
         }

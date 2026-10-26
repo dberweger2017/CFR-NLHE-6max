@@ -9,6 +9,7 @@ use serde_json::{json, Value};
 pub const SCHEMA: &str = "nplayer-button-live-actor-history-equity-k50-v1";
 /// Coarse keys: docs/nplayer-live-order-keys.md.
 pub const LIVE_ORDER_SCHEMA: &str = "nplayer-live-order-summary-equity-k50-v1";
+pub const STACK_OWNER_SCHEMA: &str = "nplayer-stack-owner-summary-equity-k50-v1";
 pub const MENU: &str = "min-pot-conditional-jam-v1";
 
 /// How a decision's public history enters its information key. Released models use `History`.
@@ -19,15 +20,16 @@ pub enum KeySchema {
     History,
     /// The live players' order and a capped summary of the betting (`live_order_payload`).
     LiveOrder,
+    StackOwner,
     CompactBlake,
     CompactXxh3,
 }
 impl KeySchema {
-    pub const ALL: [Self; 4] = [Self::History, Self::LiveOrder, Self::CompactBlake, Self::CompactXxh3];
+    pub const ALL: [Self; 5] = [Self::History, Self::LiveOrder, Self::StackOwner, Self::CompactBlake, Self::CompactXxh3];
     pub const EXACT_HISTORY: [Self; 3] = [Self::History, Self::CompactBlake, Self::CompactXxh3];
     pub fn option(self) -> &'static str {
         match self {
-            Self::History => "v1", Self::LiveOrder => "live-order",
+            Self::History => "v1", Self::LiveOrder => "live-order", Self::StackOwner => "stack-owner",
             Self::CompactBlake => "compact-blake2b-v2", Self::CompactXxh3 => "compact-xxh3-v2",
         }
     }
@@ -42,6 +44,7 @@ impl KeySchema {
         match self {
             KeySchema::History => SCHEMA,
             KeySchema::LiveOrder => LIVE_ORDER_SCHEMA,
+            Self::StackOwner => STACK_OWNER_SCHEMA,
             Self::CompactBlake => "nplayer-button-history-equity-k50-compact-blake2b-v2",
             Self::CompactXxh3 => "nplayer-button-history-equity-k50-compact-xxh3-v2",
         }
@@ -287,6 +290,34 @@ fn live_order_payload(observation: &Observation<'_>, cards: &[u8], code: u16) ->
     (out, hero as usize)
 }
 
+/// Conservative unequal-stack baseline. Preserve public chip ownership and
+/// folded contributions; do not assume sorted SPR identifies side-pot exposure.
+fn stack_owner_payload(o: &Observation<'_>, cards: &[u8], choices: &[(u8, Action)], code: u16) -> Vec<u8> {
+    let (summary, _) = live_order_payload(o, cards, code);
+    let mut out = STACK_OWNER_SCHEMA.as_bytes().to_vec();
+    out.push(0);
+    out.extend_from_slice(&summary[LIVE_ORDER_SCHEMA.len()+1..]);
+    let n = o.config.players();
+    out.push(((o.seat+n-o.button)%n) as u8);
+    out.extend_from_slice(&o.config.small_blind().to_le_bytes());
+    out.extend_from_slice(&o.config.big_blind().to_le_bytes());
+    for i in 0..n {
+        let seat=(o.button+i)%n;
+        let p=o.players[seat];
+        for value in [o.config.stacks()[seat],p.stack,p.street_bet,p.contributed] {
+            out.extend_from_slice(&value.to_le_bytes());
+        }
+        out.push(p.folded as u8);
+    }
+    out.push(choices.len() as u8);
+    for (label,action) in choices {
+        out.push(*label);
+        out.push(kind_code(action.kind));
+        out.extend_from_slice(&action.raise_to.to_le_bytes());
+    }
+    out
+}
+
 fn card_class(observation: &Observation<'_>, tables: Option<&EquityTables>) -> Vec<u8> {
     if observation.board.is_empty() {
         let [a, b] = observation.hole;
@@ -344,6 +375,7 @@ fn decision_from_cards(schema: KeySchema, observation: &Observation<'_>, cards: 
             owner = live_owner;
             crate::key::digest16(&bytes)
         },
+        KeySchema::StackOwner => crate::key::digest16(&stack_owner_payload(observation, cards, choices, code)),
         KeySchema::CompactBlake => crate::key::digest16(&compact_payload(observation, cards)),
         KeySchema::CompactXxh3 => xxhash_rust::xxh3::xxh3_128(&compact_payload(observation, cards)).to_le_bytes(),
     };
@@ -421,6 +453,9 @@ impl Game for CashGame {
     }
 }
 impl CashState {
+    pub fn with_schema(hand: Hand, tables: &'static EquityTables, schema: KeySchema) -> Self {
+        Self { hand, tables: Some(tables), schema }
+    }
     pub fn new(hand: Hand, tables: &'static EquityTables) -> Self {
         Self {
             hand,
@@ -822,3 +857,49 @@ mod tests {
 #[cfg(test)]
 #[path = "multi_key_tests.rs"]
 mod key_tests;
+
+#[cfg(test)]
+mod stack_owner_tests {
+    use super::*;
+    fn key(h:&Hand,s:KeySchema)->Decision {
+        let o=h.observe(h.actor().unwrap()).unwrap();
+        observation_decision_with_tables(s,&o,None)
+    }
+    #[test]
+    fn stack_ownership_and_hidden_worlds() {
+        let deck:Vec<u8>=(0..52).collect();
+        let a=Hand::from_deck(Config::new(&[2000,5000,10000],50,100).unwrap(),0,&deck).unwrap();
+        let b=Hand::from_deck(Config::new(&[10000,5000,2000],50,100).unwrap(),0,&deck).unwrap();
+        assert_eq!(key(&a,KeySchema::LiveOrder),key(&b,KeySchema::LiveOrder));
+        assert_ne!(key(&a,KeySchema::StackOwner).key,key(&b,KeySchema::StackOwner).key);
+        let mut hidden=deck.clone();hidden.swap(0,1);hidden.swap(6,51);
+        let c=Hand::from_deck(a.config(),0,&hidden).unwrap();
+        assert_eq!(key(&a,KeySchema::StackOwner),key(&c,KeySchema::StackOwner));
+    }
+    #[test]
+    fn rotation_preserves_button_relative_chips_cards_and_menu() {
+        let deck:Vec<u8>=(0..52).collect();
+        let a=Hand::from_deck(Config::new(&[2000,5000,10000],50,100).unwrap(),0,&deck).unwrap();
+        let b=Hand::from_deck(Config::new(&[10000,2000,5000],50,100).unwrap(),1,&deck).unwrap();
+        let da=key(&a,KeySchema::StackOwner);let db=key(&b,KeySchema::StackOwner);
+        assert_eq!(da.key,db.key);assert_eq!(da.owner,db.owner);assert_eq!(da.code,db.code);
+        assert_eq!(crate::multi_checkpoint::key_hex(&da.key),"5c806ad4cb68fd3515ec4360cb6a3997");
+        assert_ne!(da.actor,db.actor);
+    }
+    #[test]
+    fn folded_contributions_and_menu_targets_are_not_lost() {
+        let deck:Vec<u8>=(0..52).collect();
+        let h=Hand::from_deck(Config::new(&[2000,5000,10000],50,100).unwrap(),0,&deck).unwrap();
+        let o=h.observe(0).unwrap();let choices=menu(&o);let cards=card_class(&o,None);
+        let code=choices.iter().fold(0,|c,(label,_)|c|1<<label);
+        let base=stack_owner_payload(&o,&cards,&choices,code);
+        let mut players=o.players.to_vec();players[1].folded=true;
+        let mut changed=h.observe(0).unwrap();changed.players=&players;
+        let folded=stack_owner_payload(&changed,&cards,&choices,code);
+        let mut other=players.clone();other[1].contributed+=100;
+        changed.players=&other;
+        assert_ne!(folded,stack_owner_payload(&changed,&cards,&choices,code));
+        let mut menu=choices.clone();menu.last_mut().unwrap().1.raise_to+=1;
+        assert_ne!(base,stack_owner_payload(&o,&cards,&menu,code));
+    }
+}

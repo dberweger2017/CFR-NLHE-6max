@@ -87,7 +87,7 @@ pub fn select(base: &PolicyTable, donor: &PolicyTable, d: &Decision) -> Result<S
 
 pub fn compatible(base: &PolicyTable, donor: &PolicyTable) -> Result<(), String> {
     if base.identity != donor.identity
-        || base.config() != donor.config()
+        || base.config()? != donor.config()?
         || base.mode != Mode::Average
         || donor.mode != Mode::Average
         || base.scope != 3
@@ -121,7 +121,7 @@ impl Policy {
     ) -> Result<(Action, Selection), String> {
         if view.actor != Some(view.seat)
             || view.legal.is_none()
-            || view.config != self.base.config()
+            || view.config != self.base.config()?
             || tables.sha256 != hu20_trainer::cards::EQUITY_K50_SHA256
         {
             return Err("composition requires matching acting-seat observation/K50".into());

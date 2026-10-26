@@ -115,7 +115,7 @@ pub fn query(
     let mut queries = Vec::new();
     for alias in aliases {
         let model = models.get(alias).ok_or("shared model alias absent")?;
-        if model.table.config() != view.config {
+        if model.table.config()? != view.config {
             return Err("shared model/game identity differs".into());
         }
         // `d` is keyed by the released history schema.
