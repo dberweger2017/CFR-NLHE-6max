@@ -57,3 +57,12 @@ Before this protocol, `scripts/nplayer_preflop_ranges.py` compared both #431 arm
   - A research failure is reported as is, with no retry, retuning or extra hands.
   - A qualification failure stops the run before training.
   - Plumbing problems go in the PR.
+
+## Completed — October 26
+
+**Confirmed.**
+- **Trained field:** **+110.4 [+97.8, +123.0]** on seed 2026102661001 and **+113.2 [+100.7, +125.7]** on seed 2026102661002. Across three seeds, +109.7 [+99.9, +119.5].
+- **Pot-pressure:** +51.9 and +50.3.
+- **Check-call:** flagged on seed 2026102661002 (−106.6).
+
+[Results](reports/nplayer-live-order-seeds/results.md).
