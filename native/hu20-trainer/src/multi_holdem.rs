@@ -25,19 +25,26 @@ pub enum KeySchema {
     StackBuckets,
     CompactBlake,
     CompactXxh3,
+    /// `LiveOrder` plus the hero's button-relative seat.
+    LiveOrderSeat,
+    /// `LiveOrder` with the current street's exact actions instead of its summary.
+    LiveOrderStreet,
 }
 impl KeySchema {
     pub const ALL: [Self; 6] = [Self::History, Self::LiveOrder, Self::StackOwner, Self::StackBuckets, Self::CompactBlake, Self::CompactXxh3];
+    /// Finer live-order keys; not part of the golden `ALL` set.
+    pub const LIVE_ORDER_VARIANTS: [Self; 2] = [Self::LiveOrderSeat, Self::LiveOrderStreet];
     pub const EXACT_HISTORY: [Self; 3] = [Self::History, Self::CompactBlake, Self::CompactXxh3];
     pub fn option(self) -> &'static str {
         match self {
             Self::History => "v1", Self::LiveOrder => "live-order", Self::StackOwner => "stack-owner", Self::StackBuckets => "stack-buckets",
             Self::CompactBlake => "compact-blake2b-v2", Self::CompactXxh3 => "compact-xxh3-v2",
+            Self::LiveOrderSeat => "live-order-seat", Self::LiveOrderStreet => "live-order-street",
         }
     }
     pub fn parse(value: &str) -> Result<Self, String> {
         if value == "history" { return Ok(Self::History); }
-        Self::ALL.into_iter().find(|s| s.option() == value || s.name() == value)
+        Self::ALL.into_iter().chain(Self::LIVE_ORDER_VARIANTS).find(|s| s.option() == value || s.name() == value)
             .ok_or_else(|| format!("unsupported n-player key schema: {value}"))
     }
     pub fn is_compact(self) -> bool { matches!(self, Self::CompactBlake | Self::CompactXxh3) }
@@ -50,10 +57,12 @@ impl KeySchema {
             Self::StackBuckets => STACK_BUCKETS_SCHEMA,
             Self::CompactBlake => "nplayer-button-history-equity-k50-compact-blake2b-v2",
             Self::CompactXxh3 => "nplayer-button-history-equity-k50-compact-xxh3-v2",
+            Self::LiveOrderSeat => "nplayer-live-order-seat-summary-equity-k50-v1",
+            Self::LiveOrderStreet => "nplayer-live-order-street-exact-equity-k50-v1",
         }
     }
     pub fn from_name(name: &str) -> Option<Self> {
-        Self::ALL.into_iter().find(|s| s.name() == name)
+        Self::ALL.into_iter().chain(Self::LIVE_ORDER_VARIANTS).find(|s| s.name() == name)
     }
     pub fn from_identity(identity: &Value) -> Option<Self> {
         identity["schema"].as_str().and_then(Self::from_name)
@@ -247,17 +256,20 @@ fn bucket(value: u64, base: u64, edges: &[(u64, u64)]) -> u8 {
 /// previous street's last aggressor; the pot and each live stack enter as buckets at the
 /// street's start. The current street keeps its capped raise count, last raiser, number of
 /// actions and the price to call. The card class and action labels are as in `History`.
-fn live_order_payload(observation: &Observation<'_>, cards: &[u8], code: u16) -> (Vec<u8>, usize) {
+fn live_order_payload(observation: &Observation<'_>, cards: &[u8], code: u16, schema: KeySchema) -> (Vec<u8>, usize) {
     let n = observation.config.players();
     let by_button = |i: usize| (observation.button + i) % n;
     let live: Vec<usize> = (0..n).map(by_button).filter(|&p| !observation.players[p].folded).collect();
     let order = |seat: usize| live.iter().position(|&p| p == seat).map_or(u8::MAX, |i| i as u8);
     let street = observation.street as usize;
     let hero = order(observation.seat);
-    let mut out = LIVE_ORDER_SCHEMA.as_bytes().to_vec();
+    let mut out = schema.name().as_bytes().to_vec();
     out.push(0);
     let all_in = live.iter().filter(|&&p| observation.players[p].stack == 0).count();
     out.extend_from_slice(&[n as u8, live.len() as u8, hero, street as u8, all_in as u8]);
+    if schema == KeySchema::LiveOrderSeat {
+        out.push(((observation.seat + n - observation.button) % n) as u8);
+    }
     let pot: u64 = observation.players.iter().map(|p| p.contributed - p.street_bet).sum();
     out.push(bucket(pot, observation.config.big_blind(), &POT_EDGES_BB.map(|e| (e, 1))));
     let mut spr: Vec<u8> = live.iter().map(|&p| {
@@ -269,6 +281,7 @@ fn live_order_payload(observation: &Observation<'_>, cards: &[u8], code: u16) ->
     let mut raises = [0u8; 4];
     let mut last_raiser = [None; 4];
     let mut actions = 0u8;
+    let mut exact = Vec::new();
     for event in observation.history {
         if let Event::Action { street: s, actor, action, .. } = event {
             let s = *s as usize;
@@ -278,12 +291,21 @@ fn live_order_payload(observation: &Observation<'_>, cards: &[u8], code: u16) ->
             }
             if s == street {
                 actions = actions.saturating_add(1);
+                exact.extend_from_slice(&[order(*actor), kind_code(action.kind)]);
+                exact.extend_from_slice(&action.raise_to.to_le_bytes());
             }
         }
     }
     out.extend_from_slice(&raises[..=street]);
     let previous = street.checked_sub(1).and_then(|s| last_raiser[s]);
-    out.extend_from_slice(&[previous.map_or(u8::MAX, order), last_raiser[street].map_or(u8::MAX, order), actions]);
+    out.push(previous.map_or(u8::MAX, order));
+    if schema == KeySchema::LiveOrderStreet {
+        // A folded actor's order is 255; the count frames the sequence.
+        out.push(actions);
+        out.extend_from_slice(&exact);
+    } else {
+        out.extend_from_slice(&[last_raiser[street].map_or(u8::MAX, order), actions]);
+    }
     let legal = observation.legal.expect("only the acting seat has a key");
     let after_call: u64 = observation.players.iter().map(|p| p.contributed).sum::<u64>() + legal.call_amount;
     out.push(bucket(legal.call_amount, after_call, &PRICE_EDGES));
@@ -296,7 +318,7 @@ fn live_order_payload(observation: &Observation<'_>, cards: &[u8], code: u16) ->
 /// Conservative unequal-stack baseline. Preserve public chip ownership and
 /// folded contributions; do not assume sorted SPR identifies side-pot exposure.
 fn stack_owner_payload(o: &Observation<'_>, cards: &[u8], choices: &[(u8, Action)], code: u16) -> Vec<u8> {
-    let (summary, _) = live_order_payload(o, cards, code);
+    let (summary, _) = live_order_payload(o, cards, code, KeySchema::LiveOrder);
     let mut out = STACK_OWNER_SCHEMA.as_bytes().to_vec();
     out.push(0);
     out.extend_from_slice(&summary[LIVE_ORDER_SCHEMA.len()+1..]);
@@ -331,7 +353,7 @@ fn comparison(a:u64,b:u64)->u8 { if a<b {0} else if a==b {1} else {2} }
 /// Deliberately coarse public abstraction. Exact initial ownership and contribution
 /// topology survive; numerical amounts/raise targets may differ inside a row.
 fn stack_buckets_payload(o:&Observation<'_>,cards:&[u8],choices:&[(u8,Action)],code:u16)->Vec<u8> {
-    let (summary,_)=live_order_payload(o,cards,code);
+    let (summary,_)=live_order_payload(o,cards,code,KeySchema::LiveOrder);
     let mut out=STACK_BUCKETS_SCHEMA.as_bytes().to_vec();out.push(0);
     out.extend_from_slice(&summary[LIVE_ORDER_SCHEMA.len()+1..]);
     let n=o.config.players();let relative=|seat:usize|((seat+n-o.button)%n)as u8;
@@ -426,8 +448,8 @@ fn decision_from_cards(schema: KeySchema, observation: &Observation<'_>, cards: 
     let mut owner = (observation.seat + n - observation.button) % n;
     let key = match schema {
         KeySchema::History => crate::key::digest16(&payload(observation, cards, choices)),
-        KeySchema::LiveOrder => {
-            let (bytes, live_owner) = live_order_payload(observation, cards, code);
+        KeySchema::LiveOrder | KeySchema::LiveOrderSeat | KeySchema::LiveOrderStreet => {
+            let (bytes, live_owner) = live_order_payload(observation, cards, code, schema);
             owner = live_owner;
             crate::key::digest16(&bytes)
         },
@@ -907,6 +929,53 @@ mod tests {
             assert_eq!(actual, expected);
         }
         assert_eq!(offset, bytes.len());
+    }
+
+    #[test]
+    fn live_order_variants_add_the_seat_or_the_exact_street() {
+        let config = Config::new(&[10000; 5], 50, 100).unwrap();
+        let deck: Vec<u8> = (0..52).collect();
+        let a = play(config, 0, &deck, &[FOLD, MIN_RAISE]);
+        let b = play(config, 0, &deck, &[MIN_RAISE, FOLD]);
+        let key = |h: &Hand, s| decide(h, s).key;
+        for variant in KeySchema::LIVE_ORDER_VARIANTS {
+            assert_ne!(key(&a, variant), key(&a, KeySchema::LiveOrder), "{variant:?} has its own domain");
+            assert_eq!(decide(&a, variant).owner, decide(&a, KeySchema::LiveOrder).owner);
+            let rotated: std::collections::HashSet<_> = (0..5).map(|button| key(&play(config, button, &deck, &[FOLD, MIN_RAISE]), variant)).collect();
+            assert_eq!(rotated.len(), 1, "{variant:?} is button-relative");
+            assert_eq!(KeySchema::parse(variant.option()), Ok(variant));
+            assert_eq!(KeySchema::from_name(variant.name()), Some(variant));
+        }
+        // Same hero seat: the seat variant still merges who folded earlier; the exact street doesn't.
+        assert_eq!(key(&a, KeySchema::LiveOrderSeat), key(&b, KeySchema::LiveOrderSeat));
+        assert_ne!(key(&a, KeySchema::LiveOrderStreet), key(&b, KeySchema::LiveOrderStreet));
+    }
+
+    #[test]
+    fn the_seat_variant_splits_exactly_the_live_order_keys_shared_by_different_seats() {
+        use rand::SeedableRng;
+        let config = Config::new(&[10000; 6], 50, 100).unwrap();
+        let mut rng = rand::rngs::StdRng::seed_from_u64(9);
+        let mut by_key: std::collections::HashMap<_, std::collections::HashSet<_>> = Default::default();
+        let mut seat_keys = std::collections::HashMap::new();
+        for _ in 0..3000 {
+            let mut deck: Vec<u8> = (0..52).collect();
+            deck.shuffle(&mut rng);
+            let mut hand = Hand::from_deck(config, rng.gen_range(0..6), &deck).unwrap();
+            while hand.board().is_empty() && hand.actor().is_some() {
+                let seat = (hand.actor().unwrap() + 6 - hand.button()) % 6;
+                let live = decide(&hand, KeySchema::LiveOrder);
+                let with_seat = decide(&hand, KeySchema::LiveOrderSeat).key;
+                by_key.entry(live.key).or_default().insert(seat);
+                assert_eq!(*seat_keys.entry((live.key, seat)).or_insert(with_seat), with_seat);
+                let observation = hand.observe(hand.actor().unwrap()).unwrap();
+                let action = menu(&observation)[rng.gen_range(0..live.len())].1;
+                hand.apply_mut(action).unwrap();
+            }
+        }
+        assert!(by_key.values().any(|seats| seats.len() > 1), "live-order keys merge different hero seats");
+        let distinct: std::collections::HashSet<_> = seat_keys.values().collect();
+        assert_eq!(distinct.len(), seat_keys.len(), "one seat-variant key per live-order key and seat");
     }
 }
 
