@@ -1,5 +1,23 @@
 # Roadmap
 
+## Three-player variable-stack engineering qualifies; measured pilot awaiting budget
+
+[PR441](https://github.com/dberweger2017/CFR-NLHE-6max/pull/441),
+[protocol](docs/nplayer-variable-stack-feasibility.md),
+[qualification and limits](docs/reports/nplayer-variable-stack-feasibility/results.md):
+one declared27-tuple20/50/100BB mixture, new public stack-owner schema, strict
+checkpoint/export/inference identity and unchanged fixed models/defaults.160M1
+library tests, all example test builds and guarded M4 qualification pass.81hands
+plus reproduction independently replay; both old fixed schemas retain exact
+checkpoint/export bytes. Fixture81.04s, peak1.316GiB, nominal thermals.
+The conservative key produces2,962 versus2,094 legacy keys on a324-hand panel,
+with no exact-history merges observed; compactness must be measured, not assumed.
+Tiny105,801-node learning/support counts are correctness fixtures, not strength.
+Proposed fixed5M/25M/100M pilot:19m59s central/57m53s reserve,60min M4,14GiB
+new disk+4GiB free headroom,5GiB RAM+1GiB headroom. Owner acceptance and fresh
+admission remain required; no pilot running. Search, defaults, release and
+bb128 science remain outside scope; raw evidence retained, cleaner archive pending.
+
 ## Six-player check-call conditional panel complete; player stays frozen
 
 [PR438](https://github.com/dberweger2017/CFR-NLHE-6max/pull/438),

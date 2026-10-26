@@ -7436,3 +7436,26 @@ original `main-v1/` and every partial/input/source preserved. Full results SHA25
 three review receipts remain. Read ordinary evidence from retained M4 paths and
 verify provenance before use; bb128/Drive cleaner archival pending. No payload
 ZIP/Drive acceptance claim, extra worlds, automatic follow-up or PR434 outcomes.
+
+## PR441 — three-player variable-stack qualification and measured pilot quote
+
+[Report](docs/reports/nplayer-variable-stack-feasibility/results.md) ·
+[verification](docs/reports/nplayer-variable-stack-feasibility/qualification.json) ·
+[all324 common-panel cells](docs/reports/nplayer-variable-stack-feasibility/common-panel.csv) ·
+[learning cells](docs/reports/nplayer-variable-stack-feasibility/learning-cells.csv) ·
+[costs](docs/reports/nplayer-variable-stack-feasibility/costs.json) ·
+[review](docs/reports/nplayer-variable-stack-feasibility/review.json) ·
+[pilot quote](docs/reports/nplayer-variable-stack-feasibility/pilot-quote.json) ·
+[retention](docs/reports/nplayer-variable-stack-feasibility/provenance.json).
+Source4f3a9183, baseline2474309d; one27tuple20/50/100BB law and stack-owner key.
+Guarded M4 qualification81.04s, sampled peak1.316GiB, nominal thermals.160library
+tests pass onM1, all examples compile;4guard tests pass independently.12tiny
+iterations105,801nodes/62,957rows; thread/resume/observer, all-row float64 export/
+binary and81initial+81repeat independent-replay proofs pass. Legacy history/
+live-order checkpoint AND averages remain byte-identical to frozen baseline.
+No strength/adoption or mature speed claim. Proposed5M/25M/100M pilot19m59s/
+57m53sreserve,60min M4 allocation;14GiB new disk+4GiB headroom. NOT admitted/
+started. M4 ordinary root`~/Local/nplayer-variable-stack-20261026/` retains
+every source/baseline/fixture/raw watch/trace/log; compact proof pins above.
+Restore from retained ordinary tree and verify pins; cleaner-owned bb128/ZIP/
+Drive archival pending, no payload acceptance claim or cleanup performed.
