@@ -52,42 +52,52 @@ def growth(paths):
     return out
 
 
-def breakdown(args):
+def contributions(out, arm=ARM):
     """Each category's contribution is its summed adjusted result over all hands of the arm,
-    so contributions add up to the arm's mean and their differences to the paired change."""
-    result = {'growth': {'control': growth(CONTROL_PROGRESS), ARM: growth([args.progress])}, 'fields': {}}
-    flat = []
+    so contributions add up to the arm's mean and their differences to the paired change.
+    Returns per-field tables and the same rows flattened."""
+    fields, flat = {}, []
     for field in screen.FIELDS:
-        sums = {a: {d: defaultdict(lambda: [0, 0]) for d in DIMENSIONS} for a in ('control', ARM)}
-        hands = dict.fromkeys(('control', ARM), 0)
-        for a in ('control', ARM):
+        sums = {a: {d: defaultdict(lambda: [0, 0]) for d in DIMENSIONS} for a in ('control', arm)}
+        hands = dict.fromkeys(('control', arm), 0)
+        for a in ('control', arm):
             for bank in range(screen.BANKS):
-                for r in diagnosis.hand_rows(args.out, f'{a}-b{bank}', field):
+                for r in diagnosis.hand_rows(out, f'{a}-b{bank}', field):
                     hands[a] += 1
                     for d in DIMENSIONS:
                         slot = sums[a][d][r[d]]
                         slot[0] += 1
                         slot[1] += r['adjusted']
-        if hands['control'] != hands[ARM]:
+        if hands['control'] != hands[arm]:
             raise ValueError(f'{field}: arms played different hand counts')
         n = hands['control']
         per_dimension = {}
         for d in DIMENSIONS:
             rows = []
-            for category in sorted(set(sums['control'][d]) | set(sums[ARM][d])):
-                c, l = sums['control'][d].get(category, [0, 0]), sums[ARM][d].get(category, [0, 0])
+            for category in sorted(set(sums['control'][d]) | set(sums[arm][d])):
+                c, l = sums['control'][d].get(category, [0, 0]), sums[arm][d].get(category, [0, 0])
                 # Chips per hand times 100 hands over a 100-chip big blind: BB/100.
-                row = {'category': category, 'control_share': c[0] / n, f'{ARM}_share': l[0] / n,
-                       'control_bb100': c[1] / n, f'{ARM}_bb100': l[1] / n, 'change_bb100': (l[1] - c[1]) / n}
+                row = {'category': category, 'control_share': c[0] / n, f'{arm}_share': l[0] / n,
+                       'control_bb100': c[1] / n, f'{arm}_bb100': l[1] / n, 'change_bb100': (l[1] - c[1]) / n}
                 rows.append(row)
                 flat.append({'field': field, 'dimension': d, **row})
             per_dimension[d] = sorted(rows, key=lambda r: r['change_bb100'])
-        result['fields'][field] = {'hands_per_arm': n, 'by': per_dimension}
-    diagnosis.create(args.results / 'breakdown.json', json.dumps(result, indent=1) + '\n')
-    with (args.results / 'breakdown.csv').open('x', newline='') as f:
+        fields[field] = {'hands_per_arm': n, 'by': per_dimension}
+    return fields, flat
+
+
+def write_breakdown(results, result, flat):
+    diagnosis.create(results / 'breakdown.json', json.dumps(result, indent=1) + '\n')
+    with (results / 'breakdown.csv').open('x', newline='') as f:
         w = csv.DictWriter(f, list(flat[0]))
         w.writeheader()
         w.writerows(flat)
+
+
+def breakdown(args):
+    fields, flat = contributions(args.out)
+    result = {'growth': {'control': growth(CONTROL_PROGRESS), ARM: growth([args.progress])}, 'fields': fields}
+    write_breakdown(args.results, result, flat)
 
 
 def main():

@@ -1,0 +1,252 @@
+{
+ "format": "nplayer-live-order-nodes-v1",
+ "primary": "trained",
+ "contrasts": [
+  "10b-30b",
+  "30b-50b"
+ ],
+ "verdict": "not shown",
+ "second_contrast": "worse",
+ "fields": {
+  "trained": {
+   "10b-30b": {
+    "change": {
+     "mean_bb100": -25.38414182167987,
+     "standard_error_bb100": 4.302924401144026,
+     "lower95_bb100": -33.818341788190914,
+     "upper95_bb100": -16.949941855168824
+    },
+    "verdict": "worse",
+    "harm_flag": false,
+    "absolute": {
+     "control": 191.25813034363006,
+     "later": 165.8739885219502
+    }
+   },
+   "30b-50b": {
+    "change": {
+     "mean_bb100": -9.964304082527072,
+     "standard_error_bb100": 3.324368686311539,
+     "lower95_bb100": -16.480428385176808,
+     "upper95_bb100": -3.448179779877335
+    },
+    "verdict": "worse",
+    "harm_flag": false,
+    "absolute": {
+     "control": 165.8739885219502,
+     "later": 155.90968443942313
+    }
+   }
+  },
+  "random": {
+   "10b-30b": {
+    "change": {
+     "mean_bb100": -82.96966242719591,
+     "standard_error_bb100": 6.100116790596242,
+     "lower95_bb100": -94.92655500408648,
+     "upper95_bb100": -71.01276985030535
+    },
+    "verdict": "worse",
+    "harm_flag": true,
+    "absolute": {
+     "control": 533.2682578431172,
+     "later": 450.29859541592134
+    }
+   },
+   "30b-50b": {
+    "change": {
+     "mean_bb100": -32.839209346147676,
+     "standard_error_bb100": 4.530688480008421,
+     "lower95_bb100": -41.719851687016906,
+     "upper95_bb100": -23.958567005278447
+    },
+    "verdict": "worse",
+    "harm_flag": true,
+    "absolute": {
+     "control": 450.29859541592134,
+     "later": 417.4593860697737
+    }
+   }
+  },
+  "check-call": {
+   "10b-30b": {
+    "change": {
+     "mean_bb100": -7.967489737051504,
+     "standard_error_bb100": 14.072048270019106,
+     "lower95_bb100": -35.550235326581635,
+     "upper95_bb100": 19.61525585247863
+    },
+    "verdict": "not resolved",
+    "harm_flag": false,
+    "absolute": {
+     "control": 187.96474315502024,
+     "later": 179.99725341796875
+    }
+   },
+   "30b-50b": {
+    "change": {
+     "mean_bb100": -14.69503332067419,
+     "standard_error_bb100": 11.115137033239758,
+     "lower95_bb100": -36.48191118647906,
+     "upper95_bb100": 7.091844545130682
+    },
+    "verdict": "not resolved",
+    "harm_flag": false,
+    "absolute": {
+     "control": 179.99725341796875,
+     "later": 165.30222009729457
+    }
+   }
+  },
+  "tight-aggressive": {
+   "10b-30b": {
+    "change": {
+     "mean_bb100": 3.1691853950785163,
+     "standard_error_bb100": 2.040351091865541,
+     "lower95_bb100": -0.8301247266860701,
+     "upper95_bb100": 7.168495516843103
+    },
+    "verdict": "not resolved",
+    "harm_flag": false,
+    "absolute": {
+     "control": 33.876828865402544,
+     "later": 37.04601426048106
+    }
+   },
+   "30b-50b": {
+    "change": {
+     "mean_bb100": 0.20618417583595014,
+     "standard_error_bb100": 1.4997016222295778,
+     "lower95_bb100": -2.7333941650296976,
+     "upper95_bb100": 3.145762516701598
+    },
+    "verdict": "not resolved",
+    "harm_flag": false,
+    "absolute": {
+     "control": 37.04601426048106,
+     "later": 37.25219843631701
+    }
+   }
+  },
+  "pot-pressure": {
+   "10b-30b": {
+    "change": {
+     "mean_bb100": 1.9299531636892024,
+     "standard_error_bb100": 2.807558067505314,
+     "lower95_bb100": -3.573166099255651,
+     "upper95_bb100": 7.433072426634055
+    },
+    "verdict": "not resolved",
+    "harm_flag": false,
+    "absolute": {
+     "control": 28.907235594147828,
+     "later": 30.837188757837033
+    }
+   },
+   "30b-50b": {
+    "change": {
+     "mean_bb100": 3.123876841965996,
+     "standard_error_bb100": 2.231222815218411,
+     "lower95_bb100": -1.2495626236194268,
+     "upper95_bb100": 7.497316307551419
+    },
+    "verdict": "not resolved",
+    "harm_flag": false,
+    "absolute": {
+     "control": 30.837188757837033,
+     "later": 33.96106559980303
+    }
+   }
+  },
+  "call-pressure": {
+   "10b-30b": {
+    "change": {
+     "mean_bb100": 13.004448015136697,
+     "standard_error_bb100": 8.89613880083347,
+     "lower95_bb100": -4.432951897378251,
+     "upper95_bb100": 30.441847927651644
+    },
+    "verdict": "not resolved",
+    "harm_flag": false,
+    "absolute": {
+     "control": 106.81622789641905,
+     "later": 119.82067591155575
+    }
+   },
+   "30b-50b": {
+    "change": {
+     "mean_bb100": 2.0647764763366343,
+     "standard_error_bb100": 7.373774307363215,
+     "lower95_bb100": -12.388623402054856,
+     "upper95_bb100": 16.518176354728126
+    },
+    "verdict": "not resolved",
+    "harm_flag": false,
+    "absolute": {
+     "control": 119.82067591155575,
+     "later": 121.88545238789239
+    }
+   }
+  },
+  "random-tight": {
+   "10b-30b": {
+    "change": {
+     "mean_bb100": -13.397830386036446,
+     "standard_error_bb100": 3.0719280870945265,
+     "lower95_bb100": -19.419143649734146,
+     "upper95_bb100": -7.376517122338748
+    },
+    "verdict": "worse",
+    "harm_flag": true,
+    "absolute": {
+     "control": 114.35089340768361,
+     "later": 100.95306302164717
+    }
+   },
+   "30b-50b": {
+    "change": {
+     "mean_bb100": -4.334601626280406,
+     "standard_error_bb100": 2.4155734010057883,
+     "lower95_bb100": -9.069388296585672,
+     "upper95_bb100": 0.400185044024858
+    },
+    "verdict": "not resolved",
+    "harm_flag": false,
+    "absolute": {
+     "control": 100.95306302164717,
+     "later": 96.61846139536675
+    }
+   }
+  },
+  "trained-call-pressure": {
+   "10b-30b": {
+    "change": {
+     "mean_bb100": 9.99449129424589,
+     "standard_error_bb100": 7.887504577220034,
+     "lower95_bb100": -5.465875804780502,
+     "upper95_bb100": 25.454858393272282
+    },
+    "verdict": "not resolved",
+    "harm_flag": false,
+    "absolute": {
+     "control": 151.25014019953554,
+     "later": 161.2446314937814
+    }
+   },
+   "30b-50b": {
+    "change": {
+     "mean_bb100": 5.748980441816199,
+     "standard_error_bb100": 6.225856622338983,
+     "lower95_bb100": -6.454375885260584,
+     "upper95_bb100": 17.952336768892984
+    },
+    "verdict": "not resolved",
+    "harm_flag": false,
+    "absolute": {
+     "control": 161.2446314937814,
+     "later": 166.9936119355976
+    }
+   }
+  }
+ }
+}

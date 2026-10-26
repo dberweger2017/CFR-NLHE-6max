@@ -11,6 +11,7 @@ import json
 from pathlib import Path
 
 from scripts import nplayer_admission_screen as admission
+from scripts import nplayer_live_order_screen as live
 from scripts import nplayer_loss_diagnosis as diagnosis
 from scripts import nplayer_pressure_screen as screen
 
@@ -36,6 +37,12 @@ def training(args):
         raise ValueError('the later checkpoint must have more nodes')
     diagnosis.create(args.out / 'training.json', json.dumps(result, indent=1) + '\n')
     print(json.dumps({a: {k: v for k, v in t.items() if k != 'by_street'} for a, t in result.items()}))
+
+
+def breakdown(args):
+    """Descriptive per-category contributions to one contrast's changes."""
+    fields, flat = live.contributions(args.out, arm=ARM)
+    live.write_breakdown(args.results, {'fields': fields}, flat)
 
 
 def verdict(adjusted):
@@ -76,7 +83,7 @@ def ladder(args):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest='command', required=True)
-    for name in ('manifest', 'scan', 'equity', 'rows', 'training', 'report', 'ladder'):
+    for name in ('manifest', 'scan', 'equity', 'rows', 'training', 'report', 'ladder', 'breakdown'):
         p = sub.add_parser(name)
         if name == 'ladder':
             p.add_argument('--summary', nargs=2, required=True, help='NAME=summary.json for the first, then the second contrast')
@@ -96,12 +103,12 @@ def main():
             p.add_argument('--workers', type=int, default=12)
         if name == 'equity':
             p.add_argument('--binary', type=Path, required=True)
-        if name == 'report':
+        if name in ('report', 'breakdown'):
             p.add_argument('--results', type=Path, required=True)
     args = parser.parse_args()
     {'manifest': manifest, 'scan': lambda a: screen.scan(a, arm=ARM), 'equity': diagnosis.equity,
      'rows': lambda a: admission.rows(a, arm=ARM, control=(a.control_checkpoint, screen.sha(a.control_checkpoint))),
-     'training': training, 'report': lambda a: admission.report(a, arm=ARM, fmt=FORMAT), 'ladder': ladder}[args.command](args)
+     'training': training, 'report': lambda a: admission.report(a, arm=ARM, fmt=FORMAT), 'ladder': ladder, 'breakdown': breakdown}[args.command](args)
 
 
 if __name__ == '__main__':
