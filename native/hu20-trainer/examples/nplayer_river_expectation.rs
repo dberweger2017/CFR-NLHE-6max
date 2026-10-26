@@ -255,7 +255,7 @@ fn run() -> Result<(), String> {
         let p = Path::new(m["path"].as_str().ok_or("model path")?);
         let digest = m["sha256"].as_str().ok_or("model SHA")?;
         let (table, report) = PolicyTable::load_profiled(p, digest, false)?;
-        if table.config() != Config::new(&[10000; 3], 50, 100)? {
+        if table.config()? != Config::new(&[10000; 3], 50, 100)? {
             return Err("requires three-player100BB".into());
         }
         pins.push(json!({"alias":alias,"sha256":digest,"load_seconds":report.total_seconds}));

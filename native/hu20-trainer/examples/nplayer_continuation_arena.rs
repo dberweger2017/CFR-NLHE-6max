@@ -224,7 +224,7 @@ fn run() -> Result<(), String> {
         return Err("model identities or memberships differ".into());
     }
     let config = campaign_config(&m)?;
-    if models.iter().any(|v| v.table.config() != config) {
+    if models.iter().any(|v| v.table.config().ok() != Some(config)) {
         return Err("model differs from declared three-player stack depth".into());
     }
     let tables = EquityTables::load(Path::new(m["tables"].as_str().ok_or("tables")?), false)?;

@@ -80,7 +80,7 @@ fn run() -> Result<(), String> {
             let (table, load) = PolicyTable::load_profiled(Path::new(&a[3]), &a[4], false)?;
             let tables = hu20_trainer::cards::EquityTables::load(Path::new(&a[2]), false)?;
             let hand = hu20_trainer::nplayer::Hand::from_deck(
-                table.config(),
+                table.config()?,
                 0,
                 &(0..52).collect::<Vec<_>>(),
             )?;

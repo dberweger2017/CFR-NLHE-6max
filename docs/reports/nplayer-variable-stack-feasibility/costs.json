@@ -1,0 +1,990 @@
+{
+  "admission": {
+    "disk_headroom_bytes": 4294967296,
+    "fixture_forecast_rss_bytes": 3221225472,
+    "forecast_new_disk_bytes": 4294967296,
+    "no_pilot_started": true,
+    "ram_headroom_bytes": 1073741824,
+    "sample": {
+      "available_ram_bytes": 6982696960,
+      "disk_free_bytes": 24421396480,
+      "epoch": 1793035082.225896,
+      "live_cpu_seconds": 0,
+      "pressure": 1,
+      "swap_used_bytes": 1048576,
+      "thermal_state": "nominal",
+      "worker_family_rss_bytes": 0
+    }
+  },
+  "after": {
+    "available_ram_bytes": 8085405696,
+    "disk_free_bytes": 24539336704,
+    "epoch": 1793035163.2278929,
+    "live_cpu_seconds": 0,
+    "pressure": 1,
+    "swap_used_bytes": 1048576,
+    "thermal_state": "nominal",
+    "worker_family_rss_bytes": 0
+  },
+  "file_sizes": {
+    "COMPLETE.json": 24224,
+    "WRAPPER-COST.json": 106,
+    "admission.json": 458,
+    "config.json": 108978,
+    "history-new-average.gz": 1301320,
+    "history-new.gz": 1717158,
+    "history-old-average.gz": 1301320,
+    "history-old.gz": 1717158,
+    "live-order-new-average.gz": 1221341,
+    "live-order-new.gz": 1630276,
+    "live-order-old-average.gz": 1221341,
+    "live-order-old.gz": 1630276,
+    "native/average.gz": 1348270,
+    "native/common-panel.json": 59172,
+    "native/full.gz": 1774367,
+    "native/initial.jsonl": 244794,
+    "native/learning.json": 642564,
+    "native/mid.gz": 815988,
+    "native/policy.bin": 3622085,
+    "native/repeat.jsonl": 244794,
+    "native/resumed.gz": 1774367,
+    "native/retained-rows.json": 427,
+    "native/verified.json": 2081,
+    "stage-costs.json": 11705,
+    "stages/build-baseline/config.json": 108978,
+    "stages/build-baseline/measurements/build-baseline/receipt.json": 504,
+    "stages/build-baseline/measurements/build-baseline/stderr.log": 1406,
+    "stages/build-baseline/measurements/build-baseline/stdout.log": 0,
+    "stages/build-baseline/resources.jsonl": 4574,
+    "stages/build-baseline/stage-costs.json": 550,
+    "stages/build-baseline/status.json": 55,
+    "stages/build-new/config.json": 108978,
+    "stages/build-new/measurements/build-new/receipt.json": 572,
+    "stages/build-new/measurements/build-new/stderr.log": 1402,
+    "stages/build-new/measurements/build-new/stdout.log": 0,
+    "stages/build-new/resources.jsonl": 6008,
+    "stages/build-new/stage-costs.json": 626,
+    "stages/build-new/status.json": 50,
+    "stages/independent-replay/config.json": 108978,
+    "stages/independent-replay/measurements/independent-replay/receipt.json": 473,
+    "stages/independent-replay/measurements/independent-replay/stderr.log": 0,
+    "stages/independent-replay/measurements/independent-replay/stdout.log": 417,
+    "stages/independent-replay/resources.jsonl": 236,
+    "stages/independent-replay/stage-costs.json": 507,
+    "stages/independent-replay/status.json": 59,
+    "stages/legacy-export-history-new/config.json": 108978,
+    "stages/legacy-export-history-new/measurements/legacy-export-history-new/receipt.json": 688,
+    "stages/legacy-export-history-new/measurements/legacy-export-history-new/stderr.log": 0,
+    "stages/legacy-export-history-new/measurements/legacy-export-history-new/stdout.log": 111,
+    "stages/legacy-export-history-new/resources.jsonl": 236,
+    "stages/legacy-export-history-new/stage-costs.json": 726,
+    "stages/legacy-export-history-new/status.json": 66,
+    "stages/legacy-export-history-old/config.json": 108978,
+    "stages/legacy-export-history-old/measurements/legacy-export-history-old/receipt.json": 691,
+    "stages/legacy-export-history-old/measurements/legacy-export-history-old/stderr.log": 0,
+    "stages/legacy-export-history-old/measurements/legacy-export-history-old/stdout.log": 111,
+    "stages/legacy-export-history-old/resources.jsonl": 245,
+    "stages/legacy-export-history-old/stage-costs.json": 729,
+    "stages/legacy-export-history-old/status.json": 66,
+    "stages/legacy-export-live-order-new/config.json": 108978,
+    "stages/legacy-export-live-order-new/measurements/legacy-export-live-order-new/receipt.json": 697,
+    "stages/legacy-export-live-order-new/measurements/legacy-export-live-order-new/stderr.log": 0,
+    "stages/legacy-export-live-order-new/measurements/legacy-export-live-order-new/stdout.log": 111,
+    "stages/legacy-export-live-order-new/resources.jsonl": 237,
+    "stages/legacy-export-live-order-new/stage-costs.json": 735,
+    "stages/legacy-export-live-order-new/status.json": 69,
+    "stages/legacy-export-live-order-old/config.json": 108978,
+    "stages/legacy-export-live-order-old/measurements/legacy-export-live-order-old/receipt.json": 700,
+    "stages/legacy-export-live-order-old/measurements/legacy-export-live-order-old/stderr.log": 0,
+    "stages/legacy-export-live-order-old/measurements/legacy-export-live-order-old/stdout.log": 111,
+    "stages/legacy-export-live-order-old/resources.jsonl": 237,
+    "stages/legacy-export-live-order-old/stage-costs.json": 738,
+    "stages/legacy-export-live-order-old/status.json": 69,
+    "stages/legacy-history-new/config.json": 108978,
+    "stages/legacy-history-new/measurements/legacy-history-new/receipt.json": 1027,
+    "stages/legacy-history-new/measurements/legacy-history-new/stderr.log": 0,
+    "stages/legacy-history-new/measurements/legacy-history-new/stdout.log": 941,
+    "stages/legacy-history-new/resources.jsonl": 712,
+    "stages/legacy-history-new/stage-costs.json": 1115,
+    "stages/legacy-history-new/status.json": 59,
+    "stages/legacy-history-old/config.json": 108978,
+    "stages/legacy-history-old/measurements/legacy-history-old/receipt.json": 1030,
+    "stages/legacy-history-old/measurements/legacy-history-old/stderr.log": 0,
+    "stages/legacy-history-old/measurements/legacy-history-old/stdout.log": 939,
+    "stages/legacy-history-old/resources.jsonl": 719,
+    "stages/legacy-history-old/stage-costs.json": 1118,
+    "stages/legacy-history-old/status.json": 59,
+    "stages/legacy-live-order-new/config.json": 108978,
+    "stages/legacy-live-order-new/measurements/legacy-live-order-new/receipt.json": 1035,
+    "stages/legacy-live-order-new/measurements/legacy-live-order-new/stderr.log": 0,
+    "stages/legacy-live-order-new/measurements/legacy-live-order-new/stdout.log": 937,
+    "stages/legacy-live-order-new/resources.jsonl": 713,
+    "stages/legacy-live-order-new/stage-costs.json": 1123,
+    "stages/legacy-live-order-new/status.json": 62,
+    "stages/legacy-live-order-old/config.json": 108978,
+    "stages/legacy-live-order-old/measurements/legacy-live-order-old/receipt.json": 1040,
+    "stages/legacy-live-order-old/measurements/legacy-live-order-old/stderr.log": 0,
+    "stages/legacy-live-order-old/measurements/legacy-live-order-old/stdout.log": 937,
+    "stages/legacy-live-order-old/resources.jsonl": 714,
+    "stages/legacy-live-order-old/stage-costs.json": 1128,
+    "stages/legacy-live-order-old/status.json": 62,
+    "stages/native-fixtures/config.json": 108978,
+    "stages/native-fixtures/measurements/native-fixtures/receipt.json": 587,
+    "stages/native-fixtures/measurements/native-fixtures/stderr.log": 0,
+    "stages/native-fixtures/measurements/native-fixtures/stdout.log": 0,
+    "stages/native-fixtures/resources.jsonl": 950,
+    "stages/native-fixtures/stage-costs.json": 621,
+    "stages/native-fixtures/status.json": 56,
+    "stages/repeat-independent-replay/config.json": 108978,
+    "stages/repeat-independent-replay/measurements/repeat-independent-replay/receipt.json": 479,
+    "stages/repeat-independent-replay/measurements/repeat-independent-replay/stderr.log": 0,
+    "stages/repeat-independent-replay/measurements/repeat-independent-replay/stdout.log": 417,
+    "stages/repeat-independent-replay/resources.jsonl": 247,
+    "stages/repeat-independent-replay/stage-costs.json": 513,
+    "stages/repeat-independent-replay/status.json": 66,
+    "stages/unit-multi_key_tests-exact_key_bytes/config.json": 108978,
+    "stages/unit-multi_key_tests-exact_key_bytes/measurements/unit-multi_key_tests-exact_key_bytes/receipt.json": 492,
+    "stages/unit-multi_key_tests-exact_key_bytes/measurements/unit-multi_key_tests-exact_key_bytes/stderr.log": 177,
+    "stages/unit-multi_key_tests-exact_key_bytes/measurements/unit-multi_key_tests-exact_key_bytes/stdout.log": 115,
+    "stages/unit-multi_key_tests-exact_key_bytes/resources.jsonl": 237,
+    "stages/unit-multi_key_tests-exact_key_bytes/stage-costs.json": 532,
+    "stages/unit-multi_key_tests-exact_key_bytes/status.json": 77,
+    "stages/unit-multi_stacks-tests/config.json": 108978,
+    "stages/unit-multi_stacks-tests/measurements/unit-multi_stacks-tests/receipt.json": 466,
+    "stages/unit-multi_stacks-tests/measurements/unit-multi_stacks-tests/stderr.log": 177,
+    "stages/unit-multi_stacks-tests/measurements/unit-multi_stacks-tests/stdout.log": 182,
+    "stages/unit-multi_stacks-tests/resources.jsonl": 247,
+    "stages/unit-multi_stacks-tests/stage-costs.json": 506,
+    "stages/unit-multi_stacks-tests/status.json": 64,
+    "stages/unit-stack_owner_tests/config.json": 108978,
+    "stages/unit-stack_owner_tests/measurements/unit-stack_owner_tests/receipt.json": 443,
+    "stages/unit-stack_owner_tests/measurements/unit-stack_owner_tests/stderr.log": 1516,
+    "stages/unit-stack_owner_tests/measurements/unit-stack_owner_tests/stdout.log": 391,
+    "stages/unit-stack_owner_tests/resources.jsonl": 2398,
+    "stages/unit-stack_owner_tests/stage-costs.json": 483,
+    "stages/unit-stack_owner_tests/status.json": 63,
+    "status.json": 79
+  },
+  "qualification_wrapper": {
+    "scope": "Includes child stages; do not add stage walls again",
+    "wall_seconds": 81.04158166598063
+  },
+  "resources": {
+    "build-baseline": {
+      "first": {
+        "available_ram_bytes": 7466303488,
+        "disk_free_bytes": 22216777728,
+        "epoch": 1793035120.7986948,
+        "live_cpu_seconds": 0.02809629,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 18956288
+      },
+      "last": {
+        "available_ram_bytes": 7320846336,
+        "disk_free_bytes": 22884818944,
+        "epoch": 1793035139.252278,
+        "live_cpu_seconds": 10.28815576,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 379830272
+      },
+      "peak_rss_bytes": 571572224,
+      "samples": 19,
+      "thermal_states": [
+        "nominal"
+      ]
+    },
+    "build-new": {
+      "first": {
+        "available_ram_bytes": 7655718912,
+        "disk_free_bytes": 23765889024,
+        "epoch": 1793035095.1660979,
+        "live_cpu_seconds": 0.029381167,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 19038208
+      },
+      "last": {
+        "available_ram_bytes": 7259504640,
+        "disk_free_bytes": 22212239360,
+        "epoch": 1793035119.744973,
+        "live_cpu_seconds": 9.026235896000001,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 346734592
+      },
+      "peak_rss_bytes": 589283328,
+      "samples": 25,
+      "thermal_states": [
+        "nominal"
+      ]
+    },
+    "independent-replay": {
+      "first": {
+        "available_ram_bytes": 7447134208,
+        "disk_free_bytes": 22816661504,
+        "epoch": 1793035144.40191,
+        "live_cpu_seconds": 0.024391083,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 10797056
+      },
+      "last": {
+        "available_ram_bytes": 7447134208,
+        "disk_free_bytes": 22816661504,
+        "epoch": 1793035144.40191,
+        "live_cpu_seconds": 0.024391083,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 10797056
+      },
+      "peak_rss_bytes": 10797056,
+      "samples": 1,
+      "thermal_states": [
+        "nominal"
+      ]
+    },
+    "legacy-export-history-new": {
+      "first": {
+        "available_ram_bytes": 8092123136,
+        "disk_free_bytes": 24546918400,
+        "epoch": 1793035153.764283,
+        "live_cpu_seconds": 0.025322583,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 3866624
+      },
+      "last": {
+        "available_ram_bytes": 8092123136,
+        "disk_free_bytes": 24546918400,
+        "epoch": 1793035153.764283,
+        "live_cpu_seconds": 0.025322583,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 3866624
+      },
+      "peak_rss_bytes": 3866624,
+      "samples": 1,
+      "thermal_states": [
+        "nominal"
+      ]
+    },
+    "legacy-export-history-old": {
+      "first": {
+        "available_ram_bytes": 8095465472,
+        "disk_free_bytes": 24550207488,
+        "epoch": 1793035149.612523,
+        "live_cpu_seconds": 0.026755415999999997,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 3604480
+      },
+      "last": {
+        "available_ram_bytes": 8095465472,
+        "disk_free_bytes": 24550207488,
+        "epoch": 1793035149.612523,
+        "live_cpu_seconds": 0.026755415999999997,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 3604480
+      },
+      "peak_rss_bytes": 3604480,
+      "samples": 1,
+      "thermal_states": [
+        "nominal"
+      ]
+    },
+    "legacy-export-live-order-new": {
+      "first": {
+        "available_ram_bytes": 8089649152,
+        "disk_free_bytes": 24540573696,
+        "epoch": 1793035162.0756621,
+        "live_cpu_seconds": 0.028781291,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 4079616
+      },
+      "last": {
+        "available_ram_bytes": 8089649152,
+        "disk_free_bytes": 24540573696,
+        "epoch": 1793035162.0756621,
+        "live_cpu_seconds": 0.028781291,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 4079616
+      },
+      "peak_rss_bytes": 4079616,
+      "samples": 1,
+      "thermal_states": [
+        "nominal"
+      ]
+    },
+    "legacy-export-live-order-old": {
+      "first": {
+        "available_ram_bytes": 8093532160,
+        "disk_free_bytes": 24543711232,
+        "epoch": 1793035157.9206898,
+        "live_cpu_seconds": 0.028684625,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 4046848
+      },
+      "last": {
+        "available_ram_bytes": 8093532160,
+        "disk_free_bytes": 24543711232,
+        "epoch": 1793035157.9206898,
+        "live_cpu_seconds": 0.028684625,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 4046848
+      },
+      "peak_rss_bytes": 4046848,
+      "samples": 1,
+      "thermal_states": [
+        "nominal"
+      ]
+    },
+    "legacy-history-new": {
+      "first": {
+        "available_ram_bytes": 8087830528,
+        "disk_free_bytes": 24548773888,
+        "epoch": 1793035150.665741,
+        "live_cpu_seconds": 0.024760456,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 3096576
+      },
+      "last": {
+        "available_ram_bytes": 7997865984,
+        "disk_free_bytes": 24548769792,
+        "epoch": 1793035152.711495,
+        "live_cpu_seconds": 2.070950608,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 156876800
+      },
+      "peak_rss_bytes": 156876800,
+      "samples": 3,
+      "thermal_states": [
+        "nominal"
+      ]
+    },
+    "legacy-history-old": {
+      "first": {
+        "available_ram_bytes": 8087142400,
+        "disk_free_bytes": 24551972864,
+        "epoch": 1793035146.511481,
+        "live_cpu_seconds": 0.026394123999999998,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 3047424
+      },
+      "last": {
+        "available_ram_bytes": 7990624256,
+        "disk_free_bytes": 24552091648,
+        "epoch": 1793035148.557385,
+        "live_cpu_seconds": 2.07119856,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 156827648
+      },
+      "peak_rss_bytes": 156827648,
+      "samples": 3,
+      "thermal_states": [
+        "nominal"
+      ]
+    },
+    "legacy-live-order-new": {
+      "first": {
+        "available_ram_bytes": 8099692544,
+        "disk_free_bytes": 24542347264,
+        "epoch": 1793035158.974935,
+        "live_cpu_seconds": 0.029031165,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 3080192
+      },
+      "last": {
+        "available_ram_bytes": 7987511296,
+        "disk_free_bytes": 24542343168,
+        "epoch": 1793035161.0207932,
+        "live_cpu_seconds": 2.074263856,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 156860416
+      },
+      "peak_rss_bytes": 156860416,
+      "samples": 3,
+      "thermal_states": [
+        "nominal"
+      ]
+    },
+    "legacy-live-order-old": {
+      "first": {
+        "available_ram_bytes": 8094957568,
+        "disk_free_bytes": 24545480704,
+        "epoch": 1793035154.821808,
+        "live_cpu_seconds": 0.022433082,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 3047424
+      },
+      "last": {
+        "available_ram_bytes": 7986249728,
+        "disk_free_bytes": 24545472512,
+        "epoch": 1793035156.8673542,
+        "live_cpu_seconds": 2.068147888,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 156827648
+      },
+      "peak_rss_bytes": 156827648,
+      "samples": 3,
+      "thermal_states": [
+        "nominal"
+      ]
+    },
+    "native-fixtures": {
+      "first": {
+        "available_ram_bytes": 7496613888,
+        "disk_free_bytes": 22889132032,
+        "epoch": 1793035140.282675,
+        "live_cpu_seconds": 0.006977083,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 3063808
+      },
+      "last": {
+        "available_ram_bytes": 6574374912,
+        "disk_free_bytes": 22825934848,
+        "epoch": 1793035143.350993,
+        "live_cpu_seconds": 3.153588144,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 1412792320
+      },
+      "peak_rss_bytes": 1412792320,
+      "samples": 4,
+      "thermal_states": [
+        "nominal"
+      ]
+    },
+    "repeat-independent-replay": {
+      "first": {
+        "available_ram_bytes": 7954022400,
+        "disk_free_bytes": 23303135232,
+        "epoch": 1793035145.4581592,
+        "live_cpu_seconds": 0.028933748999999998,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 11517952
+      },
+      "last": {
+        "available_ram_bytes": 7954022400,
+        "disk_free_bytes": 23303135232,
+        "epoch": 1793035145.4581592,
+        "live_cpu_seconds": 0.028933748999999998,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 11517952
+      },
+      "peak_rss_bytes": 11517952,
+      "samples": 1,
+      "thermal_states": [
+        "nominal"
+      ]
+    },
+    "unit-multi_key_tests-exact_key_bytes": {
+      "first": {
+        "available_ram_bytes": 7660322816,
+        "disk_free_bytes": 23766024192,
+        "epoch": 1793035094.109291,
+        "live_cpu_seconds": 0.029196041,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 19054592
+      },
+      "last": {
+        "available_ram_bytes": 7660322816,
+        "disk_free_bytes": 23766024192,
+        "epoch": 1793035094.109291,
+        "live_cpu_seconds": 0.029196041,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 19054592
+      },
+      "peak_rss_bytes": 19054592,
+      "samples": 1,
+      "thermal_states": [
+        "nominal"
+      ]
+    },
+    "unit-multi_stacks-tests": {
+      "first": {
+        "available_ram_bytes": 7645822976,
+        "disk_free_bytes": 23766233088,
+        "epoch": 1793035093.0519838,
+        "live_cpu_seconds": 0.027986250999999997,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 18464768
+      },
+      "last": {
+        "available_ram_bytes": 7645822976,
+        "disk_free_bytes": 23766233088,
+        "epoch": 1793035093.0519838,
+        "live_cpu_seconds": 0.027986250999999997,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 18464768
+      },
+      "peak_rss_bytes": 18464768,
+      "samples": 1,
+      "thermal_states": [
+        "nominal"
+      ]
+    },
+    "unit-stack_owner_tests": {
+      "first": {
+        "available_ram_bytes": 8305442816,
+        "disk_free_bytes": 24399273984,
+        "epoch": 1793035082.786121,
+        "live_cpu_seconds": 0.004748207,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 8830976
+      },
+      "last": {
+        "available_ram_bytes": 7258963968,
+        "disk_free_bytes": 23809875968,
+        "epoch": 1793035091.996002,
+        "live_cpu_seconds": 6.332244252,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 577830912
+      },
+      "peak_rss_bytes": 577830912,
+      "samples": 10,
+      "thermal_states": [
+        "nominal"
+      ]
+    }
+  },
+  "scope": "Stage CPU includes guard-helper children. Wrapper walls include stages; do not sum both. Ordinary caches. No isolated/cold-load or mature-throughput claim.",
+  "stages": [
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--manifest-path",
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/source-v1/native/hu20-trainer/Cargo.toml",
+        "--lib",
+        "stack_owner_tests"
+      ],
+      "phase": "unit-stack_owner_tests",
+      "pid": 59176,
+      "returncode": 0,
+      "sampled_peak_rss_bytes": 577830912,
+      "system_cpu_seconds": 1.346776,
+      "user_cpu_seconds": 13.894043,
+      "wall_seconds": 10.234790000016801
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--manifest-path",
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/source-v1/native/hu20-trainer/Cargo.toml",
+        "--lib",
+        "multi_stacks::tests"
+      ],
+      "phase": "unit-multi_stacks-tests",
+      "pid": 59308,
+      "returncode": 0,
+      "sampled_peak_rss_bytes": 18464768,
+      "system_cpu_seconds": 0.02952599999999994,
+      "user_cpu_seconds": 0.05904799999999888,
+      "wall_seconds": 1.0520125420298427
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--manifest-path",
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/source-v1/native/hu20-trainer/Cargo.toml",
+        "--lib",
+        "multi_key_tests::exact_key_bytes"
+      ],
+      "phase": "unit-multi_key_tests-exact_key_bytes",
+      "pid": 59313,
+      "returncode": 0,
+      "sampled_peak_rss_bytes": 19054592,
+      "system_cpu_seconds": 0.025170000000000137,
+      "user_cpu_seconds": 0.06049800000000083,
+      "wall_seconds": 1.051264124980662
+    },
+    {
+      "command": [
+        "cargo",
+        "build",
+        "--locked",
+        "--release",
+        "--manifest-path",
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/source-v1/native/hu20-trainer/Cargo.toml",
+        "--example",
+        "nplayer_variable_stack",
+        "--example",
+        "nplayer_train",
+        "--example",
+        "nplayer_policy",
+        "--example",
+        "nplayer_parity"
+      ],
+      "phase": "build-new",
+      "pid": 59317,
+      "returncode": 0,
+      "sampled_peak_rss_bytes": 589283328,
+      "system_cpu_seconds": 1.532837,
+      "user_cpu_seconds": 40.249026,
+      "wall_seconds": 25.62769620801555
+    },
+    {
+      "command": [
+        "cargo",
+        "build",
+        "--locked",
+        "--release",
+        "--manifest-path",
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/baseline-v1/native/hu20-trainer/Cargo.toml",
+        "--example",
+        "nplayer_train",
+        "--example",
+        "nplayer_policy"
+      ],
+      "phase": "build-baseline",
+      "pid": 59495,
+      "returncode": 0,
+      "sampled_peak_rss_bytes": 571572224,
+      "system_cpu_seconds": 1.4294019999999996,
+      "user_cpu_seconds": 29.197437,
+      "wall_seconds": 19.501258916046936
+    },
+    {
+      "command": [
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/source-v1/native/hu20-trainer/target/release/examples/nplayer_variable_stack",
+        "qualify",
+        "/Users/dberweger/Local/overnight-equity-hu100-20261009/stage-a/results/equity-bench/tables",
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/qualification-v1/native"
+      ],
+      "phase": "native-fixtures",
+      "pid": 59665,
+      "returncode": 0,
+      "sampled_peak_rss_bytes": 1412792320,
+      "system_cpu_seconds": 0.4123210000000004,
+      "user_cpu_seconds": 3.199646999999999,
+      "wall_seconds": 4.097685582994018
+    },
+    {
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.check_nplayer_policy_replay",
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/qualification-v1/native/initial.jsonl"
+      ],
+      "phase": "independent-replay",
+      "pid": 59680,
+      "returncode": 0,
+      "sampled_peak_rss_bytes": 10797056,
+      "system_cpu_seconds": 0.02723999999999993,
+      "user_cpu_seconds": 0.07157099999999161,
+      "wall_seconds": 1.0468646249501035
+    },
+    {
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.check_nplayer_policy_replay",
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/qualification-v1/native/repeat.jsonl"
+      ],
+      "phase": "repeat-independent-replay",
+      "pid": 59683,
+      "returncode": 0,
+      "sampled_peak_rss_bytes": 11517952,
+      "system_cpu_seconds": 0.02708499999999958,
+      "user_cpu_seconds": 0.07295300000001248,
+      "wall_seconds": 1.0511092079686932
+    },
+    {
+      "command": [
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/baseline-v1/native/hu20-trainer/target/release/examples/nplayer_train",
+        "--players",
+        "3",
+        "--stack-bb",
+        "20",
+        "--small-blind",
+        "50",
+        "--big-blind",
+        "100",
+        "--seed",
+        "20261026441003",
+        "--nodes",
+        "100000",
+        "--last-average-street",
+        "3",
+        "--max-entries",
+        "100000",
+        "--freeze-at-cap",
+        "--fast",
+        "--threads",
+        "2",
+        "--roots-per-seat",
+        "8",
+        "--max-seconds",
+        "1e100",
+        "--card-buckets",
+        "/Users/dberweger/Local/overnight-equity-hu100-20261009/stage-a/results/equity-bench/tables",
+        "--key-schema",
+        "history",
+        "--out",
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/qualification-v1/history-old.gz"
+      ],
+      "phase": "legacy-history-old",
+      "pid": 59687,
+      "returncode": 0,
+      "sampled_peak_rss_bytes": 156827648,
+      "system_cpu_seconds": 0.2171100000000008,
+      "user_cpu_seconds": 2.7079109999999957,
+      "wall_seconds": 3.0903515839600004
+    },
+    {
+      "command": [
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/baseline-v1/native/hu20-trainer/target/release/examples/nplayer_policy",
+        "export",
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/qualification-v1/history-old.gz",
+        "cfb26c50d2fd6448bbb5d4dc92fba1ef392cf1dd91d908859fde5c68ccd9bedc",
+        "average",
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/qualification-v1/history-old-average.gz"
+      ],
+      "phase": "legacy-export-history-old",
+      "pid": 59694,
+      "returncode": 0,
+      "sampled_peak_rss_bytes": 3604480,
+      "system_cpu_seconds": 0.013458999999999222,
+      "user_cpu_seconds": 0.17220499999999106,
+      "wall_seconds": 1.0491411659750156
+    },
+    {
+      "command": [
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/source-v1/native/hu20-trainer/target/release/examples/nplayer_train",
+        "--players",
+        "3",
+        "--stack-bb",
+        "20",
+        "--small-blind",
+        "50",
+        "--big-blind",
+        "100",
+        "--seed",
+        "20261026441003",
+        "--nodes",
+        "100000",
+        "--last-average-street",
+        "3",
+        "--max-entries",
+        "100000",
+        "--freeze-at-cap",
+        "--fast",
+        "--threads",
+        "2",
+        "--roots-per-seat",
+        "8",
+        "--max-seconds",
+        "1e100",
+        "--card-buckets",
+        "/Users/dberweger/Local/overnight-equity-hu100-20261009/stage-a/results/equity-bench/tables",
+        "--key-schema",
+        "history",
+        "--out",
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/qualification-v1/history-new.gz"
+      ],
+      "phase": "legacy-history-new",
+      "pid": 59698,
+      "returncode": 0,
+      "sampled_peak_rss_bytes": 156876800,
+      "system_cpu_seconds": 0.2231860000000001,
+      "user_cpu_seconds": 2.7011750000000063,
+      "wall_seconds": 3.090040915994905
+    },
+    {
+      "command": [
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/source-v1/native/hu20-trainer/target/release/examples/nplayer_policy",
+        "export",
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/qualification-v1/history-new.gz",
+        "cfb26c50d2fd6448bbb5d4dc92fba1ef392cf1dd91d908859fde5c68ccd9bedc",
+        "average",
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/qualification-v1/history-new-average.gz"
+      ],
+      "phase": "legacy-export-history-new",
+      "pid": 59709,
+      "returncode": 0,
+      "sampled_peak_rss_bytes": 3866624,
+      "system_cpu_seconds": 0.01175499999999996,
+      "user_cpu_seconds": 0.16433100000000422,
+      "wall_seconds": 1.0466701249824837
+    },
+    {
+      "command": [
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/baseline-v1/native/hu20-trainer/target/release/examples/nplayer_train",
+        "--players",
+        "3",
+        "--stack-bb",
+        "20",
+        "--small-blind",
+        "50",
+        "--big-blind",
+        "100",
+        "--seed",
+        "20261026441003",
+        "--nodes",
+        "100000",
+        "--last-average-street",
+        "3",
+        "--max-entries",
+        "100000",
+        "--freeze-at-cap",
+        "--fast",
+        "--threads",
+        "2",
+        "--roots-per-seat",
+        "8",
+        "--max-seconds",
+        "1e100",
+        "--card-buckets",
+        "/Users/dberweger/Local/overnight-equity-hu100-20261009/stage-a/results/equity-bench/tables",
+        "--key-schema",
+        "live-order",
+        "--out",
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/qualification-v1/live-order-old.gz"
+      ],
+      "phase": "legacy-live-order-old",
+      "pid": 59712,
+      "returncode": 0,
+      "sampled_peak_rss_bytes": 156827648,
+      "system_cpu_seconds": 0.21867999999999999,
+      "user_cpu_seconds": 2.6595219999999955,
+      "wall_seconds": 3.0836008330225013
+    },
+    {
+      "command": [
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/baseline-v1/native/hu20-trainer/target/release/examples/nplayer_policy",
+        "export",
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/qualification-v1/live-order-old.gz",
+        "49af3afb55086dc78092c163ba780855e3774e489b745d2a13e2b70a48c6e2a5",
+        "average",
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/qualification-v1/live-order-old-average.gz"
+      ],
+      "phase": "legacy-export-live-order-old",
+      "pid": 59719,
+      "returncode": 0,
+      "sampled_peak_rss_bytes": 4046848,
+      "system_cpu_seconds": 0.010290000000000354,
+      "user_cpu_seconds": 0.15994399999999587,
+      "wall_seconds": 1.0471084169694223
+    },
+    {
+      "command": [
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/source-v1/native/hu20-trainer/target/release/examples/nplayer_train",
+        "--players",
+        "3",
+        "--stack-bb",
+        "20",
+        "--small-blind",
+        "50",
+        "--big-blind",
+        "100",
+        "--seed",
+        "20261026441003",
+        "--nodes",
+        "100000",
+        "--last-average-street",
+        "3",
+        "--max-entries",
+        "100000",
+        "--freeze-at-cap",
+        "--fast",
+        "--threads",
+        "2",
+        "--roots-per-seat",
+        "8",
+        "--max-seconds",
+        "1e100",
+        "--card-buckets",
+        "/Users/dberweger/Local/overnight-equity-hu100-20261009/stage-a/results/equity-bench/tables",
+        "--key-schema",
+        "live-order",
+        "--out",
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/qualification-v1/live-order-new.gz"
+      ],
+      "phase": "legacy-live-order-new",
+      "pid": 59722,
+      "returncode": 0,
+      "sampled_peak_rss_bytes": 156860416,
+      "system_cpu_seconds": 0.2187159999999997,
+      "user_cpu_seconds": 2.663790000000006,
+      "wall_seconds": 3.091464541037567
+    },
+    {
+      "command": [
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/source-v1/native/hu20-trainer/target/release/examples/nplayer_policy",
+        "export",
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/qualification-v1/live-order-new.gz",
+        "49af3afb55086dc78092c163ba780855e3774e489b745d2a13e2b70a48c6e2a5",
+        "average",
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/qualification-v1/live-order-new-average.gz"
+      ],
+      "phase": "legacy-export-live-order-new",
+      "pid": 59730,
+      "returncode": 0,
+      "sampled_peak_rss_bytes": 4079616,
+      "system_cpu_seconds": 0.010646000000000377,
+      "user_cpu_seconds": 0.16031399999999962,
+      "wall_seconds": 1.047815374971833
+    }
+  ]
+}

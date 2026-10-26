@@ -185,7 +185,7 @@ fn execute(
     }
     let (mut table, load) = PolicyTable::load_profiled(model_path, pin, false)?;
     if table.players != 6
-        || table.config().stacks() != [10000; 6]
+        || table.config()?.stacks() != [10000; 6]
         || table.scope != 3
         || table.mode != Mode::Average
         || table.schema != KeySchema::LiveOrder

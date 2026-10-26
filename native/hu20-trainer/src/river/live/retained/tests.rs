@@ -337,7 +337,7 @@ fn live_evaluation_view_shares_payload_and_preserves_root_after_all_queries() {
             o.hole = cap.root.hole;
             // The retained-row fixture has short-stack simulator scaffolding;
             // direct validated blueprint queries use the table's game identity.
-            o.config = table.config();
+            o.config = table.config().unwrap();
             let actual = view.row(&o, &tables, true).unwrap();
             let mut independent = base.evaluation_fork();
             let expected = independent
@@ -400,7 +400,7 @@ fn live_evaluation_view_shares_payload_and_preserves_root_after_all_queries() {
             }
             let mut o = h.observe(cap.root.seat).unwrap();
             o.hole = cap.root.hole;
-            o.config = table.config();
+            o.config = table.config().unwrap();
             let row = view.row(&o, &tables, true).unwrap();
             assert_eq!(row.source, "off-tree-blueprint");
             assert_eq!(
@@ -1192,7 +1192,7 @@ fn an_opponent_action_blocked_by_the_actual_hero_falls_back() {
             assert_eq!(blueprint_row(&view, &table, tables).unwrap().0[bet], 0.);
         }
     }
-    let decision = reconstruct(&obs, table.config())
+    let decision = reconstruct(&obs, table.config().unwrap())
         .unwrap()
         .decision()
         .unwrap();

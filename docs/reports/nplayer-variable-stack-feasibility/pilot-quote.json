@@ -1,0 +1,44 @@
+{
+  "format": "pr441-pilot-quote-v1",
+  "status": "proposed-not-admitted",
+  "targets": [
+    5000000,
+    25000000,
+    100000000
+  ],
+  "seed": 20261026441011,
+  "max_entries": 10000000,
+  "threads": 2,
+  "component_seconds": {
+    "training_proxy": 715.012972467179,
+    "three_endpoint_processing_proxy": 360.47979176263163,
+    "startup_proxy": 3.341194707994018,
+    "central_proof_readout_allowance": 120
+  },
+  "central_seconds": 1198.8339589378047,
+  "reserved_seconds": 3472.680890342788,
+  "proposed_allocation_seconds": 3600,
+  "formula": "training=100M/105801*0.756490875; processing=3*10M/62957*0.756490875; startup=4.1supervised-native-minus0.75649internal; central=training+processing+startup+120; reserve=3training+2processing+2startup+600. Uses entire tiny fixture processing time in both proxies deliberately conservatively; not measured mature throughput.",
+  "ram_forecast_bytes": 5368709120,
+  "ram_headroom_bytes": 1073741824,
+  "new_disk_forecast_bytes": 15032385536,
+  "disk_headroom_bytes": 4294967296,
+  "memory_scenario": "12M planning rows allowing20% whole-iteration overshoot,128B/training row+80B/inference row+1.384GB K50+1GiB buffers fits5GiB scenario; sampler/allocator growth remains uncertain, not an RSS ceiling.",
+  "disk_scenario": "Three retained checkpoint/average/binary sets scaled from tiny fixture bytes/row,20% row overshoot,3x compressed-byte entropy reserve plus1GiB reports/workspace; rounded14GiB new plus4GiB free headroom. No cleanup/staging assumed.",
+  "tiny_fixture": {
+    "nodes": 105801,
+    "rows": 62957,
+    "wall_seconds": 0.756490875,
+    "peak_rss_bytes": 1412792320
+  },
+  "explicit_owner_acceptance_required": true,
+  "no_pilot_started": true,
+  "not_a_completion_guarantee": true,
+  "no_elapsed_time_stop": true,
+  "limitations": [
+    "Tiny105801-node fixture is immature; no mature speed or growth estimate established.",
+    "Same conservative exact-chip key may fragment strongly; common panel did not show exact-history merges.",
+    "Protective10Mcap can censor growth; no natural saturation or strength verdict.",
+    "Before launch fresh RAM/disk/AC/thermal/locks plus qualified source/binary/review must match."
+  ]
+}

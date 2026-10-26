@@ -1,5 +1,27 @@
 # Roadmap
 
+## Three-player variable-stack pilot complete; qualify representation before scaling
+
+[PR441](https://github.com/dberweger2017/CFR-NLHE-6max/pull/441),
+[protocol](docs/nplayer-variable-stack-feasibility.md),
+[pilot analysis and proofs](docs/reports/nplayer-variable-stack-feasibility/pilot.md):
+one declared 27-tuple 20/50/100 BB mixture and conservative public stack-owner
+key qualify without changing fixed-model defaults. Independent review, 160 M1
+library tests, all example builds, legacy checkpoint/export byte parity and the
+small M4 qualification pass. Owner-approved fixed 5M→25M→100M pilot completed
+in **2m21s**, sampled peak **2.76 GiB**, retained outputs **2.384 GiB**; all rows
+audited and 243 initial +243 repeated hands independently replayed.
+
+Membership froze at 10,003,912 rows around 18–19M nodes. On the identical fixed
+panel, 25M→100M turns 68 zero-mass observations positive but cannot reduce the
+1,503 missing observations; **503/510 river observations still miss**. This is
+synthetic-panel support, not population coverage or strength. Attempted post-cap
+watch updates include discarded deltas and are not successfully learned rows.
+Retain every checkpoint and qualify one stack-aware representation hypothesis
+before mature training. [Conditional next costing](docs/reports/nplayer-variable-stack-feasibility/next-allocation.json)
+is not launch-ready or authorized. No follow-up, search, release, defaults or
+bb128 science; ordinary evidence retained, cleaner archive pending.
+
 ## Six-player check-call conditional panel complete; player stays frozen
 
 [PR438](https://github.com/dberweger2017/CFR-NLHE-6max/pull/438),

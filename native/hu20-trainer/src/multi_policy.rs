@@ -5,9 +5,11 @@ use crate::{
     gz::Gzip,
     multi_cfr::Trainer,
     multi_checkpoint,
-    multi_holdem::{self, KeySchema, MENU},
+    multi_holdem::{self, KeySchema},
     nplayer::{Action, Config, Observation},
 };
+#[cfg(test)]
+use crate::multi_holdem::MENU;
 use flate2::read::MultiGzDecoder as GzDecoder;
 use rand::{Rng, SeedableRng};
 use serde_json::{json, Value};
@@ -64,7 +66,7 @@ pub struct PolicyTable {
     pub scope: usize,
     pub mode: Mode,
     pub source_checkpoint_sha256: String,
-    config: Config,
+    config: crate::multi_stacks::CashIdentity,
     /// The key schema of `identity`; every lookup keys observations with it.
     pub schema: KeySchema,
     pub rows: Rows,
@@ -140,7 +142,7 @@ pub(crate) fn validate_header(h: &Value) -> Result<(), String> {
     if h["format"] != "nplayer-policy-v1" || h["missing"] != "uniform" {
         return Err("unsupported policy".into());
     }
-    let config = cash_config(&h["identity"])?;
+    let config = crate::multi_stacks::CashIdentity::parse(&h["identity"])?;
     let players = h["players"].as_u64().ok_or("invalid N")?;
     let scope = h["last_average_street"].as_u64().ok_or("invalid scope")?;
     let mode = Mode::parse(h["strategy"].as_str().ok_or("missing strategy")?)?;
@@ -266,32 +268,9 @@ impl TextReader {
         )))
     }
 }
+#[cfg(test)]
 pub(crate) fn cash_config(identity: &Value) -> Result<Config, String> {
-    multi_holdem::validate_key_encoding(identity)?;
-    let n = identity["players"].as_u64().ok_or("missing N")?;
-    if !(2..=6).contains(&n)
-        || KeySchema::from_identity(identity).is_none()
-        || identity["game"] != "nlhe-cash"
-        || identity["menu"] != MENU
-        || identity["utility_unit"] != "big-blind"
-        || identity["card_tables"] != json!(EQUITY_K50_SHA256)
-    {
-        return Err("unsupported cash identity".into());
-    }
-    let stacks = identity["stacks"]
-        .as_array()
-        .ok_or("missing stacks")?
-        .iter()
-        .map(|v| v.as_u64().ok_or("invalid stack".to_string()))
-        .collect::<Result<Vec<_>, _>>()?;
-    if stacks.len() != n as usize {
-        return Err("stack count differs from N".into());
-    }
-    Config::new(
-        &stacks,
-        identity["small_blind"].as_u64().ok_or("invalid SB")?,
-        identity["big_blind"].as_u64().ok_or("invalid BB")?,
-    )
+    crate::multi_stacks::CashIdentity::parse(identity)?.fixed()
 }
 fn verified(path: &Path, expected: &str) -> Result<(), String> {
     if expected.len() != 64 || !expected.bytes().all(|b| b.is_ascii_hexdigit()) {
@@ -323,7 +302,7 @@ pub fn write_trainer(
     out: &Path,
     gzip: Gzip,
 ) -> Result<(), String> {
-    cash_config(&trainer.identity)?;
+    crate::multi_stacks::CashIdentity::parse(&trainer.identity)?;
     if mode == Mode::Average && trainer.last_average_street != 3 {
         return Err("full average unavailable; explicitly choose scoped-average or current".into());
     }
@@ -415,15 +394,19 @@ impl PolicyTable {
             scope: h["last_average_street"].as_u64().unwrap() as usize,
             mode: Mode::parse(h["strategy"].as_str().unwrap())?,
             source_checkpoint_sha256: h["source_checkpoint_sha256"].as_str().unwrap().to_owned(),
-            config: cash_config(&h["identity"])?,
+            config: crate::multi_stacks::CashIdentity::parse(&h["identity"])?,
             schema: KeySchema::from_identity(&h["identity"]).ok_or("unsupported key schema")?,
             rows,
             binary_source_policy_sha256: None,
             binary_mass_metadata: None,
         })
     }
-    pub fn config(&self) -> Config {
-        self.config
+    /// Fixed-only consumers must reject a mixture instead of choosing a tuple.
+    pub fn config(&self) -> Result<Config, String> {
+        self.config.fixed()
+    }
+    pub fn supports_config(&self, config: Config) -> bool {
+        self.config.accepts(config)
     }
     /// The observation's key and identity under this table's schema.
     pub fn decision(&self, observation: &Observation<'_>, tables: &EquityTables) -> crate::multi_cfr::Decision {
@@ -435,11 +418,7 @@ impl PolicyTable {
         tables: &EquityTables,
     ) -> Result<(Vec<f64>, bool), String> {
         let c = observation.config;
-        let expected = self.config();
-        if c.players() != self.players
-            || c.stacks() != expected.stacks()
-            || c.small_blind() != expected.small_blind()
-            || c.big_blind() != expected.big_blind()
+        if !self.supports_config(c)
             || tables.sha256 != EQUITY_K50_SHA256
         {
             return Err("policy/table configuration mismatch".into());

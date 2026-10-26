@@ -78,7 +78,7 @@ impl Audit {
             KeySchema::History => return key,
             KeySchema::CompactBlake => 0,
             KeySchema::CompactXxh3 => 1,
-            KeySchema::LiveOrder => panic!("live-order is not an exact-history encoding"),
+            KeySchema::LiveOrder | KeySchema::StackOwner => panic!("live-order is not an exact-history encoding"),
         };
         *self.reverse[index][key[0] as usize % SHARDS]
             .lock()

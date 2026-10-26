@@ -421,7 +421,7 @@ fn execute(
     {
         if let Some(bot) = spec.strip_prefix("bot=") {
             Bot::new(bot, 0)?;
-        } else if models[spec].table.config() != case.config {
+        } else if models[spec].table.config()? != case.config {
             return Err("policy/game identity differs".into());
         }
     }

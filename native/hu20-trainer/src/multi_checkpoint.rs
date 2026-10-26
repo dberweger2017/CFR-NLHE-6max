@@ -97,7 +97,7 @@ pub fn load(path: &Path) -> Result<Trainer, String> {
         return Err("unsupported checkpoint identity".into());
     }
     if h["game"]["game"] == "nlhe-cash" {
-        crate::multi_policy::cash_config(&h["game"])?;
+        crate::multi_stacks::CashIdentity::parse(&h["game"])?;
     }
     let sampling = match h.get("sampling") {
         None => Sampling::Stream,

@@ -90,7 +90,7 @@ fn exact_key_bytes_are_versioned_for_history_live_order_and_both_hashes() {
         let (hand, cards) = golden_case(n, button, street, max);
         let obs = hand.observe(hand.actor().unwrap()).unwrap();
         let choices = menu(&obs);
-        let keys = KeySchema::ALL.map(|s| {
+        let keys = [KeySchema::History,KeySchema::LiveOrder,KeySchema::CompactBlake,KeySchema::CompactXxh3].map(|s| {
             crate::multi_checkpoint::key_hex(&decision_from_cards(s, &obs, &cards, &choices).key)
         });
         assert_eq!(keys, expected);
