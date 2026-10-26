@@ -1,0 +1,483 @@
+{
+  "cost_scope": "Wrapper includes stages. Component endpoint clocks are inside native stage; do not add them twice. Guard-helper CPU included in stage CPU. Ordinary caches; no isolated or cold-cache runtime claim.",
+  "file_sizes": {
+    "native/100000000/average.gz": 219088659,
+    "native/100000000/checkpoint.gz": 347702388,
+    "native/100000000/common-panel.json": 59138,
+    "native/100000000/endpoint.json": 2652,
+    "native/100000000/initial.jsonl": 220249,
+    "native/100000000/learning.json": 681434,
+    "native/100000000/policy.bin": 573251080,
+    "native/100000000/progress-10000.json": 86,
+    "native/100000000/progress-10100.json": 86,
+    "native/100000000/progress-10200.json": 86,
+    "native/100000000/progress-10300.json": 86,
+    "native/100000000/progress-10400.json": 84,
+    "native/100000000/progress-10500.json": 86,
+    "native/100000000/progress-10600.json": 86,
+    "native/100000000/progress-10700.json": 86,
+    "native/100000000/progress-10800.json": 86,
+    "native/100000000/progress-10900.json": 92,
+    "native/100000000/progress-11000.json": 86,
+    "native/100000000/progress-11100.json": 84,
+    "native/100000000/progress-11200.json": 86,
+    "native/100000000/progress-2800.json": 85,
+    "native/100000000/progress-2900.json": 82,
+    "native/100000000/progress-3000.json": 85,
+    "native/100000000/progress-3100.json": 85,
+    "native/100000000/progress-3200.json": 92,
+    "native/100000000/progress-3300.json": 92,
+    "native/100000000/progress-3400.json": 85,
+    "native/100000000/progress-3500.json": 85,
+    "native/100000000/progress-3600.json": 85,
+    "native/100000000/progress-3700.json": 85,
+    "native/100000000/progress-3800.json": 85,
+    "native/100000000/progress-3900.json": 85,
+    "native/100000000/progress-4000.json": 84,
+    "native/100000000/progress-4100.json": 85,
+    "native/100000000/progress-4200.json": 85,
+    "native/100000000/progress-4300.json": 85,
+    "native/100000000/progress-4400.json": 85,
+    "native/100000000/progress-4500.json": 85,
+    "native/100000000/progress-4600.json": 85,
+    "native/100000000/progress-4700.json": 85,
+    "native/100000000/progress-4800.json": 85,
+    "native/100000000/progress-4900.json": 84,
+    "native/100000000/progress-5000.json": 85,
+    "native/100000000/progress-5100.json": 85,
+    "native/100000000/progress-5200.json": 85,
+    "native/100000000/progress-5300.json": 82,
+    "native/100000000/progress-5400.json": 85,
+    "native/100000000/progress-5500.json": 85,
+    "native/100000000/progress-5600.json": 85,
+    "native/100000000/progress-5700.json": 82,
+    "native/100000000/progress-5800.json": 85,
+    "native/100000000/progress-5900.json": 85,
+    "native/100000000/progress-6000.json": 86,
+    "native/100000000/progress-6100.json": 86,
+    "native/100000000/progress-6200.json": 86,
+    "native/100000000/progress-6300.json": 85,
+    "native/100000000/progress-6400.json": 86,
+    "native/100000000/progress-6500.json": 86,
+    "native/100000000/progress-6600.json": 86,
+    "native/100000000/progress-6700.json": 86,
+    "native/100000000/progress-6800.json": 86,
+    "native/100000000/progress-6900.json": 84,
+    "native/100000000/progress-7000.json": 86,
+    "native/100000000/progress-7100.json": 85,
+    "native/100000000/progress-7200.json": 86,
+    "native/100000000/progress-7300.json": 84,
+    "native/100000000/progress-7400.json": 86,
+    "native/100000000/progress-7500.json": 86,
+    "native/100000000/progress-7600.json": 86,
+    "native/100000000/progress-7700.json": 86,
+    "native/100000000/progress-7800.json": 86,
+    "native/100000000/progress-7900.json": 86,
+    "native/100000000/progress-8000.json": 86,
+    "native/100000000/progress-8100.json": 86,
+    "native/100000000/progress-8200.json": 86,
+    "native/100000000/progress-8300.json": 86,
+    "native/100000000/progress-8400.json": 86,
+    "native/100000000/progress-8500.json": 86,
+    "native/100000000/progress-8600.json": 86,
+    "native/100000000/progress-8700.json": 86,
+    "native/100000000/progress-8800.json": 84,
+    "native/100000000/progress-8900.json": 86,
+    "native/100000000/progress-9000.json": 85,
+    "native/100000000/progress-9100.json": 92,
+    "native/100000000/progress-9200.json": 86,
+    "native/100000000/progress-9300.json": 86,
+    "native/100000000/progress-9400.json": 86,
+    "native/100000000/progress-9500.json": 86,
+    "native/100000000/progress-9600.json": 86,
+    "native/100000000/progress-9700.json": 86,
+    "native/100000000/progress-9800.json": 86,
+    "native/100000000/progress-9900.json": 86,
+    "native/100000000/repeat.jsonl": 220249,
+    "native/100000000/retained-rows.json": 477,
+    "native/25000000/average.gz": 206599805,
+    "native/25000000/checkpoint.gz": 321339489,
+    "native/25000000/common-panel.json": 59138,
+    "native/25000000/endpoint.json": 2558,
+    "native/25000000/initial.jsonl": 236758,
+    "native/25000000/learning.json": 663492,
+    "native/25000000/policy.bin": 573251080,
+    "native/25000000/progress-1000.json": 83,
+    "native/25000000/progress-1100.json": 90,
+    "native/25000000/progress-1200.json": 84,
+    "native/25000000/progress-1300.json": 84,
+    "native/25000000/progress-1400.json": 84,
+    "native/25000000/progress-1500.json": 83,
+    "native/25000000/progress-1600.json": 84,
+    "native/25000000/progress-1700.json": 83,
+    "native/25000000/progress-1800.json": 82,
+    "native/25000000/progress-1900.json": 84,
+    "native/25000000/progress-2000.json": 84,
+    "native/25000000/progress-2100.json": 85,
+    "native/25000000/progress-2200.json": 85,
+    "native/25000000/progress-2300.json": 82,
+    "native/25000000/progress-2400.json": 85,
+    "native/25000000/progress-2500.json": 85,
+    "native/25000000/progress-2600.json": 84,
+    "native/25000000/progress-2700.json": 84,
+    "native/25000000/progress-600.json": 83,
+    "native/25000000/progress-700.json": 83,
+    "native/25000000/progress-800.json": 83,
+    "native/25000000/progress-900.json": 82,
+    "native/25000000/repeat.jsonl": 236758,
+    "native/25000000/retained-rows.json": 475,
+    "native/5000000/average.gz": 59402804,
+    "native/5000000/checkpoint.gz": 89328862,
+    "native/5000000/common-panel.json": 59086,
+    "native/5000000/endpoint.json": 2493,
+    "native/5000000/initial.jsonl": 229341,
+    "native/5000000/learning.json": 649580,
+    "native/5000000/policy.bin": 165198999,
+    "native/5000000/progress-100.json": 81,
+    "native/5000000/progress-200.json": 83,
+    "native/5000000/progress-300.json": 83,
+    "native/5000000/progress-400.json": 83,
+    "native/5000000/progress-500.json": 83,
+    "native/5000000/repeat.jsonl": 229341,
+    "native/5000000/retained-rows.json": 461
+  },
+  "plumbing_failure": {
+    "correction": "readout-v2 uses already qualified Python3.11; no science stage repeated.",
+    "error": "System python3 lacks hashlib.file_digest; failed before payload hashing and before writing bundle. Empty directory retained.",
+    "folder": "readout-v1"
+  },
+  "postscience_readout": {
+    "cpu_seconds": 1.013495,
+    "ru_maxrss_bytes": 23576576,
+    "scope": "Postscience compact readout and once-only payload SHA256 pinning, excluded from original pilot wrapper wall; macOS ru_maxrss is bytes.",
+    "wall_seconds": 1.0387737920391373
+  },
+  "resources": {
+    "native-pilot": {
+      "first": {
+        "available_ram_bytes": 6804520960,
+        "disk_free_bytes": 24364400640,
+        "epoch": 1793036428.488016,
+        "live_cpu_seconds": 0.009501166,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 3178496
+      },
+      "last": {
+        "available_ram_bytes": 6264569856,
+        "disk_free_bytes": 21715320832,
+        "epoch": 1793036561.422841,
+        "live_cpu_seconds": 207.29167257600002,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 2833661952
+      },
+      "maximum_pressure": 1,
+      "maximum_swap_bytes": 1048576,
+      "minimum_available_ram_bytes": 6180519936,
+      "minimum_disk_free_bytes": 21715316736,
+      "sampled_peak_rss_bytes": 2966405120,
+      "samples": 131,
+      "thermal_states": [
+        "nominal"
+      ]
+    },
+    "replay-100000000-initial": {
+      "first": {
+        "available_ram_bytes": 8263385088,
+        "disk_free_bytes": 21713776640,
+        "epoch": 1793036566.6635342,
+        "live_cpu_seconds": 0.025835333000000002,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 11337728
+      },
+      "last": {
+        "available_ram_bytes": 8263385088,
+        "disk_free_bytes": 21713776640,
+        "epoch": 1793036566.6635342,
+        "live_cpu_seconds": 0.025835333000000002,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 11337728
+      },
+      "maximum_pressure": 1,
+      "maximum_swap_bytes": 1048576,
+      "minimum_available_ram_bytes": 8263385088,
+      "minimum_disk_free_bytes": 21713776640,
+      "sampled_peak_rss_bytes": 11337728,
+      "samples": 1,
+      "thermal_states": [
+        "nominal"
+      ]
+    },
+    "replay-100000000-repeat": {
+      "first": {
+        "available_ram_bytes": 8218755072,
+        "disk_free_bytes": 21713637376,
+        "epoch": 1793036567.7084868,
+        "live_cpu_seconds": 0.021989458,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 11436032
+      },
+      "last": {
+        "available_ram_bytes": 8218755072,
+        "disk_free_bytes": 21713637376,
+        "epoch": 1793036567.7084868,
+        "live_cpu_seconds": 0.021989458,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 11436032
+      },
+      "maximum_pressure": 1,
+      "maximum_swap_bytes": 1048576,
+      "minimum_available_ram_bytes": 8218755072,
+      "minimum_disk_free_bytes": 21713637376,
+      "sampled_peak_rss_bytes": 11436032,
+      "samples": 1,
+      "thermal_states": [
+        "nominal"
+      ]
+    },
+    "replay-25000000-initial": {
+      "first": {
+        "available_ram_bytes": 8414445568,
+        "disk_free_bytes": 21713215488,
+        "epoch": 1793036564.563273,
+        "live_cpu_seconds": 0.029165874,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 12206080
+      },
+      "last": {
+        "available_ram_bytes": 8414445568,
+        "disk_free_bytes": 21713215488,
+        "epoch": 1793036564.563273,
+        "live_cpu_seconds": 0.029165874,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 12206080
+      },
+      "maximum_pressure": 1,
+      "maximum_swap_bytes": 1048576,
+      "minimum_available_ram_bytes": 8414445568,
+      "minimum_disk_free_bytes": 21713215488,
+      "sampled_peak_rss_bytes": 12206080,
+      "samples": 1,
+      "thermal_states": [
+        "nominal"
+      ]
+    },
+    "replay-25000000-repeat": {
+      "first": {
+        "available_ram_bytes": 8333082624,
+        "disk_free_bytes": 21712973824,
+        "epoch": 1793036565.608613,
+        "live_cpu_seconds": 0.023736832,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 11452416
+      },
+      "last": {
+        "available_ram_bytes": 8333082624,
+        "disk_free_bytes": 21712973824,
+        "epoch": 1793036565.608613,
+        "live_cpu_seconds": 0.023736832,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 11452416
+      },
+      "maximum_pressure": 1,
+      "maximum_swap_bytes": 1048576,
+      "minimum_available_ram_bytes": 8333082624,
+      "minimum_disk_free_bytes": 21712973824,
+      "sampled_peak_rss_bytes": 11452416,
+      "samples": 1,
+      "thermal_states": [
+        "nominal"
+      ]
+    },
+    "replay-5000000-initial": {
+      "first": {
+        "available_ram_bytes": 8481488896,
+        "disk_free_bytes": 21713977344,
+        "epoch": 1793036562.449049,
+        "live_cpu_seconds": 0.009033666,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 10584064
+      },
+      "last": {
+        "available_ram_bytes": 8481488896,
+        "disk_free_bytes": 21713977344,
+        "epoch": 1793036562.449049,
+        "live_cpu_seconds": 0.009033666,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 10584064
+      },
+      "maximum_pressure": 1,
+      "maximum_swap_bytes": 1048576,
+      "minimum_available_ram_bytes": 8481488896,
+      "minimum_disk_free_bytes": 21713977344,
+      "sampled_peak_rss_bytes": 10584064,
+      "samples": 1,
+      "thermal_states": [
+        "nominal"
+      ]
+    },
+    "replay-5000000-repeat": {
+      "first": {
+        "available_ram_bytes": 8445886464,
+        "disk_free_bytes": 21713346560,
+        "epoch": 1793036563.507875,
+        "live_cpu_seconds": 0.034354958,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 13172736
+      },
+      "last": {
+        "available_ram_bytes": 8445886464,
+        "disk_free_bytes": 21713346560,
+        "epoch": 1793036563.507875,
+        "live_cpu_seconds": 0.034354958,
+        "pressure": 1,
+        "swap_used_bytes": 1048576,
+        "thermal_state": "nominal",
+        "worker_family_rss_bytes": 13172736
+      },
+      "maximum_pressure": 1,
+      "maximum_swap_bytes": 1048576,
+      "minimum_available_ram_bytes": 8445886464,
+      "minimum_disk_free_bytes": 21713346560,
+      "sampled_peak_rss_bytes": 13172736,
+      "samples": 1,
+      "thermal_states": [
+        "nominal"
+      ]
+    }
+  },
+  "retained_main_bytes": 2559581416,
+  "stage_cpu_seconds": 209.36584099999996,
+  "stages": [
+    {
+      "command": [
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/source-v1/native/hu20-trainer/target/release/examples/nplayer_variable_stack",
+        "pilot",
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/main-v1/manifest.json"
+      ],
+      "phase": "native-pilot",
+      "pid": 61864,
+      "returncode": 0,
+      "sampled_peak_rss_bytes": 2966405120,
+      "system_cpu_seconds": 3.725098,
+      "user_cpu_seconds": 205.07387899999998,
+      "wall_seconds": 133.95846566697583
+    },
+    {
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.check_nplayer_policy_replay",
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/main-v1/native/5000000/initial.jsonl"
+      ],
+      "phase": "replay-5000000-initial",
+      "pid": 62242,
+      "returncode": 0,
+      "sampled_peak_rss_bytes": 10584064,
+      "system_cpu_seconds": 0.014772999999999925,
+      "user_cpu_seconds": 0.05454300000002377,
+      "wall_seconds": 1.0253384579555131
+    },
+    {
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.check_nplayer_policy_replay",
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/main-v1/native/5000000/repeat.jsonl"
+      ],
+      "phase": "replay-5000000-repeat",
+      "pid": 62249,
+      "returncode": 0,
+      "sampled_peak_rss_bytes": 13172736,
+      "system_cpu_seconds": 0.0249830000000002,
+      "user_cpu_seconds": 0.07894899999999438,
+      "wall_seconds": 1.0558117909822613
+    },
+    {
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.check_nplayer_policy_replay",
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/main-v1/native/25000000/initial.jsonl"
+      ],
+      "phase": "replay-25000000-initial",
+      "pid": 62256,
+      "returncode": 0,
+      "sampled_peak_rss_bytes": 12206080,
+      "system_cpu_seconds": 0.022451999999999916,
+      "user_cpu_seconds": 0.07661699999999882,
+      "wall_seconds": 1.0480069170007482
+    },
+    {
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.check_nplayer_policy_replay",
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/main-v1/native/25000000/repeat.jsonl"
+      ],
+      "phase": "replay-25000000-repeat",
+      "pid": 62262,
+      "returncode": 0,
+      "sampled_peak_rss_bytes": 11452416,
+      "system_cpu_seconds": 0.02188499999999971,
+      "user_cpu_seconds": 0.08011999999999375,
+      "wall_seconds": 1.0467512919567525
+    },
+    {
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.check_nplayer_policy_replay",
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/main-v1/native/100000000/initial.jsonl"
+      ],
+      "phase": "replay-100000000-initial",
+      "pid": 62265,
+      "returncode": 0,
+      "sampled_peak_rss_bytes": 11337728,
+      "system_cpu_seconds": 0.022089999999999943,
+      "user_cpu_seconds": 0.07643300000000863,
+      "wall_seconds": 1.044657374965027
+    },
+    {
+      "command": [
+        "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+        "-m",
+        "scripts.check_nplayer_policy_replay",
+        "/Users/dberweger/Local/nplayer-variable-stack-20261026/main-v1/native/100000000/repeat.jsonl"
+      ],
+      "phase": "replay-100000000-repeat",
+      "pid": 62271,
+      "returncode": 0,
+      "sampled_peak_rss_bytes": 11436032,
+      "system_cpu_seconds": 0.01964100000000002,
+      "user_cpu_seconds": 0.07437799999999584,
+      "wall_seconds": 1.0408174589974806
+    }
+  ],
+  "wrapper_seconds": 141.44622729101684
+}

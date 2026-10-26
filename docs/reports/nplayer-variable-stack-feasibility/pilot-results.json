@@ -1,0 +1,672 @@
+{
+  "complete": {
+    "cost_and_learning_only": true,
+    "native_readout_sha256": "7d2b65e840cb03a81232dd9ff5b34e0539830e022519a06f84be48756aacd8e1",
+    "no_extra_training": true,
+    "source_manifest_sha256": "9622b30bdfd0faaa75154a573d2a6c24a246a47be4c0105024fe79fb595f4257",
+    "stages": [
+      {
+        "command": [
+          "/Users/dberweger/Local/nplayer-variable-stack-20261026/source-v1/native/hu20-trainer/target/release/examples/nplayer_variable_stack",
+          "pilot",
+          "/Users/dberweger/Local/nplayer-variable-stack-20261026/main-v1/manifest.json"
+        ],
+        "phase": "native-pilot",
+        "pid": 61864,
+        "returncode": 0,
+        "sampled_peak_rss_bytes": 2966405120,
+        "system_cpu_seconds": 3.725098,
+        "user_cpu_seconds": 205.07387899999998,
+        "wall_seconds": 133.95846566697583
+      },
+      {
+        "command": [
+          "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+          "-m",
+          "scripts.check_nplayer_policy_replay",
+          "/Users/dberweger/Local/nplayer-variable-stack-20261026/main-v1/native/5000000/initial.jsonl"
+        ],
+        "phase": "replay-5000000-initial",
+        "pid": 62242,
+        "returncode": 0,
+        "sampled_peak_rss_bytes": 10584064,
+        "system_cpu_seconds": 0.014772999999999925,
+        "user_cpu_seconds": 0.05454300000002377,
+        "wall_seconds": 1.0253384579555131
+      },
+      {
+        "command": [
+          "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+          "-m",
+          "scripts.check_nplayer_policy_replay",
+          "/Users/dberweger/Local/nplayer-variable-stack-20261026/main-v1/native/5000000/repeat.jsonl"
+        ],
+        "phase": "replay-5000000-repeat",
+        "pid": 62249,
+        "returncode": 0,
+        "sampled_peak_rss_bytes": 13172736,
+        "system_cpu_seconds": 0.0249830000000002,
+        "user_cpu_seconds": 0.07894899999999438,
+        "wall_seconds": 1.0558117909822613
+      },
+      {
+        "command": [
+          "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+          "-m",
+          "scripts.check_nplayer_policy_replay",
+          "/Users/dberweger/Local/nplayer-variable-stack-20261026/main-v1/native/25000000/initial.jsonl"
+        ],
+        "phase": "replay-25000000-initial",
+        "pid": 62256,
+        "returncode": 0,
+        "sampled_peak_rss_bytes": 12206080,
+        "system_cpu_seconds": 0.022451999999999916,
+        "user_cpu_seconds": 0.07661699999999882,
+        "wall_seconds": 1.0480069170007482
+      },
+      {
+        "command": [
+          "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+          "-m",
+          "scripts.check_nplayer_policy_replay",
+          "/Users/dberweger/Local/nplayer-variable-stack-20261026/main-v1/native/25000000/repeat.jsonl"
+        ],
+        "phase": "replay-25000000-repeat",
+        "pid": 62262,
+        "returncode": 0,
+        "sampled_peak_rss_bytes": 11452416,
+        "system_cpu_seconds": 0.02188499999999971,
+        "user_cpu_seconds": 0.08011999999999375,
+        "wall_seconds": 1.0467512919567525
+      },
+      {
+        "command": [
+          "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+          "-m",
+          "scripts.check_nplayer_policy_replay",
+          "/Users/dberweger/Local/nplayer-variable-stack-20261026/main-v1/native/100000000/initial.jsonl"
+        ],
+        "phase": "replay-100000000-initial",
+        "pid": 62265,
+        "returncode": 0,
+        "sampled_peak_rss_bytes": 11337728,
+        "system_cpu_seconds": 0.022089999999999943,
+        "user_cpu_seconds": 0.07643300000000863,
+        "wall_seconds": 1.044657374965027
+      },
+      {
+        "command": [
+          "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+          "-m",
+          "scripts.check_nplayer_policy_replay",
+          "/Users/dberweger/Local/nplayer-variable-stack-20261026/main-v1/native/100000000/repeat.jsonl"
+        ],
+        "phase": "replay-100000000-repeat",
+        "pid": 62271,
+        "returncode": 0,
+        "sampled_peak_rss_bytes": 11436032,
+        "system_cpu_seconds": 0.01964100000000002,
+        "user_cpu_seconds": 0.07437799999999584,
+        "wall_seconds": 1.0408174589974806
+      }
+    ],
+    "status": "passed",
+    "targets": [
+      5000000,
+      25000000,
+      100000000
+    ],
+    "wall_seconds": 141.44622729101684
+  },
+  "cost_and_learning_only": true,
+  "endpoints": [
+    {
+      "actual_nodes": 5001133,
+      "audit_seconds": 2.491264333,
+      "binary_verification": {
+        "binary_sha256": "06b4ac2c9a1bbfbf88add39875e8d9281ae8024dae44166d7930d0632afd2140",
+        "rows": 2876747,
+        "source_policy_sha256": "f8677770c87e40679f059f296db476160e467113f847b8dc466d46e1779f0748",
+        "status": "passed",
+        "verify_seconds": 2.20012225
+      },
+      "common_support": [
+        2093,
+        108,
+        873,
+        3074
+      ],
+      "conversion_seconds": 2.577944958,
+      "counts": {
+        "decisions": [
+          324566,
+          520783,
+          815896,
+          1318413
+        ],
+        "discarded_keys": 0,
+        "discarded_visits": 0,
+        "missing": [
+          282207,
+          500119,
+          803318,
+          1310201
+        ],
+        "nodes": 5001133,
+        "terminals": 2021475,
+        "traverser": [
+          304018,
+          316235,
+          306447,
+          0,
+          0,
+          0
+        ]
+      },
+      "entries": 2876747,
+      "export_seconds": 2.247089167,
+      "frozen_at": null,
+      "independent_initial_and_repeat_replay": "passed",
+      "learning_cell_totals": {
+        "declined_at_frozen_table": 0,
+        "nonzero_regret_root_aggregates": 918418,
+        "opponent_only_root_aggregates": 2038477,
+        "root_key_contributions": 2960112,
+        "traverser_visits": 926700,
+        "unseen_before_merge": 2876857,
+        "zero_regret_root_aggregates_with_visits": 3217
+      },
+      "learning_limits": "Immutable pre-merge root aggregates, not individual path updates. Opponent-only is not zero reach. Net-zero regrets can hide cancelling updates. Nominal weight ESS is a concentration proxy, not independent statistical sample size; policy is adaptive. Watch keys fixed before training; never reached keys retained. Declined counts are root-key aggregates, not unique new rows.",
+      "load_seconds": 0.625826417,
+      "native_endpoint_proof_pending_flag_was_true": true,
+      "play_repeat_readout_seconds": 0.276172083,
+      "played_hands": 81,
+      "played_side_pot_hands": 2,
+      "played_support": [
+        338,
+        22,
+        203
+      ],
+      "retained_row_totals": [
+        2876747,
+        1964147,
+        12979,
+        1967316,
+        891506
+      ],
+      "retained_rows": {
+        "by_street": [
+          [
+            281511,
+            212785,
+            2587,
+            212789,
+            59128
+          ],
+          [
+            498350,
+            356520,
+            2506,
+            356533,
+            135677
+          ],
+          [
+            799124,
+            540931,
+            2991,
+            541045,
+            254726
+          ],
+          [
+            1297762,
+            853911,
+            4895,
+            856949,
+            441975
+          ]
+        ],
+        "columns": [
+          "retained_rows",
+          "no_traverser_visit",
+          "two_or_more_traverser_visits",
+          "all_zero_final_regrets",
+          "zero_average_mass"
+        ],
+        "limits": "Final-row audit; cancellation can zero regrets. Visits are update opportunities, not proof of nonzero learning. Pathwise zero target reach/underflow is not implemented."
+      },
+      "root_count_range": [
+        462,
+        519
+      ],
+      "sampled_root_count": 13200,
+      "save_seconds": 3.374665292,
+      "strength_claim": false,
+      "target_nodes": 5000000,
+      "trace_sha256": "eb90778c629acb97cf1f4c3343c35650340cfe2fc89920aadb8cd8fcb5bf403e",
+      "training_seconds": 1.69406375,
+      "watch_summary": {
+        "any_nonzero_root_regret": 394,
+        "keys": 2962,
+        "never_reached": 2568,
+        "nominal_ess_quantiles_reached": [
+          1.0,
+          1.0,
+          1.0,
+          1.3948213405050223,
+          5.5255528149205935
+        ],
+        "reached": 394,
+        "repeated": 121
+      }
+    },
+    {
+      "actual_nodes": 25004642,
+      "audit_seconds": 8.752245083,
+      "binary_verification": {
+        "binary_sha256": "37a469b442f23ba5fdcb11383fddd008e43abe66d45ae2c963d714c0184d19c3",
+        "rows": 10003912,
+        "source_policy_sha256": "36c0eeaba82017233ca75be3ef99d38124b13516d285f59d42a57491cf0374f0",
+        "status": "passed",
+        "verify_seconds": 7.707491375
+      },
+      "common_support": [
+        1503,
+        98,
+        1473,
+        3074
+      ],
+      "conversion_seconds": 8.603291208,
+      "counts": {
+        "decisions": [
+          1614868,
+          2577741,
+          4073183,
+          6600238
+        ],
+        "discarded_keys": 3424096,
+        "discarded_visits": 1109039,
+        "missing": [
+          1116137,
+          2201190,
+          3801445,
+          6402287
+        ],
+        "nodes": 25004642,
+        "terminals": 10138612,
+        "traverser": [
+          1541699,
+          1565426,
+          1545707,
+          0,
+          0,
+          0
+        ]
+      },
+      "entries": 10003912,
+      "export_seconds": 8.464089166,
+      "frozen_at": 2029,
+      "independent_initial_and_repeat_replay": "passed",
+      "learning_cell_totals": {
+        "declined_at_frozen_table": 3424184,
+        "nonzero_regret_root_aggregates": 4608597,
+        "opponent_only_root_aggregates": 10134868,
+        "root_key_contributions": 14759950,
+        "traverser_visits": 4652832,
+        "unseen_before_merge": 13428438,
+        "zero_regret_root_aggregates_with_visits": 16485
+      },
+      "learning_limits": "Immutable pre-merge root aggregates, not individual path updates. Opponent-only is not zero reach. Net-zero regrets can hide cancelling updates. Nominal weight ESS is a concentration proxy, not independent statistical sample size; policy is adaptive. Watch keys fixed before training; never reached keys retained. Declined counts are root-key aggregates, not unique new rows.",
+      "load_seconds": 2.221213375,
+      "native_endpoint_proof_pending_flag_was_true": true,
+      "play_repeat_readout_seconds": 0.544577833,
+      "played_hands": 81,
+      "played_side_pot_hands": 4,
+      "played_support": [
+        230,
+        23,
+        333
+      ],
+      "retained_row_totals": [
+        10003912,
+        6669711,
+        165398,
+        6681077,
+        3053802
+      ],
+      "retained_rows": {
+        "by_street": [
+          [
+            860070,
+            608425,
+            28466,
+            608452,
+            173353
+          ],
+          [
+            1661921,
+            1142184,
+            42063,
+            1142254,
+            427549
+          ],
+          [
+            2812326,
+            1869041,
+            45865,
+            1869459,
+            875549
+          ],
+          [
+            4669595,
+            3050061,
+            49004,
+            3060912,
+            1577351
+          ]
+        ],
+        "columns": [
+          "retained_rows",
+          "no_traverser_visit",
+          "two_or_more_traverser_visits",
+          "all_zero_final_regrets",
+          "zero_average_mass"
+        ],
+        "limits": "Final-row audit; cancellation can zero regrets. Visits are update opportunities, not proof of nonzero learning. Pathwise zero target reach/underflow is not implemented."
+      },
+      "root_count_range": [
+        2371,
+        2559
+      ],
+      "sampled_root_count": 66576,
+      "save_seconds": 12.65074075,
+      "strength_claim": false,
+      "target_nodes": 25000000,
+      "trace_sha256": "a2a9955ca05dcab8f8e0911143cfce17241a25e9d9ee388c3eb219557c130402",
+      "training_seconds": 7.080757583,
+      "watch_summary": {
+        "any_nonzero_root_regret": 905,
+        "keys": 2962,
+        "never_reached": 2057,
+        "nominal_ess_quantiles_reached": [
+          1.0,
+          1.0,
+          1.6196621232561483,
+          3.1507066634563077,
+          11.653149018308723
+        ],
+        "reached": 905,
+        "repeated": 522
+      }
+    },
+    {
+      "actual_nodes": 100008602,
+      "audit_seconds": 8.84334175,
+      "binary_verification": {
+        "binary_sha256": "a4de26403d6495de6e21fbb037a9074f64460659a3cda2441b8291eed7d7c928",
+        "rows": 10003912,
+        "source_policy_sha256": "4ac6942af4a7341db31a6a9712e0d6bd8a6d3093955ba2287654e5cb851af95a",
+        "status": "passed",
+        "verify_seconds": 7.8049155
+      },
+      "common_support": [
+        1503,
+        30,
+        1541,
+        3074
+      ],
+      "conversion_seconds": 8.830149625,
+      "counts": {
+        "decisions": [
+          6433541,
+          10246548,
+          16233463,
+          26395664
+        ],
+        "discarded_keys": 41744941,
+        "discarded_visits": 13556800,
+        "missing": [
+          4017298,
+          8179654,
+          14669840,
+          25245098
+        ],
+        "nodes": 100008602,
+        "terminals": 40699386,
+        "traverser": [
+          6225255,
+          6243114,
+          6229923,
+          0,
+          0,
+          0
+        ]
+      },
+      "entries": 10003912,
+      "export_seconds": 8.960438916,
+      "frozen_at": 2029,
+      "independent_initial_and_repeat_replay": "passed",
+      "learning_cell_totals": {
+        "declined_at_frozen_table": 41745959,
+        "nonzero_regret_root_aggregates": 18516129,
+        "opponent_only_root_aggregates": 40290234,
+        "root_key_contributions": 58872685,
+        "traverser_visits": 18698292,
+        "unseen_before_merge": 51750213,
+        "zero_regret_root_aggregates_with_visits": 66322
+      },
+      "learning_limits": "Immutable pre-merge root aggregates, not individual path updates. Opponent-only is not zero reach. Net-zero regrets can hide cancelling updates. Nominal weight ESS is a concentration proxy, not independent statistical sample size; policy is adaptive. Watch keys fixed before training; never reached keys retained. Declined counts are root-key aggregates, not unique new rows.",
+      "load_seconds": 2.230421584,
+      "native_endpoint_proof_pending_flag_was_true": true,
+      "play_repeat_readout_seconds": 0.573212042,
+      "played_hands": 81,
+      "played_side_pot_hands": 2,
+      "played_support": [
+        193,
+        7,
+        336
+      ],
+      "retained_row_totals": [
+        10003912,
+        6188917,
+        706785,
+        6199766,
+        2769450
+      ],
+      "retained_rows": {
+        "by_street": [
+          [
+            860070,
+            498632,
+            124249,
+            498658,
+            133528
+          ],
+          [
+            1661921,
+            994536,
+            186589,
+            994610,
+            347259
+          ],
+          [
+            2812326,
+            1738587,
+            201004,
+            1738991,
+            785021
+          ],
+          [
+            4669595,
+            2957162,
+            194943,
+            2967507,
+            1503642
+          ]
+        ],
+        "columns": [
+          "retained_rows",
+          "no_traverser_visit",
+          "two_or_more_traverser_visits",
+          "all_zero_final_regrets",
+          "zero_average_mass"
+        ],
+        "limits": "Final-row audit; cancellation can zero regrets. Visits are update opportunities, not proof of nonzero learning. Pathwise zero target reach/underflow is not implemented."
+      },
+      "root_count_range": [
+        9808,
+        10216
+      ],
+      "sampled_root_count": 269136,
+      "save_seconds": 13.41227375,
+      "strength_claim": false,
+      "target_nodes": 100000000,
+      "trace_sha256": "094e72cfb687d2953e699b315d909cf5e7cee50342b35e3c0516001066ad6be6",
+      "training_seconds": 26.6064185,
+      "watch_summary": {
+        "any_nonzero_root_regret": 1486,
+        "keys": 2962,
+        "never_reached": 1476,
+        "nominal_ess_quantiles_reached": [
+          1.0,
+          1.0,
+          2.4338820679606785,
+          6.256796823932916,
+          36.70432423334975
+        ],
+        "reached": 1486,
+        "repeated": 1027
+      }
+    }
+  ],
+  "format": "pr441-fixed-pilot-results-v1",
+  "freeze_observation_bracket": {
+    "first_observed_frozen": {
+      "elapsed_seconds": 4.996164667,
+      "entries": 10003912,
+      "frozen_at": 2029,
+      "iteration": 2100,
+      "nodes": 18952344,
+      "target_nodes": 25000000
+    },
+    "last_observed_before_freeze": {
+      "elapsed_seconds": 4.682412083,
+      "entries": 9870644,
+      "frozen_at": null,
+      "iteration": 2000,
+      "nodes": 18061225,
+      "target_nodes": 25000000
+    }
+  },
+  "independent_replays": {
+    "replay-100000000-initial": {
+      "decisions": 536,
+      "engine": {
+        "url": "https://github.com/dberweger2017/pokers.git",
+        "vcs_info": {
+          "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+          "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+          "vcs": "git"
+        }
+      },
+      "hands": 81,
+      "players": 3,
+      "status": "passed",
+      "trace_sha256": "094e72cfb687d2953e699b315d909cf5e7cee50342b35e3c0516001066ad6be6"
+    },
+    "replay-100000000-repeat": {
+      "decisions": 536,
+      "engine": {
+        "url": "https://github.com/dberweger2017/pokers.git",
+        "vcs_info": {
+          "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+          "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+          "vcs": "git"
+        }
+      },
+      "hands": 81,
+      "players": 3,
+      "status": "passed",
+      "trace_sha256": "094e72cfb687d2953e699b315d909cf5e7cee50342b35e3c0516001066ad6be6"
+    },
+    "replay-25000000-initial": {
+      "decisions": 586,
+      "engine": {
+        "url": "https://github.com/dberweger2017/pokers.git",
+        "vcs_info": {
+          "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+          "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+          "vcs": "git"
+        }
+      },
+      "hands": 81,
+      "players": 3,
+      "status": "passed",
+      "trace_sha256": "a2a9955ca05dcab8f8e0911143cfce17241a25e9d9ee388c3eb219557c130402"
+    },
+    "replay-25000000-repeat": {
+      "decisions": 586,
+      "engine": {
+        "url": "https://github.com/dberweger2017/pokers.git",
+        "vcs_info": {
+          "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+          "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+          "vcs": "git"
+        }
+      },
+      "hands": 81,
+      "players": 3,
+      "status": "passed",
+      "trace_sha256": "a2a9955ca05dcab8f8e0911143cfce17241a25e9d9ee388c3eb219557c130402"
+    },
+    "replay-5000000-initial": {
+      "decisions": 563,
+      "engine": {
+        "url": "https://github.com/dberweger2017/pokers.git",
+        "vcs_info": {
+          "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+          "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+          "vcs": "git"
+        }
+      },
+      "hands": 81,
+      "players": 3,
+      "status": "passed",
+      "trace_sha256": "eb90778c629acb97cf1f4c3343c35650340cfe2fc89920aadb8cd8fcb5bf403e"
+    },
+    "replay-5000000-repeat": {
+      "decisions": 563,
+      "engine": {
+        "url": "https://github.com/dberweger2017/pokers.git",
+        "vcs_info": {
+          "commit_id": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+          "requested_revision": "5db20e3d5d6862b32a7402035c1340b622d3b005",
+          "vcs": "git"
+        }
+      },
+      "hands": 81,
+      "players": 3,
+      "status": "passed",
+      "trace_sha256": "eb90778c629acb97cf1f4c3343c35650340cfe2fc89920aadb8cd8fcb5bf403e"
+    }
+  },
+  "interpretation": "Engineering feasible at the bounded cap; common-panel postflop support remains sparse. No benefit versus fixed-depth specialists, convergence, off-grid generalization or playing strength established.",
+  "limits": [
+    "Fixed synthetic panel is not population-weighted coverage. Played trajectories differ across checkpoints.",
+    "Watch and learning ledgers include declined deltas after freeze: attempted nonzero updates are not proof of retained learning.",
+    "Final-row visits, average mass and net-zero regrets are distinct. Pathwise zero target reach/underflow attribution deferred.",
+    "Whole-iteration cap overshoot is retained; post-freeze membership growth is censored. One seed cannot estimate training uncertainty."
+  ],
+  "max_entries": 10000000,
+  "no_extra_training": true,
+  "no_strength_claim": true,
+  "qualified_native_source": "4f3a91839c2dffd204eeda890362746c728a2b6e",
+  "seed": 20261026441011,
+  "source_snapshot": "f76e42d0",
+  "status": "passed",
+  "targets": [
+    5000000,
+    25000000,
+    100000000
+  ],
+  "threads": 2
+}

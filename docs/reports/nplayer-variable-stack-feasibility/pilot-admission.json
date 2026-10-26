@@ -1,0 +1,56 @@
+{
+  "actual": {
+    "disk_headroom_bytes": 4294967296,
+    "forecast_family_rss_bytes": 5368709120,
+    "forecast_new_disk_bytes": 15032385536,
+    "no_elapsed_time_stop": true,
+    "planning_allocation_seconds": 3600,
+    "ram_headroom_bytes": 1073741824,
+    "sample": {
+      "available_ram_bytes": 6811189248,
+      "disk_free_bytes": 24364519424,
+      "epoch": 1793036428.4748318,
+      "live_cpu_seconds": 0,
+      "pressure": 1,
+      "swap_used_bytes": 1048576,
+      "thermal_state": "nominal",
+      "worker_family_rss_bytes": 0
+    }
+  },
+  "launch": {
+    "command": [
+      "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+      "-m",
+      "scripts.run_nplayer_variable_stack_pilot",
+      "/Users/dberweger/Local/nplayer-variable-stack-20261026/main-v1",
+      "/Users/dberweger/Local/nplayer-variable-stack-20261026/PILOT-CONFIG-v1.json"
+    ],
+    "config_sha256": "8ca0330b9f2f4013418861360e45fe7f86a33884a5c227ef703d6dac5be1a78b",
+    "native_qualified_source": "4f3a91839c2dffd204eeda890362746c728a2b6e",
+    "owner_admission_sha256": "71ddff9e2908c8eab620e6830f3fec2d8b79a0292f59f9ac5a8ec2702e2cb161",
+    "pid": 61853,
+    "source_snapshot": "f76e42d0",
+    "started_epoch": 1793036427.8850539
+  },
+  "owner": {
+    "allocation_seconds": 3600,
+    "approval": "Approve the 60-minute M4 pilot",
+    "approved_date": "2026-10-26",
+    "disk_headroom_bytes": 4294967296,
+    "forecast_family_rss_bytes": 5368709120,
+    "forecast_new_disk_bytes": 15032385536,
+    "max_entries": 10000000,
+    "no_automatic_extension": true,
+    "no_strength_campaign": true,
+    "ram_headroom_bytes": 1073741824,
+    "seed": 20261026441011,
+    "status": "owner-approved",
+    "study": "PR441",
+    "targets": [
+      5000000,
+      25000000,
+      100000000
+    ],
+    "threads": 2
+  }
+}

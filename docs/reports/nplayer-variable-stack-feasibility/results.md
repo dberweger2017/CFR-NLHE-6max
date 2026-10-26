@@ -1,4 +1,4 @@
-# Three-player variable stacks: engineering qualifies; pilot not launched
+# Three-player variable stacks: qualified pilot complete; support limits remain
 
 [PR441](https://github.com/dberweger2017/CFR-NLHE-6max/pull/441) /
 [proposal440](https://github.com/dberweger2017/CFR-NLHE-6max/issues/440) /
@@ -6,7 +6,11 @@
 
 One research policy can now represent the declared27 ordered stack tuples from
 {20,50,100}BB, with independently uniform stacks and button at each new hand.
-**The small guarded qualification passes. The5M→25M→100M pilot has not started.**
+**Qualification and the owner-approved 5M→25M→100M M4 pilot pass.**
+The [pilot analysis](pilot.md) records the complete findings, all cells, proofs
+and actual cost: 2m21s, 2.76 GiB sampled peak and 2.384 GiB retained outputs.
+The 10M-key cap freezes early; 503/510 fixed-panel river observations still miss
+at 100M. No strength claim or further training follows.
 This is a three-depth grid, not arbitrary20–100 BB interpolation or a release.
 
 ## What changed and why
@@ -90,14 +94,14 @@ the fixture runs only 12 iterations, and zero final regrets can hide cancellatio
 [Learning cells](learning-cells.csv) distinguish these quantities. Full raw watch
 records, including never-reached keys, remain ordinary retained evidence.
 
-The larger pilot should measure whether learning becomes repeated/useful within
-each configuration, and whether growth/support remain affordable. Positive
+The completed [pilot](pilot.md) measures repeated update opportunities and
+retained-row/support changes within every configuration, plus affordability. Positive
 average mass, visit counts, nonzero root aggregates and nominal weight ESS are
 not interchangeable. ESS is a concentration proxy under adaptive policies;
 pathwise zero-target-reach/underflow attribution remains explicitly deferred.
 Coverage or nonzero updates alone cannot establish playing-strength success.
 
-## Reviewable pilot allocation
+## Historical accepted pilot allocation
 
 [Machine-readable quote and arithmetic](pilot-quote.json): fixed endpoints5M,
 25M,100M nodes; fresh seed20261026441011;10M retained-key threshold with whole-
@@ -122,11 +126,13 @@ buffers, and compressed-byte entropy growth; fresh admission must pass at launch
 The10M protective threshold may freeze early: report uncensored growth and
 explicitly separate later refinement from membership growth.
 
-The implementation and reviewable budget are concrete. **Owner acceptance of
-this measured compute/storage quote is still required before launch.** No pilot
-owner receipt has been created, and no pilot is running. The qualification is
-not a substitute for that acceptance. Failure/partial evidence must remain
-incomplete evidence; no automatic scientific retry, extension or tuning.
+The owner explicitly accepted the fixed 60-minute allocation, and fresh resource
+admission passed. [Admission](pilot-admission.json) binds the accepted targets,
+seed, cap, workers and launch. The [completed pilot](pilot.md) took 141.45s, with
+all proof barriers passed. The original quote remains an immutable historical
+proposal; its not-admitted status describes the time it was written. No scientific
+retry, extension or tuning occurred. A separate metadata-only collector failure
+is preserved and described in the pilot report.
 
 ## Retention and next decision
 
@@ -136,10 +142,11 @@ M4`~/Local/nplayer-variable-stack-20261026/`, with local ignored planning copies
 of compact metadata and development logs. [Provenance](provenance.json) records
 pins and the current retrieval path. Cleaner-owned bb128/ZIP/Drive archival is
 pending, with no Drive acceptance claim. No old study/model/runtime or system
-setting was modified. Qualification locks are released.
+setting was modified. Qualification and pilot locks are released.
+[Pilot provenance](pilot-provenance.json) adds all final model/trace/proof pins.
 
-The first meaningful scientific outcome will be an affordability/learning
-assessment of the fixed pilot. A mature comparison would need a separate budget,
+The pilot establishes capped engineering affordability and identifies sparse
+postflop support; representation is the recommended next bounded question. A mature comparison would need a separate budget,
 matched opponents and per-configuration strength safeguards. Neither the pilot
 nor this qualification establishes generalization between depths or superiority
 to independently trained depth specialists.

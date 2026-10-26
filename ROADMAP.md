@@ -1,22 +1,26 @@
 # Roadmap
 
-## Three-player variable-stack engineering qualifies; measured pilot awaiting budget
+## Three-player variable-stack pilot complete; qualify representation before scaling
 
 [PR441](https://github.com/dberweger2017/CFR-NLHE-6max/pull/441),
 [protocol](docs/nplayer-variable-stack-feasibility.md),
-[qualification and limits](docs/reports/nplayer-variable-stack-feasibility/results.md):
-one declared27-tuple20/50/100BB mixture, new public stack-owner schema, strict
-checkpoint/export/inference identity and unchanged fixed models/defaults.160M1
-library tests, all example test builds and guarded M4 qualification pass.81hands
-plus reproduction independently replay; both old fixed schemas retain exact
-checkpoint/export bytes. Fixture81.04s, peak1.316GiB, nominal thermals.
-The conservative key produces2,962 versus2,094 legacy keys on a324-hand panel,
-with no exact-history merges observed; compactness must be measured, not assumed.
-Tiny105,801-node learning/support counts are correctness fixtures, not strength.
-Proposed fixed5M/25M/100M pilot:19m59s central/57m53s reserve,60min M4,14GiB
-new disk+4GiB free headroom,5GiB RAM+1GiB headroom. Owner acceptance and fresh
-admission remain required; no pilot running. Search, defaults, release and
-bb128 science remain outside scope; raw evidence retained, cleaner archive pending.
+[pilot analysis and proofs](docs/reports/nplayer-variable-stack-feasibility/pilot.md):
+one declared 27-tuple 20/50/100 BB mixture and conservative public stack-owner
+key qualify without changing fixed-model defaults. Independent review, 160 M1
+library tests, all example builds, legacy checkpoint/export byte parity and the
+small M4 qualification pass. Owner-approved fixed 5M→25M→100M pilot completed
+in **2m21s**, sampled peak **2.76 GiB**, retained outputs **2.384 GiB**; all rows
+audited and 243 initial +243 repeated hands independently replayed.
+
+Membership froze at 10,003,912 rows around 18–19M nodes. On the identical fixed
+panel, 25M→100M turns 68 zero-mass observations positive but cannot reduce the
+1,503 missing observations; **503/510 river observations still miss**. This is
+synthetic-panel support, not population coverage or strength. Attempted post-cap
+watch updates include discarded deltas and are not successfully learned rows.
+Retain every checkpoint and qualify one stack-aware representation hypothesis
+before mature training. [Conditional next costing](docs/reports/nplayer-variable-stack-feasibility/next-allocation.json)
+is not launch-ready or authorized. No follow-up, search, release, defaults or
+bb128 science; ordinary evidence retained, cleaner archive pending.
 
 ## Six-player check-call conditional panel complete; player stays frozen
 

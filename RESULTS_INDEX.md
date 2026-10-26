@@ -7437,25 +7437,44 @@ three review receipts remain. Read ordinary evidence from retained M4 paths and
 verify provenance before use; bb128/Drive cleaner archival pending. No payload
 ZIP/Drive acceptance claim, extra worlds, automatic follow-up or PR434 outcomes.
 
-## PR441 — three-player variable-stack qualification and measured pilot quote
+## PR441 — three-player variable-stack qualification and fixed pilot
 
-[Report](docs/reports/nplayer-variable-stack-feasibility/results.md) ·
-[verification](docs/reports/nplayer-variable-stack-feasibility/qualification.json) ·
-[all324 common-panel cells](docs/reports/nplayer-variable-stack-feasibility/common-panel.csv) ·
-[learning cells](docs/reports/nplayer-variable-stack-feasibility/learning-cells.csv) ·
-[costs](docs/reports/nplayer-variable-stack-feasibility/costs.json) ·
+[Qualification report](docs/reports/nplayer-variable-stack-feasibility/results.md) ·
+[pilot analysis](docs/reports/nplayer-variable-stack-feasibility/pilot.md) ·
+[pilot results/proofs](docs/reports/nplayer-variable-stack-feasibility/pilot-results.json) ·
+[all endpoint/tuple summaries](docs/reports/nplayer-variable-stack-feasibility/pilot-tuples.csv) ·
+[all common-panel cells](docs/reports/nplayer-variable-stack-feasibility/pilot-common-panel.csv) ·
+[all learning cells](docs/reports/nplayer-variable-stack-feasibility/pilot-learning-cells.csv) ·
+[played support](docs/reports/nplayer-variable-stack-feasibility/pilot-played-support.csv) ·
+[complete costs](docs/reports/nplayer-variable-stack-feasibility/pilot-costs.json) ·
 [review](docs/reports/nplayer-variable-stack-feasibility/review.json) ·
-[pilot quote](docs/reports/nplayer-variable-stack-feasibility/pilot-quote.json) ·
-[retention](docs/reports/nplayer-variable-stack-feasibility/provenance.json).
-Source4f3a9183, baseline2474309d; one27tuple20/50/100BB law and stack-owner key.
-Guarded M4 qualification81.04s, sampled peak1.316GiB, nominal thermals.160library
-tests pass onM1, all examples compile;4guard tests pass independently.12tiny
-iterations105,801nodes/62,957rows; thread/resume/observer, all-row float64 export/
-binary and81initial+81repeat independent-replay proofs pass. Legacy history/
-live-order checkpoint AND averages remain byte-identical to frozen baseline.
-No strength/adoption or mature speed claim. Proposed5M/25M/100M pilot19m59s/
-57m53sreserve,60min M4 allocation;14GiB new disk+4GiB headroom. NOT admitted/
-started. M4 ordinary root`~/Local/nplayer-variable-stack-20261026/` retains
-every source/baseline/fixture/raw watch/trace/log; compact proof pins above.
-Restore from retained ordinary tree and verify pins; cleaner-owned bb128/ZIP/
-Drive archival pending, no payload acceptance claim or cleanup performed.
+[admission](docs/reports/nplayer-variable-stack-feasibility/pilot-admission.json) ·
+[retention/proof pins](docs/reports/nplayer-variable-stack-feasibility/pilot-provenance.json).
+
+Native source `4f3a9183`, supervisor snapshot `f76e42d0`, legacy baseline
+`2474309d`; one 27-tuple 20/50/100 BB law and stack-owner key. Guarded qualification
+81.04s, sampled peak 1.316 GiB; 160 library tests and all example builds pass,
+four guard tests independently pass. Thread/resume/observer and legacy history/
+live-order checkpoint AND average byte parity, all-row float64 and fixture replay
+proofs pass. Owner then accepted the fixed 60-minute M4 allocation.
+
+One fresh seed reached 5,001,133 /25,004,642 /100,008,602 nodes; 2,876,747 /
+10,003,912 /10,003,912 retained rows. Pilot wall **141.45s**, guarded stage CPU
+209.37s, sampled peak 2.76 GiB, nominal thermals, swap 1 MiB unchanged; main
+retained bytes 2,559,581,416. Every row audited, 243 initial+243 repeated hands
+independently replayed; all six replay barriers and seven guarded stages pass.
+No scientific retry. Postscience collector system-Python incompatibility retained;
+corrected metadata collection took 1.04s, no science repeated.
+
+At 100M the same 3,074-observation panel has 1,541 positive /30 zero /1,503 missing
+lookups; river 5/2/503 of 510. Cap freezes at iteration 2,029, between recorded
+18.061M and 18.952M samples. Post-cap growth is censored; attempted watch deltas
+include declined rows. No population coverage, mature speed, strength, release or
+adoption claim. [Conditional next quote](docs/reports/nplayer-variable-stack-feasibility/next-allocation.json)
+requires a selected/reviewed representation and explicit approval; nothing launched.
+
+Entire M4 `~/Local/nplayer-variable-stack-20261026/` retains sources, baseline,
+models, traces, watch data, logs and proofs. Original completion/config receipts
+unchanged. Verify pinned payload/source/runtime files to restore; do not rerun
+science for retrieval. Cleaner-owned bb128 staging/ZIP/Drive pending, no payload
+acceptance or deletion claimed. Locks released; defaults and bb128 untouched.
