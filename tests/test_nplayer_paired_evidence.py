@@ -9,7 +9,7 @@ from scripts import nplayer_paired_evidence as evidence
 
 class PairedEvidenceTests(unittest.TestCase):
     def test_cyclic_schedule_balances_seats_and_positions_without_factorial_growth(self):
-        for n in (4,5,6):
+        for n in (3,4,5,6):
             rows=evidence.seating(n);self.assertEqual(len(rows),n)
             for identity in range(n):
                 for seat in range(n):self.assertEqual(sum(r[seat]==identity for r in rows),1)
@@ -17,7 +17,7 @@ class PairedEvidenceTests(unittest.TestCase):
         self.assertEqual(len(evidence.seating(6)),6)
 
     def test_schedule_rejects_duplicates_wrong_labels_unbalanced_and_boolean_ids(self):
-        for n,rows in ((3,None),(4,[]),(4,[[0,1,2,3]]*4),(4,[[0,1,2,3],[0,1,3,2],[0,2,1,3],[0,2,3,1]]),(4,[[False,1,2,3]]*4)):
+        for n,rows in ((2,None),(4,[]),(4,[[0,1,2,3]]*4),(4,[[0,1,2,3],[0,1,3,2],[0,2,1,3],[0,2,3,1]]),(4,[[False,1,2,3]]*4)):
             with self.subTest(rows=rows),self.assertRaises(ValueError):evidence.seating(n,rows)
 
     def fixture(self,root,changed=False):
