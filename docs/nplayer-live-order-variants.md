@@ -63,3 +63,11 @@ Earlier streets, buckets, card classes and action labels are unchanged. Plain li
   - A research failure is reported as is, with no retry or retuning.
   - A qualification failure stops the run.
   - Plumbing problems go in the PR.
+
+## Completed — October 27
+
+- **Seat variant: not shown,** −1.8 [−12.7, +9.0].
+- **Street variant: not shown,** −54.3 [−67.7, −40.8], with its table at the 250M cap and harm flags on random, tight-aggressive and pot-pressure.
+- **Head-to-head:** #439's 50B beats #431's 10B by +19.1 [+13.6, +24.7] against five 10B copies and +14.0 [+9.1, +18.9] against five 50B copies.
+
+[Results](reports/nplayer-live-order-variants/results.md).
