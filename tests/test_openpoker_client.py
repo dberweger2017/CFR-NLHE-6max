@@ -22,7 +22,7 @@ def native():
 
 
 def scripted_routes(agent='script:random'):
-    return {n: Route(agent) for n in range(2, 7)}
+    return {n: (Route(agent),) for n in range(2, 7)}
 
 
 async def play(table, agent, hands):
@@ -80,7 +80,7 @@ def test_sandbox_hands_reconstruct_exactly_for_every_table_shape(native):
 def test_unrouted_counts_and_engine_disagreement_fall_back(native):
     table = Table(native, {0: ['script:check-call', 2000], 2: ['bot', 2000], 3: ['script:check-call', 2000]}, 2, seed=5)
     records = asyncio.run(play(table, Agent(native, {}, seed=1), 5))
-    assert records and all(r['status'] == 'fallback' and r['reason'] == 'no route for 3 players' for r in records)
+    assert records and all(r['status'] == 'fallback' and r['reason'].startswith('no route for 3 players at ') for r in records)
 
     # A legal set the engine doesn't reproduce (here, a raise minimum one chip high) means the
     # record and the server disagree; the decision must not reach a policy.
@@ -127,9 +127,31 @@ def test_hand_messages_outside_the_contract_are_unsupported():
         hand.player_action({'seat': 3, 'action': 'raise', 'amount': 60, 'street': 'preflop'})
     with pytest.raises(Unsupported):
         hand.player_action({'seat': 3, 'action': 'straddle', 'street': 'preflop', 'contribution_delta': 40})
-    assert parse_routes({'6': {'agent': 'policy:six'}, '4': {'agent': 'policy:six', 'view': 'projected'}})[4] == Route('policy:six', 'projected')
-    with pytest.raises(ValueError):
-        parse_routes({'7': {'agent': 'policy:six'}})
+    assert parse_routes({'6': {'agent': 'policy:six'}, '4': {'agent': 'policy:six', 'view': 'projected'}})[4] == (Route('policy:six', 'projected'),)
+    banded = parse_routes({'6': [{'agent': 'policy:six', 'view': 'projected', 'band_bb': [89.4, 111.8]}, {'agent': 'policy:mix', 'view': 'projected'}]})[6]
+    assert banded == (Route('policy:six', 'projected', (89.4, 111.8)), Route('policy:mix', 'projected'))
+    assert banded[0].covers([100, 90, 111]) and not banded[0].covers([100, 80]) and banded[1].covers([10, 250])
+    for bad in ({'7': {'agent': 'policy:six'}}, {'6': []}, {'6': {'agent': 'policy:six', 'band_bb': [110, 90]}},
+                {'6': {'agent': 'policy:six', 'band': [90, 110]}}):
+        with pytest.raises(ValueError):
+            parse_routes(bad)
+
+
+@native_only
+def test_depth_bands_route_each_hand_by_every_dealt_stack(native):
+    band = (89.4, 111.8)
+    routes = {n: (Route('script:check-call', band_bb=band), Route('script:random')) for n in range(2, 7)}
+    agent = Agent(native, routes, seed=5)
+    seen = Counter()
+    # Stacks persist across sandbox hands, so both tables drift in and out of the band.
+    for seats in ({0: ['script:pot-pressure', 2000], 2: ['bot', 2000]},
+                  {0: ['script:pot-pressure', 2000], 2: ['bot', 2000], 4: ['script:random', 900]}):
+        records = asyncio.run(play(Table(native, seats, bot_seat=2, seed=11), agent, 40))
+        for r in (r for r in records if r['status'] == 'policy'):
+            inside = all(band[0] <= d <= band[1] for d in r['stacks_bb'])
+            assert r['route'] == ('script:check-call' if inside else 'script:random')
+            seen[inside] += 1
+    assert seen[True] and seen[False]
 
 
 @native_only

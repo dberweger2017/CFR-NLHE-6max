@@ -180,7 +180,7 @@ impl Service {
                 if !multi_view::supports(table.schema) {
                     return Err("projected views need a live-order policy".into());
                 }
-                Some(multi_view::project(&observation, table.config()?)?)
+                Some(multi_view::project(&observation, table.projection_config()?)?)
             } else {
                 None
             };

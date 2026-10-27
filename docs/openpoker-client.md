@@ -14,7 +14,10 @@
    - the server's `valid_actions` must equal the engine's legal set: check, call amount and raise-to bounds;
    - every action's chips must equal what the engine charges, so the engine's current stacks match the server's.
 3. **Hidden cards.** The engine needs a full deck. Unseen positions get unused cards in ascending order, and the policy sees only `Hand::observe` for the hero: its own cards and the dealt board.
-4. **Routing.** `src/openpoker/agent.py` picks a route by the number of dealt players. Live-order policies should use `"view": "projected"` at every size: it keeps the table's real, unequal chips, and adds phantom early-position folds below the model's player count. The native view needs the model's exact equal-stack configuration, which Open Poker never has.
+4. **Routing.** `src/openpoker/agent.py` picks a route by the number of dealt players, then by depth.
+   - **Route lists:** each player count has an ordered list of routes. A route may carry a depth band, `band_bb`. The first route whose band holds every dealt seat's starting stack, in BB, plays the hand. A route with no band always matches.
+   - **Views:** live-order policies should use `"view": "projected"` at every size. It keeps the table's real, unequal chips, and adds phantom early-position folds below the model's player count. The native view needs the model's exact equal-stack configuration, which Open Poker never has.
+   - **Mixed-stack policies** (`--stack-law`, see [the mixed-stack protocol](openpoker-mixed-stacks.md)) project with 100 BB phantom seats; real seats keep their chips.
 5. **Translation.** The native action becomes `fold`, `check`, `call`, `raise` with an exact raise-to amount in range, or `all_in` when only an all-in raise is offered.
 6. **Fallback.** Any failure along the way plays check if legal, else fold, and journals the reason: an unrepresentable hand, no route, engine disagreement, untranslatable action or decision timeout. Failures include blinds other than 10/20, a dealer outside the dealt seats, a possibly all-in blind, an unknown action kind and unknown chips.
 
@@ -37,14 +40,17 @@ cargo build --release --locked --manifest-path native/hu20-trainer/Cargo.toml --
 python -m pip install -r requirements-openpoker.txt
 ```
 
-`routes.json`, for a six-player live-order model:
+`routes.json` from the [routing results](reports/openpoker-routing/results.md): the 100 BB models inside [89.4, 136.9] BB, the mixed-stack models elsewhere. The heads-up models come from the [heads-up results](reports/openpoker-heads-up/results.md).
 
 ```json
-{"3": {"agent": "policy:six", "view": "projected"},
- "4": {"agent": "policy:six", "view": "projected"},
- "5": {"agent": "policy:six", "view": "projected"},
- "6": {"agent": "policy:six", "view": "projected"}}
+{"2": [{"agent": "policy:hu100", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:humix", "view": "projected"}],
+ "3": [{"agent": "policy:p3", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}],
+ "4": [{"agent": "policy:p4", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}],
+ "5": [{"agent": "policy:p5", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}],
+ "6": [{"agent": "policy:six", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}]}
 ```
+
+The routing studies set the actual routes and bands: [routing](openpoker-routing.md) and [heads-up](openpoker-heads-up.md).
 
 Dry run against the local sandbox (no key):
 
@@ -53,6 +59,22 @@ python -m scripts.openpoker_bot --routes routes.json --policy six MODEL.bin SHA2
   --journal NEW.jsonl --max-hands 200 --sandbox [--sandbox-seats seats.json]
 python -m scripts.openpoker_audit NEW.jsonl
 ```
+
+**Deployment check.** Before a live session, load the exact route set on the host that will play:
+
+```sh
+python -m scripts.openpoker_deploy_check --routes routes.json --policy six MODEL.bin SHA256 ... \
+  --card-buckets K50_DIR --tables 200 --hands-per-table 20 --out NEW.json
+```
+
+It plays sandbox hands at random tables (2–6 dealt players, random seats, stacks log-uniform over 10–250 BB) and reports:
+- load time;
+- the service's peak memory;
+- decision latency;
+- fallback reasons;
+- routes used.
+
+It fails if any decision takes over 5 seconds, or if any fallback has a reason other than a possible all-in blind. The mixed-stack model is a 14 GB binary, so the bot plays from bb128 (128 GB), not the 16 GB M4.
 
 For a live session, drop `--sandbox` and set `OPENPOKER_API_KEY`. The audit reports:
 - decisions by status;
@@ -81,6 +103,6 @@ It encodes this repository's reading of the documentation: blinds are not broadc
 
 ## Known limits
 
-- **Heads-up has no trained route.** The released HU100 models use the legacy trainer format, which `nplayer_serve` doesn't load; a two-player live-order model needs training first. Until then, a 2-player route is a script or the fallback.
-- **Stack management.** Leaving and rejoining at 100 BB is not implemented; it is an owner decision.
+- **No stack management.** The bot never leaves and rejoins to reset its depth; the routes cover 10–250 BB stacks instead.
+- **Stacks beyond the grid.** A stack can grow past 250 BB or fall below 10 BB. The mixed-stack models still play such hands through the projected view, but they were never trained there.
 - **Server behavior.** Dead buttons, missed blinds and other undocumented server behavior fall back rather than guess.
