@@ -45,7 +45,7 @@ pub fn live_declaration() -> Value {
            "button":"independent-uniform","seat_probability":format!("1/{}", LIVE_DEPTHS_BB.len())})
 }
 pub fn live_supports(c: Config) -> bool {
-    (3..=6).contains(&c.players())
+    (2..=6).contains(&c.players())
         && (c.small_blind(), c.big_blind()) == (50, 100)
         && c.stacks().iter().all(|s| s % 100 == 0 && LIVE_DEPTHS_BB.contains(&(s / 100)))
 }
@@ -71,7 +71,7 @@ impl CashIdentity {
         if let Some(d) = i.get("stack_distribution") {
             if d == &live_declaration() {
                 if i.get("stacks").is_some()
-                    || !(3..=6).contains(&n)
+                    || !(2..=6).contains(&n)
                     || i["small_blind"] != 50
                     || i["big_blind"] != 100
                     || KeySchema::from_identity(i) != Some(KeySchema::LiveOrder)
@@ -222,8 +222,8 @@ pub struct LiveMixtureGame {
 }
 impl LiveMixtureGame {
     pub fn new(tables: &'static EquityTables, players: usize) -> Result<Self, String> {
-        if !(3..=6).contains(&players) {
-            return Err("live-order mixture needs 3..6 players".into());
+        if !(2..=6).contains(&players) {
+            return Err("live-order mixture needs 2..6 players".into());
         }
         Ok(Self { tables, players, depth_counts: std::array::from_fn(|_| AtomicU64::new(0)) })
     }
@@ -301,7 +301,7 @@ mod tests {
     }
     #[test]
     fn live_mixture_identity_is_strict_and_projects_at_nominal_depth() {
-        for n in 3..=6 {
+        for n in 2..=6 {
             let law = CashIdentity::parse(&live_identity(n)).unwrap();
             assert_eq!(law.players(), n);
             assert!(law.fixed().is_err());
@@ -312,9 +312,11 @@ mod tests {
             stacks[0] = 9900;
             assert!(!law.accepts(Config::new(&stacks, 50, 100).unwrap()));
             assert!(!law.accepts(Config::new(&vec![10000; n], 25, 50).unwrap()));
-            assert!(!law.accepts(Config::new(&vec![10000; n - 1], 50, 100).unwrap()));
+            let other = if n == 6 { 5 } else { n + 1 };
+            assert!(!law.accepts(Config::new(&vec![10000; other], 50, 100).unwrap()));
         }
-        assert!(CashIdentity::parse(&live_identity(2)).is_err());
+        assert!(CashIdentity::parse(&live_identity(1)).is_err());
+        assert!(CashIdentity::parse(&live_identity(7)).is_err());
         let mut i = live_identity(6);
         i["schema"] = json!(multi_holdem::STACK_OWNER_SCHEMA);
         assert!(CashIdentity::parse(&i).is_err());
