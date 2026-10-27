@@ -8,10 +8,14 @@
 //! serve [--card-buckets DIR] [--policy NAME PATH SHA256]...
 //!
 //! One JSON request per stdin line, one JSON response per stdout line:
-//!   {"op":"decide","seat":S,"agent":"menu"|"policy:NAME"|"script:NAME","seed":U64,
+//!   {"op":"decide","seat":S,"agent":"menu"|"policy:NAME"|"script:NAME","seed":U64,"view":"native"|"projected",
 //!    "hand":{"stacks":[..],"sb":50,"bb":100,"button":B,"deck":[52 cards],"actions":[["raise",300],..]},
 //!    "expect":{"legal":{"check":..,"call":..,"raise_to":[lo,hi]|null},"players":[[stack,street_bet,contributed,folded],..]}}
 //!   {"op":"settle","hand":{..}}
+//!   {"op":"state","hand":{..}}  (dealer view: actor, street, board, players, legal; for sandboxes)
+//! `view: projected` shows a live-order policy the table through `multi_view::project`
+//! (phantom early-position folds, other depths); the default is the native view.
+//! Responses carry the native players as [stack,street_bet,contributed,folded].
 //! Errors answer {"ok":false,"error":..} and the service keeps running.
 use hu20_trainer::{
     cards::EquityTables,
@@ -19,6 +23,7 @@ use hu20_trainer::{
     multi_arena::Bot,
     multi_holdem::{self, MENU, SCHEMA},
     multi_policy::{Policy, PolicyTable},
+    multi_view,
     nplayer::{Action, Config, Hand},
 };
 use serde_json::{json, Value};
@@ -153,7 +158,13 @@ impl Service {
             "probabilities": null,
             "trained": null,
             "action": null,
+            "players": hand.players().iter().map(|p| json!([p.stack, p.street_bet, p.contributed, p.folded])).collect::<Vec<_>>(),
         });
+        let projected = match request.get("view").and_then(Value::as_str) {
+            None | Some("native") => false,
+            Some("projected") => true,
+            Some(other) => return Err(format!("unknown view {other:?}")),
+        };
         let agent = request["agent"].as_str().ok_or("agent must be a string")?;
         if agent == "menu" {
             return Ok(response);
@@ -165,17 +176,40 @@ impl Service {
                 .get(name)
                 .ok_or_else(|| format!("unknown policy {name:?}"))?;
             let tables = self.tables.ok_or("policies need --card-buckets")?;
-            let (probabilities, trained) = table.distribution(&observation, tables)?;
-            let action = Policy::new(table.clone(), seed).choose(&observation, tables)?;
+            let frame = if projected {
+                if !multi_view::supports(table.schema) {
+                    return Err("projected views need a live-order policy".into());
+                }
+                Some(multi_view::project(&observation, table.config()?)?)
+            } else {
+                None
+            };
+            let projected_view = frame.as_ref().map(|f| f.observation());
+            let seen = projected_view.as_ref().unwrap_or(&observation);
+            let (probabilities, trained) = table.distribution(seen, tables)?;
+            let action = Policy::new(table.clone(), seed).choose(seen, tables)?;
             response["probabilities"] = json!(probabilities);
             response["trained"] = json!(trained);
             response["action"] = action_json(action);
+        } else if projected {
+            return Err("projected views apply to policies only".into());
         } else if let Some(name) = agent.strip_prefix("script:") {
             response["action"] = action_json(Bot::new(name, seed)?.choose(&observation)?);
         } else {
             return Err(format!("unknown agent {agent:?}"));
         }
         Ok(response)
+    }
+
+    fn state(&self, request: &Value) -> Result<Value, String> {
+        let hand = replay(request)?;
+        let legal = hand
+            .legal()
+            .map(|l| json!({"check":l.check,"call":l.call_amount,"raise_to":l.raise_to.map(|(a,b)|[a,b])}));
+        Ok(json!({"ok":true,"actor":hand.actor(),"finished":hand.finished(),
+            "street":if hand.finished(){None}else{Some(hand.street().name())},"board":hand.board(),
+            "players":hand.players().iter().map(|p| json!([p.stack, p.street_bet, p.contributed, p.folded])).collect::<Vec<_>>(),
+            "legal":legal}))
     }
 
     fn settle(&self, request: &Value) -> Result<Value, String> {
@@ -194,7 +228,8 @@ impl Service {
             .and_then(|request| match request["op"].as_str() {
                 Some("decide") => self.decide(&request),
                 Some("settle") => self.settle(&request),
-                _ => Err("op must be decide or settle".into()),
+                Some("state") => self.state(&request),
+                _ => Err("op must be decide, settle or state".into()),
             });
         result.unwrap_or_else(|error| json!({"ok":false,"error":error}))
     }
