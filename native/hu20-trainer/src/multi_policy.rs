@@ -405,6 +405,10 @@ impl PolicyTable {
     pub fn config(&self) -> Result<Config, String> {
         self.config.fixed()
     }
+    /// The model configuration a projected view uses; see `CashIdentity::projection`.
+    pub fn projection_config(&self) -> Result<Config, String> {
+        self.config.projection()
+    }
     pub fn supports_config(&self, config: Config) -> bool {
         self.config.accepts(config)
     }

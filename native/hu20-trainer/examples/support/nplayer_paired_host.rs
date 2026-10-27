@@ -284,7 +284,7 @@ fn play(
                         let t = tables.ok_or("K50 required")?;
                         let table = &models[alias].table;
                         let frame = if id == 0 && case.projected[arm] {
-                            Some(multi_view::project(&view, table.config()?)?)
+                            Some(multi_view::project(&view, table.projection_config()?)?)
                         } else {
                             None
                         };
@@ -461,7 +461,7 @@ fn execute(
             if model.donor.is_some() || !multi_view::supports(model.table.schema) {
                 return Err("projection requires a physical live-order focal".into());
             }
-            multi_view::compatible(model.table.config()?, case.config)?;
+            multi_view::compatible(model.table.projection_config()?, case.config)?;
         }
     }
     for (arm, spec) in case
@@ -473,7 +473,7 @@ fn execute(
     {
         if let Some(bot) = spec.strip_prefix("bot=") {
             Bot::new(bot, 0)?;
-        } else if !arm && models[spec].table.config()? != case.config {
+        } else if !arm && !models[spec].table.supports_config(case.config) {
             return Err("policy/game identity differs".into());
         }
     }

@@ -34,10 +34,26 @@ pub fn tuple_index(c: Config) -> Option<usize> {
     }
     Some(index)
 }
+/// Live-order mixture: every seat's starting depth is drawn independently and uniformly from
+/// a log-spaced grid, so one table can mix short and deep stacks. Live-order keys never read
+/// initial stacks; training only changes which chip situations reach each row.
+pub const LIVE_DEPTHS_BB: [u64; 13] = [10, 15, 20, 30, 40, 50, 65, 80, 100, 125, 150, 200, 250];
+/// Phantom seats under a projected view hold this depth; they fold before acting.
+pub const LIVE_NOMINAL_BB: u64 = 100;
+pub fn live_declaration() -> Value {
+    json!({"rule":"iid-uniform-depth-grid-v1","depths_bb":LIVE_DEPTHS_BB,
+           "button":"independent-uniform","seat_probability":format!("1/{}", LIVE_DEPTHS_BB.len())})
+}
+pub fn live_supports(c: Config) -> bool {
+    (3..=6).contains(&c.players())
+        && (c.small_blind(), c.big_blind()) == (50, 100)
+        && c.stacks().iter().all(|s| s % 100 == 0 && LIVE_DEPTHS_BB.contains(&(s / 100)))
+}
 #[derive(Clone, Debug)]
 pub enum CashIdentity {
     Fixed(Config),
     Mixture,
+    LiveMixture(usize),
 }
 impl CashIdentity {
     pub fn parse(i: &Value) -> Result<Self, String> {
@@ -53,6 +69,17 @@ impl CashIdentity {
             return Err("unsupported cash identity".into());
         }
         if let Some(d) = i.get("stack_distribution") {
+            if d == &live_declaration() {
+                if i.get("stacks").is_some()
+                    || !(3..=6).contains(&n)
+                    || i["small_blind"] != 50
+                    || i["big_blind"] != 100
+                    || KeySchema::from_identity(i) != Some(KeySchema::LiveOrder)
+                {
+                    return Err("unsupported live-order stack distribution".into());
+                }
+                return Ok(Self::LiveMixture(n as usize));
+            }
             if d != &declaration()
                 || i.get("stacks").is_some()
                 || n != 3
@@ -86,18 +113,31 @@ impl CashIdentity {
         match self {
             Self::Fixed(c) => c.players(),
             Self::Mixture => 3,
+            Self::LiveMixture(n) => *n,
         }
     }
     pub fn fixed(&self) -> Result<Config, String> {
         match self {
             Self::Fixed(c) => Ok(*c),
-            Self::Mixture => Err("fixed-only consumer cannot use a variable-stack policy".into()),
+            Self::Mixture | Self::LiveMixture(_) => {
+                Err("fixed-only consumer cannot use a variable-stack policy".into())
+            }
+        }
+    }
+    /// The configuration a projected view builds phantom seats from: a fixed model's own, or
+    /// equal nominal depths for a live-order mixture. Real seats always keep their real chips.
+    pub fn projection(&self) -> Result<Config, String> {
+        match self {
+            Self::Fixed(c) => Ok(*c),
+            Self::LiveMixture(n) => Config::new(&vec![LIVE_NOMINAL_BB * 100; *n], 50, 100),
+            Self::Mixture => Err("projection needs a live-order policy".into()),
         }
     }
     pub fn accepts(&self, c: Config) -> bool {
         match self {
             Self::Fixed(expected) => *expected == c,
             Self::Mixture => tuple_index(c).is_some(),
+            Self::LiveMixture(n) => c.players() == *n && live_supports(c),
         }
     }
 }
@@ -163,6 +203,57 @@ impl Game for StackMixtureGame {
     }
 }
 
+/// One root's stacks under `live_declaration`; `drawn` sees each seat's grid index.
+pub fn live_draw(players: usize, rng: &mut impl Rng, mut drawn: impl FnMut(usize)) -> Config {
+    let stacks: Vec<u64> = (0..players)
+        .map(|_| {
+            let i = rng.gen_range(0..LIVE_DEPTHS_BB.len());
+            drawn(i);
+            LIVE_DEPTHS_BB[i] * 100
+        })
+        .collect();
+    Config::new(&stacks, 50, 100).unwrap()
+}
+pub struct LiveMixtureGame {
+    pub tables: &'static EquityTables,
+    players: usize,
+    /// Seat-depth draws per grid index, for the run report.
+    pub depth_counts: [AtomicU64; LIVE_DEPTHS_BB.len()],
+}
+impl LiveMixtureGame {
+    pub fn new(tables: &'static EquityTables, players: usize) -> Result<Self, String> {
+        if !(3..=6).contains(&players) {
+            return Err("live-order mixture needs 3..6 players".into());
+        }
+        Ok(Self { tables, players, depth_counts: std::array::from_fn(|_| AtomicU64::new(0)) })
+    }
+    pub fn depths(&self) -> [u64; LIVE_DEPTHS_BB.len()] {
+        std::array::from_fn(|i| self.depth_counts[i].load(Ordering::Relaxed))
+    }
+}
+impl Game for LiveMixtureGame {
+    type State = CashState;
+    fn players(&self) -> usize {
+        self.players
+    }
+    fn identity(&self) -> Value {
+        json!({"schema":KeySchema::LiveOrder.name(),"game":"nlhe-cash","players":self.players,
+          "stack_distribution":live_declaration(),"small_blind":50,"big_blind":100,"menu":MENU,
+          "card_tables":self.tables.sha256,"utility_unit":"big-blind"})
+    }
+    fn sample(&self, rng: &mut rand::rngs::StdRng) -> CashState {
+        let config = live_draw(self.players, rng, |i| {
+            self.depth_counts[i].fetch_add(1, Ordering::Relaxed);
+        });
+        CashGame {
+            config,
+            tables: self.tables,
+            schema: KeySchema::LiveOrder,
+        }
+        .sample(rng)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -202,5 +293,57 @@ mod tests {
             i["schema"] = json!(multi_holdem::LIVE_ORDER_SCHEMA);
             assert!(CashIdentity::parse(&i).is_err());
         }
+    }
+    fn live_identity(n: usize) -> Value {
+        json!({"schema":multi_holdem::LIVE_ORDER_SCHEMA,"game":"nlhe-cash","players":n,
+          "stack_distribution":live_declaration(),"small_blind":50,"big_blind":100,"menu":MENU,
+          "card_tables":EQUITY_K50_SHA256,"utility_unit":"big-blind"})
+    }
+    #[test]
+    fn live_mixture_identity_is_strict_and_projects_at_nominal_depth() {
+        for n in 3..=6 {
+            let law = CashIdentity::parse(&live_identity(n)).unwrap();
+            assert_eq!(law.players(), n);
+            assert!(law.fixed().is_err());
+            assert_eq!(law.projection().unwrap(), Config::new(&vec![10000; n], 50, 100).unwrap());
+            let mut stacks = vec![1000u64; n];
+            stacks[0] = 25000;
+            assert!(law.accepts(Config::new(&stacks, 50, 100).unwrap()));
+            stacks[0] = 9900;
+            assert!(!law.accepts(Config::new(&stacks, 50, 100).unwrap()));
+            assert!(!law.accepts(Config::new(&vec![10000; n], 25, 50).unwrap()));
+            assert!(!law.accepts(Config::new(&vec![10000; n - 1], 50, 100).unwrap()));
+        }
+        assert!(CashIdentity::parse(&live_identity(2)).is_err());
+        let mut i = live_identity(6);
+        i["schema"] = json!(multi_holdem::STACK_OWNER_SCHEMA);
+        assert!(CashIdentity::parse(&i).is_err());
+        let mut i = live_identity(6);
+        i["stacks"] = json!(vec![10000; 6]);
+        assert!(CashIdentity::parse(&i).is_err());
+        let mut i = live_identity(6);
+        i["stack_distribution"]["depths_bb"][0] = json!(5);
+        assert!(CashIdentity::parse(&i).is_err());
+        let mut i = live_identity(6);
+        i["big_blind"] = json!(200);
+        assert!(CashIdentity::parse(&i).is_err());
+        assert!(CashIdentity::Mixture.projection().is_err());
+    }
+    #[test]
+    fn live_draw_is_seeded_and_covers_the_grid() {
+        use rand::SeedableRng;
+        let mut counts = [0u64; LIVE_DEPTHS_BB.len()];
+        let mut a = rand::rngs::StdRng::seed_from_u64(7);
+        let mut b = rand::rngs::StdRng::seed_from_u64(7);
+        let mut unequal = 0;
+        for _ in 0..20_000 {
+            let c = live_draw(6, &mut a, |i| counts[i] += 1);
+            assert_eq!(c, live_draw(6, &mut b, |_| {}));
+            assert!(live_supports(c));
+            unequal += c.stacks().iter().any(|&s| s != c.stacks()[0]) as u32;
+        }
+        let expected = 120_000. / LIVE_DEPTHS_BB.len() as f64;
+        assert!(counts.iter().all(|&k| (k as f64 - expected).abs() < 0.06 * expected), "{counts:?}");
+        assert!(unequal > 19_900);
     }
 }

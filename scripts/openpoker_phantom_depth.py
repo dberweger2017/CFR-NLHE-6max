@@ -29,6 +29,7 @@ UNEQUAL_BB = (100, 50, 150, 75, 100, 200)
 PHANTOM_SIZES = (3, 4, 5)
 MARGIN = 10.0
 ARMS = ('a0', 'a1')
+FORMAT = 'openpoker-phantom-depth-v1'
 
 
 def tables():
@@ -152,10 +153,13 @@ def report(args):
     if len(receipts) != expected or failures:
         raise ValueError(f'receipts {len(receipts)}/{expected}, failures {failures}')
     df = BANKS * BLOCKS - 1
-    primary_t = {s: diagnosis.t_quantile(1 - 0.05 / (2 * 3), df) for s in ('phantom', 'depth')}
+    family = defaultdict(int)
+    for t in tables():
+        family[t['study']] += 1
+    primary_t = {s: diagnosis.t_quantile(1 - 0.05 / (2 * n), df) for s, n in family.items()}
     if BANKS * BLOCKS < 64:
         raise ValueError('too few blocks')
-    result = {'format': 'openpoker-phantom-depth-v1', 'contrast': 'arm 1 minus arm 0, all-in adjusted BB/100',
+    result = {'format': FORMAT, 'contrast': 'arm 1 minus arm 0, all-in adjusted BB/100',
               'margin_bb100': MARGIN, 'tables': {}}
     rows = []
     for t in tables():
@@ -185,11 +189,11 @@ def report(args):
             half = q * adjusted['standard_error_bb100']
             decision = [adjusted['mean_bb100'] - half, adjusted['mean_bb100'] + half]
             f = {'change': change, 'decision_interval': decision,
-                 'decision_interval_type': 'Bonferroni 95% over three tables' if k == 0 else f'Bonferroni 95% over {len(fields) - 1} fields',
+                 'decision_interval_type': f"Bonferroni 95% over {family[t['study']]} tables" if k == 0 else f'Bonferroni 95% over {len(fields) - 1} fields',
                  'absolute': {a: {key: diagnosis.interval(v) for key, v in absolute[a].items()} for a in ARMS}}
             if k == 0:
                 f['verdict'] = verdict(t['study'], *decision)
-            elif t['study'] == 'phantom':
+            elif t['study'] in ('phantom', 'home'):
                 f['harm_flag'] = decision[1] < -MARGIN
             entry['fields'][field] = f
             rows.append({'study': t['study'], 'table': t['table'], 'field': field, 'primary': k == 0,
