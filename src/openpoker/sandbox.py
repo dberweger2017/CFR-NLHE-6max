@@ -74,6 +74,9 @@ class Table:
             actor = state['actor']
             seat = order[actor]
             if seat == self.bot:
+                await send({'type': 'table_state', 'hand_id': hand_id, 'street': state['street'], 'dealer_seat': self.dealer,
+                            'seats': [{'seat': s, 'stack': p[0] // SCALE, 'status': 'active', 'in_hand': True, 'folded': p[3]}
+                                      for s, p in zip(order, state['players'])]})
                 turn = {'type': 'your_turn', 'hand_id': hand_id, 'valid_actions': valid_actions(state['legal']),
                         'pot': sum(p[2] for p in state['players']) // SCALE,
                         'community_cards': [card_name(c) for c in state['board']], 'turn_token': f'{hand_id}-{len(record["actions"])}',
@@ -98,7 +101,8 @@ class Table:
             stack_after = before[0] // SCALE - paid
             message = {'type': 'player_action', 'seat': seat, 'name': f'p{seat}', 'action': kind,
                        'amount': action[1] // SCALE if action[0] == 'raise' else (paid or None),
-                       'street': state['street'], 'stack': stack_after, 'stack_before': before[0] // SCALE,
+                       # Like the server: the street after the action.
+                       'street': 'showdown' if after['finished'] else after['street'], 'stack': stack_after, 'stack_before': before[0] // SCALE,
                        'stack_after': stack_after, 'contribution_delta': paid,
                        'pot': (sum(p[2] for p in after['players']) if not after['finished'] else 0) // SCALE}
             history.append({'seat': seat, 'action': kind, 'amount': message['amount'], 'street': state['street']})
@@ -159,22 +163,40 @@ async def serve(native, *, host='127.0.0.1', port=0, token='sandbox', seats=None
                 message = await inbox.get()
                 if message.get('type') == 'leave_table':
                     raise ConnectionAbortedError
+                if message.get('type') == 'set_auto_rebuy':
+                    await send({'type': 'auto_rebuy_set', 'enabled': bool(message.get('enabled'))})
                 if message.get('type') == 'action' and message.get('turn_token') == turn['turn_token']:
                     await send({'type': 'action_ack', 'client_action_id': message.get('client_action_id'), 'status': 'accepted'})
                     return message
 
-        played = 0
+        played, left = 0, False
         try:
             while played < hands and await table.hand(send, act):
                 played += 1
                 if not inbox.empty() and inbox._queue[0].get('type') == 'leave_table':
+                    left = True
                     break
-            await send({'type': 'table_closed', 'reason': 'sandbox_finished'})
+            if not left:
+                await send({'type': 'table_closed', 'reason': 'sandbox_finished'})
         except ConnectionAbortedError:
-            pass
-        task.cancel()
+            left = True
+        if left:
+            await send({'type': 'player_left', 'seat': bot_seat, 'name': 'sandbox', 'reason': 'left'})
+        else:
+            try:
+                while (await asyncio.wait_for(inbox.get(), 5)).get('type') != 'leave_table':
+                    pass
+                await send({'type': 'action_rejected', 'code': 'not_at_table'})
+            except asyncio.TimeoutError:
+                pass
         if results is not None:
             results.update(hands=played, violations=table.violations, stacks={s: v[1] for s, v in table.seats.items()})
+        # Like the server, keep the socket open and let the client close it.
+        try:
+            await asyncio.wait_for(ws.wait_closed(), 5)
+        except asyncio.TimeoutError:
+            pass
+        task.cancel()
         await ws.close()
 
     async with websockets.serve(handler, host, port) as server:

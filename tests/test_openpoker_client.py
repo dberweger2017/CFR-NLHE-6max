@@ -1,6 +1,7 @@
 import asyncio
 import json
 from collections import Counter
+from pathlib import Path
 
 import pytest
 
@@ -39,6 +40,8 @@ async def play(table, agent, hands):
             state['hand'].community_cards(message)
         elif kind == 'player_action':
             state['hand'].player_action(message)
+        elif kind == 'table_state':
+            state['hand'].table_state(message)
 
     async def act(turn):
         action, record = agent.decide(state['hand'], turn)
@@ -138,6 +141,25 @@ def test_hand_messages_outside_the_contract_are_unsupported():
 
 
 @native_only
+@pytest.mark.parametrize('case', ['mid-hand join', 'street labels'])
+def test_live_server_hands_reconstruct_exactly(native, case):
+    """Two hands from the first live session (journal fields only, names removed): a player who
+    joined mid-hand is listed in `your_turn.players` but not dealt in, and every action is
+    labeled with the street after it."""
+    messages = json.loads((Path(__file__).parent / 'fixtures' / 'openpoker_live_hands.json').read_text())[case]
+    agent, hand, records = Agent(native, scripted_routes('script:check-call'), seed=1), None, []
+    for m in messages:
+        kind = m['type']
+        if kind == 'hand_start':
+            hand = Hand.start(m)
+        elif kind == 'your_turn':
+            records.append(agent.decide(hand, m)[1])
+        else:
+            getattr(hand, kind)(m)
+    assert records and all(r['status'] == 'policy' for r in records), records
+
+
+@native_only
 def test_depth_bands_route_each_hand_by_every_dealt_stack(native):
     band = (89.4, 111.8)
     routes = {n: (Route('script:check-call', band_bb=band), Route('script:random')) for n in range(2, 7)}
@@ -178,5 +200,34 @@ def test_websocket_session_plays_a_bounded_sandbox_session(native, tmp_path):
     assert results['violations'] == 0 and results['hands'] == 12
     lines = [json.loads(line) for line in (tmp_path / 'journal.jsonl').read_text().splitlines()]
     sent = [l['payload'] for l in lines if l['kind'] == 'out']
-    assert sent[0] == {'type': 'join_lobby', 'buy_in': 2000} and sent[-1] == {'type': 'leave_table'}
+    assert sent[:2] == [{'type': 'join_lobby', 'buy_in': 2000}, {'type': 'set_auto_rebuy', 'enabled': False}]
+    assert {'type': 'leave_table'} in sent
+    # The session waits for the server to confirm the leave before closing.
+    assert lines[-1]['kind'] == 'in' and lines[-1]['payload']['type'] == 'player_left'
     assert TOKEN not in (tmp_path / 'journal.jsonl').read_text()
+
+
+@native_only
+def test_session_leaves_a_closed_table_once_more_and_never_rejoins(native, tmp_path):
+    pytest.importorskip('websockets')
+    from src.openpoker import sandbox
+    from src.openpoker.client import Journal, Session
+
+    async def main():
+        started, results = asyncio.get_running_loop().create_future(), {}
+        server = asyncio.create_task(sandbox.serve(native, token=TOKEN, hands=5, started=started, results=results))
+        port = await started
+        journal = Journal(tmp_path / 'journal.jsonl')
+        session = Session(Agent(native, scripted_routes('script:check-call'), seed=3), journal, buy_in=2000, max_hands=12)
+        await asyncio.wait_for(session.run(f'ws://127.0.0.1:{port}', TOKEN), 60)
+        journal.close()
+        server.cancel()
+        return session
+
+    session = asyncio.run(main())
+    assert session.hands == 5 and session.done
+    lines = [json.loads(line) for line in (tmp_path / 'journal.jsonl').read_text().splitlines()]
+    sent = [l['payload']['type'] for l in lines if l['kind'] == 'out']
+    received = [l['payload'] for l in lines if l['kind'] == 'in']
+    assert sent.count('join_lobby') == 1 and sent[-1] == 'leave_table'
+    assert received[-2]['type'] == 'table_closed' and received[-1] == {'type': 'action_rejected', 'code': 'not_at_table'}

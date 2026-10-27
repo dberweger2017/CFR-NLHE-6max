@@ -53,6 +53,7 @@ class Hand:
     paid: list = field(default_factory=list)
     stacks: dict = field(default_factory=dict)
     seen: set = field(default_factory=set)
+    in_hand: dict = field(default_factory=dict)
 
     @classmethod
     def start(cls, message: dict) -> 'Hand':
@@ -85,11 +86,23 @@ class Hand:
             if 'seat' in p and isinstance(p.get('stack'), int):
                 self.stacks[int(p['seat'])] = p['stack']
 
+    def table_state(self, message: dict):
+        """Which seats were dealt in, from a mid-hand table snapshot. `your_turn.players` lists
+        every seated player, including one who joined during the hand."""
+        if message.get('street') not in STREETS:
+            return
+        seats = {int(s['seat']): s.get('in_hand') for s in message.get('seats') or () if 'seat' in s}
+        if any(v is True for v in seats.values()):
+            self.in_hand = {seat: v is True for seat, v in seats.items()}
+
     def player_action(self, message: dict):
         seat, action = int(message['seat']), message.get('action')
-        street = message.get('street') or self.street
-        if street != self.street:
-            raise Unsupported(f'action street {street} during {self.street}')
+        # The server labels an action with the street after it: the call that closes preflop
+        # arrives as `flop`, a final fold as `showdown`. The action belongs to the tracked street.
+        label = message.get('street') or self.street
+        if label not in STREETS + ('showdown',) or (label in STREETS and STREETS.index(label) < STREETS.index(self.street)):
+            raise Unsupported(f'action street {label} during {self.street}')
+        street = self.street
         self.seen.add(seat)
         if action in BLIND_ACTIONS:
             self._stack_after(seat, message)
@@ -121,10 +134,15 @@ class Hand:
         """The native dealer record at the hero's decision; `players` is `your_turn.players`."""
         self.observe_players(players)
         dealt = set(self.seen)
-        for p in players or ():
-            if p.get('in_hand') is False or p.get('status') in OUT_OF_HAND:
-                continue
-            dealt.add(int(p['seat']))
+        if self.in_hand:
+            if any(not self.in_hand.get(seat) for seat in self.seen):
+                raise Unsupported(f'seats {sorted(self.seen)} acted but the snapshot dealt {self.in_hand}')
+            dealt = {seat for seat, dealt_in in self.in_hand.items() if dealt_in}
+        else:
+            for p in players or ():
+                if p.get('in_hand') is False or p.get('status') in OUT_OF_HAND:
+                    continue
+                dealt.add(int(p['seat']))
         order = sorted(dealt)
         n = len(order)
         if not 2 <= n <= 6 or self.dealer not in dealt or self.hero not in dealt:

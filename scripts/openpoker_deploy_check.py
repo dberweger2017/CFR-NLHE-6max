@@ -42,7 +42,7 @@ async def play(table, agent, hands, latencies):
         kind = message['type']
         if kind == 'hand_start':
             state['hand'] = Hand.start(message)
-        elif kind in ('hole_cards', 'community_cards', 'player_action'):
+        elif kind in ('hole_cards', 'community_cards', 'player_action', 'table_state'):
             getattr(state['hand'], kind)(message)
 
     async def act(turn):
