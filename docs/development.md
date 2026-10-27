@@ -29,6 +29,10 @@ The [research history](research-history.md) indexes completed experiments.
   `scripts.play_v061` explicitly selects a seed/source and `scripts.check_v061_runtime`
   checks integration. `scripts.plan_v061_publication` only reconciles live asset
   metadata. [v0.6.1 readiness and quote](releases/v0.6.1/READINESS.md); publication pending.
+- `src/openpoker/`: the [Open Poker client](openpoker-client.md): message tracking, exact native
+  reconstruction checked by `nplayer_serve`, routing by dealt players and a local sandbox.
+  `scripts.openpoker_bot` runs a bounded session or `--sandbox` dry run; `scripts.openpoker_audit`
+  audits its journal. Live play is an owner decision.
 - `src/play_api/` and `apps/poker-web/`: durable local sessions, HTTP and the table.
   `versions.py` has the explicit release catalog. Defaults never silently fall
   back when an artifact is missing or corrupt; sessions keep their model.
