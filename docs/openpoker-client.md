@@ -40,10 +40,11 @@ cargo build --release --locked --manifest-path native/hu20-trainer/Cargo.toml --
 python -m pip install -r requirements-openpoker.txt
 ```
 
-`routes.json` from the [routing results](reports/openpoker-routing/results.md): the 100 BB models inside [89.4, 136.9] BB, the mixed-stack model elsewhere. The heads-up route follows the [heads-up study](openpoker-heads-up.md).
+`routes.json` from the [routing results](reports/openpoker-routing/results.md): the 100 BB models inside [89.4, 136.9] BB, the mixed-stack models elsewhere. The heads-up models come from the [heads-up results](reports/openpoker-heads-up/results.md).
 
 ```json
-{"3": [{"agent": "policy:p3", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}],
+{"2": [{"agent": "policy:hu100", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:humix", "view": "projected"}],
+ "3": [{"agent": "policy:p3", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}],
  "4": [{"agent": "policy:p4", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}],
  "5": [{"agent": "policy:p5", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}],
  "6": [{"agent": "policy:six", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}]}
@@ -102,6 +103,6 @@ It encodes this repository's reading of the documentation: blinds are not broadc
 
 ## Known limits
 
-- **Heads-up has no trained route.** The released HU100 models use the legacy trainer format, which `nplayer_serve` doesn't load; a two-player live-order model needs training first. Until then, a 2-player route is a script or the fallback.
-- **Stack management.** Leaving and rejoining at 100 BB is not implemented; it is an owner decision.
+- **No stack management.** The bot never leaves and rejoins to reset its depth; the routes cover 10–250 BB stacks instead.
+- **Stacks beyond the grid.** A stack can grow past 250 BB or fall below 10 BB. The mixed-stack models still play such hands through the projected view, but they were never trained there.
 - **Server behavior.** Dead buttons, missed blinds and other undocumented server behavior fall back rather than guess.
