@@ -40,14 +40,13 @@ cargo build --release --locked --manifest-path native/hu20-trainer/Cargo.toml --
 python -m pip install -r requirements-openpoker.txt
 ```
 
-`routes.json`, for example a 100 BB band with the mixed-stack model elsewhere:
+`routes.json` from the [routing results](reports/openpoker-routing/results.md): the 100 BB models inside [89.4, 136.9] BB, the mixed-stack model elsewhere. The heads-up route follows the [heads-up study](openpoker-heads-up.md).
 
 ```json
-{"3": {"agent": "policy:mix", "view": "projected"},
- "4": {"agent": "policy:mix", "view": "projected"},
- "5": {"agent": "policy:mix", "view": "projected"},
- "6": [{"agent": "policy:six", "view": "projected", "band_bb": [89.4, 111.8]},
-       {"agent": "policy:mix", "view": "projected"}]}
+{"3": [{"agent": "policy:p3", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}],
+ "4": [{"agent": "policy:p4", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}],
+ "5": [{"agent": "policy:p5", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}],
+ "6": [{"agent": "policy:six", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}]}
 ```
 
 The routing studies set the actual routes and bands: [routing](openpoker-routing.md) and [heads-up](openpoker-heads-up.md).
