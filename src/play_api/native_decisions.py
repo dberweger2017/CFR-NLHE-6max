@@ -96,12 +96,17 @@ class NativeDecisions:
             raise NativeError(response.get("error", "native decision failed"))
         return response
 
-    def decide(self, hand: dict, seat: int, agent: str, *, seed: int = 0, expect: dict | None = None) -> dict:
+    def decide(self, hand: dict, seat: int, agent: str, *, seed: int = 0, expect: dict | None = None,
+               view: str = "native") -> dict:
         return self._call({"op": "decide", "hand": hand, "seat": seat, "agent": agent,
-                           "seed": seed, "expect": expect})
+                           "seed": seed, "expect": expect, "view": view})
 
     def settle(self, hand: dict) -> dict:
         return self._call({"op": "settle", "hand": hand})
+
+    def state(self, hand: dict) -> dict:
+        """The dealer's view of a record: actor, street, board, players, legal set."""
+        return self._call({"op": "state", "hand": hand})
 
     def close(self):
         if self.process.poll() is None:
