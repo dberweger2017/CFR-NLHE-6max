@@ -30,6 +30,8 @@ PHANTOM_SIZES = (3, 4, 5)
 MARGIN = 10.0
 ARMS = ('a0', 'a1')
 FORMAT = 'openpoker-phantom-depth-v1'
+# Studies whose non-primary fields carry a harm flag (interval entirely below -MARGIN).
+HARM_STUDIES = ('phantom', 'home')
 
 
 def tables():
@@ -77,6 +79,8 @@ def manifest(args):
                            traces=[str(folder / f'{field}-{a}.jsonl') for a in ARMS], summary=str(folder / f'{field}-cost.json'))
                 if t['stacks_bb']:
                     row['stacks_bb'] = t['stacks_bb']
+                if t.get('fallback'):
+                    row['focal_untrained_fallback'] = t['fallback']
                 cases.append(row)
                 index += 1
         index = 0
@@ -166,7 +170,8 @@ def report(args):
         fields = list(t['fields'])
         harm_t = diagnosis.t_quantile(1 - 0.05 / (2 * (len(fields) - 1)), df)
         entry = {'study': t['study'], 'players': t['players'], 'stacks_bb': t['stacks_bb'] or [t['stack_bb']] * t['players'],
-                 'arms': {a: {'focal': f, 'view': v} for a, f, v in zip(ARMS, t['focals'], t['views'])},
+                 'arms': {a: {'focal': f, 'view': v, 'fallback': fb} for a, f, v, fb in
+                          zip(ARMS, t['focals'], t['views'], t.get('fallback') or ['uniform'] * 2)},
                  'primary': fields[0], 'fields': {},
                  'missing_share': {a: missing(receipts, a, t['table'], fields) for a in ARMS}}
         for k, field in enumerate(fields):
@@ -193,7 +198,7 @@ def report(args):
                  'absolute': {a: {key: diagnosis.interval(v) for key, v in absolute[a].items()} for a in ARMS}}
             if k == 0:
                 f['verdict'] = verdict(t['study'], *decision)
-            elif t['study'] in ('phantom', 'home'):
+            elif t['study'] in HARM_STUDIES:
                 f['harm_flag'] = decision[1] < -MARGIN
             entry['fields'][field] = f
             rows.append({'study': t['study'], 'table': t['table'], 'field': field, 'primary': k == 0,
