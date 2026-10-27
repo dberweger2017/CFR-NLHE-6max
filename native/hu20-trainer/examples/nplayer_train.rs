@@ -4,6 +4,7 @@ use hu20_trainer::{
     multi_cfr::{Game, Sampling, Trainer},
     multi_checkpoint,
     multi_holdem::{CashGame, KeySchema},
+    multi_stacks::LiveMixtureGame,
     nplayer::Config,
 };
 use serde_json::json;
@@ -72,6 +73,7 @@ fn train() -> Result<(), String> {
             "--prune-after",
             "--opponent-pot-raise",
             "--key-schema",
+            "--stack-law",
         ]
         .contains(&key.as_str())
         {
@@ -109,6 +111,19 @@ fn train() -> Result<(), String> {
     if options.contains_key("--stacks") && options.contains_key("--stack-bb") {
         return Err("choose --stacks or --stack-bb".into());
     }
+    let mixture = match options.get("--stack-law").map(String::as_str) {
+        None => false,
+        Some("live-depth-grid-v1") => {
+            if options.contains_key("--stacks") || options.contains_key("--stack-bb") || sb != 50 || bb != 100 {
+                return Err("--stack-law draws every stack at 50/100 blinds".into());
+            }
+            if options.get("--key-schema").map(String::as_str) != Some("live-order") {
+                return Err("--stack-law needs --key-schema live-order".into());
+            }
+            true
+        }
+        Some(_) => return Err("unknown --stack-law".into()),
+    };
     let stacks = if let Some(stacks) = options.get("--stacks") {
         stacks
             .split(',')
@@ -179,7 +194,43 @@ fn train() -> Result<(), String> {
     }
     let tables = EquityTables::load(Path::new(required("--card-buckets")?), false)?;
     let schema = KeySchema::parse(options.get("--key-schema").map(String::as_str).unwrap_or("history"))?;
-    let game = CashGame { config, tables, schema };
+    let run = Run { options: &options, players, seed, scope, max_entries, freeze, sampling, roots_per_seat, prune,
+                    pressure, admission, nodes, seconds, out, gzip, fast };
+    if mixture {
+        let game = LiveMixtureGame::new(tables, players)?;
+        run.go(&game, || json!({"depths_bb":hu20_trainer::multi_stacks::LIVE_DEPTHS_BB,"seat_draws":game.depths()}))
+    } else {
+        run.go(&CashGame { config, tables, schema }, || serde_json::Value::Null)
+    }
+}
+struct Run<'a> {
+    options: &'a BTreeMap<String, String>,
+    players: usize,
+    seed: u64,
+    scope: usize,
+    max_entries: usize,
+    freeze: bool,
+    sampling: Sampling,
+    roots_per_seat: usize,
+    prune: Option<hu20_trainer::multi_cfr::Prune>,
+    pressure: Option<f64>,
+    admission: bool,
+    nodes: u64,
+    seconds: f64,
+    out: PathBuf,
+    gzip: Option<hu20_trainer::gz::Gzip>,
+    fast: bool,
+}
+impl Run<'_> {
+fn go<G: Game<State = hu20_trainer::multi_holdem::CashState> + Sync>(self, game: &G, stacks: impl Fn() -> serde_json::Value) -> Result<(), String> {
+    let Run { options, players, seed, scope, max_entries, freeze, sampling, roots_per_seat, prune, pressure, admission,
+              nodes, seconds, out, gzip, fast } = self;
+    let required = |key: &str| {
+        options
+            .get(key)
+            .map(String::as_str)
+            .ok_or_else(|| format!("missing {key}"))
+    };
     let mut trainer = if let Some(path) = options.get("--resume") {
         let path = Path::new(path);
         let expected = required("--resume-sha256")?;
@@ -203,7 +254,7 @@ fn train() -> Result<(), String> {
         }
         t
     } else {
-        Trainer { sampling, roots_per_seat, prune, pressure, traverser_admission: admission, ..Trainer::new(&game, seed, scope, max_entries, freeze) }
+        Trainer { sampling, roots_per_seat, prune, pressure, traverser_admission: admission, ..Trainer::new(game, seed, scope, max_entries, freeze) }
     };
     if let Some(parent) = out.parent() {
         if !parent.as_os_str().is_empty() {
@@ -239,9 +290,9 @@ fn train() -> Result<(), String> {
             break "stop-file";
         }
         if fast {
-            trainer.step_fast(&game);
+            trainer.step_fast(game);
         } else {
-            trainer.step(&game);
+            trainer.step(game);
         }
         if trainer.iteration % 100 == 0 {
             if let Some(file) = telemetry.as_mut() {
@@ -256,11 +307,15 @@ fn train() -> Result<(), String> {
     };
     let save_start = std::time::Instant::now();
     multi_checkpoint::save(&trainer, &out, gzip.unwrap_or_default())?;
-    let report = json!({"identity":game.identity(),"stop_reason":reason,"iteration":trainer.iteration,
+    let mut report = json!({"identity":game.identity(),"stop_reason":reason,"iteration":trainer.iteration,
         "save_seconds":save_start.elapsed().as_secs_f64(),
         "entries":trainer.table.len(),"frozen_at":trainer.frozen_at,"counts":multi_checkpoint::counts_json(&trainer.counts),
         "elapsed_seconds":start.elapsed().as_secs_f64(),"checkpoint":out,
         "sha256":hu20_trainer::export::sha256_file(&out)});
+    let drawn = stacks();
+    if !drawn.is_null() {
+        report["stack_draws"] = drawn;
+    }
     if let Some(file) = telemetry.as_mut() {
         writeln!(file, "{report}").map_err(|e| e.to_string())?;
     }
@@ -269,6 +324,7 @@ fn train() -> Result<(), String> {
         std::process::exit(3);
     }
     Ok(())
+}
 }
 fn main() {
     if let Err(error) = train() {
