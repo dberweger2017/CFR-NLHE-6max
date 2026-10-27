@@ -16,7 +16,7 @@ def sha(path):
 
 
 def seating(n,rows=None):
-    if type(n) is not int or n not in (4,5,6):raise ValueError('four to six players required')
+    if type(n) is not int or n not in (3,4,5,6):raise ValueError('three to six players required')
     rows=rows if rows is not None else [[(s+r)%n for s in range(n)] for r in range(n)]
     if not rows or len(rows)>720 or len(rows)%n:raise ValueError('schedule count')
     if any(any(type(x) is not int for x in r) or sorted(r)!=list(range(n)) for r in rows) or len({tuple(r) for r in rows})!=len(rows):raise ValueError('schedule permutations')

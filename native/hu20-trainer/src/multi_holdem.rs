@@ -460,6 +460,11 @@ fn decision_from_cards(schema: KeySchema, observation: &Observation<'_>, cards: 
     };
     Decision { key, actor: observation.seat, owner, street: observation.street as usize, code }
 }
+/// Keys from a fixed card class, for tests of the non-card part of a key.
+#[cfg(test)]
+pub(crate) fn decision_with_cards(schema: KeySchema, observation: &Observation<'_>, cards: &[u8]) -> Decision {
+    decision_from_cards(schema, observation, cards, &menu(observation))
+}
 /// Legacy compact benchmark API. Production readers dispatch through observation_decision_for.
 pub fn observation_decision_schema(observation: &Observation<'_>, tables: &EquityTables, schema: KeySchema) -> Decision {
     observation_decision_for(schema, observation, tables)

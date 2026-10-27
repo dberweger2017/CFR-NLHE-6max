@@ -5,6 +5,7 @@ use hu20_trainer::{
     multi_checkpoint::key_hex,
     multi_holdem,
     multi_policy::{Policy, PolicyTable},
+    multi_view,
     game::Kind,
     nplayer::{Action, Config, Event, Hand},
 };
@@ -37,8 +38,8 @@ fn text<'a>(v: &'a Value, key: &str) -> Result<&'a str, String> {
         .ok_or_else(|| format!("string {key} required"))
 }
 pub fn schedule(n: usize, declared: &Value) -> Result<Vec<Vec<usize>>, String> {
-    if !(4..=6).contains(&n) {
-        return Err("paired arena supports four to six players".into());
+    if !(3..=6).contains(&n) {
+        return Err("paired arena supports three to six players".into());
     }
     let rows = if declared.is_null() {
         (0..n)
@@ -105,6 +106,8 @@ struct Case {
     composition_diagnostics: bool,
     /// Per arm: replace the focal uniform fallback by check, else fold.
     check_fold: [bool; 2],
+    /// Per arm: the focal model sees the table through `multi_view::project`.
+    projected: [bool; 2],
 }
 impl Case {
     fn parse(v: &Value) -> Result<Self, String> {
@@ -112,9 +115,18 @@ impl Case {
         let seating = schedule(n, &v["schedule"])?;
         let stack = number(v, "stack_bb")?;
         let blocks = number(v, "blocks")?;
-        if ![20, 100, 200].contains(&stack) || !(2..=1_000_000).contains(&blocks) {
+        if ![20, 50, 100, 200].contains(&stack) || !(2..=1_000_000).contains(&blocks) {
             return Err("stack/block bounds".into());
         }
+        // Optional unequal physical stacks; the schedule moves identities across them.
+        let stacks: Vec<u64> = match v.get("stacks_bb") {
+            None | Some(Value::Null) => vec![stack; n],
+            Some(Value::Array(list)) if list.len() == n => list
+                .iter()
+                .map(|x| x.as_u64().filter(|b| (10..=250).contains(b)).ok_or("stacks_bb entries 10..=250"))
+                .collect::<Result<_, _>>()?,
+            _ => return Err("stacks_bb must list one stack per seat".into()),
+        };
         let list = |key: &str| -> Result<Vec<String>, String> {
             v[key]
                 .as_array()
@@ -157,6 +169,24 @@ impl Case {
             }
             _ => return Err("focal_untrained_fallback must list two arm modes".into()),
         };
+        let projected = match v.get("focal_views") {
+            None | Some(Value::Null) => [false; 2],
+            Some(Value::Array(views)) if views.len() == 2 => {
+                let mut flags = [false; 2];
+                for (arm, view) in views.iter().enumerate() {
+                    flags[arm] = match view.as_str() {
+                        Some("native") => false,
+                        Some("projected") if !focals[arm].starts_with("bot=") => true,
+                        _ => return Err("focal_views: native or projected per model arm".into()),
+                    };
+                }
+                flags
+            }
+            _ => return Err("focal_views must list two arm views".into()),
+        };
+        if projected.iter().any(|&p| p) && shared_models.is_some() {
+            return Err("projected focals do not support shared observations".into());
+        }
         let arms = [&focals[0], &focals[1]].map(|f| {
             std::iter::once(f.clone())
                 .chain(opponents.clone())
@@ -165,7 +195,7 @@ impl Case {
         Ok(Self {
             name: text(v, "name")?.into(),
             n,
-            config: Config::new(&vec![stack * 100; n], 50, 100)?,
+            config: Config::new(&stacks.iter().map(|b| b * 100).collect::<Vec<_>>(), 50, 100)?,
             blocks,
             root: number(v, "root")?,
             seating,
@@ -175,6 +205,7 @@ impl Case {
             shared_models,
             composition_diagnostics,
             check_fold,
+            projected,
         })
     }
 }
@@ -251,8 +282,16 @@ fn play(
                     }
                     Player::Model(policy, alias) => {
                         let t = tables.ok_or("K50 required")?;
-                        let action = policy.choose(&view, t)?;
-                        let d = models[alias].table.decision(&view, t);
+                        let table = &models[alias].table;
+                        let frame = if id == 0 && case.projected[arm] {
+                            Some(multi_view::project(&view, table.config()?)?)
+                        } else {
+                            None
+                        };
+                        let projected_view = frame.as_ref().map(|f| f.observation());
+                        let seen = projected_view.as_ref().unwrap_or(&view);
+                        let action = policy.choose(seen, t)?;
+                        let d = table.decision(seen, t);
                         let row = models[alias].table.rows.get(&d.key);
                         if row.is_some_and(|r| {
                             (r.owner as usize, r.street as usize, r.code)
@@ -262,6 +301,9 @@ fn play(
                         }
                         let label = mass::LABELS[mass::MassMetadata::classify_row(row)?];
                         let mut lookup = json!({"status":label,"key":key_hex(&d.key),"street":d.street,"identity":id,"seat":actor,"position":(actor+case.n-button)%case.n});
+                        if frame.is_some() {
+                            lookup["view"] = json!("projected");
+                        }
                         // The draw above already advanced the RNG, so later draws stay aligned.
                         let mut action = action;
                         if id == 0 && case.check_fold[arm] && label != "positive_mass" {
@@ -413,23 +455,39 @@ fn execute(
             },
         );
     }
-    for spec in case
+    for (arm, focal) in case.arms.iter().map(|a| &a[0]).enumerate() {
+        if case.projected[arm] {
+            let model = &models[focal];
+            if model.donor.is_some() || !multi_view::supports(model.table.schema) {
+                return Err("projection requires a physical live-order focal".into());
+            }
+            multi_view::compatible(model.table.config()?, case.config)?;
+        }
+    }
+    for (arm, spec) in case
         .arms
         .iter()
-        .flatten()
-        .chain(case.shared_models.iter().flatten())
+        .enumerate()
+        .flat_map(|(arm, a)| a.iter().enumerate().map(move |(i, s)| (i == 0 && case.projected[arm], s)))
+        .chain(case.shared_models.iter().flatten().map(|s| (false, s)))
     {
         if let Some(bot) = spec.strip_prefix("bot=") {
             Bot::new(bot, 0)?;
-        } else if models[spec].table.config()? != case.config {
+        } else if !arm && models[spec].table.config()? != case.config {
             return Err("policy/game identity differs".into());
         }
     }
     if !models.is_empty() && tables.is_none() {
         *tables = Some(EquityTables::load(table_path, false)?);
     }
-    let identity=case.arms.iter().flatten().find_map(|s|models.get(s)).map(|m|m.table.identity.clone())
-        .unwrap_or_else(||json!({"players":case.n,"stacks":case.config.stacks(),"small_blind":50,"big_blind":100}));
+    // A projected focal's table identity is the model's, not the game played.
+    let identity = if case.projected.iter().any(|&p| p) {
+        json!({"players":case.n,"stacks":case.config.stacks(),"small_blind":50,"big_blind":100,
+            "focal_views":case.projected.map(|p| if p { "projected" } else { "native" })})
+    } else {
+        case.arms.iter().flatten().find_map(|s|models.get(s)).map(|m|m.table.identity.clone())
+            .unwrap_or_else(||json!({"players":case.n,"stacks":case.config.stacks(),"small_blind":50,"big_blind":100}))
+    };
     let physical_tables = models.values().filter(|m| m.donor.is_none()).count();
     let mut output = Vec::new();
     for (arm, path) in case.traces.iter().enumerate() {
@@ -572,7 +630,7 @@ mod tests {
     }
     #[test]
     fn invalid_duplicate_and_unbalanced_schedules_refuse() {
-        assert!(schedule(3, &Value::Null).is_err());
+        assert!(schedule(2, &Value::Null).is_err());
         assert!(schedule(
             4,
             &json!([[0, 1, 2, 3], [0, 1, 2, 3], [1, 2, 3, 0], [2, 3, 0, 1]])
@@ -602,6 +660,33 @@ mod tests {
         let rows=play(0,&Case::parse(&json!({"name":"self","players":4,"stack_bb":100,"blocks":2,"root":9,
             "focals":["bot=random","bot=random"],"opponents":["bot=check-call","bot=pot-pressure","bot=tight-aggressive"],"traces":["left","right"],"summary":"summary"})).unwrap(),None,&HashMap::new()).unwrap();
         assert_eq!(rows[0], rows[1]);
+    }
+
+    #[test]
+    fn three_player_unequal_stacks_and_focal_views_parse() {
+        let base = json!({"name":"views","players":3,"stack_bb":100,"blocks":2,"root":9,
+            "focals":["a","b"],"opponents":["bot=check-call","bot=random"],"traces":["left","right"],"summary":"summary"});
+        let c = Case::parse(&base).unwrap();
+        assert_eq!((c.seating.len(), c.projected), (3, [false, false]));
+        let mut v = base.clone();
+        v["focal_views"] = json!(["native", "projected"]);
+        v["stacks_bb"] = json!([100, 50, 150]);
+        let c = Case::parse(&v).unwrap();
+        assert_eq!(c.projected, [false, true]);
+        assert_eq!(c.config.stacks(), &[10000, 5000, 15000]);
+        v["stack_bb"] = json!(50);
+        assert!(Case::parse(&v).is_ok());
+        for (key, bad) in [("stacks_bb", json!([100, 50])), ("stacks_bb", json!([100, 5, 100])), ("focal_views", json!(["projected"])),
+                           ("focal_views", json!(["native", "phantom"]))] {
+            let mut w = v.clone();
+            w[key] = bad;
+            assert!(Case::parse(&w).is_err(), "{key}");
+        }
+        let mut scripted = v.clone();
+        scripted["focals"] = json!(["bot=random", "b"]);
+        scripted["focal_views"] = json!(["projected", "native"]);
+        assert!(Case::parse(&scripted).is_err());
+        assert!(schedule(2, &Value::Null).is_err());
     }
 
     #[test]
