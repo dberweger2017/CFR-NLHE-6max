@@ -1,6 +1,7 @@
 import asyncio
 import json
 from collections import Counter
+from pathlib import Path
 
 import pytest
 
@@ -39,6 +40,8 @@ async def play(table, agent, hands):
             state['hand'].community_cards(message)
         elif kind == 'player_action':
             state['hand'].player_action(message)
+        elif kind == 'table_state':
+            state['hand'].table_state(message)
 
     async def act(turn):
         action, record = agent.decide(state['hand'], turn)
@@ -135,6 +138,25 @@ def test_hand_messages_outside_the_contract_are_unsupported():
                 {'6': {'agent': 'policy:six', 'band': [90, 110]}}):
         with pytest.raises(ValueError):
             parse_routes(bad)
+
+
+@native_only
+@pytest.mark.parametrize('case', ['mid-hand join', 'street labels'])
+def test_live_server_hands_reconstruct_exactly(native, case):
+    """Two hands from the first live session (journal fields only, names removed): a player who
+    joined mid-hand is listed in `your_turn.players` but not dealt in, and every action is
+    labeled with the street after it."""
+    messages = json.loads((Path(__file__).parent / 'fixtures' / 'openpoker_live_hands.json').read_text())[case]
+    agent, hand, records = Agent(native, scripted_routes('script:check-call'), seed=1), None, []
+    for m in messages:
+        kind = m['type']
+        if kind == 'hand_start':
+            hand = Hand.start(m)
+        elif kind == 'your_turn':
+            records.append(agent.decide(hand, m)[1])
+        else:
+            getattr(hand, kind)(m)
+    assert records and all(r['status'] == 'policy' for r in records), records
 
 
 @native_only

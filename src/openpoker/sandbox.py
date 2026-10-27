@@ -74,6 +74,9 @@ class Table:
             actor = state['actor']
             seat = order[actor]
             if seat == self.bot:
+                await send({'type': 'table_state', 'hand_id': hand_id, 'street': state['street'], 'dealer_seat': self.dealer,
+                            'seats': [{'seat': s, 'stack': p[0] // SCALE, 'status': 'active', 'in_hand': True, 'folded': p[3]}
+                                      for s, p in zip(order, state['players'])]})
                 turn = {'type': 'your_turn', 'hand_id': hand_id, 'valid_actions': valid_actions(state['legal']),
                         'pot': sum(p[2] for p in state['players']) // SCALE,
                         'community_cards': [card_name(c) for c in state['board']], 'turn_token': f'{hand_id}-{len(record["actions"])}',
@@ -98,7 +101,8 @@ class Table:
             stack_after = before[0] // SCALE - paid
             message = {'type': 'player_action', 'seat': seat, 'name': f'p{seat}', 'action': kind,
                        'amount': action[1] // SCALE if action[0] == 'raise' else (paid or None),
-                       'street': state['street'], 'stack': stack_after, 'stack_before': before[0] // SCALE,
+                       # Like the server: the street after the action.
+                       'street': 'showdown' if after['finished'] else after['street'], 'stack': stack_after, 'stack_before': before[0] // SCALE,
                        'stack_after': stack_after, 'contribution_delta': paid,
                        'pot': (sum(p[2] for p in after['players']) if not after['finished'] else 0) // SCALE}
             history.append({'seat': seat, 'action': kind, 'amount': message['amount'], 'street': state['street']})

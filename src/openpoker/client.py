@@ -114,6 +114,8 @@ class Session:
             self.track(self.hand.community_cards if self.hand else None, message)
         elif kind == 'player_action':
             self.track(self.hand.player_action if self.hand else None, message)
+        elif kind == 'table_state' and self.hand is not None and str(message.get('hand_id')) == self.hand.hand_id:
+            self.track(self.hand.table_state, message)
         elif kind == 'your_turn' and not replay:
             await self.act(ws, message)
         elif kind == 'action_rejected' and message.get('code') == 'not_at_table' and self.leaving and not replay:

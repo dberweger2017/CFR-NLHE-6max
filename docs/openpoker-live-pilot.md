@@ -54,3 +54,16 @@ The chip result is descriptive only. No-limit results vary by roughly 100 BB per
   - every fallback is a possible all-in blind or a hand outside the contract that the client correctly refuses, such as a dead button.
 - **Engine disagreements, rejected actions or unknown messages** are client findings. They are reported with journal excerpts and fixed in a follow-up before any longer session. They are not retried in this PR.
 - **The owner decides** any longer or repeated live play.
+
+## Amendment, before session 2
+
+Session 1 played 17 hands and was stopped by the stop file on two client findings. Both fell back safely, to check or fold:
+- **Street labels:** the server labels each `player_action` with the street *after* the action. The call that closes preflop arrives as `flop`, and a final fold as `showdown`. The tracker refused the rest of every such hand, so the bot would have check-folded every flop.
+- **Mid-hand joins:** a player who joins during a hand is listed in `your_turn.players` without being dealt in. The tracker counted them, and the engine's replay disagreed with the server about who acts.
+
+The fixes:
+- the tracker assigns each action to the street it is tracking, and refuses only labels that go backwards;
+- it takes the dealt seats from the hand's `table_state` snapshots (`in_hand`);
+- both live hands are regression tests, and the sandbox now labels streets and sends snapshots like the server.
+
+Session 2 plays the remaining 183 hands under the same settings, so the total stays at 200. The report covers both sessions.
