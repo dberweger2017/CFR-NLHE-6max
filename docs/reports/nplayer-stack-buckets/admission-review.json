@@ -1,0 +1,77 @@
+{
+  "admission": {
+    "disk_headroom_bytes": 4294967296,
+    "forecast_new_disk_bytes": 8589934592,
+    "forecast_rss_bytes": 5368709120,
+    "mode": "pilot",
+    "no_elapsed_time_stop": true,
+    "ram_headroom_bytes": 1073741824,
+    "sample": {
+      "available_ram_bytes": 8207777792,
+      "disk_free_bytes": 18436349952,
+      "epoch": 1793056549.5447922,
+      "live_cpu_seconds": 0,
+      "pressure": 1,
+      "swap_used_bytes": 1400635392,
+      "thermal_state": "nominal",
+      "worker_family_rss_bytes": 0
+    }
+  },
+  "launch": {
+    "command": [
+      "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+      "-m",
+      "scripts.nplayer_stack_buckets",
+      "pilot",
+      "/Users/dberweger/Local/nplayer-stack-buckets-20261026/main-v1",
+      "/Users/dberweger/Local/nplayer-stack-buckets-20261026/PILOT-CONFIG-v1.json"
+    ],
+    "config_sha256": "9818feeb4671e4d2d8d3eb9d29d69a4a793ee9bad8b0613a8c20e1e61bc00a37",
+    "epoch": 1793056548.293826,
+    "owner_admission_sha256": "49fac0604a38234ad31244467120cee57ad0a96ef2d98de4fd36840001983960",
+    "pid": 80437,
+    "prelaunch_sample": {
+      "available_ram_bytes": 8184020992,
+      "disk_free_bytes": 18436554752,
+      "epoch": 1793056548.2892501,
+      "live_cpu_seconds": 0,
+      "pressure": 1,
+      "swap_used_bytes": 1400635392,
+      "thermal_state": "nominal",
+      "worker_family_rss_bytes": 0
+    },
+    "review_sha256": "47181614d8a1a866ac176ed23993306d565a2489005a6b5f5d9d479f8fb00da0",
+    "source": "8425ecbd36b40cb51b26d3ba771fccc8aefba587"
+  },
+  "owner": {
+    "allocation_seconds": 1200,
+    "approval_basis": "Owner accepted the proposed M4-only PR plan with Perfect make this pr, including provisional 20-minute pilot conditional on qualification, measured reserve and fresh admission; no separate budget-approval phrase is asserted.",
+    "max_entries": 10000000,
+    "measured_reserved_seconds": 734.269328798752,
+    "no_extra_samples_or_extension": true,
+    "published_quote_commit": "9cb18148",
+    "seed": 20261026441011,
+    "status": "owner-approved",
+    "study": "PR444",
+    "targets": [
+      5000000,
+      25000000,
+      100000000
+    ],
+    "threads": 2
+  },
+  "review": {
+    "guard_tests_passed": 6,
+    "pilot_cleared": true,
+    "qualification_sha256": "1017519a733c3fe89fabd921f3d61179d81ecedb553af1ab53cf0d11f022e7a3",
+    "raw_proof_bindings_verified": true,
+    "reference_cells_checked": 972,
+    "resolved": true,
+    "reviewed_source_files": 898,
+    "reviewer": "/root/stack_buckets_review",
+    "scope": "One fixed M4 candidate only; fresh AC/thermal/RAM/disk and nonblocking normal+study locks; no tuning, retries, bb128, strength arena or extension. All six independent replays and panel barriers required.",
+    "source": "8425ecbd36b40cb51b26d3ba771fccc8aefba587",
+    "study": "PR444",
+    "utc": "2026-10-26T23:15:47Z"
+  }
+}

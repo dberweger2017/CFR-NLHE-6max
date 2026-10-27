@@ -9,6 +9,7 @@ use serde_json::{json, Value};
 pub const SCHEMA: &str = "nplayer-button-live-actor-history-equity-k50-v1";
 /// Coarse keys: docs/nplayer-live-order-keys.md.
 pub const LIVE_ORDER_SCHEMA: &str = "nplayer-live-order-summary-equity-k50-v1";
+pub const STACK_BUCKETS_SCHEMA: &str = "nplayer-stack-owner-buckets-equity-k50-v1";
 pub const STACK_OWNER_SCHEMA: &str = "nplayer-stack-owner-summary-equity-k50-v1";
 pub const MENU: &str = "min-pot-conditional-jam-v1";
 
@@ -21,15 +22,16 @@ pub enum KeySchema {
     /// The live players' order and a capped summary of the betting (`live_order_payload`).
     LiveOrder,
     StackOwner,
+    StackBuckets,
     CompactBlake,
     CompactXxh3,
 }
 impl KeySchema {
-    pub const ALL: [Self; 5] = [Self::History, Self::LiveOrder, Self::StackOwner, Self::CompactBlake, Self::CompactXxh3];
+    pub const ALL: [Self; 6] = [Self::History, Self::LiveOrder, Self::StackOwner, Self::StackBuckets, Self::CompactBlake, Self::CompactXxh3];
     pub const EXACT_HISTORY: [Self; 3] = [Self::History, Self::CompactBlake, Self::CompactXxh3];
     pub fn option(self) -> &'static str {
         match self {
-            Self::History => "v1", Self::LiveOrder => "live-order", Self::StackOwner => "stack-owner",
+            Self::History => "v1", Self::LiveOrder => "live-order", Self::StackOwner => "stack-owner", Self::StackBuckets => "stack-buckets",
             Self::CompactBlake => "compact-blake2b-v2", Self::CompactXxh3 => "compact-xxh3-v2",
         }
     }
@@ -45,6 +47,7 @@ impl KeySchema {
             KeySchema::History => SCHEMA,
             KeySchema::LiveOrder => LIVE_ORDER_SCHEMA,
             Self::StackOwner => STACK_OWNER_SCHEMA,
+            Self::StackBuckets => STACK_BUCKETS_SCHEMA,
             Self::CompactBlake => "nplayer-button-history-equity-k50-compact-blake2b-v2",
             Self::CompactXxh3 => "nplayer-button-history-equity-k50-compact-xxh3-v2",
         }
@@ -318,6 +321,59 @@ fn stack_owner_payload(o: &Observation<'_>, cards: &[u8], choices: &[(u8, Action
     out
 }
 
+/// A zero tag plus positive ratio buckets; boundaries use exact integer comparisons.
+const STACK_AMOUNT_EDGES: [(u64,u64);9] = [(1,16),(1,8),(1,4),(1,2),(1,1),(2,1),(4,1),(8,1),(16,1)];
+fn stack_amount_bucket(value:u64, base:u64)->u8 {
+    if value==0 {0} else {1+bucket(value,base,&STACK_AMOUNT_EDGES)}
+}
+fn comparison(a:u64,b:u64)->u8 { if a<b {0} else if a==b {1} else {2} }
+
+/// Deliberately coarse public abstraction. Exact initial ownership and contribution
+/// topology survive; numerical amounts/raise targets may differ inside a row.
+fn stack_buckets_payload(o:&Observation<'_>,cards:&[u8],choices:&[(u8,Action)],code:u16)->Vec<u8> {
+    let (summary,_)=live_order_payload(o,cards,code);
+    let mut out=STACK_BUCKETS_SCHEMA.as_bytes().to_vec();out.push(0);
+    out.extend_from_slice(&summary[LIVE_ORDER_SCHEMA.len()+1..]);
+    let n=o.config.players();let relative=|seat:usize|((seat+n-o.button)%n)as u8;
+    out.extend_from_slice(&[n as u8,relative(o.seat)]);
+    out.extend_from_slice(&o.config.small_blind().to_le_bytes());
+    out.extend_from_slice(&o.config.big_blind().to_le_bytes());
+    let pot:u64=o.players.iter().map(|p|p.contributed).sum();
+    let base=pot.max(o.config.big_blind());
+    out.push(bucket(pot,o.config.big_blind(),&POT_EDGES_BB.map(|e|(e,1))));
+    for i in 0..n {
+        let seat=(o.button+i)%n;let p=o.players[seat];
+        out.extend_from_slice(&o.config.stacks()[seat].to_le_bytes());
+        out.extend_from_slice(&[p.folded as u8,(p.stack==0) as u8]);
+        for value in [p.stack,p.street_bet,p.contributed,p.contributed-p.street_bet] {
+            out.push(stack_amount_bucket(value,base));
+        }
+    }
+    for i in 0..n {for j in i+1..n {
+        let a=o.players[(o.button+i)%n];let b=o.players[(o.button+j)%n];
+        out.push(comparison(a.contributed,b.contributed));
+        out.push(comparison(a.street_bet,b.street_bet));
+    }}
+    let mut aggressors=[u8::MAX;4];
+    for event in o.history {
+        if let Event::Action{street,actor,action,..}=event {
+            if action.kind==Kind::Raise {aggressors[*street as usize]=relative(*actor);}
+        }
+    }
+    out.extend_from_slice(&aggressors[..=o.street as usize]);
+    let legal=o.legal.expect("acting observation");let hero=o.players[o.seat];
+    out.push((legal.call_amount>0 && legal.call_amount==hero.stack)as u8);
+    let matched=hero.street_bet+legal.call_amount;
+    let after=(pot+legal.call_amount).max(o.config.big_blind());
+    out.push(choices.len()as u8);
+    for (label,action)in choices {
+        out.extend_from_slice(&[*label,kind_code(action.kind),
+            (action.kind==Kind::Raise && action.raise_to==hero.stack+hero.street_bet)as u8,
+            stack_amount_bucket(action.raise_to.saturating_sub(matched),after)]);
+    }
+    out
+}
+
 fn card_class(observation: &Observation<'_>, tables: Option<&EquityTables>) -> Vec<u8> {
     if observation.board.is_empty() {
         let [a, b] = observation.hole;
@@ -376,6 +432,7 @@ fn decision_from_cards(schema: KeySchema, observation: &Observation<'_>, cards: 
             crate::key::digest16(&bytes)
         },
         KeySchema::StackOwner => crate::key::digest16(&stack_owner_payload(observation, cards, choices, code)),
+        KeySchema::StackBuckets => crate::key::digest16(&stack_buckets_payload(observation,cards,choices,code)),
         KeySchema::CompactBlake => crate::key::digest16(&compact_payload(observation, cards)),
         KeySchema::CompactXxh3 => xxhash_rust::xxh3::xxh3_128(&compact_payload(observation, cards)).to_le_bytes(),
     };
@@ -901,5 +958,72 @@ mod stack_owner_tests {
         assert_ne!(folded,stack_owner_payload(&changed,&cards,&choices,code));
         let mut menu=choices.clone();menu.last_mut().unwrap().1.raise_to+=1;
         assert_ne!(base,stack_owner_payload(&o,&cards,&menu,code));
+    }
+}
+
+#[cfg(test)]
+mod stack_buckets_tests {
+    use super::*;
+    fn key(h: &Hand) -> Decision {
+        observation_decision_with_tables(KeySchema::StackBuckets, &h.observe(h.actor().unwrap()).unwrap(), None)
+    }
+    fn hand(stacks: &[u64], button: usize, deck: &[u8]) -> Hand {
+        Hand::from_deck(Config::new(stacks, 50, 100).unwrap(), button, deck).unwrap()
+    }
+    #[test]
+    fn ratio_zero_boundaries_and_large_products() {
+        assert_eq!(stack_amount_bucket(0,1600),0);
+        assert_eq!(stack_amount_bucket(1,1600),1);
+        for (i,(num,den)) in STACK_AMOUNT_EDGES.iter().enumerate() {
+            let boundary=1600*num/den;
+            assert_eq!(stack_amount_bucket(boundary-1,1600),i as u8+1);
+            assert_eq!(stack_amount_bucket(boundary,1600),i as u8+2);
+        }
+        assert_eq!(stack_amount_bucket(u64::MAX,u64::MAX),6);
+    }
+    #[test]
+    fn legal_nearby_raise_histories_share_but_targets_are_current() {
+        let deck:Vec<_>=(0..52).collect();
+        let mut a=hand(&[2000,5000,10000],0,&deck);let mut b=a.clone();
+        a.apply_mut(Action{kind:Kind::Raise,raise_to:200}).unwrap();
+        b.apply_mut(Action{kind:Kind::Raise,raise_to:201}).unwrap();
+        assert_eq!(key(&a),key(&b));
+        let oa=a.observe(a.actor().unwrap()).unwrap();let ob=b.observe(b.actor().unwrap()).unwrap();
+        assert_ne!(menu(&oa),menu(&ob));
+        assert_eq!(menu(&oa).iter().map(|(l,a)|(*l,a.kind)).collect::<Vec<_>>(),menu(&ob).iter().map(|(l,a)|(*l,a.kind)).collect::<Vec<_>>());
+        assert_ne!(observation_decision_with_tables(KeySchema::StackOwner,&oa,None).key,
+                   observation_decision_with_tables(KeySchema::StackOwner,&ob,None).key);
+        for (_,action)in menu(&oa) {let mut branch=a.clone();branch.apply_mut(action).unwrap();}
+        for (_,action)in menu(&ob) {let mut branch=b.clone();branch.apply_mut(action).unwrap();}
+    }
+    #[test]
+    fn ownership_hidden_worlds_and_rotation() {
+        let deck:Vec<_>=(0..52).collect();
+        let a=hand(&[2000,5000,10000],0,&deck);
+        let b=hand(&[10000,5000,2000],0,&deck);
+        assert_ne!(key(&a).key,key(&b).key);
+        let mut hidden=deck.clone();hidden.swap(0,1);hidden.swap(6,51);
+        assert_eq!(key(&a),key(&hand(&[2000,5000,10000],0,&hidden)));
+        let rotated=key(&hand(&[10000,2000,5000],1,&deck));
+        assert_eq!((key(&a).key,key(&a).owner,key(&a).code),(rotated.key,rotated.owner,rotated.code));
+    }
+    #[test]
+    fn contribution_equality_folded_context_and_menu_contract_do_not_merge() {
+        let deck:Vec<_>=(0..52).collect();let h=hand(&[2000,5000,10000],0,&deck);
+        let mut o=h.observe(0).unwrap();let cards=card_class(&o,None);
+        let choices=menu(&o);let code=choices.iter().fold(0,|c,(l,_)|c|1<<l);
+        let mut players=o.players.to_vec();players[1].folded=true;players[0].contributed=50;
+        o.players=&players;
+        let equal=stack_buckets_payload(&o,&cards,&choices,code);
+        // A one-chip change is within the same ratio buckets but breaks contribution equality.
+        let mut unequal=players.clone();unequal[0].contributed=51;
+        o.players=&unequal;assert_ne!(equal,stack_buckets_payload(&o,&cards,&choices,code));
+        o.players=&players;
+        let mut live=players.clone();live[1].folded=false;
+        o.players=&live;assert_ne!(equal,stack_buckets_payload(&o,&cards,&choices,code));
+        let mut changed=choices.clone();changed[0].0=1;
+        assert_ne!(stack_buckets_payload(&o,&cards,&choices,code),stack_buckets_payload(&o,&cards,&changed,code));
+        let mut changed=choices.clone();changed.last_mut().unwrap().1.raise_to=o.players[0].stack+o.players[0].street_bet;
+        assert_ne!(stack_buckets_payload(&o,&cards,&choices,code),stack_buckets_payload(&o,&cards,&changed,code));
     }
 }

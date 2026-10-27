@@ -1,5 +1,25 @@
 # Roadmap
 
+## Bucketed variable-stack pilot complete; no substantial support gain established
+
+[PR444](https://github.com/dberweger2017/CFR-NLHE-6max/pull/444),
+[frozen protocol](docs/nplayer-stack-buckets.md),
+[results and agent handoff](docs/reports/nplayer-stack-buckets/results.md):
+the opt-in public stack-owner bucket schema passes independent review, legacy
+byte parity, thread/resume/inference checks and the fixed M4 5M→25M→100M pilot.
+All endpoint rows and 243 initial +243 repeated hands verify; six independent
+replays close the native proof barrier. Main takes 2m22s, sampled peak 2.82 GiB.
+
+Membership still freezes near 18–19M nodes at 10,000,186 rows. At 100M, original
+positive support equals PR441; held-out support improves by 29/3,091 observations
+(0.94 points), with adverse turn/river cells retained and about 99% river misses.
+Neither panel nor their union shows observed reference-key compression. The
+schema also adds original aggressor context, so this is not pure amount coarsening.
+Attempted watch reach 1,507 differs from retained nonzero reach 1,231. Keep all
+models/evidence; do not infer strength, scale automatically or change defaults.
+Review remaining fragmentation before another proposed experiment. M4 locks free;
+bb128 untouched; ordinary evidence retained, cleaner archival pending.
+
 ## Three-player variable-stack pilot complete; qualify representation before scaling
 
 [PR441](https://github.com/dberweger2017/CFR-NLHE-6max/pull/441),

@@ -78,7 +78,7 @@ impl Audit {
             KeySchema::History => return key,
             KeySchema::CompactBlake => 0,
             KeySchema::CompactXxh3 => 1,
-            KeySchema::LiveOrder | KeySchema::StackOwner => panic!("live-order is not an exact-history encoding"),
+            KeySchema::LiveOrder | KeySchema::StackOwner | KeySchema::StackBuckets => panic!("coarse keys are not exact-history encodings"),
         };
         *self.reverse[index][key[0] as usize % SHARDS]
             .lock()
@@ -260,7 +260,7 @@ fn run() -> Result<(), String> {
     let out = Path::new(&a[3]);
     std::fs::create_dir(out).map_err(|e| e.to_string())?;
     let schema = KeySchema::parse(&a[4])?;
-    if schema == KeySchema::LiveOrder { return Err("key benchmark compares exact-history encodings only".into()); }
+    if !KeySchema::EXACT_HISTORY.contains(&schema) { return Err("key benchmark compares exact-history encodings only".into()); }
     phase("load", 0);
     let start = Instant::now();
     let tables = EquityTables::load(Path::new(&a[2]), false)?;

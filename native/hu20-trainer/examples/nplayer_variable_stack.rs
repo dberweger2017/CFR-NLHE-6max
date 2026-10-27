@@ -31,7 +31,7 @@ fn write(path: &Path, value: Value) -> Result<(), String> {
         .map_err(|e| e.to_string())?;
     writeln!(f, "{value}").map_err(|e| e.to_string())
 }
-fn hash(path: &Path) -> Result<String, String> {
+pub(crate) fn hash(path: &Path) -> Result<String, String> {
     multi_binary::sha_file(path)
 }
 #[derive(Clone, Default)]
@@ -43,6 +43,7 @@ struct Learning {
     opponent_only: u64,
     unseen_before_merge: u64,
     declined_at_frozen_table: u64,
+    retained_nonzero_aggregate: u64,
 }
 #[derive(Default)]
 struct Watch {
@@ -50,13 +51,23 @@ struct Watch {
     nonzero: u64,
     sum_w: f64,
     sum_w2: f64,
+    retained_roots: u64,
+    retained_nonzero: u64,
+    declined_roots: u64,
 }
-struct Ledger {
+pub(crate) struct Ledger {
     cells: Vec<Vec<Vec<Learning>>>,
     watch: BTreeMap<Key, Watch>,
 }
 impl Ledger {
     fn new(panel: &[(usize, Hand)], tables: &EquityTables) -> Self {
+        Self::new_for(panel, tables, KeySchema::StackOwner)
+    }
+    pub(crate) fn new_for(
+        panel: &[(usize, Hand)],
+        tables: &EquityTables,
+        schema: KeySchema,
+    ) -> Self {
         Self {
             cells: vec![vec![vec![Learning::default(); 4]; 3]; 27],
             watch: panel
@@ -64,8 +75,7 @@ impl Ledger {
                 .map(|(_, h)| {
                     let o = h.observe(h.actor().unwrap()).unwrap();
                     (
-                        multi_holdem::observation_decision_for(KeySchema::StackOwner, &o, tables)
-                            .key,
+                        multi_holdem::observation_decision_for(schema, &o, tables).key,
                         Watch::default(),
                     )
                 })
@@ -96,18 +106,23 @@ impl Ledger {
             let missing = !table.contains_key(key);
             c.unseen_before_merge += u64::from(missing);
             c.declined_at_frozen_table += u64::from(missing && frozen);
+            let accepted = !missing || !frozen;
+            c.retained_nonzero_aggregate += u64::from(accepted && d.visits > 0 && nonzero);
             if d.visits > 0 {
                 if let Some(w) = self.watch.get_mut(key) {
                     let mass = weight * d.visits as f64;
                     w.roots += 1;
                     w.nonzero += u64::from(nonzero);
+                    w.retained_roots += u64::from(accepted);
+                    w.retained_nonzero += u64::from(accepted && nonzero);
+                    w.declined_roots += u64::from(!accepted);
                     w.sum_w += mass;
                     w.sum_w2 += mass * mass;
                 }
             }
         }
     }
-    fn value(&self) -> Value {
+    pub(crate) fn value(&self) -> Value {
         let mut cells = Vec::new();
         for (tuple, seats) in self.cells.iter().enumerate() {
             for (seat, ss) in seats.iter().enumerate() {
@@ -116,7 +131,7 @@ impl Ledger {
             "hero_starting_depth_bb":multi_stacks::config(tuple).unwrap().stacks()[seat]/100,"street":street,
             "root_key_contributions":c.roots,"traverser_visits":c.visits,"nonzero_regret_root_aggregates":c.nonzero_aggregate,
             "zero_regret_root_aggregates_with_visits":c.zero_aggregate,"opponent_only_root_aggregates":c.opponent_only,
-            "unseen_before_merge":c.unseen_before_merge,"declined_at_frozen_table":c.declined_at_frozen_table}));
+            "unseen_before_merge":c.unseen_before_merge,"declined_at_frozen_table":c.declined_at_frozen_table,"retained_nonzero_regret_root_aggregates":c.retained_nonzero_aggregate}));
                 }
             }
         }
@@ -126,7 +141,7 @@ impl Ledger {
             .map(|(key, w)| {
                 json!({"key":multi_checkpoint::key_hex(key),
             "positive_weight_root_contributions":w.roots,"nonzero_regret_root_aggregates":w.nonzero,
-            "weight_sum":w.sum_w,"weight_square_sum":w.sum_w2,
+            "retained_root_contributions":w.retained_roots,"retained_nonzero_regret_root_aggregates":w.retained_nonzero,"declined_root_contributions":w.declined_roots,"weight_sum":w.sum_w,"weight_square_sum":w.sum_w2,
             "nominal_weight_ess":if w.sum_w2>0.{w.sum_w*w.sum_w/w.sum_w2}else{0.}})
             })
             .collect();
@@ -134,7 +149,10 @@ impl Ledger {
     }
 }
 fn panel(tables: &EquityTables) -> Result<Vec<(usize, Hand)>, String> {
-    let mut rng = rand::rngs::StdRng::seed_from_u64(PANEL_SEED);
+    panel_for(tables, PANEL_SEED)
+}
+pub(crate) fn panel_for(tables: &EquityTables, seed: u64) -> Result<Vec<(usize, Hand)>, String> {
+    let mut rng = rand::rngs::StdRng::seed_from_u64(seed);
     let mut out = Vec::new();
     for tuple in 0..27 {
         for button in 0..3 {
@@ -197,7 +215,11 @@ fn audit_panel(panel: &[(usize, Hand)], trainer: &Trainer, tables: &EquityTables
     for (tuple, h) in panel {
         let o = h.observe(h.actor().unwrap()).unwrap();
         let old = multi_holdem::observation_decision_for(KeySchema::LiveOrder, &o, tables);
-        let new = multi_holdem::observation_decision_for(KeySchema::StackOwner, &o, tables);
+        let new = multi_holdem::observation_decision_for(
+            KeySchema::from_identity(&trainer.identity).unwrap(),
+            &o,
+            tables,
+        );
         let exact = multi_holdem::observation_decision_for(KeySchema::History, &o, tables);
         aliases.entry(old.key).or_default().insert(new.key);
         merges.entry(new.key).or_default().insert(exact.key);
@@ -246,14 +268,19 @@ fn audit_panel(panel: &[(usize, Hand)], trainer: &Trainer, tables: &EquityTables
        "stack_owner_keys_merging_exact_history":merges.values().filter(|v|v.len()>1).count(),
        "scope":"Same324fixed synthetic hands/observations at every endpoint; balanced tuples/buttons and uniform-menu/check-call continuations, not population or strength estimates."})
 }
-fn trainer(game: &StackMixtureGame, cap: usize, seed: u64) -> Trainer {
+pub(crate) fn trainer(game: &StackMixtureGame, cap: usize, seed: u64) -> Trainer {
     Trainer {
         sampling: Sampling::Path,
         roots_per_seat: 8,
         ..Trainer::new(game, seed, 3, cap, true)
     }
 }
-fn train_steps(game: &StackMixtureGame, t: &mut Trainer, ledger: &mut Ledger, steps: usize) {
+pub(crate) fn train_steps(
+    game: &StackMixtureGame,
+    t: &mut Trainer,
+    ledger: &mut Ledger,
+    steps: usize,
+) {
     for _ in 0..steps {
         let frozen = t.frozen_at.is_some();
         t.step_fast_observed(game, |label, w, table, d| {
@@ -270,7 +297,7 @@ fn snapshot(h: &Hand) -> Value {
       "players":h.players().iter().map(|p|json!([p.stack,p.street_bet,p.contributed,p.folded])).collect::<Vec<_>>(),
       "holes":(0..3).map(|s|h.observe(s).unwrap().hole).collect::<Vec<_>>(),"legal":legal,"rewards":h.settlement().map(|s|s.rewards[..3].to_vec())})
 }
-fn play(
+pub(crate) fn play(
     path: &Path,
     model: Arc<PolicyTable>,
     t: &Trainer,
@@ -349,7 +376,7 @@ fn play(
         json!({"hands":81,"side_pot_hands":side_pot_hands,"lookup_cells":exposure,"columns":["missing","zero_average_mass","positive_average_mass"],"sha256":hash(path)?}),
     )
 }
-fn retained_rows(t: &Trainer) -> Value {
+pub(crate) fn retained_rows(t: &Trainer) -> Value {
     let mut row_audit = vec![[0u64; 5]; 4];
     for e in t.table.values() {
         let c = &mut row_audit[e.street as usize];
@@ -362,11 +389,19 @@ fn retained_rows(t: &Trainer) -> Value {
     json!({"by_street":row_audit,"columns":["retained_rows","no_traverser_visit","two_or_more_traverser_visits","all_zero_final_regrets","zero_average_mass"],"limits":"Final-row audit; cancellation can zero regrets. Visits are update opportunities, not proof of nonzero learning. Pathwise zero target reach/underflow is not implemented."})
 }
 fn qualify(tables: &'static EquityTables, out: &Path) -> Result<(), String> {
+    qualify_for(tables, out, KeySchema::StackOwner, SEED)
+}
+pub(crate) fn qualify_for(
+    tables: &'static EquityTables,
+    out: &Path,
+    schema: KeySchema,
+    seed: u64,
+) -> Result<(), String> {
     let started = Instant::now();
-    let game = StackMixtureGame::new(tables);
+    let game = StackMixtureGame::with_schema(tables, schema)?;
     let panel = panel(tables)?;
-    let mut a = trainer(&game, 100000, SEED);
-    let mut ledger = Ledger::new(&panel, tables);
+    let mut a = trainer(&game, 100000, seed);
+    let mut ledger = Ledger::new_for(&panel, tables, schema);
     let pool = rayon::ThreadPoolBuilder::new()
         .num_threads(2)
         .build()
