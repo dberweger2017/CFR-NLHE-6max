@@ -38,8 +38,8 @@ fn text<'a>(v: &'a Value, key: &str) -> Result<&'a str, String> {
         .ok_or_else(|| format!("string {key} required"))
 }
 pub fn schedule(n: usize, declared: &Value) -> Result<Vec<Vec<usize>>, String> {
-    if !(3..=6).contains(&n) {
-        return Err("paired arena supports three to six players".into());
+    if !(2..=6).contains(&n) {
+        return Err("paired arena supports two to six players".into());
     }
     let rows = if declared.is_null() {
         (0..n)
@@ -630,7 +630,7 @@ mod tests {
     }
     #[test]
     fn invalid_duplicate_and_unbalanced_schedules_refuse() {
-        assert!(schedule(2, &Value::Null).is_err());
+        assert!(schedule(1, &Value::Null).is_err() && schedule(7, &Value::Null).is_err() && schedule(2, &Value::Null).unwrap().len() == 2);
         assert!(schedule(
             4,
             &json!([[0, 1, 2, 3], [0, 1, 2, 3], [1, 2, 3, 0], [2, 3, 0, 1]])
@@ -686,7 +686,7 @@ mod tests {
         scripted["focals"] = json!(["bot=random", "b"]);
         scripted["focal_views"] = json!(["projected", "native"]);
         assert!(Case::parse(&scripted).is_err());
-        assert!(schedule(2, &Value::Null).is_err());
+        assert!(schedule(1, &Value::Null).is_err() && schedule(7, &Value::Null).is_err() && schedule(2, &Value::Null).unwrap().len() == 2);
     }
 
     #[test]

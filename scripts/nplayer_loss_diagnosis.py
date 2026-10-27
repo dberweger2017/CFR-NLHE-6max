@@ -21,7 +21,7 @@ from pathlib import Path
 from scripts import nplayer_paired_evidence as evidence
 
 STREETS = ('preflop', 'flop', 'turn', 'river')
-POSITIONS = {3: ('BTN', 'SB', 'BB'), 4: ('BTN', 'SB', 'BB', 'UTG'), 5: ('BTN', 'SB', 'BB', 'UTG', 'CO'),
+POSITIONS = {2: ('BTN', 'BB'), 3: ('BTN', 'SB', 'BB'), 4: ('BTN', 'SB', 'BB', 'UTG'), 5: ('BTN', 'SB', 'BB', 'UTG', 'CO'),
              6: ('BTN', 'SB', 'BB', 'UTG', 'HJ', 'CO')}
 UNTRAINED = ('missing', 'zero_mass')
 HAND_COLUMNS = ('hand', 'block', 'seat', 'position', 'preflop_line', 'ending', 'showdown_result',
