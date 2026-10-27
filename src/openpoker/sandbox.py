@@ -159,22 +159,40 @@ async def serve(native, *, host='127.0.0.1', port=0, token='sandbox', seats=None
                 message = await inbox.get()
                 if message.get('type') == 'leave_table':
                     raise ConnectionAbortedError
+                if message.get('type') == 'set_auto_rebuy':
+                    await send({'type': 'auto_rebuy_set', 'enabled': bool(message.get('enabled'))})
                 if message.get('type') == 'action' and message.get('turn_token') == turn['turn_token']:
                     await send({'type': 'action_ack', 'client_action_id': message.get('client_action_id'), 'status': 'accepted'})
                     return message
 
-        played = 0
+        played, left = 0, False
         try:
             while played < hands and await table.hand(send, act):
                 played += 1
                 if not inbox.empty() and inbox._queue[0].get('type') == 'leave_table':
+                    left = True
                     break
-            await send({'type': 'table_closed', 'reason': 'sandbox_finished'})
+            if not left:
+                await send({'type': 'table_closed', 'reason': 'sandbox_finished'})
         except ConnectionAbortedError:
-            pass
-        task.cancel()
+            left = True
+        if left:
+            await send({'type': 'player_left', 'seat': bot_seat, 'name': 'sandbox', 'reason': 'left'})
+        else:
+            try:
+                while (await asyncio.wait_for(inbox.get(), 5)).get('type') != 'leave_table':
+                    pass
+                await send({'type': 'action_rejected', 'code': 'not_at_table'})
+            except asyncio.TimeoutError:
+                pass
         if results is not None:
             results.update(hands=played, violations=table.violations, stacks={s: v[1] for s, v in table.seats.items()})
+        # Like the server, keep the socket open and let the client close it.
+        try:
+            await asyncio.wait_for(ws.wait_closed(), 5)
+        except asyncio.TimeoutError:
+            pass
+        task.cancel()
         await ws.close()
 
     async with websockets.serve(handler, host, port) as server:

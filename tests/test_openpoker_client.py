@@ -178,5 +178,34 @@ def test_websocket_session_plays_a_bounded_sandbox_session(native, tmp_path):
     assert results['violations'] == 0 and results['hands'] == 12
     lines = [json.loads(line) for line in (tmp_path / 'journal.jsonl').read_text().splitlines()]
     sent = [l['payload'] for l in lines if l['kind'] == 'out']
-    assert sent[0] == {'type': 'join_lobby', 'buy_in': 2000} and sent[-1] == {'type': 'leave_table'}
+    assert sent[:2] == [{'type': 'join_lobby', 'buy_in': 2000}, {'type': 'set_auto_rebuy', 'enabled': False}]
+    assert {'type': 'leave_table'} in sent
+    # The session waits for the server to confirm the leave before closing.
+    assert lines[-1]['kind'] == 'in' and lines[-1]['payload']['type'] == 'player_left'
     assert TOKEN not in (tmp_path / 'journal.jsonl').read_text()
+
+
+@native_only
+def test_session_leaves_a_closed_table_once_more_and_never_rejoins(native, tmp_path):
+    pytest.importorskip('websockets')
+    from src.openpoker import sandbox
+    from src.openpoker.client import Journal, Session
+
+    async def main():
+        started, results = asyncio.get_running_loop().create_future(), {}
+        server = asyncio.create_task(sandbox.serve(native, token=TOKEN, hands=5, started=started, results=results))
+        port = await started
+        journal = Journal(tmp_path / 'journal.jsonl')
+        session = Session(Agent(native, scripted_routes('script:check-call'), seed=3), journal, buy_in=2000, max_hands=12)
+        await asyncio.wait_for(session.run(f'ws://127.0.0.1:{port}', TOKEN), 60)
+        journal.close()
+        server.cancel()
+        return session
+
+    session = asyncio.run(main())
+    assert session.hands == 5 and session.done
+    lines = [json.loads(line) for line in (tmp_path / 'journal.jsonl').read_text().splitlines()]
+    sent = [l['payload']['type'] for l in lines if l['kind'] == 'out']
+    received = [l['payload'] for l in lines if l['kind'] == 'in']
+    assert sent.count('join_lobby') == 1 and sent[-1] == 'leave_table'
+    assert received[-2]['type'] == 'table_closed' and received[-1] == {'type': 'action_rejected', 'code': 'not_at_table'}

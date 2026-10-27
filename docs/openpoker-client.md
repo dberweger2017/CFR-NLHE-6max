@@ -28,8 +28,10 @@
   - `join_lobby` uses the declared buy-in (1,000–5,000 chips).
   - Each action carries a fresh `client_action_id` and the turn's `turn_token`.
   - A rejected action gets one safe retry, unless the token is stale.
-- **Stopping:** after `--max-hands` completed hands, when `--stop-file` exists, on `busted`, or when the table closes. The client leaves the table first.
-- **No automatic rebuy and no rejoin.**
+- **Stopping:** after `--max-hands` completed hands, when `--stop-file` exists, on `busted`, or when the table closes.
+  - The client sends `leave_table` and keeps the socket open until the server confirms: `player_left` for its own seat, or `not_at_table`. It gives up after 60 seconds.
+  - After `table_closed` it sends one more `leave_table`, because a closing table can briefly requeue the bot. This follows [the bot lifecycle](https://docs.openpoker.ai/building-bots/bot-lifecycle).
+- **No rebuy and no rejoin.** After `join_lobby` the client sends `set_auto_rebuy` with `enabled: false`, and it never sends a manual rebuy.
 - **Reconnects:** tried for up to 110 seconds of Open Poker's 120-second seat hold, followed by `resync_request`. Replayed events update the hand without acting. A snapshot that still holds the hero's `turn_token` is acted on once.
 - **Journal:** every inbound and outbound message and every decision record goes to a new JSONL file (`--journal`, never overwritten).
 
