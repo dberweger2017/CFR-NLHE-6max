@@ -1,0 +1,279 @@
+{
+  "status": "qualified-cost-only",
+  "main_started": false,
+  "source": "d977d9f3f1c07dfd1448d306ee56d2f6a45674ee",
+  "source_sha256": "865febf768513471929882a08faf8b62a74ff079888010892b269fe47ccf2a03",
+  "quote": {
+    "status": "quoted",
+    "source_sha256": "865febf768513471929882a08faf8b62a74ff079888010892b269fe47ccf2a03",
+    "binary_sha256": "2968a771f4d54b0b7772a431b355f8d2b832025f9f4f3c65cd28fe83c6f1cc30",
+    "central_seconds": 146.48914895325908,
+    "reserved_seconds": 500.1857295157772,
+    "calibration_stage": {
+      "stage": "calibration",
+      "command": [
+        "/Users/dberweger/Local/nplayer-passive-learning-20261028/native-binary-v1",
+        "/Users/dberweger/Local/nplayer-passive-learning-20261028/calibration-v1/calibration/manifest.json"
+      ],
+      "pid": 37129,
+      "process_group": 37129,
+      "returncode": 0,
+      "terminal_failure": null,
+      "wall_seconds": 7.918589291977696,
+      "sampled_peak_family_rss_bytes": 1526611968,
+      "user_cpu_seconds": 3.317281,
+      "system_cpu_seconds": 4.391873,
+      "cpu_scope": "Direct-child wait accounting; do not assume totals for orphan descendants."
+    },
+    "projected_main_family_rss_bytes": 5368709120,
+    "ram_headroom_bytes": 1073741824,
+    "projected_new_main_bytes": 4294967296,
+    "disk_headroom_bytes": 4294967296,
+    "main_started": false,
+    "explicit_budget_acceptance_required": true,
+    "assumptions": "Fixed sweep count, two fresh processes with hash-only row reproduction. Training scales16 to512 sweeps with2x/4x larger-table scenarios; row cost assumes2.1M per endpoint, 3x reserve; watch/metadata64 to512. Not a completion guarantee, power forecast or mature-model rate."
+  },
+  "complete": {
+    "status": "quoted",
+    "quote_sha256": "6e8633873e2faeb22a9a95c3e32d9c45e28b428973a24aeb70a34ceae0017cbe",
+    "main_started": false
+  },
+  "wrapper_cost": {
+    "wall_seconds": 8.969525624997914,
+    "stages": [
+      {
+        "stage": "calibration",
+        "command": [
+          "/Users/dberweger/Local/nplayer-passive-learning-20261028/native-binary-v1",
+          "/Users/dberweger/Local/nplayer-passive-learning-20261028/calibration-v1/calibration/manifest.json"
+        ],
+        "pid": 37129,
+        "process_group": 37129,
+        "returncode": 0,
+        "terminal_failure": null,
+        "wall_seconds": 7.918589291977696,
+        "sampled_peak_family_rss_bytes": 1526611968,
+        "user_cpu_seconds": 3.317281,
+        "system_cpu_seconds": 4.391873,
+        "cpu_scope": "Direct-child wait accounting; do not assume totals for orphan descendants."
+      }
+    ]
+  },
+  "admission": {
+    "sample": {
+      "epoch": 1793218435.864727,
+      "thermal_state": "nominal",
+      "available_ram_bytes": 7581630464,
+      "swap_used_bytes": 517734400,
+      "disk_free_bytes": 14138732544,
+      "pressure": 1,
+      "worker_family_rss_bytes": 0,
+      "live_cpu_seconds": 0
+    },
+    "forecast_family_rss_bytes": 3221225472,
+    "ram_headroom_bytes": 1073741824,
+    "forecast_new_bytes": 2147483648,
+    "disk_headroom_bytes": 4294967296
+  },
+  "independent_review": {
+    "status": "approved",
+    "study": "PR457",
+    "reviewer": "/root/passive_learning_review",
+    "scope": "perturbed-policy-math-information-qualification-v1",
+    "source_sha256": "865febf768513471929882a08faf8b62a74ff079888010892b269fe47ccf2a03",
+    "binary_sha256": "2968a771f4d54b0b7772a431b355f8d2b832025f9f4f3c65cd28fe83c6f1cc30",
+    "unresolved": [],
+    "clearance": "Fixed8/16costcalibration; main only after explicit measured allocation and fresh admission; no strength claim.",
+    "source_commit": "d977d9f3f1c07dfd1448d306ee56d2f6a45674ee"
+  },
+  "target_fixtures_v1": {
+    "status": "passed",
+    "source_sha256": "af5d9144dccd43ac6c48842c44e7f818f5b1a11d176c7c0fb36f82cd1650ab18",
+    "binary_sha256": "2968a771f4d54b0b7772a431b355f8d2b832025f9f4f3c65cd28fe83c6f1cc30",
+    "fixture_binary_sha256": "cb20cb321073c49d0e36fd486e8935a5eb78ae3090449fed1413359f8d62dd17",
+    "costs": [
+      {
+        "command": [
+          "/Users/dberweger/Local/nplayer-passive-learning-20261028/fixture-tests-v1",
+          "--test-threads=1"
+        ],
+        "pid": 36790,
+        "returncode": 0,
+        "wall_seconds": 0.22214004100533202,
+        "user_cpu_seconds": 0.357388,
+        "system_cpu_seconds": 0.012556999999999999,
+        "direct_child_max_rss_bytes": 5455872
+      },
+      {
+        "command": [
+          "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_research_process_guard.py"
+        ],
+        "pid": 36791,
+        "returncode": 0,
+        "wall_seconds": 0.19394362496677786,
+        "user_cpu_seconds": 0.085613,
+        "system_cpu_seconds": 0.08270899999999999,
+        "direct_child_max_rss_bytes": 20807680
+      },
+      {
+        "command": [
+          "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_nplayer_passive_learning_qualification.py"
+        ],
+        "pid": 36823,
+        "returncode": 0,
+        "wall_seconds": 0.08175675000529736,
+        "user_cpu_seconds": 0.05764,
+        "system_cpu_seconds": 0.012223999999999999,
+        "direct_child_max_rss_bytes": 32342016
+      }
+    ]
+  },
+  "target_fixtures_v2": {
+    "status": "passed",
+    "source_sha256": "865febf768513471929882a08faf8b62a74ff079888010892b269fe47ccf2a03",
+    "binary_sha256": "2968a771f4d54b0b7772a431b355f8d2b832025f9f4f3c65cd28fe83c6f1cc30",
+    "native_fixture_receipt": "/Users/dberweger/Local/nplayer-passive-learning-20261028/target-fixtures-v1/COMPLETE.json",
+    "native_math_source_unchanged": true,
+    "costs": [
+      {
+        "command": [
+          "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_research_process_guard.py"
+        ],
+        "pid": 37040,
+        "returncode": 0,
+        "wall_seconds": 0.18415858398657292,
+        "user_cpu_seconds": 0.085267,
+        "system_cpu_seconds": 0.079978,
+        "direct_child_max_rss_bytes": 21135360
+      },
+      {
+        "command": [
+          "/Users/dberweger/Local/hu200-river-search/.venv/bin/python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_nplayer_passive_learning_qualification.py"
+        ],
+        "pid": 37064,
+        "returncode": 0,
+        "wall_seconds": 0.0689492910169065,
+        "user_cpu_seconds": 0.056879,
+        "system_cpu_seconds": 0.010399,
+        "direct_child_max_rss_bytes": 32325632
+      }
+    ]
+  },
+  "startup_and_watch_seconds": 2.549582375,
+  "native_wall_seconds": 5.353182833,
+  "cost_endpoints": [
+    {
+      "iteration": 8,
+      "entries": 45145,
+      "added_training_seconds": 0.03422,
+      "readout_seconds": 0.093236584,
+      "row_proof": {
+        "logical_rows_sha256": "24c7028d442807ce7290867721dd314d11011c06f951c45430f9b18c33447ab0",
+        "row_copy_retained": true,
+        "rows": 45145,
+        "write_or_hash_seconds": 0.073111875
+      }
+    },
+    {
+      "iteration": 16,
+      "entries": 94340,
+      "added_training_seconds": 0.034732958,
+      "readout_seconds": 0.158463583,
+      "row_proof": {
+        "logical_rows_sha256": "3e125b39ce05c967822c79d9db3c43cd8c979d48cf9c96e3ef8df59010457093",
+        "row_copy_retained": true,
+        "rows": 94340,
+        "write_or_hash_seconds": 0.13644125
+      }
+    },
+    {
+      "iteration": 8,
+      "entries": 45143,
+      "added_training_seconds": 0.031172417,
+      "readout_seconds": 0.085106209,
+      "row_proof": {
+        "logical_rows_sha256": "1404c8dd7553e993fcc11a8712731054b374dd8f95d107d22545d2538ece67b8",
+        "row_copy_retained": true,
+        "rows": 45143,
+        "write_or_hash_seconds": 0.0673135
+      }
+    },
+    {
+      "iteration": 16,
+      "entries": 94343,
+      "added_training_seconds": 0.0341785,
+      "readout_seconds": 0.160720667,
+      "row_proof": {
+        "logical_rows_sha256": "6278be75d44445a01dc54a22a075d88c7ecf74ff1730a0e3aa87649f62b31498",
+        "row_copy_retained": true,
+        "rows": 94343,
+        "write_or_hash_seconds": 0.139566459
+      }
+    }
+  ],
+  "resource_summary": {
+    "samples": 17,
+    "thermal_states": [
+      "nominal"
+    ],
+    "minimum_available_ram_bytes": 6897696768,
+    "minimum_disk_free_bytes": 14084665344,
+    "swap_min_bytes": 517734400,
+    "swap_max_bytes": 517734400,
+    "sampled_peak_family_rss_bytes": 1526611968
+  },
+  "retained_calibration_bytes": 29073189,
+  "input_pins": {
+    "study": "PR457",
+    "python_sha256": "5ca50299a6980ccfa9b12e582aa5262ef576dd5db23a8cf4595054e84f35f1b0",
+    "binary": "/Users/dberweger/Local/nplayer-passive-learning-20261028/native-binary-v1",
+    "binary_sha256": "2968a771f4d54b0b7772a431b355f8d2b832025f9f4f3c65cd28fe83c6f1cc30",
+    "thermal": "/Users/dberweger/Local/six-player-counterfactual-m4-20261026/thermal-state",
+    "thermal_sha256": "576aa148643568b864e4e6a53c8d73cc405bf7d31f05b186cd25f209acf997ba",
+    "review": "/Users/dberweger/Local/nplayer-passive-learning-20261028/independent-review-v2.json",
+    "review_sha256": "68f9e4185afeee5f22f4f7df494b2b07d1ecfec8890f5ffeafcf7b7112b63bfa",
+    "tables": "/Users/dberweger/Local/overnight-equity-hu100-20261009/stage-a/results/equity-bench/tables"
+  },
+  "proof_pins": {
+    "calibration-v1/config.json": "b2cd307f1336c3c5d91fd5750b790a162b004c1ff407300849d4f50462f44661",
+    "calibration-v1/quote.json": "6e8633873e2faeb22a9a95c3e32d9c45e28b428973a24aeb70a34ceae0017cbe",
+    "calibration-v1/COMPLETE.json": "62fb1c7714ec024252ead07dbc512fcb4abe3b63c8ef36b1d56348d7c7711759",
+    "calibration-v1/status.json": "7bae01ded6a30a728d361d8cefc76e67c9e4ba82deae20e2f6759f6d839feae8",
+    "calibration-v1/calibration/guard/receipt.json": "4c672191ec38b6f7d1093e869386781d1c13893f0cc0c8017d25bbb958edb54d",
+    "target-fixtures-v1/COMPLETE.json": "ff2441a51af433ed09f06c78692ecb33fa3fdb34a2fb72c1648ef6cb9c6af117",
+    "target-fixtures-v2/COMPLETE.json": "2aff3177346b53dcb384c0d92a682f152bdc3248fd74fbe89f970918558c9d2f",
+    "independent-review-v2.json": "68f9e4185afeee5f22f4f7df494b2b07d1ecfec8890f5ffeafcf7b7112b63bfa"
+  },
+  "locks_available": {
+    "/Users/dberweger/Local/.hu20-m4-research.lock": true,
+    "/Users/dberweger/Local/nplayer-passive-learning-20261028/.passive-learning.lock": true
+  }
+}
