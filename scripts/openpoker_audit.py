@@ -2,8 +2,10 @@
 
 Reports decisions by status, fallback reasons and routes, rejected actions, the hero's chip
 result per completed hand, and the server message details the documentation leaves open:
-which fields `player_action` carries, whether its raise `amount` is a raise-to total, whether
-blinds arrive as events and which fields `your_turn.players` entries have.
+which fields `player_action` carries, whether its raise `amount` is a raise-to total (and its
+declared `amount_mode`), whether blinds arrive as events and which fields `your_turn.players`
+entries have. Streets come from `community_cards`, because the server labels each action with
+the street after it.
 """
 import argparse
 import json
@@ -13,8 +15,10 @@ from pathlib import Path
 
 def raise_meanings(actions, hero, dealer):
     """Whether each raise's broadcast `amount` is the raise-to total or the chips added. Blind
-    seats follow the dealer among the seats seen in the hand; hands that don't fit are skipped."""
-    order = sorted({a['seat'] for a in actions} | {hero, dealer})
+    seats follow the dealer among the seats seen in the hand; hands that don't fit are skipped.
+    `actions` holds the hand's `player_action` messages, with a `{'board': street}` marker
+    where each `community_cards` arrived."""
+    order = sorted({a['seat'] for a in actions if 'seat' in a} | {hero, dealer})
     if dealer not in order or len(order) < 2:
         return Counter(unresolved=1)
     button = order.index(dealer)
@@ -22,8 +26,10 @@ def raise_meanings(actions, hero, dealer):
     bets, street, out = defaultdict(int), 'preflop', Counter()
     bets[sb], bets[order[(order.index(sb) + 1) % len(order)]] = 10, 20
     for a in actions:
-        if a.get('street') != street:
-            street, bets = a.get('street'), defaultdict(int)
+        if 'board' in a:
+            if a['board'] != street:
+                street, bets = a['board'], defaultdict(int)
+            continue
         delta = a.get('contribution_delta')
         if delta is None and isinstance(a.get('stack_before'), int) and isinstance(a.get('stack_after'), int):
             delta = a['stack_before'] - a['stack_after']
@@ -40,7 +46,7 @@ def raise_meanings(actions, hero, dealer):
 def audit(path: Path) -> dict:
     lines = [json.loads(line) for line in path.read_text().splitlines()]
     decisions, reasons, routes = Counter(), Counter(), Counter()
-    fields, kinds, player_fields, raise_amounts = Counter(), Counter(), Counter(), Counter()
+    fields, kinds, player_fields, raise_amounts, modes = Counter(), Counter(), Counter(), Counter(), Counter()
     rejected, hero, dealer, start, results, actions = Counter(), None, None, {}, [], []
     for line in lines:
         kind, p = line['kind'], line['payload']
@@ -63,7 +69,10 @@ def audit(path: Path) -> dict:
                     start[p.get('hand_id')] = entry.get('stack')
         elif t == 'player_action':
             fields.update(k for k in p if k != 'type')
+            modes[f"{p.get('action')}: {p.get('amount_mode')}"] += 1
             actions.append(p)
+        elif t == 'community_cards':
+            actions.append({'board': p.get('street')})
         elif t == 'hand_result' and hero is not None:
             raise_amounts.update(raise_meanings(actions, hero, dealer))
             final = (p.get('final_stacks') or {}).get(str(hero))
@@ -72,7 +81,7 @@ def audit(path: Path) -> dict:
             rejected[p.get('code')] += 1
     return {'journal': str(path), 'hands': len(results), 'decisions': dict(decisions), 'fallback_reasons': dict(reasons),
             'routes': dict(routes), 'rejected': dict(rejected), 'inbound_types': dict(kinds),
-            'player_action_fields': dict(fields), 'raise_amount_meaning': dict(raise_amounts),
+            'player_action_fields': dict(fields), 'raise_amount_meaning': dict(raise_amounts), 'amount_modes': dict(modes),
             'blind_events': sum(1 for l in lines if l['kind'] == 'in' and l['payload'].get('type') == 'player_action'
                                 and l['payload'].get('action') in ('small_blind', 'big_blind', 'post_blind', 'post', 'blind')),
             'your_turn_player_fields': dict(player_fields),

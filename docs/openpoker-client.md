@@ -84,7 +84,7 @@ For a live session, drop `--sandbox` and set `OPENPOKER_API_KEY`. The audit repo
 - routes used;
 - rejected actions;
 - the hero's final stacks;
-- the undocumented server details: the fields of `player_action` and `your_turn.players`, whether a broadcast raise `amount` is a raise-to total or an increment, and whether blinds arrive as events.
+- the undocumented server details: the fields of `player_action` and `your_turn.players`, whether a broadcast raise `amount` is a raise-to total or an increment, each action's declared `amount_mode`, and whether blinds arrive as events. Streets come from `community_cards`, because the server labels each action with the street after it.
 
 ## Sandbox
 
