@@ -42,17 +42,17 @@ cargo build --release --locked --manifest-path native/hu20-trainer/Cargo.toml --
 python -m pip install -r requirements-openpoker.txt
 ```
 
-`routes.json` from the [routing results](reports/openpoker-routing/results.md): the 100 BB models inside [89.4, 136.9] BB, the mixed-stack models elsewhere. The heads-up models come from the [heads-up results](reports/openpoker-heads-up/results.md).
+`routes.json` from the [routing results](reports/openpoker-routing/results.md): the 100 BB models inside [89.4, 136.9] BB, the mixed-stack models elsewhere. The heads-up models come from the [heads-up results](reports/openpoker-heads-up/results.md), and the 3-player mixed-stack model `p3mix` from the [3–5-player results](reports/openpoker-short-mixed/results.md). At 4 and 5 players the six-player `mix` still plays off the band, because their dedicated mixed-stack models showed no difference.
 
 ```json
 {"2": [{"agent": "policy:hu100", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:humix", "view": "projected"}],
- "3": [{"agent": "policy:p3", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}],
+ "3": [{"agent": "policy:p3", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:p3mix", "view": "projected"}],
  "4": [{"agent": "policy:p4", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}],
  "5": [{"agent": "policy:p5", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}],
  "6": [{"agent": "policy:six", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}]}
 ```
 
-The routing studies set the actual routes and bands: [routing](openpoker-routing.md) and [heads-up](openpoker-heads-up.md).
+The routing studies set the actual routes and bands: [routing](openpoker-routing.md), [heads-up](openpoker-heads-up.md) and [3–5 players](openpoker-short-mixed.md).
 
 Dry run against the local sandbox (no key):
 
