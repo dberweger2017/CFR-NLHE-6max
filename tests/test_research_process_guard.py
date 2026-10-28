@@ -4,6 +4,7 @@ import os
 from pathlib import Path
 import subprocess
 import sys
+import signal
 import time
 import unittest
 from tempfile import TemporaryDirectory
@@ -86,6 +87,20 @@ class GuardTests(unittest.TestCase):
             parent="import subprocess,sys;subprocess.Popen([sys.executable,'-c','import time;time.sleep(60)'])"
             with self.assertRaisesRegex(RuntimeError,"descendants"):
                 guard.run([sys.executable,"-c",parent],Path(d)/"run",healthy,interval=.01)
+
+    def test_supervisor_signal_still_stops_owned_child_and_restores_handler(self):
+        with TemporaryDirectory()as d:
+            before=signal.getsignal(signal.SIGTERM);calls=0
+            def probe():
+                nonlocal calls
+                calls+=1
+                if calls==2:os.kill(os.getpid(),signal.SIGTERM)
+                return healthy()
+            with self.assertRaises(guard.GuardSignal):
+                guard.run([sys.executable,"-c","import time;time.sleep(60)"],Path(d)/"run",probe,interval=.01)
+            receipt=json.loads((Path(d)/"run/receipt.json").read_text())
+            self.assertIsNotNone(receipt["returncode"]);self.assertIn("GuardSignal",receipt["terminal_failure"])
+            self.assertEqual(signal.getsignal(signal.SIGTERM),before)
 
 
 if __name__=="__main__":unittest.main()

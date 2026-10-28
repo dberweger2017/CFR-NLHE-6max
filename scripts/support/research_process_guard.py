@@ -10,6 +10,10 @@ import sys
 import time
 
 
+class GuardSignal(BaseException):
+    pass
+
+
 def linux_temperatures(data):
     found = {"Package id 0": [], "Thermistor 15": []}
     if not isinstance(data, dict):
@@ -103,7 +107,12 @@ def run(command, root, probe, *, stop=None, unchanged=lambda: True, interval=0.5
     child = None
     failure = None
     peak = 0
+    handlers = {}
     try:
+        def interrupted(signum, _frame):
+            raise GuardSignal("supervisor signal: " + str(signum))
+        for sig in (signal.SIGTERM, signal.SIGHUP):
+            handlers[sig] = signal.signal(sig, interrupted)
         initial = probe()
         validate_reading(initial)
         if not unchanged() or (stop is not None and Path(stop).exists()):
@@ -148,4 +157,6 @@ def run(command, root, probe, *, stop=None, unchanged=lambda: True, interval=0.5
                        system_cpu_seconds=after.ru_stime-before.ru_stime,
                        cpu_scope="Direct-child wait accounting; do not assume totals for orphan descendants.")
         (root / "receipt.json").write_text(json.dumps(receipt, indent=2, allow_nan=False) + "\n")
+        for sig, handler in handlers.items():
+            signal.signal(sig, handler)
     return receipt
