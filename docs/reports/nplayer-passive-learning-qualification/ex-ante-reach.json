@@ -1,0 +1,70 @@
+{
+  "status": "ex-ante-conditional-scenarios",
+  "rows": [
+    {
+      "menu_actions": 2,
+      "persistent_zero_base_opponent_actions": 1,
+      "root_opportunities": 12288,
+      "conditional_path_probability": 0.01,
+      "generous_expected_root_hits": 122.88,
+      "four_hit_probability_union_upper_bound": 1
+    },
+    {
+      "menu_actions": 2,
+      "persistent_zero_base_opponent_actions": 2,
+      "root_opportunities": 12288,
+      "conditional_path_probability": 0.0001,
+      "generous_expected_root_hits": 1.2288000000000001,
+      "four_hit_probability_union_upper_bound": 0.09495142591334402
+    },
+    {
+      "menu_actions": 2,
+      "persistent_zero_base_opponent_actions": 4,
+      "root_opportunities": 12288,
+      "conditional_path_probability": 1e-08,
+      "generous_expected_root_hits": 0.00012288000000000002,
+      "four_hit_probability_union_upper_bound": 9.4951425913344e-18
+    },
+    {
+      "menu_actions": 2,
+      "persistent_zero_base_opponent_actions": 6,
+      "root_opportunities": 12288,
+      "conditional_path_probability": 1.0000000000000002e-12,
+      "generous_expected_root_hits": 1.2288000000000002e-08,
+      "four_hit_probability_union_upper_bound": 9.495142591334406e-34
+    },
+    {
+      "menu_actions": 5,
+      "persistent_zero_base_opponent_actions": 1,
+      "root_opportunities": 12288,
+      "conditional_path_probability": 0.004,
+      "generous_expected_root_hits": 49.152,
+      "four_hit_probability_union_upper_bound": 1
+    },
+    {
+      "menu_actions": 5,
+      "persistent_zero_base_opponent_actions": 2,
+      "root_opportunities": 12288,
+      "conditional_path_probability": 1.6e-05,
+      "generous_expected_root_hits": 0.196608,
+      "four_hit_probability_union_upper_bound": 6.22273664865691e-05
+    },
+    {
+      "menu_actions": 5,
+      "persistent_zero_base_opponent_actions": 4,
+      "root_opportunities": 12288,
+      "conditional_path_probability": 2.5600000000000005e-10,
+      "generous_expected_root_hits": 3.1457280000000006e-06,
+      "four_hit_probability_union_upper_bound": 4.078132690063797e-24
+    },
+    {
+      "menu_actions": 5,
+      "persistent_zero_base_opponent_actions": 6,
+      "root_opportunities": 12288,
+      "conditional_path_probability": 4.096e-15,
+      "generous_expected_root_hits": 5.0331648000000004e-11,
+      "four_hit_probability_union_upper_bound": 2.672645039760209e-43
+    }
+  ],
+  "limits": "Assumes base probability stays zero at each named opponent action and all other chance/key/history conditions have probability one. Independent identical root opportunities; union bound via E[choose(hits,4)]. This is not the adaptive experiment's power or a bound when base probabilities learn or multiple histories share a key."
+}

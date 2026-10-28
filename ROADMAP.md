@@ -1,5 +1,27 @@
 # Roadmap
 
+## Target-policy exploration qualification prepared; main allocation pending
+
+[PR457](https://github.com/dberweger2017/CFR-NLHE-6max/pull/457),
+[protocol](docs/nplayer-passive-learning-qualification.md),
+[reviewed preparation and quote](docs/reports/nplayer-passive-learning-qualification/preparation.md):
+one standalone epsilon0.02 target-policy exploration candidate versus0, with
+explicit perturbed-action regret math. Production trainer, current mixed-stack
+models and the [PR455 router](https://github.com/dberweger2017/CFR-NLHE-6max/pull/455)
+stay unchanged. This changes the target strategy class; it is not PR425's failed
+behavior-only warmed sampler or an equilibrium/strength claim.
+
+All173 existing native tests, all-example compilation,8 new native/8 guard/7
+controller fixtures pass; target-host fixtures and exact source/binary review
+pass. The new guard fails closed and terminates owned process groups. One fixed
+M4 cost calibration passes; no main outcome or experimental result exists yet.
+Remaining main quote **2m26s central /8m20s reserve**, proposed **15-minute M4
+allocation**,5GiB familyRAM+1GiB headroom and4GiB newdisk+4GiB headroom. Acceptance
+and fresh admission are required. Fixed128/512sweeps,2Mcap,512watchhands; all
+family-attributed/merged/never-hit evidence retained. Low path reach limits what
+a negative result establishes. No mature training, arena, live play, adoption or
+automatic extension. Ordinary M4 evidence retained; cleaner archive pending.
+
 ## Bucketed variable-stack pilot complete; no substantial support gain established
 
 [PR444](https://github.com/dberweger2017/CFR-NLHE-6max/pull/444),
