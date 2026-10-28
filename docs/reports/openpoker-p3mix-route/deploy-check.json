@@ -1,0 +1,115 @@
+{
+ "policies": {
+  "six": "f894a59f8a92424d735438726d16834901a7dcaf6d560c98b950fb72a143c9ea",
+  "mix": "64c693c4a3a56f69fcdd050b5da9dde0cfee76e108676b4816dbab98dccfbb20",
+  "p3": "1a607613a29d2c4d62e16ce31df5214f160796391730b2fbc55495fd286fc894",
+  "p4": "66ec2f87d3fbfb3100c92325939c0fa43e34c4168e66ffad6cfa73a44c8688ba",
+  "p5": "bdc5ab50bb4765f86ebd7e044beb95db09a86bb1cff170eaf800f8781851ec26",
+  "hu100": "1722f0d8744487fcc1c049373f3e3b0a08926701bbdcec5e617d08b7b62cae47",
+  "humix": "9d39dda9d9a5c07a1372dd7a876353fbeffc664eb321c891570c0038558493fc",
+  "p3mix": "afddb59521bd518aa25ef5c7a499ea09059b102dc289d34d3978d1438a85a16a"
+ },
+ "routes": {
+  "2": [
+   {
+    "agent": "policy:hu100",
+    "view": "projected",
+    "band_bb": [
+     89.4,
+     136.9
+    ]
+   },
+   {
+    "agent": "policy:humix",
+    "view": "projected"
+   }
+  ],
+  "3": [
+   {
+    "agent": "policy:p3",
+    "view": "projected",
+    "band_bb": [
+     89.4,
+     136.9
+    ]
+   },
+   {
+    "agent": "policy:p3mix",
+    "view": "projected"
+   }
+  ],
+  "4": [
+   {
+    "agent": "policy:p4",
+    "view": "projected",
+    "band_bb": [
+     89.4,
+     136.9
+    ]
+   },
+   {
+    "agent": "policy:mix",
+    "view": "projected"
+   }
+  ],
+  "5": [
+   {
+    "agent": "policy:p5",
+    "view": "projected",
+    "band_bb": [
+     89.4,
+     136.9
+    ]
+   },
+   {
+    "agent": "policy:mix",
+    "view": "projected"
+   }
+  ],
+  "6": [
+   {
+    "agent": "policy:six",
+    "view": "projected",
+    "band_bb": [
+     89.4,
+     136.9
+    ]
+   },
+   {
+    "agent": "policy:mix",
+    "view": "projected"
+   }
+  ]
+ },
+ "load_seconds": 261.033833662048,
+ "peak_memory_gb": 30.054119110107422,
+ "tables_by_players": {
+  "2": 73,
+  "3": 51,
+  "4": 53,
+  "5": 65,
+  "6": 58
+ },
+ "decisions": {
+  "policy": 12186,
+  "fallback": 22
+ },
+ "fallback_reasons": {
+  "possible all-in blind": 22
+ },
+ "routes_used": {
+  "2 players: policy:hu100": 138,
+  "2 players: policy:humix": 5253,
+  "3 players: policy:p3": 8,
+  "3 players: policy:p3mix": 2884,
+  "4 players: policy:mix": 2407,
+  "5 players: policy:mix": 1109,
+  "6 players: policy:mix": 387
+ },
+ "latency_seconds": {
+  "p50": 7.470289710909128e-05,
+  "p99": 0.00011425802949815989,
+  "max": 0.0005819399375468493
+ },
+ "passed": true
+}
