@@ -46,8 +46,11 @@ sweeps. Counts are matched sweeps/root contexts; traversal-node counts may diffe
 Control and candidate start empty. A separate-process reproduction repeats the
 same fixed work; it is proof, not another experimental seed.
 
-Before training, freeze watch keys from512 independently generated legal passive
-hands, seed20261028456002, with the same chance law and uniform button. Preserve
+Before training, freeze watch keys from512 independently generated legal hands,
+seed20261028456002, with the same chance law and uniform button. Cycle three
+declared scripts by hand index: all check/call; seat0 makes one legal postflop
+pot raise then everyone check/calls; seat1 does so. This covers passive histories
+with zero or one aggressor without selecting from outcomes. Preserve
 every turn/river observation/key including never-hit keys; freeze all family and
 street denominators. No choice based on losing hands or favorable outcomes.
 P0/P1/P2 public-history families follow PR425. Report complete root inventory,
@@ -60,14 +63,31 @@ ESS is a concentration diagnostic, not a statistical confidence interval.
 
 The repeated-learning proxy follows PR425: each key needs nonzero regret and
 positive-average evidence from at least four distinct roots for each kind, with
-grouped coefficient ESS>=4 each. Include all zero/never-hit denominators. A
-prospective continuation signal requires at least five more such retained watch
+grouped coefficient ESS>=4 each for both raw and linear coefficients. Actual
+contributing training histories must belong to one of that watch key's declared
+P0/P1/P2 families. A root whose updates alias several families is reported in a
+separate merged-family bin and cannot establish family-specific learning. Also
+report all-history key learning separately; updating an aliased key through an
+unrelated history is not learning along the targeted passive history.
+Include all zero/never-hit denominators. A prospective continuation signal
+requires at least five more such retained watch
 keys than the control and at least five in total, without increasing the share
-of fully zero-update admitted slots by more than five percentage points. This
-is an explicit research heuristic, not a strength or adoption gate. Missing the
+of fully zero final rows among admitted slots by more than five percentage
+points. This is an explicit research heuristic, not a strength or adoption gate. Missing the
 proxy is retained as a negative/inconclusive result; no hands/sweeps are added.
 Mathematically nonzero but negligible weights are not silently called useful;
 publish their magnitudes and concentration alongside the proxy.
+
+The [ex-ante path scenarios](reports/nplayer-passive-learning-qualification/ex-ante-reach.json)
+expose an important limit before outcomes: with a five-action menu and two
+opponent actions whose base probability stays zero, the exploration-only path
+probability is0.004^2. Even generously treating every one of12,288 root contexts
+as an otherwise certain opportunity yields0.197 expected hits, before card/key
+conditions. More such actions are much rarer. These are conditional scenarios,
+not power estimates for an adaptive policy or keys shared by many histories.
+A negative result only rejects this small candidate/workload as qualified;
+it does not reject exploration generally. A positive proxy is not mature utility.
+No epsilon/count increase is selected from main outcomes.
 
 Final logical row values/visits, table identity, watch/cell ledgers and row
 digests must reproduce exactly. Freeze timing and whole-sweep overshoot are
