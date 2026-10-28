@@ -49,7 +49,7 @@ Six of 63 policy decisions (9.5%) had no row: one in session 1 and five in sessi
   - every action carries `contribution_delta`, `stack_before`/`stack_after` and `amount_mode`;
   - all 82 raises and all-ins are `to_total`, so `amount` is the raise-to total;
   - folds, checks and calls are `incremental`.
-  - The audit's 9 "increment" readings in session 2 come from its own use of the street labels, not from the server.
+  - The audit's 9 "increment" readings in session 2 came from its own use of the street labels, not from the server. The audit now takes streets from `community_cards`; rerun on both journals, it reads all 81 raises as raise-to totals. The committed `audit-*.json` files are the original outputs.
 - **Street labels:** an action's `street` is the street after it, `showdown` included.
 - **Seat lists:**
   - `your_turn.players` lists every seated player, with `seat`, `name`, `stack`, `avatar_url`, `public_profile_slug` and `is_pro`, but not who was dealt in;
