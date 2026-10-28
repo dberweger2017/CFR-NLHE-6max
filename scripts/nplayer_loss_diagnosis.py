@@ -218,14 +218,19 @@ def classify(row, n):
 
 
 def fallback_violations(row, seat, mode):
-    """Decisions that break the declared fallback: check-fold plays only check, else fold, at untrained rows."""
+    """Decisions that break the declared fallback at the focal's untrained rows: check-fold plays
+    only check, else fold; no-all-in never raises to the whole stack; no-raise never raises."""
     bad = 0
     for actor, action, state, lookup in zip(row['actors'], row['actions'], row['states'], row['lookups']):
         replaced = 'fallback_replaced' in lookup
         if actor != seat or mode == 'uniform' or lookup['status'] not in UNTRAINED:
             bad += replaced
-        else:
+        elif mode == 'check-fold':
             bad += action != (['check', 0] if state['legal']['check'] else ['fold', 0])
+        else:
+            bad += replaced
+            if action[0] == 'raise':
+                bad += mode == 'no-raise' or action[1] == state['legal']['raise_to'][1]
     return bad
 
 

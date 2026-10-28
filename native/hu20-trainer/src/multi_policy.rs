@@ -462,8 +462,26 @@ impl Policy {
         observation: &Observation<'_>,
         tables: &EquityTables,
     ) -> Result<Action, String> {
-        let (p, found) = self.table.distribution(observation, tables)?;
+        self.choose_restricted(observation, tables, None)
+    }
+    /// With `allow`, plays uniformly over the allowed menu actions instead of the row. It draws
+    /// the same single random number, so later draws stay aligned with `choose`.
+    pub fn choose_restricted(
+        &mut self,
+        observation: &Observation<'_>,
+        tables: &EquityTables,
+        allow: Option<&dyn Fn(&Action) -> bool>,
+    ) -> Result<Action, String> {
+        let (mut p, found) = self.table.distribution(observation, tables)?;
         let choices = multi_holdem::menu(observation);
+        if let Some(allow) = allow {
+            let allowed: Vec<bool> = choices.iter().map(|(_, a)| allow(a)).collect();
+            let count = allowed.iter().filter(|&&a| a).count();
+            if count == 0 {
+                return Err("fallback allows no menu action".into());
+            }
+            p = allowed.iter().map(|&a| if a { 1. / count as f64 } else { 0. }).collect();
+        }
         let draw: f64 = self.rng.gen();
         let mut sum = 0.;
         let mut chosen = p.iter().rposition(|&v| v > 0.).ok_or("empty support")?;

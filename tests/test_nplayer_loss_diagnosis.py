@@ -111,6 +111,21 @@ class ClassificationTests(unittest.TestCase):
         self.assertEqual(diagnosis.fallback_violations(row, seat, 'check-fold'), 0)
         self.assertEqual(diagnosis.fallback_violations(row, seat, 'uniform'), 1)
 
+    def test_restricted_fallbacks_refuse_their_excluded_raises_at_untrained_rows(self):
+        _, rows = fixture()
+        row = deepcopy(next(r for r in rows if r['states'][r['actors'].index(r['identities'].index(0))]['legal']['raise_to']))
+        seat = row['identities'].index(0)
+        first = row['actors'].index(seat)
+        low, high = row['states'][first]['legal']['raise_to']
+        row['lookups'][first] = {'status': 'missing'}
+        for mode, action, bad in (('no-all-in', ['raise', high], 1), ('no-raise', ['raise', low], 1),
+                                  ('no-raise', ['call', 0], 0), ('no-all-in', ['raise', low], int(low == high))):
+            row['actions'][first] = action
+            self.assertEqual(diagnosis.fallback_violations(row, seat, mode), bad, (mode, action))
+        row['lookups'][first] = {'status': 'positive_mass'}
+        row['actions'][first] = ['raise', high]
+        self.assertEqual(diagnosis.fallback_violations(row, seat, 'no-raise'), 0)
+
     def test_showdown_board_must_match_the_deck(self):
         _, rows = fixture()
         row = deepcopy(next(r for r in rows if len([p for p in r['states'][-1]['players'] if not p[3]]) > 1))

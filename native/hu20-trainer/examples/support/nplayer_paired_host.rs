@@ -92,6 +92,36 @@ enum Player {
     Composed(composition::Policy),
     Script(Bot),
 }
+/// A focal fallback at rows without positive mass: uniform over the menu without some raises.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum Restriction {
+    /// Every menu action except a raise to the player's whole stack.
+    NoAllIn,
+    /// Only the passive action and call.
+    NoRaise,
+}
+impl Restriction {
+    fn parse(name: &str) -> Option<Self> {
+        match name {
+            "no-all-in" => Some(Self::NoAllIn),
+            "no-raise" => Some(Self::NoRaise),
+            _ => None,
+        }
+    }
+    fn name(self) -> &'static str {
+        match self {
+            Self::NoAllIn => "no-all-in",
+            Self::NoRaise => "no-raise",
+        }
+    }
+    fn allows(self, action: &Action, raise_to: Option<(u64, u64)>) -> bool {
+        match (self, action.kind) {
+            (_, Kind::Fold | Kind::Check | Kind::Call) => true,
+            (Self::NoRaise, Kind::Raise) => false,
+            (Self::NoAllIn, Kind::Raise) => raise_to.is_some_and(|(_, high)| action.raise_to < high),
+        }
+    }
+}
 struct Case {
     name: String,
     n: usize,
@@ -106,6 +136,7 @@ struct Case {
     composition_diagnostics: bool,
     /// Per arm: replace the focal uniform fallback by check, else fold.
     check_fold: [bool; 2],
+    restricted: [Option<Restriction>; 2],
     /// Per arm: the focal model sees the table through `multi_view::project`.
     projected: [bool; 2],
 }
@@ -118,12 +149,13 @@ impl Case {
         if ![20, 50, 100, 200].contains(&stack) || !(2..=1_000_000).contains(&blocks) {
             return Err("stack/block bounds".into());
         }
-        // Optional unequal physical stacks; the schedule moves identities across them.
+        // Optional unequal physical stacks; the schedule moves identities across them. Live
+        // Open Poker tables seat opponents past 2,000 BB.
         let stacks: Vec<u64> = match v.get("stacks_bb") {
             None | Some(Value::Null) => vec![stack; n],
             Some(Value::Array(list)) if list.len() == n => list
                 .iter()
-                .map(|x| x.as_u64().filter(|b| (10..=250).contains(b)).ok_or("stacks_bb entries 10..=250"))
+                .map(|x| x.as_u64().filter(|b| (10..=2500).contains(b)).ok_or("stacks_bb entries 10..=2500"))
                 .collect::<Result<_, _>>()?,
             _ => return Err("stacks_bb must list one stack per seat".into()),
         };
@@ -154,18 +186,20 @@ impl Case {
         if shared_models.is_some() && focals.iter().any(|s| s.starts_with("bot=")) {
             return Err("shared observations require model focals".into());
         }
-        let check_fold = match v.get("focal_untrained_fallback") {
-            None | Some(Value::Null) => [false; 2],
+        let (check_fold, restricted) = match v.get("focal_untrained_fallback") {
+            None | Some(Value::Null) => ([false; 2], [None; 2]),
             Some(Value::Array(modes)) if modes.len() == 2 => {
-                let mut flags = [false; 2];
+                let (mut flags, mut rules) = ([false; 2], [None; 2]);
                 for (arm, mode) in modes.iter().enumerate() {
-                    flags[arm] = match mode.as_str() {
-                        Some("uniform") => false,
-                        Some("check-fold") if !focals[arm].starts_with("bot=") => true,
-                        _ => return Err("focal_untrained_fallback: uniform or check-fold per model arm".into()),
-                    };
+                    let model = !focals[arm].starts_with("bot=");
+                    match mode.as_str() {
+                        Some("uniform") => {}
+                        Some("check-fold") if model => flags[arm] = true,
+                        Some(name) if model && Restriction::parse(name).is_some() => rules[arm] = Restriction::parse(name),
+                        _ => return Err("focal_untrained_fallback: uniform, check-fold, no-all-in or no-raise per model arm".into()),
+                    }
                 }
-                flags
+                (flags, rules)
             }
             _ => return Err("focal_untrained_fallback must list two arm modes".into()),
         };
@@ -205,6 +239,7 @@ impl Case {
             shared_models,
             composition_diagnostics,
             check_fold,
+            restricted,
             projected,
         })
     }
@@ -290,7 +325,6 @@ fn play(
                         };
                         let projected_view = frame.as_ref().map(|f| f.observation());
                         let seen = projected_view.as_ref().unwrap_or(&view);
-                        let action = policy.choose(seen, t)?;
                         let d = table.decision(seen, t);
                         let row = models[alias].table.rows.get(&d.key);
                         if row.is_some_and(|r| {
@@ -300,6 +334,13 @@ fn play(
                             return Err("lookup identity mismatch".into());
                         }
                         let label = mass::LABELS[mass::MassMetadata::classify_row(row)?];
+                        let action = match case.restricted[arm] {
+                            Some(rule) if id == 0 && label != "positive_mass" => {
+                                let legal = seen.legal.ok_or("focal decision without legal set")?;
+                                policy.choose_restricted(seen, t, Some(&|a: &Action| rule.allows(a, legal.raise_to)))?
+                            }
+                            _ => policy.choose(seen, t)?,
+                        };
                         let mut lookup = json!({"status":label,"key":key_hex(&d.key),"street":d.street,"identity":id,"seat":actor,"position":(actor+case.n-button)%case.n});
                         if frame.is_some() {
                             lookup["view"] = json!("projected");
@@ -513,6 +554,9 @@ fn execute(
         if case.check_fold[arm] {
             header["focal_untrained_fallback"] = json!("check-fold");
         }
+        if let Some(rule) = case.restricted[arm] {
+            header["focal_untrained_fallback"] = json!(rule.name());
+        }
         if let Some(aliases) = &case.shared_models {
             header["shared_models"] = json!(aliases
                 .iter()
@@ -676,7 +720,7 @@ mod tests {
         assert_eq!(c.config.stacks(), &[10000, 5000, 15000]);
         v["stack_bb"] = json!(50);
         assert!(Case::parse(&v).is_ok());
-        for (key, bad) in [("stacks_bb", json!([100, 50])), ("stacks_bb", json!([100, 5, 100])), ("focal_views", json!(["projected"])),
+        for (key, bad) in [("stacks_bb", json!([100, 50])), ("stacks_bb", json!([100, 5, 100])), ("stacks_bb", json!([100, 2501, 100])), ("focal_views", json!(["projected"])),
                            ("focal_views", json!(["native", "phantom"]))] {
             let mut w = v.clone();
             w[key] = bad;
@@ -697,6 +741,16 @@ mod tests {
         let mut v = base.clone();
         v["focal_untrained_fallback"] = json!(["uniform", "check-fold"]);
         assert_eq!(Case::parse(&v).unwrap().check_fold, [false, true]);
+        v["focal_untrained_fallback"] = json!(["uniform", "no-all-in"]);
+        let c = Case::parse(&v).unwrap();
+        assert_eq!((c.check_fold, c.restricted), ([false, false], [None, Some(Restriction::NoAllIn)]));
+        v["focal_untrained_fallback"] = json!(["no-raise", "uniform"]);
+        assert_eq!(Case::parse(&v).unwrap().restricted, [Some(Restriction::NoRaise), None]);
+        let raise = |to| Action { kind: Kind::Raise, raise_to: to };
+        let call = Action { kind: Kind::Call, raise_to: 0 };
+        assert!(Restriction::NoAllIn.allows(&raise(400), Some((200, 2000))) && !Restriction::NoAllIn.allows(&raise(2000), Some((200, 2000))));
+        assert!(!Restriction::NoAllIn.allows(&raise(900), Some((900, 900))) && Restriction::NoAllIn.allows(&call, None));
+        assert!(!Restriction::NoRaise.allows(&raise(400), Some((200, 2000))) && Restriction::NoRaise.allows(&call, None));
         for bad in [json!(["check-fold"]), json!(["uniform", "jam"]), json!("check-fold")] {
             v["focal_untrained_fallback"] = bad;
             assert!(Case::parse(&v).is_err());
