@@ -30,13 +30,14 @@ def wide(n):
 
 
 def tables():
-    """Each table: its study, game, focals (arm 0, arm 1), views and fields; the first field is primary."""
+    """Each table: its study, game, focals (arm 0, arm 1), views and fields; the first field is primary.
+    Model opponents play natively, so only a model whose identity holds the table's stacks and
+    player count can fill seats: `huwide` heads-up and `widemix` at six players."""
     views = ['projected', 'projected']
     out = []
     for name, stacks in HEADS_UP.items():
-        fields = {'current': ['humix']}
+        fields = {'wide-copies': ['huwide']}
         fields.update({s: [s] for s in SCRIPT_FIELDS})
-        fields['wide-copies'] = ['huwide']
         out.append(dict(study='short', table=name, players=2, stack_bb=100, stacks_bb=list(stacks),
                         focals=['humix', 'huwide'], views=views, fields=fields))
     for n, named in SHORT.items():
@@ -44,8 +45,8 @@ def tables():
         for name, stacks in named.items():
             fields = {'mixed': list(study.MIXED[n])}
             fields.update({s: [s] * rest for s in SCRIPT_FIELDS})
-            fields['current-copies'] = [CURRENT[n]] * rest
-            fields['wide-copies'] = [wide(n)] * rest
+            if n == 6:
+                fields['wide-copies'] = ['widemix'] * rest
             out.append(dict(study='short', table=name, players=n, stack_bb=100, stacks_bb=list(stacks),
                             focals=[CURRENT[n], wide(n)], views=views, fields=fields))
     return out

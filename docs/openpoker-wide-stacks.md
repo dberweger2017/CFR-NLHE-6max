@@ -42,12 +42,13 @@ Each model is exported, mass-audited, converted to binary and verified like #431
 
 | Table | Players | Stacks (BB) | Arm 0 | Arm 1 | Fields; the first is primary |
 |---|---|---|---|---|---|
-| `2p-3bb`, `2p-5bb`, `2p-8bb` | 2 | 3·3, 5·5, 8·8 | `humix` | `huwide` | `current` (`humix`), `pot-pressure`, `tight-aggressive`, `check-call`, `random`, `wide-copies` |
-| `3p-5bb`, `3p-short-deep`, `3p-unequal` | 3 | 5·5·5; 4·100·100; 8·40·100 | `p3mix` | `widemix` | `mixed`, the four scripts, `current-copies`, `wide-copies` |
+| `2p-3bb`, `2p-5bb`, `2p-8bb` | 2 | 3·3, 5·5, 8·8 | `humix` | `huwide` | `wide-copies` (`huwide`), `pot-pressure`, `tight-aggressive`, `check-call`, `random` |
+| `3p-5bb`, `3p-short-deep`, `3p-unequal` | 3 | 5·5·5; 4·100·100; 8·40·100 | `p3mix` | `widemix` | `mixed`, then the four scripts |
 | `4p-short-deep` | 4 | 5·100·100·100 | `mix` | `widemix` | the same |
-| `6p-5bb`, `6p-short-deep`, `6p-unequal` | 6 | 5 each; 3·100·100·100·100·100; 8·100·50·100·150·100 | `mix` | `widemix` | the same |
+| `6p-5bb`, `6p-short-deep`, `6p-unequal` | 6 | 5 each; 3·100·100·100·100·100; 8·100·50·100·150·100 | `mix` | `widemix` | `mixed`, the four scripts, `wide-copies` (`widemix`) |
 
 - **Fields:** `mixed` and the four scripts are as in the earlier studies; copies fill every other seat.
+- **Amendment, November 6, before any main training or results:** the smoke run stopped at its first arena because model opponents play natively and must hold the table's stacks and player count. Copies of `humix`, `p3mix` and `mix` can't sit at a table with a seat under 10 BB, and `widemix` can't sit at 3 or 4 players. The `current` and `current-copies` fields are dropped, `wide-copies` stays only heads-up and at six players, and heads-up's primary field becomes `wide-copies`, as the earlier heads-up depth tables used the strongest model's copies. Nothing else changes.
 - **Views:** both focals use the projected view.
 - **Contrast:** arm 1 minus arm 0, all-in adjusted, over blocks.
 - **Deals:**
