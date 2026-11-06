@@ -4,7 +4,7 @@ use hu20_trainer::{
     multi_cfr::{Game, Sampling, Trainer},
     multi_checkpoint,
     multi_holdem::{CashGame, KeySchema},
-    multi_stacks::LiveMixtureGame,
+    multi_stacks::{DepthGrid, LiveMixtureGame},
     nplayer::Config,
 };
 use serde_json::json;
@@ -112,15 +112,15 @@ fn train() -> Result<(), String> {
         return Err("choose --stacks or --stack-bb".into());
     }
     let mixture = match options.get("--stack-law").map(String::as_str) {
-        None => false,
-        Some("live-depth-grid-v1") => {
+        None => None,
+        Some(law @ ("live-depth-grid-v1" | "wide-depth-grid-v1")) => {
             if options.contains_key("--stacks") || options.contains_key("--stack-bb") || sb != 50 || bb != 100 {
                 return Err("--stack-law draws every stack at 50/100 blinds".into());
             }
             if options.get("--key-schema").map(String::as_str) != Some("live-order") {
                 return Err("--stack-law needs --key-schema live-order".into());
             }
-            true
+            Some(if law == "live-depth-grid-v1" { DepthGrid::Live } else { DepthGrid::Wide })
         }
         Some(_) => return Err("unknown --stack-law".into()),
     };
@@ -196,9 +196,9 @@ fn train() -> Result<(), String> {
     let schema = KeySchema::parse(options.get("--key-schema").map(String::as_str).unwrap_or("history"))?;
     let run = Run { options: &options, players, seed, scope, max_entries, freeze, sampling, roots_per_seat, prune,
                     pressure, admission, nodes, seconds, out, gzip, fast };
-    if mixture {
-        let game = LiveMixtureGame::new(tables, players)?;
-        run.go(&game, || json!({"depths_bb":hu20_trainer::multi_stacks::LIVE_DEPTHS_BB,"seat_draws":game.depths()}))
+    if let Some(grid) = mixture {
+        let game = LiveMixtureGame::new(tables, players, grid)?;
+        run.go(&game, || json!({"depths_bb":grid.depths_bb(),"seat_draws":game.depths()}))
     } else {
         run.go(&CashGame { config, tables, schema }, || serde_json::Value::Null)
     }
