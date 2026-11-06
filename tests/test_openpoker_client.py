@@ -5,15 +5,13 @@ from pathlib import Path
 
 import pytest
 
-from src.openpoker.agent import Agent, Route, cap_stacks, parse_routes
+from src.openpoker.agent import Agent, Route, parse_routes
 from src.openpoker.sandbox import Table, native_action, valid_actions
-from src.openpoker.tracker import SCALE, Hand, Unsupported, legal_expectation, server_action
+from src.openpoker.tracker import Hand, Unsupported, legal_expectation, server_action
 from src.play_api.native_decisions import BINARY, NativeDecisions
 
 native_only = pytest.mark.skipif(not BINARY.is_file(), reason='needs the release nplayer_serve example')
 ALLOWED_FALLBACKS = ('possible all-in blind',)
-# A deeper seat's bet past the capped stacks: the capped hand isn't the one being played.
-CAPPED = 'capped'
 TOKEN = 'sandbox-secret-7f3a91'
 
 
@@ -76,9 +74,9 @@ def test_sandbox_hands_reconstruct_exactly_for_every_table_shape(native):
         for r in records:
             statuses[r['status']] += 1
             if r['status'] == 'fallback':
-                reasons[r['reason'].split(' at ')[0].split(':')[0]] += 1
+                reasons[r['reason'].split(' at ')[0]] += 1
     assert statuses['policy'] > 500
-    assert set(reasons) <= {*ALLOWED_FALLBACKS, CAPPED} and reasons[CAPPED] < 0.01 * statuses['policy'], reasons
+    assert set(reasons) <= set(ALLOWED_FALLBACKS), reasons
 
 
 @native_only
@@ -178,30 +176,18 @@ def test_depth_bands_route_each_hand_by_every_dealt_stack(native):
     assert seen[True] and seen[False]
 
 
-def test_only_the_deepest_seat_is_capped_at_the_largest_other_stack():
-    # Native chips: 100 BB, 2,240 BB and 50 BB at a 100-chip big blind; the hero is the deep seat.
-    record = {'hand': {'stacks': [10000, 224000, 5000], 'bb': 100}, 'seat': 1,
-              'stacks_now': [9800, 223800, 4950], 'hero_total': 223800 // SCALE}
-    capped, excess = cap_stacks(record)
-    assert excess == [0, 214000, 0]
-    assert capped['hand']['stacks'] == [10000, 10000, 5000] and capped['hand']['bb'] == 100
-    assert capped['stacks_now'] == [9800, 9800, 4950] and capped['hero_total'] == 9800 // SCALE
-    assert record['hand']['stacks'] == [10000, 224000, 5000]
-    for tied in ([10000, 10000, 5000], [10000, 10000]):
-        same = dict(record, hand={'stacks': tied, 'bb': 100}, stacks_now=tied)
-        assert cap_stacks(same) == (same, [0] * len(tied))
-
-
 @native_only
 def test_a_deep_stack_plays_as_the_capped_table(native):
-    """Against a 2,000 BB stack the hand is a 100 BB hand: it routes into the band, the engine
-    reproduces every capped decision, and a bet past the cap falls back instead of playing on."""
+    """Against a 2,000 BB stack the hand is a 100 BB hand: it routes into the band and the engine
+    reproduces every capped decision, including the deep seat's bets past the cap and the hero's
+    own turns as the deep seat."""
     band = (89.4, 136.9)
     routes = {n: (Route('script:check-call', band_bb=band), Route('script:random')) for n in range(2, 7)}
-    statuses, reasons, routed = Counter(), Counter(), Counter()
-    for k, seats in enumerate(({0: ['script:check-call', 40000], 2: ['bot', 2000]},
+    statuses, reasons, routed, deep_hero = Counter(), Counter(), Counter(), 0
+    for k, seats in enumerate(({0: ['script:pot-pressure', 40000], 2: ['bot', 2000]},
                                {0: ['script:pot-pressure', 40000], 2: ['bot', 2000], 4: ['script:check-call', 2000]},
-                               {0: ['bot', 40000], 2: ['script:check-call', 2000], 4: ['script:random', 2200]})):
+                               {0: ['bot', 40000], 2: ['script:pot-pressure', 2000], 4: ['script:random', 2200]},
+                               {0: ['bot', 40000], 3: ['script:random', 2000]})):
         bot = next(s for s, v in seats.items() if v[0] == 'bot')
         table = Table(native, {s: list(v) for s, v in seats.items()}, bot, seed=40 + k)
         records = asyncio.run(play(table, Agent(native, routes, seed=k), 60))
@@ -211,10 +197,11 @@ def test_a_deep_stack_plays_as_the_capped_table(native):
             if r['status'] == 'policy':
                 routed[r['route']] += 1
                 assert max(r['stacks_bb']) == sorted(r['stacks_bb'])[-2]
+                deep_hero += r.get('excess_bb', [0] * len(r['order']))[r['order'].index(bot)] > 0
             else:
-                reasons[r['reason'].split(' at ')[0].split(':')[0]] += 1
-    assert statuses['policy'] > 100 and routed['script:check-call'] > 50
-    assert set(reasons) <= {*ALLOWED_FALLBACKS, CAPPED} and reasons[CAPPED] < 0.05 * statuses['policy'], reasons
+                reasons[r['reason'].split(' at ')[0]] += 1
+    assert statuses['policy'] > 200 and routed['script:check-call'] > 50 and deep_hero > 50, (statuses, routed, deep_hero)
+    assert set(reasons) <= set(ALLOWED_FALLBACKS), reasons
 
 
 @native_only
