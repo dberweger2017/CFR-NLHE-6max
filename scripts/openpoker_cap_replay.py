@@ -98,7 +98,7 @@ def main():
                 u, c = r['uncapped'], r['capped']
                 if (u.get('route'), u.get('trained'), u['status']) != (c.get('route'), c.get('trained'), c['status']):
                     report['changed'].append({'journal': path.name, 'hand_id': c.get('hand_id'),
-                                              'raw_stacks_bb': c.get('raw_stacks_bb') or c.get('stacks_bb'),
+                                              'excess_bb': c.get('excess_bb'),
                                               'stacks_bb': c.get('stacks_bb'),
                                               'uncapped': {k: u.get(k) for k in ('status', 'route', 'trained', 'native_action', 'reason')},
                                               'capped': {k: c.get(k) for k in ('status', 'route', 'trained', 'native_action', 'reason')}})
