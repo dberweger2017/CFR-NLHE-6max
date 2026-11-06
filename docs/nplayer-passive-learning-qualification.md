@@ -122,3 +122,22 @@ Historical published run guards/proofs are preserved as historical evidence.
 Ordinary working/final files stay in a new ignored owned tree; no model/raw
 ledger payload enters Git. Cleaner owns later stable ZIP/cache/Drive archival.
 No cleanup, credential access, other jobs, host configuration or schedules change.
+
+## Host amendment: bb128 (November 6, before main)
+
+The owner chose bb128 for the main run while the M4 is offline ("Port it to bb128"). Nothing
+scientific changes: seed, game, epsilon, sweeps, cap, threads, watch hands, proxy and the
+signal rule stay as above. What changes is the host binding:
+
+- The controller takes `host` (`m4`, the default, or `bb128`). bb128 requires Linux on
+  `cygnus-x1` and its own research mutex; AC and the macOS thermal state are M4-only.
+- On bb128 the guard reads its existing Linux schema: the CPU package and VRM Thermistor 15
+  from `sensors -j`, stopping at 90 °C and 100 °C, as every bb128 study. Memory pressure is
+  the kernel's full-stall share over 10 s; at 10% or more the run stops.
+- The native binary is rebuilt from the same source on bb128 (x86-64), so its hash differs.
+  The controller change alters the frozen source manifest, so the earlier review cannot pin
+  it: a fresh independent review of this host-only diff and the rebuilt binary is required
+  before calibration.
+- The M4 cost calibration doesn't price bb128: a fresh bb128 calibration runs first, and the
+  owner allocation must cover its reserve. bb128 shares its CPU with #458's training, which
+  can slow this two-thread run; the quote is measured under the same sharing.

@@ -118,5 +118,23 @@ class QualificationTests(unittest.TestCase):
                 review["reviewer"]="";save(root/"review",review);c["review_sha256"]=q.sha(root/"review")
                 with self.assertRaisesRegex(ValueError,"review"):q.validate(c,main=True)
 
+    def test_hosts_are_declared_and_bb128_readings_fit_the_linux_guard(self):
+        with self.assertRaisesRegex(ValueError,"unknown host"):q.host_check("cloud")
+        with patch.object(q.sys,"platform","linux"),patch.object(q.os,"uname",return_value=type("U",(),{"nodename":"other"})()):
+            with self.assertRaisesRegex(ValueError,"bb128"):q.host_check("bb128")
+        sensors={"coretemp-isa-0000":{"Package id 0":{"temp1_input":61.0}},"nct6687-isa-0a20":{"Thermistor 15":{"temp15_input":58.0}}}
+        with TemporaryDirectory() as d:
+            pressure=Path(d)/"memory"
+            for stall,level in [("0.00",1),("12.50",4)]:
+                pressure.write_text(f"some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10={stall} avg60=0.00 avg300=0.00 total=0\n")
+                real=Path
+                with patch.object(q.subprocess,"check_output",return_value=json.dumps(sensors)),\
+                     patch.object(q,"Path",side_effect=lambda x,*a:pressure if x=="/proc/pressure/memory" else real(x,*a)):
+                    x=dict(q.linux_sample(Path(d)),kind="linux")
+                self.assertEqual((x["cpu_c"],x["vrm_c"],x["pressure"]),(61.0,58.0,level))
+            from scripts.support.research_process_guard import validate_reading
+            validate_reading(dict(x,pressure=1))
+            with self.assertRaises(ValueError):validate_reading(x)
+
 
 if __name__=="__main__":unittest.main()

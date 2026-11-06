@@ -1,4 +1,4 @@
-"""One reviewed M4 research qualification; measured budget acceptance precedes main."""
+"""One reviewed research qualification on M4 or bb128; measured budget acceptance precedes main."""
 import argparse
 import fcntl
 import hashlib
@@ -12,7 +12,7 @@ import time
 
 from scripts.nplayer_four_player_feasibility import TABLES, sample, sha, write
 from scripts.nplayer_variable_stack_qualification import source_manifest
-from scripts.support.research_process_guard import run as guarded
+from scripts.support.research_process_guard import linux_temperatures, run as guarded
 
 SOURCE = Path(__file__).resolve().parents[1]
 SEED = 20261028456011
@@ -217,11 +217,49 @@ def reach_scenarios():
                 limits="Assumes base probability stays zero at each named opponent action and all other chance/key/history conditions have probability one. Independent identical root opportunities; union bound via E[choose(hits,4)]. This is not the adaptive experiment's power or a bound when base probabilities learn or multiple histories share a key.")
 
 
+def linux_sample(root, pid=None):
+    """bb128's reading for the guard's Linux schema: the CPU package and VRM thermistor from
+    `sensors -j`, memory, swap, disk, the owned family's RSS and CPU. Memory pressure maps the
+    kernel's full-stall share over 10 s onto the guard's levels: 1 below 10%, 4 (a stop) above."""
+    import psutil
+    reading = linux_temperatures(json.loads(subprocess.check_output(["sensors", "-j"], text=True, timeout=10)))
+    stall = float(Path("/proc/pressure/memory").read_text().split("full avg10=")[1].split()[0])
+    processes = []
+    if pid:
+        try:
+            parent = psutil.Process(pid)
+            for p in [parent, *parent.children(recursive=True)]:
+                try:
+                    processes.append(dict(rss=p.memory_info().rss, cpu=sum(p.cpu_times()[:2])))
+                except (psutil.NoSuchProcess, psutil.ZombieProcess):
+                    pass
+        except (psutil.NoSuchProcess, psutil.ZombieProcess):
+            pass
+    import shutil
+    return dict(reading, epoch=time.time(), available_ram_bytes=psutil.virtual_memory().available,
+                swap_used_bytes=psutil.swap_memory().used, disk_free_bytes=shutil.disk_usage(root).free,
+                pressure=1 if stall < 10 else 4, worker_family_rss_bytes=sum(x["rss"] for x in processes),
+                live_cpu_seconds=sum(x["cpu"] for x in processes))
+
+
+def host_check(host):
+    """The declared host, or a refusal; returns its research mutex."""
+    if host == "m4":
+        if "Apple M4" not in subprocess.check_output(["sysctl", "-n", "machdep.cpu.brand_string"], text=True):
+            raise ValueError("M4 only")
+        if "AC Power" not in subprocess.check_output(["pmset", "-g", "batt"], text=True):
+            raise ValueError("AC required")
+        return Path.home()/"Local/.hu20-m4-research.lock"
+    if host == "bb128":
+        if sys.platform != "linux" or os.uname().nodename != "cygnus-x1":
+            raise ValueError("bb128 (cygnus-x1) only")
+        return Path.home()/".passive-learning-bb128.lock"
+    raise ValueError("unknown host")
+
+
 def run(mode, root, c):
-    if "Apple M4" not in subprocess.check_output(["sysctl", "-n", "machdep.cpu.brand_string"], text=True):
-        raise ValueError("M4 only")
-    if "AC Power" not in subprocess.check_output(["pmset", "-g", "batt"], text=True):
-        raise ValueError("AC required")
+    host = c.get("host", "m4")
+    mutex = host_check(host)
     root.mkdir(parents=True, exist_ok=False)
     write(root/"config.json", c)
     config_pin = sha(root/"config.json")
@@ -229,11 +267,11 @@ def run(mode, root, c):
     clock = time.monotonic()
     stages = []
     try:
-        for path in [Path.home()/"Local/.hu20-m4-research.lock", root.parent/".passive-learning.lock"]:
+        for path in [mutex, root.parent/".passive-learning.lock"]:
             f = path.open("a+"); locks.append(f)
             fcntl.flock(f, fcntl.LOCK_EX | fcntl.LOCK_NB)
         validate(c, main=mode == "main")
-        before = sample(root, c["thermal"])
+        before = sample(root, c["thermal"]) if host == "m4" else dict(linux_sample(root), kind="linux")
         ram, disk = (5, 4) if mode == "main" else (3, 2)
         write(root/"admission.json", dict(sample=before, forecast_family_rss_bytes=ram*2**30,
               ram_headroom_bytes=2**30, forecast_new_bytes=disk*2**30, disk_headroom_bytes=4*2**30))
@@ -243,7 +281,9 @@ def run(mode, root, c):
         def stage(name, native_mode):
             active = {"pid": None}
             def probe():
-                return dict(sample(root, c["thermal"], active["pid"]), kind="m4")
+                if host == "m4":
+                    return dict(sample(root, c["thermal"], active["pid"]), kind="m4")
+                return dict(linux_sample(root, active["pid"]), kind="linux")
             native = dict(mode=native_mode, seed=SEED if mode == "main" else 20261028456021,
                           cap=2_000_000 if mode == "main" else 100_000,
                           targets=[128, 512] if mode == "main" else [8, 16],
