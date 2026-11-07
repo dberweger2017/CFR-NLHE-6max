@@ -29,17 +29,21 @@ pub enum KeySchema {
     LiveOrderSeat,
     /// `LiveOrder` with the current street's exact actions instead of its summary.
     LiveOrderStreet,
+    /// `LiveOrder` with the sorted live stacks replaced by the hero's stack, the effective stack
+    /// and how many live opponents are shorter than the hero (docs/openpoker-short-coverage.md).
+    LiveOrderEffective,
 }
 impl KeySchema {
     pub const ALL: [Self; 6] = [Self::History, Self::LiveOrder, Self::StackOwner, Self::StackBuckets, Self::CompactBlake, Self::CompactXxh3];
     /// Finer live-order keys; not part of the golden `ALL` set.
-    pub const LIVE_ORDER_VARIANTS: [Self; 2] = [Self::LiveOrderSeat, Self::LiveOrderStreet];
+    pub const LIVE_ORDER_VARIANTS: [Self; 3] = [Self::LiveOrderSeat, Self::LiveOrderStreet, Self::LiveOrderEffective];
     pub const EXACT_HISTORY: [Self; 3] = [Self::History, Self::CompactBlake, Self::CompactXxh3];
     pub fn option(self) -> &'static str {
         match self {
             Self::History => "v1", Self::LiveOrder => "live-order", Self::StackOwner => "stack-owner", Self::StackBuckets => "stack-buckets",
             Self::CompactBlake => "compact-blake2b-v2", Self::CompactXxh3 => "compact-xxh3-v2",
             Self::LiveOrderSeat => "live-order-seat", Self::LiveOrderStreet => "live-order-street",
+            Self::LiveOrderEffective => "live-order-effective",
         }
     }
     pub fn parse(value: &str) -> Result<Self, String> {
@@ -48,6 +52,8 @@ impl KeySchema {
             .ok_or_else(|| format!("unsupported n-player key schema: {value}"))
     }
     pub fn is_compact(self) -> bool { matches!(self, Self::CompactBlake | Self::CompactXxh3) }
+    /// Schemas a live-order stack mixture can train and serve.
+    pub fn is_live_order_mixture(self) -> bool { matches!(self, Self::LiveOrder | Self::LiveOrderEffective) }
 
     pub fn name(self) -> &'static str {
         match self {
@@ -59,6 +65,7 @@ impl KeySchema {
             Self::CompactXxh3 => "nplayer-button-history-equity-k50-compact-xxh3-v2",
             Self::LiveOrderSeat => "nplayer-live-order-seat-summary-equity-k50-v1",
             Self::LiveOrderStreet => "nplayer-live-order-street-exact-equity-k50-v1",
+            Self::LiveOrderEffective => "nplayer-live-order-effective-summary-equity-k50-v1",
         }
     }
     pub fn from_name(name: &str) -> Option<Self> {
@@ -272,12 +279,19 @@ fn live_order_payload(observation: &Observation<'_>, cards: &[u8], code: u16, sc
     }
     let pot: u64 = observation.players.iter().map(|p| p.contributed - p.street_bet).sum();
     out.push(bucket(pot, observation.config.big_blind(), &POT_EDGES_BB.map(|e| (e, 1))));
-    let mut spr: Vec<u8> = live.iter().map(|&p| {
-        let s = observation.players[p];
-        bucket(s.stack + s.street_bet, pot, &SPR_EDGES)
-    }).collect();
-    spr.sort_unstable();
-    out.extend_from_slice(&spr);
+    // Each live stack as it stood at the street's start.
+    let start = |p: usize| observation.players[p].stack + observation.players[p].street_bet;
+    if schema == KeySchema::LiveOrderEffective {
+        let own = start(observation.seat);
+        let others = live.iter().filter(|&&p| p != observation.seat).map(|&p| start(p));
+        let deepest = others.clone().max().unwrap_or(0);
+        let shorter = others.filter(|&s| s < own).count() as u8;
+        out.extend_from_slice(&[bucket(own, pot, &SPR_EDGES), bucket(own.min(deepest), pot, &SPR_EDGES), shorter]);
+    } else {
+        let mut spr: Vec<u8> = live.iter().map(|&p| bucket(start(p), pot, &SPR_EDGES)).collect();
+        spr.sort_unstable();
+        out.extend_from_slice(&spr);
+    }
     let mut raises = [0u8; 4];
     let mut last_raiser = [None; 4];
     let mut actions = 0u8;
@@ -448,7 +462,7 @@ fn decision_from_cards(schema: KeySchema, observation: &Observation<'_>, cards: 
     let mut owner = (observation.seat + n - observation.button) % n;
     let key = match schema {
         KeySchema::History => crate::key::digest16(&payload(observation, cards, choices)),
-        KeySchema::LiveOrder | KeySchema::LiveOrderSeat | KeySchema::LiveOrderStreet => {
+        KeySchema::LiveOrder | KeySchema::LiveOrderSeat | KeySchema::LiveOrderStreet | KeySchema::LiveOrderEffective => {
             let (bytes, live_owner) = live_order_payload(observation, cards, code, schema);
             owner = live_owner;
             crate::key::digest16(&bytes)
@@ -954,6 +968,31 @@ mod tests {
         // Same hero seat: the seat variant still merges who folded earlier; the exact street doesn't.
         assert_eq!(key(&a, KeySchema::LiveOrderSeat), key(&b, KeySchema::LiveOrderSeat));
         assert_ne!(key(&a, KeySchema::LiveOrderStreet), key(&b, KeySchema::LiveOrderStreet));
+    }
+
+    #[test]
+    fn effective_keys_keep_the_hero_and_effective_stack_and_merge_deeper_opponents() {
+        // Six-way limp to the flop; the small blind (seat 1) acts first with 30 BB.
+        let check = Action { kind: Kind::Check, raise_to: 0 };
+        let limp = [CALL, CALL, CALL, CALL, CALL, check];
+        let deck: Vec<u8> = (0..52).collect();
+        let flop = |stacks: [u64; 6]| {
+            let hand = play(Config::new(&stacks.map(|bb| bb * 100), 50, 100).unwrap(), 0, &deck, &limp);
+            assert_eq!((hand.actor(), hand.board().len()), (Some(1), 3));
+            hand
+        };
+        let cards = [3u8, 17, 0];
+        let key = |h: &Hand, s| { let o = h.observe(1).unwrap(); decision_with_cards(s, &o, &cards).key };
+        let base = flop([100, 30, 100, 100, 100, 100]);
+        // An opponent deeper than the hero changes its stack-to-pot bucket: live-order splits, effective merges.
+        let deeper = flop([100, 30, 100, 100, 60, 100]);
+        assert_ne!(key(&base, KeySchema::LiveOrder), key(&deeper, KeySchema::LiveOrder));
+        assert_eq!(key(&base, KeySchema::LiveOrderEffective), key(&deeper, KeySchema::LiveOrderEffective));
+        // The hero's own stack, a shorter opponent, and the effective stack each split.
+        for other in [flop([100, 60, 100, 100, 100, 100]), flop([100, 30, 100, 100, 10, 100]), flop([100, 60, 30, 30, 30, 30])] {
+            assert_ne!(key(&base, KeySchema::LiveOrderEffective), key(&other, KeySchema::LiveOrderEffective));
+        }
+        assert!(KeySchema::LiveOrderEffective.is_live_order_mixture() && !KeySchema::LiveOrderSeat.is_live_order_mixture());
     }
 
     #[test]
