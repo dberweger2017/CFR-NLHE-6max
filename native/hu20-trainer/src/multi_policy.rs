@@ -464,6 +464,27 @@ impl Policy {
     ) -> Result<Action, String> {
         self.choose_restricted(observation, tables, None)
     }
+    /// Plays `probabilities` (in menu order) instead of the row, counted as a miss. It draws the
+    /// same single random number as `choose`, so later draws stay aligned.
+    pub fn choose_distribution(&mut self, observation: &Observation<'_>, probabilities: &[f64]) -> Result<Action, String> {
+        let choices = multi_holdem::menu(observation);
+        if probabilities.len() != choices.len() || probabilities.iter().any(|p| !(0. ..=1.).contains(p)) {
+            return Err("fallback distribution doesn't fit the menu".into());
+        }
+        let draw: f64 = self.rng.gen();
+        let mut sum = 0.;
+        let mut chosen = probabilities.iter().rposition(|&v| v > 0.).ok_or("empty support")?;
+        for (i, v) in probabilities.iter().enumerate() {
+            sum += v;
+            if draw < sum {
+                chosen = i;
+                break;
+            }
+        }
+        self.decisions += 1;
+        self.misses += 1;
+        Ok(choices[chosen].1)
+    }
     /// With `allow`, plays uniformly over the allowed menu actions instead of the row. It draws
     /// the same single random number, so later draws stay aligned with `choose`.
     pub fn choose_restricted(
