@@ -1,3 +1,24 @@
+## PR457 — target-policy exploration preparation and cost qualification
+
+[Protocol](docs/nplayer-passive-learning-qualification.md),
+[preparation](docs/reports/nplayer-passive-learning-qualification/preparation.md),
+[cost/proof readback](docs/reports/nplayer-passive-learning-qualification/cost-qualification.json),
+[remaining-main quote](docs/reports/nplayer-passive-learning-qualification/main-quote.json),
+[ex-ante reach scenarios](docs/reports/nplayer-passive-learning-qualification/ex-ante-reach.json).
+Source d977d9f3, manifest865febf7… /918files, native2968a771…; immutable complete
+pins are in the linked readback.173librarytests/all-examplebuild/8native/8guard/
+7controllerfixtures pass; named independent source/math/information review clears
+the fixed cost calibration. It runs once,7.92s guarded wall/1.42GiBsampledpeak,
+all nominal thermals and unchanged sampled swap. Main has NOT started; no player
+effect is reported. Proposed15-minute M4 allocation follows2m26s/8m20s remaining
+quote;5+1GiBRAM/4+4GiBdisk scenario requires fresh admission and explicit acceptance.
+No mature model load/export, arena/liveplay, defaults, extension or merge.
+M4 `/Users/dberweger/Local/nplayer-passive-learning-20261028/` retains source-v1/v2,
+source/archive/executable/review/config pins,target-fixtures-v1/v2 and calibration-v1;
+source-v2 alone performed cost calibration, ordinary files preserved. Both locks
+free afterward. No bb128 staging/ZIP/Drive acceptance or deletion; cleaner archive
+pending. Current restoration uses retained M4 paths plus source commit and pins.
+
 ## PR444 — bucketed variable-stack key qualification and fixed M4 pilot
 
 [Protocol](docs/nplayer-stack-buckets.md),

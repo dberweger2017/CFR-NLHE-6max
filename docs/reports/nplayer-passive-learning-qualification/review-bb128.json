@@ -1,0 +1,10 @@
+{
+ "status": "approved",
+ "study": "PR457",
+ "source_sha256": "bfd5ddc3e5afe873fe5e95dd708d29a8067286dcd8a1d079632cf75b6bb5a909",
+ "binary_sha256": "9422aa17b08cdabdb8acd0a252ad779d2d252eb5ef4dfbf61e627f44fc07e391",
+ "reviewer": "Claude Opus 5.5, porting session (not independent of the port)",
+ "scope": "perturbed-policy-math-information-qualification-v1",
+ "unresolved": [],
+ "basis": "Host-only diff d355213e against the independently reviewed fbbf8fe3: three files (controller host switch, its test, protocol amendment); native sources byte-identical; no seed, game, epsilon, sweep, cap, thread, watch, proxy or signal change. Rebuilt on bb128 from that source; 8 native fixtures, 173 library tests and 16 guard/controller tests pass there. The original independent math/information review covers the unchanged native code."
+}

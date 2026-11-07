@@ -1,0 +1,39 @@
+{
+  "status": "quoted",
+  "source_sha256": "865febf768513471929882a08faf8b62a74ff079888010892b269fe47ccf2a03",
+  "binary_sha256": "2968a771f4d54b0b7772a431b355f8d2b832025f9f4f3c65cd28fe83c6f1cc30",
+  "central_seconds": 146.48914895325908,
+  "reserved_seconds": 500.1857295157772,
+  "calibration_stage": {
+    "stage": "calibration",
+    "command": [
+      "/Users/dberweger/Local/nplayer-passive-learning-20261028/native-binary-v1",
+      "/Users/dberweger/Local/nplayer-passive-learning-20261028/calibration-v1/calibration/manifest.json"
+    ],
+    "pid": 37129,
+    "process_group": 37129,
+    "returncode": 0,
+    "terminal_failure": null,
+    "wall_seconds": 7.918589291977696,
+    "sampled_peak_family_rss_bytes": 1526611968,
+    "user_cpu_seconds": 3.317281,
+    "system_cpu_seconds": 4.391873,
+    "cpu_scope": "Direct-child wait accounting; do not assume totals for orphan descendants."
+  },
+  "projected_main_family_rss_bytes": 5368709120,
+  "ram_headroom_bytes": 1073741824,
+  "projected_new_main_bytes": 4294967296,
+  "disk_headroom_bytes": 4294967296,
+  "main_started": false,
+  "explicit_budget_acceptance_required": true,
+  "assumptions": "Fixed sweep count, two fresh processes with hash-only row reproduction. Training scales16 to512 sweeps with2x/4x larger-table scenarios; row cost assumes2.1M per endpoint, 3x reserve; watch/metadata64 to512. Not a completion guarantee, power forecast or mature-model rate.",
+  "proposed_allocation_seconds": 900,
+  "components": {
+    "calibration_training_seconds": 0.13430387500000002,
+    "maximum_row_seconds_per_row": 1.6194899767416106e-06,
+    "calibration_nonrow_readout_seconds": 0.08109395900000001,
+    "projected_startup_watch_seconds": 20.396659,
+    "projected_row_seconds": 13.603715804629529
+  },
+  "independent_parent_arithmetic_recomputed": true
+}
