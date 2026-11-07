@@ -19,7 +19,7 @@ sampled() {
     local G=$(nvidia-smi --query-gpu=temperature.gpu,memory.used --format=csv,noheader,nounits 2>/dev/null | tr -d ' ')
     local NV=$(df --output=avail -B1G /home | tail -1 | tr -d ' ')
     echo "$(date -u +%FT%TZ),$RSS,$AV,${CPU:-0},${G:-0,0},$NV" >> $LOG.csv
-    local GT=${G%%,*}
+    local GT=${G%%,*}; GT=${GT%%.*}  # the driver reports decimals
     if [ "${AV:-99}" -lt 4 ] || [ "${CPU:-0}" -ge 90 ] || [ "${GT:-0}" -ge 87 ] || [ "${NV:-99}" -lt 10 ]; then
       echo "stop: available $AV GB, CPU $CPU C, GPU $GT C, NVMe $NV GB" >&2; kill $JOB; wait $JOB; return 5; fi
     sleep 5
@@ -43,6 +43,7 @@ if [ ! -e $W/data/export.done ]; then
   sampled $W/data/export $B/nplayer_features $W/data/manifest.json > $W/data/export.log 2> $W/data/export.err
   touch $W/data/export.done
 fi
+mkdir -p $W/models $W/results
 for SEED in 1 2 3; do
   M=$W/models/seed$SEED
   if [ ! -e $M/model.json ]; then
