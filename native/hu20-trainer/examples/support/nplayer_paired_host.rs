@@ -150,12 +150,12 @@ impl Case {
             return Err("stack/block bounds".into());
         }
         // Optional unequal physical stacks; the schedule moves identities across them. Live
-        // Open Poker tables seat opponents past 2,000 BB.
+        // Open Poker tables seat opponents past 2,000 BB and short stacks down to 1 BB.
         let stacks: Vec<u64> = match v.get("stacks_bb") {
             None | Some(Value::Null) => vec![stack; n],
             Some(Value::Array(list)) if list.len() == n => list
                 .iter()
-                .map(|x| x.as_u64().filter(|b| (10..=2500).contains(b)).ok_or("stacks_bb entries 10..=2500"))
+                .map(|x| x.as_u64().filter(|b| (1..=2500).contains(b)).ok_or("stacks_bb entries 1..=2500"))
                 .collect::<Result<_, _>>()?,
             _ => return Err("stacks_bb must list one stack per seat".into()),
         };
@@ -720,7 +720,10 @@ mod tests {
         assert_eq!(c.config.stacks(), &[10000, 5000, 15000]);
         v["stack_bb"] = json!(50);
         assert!(Case::parse(&v).is_ok());
-        for (key, bad) in [("stacks_bb", json!([100, 50])), ("stacks_bb", json!([100, 5, 100])), ("stacks_bb", json!([100, 2501, 100])), ("focal_views", json!(["projected"])),
+        v["stacks_bb"] = json!([1, 5, 100]);
+        assert_eq!(Case::parse(&v).unwrap().config.stacks(), &[100, 500, 10000]);
+        v["stacks_bb"] = json!([100, 50, 150]);
+        for (key, bad) in [("stacks_bb", json!([100, 50])), ("stacks_bb", json!([100, 0, 100])), ("stacks_bb", json!([100, 2501, 100])), ("focal_views", json!(["projected"])),
                            ("focal_views", json!(["native", "phantom"]))] {
             let mut w = v.clone();
             w[key] = bad;
