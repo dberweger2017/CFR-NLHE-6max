@@ -1,0 +1,7 @@
+# Optional: the CUDA build of PyTorch for Linux machines with an NVIDIA GPU, for neural-policy
+# experiments. Install it in place of requirements.txt: pip install -r requirements-gpu.txt
+# CUDA 12.4 wheels run on any driver with CUDA 12.4 support or later and cover compute
+# capability 5.0 and up. Check the setup with: python -m scripts.check_gpu
+--extra-index-url https://download.pytorch.org/whl/cu124
+-r requirements.txt
+torch==2.5.1+cu124; sys_platform == "linux"
