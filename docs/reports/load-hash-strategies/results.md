@@ -5,7 +5,7 @@ This is a **test-only study on the M4** (base MacBook Pro, Apple M4, 10 cores, 1
 ## Setup
 - **Tool:** [`native/hash-strategy-bench`](../../../native/hash-strategy-bench). It times nine strategies over one file. Every strategy reads the file inside its own timed region, after a warm-up read so they all see the same page-cache state.
 - **File:** the 2.19 GB six-player mixed-stack binary (`six.bin`, pin `f894a59f…c9ea`), in the page cache.
-- **Runs:** three rounds per strategy, in the default build and with `--features sha2-asm`. Raw output: [`m4-strategies.jsonl`](m4-strategies.jsonl) and [`m4-strategies-sha2-asm.jsonl`](m4-strategies-sha2-asm.jsonl). Real loads: [`m4-loads.json`](m4-loads.json).
+- **Runs:** three rounds per strategy, in the default build and with `--features sha2-asm`. Raw output (one record per strategy and round): [`m4-strategies.json`](m4-strategies.json) and [`m4-strategies-sha2-asm.json`](m4-strategies-sha2-asm.json). Real loads: [`m4-loads.json`](m4-loads.json).
 - **Correctness:** every SHA-256 variant printed the file's pin exactly.
 
 ## Hash strategies (2.19 GB, median of 3 rounds)
