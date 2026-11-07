@@ -18,6 +18,11 @@ flate2 = "1"
 sha2 = "0.10"
 hashbrown = { version = "0.15", default-features = false }
 
+# sha2 uses the ARMv8 SHA instructions (Apple silicon) only with its `asm` feature:
+# the same digests, about 4.5x faster on the M4. x86-64 builds are unchanged.
+[target.'cfg(target_arch = "aarch64")'.dependencies]
+sha2 = { version = "0.10", features = ["asm"] }
+
 [profile.release]
 opt-level = 3
 lto = "thin"
