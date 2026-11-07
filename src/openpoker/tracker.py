@@ -130,8 +130,13 @@ class Hand:
                 self.stacks[seat] = message[key]
                 return
 
-    def record(self, players) -> dict:
-        """The native dealer record at the hero's decision; `players` is `your_turn.players`."""
+    def record(self, players, cap: bool = False) -> dict:
+        """The native dealer record at the hero's decision; `players` is `your_turn.players`.
+
+        With `cap`, every starting stack is capped at the largest other seat's: chips beyond it can
+        never be won or lost. The deepest seat's bets are cut to its capped stack, so a raise past
+        it becomes an all-in raise or a call, and its actions after that all-in are dropped, as the
+        capped game has no turn for an all-in seat. `excess` holds each seat's removed chips."""
         self.observe_players(players)
         dealt = set(self.seen)
         if self.in_hand:
@@ -163,6 +168,9 @@ class Hand:
             if self.stacks[seat] == 0 and not any(p.seat == seat and p.chips for p in self.paid):
                 raise Unsupported(f'possible all-in blind at seat {seat}')
             contributed[seat] += blind
+        start = {seat: self.stacks[seat] + contributed[seat] + sum(p.chips for p in self.paid if p.seat == seat) for seat in order}
+        top = sorted(start.values())[-2] if cap else max(start.values())
+        start = {seat: min(chips, top) for seat, chips in start.items()} if cap else start
         actions, street, bets, wager = [], 'preflop', dict.fromkeys(order, 0), BLINDS[1]
         bets[sb_seat], bets[bb_seat] = BLINDS
         for p in self.paid:
@@ -172,11 +180,15 @@ class Hand:
                 if STREETS.index(p.street) < STREETS.index(street):
                     raise Unsupported('streets out of order')
                 street, bets, wager = p.street, dict.fromkeys(order, 0), 0
-            contributed[p.seat] += p.chips
-            total = bets[p.seat] + p.chips
+            room = start[p.seat] - contributed[p.seat]
+            if room == 0 and p.kind != 'fold':
+                continue  # all in at its capped stack: the capped game gives this seat no turn
+            chips = min(p.chips, room)
+            contributed[p.seat] += chips
+            total = bets[p.seat] + chips
             if p.kind == 'fold':
                 actions.append(['fold', 0])
-            elif p.chips == 0:
+            elif chips == 0:
                 actions.append(['check', 0])
             elif total > wager:
                 actions.append(['raise', total * SCALE])
@@ -184,12 +196,13 @@ class Hand:
             else:
                 actions.append(['call', 0])
             bets[p.seat] = total
-        stacks = [(self.stacks[seat] + contributed[seat]) * SCALE for seat in order]
         hero = native[self.hero]
-        return {'hand': {'stacks': stacks, 'sb': BLINDS[0] * SCALE, 'bb': BLINDS[1] * SCALE, 'button': button,
-                         'deck': self.deck(n, button, hero), 'actions': actions},
-                'seat': hero, 'order': order, 'hero_total': (bets[self.hero] if street == self.street else 0) + self.stacks[self.hero],
-                'stacks_now': [self.stacks[seat] * SCALE for seat in order]}
+        now = {seat: start[seat] - contributed[seat] for seat in order}
+        return {'hand': {'stacks': [start[seat] * SCALE for seat in order], 'sb': BLINDS[0] * SCALE, 'bb': BLINDS[1] * SCALE,
+                         'button': button, 'deck': self.deck(n, button, hero), 'actions': actions},
+                'seat': hero, 'order': order, 'hero_total': (bets[self.hero] if street == self.street else 0) + now[self.hero],
+                'stacks_now': [now[seat] * SCALE for seat in order],
+                'excess': [(self.stacks[seat] - now[seat]) * SCALE for seat in order]}
 
     def deck(self, n, button, hero):
         """Hero's cards in the hero's deal positions, the dealt board in its positions."""

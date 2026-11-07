@@ -182,6 +182,34 @@ def test_depth_bands_route_each_hand_by_every_dealt_stack(native):
 
 
 @native_only
+def test_a_deep_stack_plays_as_the_capped_table(native):
+    """Against a 2,000 BB stack the hand is a 100 BB hand: it routes into the band and the engine
+    reproduces every capped decision, including the deep seat's bets past the cap and the hero's
+    own turns as the deep seat."""
+    band = (89.4, 136.9)
+    routes = {n: (Route('script:check-call', band_bb=band), Route('script:random')) for n in range(2, 7)}
+    statuses, reasons, routed, deep_hero = Counter(), Counter(), Counter(), 0
+    for k, seats in enumerate(({0: ['script:pot-pressure', 40000], 2: ['bot', 2000]},
+                               {0: ['script:pot-pressure', 40000], 2: ['bot', 2000], 4: ['script:check-call', 2000]},
+                               {0: ['bot', 40000], 2: ['script:pot-pressure', 2000], 4: ['script:random', 2200]},
+                               {0: ['bot', 40000], 3: ['script:random', 2000]})):
+        bot = next(s for s, v in seats.items() if v[0] == 'bot')
+        table = Table(native, {s: list(v) for s, v in seats.items()}, bot, seed=40 + k)
+        records = asyncio.run(play(table, Agent(native, routes, seed=k), 60))
+        assert table.violations == 0
+        for r in records:
+            statuses[r['status']] += 1
+            if r['status'] == 'policy':
+                routed[r['route']] += 1
+                assert max(r['stacks_bb']) == sorted(r['stacks_bb'])[-2]
+                deep_hero += r.get('excess_bb', [0] * len(r['order']))[r['order'].index(bot)] > 0
+            else:
+                reasons[r['reason'].split(' at ')[0]] += 1
+    assert statuses['policy'] > 200 and routed['script:check-call'] > 50 and deep_hero > 50, (statuses, routed, deep_hero)
+    assert set(reasons) <= set(ALLOWED_FALLBACKS), reasons
+
+
+@native_only
 def test_websocket_session_plays_a_bounded_sandbox_session(native, tmp_path):
     pytest.importorskip('websockets')
     from src.openpoker import sandbox
