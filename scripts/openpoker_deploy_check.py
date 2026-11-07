@@ -1,7 +1,8 @@
 """Deployment check for an Open Poker route set (docs/openpoker-client.md).
 
 Loads every policy into one decision service, then plays sandbox hands at random tables: 2–6
-dealt players in random seats, each stack drawn log-uniformly from 10–250 BB and kept across
+dealt players in random seats, each stack drawn log-uniformly from --min-bb (10 by default) to
+250 BB and kept across
 hands, scripted opponents. Reports load time, the service's peak memory, per-decision latency,
 decision statuses, fallback reasons and the routes used, and checks them against the limits
 below. Needs no key and never connects to Open Poker.
@@ -58,10 +59,10 @@ async def play(table, agent, hands, latencies):
     return records
 
 
-def random_seats(rng):
+def random_seats(rng, min_bb=10):
     n = rng.randint(2, 6)
     seats = sorted(rng.sample(range(6), n))
-    stacks = {s: round(20 * math.exp(rng.uniform(math.log(10), math.log(250)))) for s in seats}
+    stacks = {s: round(20 * math.exp(rng.uniform(math.log(min_bb), math.log(250)))) for s in seats}
     bot = rng.choice(seats)
     return {s: ['bot' if s == bot else f'script:{rng.choice(SCRIPTS)}', stacks[s]] for s in seats}, bot
 
@@ -74,6 +75,7 @@ def main():
     parser.add_argument('--tables', type=int, default=200)
     parser.add_argument('--hands-per-table', type=int, default=20)
     parser.add_argument('--seed', type=int, default=20261027)
+    parser.add_argument('--min-bb', type=float, default=10, help='smallest stack drawn, in BB')
     parser.add_argument('--out', type=Path, required=True, help='new JSON report; never overwritten')
     args = parser.parse_args()
     routes = parse_routes(json.loads(args.routes.read_text()))
@@ -85,7 +87,7 @@ def main():
     latencies, statuses, reasons, used, tables = [], Counter(), Counter(), Counter(), Counter()
     try:
         for index in range(args.tables):
-            seats, bot = random_seats(rng)
+            seats, bot = random_seats(rng, args.min_bb)
             tables[len(seats)] += 1
             table = Table(native, seats, bot_seat=bot, seed=args.seed * 1000 + index)
             for r in asyncio.run(play(table, agent, args.hands_per_table, latencies)):
@@ -99,7 +101,7 @@ def main():
         native.close()
     latencies.sort()
     q = lambda p: latencies[min(len(latencies) - 1, int(p * len(latencies)))] if latencies else None
-    report = {'policies': {n: s for n, _, s in args.policy}, 'routes': json.loads(args.routes.read_text()),
+    report = {'policies': {n: s for n, _, s in args.policy}, 'routes': json.loads(args.routes.read_text()), 'min_bb': args.min_bb,
               'load_seconds': load_seconds, 'peak_memory_gb': memory, 'tables_by_players': dict(sorted(tables.items())),
               'decisions': dict(statuses), 'fallback_reasons': dict(reasons), 'routes_used': dict(sorted(used.items())),
               'latency_seconds': {'p50': q(0.5), 'p99': q(0.99), 'max': latencies[-1] if latencies else None}}

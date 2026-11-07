@@ -15,7 +15,7 @@
    - every action's chips must equal what the engine charges, so the engine's current stacks match the server's.
 3. **Hidden cards.** The engine needs a full deck. Unseen positions get unused cards in ascending order, and the policy sees only `Hand::observe` for the hero: its own cards and the dealt board.
 4. **Routing.** `src/openpoker/agent.py` picks a route by the number of dealt players, then by depth.
-   - **Route lists:** each player count has an ordered list of routes. A route may carry a depth band, `band_bb`. The first route whose band holds every dealt seat's starting stack, in BB, plays the hand. A route with no band always matches.
+   - **Route lists:** each player count has an ordered list of routes. A route may carry a depth band, `band_bb`, and a short threshold, `short_bb`. The first route that matches plays the hand: its band must hold every dealt seat's starting stack, in BB, and with a threshold some dealt seat must start below it. A route with neither always matches.
    - **Views:** live-order policies should use `"view": "projected"` at every size. It keeps the table's real, unequal chips, and adds phantom early-position folds below the model's player count. The native view needs the model's exact equal-stack configuration, which Open Poker never has.
    - **Mixed-stack policies** (`--stack-law`, see [the mixed-stack protocol](openpoker-mixed-stacks.md)) project with 100 BB phantom seats; real seats keep their chips.
 5. **Translation.** The native action becomes `fold`, `check`, `call`, `raise` with an exact raise-to amount in range, or `all_in` when only an all-in raise is offered.
@@ -42,17 +42,17 @@ cargo build --release --locked --manifest-path native/hu20-trainer/Cargo.toml --
 python -m pip install -r requirements-openpoker.txt
 ```
 
-`routes.json` from the [routing results](reports/openpoker-routing/results.md): the 100 BB models inside [89.4, 136.9] BB, the mixed-stack models elsewhere. The heads-up models come from the [heads-up results](reports/openpoker-heads-up/results.md), and the 3-player mixed-stack model `p3mix` from the [3–5-player results](reports/openpoker-short-mixed/results.md). At 4 and 5 players the six-player `mix` still plays off the band, because their dedicated mixed-stack models showed no difference.
+`routes.json` from the [routing results](reports/openpoker-routing/results.md): the 100 BB models inside [89.4, 136.9] BB, the mixed-stack models elsewhere. The heads-up models come from the [heads-up results](reports/openpoker-heads-up/results.md), and the 3-player mixed-stack model `p3mix` from the [3–5-player results](reports/openpoker-short-mixed/results.md). At 4 and 5 players the six-player `mix` still plays off the band, because their dedicated mixed-stack models showed no difference. Any hand where some dealt seat starts under 10 BB goes first to a wide-depth model, `huwide` heads-up and `widemix` at 3–6 players, from the [wide-stack results](reports/openpoker-wide-stacks/results.md).
 
 ```json
-{"2": [{"agent": "policy:hu100", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:humix", "view": "projected"}],
- "3": [{"agent": "policy:p3", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:p3mix", "view": "projected"}],
- "4": [{"agent": "policy:p4", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}],
- "5": [{"agent": "policy:p5", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}],
- "6": [{"agent": "policy:six", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}]}
+{"2": [{"agent": "policy:huwide", "view": "projected", "short_bb": 10}, {"agent": "policy:hu100", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:humix", "view": "projected"}],
+ "3": [{"agent": "policy:widemix", "view": "projected", "short_bb": 10}, {"agent": "policy:p3", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:p3mix", "view": "projected"}],
+ "4": [{"agent": "policy:widemix", "view": "projected", "short_bb": 10}, {"agent": "policy:p4", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}],
+ "5": [{"agent": "policy:widemix", "view": "projected", "short_bb": 10}, {"agent": "policy:p5", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}],
+ "6": [{"agent": "policy:widemix", "view": "projected", "short_bb": 10}, {"agent": "policy:six", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}]}
 ```
 
-The routing studies set the actual routes and bands: [routing](openpoker-routing.md), [heads-up](openpoker-heads-up.md) and [3–5 players](openpoker-short-mixed.md).
+The routing studies set the actual routes and bands: [routing](openpoker-routing.md), [heads-up](openpoker-heads-up.md), [3–5 players](openpoker-short-mixed.md) and [short stacks](openpoker-wide-stacks.md).
 
 Dry run against the local sandbox (no key):
 
@@ -66,10 +66,10 @@ python -m scripts.openpoker_audit NEW.jsonl
 
 ```sh
 python -m scripts.openpoker_deploy_check --routes routes.json --policy six MODEL.bin SHA256 ... \
-  --card-buckets K50_DIR --tables 200 --hands-per-table 20 --out NEW.json
+  --card-buckets K50_DIR --tables 200 --hands-per-table 20 [--min-bb 1] --out NEW.json
 ```
 
-It plays sandbox hands at random tables (2–6 dealt players, random seats, stacks log-uniform over 10–250 BB) and reports:
+It plays sandbox hands at random tables (2–6 dealt players, random seats, stacks log-uniform over 10–250 BB, or from `--min-bb` to exercise the short routes) and reports:
 - load time;
 - the service's peak memory;
 - decision latency;
@@ -105,6 +105,7 @@ It encodes this repository's reading of the documentation: blinds are not broadc
 
 ## Known limits
 
-- **No stack management.** The bot never leaves and rejoins to reset its depth; the routes cover 10–250 BB stacks instead.
-- **Stacks beyond the grid.** A stack can grow past 250 BB or fall below 10 BB. The mixed-stack models still play such hands through the projected view, but they were never trained there.
+- **No stack management.** The bot never leaves and rejoins to reset its depth; the routes cover 1–250 BB stacks instead.
+- **Stacks beyond the grid.** A stack can grow past 250 BB or fall below 1 BB. The models still play such hands through the projected view, but they were never trained there.
+- **Short multiway postflop.** `widemix` covers preflop at short tables but still has no trained row for many postflop decisions there ([wide-stack results](reports/openpoker-wide-stacks/results.md)).
 - **Server behavior.** Dead buttons, missed blinds and other undocumented server behavior fall back rather than guess.
