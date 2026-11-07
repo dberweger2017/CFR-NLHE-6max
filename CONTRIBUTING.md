@@ -26,7 +26,7 @@ source .venv/bin/activate
 python -m pip install -r requirements-dev.txt
 ```
 
-To only play against the released models, `requirements-play.txt` is enough; the [readme](readme.md#quick-start) shows the downloads. [docs/development.md](docs/development.md) maps the code and its entry points.
+To only play against the released models, `requirements-play.txt` is enough; the [readme](readme.md#quick-start) shows the downloads. For neural-policy work on a Linux machine with an NVIDIA GPU, install `requirements-gpu.txt` instead of `requirements.txt`, then run `python -m scripts.check_gpu` to confirm PyTorch sees the card. On Apple silicon the default install already uses the GPU through MPS. [docs/development.md](docs/development.md) maps the code and its entry points.
 
 ## Run the checks
 
