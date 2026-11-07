@@ -1,5 +1,17 @@
 # Roadmap
 
+## Six-player tabular coverage exhausted; neural-policy track proposed
+
+[PR461](https://github.com/dberweger2017/CFR-NLHE-6max/pull/461) tested a 400M-entry table and [PR462](https://github.com/dberweger2017/CFR-NLHE-6max/pull/462) ([results](docs/reports/openpoker-short-coverage/results.md)) tested effective-stack keys and short-heavy deals. None closes the six-player postflop gap at short tables. Where one seat is short and five are deep, about half of postflop decisions and two thirds of river decisions still have no trained row. A lookup table can't generalize to spots it never visited, and learning at one stack depth or player count doesn't carry over to another.
+
+The next track tests whether a neural network can generalize. Each step is its own PR and needs its own go:
+1. **Training data:** export situations and blueprint strategies from play with the live wide-depth model, including whether a trained row existed.
+2. **Imitation:** a small network trained on rows that exist. It is judged on held-out spots and held-out table types.
+3. **Fallback:** the network plays only where the blueprint has no row, against the current uniform fallback, under PR461's rules.
+4. **Only if 1–3 hold:** a network for every decision, then self-play fine-tuning. One model would cover 2–6 players and every stack depth.
+
+Optional GPU support is in `requirements-gpu.txt`, and `python -m scripts.check_gpu` checks it. No model, route, default or release changes.
+
 ## Target-policy exploration qualification prepared; main allocation pending
 
 [PR457](https://github.com/dberweger2017/CFR-NLHE-6max/pull/457),

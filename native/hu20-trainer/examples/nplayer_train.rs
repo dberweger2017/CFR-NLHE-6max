@@ -113,14 +113,14 @@ fn train() -> Result<(), String> {
     }
     let mixture = match options.get("--stack-law").map(String::as_str) {
         None => None,
-        Some(law @ ("live-depth-grid-v1" | "wide-depth-grid-v1")) => {
+        Some(law) if DepthGrid::from_law(law).is_some() => {
             if options.contains_key("--stacks") || options.contains_key("--stack-bb") || sb != 50 || bb != 100 {
                 return Err("--stack-law draws every stack at 50/100 blinds".into());
             }
-            if options.get("--key-schema").map(String::as_str) != Some("live-order") {
-                return Err("--stack-law needs --key-schema live-order".into());
+            if !matches!(options.get("--key-schema").map(String::as_str), Some("live-order" | "live-order-effective")) {
+                return Err("--stack-law needs --key-schema live-order or live-order-effective".into());
             }
-            Some(if law == "live-depth-grid-v1" { DepthGrid::Live } else { DepthGrid::Wide })
+            DepthGrid::from_law(law)
         }
         Some(_) => return Err("unknown --stack-law".into()),
     };
@@ -197,7 +197,7 @@ fn train() -> Result<(), String> {
     let run = Run { options: &options, players, seed, scope, max_entries, freeze, sampling, roots_per_seat, prune,
                     pressure, admission, nodes, seconds, out, gzip, fast };
     if let Some(grid) = mixture {
-        let game = LiveMixtureGame::new(tables, players, grid)?;
+        let game = LiveMixtureGame::with_schema(tables, players, grid, schema)?;
         run.go(&game, || json!({"depths_bb":grid.depths_bb(),"seat_draws":game.depths()}))
     } else {
         run.go(&CashGame { config, tables, schema }, || serde_json::Value::Null)
