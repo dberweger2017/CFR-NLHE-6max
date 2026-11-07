@@ -1,0 +1,147 @@
+{
+ "policies": {
+  "six": "f894a59f8a92424d735438726d16834901a7dcaf6d560c98b950fb72a143c9ea",
+  "mix": "64c693c4a3a56f69fcdd050b5da9dde0cfee76e108676b4816dbab98dccfbb20",
+  "p3": "1a607613a29d2c4d62e16ce31df5214f160796391730b2fbc55495fd286fc894",
+  "p4": "66ec2f87d3fbfb3100c92325939c0fa43e34c4168e66ffad6cfa73a44c8688ba",
+  "p5": "bdc5ab50bb4765f86ebd7e044beb95db09a86bb1cff170eaf800f8781851ec26",
+  "hu100": "1722f0d8744487fcc1c049373f3e3b0a08926701bbdcec5e617d08b7b62cae47",
+  "humix": "9d39dda9d9a5c07a1372dd7a876353fbeffc664eb321c891570c0038558493fc",
+  "p3mix": "afddb59521bd518aa25ef5c7a499ea09059b102dc289d34d3978d1438a85a16a",
+  "widemix": "702e10cf228f93ca73ca4c7450607c0371b69a0a6a63db2117efc79fd9922ee9",
+  "huwide": "e485d5d7690b2a9e9263f0d93e243db1e45387fb2210a4ab4db25877ee5627d0"
+ },
+ "routes": {
+  "2": [
+   {
+    "agent": "policy:huwide",
+    "view": "projected",
+    "short_bb": 10
+   },
+   {
+    "agent": "policy:hu100",
+    "view": "projected",
+    "band_bb": [
+     89.4,
+     136.9
+    ]
+   },
+   {
+    "agent": "policy:humix",
+    "view": "projected"
+   }
+  ],
+  "3": [
+   {
+    "agent": "policy:widemix",
+    "view": "projected",
+    "short_bb": 10
+   },
+   {
+    "agent": "policy:p3",
+    "view": "projected",
+    "band_bb": [
+     89.4,
+     136.9
+    ]
+   },
+   {
+    "agent": "policy:p3mix",
+    "view": "projected"
+   }
+  ],
+  "4": [
+   {
+    "agent": "policy:widemix",
+    "view": "projected",
+    "short_bb": 10
+   },
+   {
+    "agent": "policy:p4",
+    "view": "projected",
+    "band_bb": [
+     89.4,
+     136.9
+    ]
+   },
+   {
+    "agent": "policy:mix",
+    "view": "projected"
+   }
+  ],
+  "5": [
+   {
+    "agent": "policy:widemix",
+    "view": "projected",
+    "short_bb": 10
+   },
+   {
+    "agent": "policy:p5",
+    "view": "projected",
+    "band_bb": [
+     89.4,
+     136.9
+    ]
+   },
+   {
+    "agent": "policy:mix",
+    "view": "projected"
+   }
+  ],
+  "6": [
+   {
+    "agent": "policy:widemix",
+    "view": "projected",
+    "short_bb": 10
+   },
+   {
+    "agent": "policy:six",
+    "view": "projected",
+    "band_bb": [
+     89.4,
+     136.9
+    ]
+   },
+   {
+    "agent": "policy:mix",
+    "view": "projected"
+   }
+  ]
+ },
+ "min_bb": 1.0,
+ "load_seconds": 391.96247319299437,
+ "peak_memory_gb": 45.256160736083984,
+ "tables_by_players": {
+  "2": 52,
+  "3": 34,
+  "4": 33,
+  "5": 45,
+  "6": 36
+ },
+ "decisions": {
+  "policy": 3747,
+  "fallback": 105
+ },
+ "fallback_reasons": {
+  "possible all-in blind": 105
+ },
+ "routes_used": {
+  "2 players: policy:hu100": 20,
+  "2 players: policy:humix": 1192,
+  "2 players: policy:huwide": 317,
+  "3 players: policy:p3mix": 546,
+  "3 players: policy:widemix": 515,
+  "4 players: policy:mix": 245,
+  "4 players: policy:widemix": 420,
+  "5 players: policy:mix": 123,
+  "5 players: policy:widemix": 251,
+  "6 players: policy:mix": 13,
+  "6 players: policy:widemix": 105
+ },
+ "latency_seconds": {
+  "p50": 7.638600072823465e-05,
+  "p99": 0.0001181719999294728,
+  "max": 0.0007179079984780401
+ },
+ "passed": true
+}

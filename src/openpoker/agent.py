@@ -2,8 +2,9 @@
 
 Routing is by the number of players dealt into the hand. Each count has an ordered list of
 routes; a route names a loaded policy, its view (`native`, or `projected` for phantom folds and
-other depths, see docs/openpoker-phantom-depth.md) and optionally a depth band. The first route
-whose band holds every dealt seat's starting stack plays the hand (docs/openpoker-client.md). A count without a route, an unrepresentable hand or any
+other depths, see docs/openpoker-phantom-depth.md), optionally a depth band and optionally a short
+threshold. The first route whose band holds every dealt seat's starting stack, and, with a threshold,
+where some dealt seat starts below it, plays the hand (docs/openpoker-client.md). A count without a route, an unrepresentable hand or any
 disagreement between the server and the native engine plays the safe fallback, check else
 fold, and is recorded with its reason.
 """
@@ -19,9 +20,11 @@ class Route:
     agent: str
     view: str = 'native'
     band_bb: tuple[float, float] | None = None
+    short_bb: float | None = None
 
     def covers(self, stacks_bb) -> bool:
-        return self.band_bb is None or all(self.band_bb[0] <= s <= self.band_bb[1] for s in stacks_bb)
+        return ((self.band_bb is None or all(self.band_bb[0] <= s <= self.band_bb[1] for s in stacks_bb))
+                and (self.short_bb is None or min(stacks_bb) < self.short_bb))
 
 
 class Agent:
@@ -60,19 +63,22 @@ class Agent:
 
 def parse_routes(spec: dict) -> dict[int, tuple[Route, ...]]:
     """{"4": {"agent": "policy:six", "view": "projected"}, "6": [{"agent": "policy:six",
-    "view": "projected", "band_bb": [89.4, 111.8]}, {"agent": "policy:mix", "view": "projected"}]}."""
+    "view": "projected", "band_bb": [89.4, 111.8]}, {"agent": "policy:mix", "view": "projected"}]};
+    a route may also carry "short_bb": 10, matching only hands where some dealt seat starts below it."""
     routes = {}
     for count, entries in spec.items():
         n = int(count)
         entries = entries if isinstance(entries, list) else [entries]
         parsed = []
         for route in entries:
-            band = route.get('band_bb')
+            band, short = route.get('band_bb'), route.get('short_bb')
             if (not 2 <= n <= 6 or route.get('view', 'native') not in ('native', 'projected')
-                    or set(route) - {'agent', 'view', 'band_bb'}
-                    or band is not None and not (len(band) == 2 and 0 < band[0] <= band[1])):
+                    or set(route) - {'agent', 'view', 'band_bb', 'short_bb'}
+                    or band is not None and not (len(band) == 2 and 0 < band[0] <= band[1])
+                    or short is not None and not (isinstance(short, (int, float)) and short > 0)):
                 raise ValueError(f'route {count}: {route}')
-            parsed.append(Route(route['agent'], route.get('view', 'native'), tuple(band) if band else None))
+            parsed.append(Route(route['agent'], route.get('view', 'native'), tuple(band) if band else None,
+                                float(short) if short is not None else None))
         if not parsed:
             raise ValueError(f'route {count}: empty')
         routes[n] = tuple(parsed)
