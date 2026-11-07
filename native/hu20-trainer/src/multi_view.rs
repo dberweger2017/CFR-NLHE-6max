@@ -45,7 +45,7 @@ impl Projected {
 
 /// Only schemas whose keys ignore initial stacks may be projected.
 pub fn supports(schema: KeySchema) -> bool {
-    schema == KeySchema::LiveOrder
+    schema.is_live_order_mixture()
 }
 
 /// Checks a model configuration against a table once, before play.
@@ -198,7 +198,9 @@ mod tests {
                 let mut moved = hand.observe(actor).unwrap();
                 moved.config = other;
                 let key = |schema, o: &Observation<'_>| crate::multi_holdem::decision_with_cards(schema, o, &[7, 1]).key;
-                assert_eq!(key(KeySchema::LiveOrder, &view), key(KeySchema::LiveOrder, &moved));
+                for schema in [KeySchema::LiveOrder, KeySchema::LiveOrderEffective] {
+                    assert_eq!(key(schema, &view), key(schema, &moved));
+                }
                 assert_ne!(key(KeySchema::History, &view), key(KeySchema::History, &moved));
                 let choices = menu(&view);
                 hand.apply_mut(choices[rng.gen_range(0..choices.len())].1).unwrap();
@@ -216,6 +218,7 @@ mod tests {
         assert!(compatible(Config::new(&[10000; 4], 50, 100).unwrap(), Config::new(&[10000; 5], 50, 100).unwrap()).is_err());
         assert!(compatible(Config::new(&[10000, 5000, 10000], 50, 100).unwrap(), Config::new(&[10000; 3], 50, 100).unwrap()).is_err());
         assert!(compatible(Config::new(&[10000; 2], 50, 100).unwrap(), Config::new(&[5000; 2], 50, 100).unwrap()).is_ok());
-        assert!(supports(KeySchema::LiveOrder) && !supports(KeySchema::History));
+        assert!(supports(KeySchema::LiveOrder) && supports(KeySchema::LiveOrderEffective) && !supports(KeySchema::History));
+        assert!(!supports(KeySchema::LiveOrderSeat) && !supports(KeySchema::LiveOrderStreet));
     }
 }

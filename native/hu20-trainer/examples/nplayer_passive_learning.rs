@@ -6,7 +6,7 @@ use hu20_trainer::{
     multi_cfr::{Game, State, Table},
     multi_checkpoint::{self, key_hex},
     multi_holdem,
-    multi_stacks::LiveMixtureGame,
+    multi_stacks::{DepthGrid, LiveMixtureGame},
 };
 use rand::{rngs::StdRng, SeedableRng};
 use serde_json::{json, Value};
@@ -180,7 +180,7 @@ fn run(config: &Value) -> Result<(), String> {
     std::fs::create_dir(out).map_err(|e| e.to_string())?;
     let start = Instant::now();
     let tables = EquityTables::load(Path::new(config["tables"].as_str().ok_or("tables")?), false)?;
-    let watch = watches(&LiveMixtureGame::new(tables, 3)?, watch_hands);
+    let watch = watches(&LiveMixtureGame::new(tables, 3, DepthGrid::Live)?, watch_hands);
     let inventory: Vec<_> = watch
         .iter()
         .map(|(k, v)| json!({"key":key_hex(k),"metadata":v}))
@@ -196,7 +196,7 @@ fn run(config: &Value) -> Result<(), String> {
     let startup = start.elapsed().as_secs_f64();
     let mut arms = Vec::new();
     for eps in [0., EPSILON] {
-        let game = LiveMixtureGame::new(tables, 3)?;
+        let game = LiveMixtureGame::new(tables, 3, DepthGrid::Live)?;
         let mut trainer = probe::ResearchTrainer::new(seed, cap, eps);
         let mut observer = ledger::Ledger::new(watch.clone());
         let name = if eps == 0. { "control" } else { "exploration" };
