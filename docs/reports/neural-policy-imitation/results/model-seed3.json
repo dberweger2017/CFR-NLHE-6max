@@ -1,0 +1,141 @@
+{
+ "format": "neural-policy-imitation-model-v1",
+ "layout_sha256": "33d180c77adfd1d322afa313949cb5b7bade2469a92b86022458635d650adb8b",
+ "features": 612,
+ "hidden": [
+  1024,
+  1024,
+  512
+ ],
+ "epochs": 4,
+ "batch": 8192,
+ "lr": 0.001,
+ "weight_decay": 0.0001,
+ "seed": 3,
+ "device": "cuda",
+ "torch": "2.5.1+cu124",
+ "samples": 16971858,
+ "data": [
+  {
+   "path": "/home/dberweger/neural-policy-imitation-20261108/data/train/wide-3p-check-call.npfeat",
+   "sha256": "26a183ba0f39202241076b5adbe983840ed2b49738f66354ff326f2c3444ac28"
+  },
+  {
+   "path": "/home/dberweger/neural-policy-imitation-20261108/data/train/wide-3p-mixed.npfeat",
+   "sha256": "75c994ea8a3d2b5edbe9b3ba4dc38f7cc95711c7d931a5920ff5aea15f6ed76d"
+  },
+  {
+   "path": "/home/dberweger/neural-policy-imitation-20261108/data/train/wide-3p-pot-pressure.npfeat",
+   "sha256": "0e26c0b5ecbd1c41c044a9307c1edc523a4a7039b726dd064e2ff5a613c77a00"
+  },
+  {
+   "path": "/home/dberweger/neural-policy-imitation-20261108/data/train/wide-3p-random.npfeat",
+   "sha256": "b7be012e233b65f0f3e5961b1d361664e8c1565a61515a655a0e6cd7df8b2eef"
+  },
+  {
+   "path": "/home/dberweger/neural-policy-imitation-20261108/data/train/wide-3p-self.npfeat",
+   "sha256": "495ebe134426fda0d8003265e0e01bbcdadebb73057ff97a5e9e558cd75273a3"
+  },
+  {
+   "path": "/home/dberweger/neural-policy-imitation-20261108/data/train/wide-3p-tight-aggressive.npfeat",
+   "sha256": "897df465aed6e40ec553920073a4a2fc1f3bd07a84ece1febcc08bc0acc10e79"
+  },
+  {
+   "path": "/home/dberweger/neural-policy-imitation-20261108/data/train/wide-4p-check-call.npfeat",
+   "sha256": "8ba82b5fdf79c4ca20466ef45bf038b96f1f6b13381bd866bfb5dd1cf98a9841"
+  },
+  {
+   "path": "/home/dberweger/neural-policy-imitation-20261108/data/train/wide-4p-mixed.npfeat",
+   "sha256": "d9e536cb25428950977cf7355187f9e1be522d5489defacbcbda372697feeb4c"
+  },
+  {
+   "path": "/home/dberweger/neural-policy-imitation-20261108/data/train/wide-4p-pot-pressure.npfeat",
+   "sha256": "01af039b22b9cbe0f13409898bc088ba98f13f61a47cb0818b21cd4ebde3ac11"
+  },
+  {
+   "path": "/home/dberweger/neural-policy-imitation-20261108/data/train/wide-4p-random.npfeat",
+   "sha256": "b9edcfa8910cca87539e9c3d3ff236b203534f2d211cb55092d0eb9170fa7229"
+  },
+  {
+   "path": "/home/dberweger/neural-policy-imitation-20261108/data/train/wide-4p-self.npfeat",
+   "sha256": "0130094487087c07687050a067644f0a0853ecb869a5ab9f9ca1457435c3b379"
+  },
+  {
+   "path": "/home/dberweger/neural-policy-imitation-20261108/data/train/wide-4p-tight-aggressive.npfeat",
+   "sha256": "cf95f6379b642a208b85491da68e9f34e39a84951d10f367de0dde27b69ef831"
+  },
+  {
+   "path": "/home/dberweger/neural-policy-imitation-20261108/data/train/wide-5p-check-call.npfeat",
+   "sha256": "4740ee21a786d9c46a3875cbd77a9cac2ab45bd2820bf4e1619e983b35dee966"
+  },
+  {
+   "path": "/home/dberweger/neural-policy-imitation-20261108/data/train/wide-5p-mixed.npfeat",
+   "sha256": "d95e41a96d6607aa00bf010667ab1dd793b0ed81071882ced6322df00042ad5d"
+  },
+  {
+   "path": "/home/dberweger/neural-policy-imitation-20261108/data/train/wide-5p-pot-pressure.npfeat",
+   "sha256": "2ef02d43d7b22121c85b37ce8d89e2c5ab9a5ea9cd58816d6dc570df238f213a"
+  },
+  {
+   "path": "/home/dberweger/neural-policy-imitation-20261108/data/train/wide-5p-random.npfeat",
+   "sha256": "a185dc2bbc0e17a9e74bc59716346375585575f162298c0cb00ddb1f86a9c1a6"
+  },
+  {
+   "path": "/home/dberweger/neural-policy-imitation-20261108/data/train/wide-5p-self.npfeat",
+   "sha256": "ef2619ec36736f3ae827df1fdc24128af08e19fdfc7645d83cb697e63196d0eb"
+  },
+  {
+   "path": "/home/dberweger/neural-policy-imitation-20261108/data/train/wide-5p-tight-aggressive.npfeat",
+   "sha256": "5c1bf69f6e824ad47c1a20e48a097453c89050b410bdf788196989f281cb9721"
+  },
+  {
+   "path": "/home/dberweger/neural-policy-imitation-20261108/data/train/wide-6p-check-call.npfeat",
+   "sha256": "40f050a718924edd6a47c747257a59fcb7a97f10ae3b2242ab1c36a8ee758635"
+  },
+  {
+   "path": "/home/dberweger/neural-policy-imitation-20261108/data/train/wide-6p-mixed.npfeat",
+   "sha256": "79706a5ec1f5d42203aa555b0aa30b04b5ed7319cdee3ce792a743079c5932e0"
+  },
+  {
+   "path": "/home/dberweger/neural-policy-imitation-20261108/data/train/wide-6p-pot-pressure.npfeat",
+   "sha256": "643019333b91b836cf4a73a9357286e06991f1461b2984e8b0774e1261a4ccab"
+  },
+  {
+   "path": "/home/dberweger/neural-policy-imitation-20261108/data/train/wide-6p-random.npfeat",
+   "sha256": "cbaabeb4a1e08c697d3952cfffe643daaa1b2e9f31ba09e51b8f00e5c259619c"
+  },
+  {
+   "path": "/home/dberweger/neural-policy-imitation-20261108/data/train/wide-6p-self.npfeat",
+   "sha256": "9691b55c9bbee5d57f65a36343b4f9251ffc9b1cde05b890979e95b2aca50231"
+  },
+  {
+   "path": "/home/dberweger/neural-policy-imitation-20261108/data/train/wide-6p-tight-aggressive.npfeat",
+   "sha256": "287b45c781566d9c67b664c5d53beb5e3004fca44c8b99d05b8db78335b32cf4"
+  }
+ ],
+ "history": [
+  {
+   "epoch": 1,
+   "loss": 0.6345393726741092,
+   "seconds": 12.688617944717407
+  },
+  {
+   "epoch": 2,
+   "loss": 0.5891562153821611,
+   "seconds": 12.579773902893066
+  },
+  {
+   "epoch": 3,
+   "loss": 0.5762583313994124,
+   "seconds": 12.639850616455078
+  },
+  {
+   "epoch": 4,
+   "loss": 0.5702381982636744,
+   "seconds": 12.572949171066284
+  }
+ ],
+ "load_seconds": 5.033602952957153,
+ "seconds": 86.8569118976593,
+ "weights_sha256": "3d76edb5311ca1b5343f6ec8a681c37b96a7239a22065b8c5484ce79c7f37e2d"
+}
