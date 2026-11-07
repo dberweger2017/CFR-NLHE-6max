@@ -38,22 +38,46 @@ pub fn tuple_index(c: Config) -> Option<usize> {
 /// a log-spaced grid, so one table can mix short and deep stacks. Live-order keys never read
 /// initial stacks; training only changes which chip situations reach each row.
 pub const LIVE_DEPTHS_BB: [u64; 13] = [10, 15, 20, 30, 40, 50, 65, 80, 100, 125, 150, 200, 250];
+/// The wide grid: the live grid extended below 10 BB, so short stacks meet deep ones at a table.
+pub const WIDE_DEPTHS_BB: [u64; 20] = [1, 2, 3, 4, 5, 6, 8, 10, 15, 20, 30, 40, 50, 65, 80, 100, 125, 150, 200, 250];
 /// Phantom seats under a projected view hold this depth; they fold before acting.
 pub const LIVE_NOMINAL_BB: u64 = 100;
+/// Which depth grid a live-order mixture draws from.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum DepthGrid {
+    Live,
+    Wide,
+}
+impl DepthGrid {
+    pub const ALL: [Self; 2] = [Self::Live, Self::Wide];
+    pub fn depths_bb(self) -> &'static [u64] {
+        match self {
+            Self::Live => &LIVE_DEPTHS_BB,
+            Self::Wide => &WIDE_DEPTHS_BB,
+        }
+    }
+    pub fn declaration(self) -> Value {
+        let depths = self.depths_bb();
+        json!({"rule":"iid-uniform-depth-grid-v1","depths_bb":depths,
+               "button":"independent-uniform","seat_probability":format!("1/{}", depths.len())})
+    }
+    pub fn supports(self, c: Config) -> bool {
+        (2..=6).contains(&c.players())
+            && (c.small_blind(), c.big_blind()) == (50, 100)
+            && c.stacks().iter().all(|s| s % 100 == 0 && self.depths_bb().contains(&(s / 100)))
+    }
+}
 pub fn live_declaration() -> Value {
-    json!({"rule":"iid-uniform-depth-grid-v1","depths_bb":LIVE_DEPTHS_BB,
-           "button":"independent-uniform","seat_probability":format!("1/{}", LIVE_DEPTHS_BB.len())})
+    DepthGrid::Live.declaration()
 }
 pub fn live_supports(c: Config) -> bool {
-    (2..=6).contains(&c.players())
-        && (c.small_blind(), c.big_blind()) == (50, 100)
-        && c.stacks().iter().all(|s| s % 100 == 0 && LIVE_DEPTHS_BB.contains(&(s / 100)))
+    DepthGrid::Live.supports(c)
 }
 #[derive(Clone, Debug)]
 pub enum CashIdentity {
     Fixed(Config),
     Mixture,
-    LiveMixture(usize),
+    LiveMixture(usize, DepthGrid),
 }
 impl CashIdentity {
     pub fn parse(i: &Value) -> Result<Self, String> {
@@ -69,7 +93,7 @@ impl CashIdentity {
             return Err("unsupported cash identity".into());
         }
         if let Some(d) = i.get("stack_distribution") {
-            if d == &live_declaration() {
+            if let Some(grid) = DepthGrid::ALL.into_iter().find(|g| d == &g.declaration()) {
                 if i.get("stacks").is_some()
                     || !(2..=6).contains(&n)
                     || i["small_blind"] != 50
@@ -78,7 +102,7 @@ impl CashIdentity {
                 {
                     return Err("unsupported live-order stack distribution".into());
                 }
-                return Ok(Self::LiveMixture(n as usize));
+                return Ok(Self::LiveMixture(n as usize, grid));
             }
             if d != &declaration()
                 || i.get("stacks").is_some()
@@ -113,13 +137,13 @@ impl CashIdentity {
         match self {
             Self::Fixed(c) => c.players(),
             Self::Mixture => 3,
-            Self::LiveMixture(n) => *n,
+            Self::LiveMixture(n, _) => *n,
         }
     }
     pub fn fixed(&self) -> Result<Config, String> {
         match self {
             Self::Fixed(c) => Ok(*c),
-            Self::Mixture | Self::LiveMixture(_) => {
+            Self::Mixture | Self::LiveMixture(..) => {
                 Err("fixed-only consumer cannot use a variable-stack policy".into())
             }
         }
@@ -129,7 +153,7 @@ impl CashIdentity {
     pub fn projection(&self) -> Result<Config, String> {
         match self {
             Self::Fixed(c) => Ok(*c),
-            Self::LiveMixture(n) => Config::new(&vec![LIVE_NOMINAL_BB * 100; *n], 50, 100),
+            Self::LiveMixture(n, _) => Config::new(&vec![LIVE_NOMINAL_BB * 100; *n], 50, 100),
             Self::Mixture => Err("projection needs a live-order policy".into()),
         }
     }
@@ -137,7 +161,7 @@ impl CashIdentity {
         match self {
             Self::Fixed(expected) => *expected == c,
             Self::Mixture => tuple_index(c).is_some(),
-            Self::LiveMixture(n) => c.players() == *n && live_supports(c),
+            Self::LiveMixture(n, grid) => c.players() == *n && grid.supports(c),
         }
     }
 }
@@ -203,13 +227,14 @@ impl Game for StackMixtureGame {
     }
 }
 
-/// One root's stacks under `live_declaration`; `drawn` sees each seat's grid index.
-pub fn live_draw(players: usize, rng: &mut impl Rng, mut drawn: impl FnMut(usize)) -> Config {
+/// One root's stacks under `grid`; `drawn` sees each seat's grid index.
+pub fn live_draw(players: usize, grid: DepthGrid, rng: &mut impl Rng, mut drawn: impl FnMut(usize)) -> Config {
+    let depths = grid.depths_bb();
     let stacks: Vec<u64> = (0..players)
         .map(|_| {
-            let i = rng.gen_range(0..LIVE_DEPTHS_BB.len());
+            let i = rng.gen_range(0..depths.len());
             drawn(i);
-            LIVE_DEPTHS_BB[i] * 100
+            depths[i] * 100
         })
         .collect();
     Config::new(&stacks, 50, 100).unwrap()
@@ -217,18 +242,23 @@ pub fn live_draw(players: usize, rng: &mut impl Rng, mut drawn: impl FnMut(usize
 pub struct LiveMixtureGame {
     pub tables: &'static EquityTables,
     players: usize,
+    grid: DepthGrid,
     /// Seat-depth draws per grid index, for the run report.
-    pub depth_counts: [AtomicU64; LIVE_DEPTHS_BB.len()],
+    pub depth_counts: Vec<AtomicU64>,
 }
 impl LiveMixtureGame {
-    pub fn new(tables: &'static EquityTables, players: usize) -> Result<Self, String> {
+    pub fn new(tables: &'static EquityTables, players: usize, grid: DepthGrid) -> Result<Self, String> {
         if !(2..=6).contains(&players) {
             return Err("live-order mixture needs 2..6 players".into());
         }
-        Ok(Self { tables, players, depth_counts: std::array::from_fn(|_| AtomicU64::new(0)) })
+        let depth_counts = grid.depths_bb().iter().map(|_| AtomicU64::new(0)).collect();
+        Ok(Self { tables, players, grid, depth_counts })
     }
-    pub fn depths(&self) -> [u64; LIVE_DEPTHS_BB.len()] {
-        std::array::from_fn(|i| self.depth_counts[i].load(Ordering::Relaxed))
+    pub fn grid(&self) -> DepthGrid {
+        self.grid
+    }
+    pub fn depths(&self) -> Vec<u64> {
+        self.depth_counts.iter().map(|c| c.load(Ordering::Relaxed)).collect()
     }
 }
 impl Game for LiveMixtureGame {
@@ -238,11 +268,11 @@ impl Game for LiveMixtureGame {
     }
     fn identity(&self) -> Value {
         json!({"schema":KeySchema::LiveOrder.name(),"game":"nlhe-cash","players":self.players,
-          "stack_distribution":live_declaration(),"small_blind":50,"big_blind":100,"menu":MENU,
+          "stack_distribution":self.grid.declaration(),"small_blind":50,"big_blind":100,"menu":MENU,
           "card_tables":self.tables.sha256,"utility_unit":"big-blind"})
     }
     fn sample(&self, rng: &mut rand::rngs::StdRng) -> CashState {
-        let config = live_draw(self.players, rng, |i| {
+        let config = live_draw(self.players, self.grid, rng, |i| {
             self.depth_counts[i].fetch_add(1, Ordering::Relaxed);
         });
         CashGame {
@@ -339,13 +369,48 @@ mod tests {
         let mut b = rand::rngs::StdRng::seed_from_u64(7);
         let mut unequal = 0;
         for _ in 0..20_000 {
-            let c = live_draw(6, &mut a, |i| counts[i] += 1);
-            assert_eq!(c, live_draw(6, &mut b, |_| {}));
+            let c = live_draw(6, DepthGrid::Live, &mut a, |i| counts[i] += 1);
+            assert_eq!(c, live_draw(6, DepthGrid::Live, &mut b, |_| {}));
             assert!(live_supports(c));
             unequal += c.stacks().iter().any(|&s| s != c.stacks()[0]) as u32;
         }
         let expected = 120_000. / LIVE_DEPTHS_BB.len() as f64;
         assert!(counts.iter().all(|&k| (k as f64 - expected).abs() < 0.06 * expected), "{counts:?}");
         assert!(unequal > 19_900);
+    }
+    #[test]
+    fn wide_grid_is_its_own_identity_and_projects_like_the_live_grid() {
+        for n in 2..=6 {
+            let mut i = live_identity(n);
+            i["stack_distribution"] = DepthGrid::Wide.declaration();
+            let law = CashIdentity::parse(&i).unwrap();
+            assert!(matches!(law, CashIdentity::LiveMixture(m, DepthGrid::Wide) if m == n));
+            assert_eq!(law.projection().unwrap(), Config::new(&vec![10000; n], 50, 100).unwrap());
+            let mut stacks = vec![10000u64; n];
+            stacks[0] = 300;
+            assert!(law.accepts(Config::new(&stacks, 50, 100).unwrap()));
+            assert!(!CashIdentity::parse(&live_identity(n)).unwrap().accepts(Config::new(&stacks, 50, 100).unwrap()));
+            stacks[0] = 700;
+            assert!(!law.accepts(Config::new(&stacks, 50, 100).unwrap()));
+        }
+        assert!(LIVE_DEPTHS_BB.iter().all(|d| WIDE_DEPTHS_BB.contains(d)));
+        let mut i = live_identity(3);
+        i["stack_distribution"] = DepthGrid::Wide.declaration();
+        i["stack_distribution"]["seat_probability"] = json!("1/13");
+        assert!(CashIdentity::parse(&i).is_err());
+    }
+    #[test]
+    fn wide_draw_is_seeded_and_covers_the_grid() {
+        use rand::SeedableRng;
+        let mut counts = vec![0u64; WIDE_DEPTHS_BB.len()];
+        let mut a = rand::rngs::StdRng::seed_from_u64(11);
+        let mut b = rand::rngs::StdRng::seed_from_u64(11);
+        for _ in 0..40_000 {
+            let c = live_draw(6, DepthGrid::Wide, &mut a, |i| counts[i] += 1);
+            assert_eq!(c, live_draw(6, DepthGrid::Wide, &mut b, |_| {}));
+            assert!(DepthGrid::Wide.supports(c));
+        }
+        let expected = 240_000. / WIDE_DEPTHS_BB.len() as f64;
+        assert!(counts.iter().all(|&k| (k as f64 - expected).abs() < 0.06 * expected), "{counts:?}");
     }
 }

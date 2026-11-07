@@ -133,9 +133,14 @@ def test_hand_messages_outside_the_contract_are_unsupported():
     assert parse_routes({'6': {'agent': 'policy:six'}, '4': {'agent': 'policy:six', 'view': 'projected'}})[4] == (Route('policy:six', 'projected'),)
     banded = parse_routes({'6': [{'agent': 'policy:six', 'view': 'projected', 'band_bb': [89.4, 111.8]}, {'agent': 'policy:mix', 'view': 'projected'}]})[6]
     assert banded == (Route('policy:six', 'projected', (89.4, 111.8)), Route('policy:mix', 'projected'))
+    short = parse_routes({'3': [{'agent': 'policy:widemix', 'view': 'projected', 'short_bb': 10},
+                                {'agent': 'policy:p3mix', 'view': 'projected'}]})[3]
+    assert short[0] == Route('policy:widemix', 'projected', None, 10.0)
+    assert short[0].covers([4, 100, 100]) and short[0].covers([9.95, 10, 250])
+    assert not short[0].covers([10, 40, 100]) and not short[0].covers([100, 100, 100])
     assert banded[0].covers([100, 90, 111]) and not banded[0].covers([100, 80]) and banded[1].covers([10, 250])
     for bad in ({'7': {'agent': 'policy:six'}}, {'6': []}, {'6': {'agent': 'policy:six', 'band_bb': [110, 90]}},
-                {'6': {'agent': 'policy:six', 'band': [90, 110]}}):
+                {'6': {'agent': 'policy:six', 'band': [90, 110]}}, {'6': {'agent': 'policy:six', 'short_bb': 0}}):
         with pytest.raises(ValueError):
             parse_routes(bad)
 
