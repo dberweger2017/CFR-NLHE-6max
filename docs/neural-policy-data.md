@@ -28,7 +28,7 @@ The first step of the [neural-policy track](../ROADMAP.md): situations from seed
 
 Teachers see the table through the projected view, as the Open Poker client and the paired arena do.
 
-Everything is seeded per hand, by deck, stack draw and seat, through `stream_seed`. Hands run in parallel but are written in order, so a manifest reproduces its file byte for byte at any thread count. A file starts with `NPFEAT01`, a header length and a JSON header holding the layout, the teacher pins and the job. [`scripts/neural_policy_samples.py`](../scripts/neural_policy_samples.py) memory-maps it into NumPy arrays.
+Everything is seeded per hand, by deck, stack draw and seat, through `stream_seed`. Hands run in parallel but are written in order, so a job's records are byte-identical at any thread count. The header differs only where it names the job and its path, and each summary carries a `records_sha256` over the records alone. One process can run many jobs, each with its own thread count, so the teachers load once. A file starts with `NPFEAT01`, a header length and a JSON header holding the layout, the teacher pins and the job. [`scripts/neural_policy_samples.py`](../scripts/neural_policy_samples.py) memory-maps it into NumPy arrays.
 
 ## Several teachers
 
@@ -38,7 +38,7 @@ A table can only label spots it trained. #458 trained three `widemix` seeds and 
 
 This PR makes no research claim. [The run](reports/neural-policy-data/run.sh) on bb128 checks the tool and sizes the next step:
 - library tests, including the postflop encoding with the K50 tables;
-- byte-identical files at 16 and 8 threads;
+- byte-identical records at 16 and 8 threads, in one process;
 - throughput, bytes per sample and peak memory with four teachers loaded;
 - each teacher's coverage by street and job;
 - how often another teacher has a trained row where `widemix` run 1 has none.

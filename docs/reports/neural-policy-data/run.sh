@@ -30,11 +30,11 @@ stage tests
 (cd $S/native/hu20-trainer && HU20_K50_TABLES=/home/dberweger/cygnus-qualification-20261014/tables ~/.cargo/bin/cargo test --release --locked --lib) > $W/native-tests.log 2>&1
 (cd $S && $PY -m pytest -q tests/test_neural_policy_samples.py) >> $W/native-tests.log 2>&1
 cd $S && $PY docs/reports/neural-policy-data/make_manifest.py $W
-stage determinism
-sampled $W/qualification/t16 $B/nplayer_features $W/qualification/manifest-t16.json > $W/qualification/t16.log 2> $W/qualification/t16.err
-sampled $W/qualification/t8 $B/nplayer_features $W/qualification/manifest-t8.json > $W/qualification/t8.log 2> $W/qualification/t8.err
-[ "$(sha $W/qualification/determinism-t16.npfeat)" = "$(sha $W/qualification/determinism-t8.npfeat)" ]
 stage measure
 sampled $W/measure/run $B/nplayer_features $W/measure/manifest.json > $W/measure/run.log 2> $W/measure/run.err
+# Same records at 16 and 8 threads; headers differ only by the job's name and path.
+R() { $PY -c "import json,sys;print(json.load(open(sys.argv[1]))['records_sha256'])" $1; }
+[ "$(R $W/measure/determinism-t16.summary.json)" = "$(R $W/measure/determinism-t8.summary.json)" ]
+stage determinism-passed
 $PY -m scripts.neural_policy_samples $W/measure/*.npfeat > $W/measure/read.jsonl
 stage done

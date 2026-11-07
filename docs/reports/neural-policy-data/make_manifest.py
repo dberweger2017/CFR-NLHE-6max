@@ -61,15 +61,13 @@ def jobs(out):
 def main():
     m = models()
     base = {'format': 'nplayer-feature-manifest-v1', 'tables': TABLES, 'models': m, 'teachers': TEACHERS}
-    q = W / 'qualification'
-    q.mkdir(parents=True, exist_ok=True)
-    det = {'name': 'determinism', 'players': 6, 'stacks': 'wide-depth-grid-v1', 'hands': 2000, 'root': ROOT - 1000,
+    # One process loads the teachers once: the same job at 16 and 8 threads first, then the measurement.
+    out = W / 'measure'
+    out.mkdir(parents=True, exist_ok=True)
+    det = {'players': 6, 'stacks': 'wide-depth-grid-v1', 'hands': 2000, 'root': ROOT - 1000,
            'seats': ['widemix1', 'bot=check-call', 'bot=pot-pressure', 'widemix1', 'bot=tight-aggressive', 'bot=random']}
-    for threads in (16, 8):
-        (q / f'manifest-t{threads}.json').write_text(json.dumps(base | {'threads': threads, 'jobs': [det | {'out': str(q / f'determinism-t{threads}.npfeat')}]}, indent=1))
-    main_dir = W / 'measure'
-    main_dir.mkdir(parents=True, exist_ok=True)
-    (main_dir / 'manifest.json').write_text(json.dumps(base | {'threads': 16, 'jobs': jobs(main_dir)}, indent=1))
+    checks = [det | {'name': f'determinism-t{t}', 'threads': t, 'out': str(out / f'determinism-t{t}.npfeat')} for t in (16, 8)]
+    (out / 'manifest.json').write_text(json.dumps(base | {'threads': 16, 'jobs': checks + jobs(out)}, indent=1))
 
 
 if __name__ == '__main__':

@@ -25,6 +25,7 @@ use hu20_trainer::{
 use rand::{seq::SliceRandom, SeedableRng};
 use rayon::prelude::*;
 use serde_json::{json, Value};
+use sha2::{Digest, Sha256};
 use std::{collections::BTreeMap, io::Write, path::{Path, PathBuf}, sync::Arc};
 
 const FORMAT: &str = "nplayer-feature-samples-v1";
@@ -49,6 +50,7 @@ struct Job {
     root: u64,
     seats: Vec<String>,
     out: PathBuf,
+    threads: Option<usize>,
     spec: Value,
 }
 #[derive(Default, Clone)]
@@ -249,7 +251,8 @@ fn run(manifest_path: &Path) -> Result<(), String> {
             }
         }
         jobs.push(Job { name: text(j, "name")?.into(), players, stacks, hands: j["hands"].as_u64().ok_or("job hands")?,
-                        root: j["root"].as_u64().ok_or("job root")?, seats, out: PathBuf::from(text(j, "out")?), spec: j.clone() });
+                        root: j["root"].as_u64().ok_or("job root")?, seats, out: PathBuf::from(text(j, "out")?),
+                        threads: j["threads"].as_u64().map(|t| t as usize), spec: j.clone() });
     }
     let record = record_bytes(teachers.len());
     for job in &jobs {
@@ -269,16 +272,24 @@ fn run(manifest_path: &Path) -> Result<(), String> {
             .and_then(|_| w.write_all(&header_bytes)).map_err(|e| e.to_string())?;
         let mut stats = Stats::new(teachers.len());
         let mut samples = 0u64;
+        let mut records = Sha256::new();
+        // A job may set its own thread count; the output never depends on it.
+        let pool = match job.threads {
+            Some(t) => Some(rayon::ThreadPoolBuilder::new().num_threads(t).build().map_err(|e| e.to_string())?),
+            None => None,
+        };
         let mut first = 0;
         while first < job.hands {
             let last = (first + CHUNK).min(job.hands);
-            let results: Vec<_> = (first..last).into_par_iter().map(|i| hand(job, i, &models, &teachers, tables)).collect();
+            let play = || -> Vec<_> { (first..last).into_par_iter().map(|i| hand(job, i, &models, &teachers, tables)).collect() };
+            let results = match &pool { Some(p) => p.install(play), None => play() };
             for r in results {
                 let (bytes, s) = r?;
                 if bytes.len() % record != 0 {
                     return Err("record size mismatch".into());
                 }
                 samples += (bytes.len() / record) as u64;
+                records.update(&bytes);
                 w.write_all(&bytes).map_err(|e| e.to_string())?;
                 stats.add(&s);
             }
@@ -295,6 +306,7 @@ fn run(manifest_path: &Path) -> Result<(), String> {
         }).collect();
         let summary = json!({"format":"nplayer-feature-summary-v1","job":job.name,"out":job.out,
             "sha256":hu20_trainer::export::sha256_file(&job.out),"bytes":std::fs::metadata(&job.out).map_err(|e| e.to_string())?.len(),
+            "records_sha256":format!("{:x}", records.finalize()),"threads":job.threads,
             "hands":stats.hands,"samples":samples,"record_bytes":record,
             "decisions_by_street":STREETS.iter().zip(stats.decisions).map(|(k, v)| (k.to_string(), v)).collect::<BTreeMap<_, _>>(),
             "decisions_by_seat_kind":{"model":stats.by_kind[0],"script":stats.by_kind[1]},
