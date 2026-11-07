@@ -1,0 +1,25 @@
+[package]
+name = "hash-strategy-bench"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Throughput of whole-file integrity strategies for pinned policy binaries"
+publish = false
+
+[dependencies]
+sha2 = "0.10"
+blake2 = "0.10"
+blake3 = { version = "=1.5.4", features = ["rayon"] }
+ring = "0.17"
+rayon = "1.10"
+xxhash-rust = { version = "=0.8.15", features = ["xxh3"] }
+
+[features]
+# sha2's own hardware/assembly backend (ARMv8 SHA instructions on Apple silicon;
+# assembly on x86-64, which still has no SHA instructions on bb128's i7-10700KF).
+sha2-asm = ["sha2/asm"]
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
