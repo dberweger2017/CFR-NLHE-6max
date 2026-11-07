@@ -43,5 +43,5 @@ The SHA-256 tree pin is the SHA-256 of the leaf count followed by every 64 MiB l
 4. **bb128 may rank the strategies differently.** Its CPU has no SHA instructions, so `asm` there means hand-written assembly without hardware support. The gain from finding 1 is likely smaller, and parallel strategies are likely worth more. The same tool should run there before choosing.
 
 ## Next
-- Run `hash-strategy-bench` on bb128 with one widemix binary (about 5 minutes) once it is free.
-- If `sha2` `asm` holds up there, propose it as a one-line trainer change with its own load measurements.
+- **Done:** finding 1 is in [#466](https://github.com/dberweger2017/CFR-NLHE-6max/pull/466). It turns on the `sha2` `asm` feature for aarch64 only and adds a test against the published FIPS 180-2 vectors. On the M4, the 2.19 GB load now takes 0.94 s (`main`: 9.6 s). x86-64 builds are unchanged.
+- **Open:** run `hash-strategy-bench` on bb128 with one widemix binary (about 5 minutes) once it is free, to decide anything for x86-64.
