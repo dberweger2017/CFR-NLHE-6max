@@ -739,7 +739,7 @@ mod tests {
         assert_eq!(c.arms[0][1..], c.arms[1][1..]);
         assert_ne!(c.arms[0][0], c.arms[1][0]);
         let rows=play(0,&Case::parse(&json!({"name":"self","players":4,"stack_bb":100,"blocks":2,"root":9,
-            "focals":["bot=random","bot=random"],"opponents":["bot=check-call","bot=pot-pressure","bot=tight-aggressive"],"traces":["left","right"],"summary":"summary"})).unwrap(),None,&HashMap::new()).unwrap();
+            "focals":["bot=random","bot=random"],"opponents":["bot=check-call","bot=pot-pressure","bot=tight-aggressive"],"traces":["left","right"],"summary":"summary"})).unwrap(),None,&HashMap::new(),&HashMap::new()).unwrap();
         assert_eq!(rows[0], rows[1]);
     }
 
@@ -773,6 +773,22 @@ mod tests {
         assert!(schedule(1, &Value::Null).is_err() && schedule(7, &Value::Null).is_err() && schedule(2, &Value::Null).unwrap().len() == 2);
     }
 
+    #[test]
+    fn network_fallback_names_a_pinned_alias_per_model_arm() {
+        let base = json!({"name":"n","players":3,"stack_bb":100,"blocks":2,"root":1,"focals":["m","m"],
+            "opponents":["bot=random","bot=random"],"traces":["a","b"],"summary":"s"});
+        let mut v = base.clone();
+        v["focal_untrained_fallback"] = json!(["uniform", "network:net1"]);
+        assert_eq!(Case::parse(&v).unwrap().network, [None, Some("net1".to_string())]);
+        for bad in ["network:", "network"] {
+            v["focal_untrained_fallback"] = json!(["uniform", bad]);
+            assert!(Case::parse(&v).is_err(), "{bad}");
+        }
+        let mut scripted = base.clone();
+        scripted["focals"] = json!(["m", "bot=random"]);
+        scripted["focal_untrained_fallback"] = json!(["uniform", "network:net1"]);
+        assert!(Case::parse(&scripted).is_err(), "scripted focals have no rows to fall back from");
+    }
     #[test]
     fn check_fold_fallback_is_opt_in_per_model_arm() {
         let base = json!({"name":"fallback","players":4,"stack_bb":100,"blocks":2,"root":9,

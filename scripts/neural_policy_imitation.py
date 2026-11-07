@@ -3,6 +3,8 @@
     train     --data FILE... --seed S --out DIR      train on teacher 0's positive-mass rows
     evaluate  --model DIR --data FILE... --out JSON  rescue, fidelity and seed-noise measures
     decide    --results JSON...                      the protocol's rule over the training seeds
+    export    --model DIR --out FILE                 weights as a Rust `policy_network` file
+    parity    --model DIR --data FILE --count N --out FILE   inputs and PyTorch outputs for Rust
 
 Samples come from `nplayer_features` files (scripts/neural_policy_samples.py). Teacher 0 is the
 live `widemix` (run 1); the others are only read by `evaluate`.
@@ -240,6 +242,52 @@ def decide(args):
     return verdict
 
 
+NET_MAGIC = b'NPNET001'
+PARITY_MAGIC = b'NPPAR001'
+
+
+def export(args):
+    """Writes the weights as a `policy_network` file: header, then each layer's float32 weights
+    (out x in) and biases, little-endian."""
+    import torch
+    meta = json.loads((Path(args.model) / 'model.json').read_text())
+    state = torch.load(Path(args.model) / 'weights.pt', map_location='cpu', weights_only=True)
+    linear = sorted({k.split('.')[0] for k in state}, key=int)
+    dims = [meta['features']] + list(meta['hidden']) + [nps.ACTIONS]
+    header = {'format': 'nplayer-policy-network-v1', 'layout_sha256': meta['layout_sha256'], 'features': meta['features'],
+              'layers': [{'in': a, 'out': b} for a, b in zip(dims, dims[1:])], 'activation': 'relu', 'output': 'masked-softmax-6',
+              'source_weights_sha256': meta['weights_sha256'], 'seed': meta['seed']}
+    h = json.dumps(header, separators=(',', ':')).encode()
+    with open(args.out, 'xb') as f:
+        f.write(NET_MAGIC + len(h).to_bytes(8, 'little') + h)
+        for k, (a, b) in zip(linear, zip(dims, dims[1:])):
+            w, bias = state[f'{k}.weight'], state[f'{k}.bias']
+            if tuple(w.shape) != (b, a) or tuple(bias.shape) != (b,):
+                raise ValueError(f'layer {k}: shape {tuple(w.shape)}')
+            f.write(w.numpy().astype('<f4').tobytes() + bias.numpy().astype('<f4').tobytes())
+    print(json.dumps({'out': args.out, 'sha256': sha_file(args.out)}))
+
+
+def parity(args):
+    """The first `count` samples of a file with PyTorch's float32 CPU probabilities, for the Rust
+    parity check: magic, count and feature count as u64, features u8, legal masks u8, then
+    probabilities f64 (count x 6)."""
+    import torch
+    meta = json.loads((Path(args.model) / 'model.json').read_text())
+    model = network(torch, meta['features'], meta['hidden'])
+    model.load_state_dict(torch.load(Path(args.model) / 'weights.pt', map_location='cpu', weights_only=True))
+    model.eval()
+    s = nps.load(args.data, layout_sha256=meta['layout_sha256'])
+    n = min(args.count, len(s))
+    x = np.ascontiguousarray(s.records['features'][:n])
+    legal = s.records['legal_mask'][:n]
+    probs = predict(torch, model, torch.device('cpu'), x, s.legal(slice(0, n))).astype('<f8')
+    with open(args.out, 'xb') as f:
+        f.write(PARITY_MAGIC + n.to_bytes(8, 'little') + x.shape[1].to_bytes(8, 'little'))
+        f.write(x.tobytes() + legal.astype('u1').tobytes() + probs.tobytes())
+    print(json.dumps({'out': args.out, 'samples': n, 'sha256': sha_file(args.out)}))
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest='command', required=True)
@@ -253,8 +301,16 @@ def main(argv=None):
     e.add_argument('--out', required=True)
     d = sub.add_parser('decide')
     d.add_argument('--results', nargs='+', required=True)
+    x = sub.add_parser('export')
+    x.add_argument('--model', required=True)
+    x.add_argument('--out', required=True)
+    q = sub.add_parser('parity')
+    q.add_argument('--model', required=True)
+    q.add_argument('--data', required=True)
+    q.add_argument('--count', type=int, default=10000)
+    q.add_argument('--out', required=True)
     args = parser.parse_args(argv)
-    return {'train': train, 'evaluate': evaluate, 'decide': decide}[args.command](args)
+    return {'train': train, 'evaluate': evaluate, 'decide': decide, 'export': export, 'parity': parity}[args.command](args)
 
 
 if __name__ == '__main__':
