@@ -173,7 +173,7 @@ Ray-tracing API support on M1 does not establish dedicated hardware ray-tracing 
 - Mesa Vulkan drivers: `25.0.7-2+deb13u1`.
 - Vulkan loader package: `1.4.309.0-1`.
 - Nouveau DRM userspace package: `2.4.124-2`.
-- No proprietary NVIDIA driver was observed; `nvidia-smi` was unavailable.
+- No proprietary NVIDIA driver was observed; `nvidia-smi` was unavailable. This changed on 7 November; see [GPU compute qualification](#gpu-compute-qualification-7-november-2026).
 - PCIe maximum capability observed in sysfs: x16 at 8.0 GT/s per lane, corresponding to PCIe 3.0.
 - Current link snapshot: x16 at 2.5 GT/s per lane. No GPU load was applied to establish its active link rate.
 - Current GPU clocks, reclocking behavior, temperature, board power and utilization were not established.
@@ -191,6 +191,28 @@ The earlier bb128 qualification queried a maximum buffer size and maximum memory
 - 1,270.72 MiB/s end-to-end verified throughput.
 
 That throughput includes GPU fill/copy, synchronization and CPU byte verification. It is not peak PCIe throughput or VRAM bandwidth. The test validates the declared memory-transfer patterns, not shader arithmetic, all VRAM cells, CUDA readiness or model numerics.
+
+## GPU compute qualification, 7 November 2026
+
+On 7 November 2026, bb128's graphics stack changed. The NVIDIA driver 620.70.06, with open kernel modules from NVIDIA's Debian 13 repository and signed for Secure Boot, replaced `nouveau`. The 17 October snapshot above describes the earlier stack.
+
+Each machine ran `python -m scripts.check_gpu` once ([`scripts/check_gpu.py`](../scripts/check_gpu.py)). It measures square matrix multiplies (4,096 × 4,096, 20 repeats after one warm-up) and training steps of a four-layer MLP policy: 659,974 parameters, batch 8,192, float32, Adam and cross-entropy.
+
+| Property | M1 | M4 | bb128 |
+|---|---|---|---|
+| Device | Apple M1 GPU, MPS | Apple M4 GPU, MPS | RTX 2070 SUPER, CUDA |
+| PyTorch | 2.5.1 | 2.14.0 | 2.5.1+cu124 (CUDA 12.4) |
+| Python | 3.11.15 | 3.11.14 | 3.11.17 |
+| Driver / OS | macOS | macOS, on AC power | NVIDIA 620.70.06, Debian 13, kernel 6.12.115 |
+| Memory visible to PyTorch | Unified | Unified | 7.62 GiB, compute capability 7.5 |
+| Matmul float32 | 1.42 TFLOPS | 3.13 TFLOPS | **8.00 TFLOPS** |
+| Matmul float16 | 2.02 TFLOPS | 3.62 TFLOPS | **38.59 TFLOPS** |
+| MLP policy training | 0.27M samples/s | 0.54M samples/s | **1.80M samples/s** |
+
+- **Observed** on bb128 after the driver install: the 235 W board power limit, an x16 link capable of PCIe 3.0 (it idles at 2.5 GT/s), and zero PCIe replays.
+- **Scope:** these are single short runs, not sustained thermal tests. On the Macs the GPU shares memory, power and thermal headroom with the CPU.
+- **Versions differ:** the M4 used a newer PyTorch than the other two, so part of its gap to the M1 may come from newer MPS kernels.
+- **What they mean:** float16 uses the 2070 SUPER's Tensor cores, which the Apple GPUs lack. The MLP row is float32, so mixed-precision training would widen bb128's lead.
 
 ## Storage
 
