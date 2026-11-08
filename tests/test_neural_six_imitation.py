@@ -107,3 +107,17 @@ def test_controller_stops_on_failed_child_and_records_command(tmp_path, monkeypa
         r.run('failure', [sys.executable, '-c', 'raise SystemExit(7)'])
     assert json.loads((r.root / 'stages.jsonl').read_text())['stage'] == 'failure'
     assert (r.root / 'logs' / '001-failure.log').exists()
+
+
+def test_guard_uses_the_pods_cgroup_v1_memory_limit(tmp_path, monkeypatch):
+    from pathlib import Path
+    files = {'/proc/meminfo': 'MemAvailable: 100000000 kB\n',
+             '/sys/fs/cgroup/memory/memory.limit_in_bytes': '50000000000',
+             '/sys/fs/cgroup/memory/memory.usage_in_bytes': '47000000000'}
+    monkeypatch.setattr(Path, 'exists', lambda p: str(p) in files)
+    monkeypatch.setattr(Path, 'read_text', lambda p: files[str(p)])
+    monkeypatch.setattr(controller.shutil, 'disk_usage', lambda p: SimpleNamespace(free=100 * controller.GIB))
+    monkeypatch.setattr(controller.subprocess, 'check_output', lambda *a, **k: '40, 100\n')
+    s = controller.resources(tmp_path)
+    assert s['available_bytes'] == 3000000000
+    assert controller.stop_reason(s, 100, 99) == 'memory reserve'

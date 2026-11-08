@@ -38,6 +38,10 @@ def resources(root):
     limit = Path('/sys/fs/cgroup/memory.max')
     if limit.exists() and limit.read_text().strip() != 'max':
         available = min(available, int(limit.read_text()) - int(limit.with_name('memory.current').read_text()))
+    legacy = Path('/sys/fs/cgroup/memory/memory.limit_in_bytes')
+    if legacy.exists():
+        available = min(available, int(legacy.read_text()) -
+                        int(legacy.with_name('memory.usage_in_bytes').read_text()))
     gpu = subprocess.check_output(['nvidia-smi', '--query-gpu=temperature.gpu,memory.used',
                                    '--format=csv,noheader,nounits'], text=True, timeout=10)
     temperatures, gpu_mb = [], []
