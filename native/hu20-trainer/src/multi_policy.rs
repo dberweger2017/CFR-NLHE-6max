@@ -133,6 +133,8 @@ pub struct LoadReport {
     pub format: &'static str,
     pub rows: usize,
     pub total_seconds: f64,
+    /// Seconds spent on the whole-file pin outside row building: a separate pass for
+    /// gzip-json, and only the wait after the single read for binaries, where it overlaps.
     pub verify_seconds: f64,
     pub stream_seconds: f64,
     pub parse_validate_seconds: f64,
@@ -272,11 +274,15 @@ impl TextReader {
 pub(crate) fn cash_config(identity: &Value) -> Result<Config, String> {
     crate::multi_stacks::CashIdentity::parse(identity)?.fixed()
 }
-fn verified(path: &Path, expected: &str) -> Result<(), String> {
+fn pin_readable(path: &Path, expected: &str) -> Result<(), String> {
     if expected.len() != 64 || !expected.bytes().all(|b| b.is_ascii_hexdigit()) {
         return Err("expected complete SHA256".into());
     }
     std::fs::File::open(path).map_err(|e| e.to_string())?;
+    Ok(())
+}
+fn verified(path: &Path, expected: &str) -> Result<(), String> {
+    pin_readable(path, expected)?;
     if crate::multi_binary::sha_file(path)? != expected {
         return Err("SHA256 mismatch".into());
     }
@@ -345,17 +351,29 @@ impl PolicyTable {
         expected: &str,
         profile: bool,
     ) -> Result<(Self, LoadReport), String> {
+        use crate::multi_binary::Refusal;
         let start = std::time::Instant::now();
-        verified(path, expected)?;
-        let verify_seconds = start.elapsed().as_secs_f64();
-        let mut report = LoadReport {
-            verify_seconds,
-            ..LoadReport::default()
-        };
+        pin_readable(path, expected)?;
+        let mut report = LoadReport::default();
         let table = if crate::multi_binary::is_binary(path)? {
             report.format = "binary";
-            crate::multi_binary::read(path)?
+            // One read hashes the whole file against the pin while building the rows.
+            match crate::multi_binary::read_pinned(path, expected) {
+                Ok((table, pin_wait)) => {
+                    report.verify_seconds = pin_wait;
+                    table
+                }
+                Err(Refusal::Pin) => return Err("SHA256 mismatch".into()),
+                Err(Refusal::Pinned(e)) => return Err(e),
+                // A wrong pin outranks every content error, as in verify-then-read.
+                Err(Refusal::Unpinned(e)) => {
+                    verified(path, expected)?;
+                    return Err(e);
+                }
+            }
         } else {
+            verified(path, expected)?;
+            report.verify_seconds = start.elapsed().as_secs_f64();
             report.format = "gzip-json";
             let mut reader = TextReader::open(path)?;
             let mut rows = HashMap::default();

@@ -5,10 +5,16 @@ use crate::{
 };
 use serde_json::{json, Value};
 use sha2::{Digest, Sha256};
+use rayon::prelude::*;
 use std::{
     fs::{File, OpenOptions},
     io::{BufReader, BufWriter, Read, Seek, SeekFrom, Write},
     path::{Path, PathBuf},
+    sync::{
+        mpsc::{sync_channel, SyncSender},
+        Arc,
+    },
+    thread::{Scope, ScopedJoinHandle},
 };
 
 const MAGIC: &[u8; 8] = b"NPLBIN01";
@@ -330,9 +336,154 @@ pub fn convert(
         "bytes":total,"sha256":sha_file(out)?,"conversion_seconds":started.elapsed().as_secs_f64(),"metadata":metadata}),
     )
 }
-pub(crate) fn read(path: &Path) -> Result<PolicyTable, String> {
-    let mut input = BufReader::with_capacity(1 << 20, File::open(path).map_err(err)?);
-    let bytes = input.get_ref().metadata().map_err(err)?.len();
+/// Bytes per streamed chunk: a multiple of both the record and the probability width.
+const CHUNK: usize = 4 << 20;
+/// Chunks queued per hashing thread. This bounds the loader's working memory beyond the
+/// table itself to a few dozen MiB.
+const QUEUE: usize = 4;
+/// Why a single-pass load refused a file, and whether the whole-file pin was known yet.
+pub(crate) enum Refusal {
+    /// The whole-file SHA-256 differs from the pin.
+    Pin,
+    /// Refused before the whole-file hash was complete; the caller must check the pin
+    /// first so that a wrong pin is reported exactly as it was by verify-then-read.
+    Unpinned(String),
+    /// Refused after the whole-file hash matched the pin.
+    Pinned(String),
+}
+impl From<String> for Refusal {
+    fn from(e: String) -> Self {
+        Self::Unpinned(e)
+    }
+}
+impl From<&str> for Refusal {
+    fn from(e: &str) -> Self {
+        Self::Unpinned(e.into())
+    }
+}
+/// One SHA-256 over a byte stream, on its own thread, fed in file order.
+struct StreamHash<'scope> {
+    tx: Option<SyncSender<Arc<Vec<u8>>>>,
+    handle: ScopedJoinHandle<'scope, [u8; 32]>,
+}
+impl<'scope> StreamHash<'scope> {
+    /// `keys_only` hashes the 16 key bytes of every 32-byte record, in record order.
+    fn spawn(scope: &'scope Scope<'scope, '_>, keys_only: bool) -> Self {
+        let (tx, rx) = sync_channel::<Arc<Vec<u8>>>(QUEUE);
+        let handle = scope.spawn(move || {
+            let mut h = Sha256::new();
+            let mut keys = Vec::new();
+            for chunk in rx {
+                if keys_only {
+                    keys.clear();
+                    for r in chunk.chunks_exact(RECORD) {
+                        keys.extend_from_slice(&r[..16]);
+                    }
+                    h.update(&keys);
+                } else {
+                    h.update(&chunk[..]);
+                }
+            }
+            h.finalize().into()
+        });
+        Self {
+            tx: Some(tx),
+            handle,
+        }
+    }
+    fn send(&self, chunk: &Arc<Vec<u8>>) -> Result<(), String> {
+        let tx = self.tx.as_ref().ok_or("hash stream closed")?;
+        tx.send(chunk.clone())
+            .map_err(|_| "hash thread stopped".into())
+    }
+    fn finish(mut self) -> Result<[u8; 32], String> {
+        drop(self.tx.take());
+        self.handle
+            .join()
+            .map_err(|_| "hash thread panicked".into())
+    }
+}
+/// End of a record's probability range; `None` only for a start that already overflows.
+fn record_end(b: &[u8]) -> Option<u64> {
+    u64_at(b, 16).checked_add(b[26].count_ones() as u64)
+}
+/// The checks verify-then-read applied to record `b` given its predecessor's key and end.
+fn record_error(
+    b: &[u8],
+    previous: Option<(Key, Option<u64>)>,
+    players: u64,
+    known_mass: bool,
+    floats: u64,
+) -> Option<&'static str> {
+    let key: Key = b[..16].try_into().unwrap();
+    let start = u64_at(b, 16);
+    let code = b[26] as u16;
+    let tag = b[27];
+    let expected_start = previous.map_or(Some(0), |(_, end)| end);
+    if previous.is_some_and(|(k, _)| k >= key)
+        || Some(start) != expected_start
+        || b[24] as u64 >= players
+        || b[25] > 3
+        || code == 0
+        || code & !63 != 0
+        || b[28..].iter().any(|v| *v != 0)
+        || tag > 2
+        || (known_mass && tag == 0)
+        || (!known_mass && tag != 0)
+    {
+        return Some("invalid binary record");
+    }
+    // `start` equals the predecessor's end, which was itself at most `floats`.
+    if start + code.count_ones() as u64 > floats {
+        return Some("binary probability offset out of bounds");
+    }
+    None
+}
+/// Validate one chunk of records in parallel, reporting the first failure in file order.
+fn check_records(
+    chunk: &[u8],
+    before: Option<(Key, Option<u64>)>,
+    players: u64,
+    known_mass: bool,
+    floats: u64,
+) -> Result<(), String> {
+    let first = (0..chunk.len() / RECORD)
+        .into_par_iter()
+        .find_map_first(|i| {
+            let previous = if i == 0 {
+                before
+            } else {
+                let p = &chunk[(i - 1) * RECORD..i * RECORD];
+                Some((p[..16].try_into().unwrap(), record_end(p)))
+            };
+            record_error(
+                &chunk[i * RECORD..(i + 1) * RECORD],
+                previous,
+                players,
+                known_mass,
+                floats,
+            )
+        });
+    first.map_or(Ok(()), |e| Err(e.into()))
+}
+fn parse_record(b: &[u8]) -> Record {
+    Record {
+        key: b[..16].try_into().unwrap(),
+        start: u64_at(b, 16),
+        code: b[26] as u16,
+        owner: b[24],
+        street: b[25],
+        mass: b[27],
+    }
+}
+/// Load a pinned binary derivative in one read. The whole-file pin, the payload checksum
+/// and the key-set checksum each run on their own thread over the very bytes the rows are
+/// built from, while rows are validated and decoded in parallel chunks. Every check of the
+/// former verify-then-read path still runs, and no table is returned unless all pass.
+/// Returns the table and the seconds spent waiting for the whole-file hash after the read.
+pub(crate) fn read_pinned(path: &Path, expected: &str) -> Result<(PolicyTable, f64), Refusal> {
+    let mut input = File::open(path).map_err(err)?;
+    let bytes = input.metadata().map_err(err)?.len();
     let mut prefix = [0; PREFIX];
     input.read_exact(&mut prefix).map_err(err)?;
     if &prefix[..8] != MAGIC || prefix[120..].iter().any(|b| *b != 0) {
@@ -388,101 +539,94 @@ pub(crate) fn read(path: &Path) -> Result<PolicyTable, String> {
     let mut records = Vec::new();
     records.try_reserve_exact(count(n)?).map_err(err)?;
     let players = h["players"].as_u64().unwrap();
-    let mut payload = Sha256::new();
-    let mut keyset = Sha256::new();
-    let mut expected_start = 0;
-    let mut zeros = 0u64;
-    let mut buffer = vec![0; RECORD * 32768];
-    let mut left = n;
-    while left > 0 {
-        let size = count(left.min(32768))? * RECORD;
-        input.read_exact(&mut buffer[..size]).map_err(err)?;
-        payload.update(&buffer[..size]);
-        for b in buffer[..size].chunks_exact(RECORD) {
-            let key: Key = b[..16].try_into().unwrap();
-            let start = u64_at(b, 16);
-            let code = b[26] as u16;
-            let tag = b[27];
-            if records.last().is_some_and(|r: &Record| r.key >= key)
-                || start != expected_start
-                || b[24] as u64 >= players
-                || b[25] > 3
-                || code == 0
-                || code & !63 != 0
-                || b[28..].iter().any(|v| *v != 0)
-                || tag > 2
-                || (known_mass && tag == 0)
-                || (!known_mass && tag != 0)
+    std::thread::scope(|s| {
+        let whole = StreamHash::spawn(s, false);
+        let payload = StreamHash::spawn(s, false);
+        let keyset = known_mass.then(|| StreamHash::spawn(s, true));
+        let mut head = prefix.to_vec();
+        head.extend_from_slice(&header);
+        whole.send(&Arc::new(head))?;
+        let mut read = |size: usize| -> Result<Arc<Vec<u8>>, String> {
+            let mut chunk = vec![0; size];
+            input.read_exact(&mut chunk).map_err(err)?;
+            let chunk = Arc::new(chunk);
+            whole.send(&chunk)?;
+            payload.send(&chunk)?;
+            Ok(chunk)
+        };
+        let mut left = count(n)? * RECORD;
+        let mut before = None;
+        while left > 0 {
+            let chunk = read(left.min(CHUNK))?;
+            if let Some(k) = &keyset {
+                k.send(&chunk)?;
+            }
+            check_records(&chunk, before, players, known_mass, floats)?;
+            records.par_extend(chunk.par_chunks_exact(RECORD).map(parse_record));
+            let last = &chunk[chunk.len() - RECORD..];
+            before = Some((last[..16].try_into().unwrap(), record_end(last)));
+            left -= chunk.len();
+        }
+        if before.map_or(Some(0), |(_, end)| end) != Some(floats) {
+            return Err("binary probability count mismatch".into());
+        }
+        let mut probabilities = Vec::new();
+        probabilities
+            .try_reserve_exact(count(floats)?)
+            .map_err(err)?;
+        let mut left = count(floats)? * 8;
+        while left > 0 {
+            let chunk = read(left.min(CHUNK))?;
+            probabilities.par_extend(
+                chunk
+                    .par_chunks_exact(8)
+                    .map(|b| f64::from_bits(u64::from_le_bytes(b.try_into().unwrap()))),
+            );
+            left -= chunk.len();
+        }
+        // The pin covers the whole file: nothing may follow the declared payload.
+        if input.read(&mut [0; 1]).map_err(err)? != 0 {
+            return Err("binary counts/offsets/length mismatch".into());
+        }
+        let waiting = std::time::Instant::now();
+        if hex(&whole.finish()?) != expected {
+            return Err(Refusal::Pin);
+        }
+        let pin_wait = waiting.elapsed().as_secs_f64();
+        let refuse = |e: &str| Refusal::Pinned(e.into());
+        if payload.finish().map_err(Refusal::Pinned)?[..] != prefix[88..120] {
+            return Err(refuse("binary payload checksum mismatch"));
+        }
+        if records.par_iter().any(|r| {
+            let a =
+                &probabilities[r.start as usize..r.start as usize + r.code.count_ones() as usize];
+            a.iter().any(|p| !p.is_finite() || *p < 0. || *p > 1.)
+                || (a.iter().sum::<f64>() - 1.).abs() > 1e-12
+                || (r.mass == 1 && a.iter().any(|p| (*p - 1. / a.len() as f64).abs() > 1e-14))
+        }) {
+            return Err(refuse("invalid binary probability distribution"));
+        }
+        if let Some(keyset) = keyset {
+            let zeros = records.par_iter().filter(|r| r.mass == 1).count() as u64;
+            if mass["keyset_sha256"] != hex(&keyset.finish().map_err(Refusal::Pinned)?)
+                || mass["zero_mass_rows"].as_u64() != Some(zeros)
+                || mass["positive_mass_rows"].as_u64() != Some(n - zeros)
             {
-                return Err("invalid binary record".into());
-            }
-            expected_start = plus(start, code.count_ones() as u64)?;
-            zeros += u64::from(tag == 1);
-            if expected_start > floats {
-                return Err("binary probability offset out of bounds".into());
-            }
-            records.push(Record {
-                key,
-                start,
-                code,
-                owner: b[24],
-                street: b[25],
-                mass: tag,
-            });
-            if known_mass {
-                keyset.update(key);
+                return Err(refuse("binary mass counts/keyset mismatch"));
             }
         }
-        left -= size as u64 / RECORD as u64;
-    }
-    if expected_start != floats {
-        return Err("binary probability count mismatch".into());
-    }
-    let mut probabilities = Vec::new();
-    probabilities
-        .try_reserve_exact(count(floats)?)
-        .map_err(err)?;
-    let mut left = floats;
-    while left > 0 {
-        let size = count(left.min((buffer.len() / 8) as u64))? * 8;
-        input.read_exact(&mut buffer[..size]).map_err(err)?;
-        payload.update(&buffer[..size]);
-        probabilities.extend(
-            buffer[..size]
-                .chunks_exact(8)
-                .map(|b| f64::from_bits(u64::from_le_bytes(b.try_into().unwrap()))),
-        );
-        left -= size as u64 / 8;
-    }
-    if payload.finalize()[..] != prefix[88..120] {
-        return Err("binary payload checksum mismatch".into());
-    }
-    for r in &records {
-        let a = &probabilities[r.start as usize..r.start as usize + r.code.count_ones() as usize];
-        if a.iter().any(|p| !p.is_finite() || *p < 0. || *p > 1.)
-            || (a.iter().sum::<f64>() - 1.).abs() > 1e-12
-            || (r.mass == 1 && a.iter().any(|p| (*p - 1. / a.len() as f64).abs() > 1e-14))
-        {
-            return Err("invalid binary probability distribution".into());
-        }
-    }
-    if known_mass
-        && (mass["keyset_sha256"] != hex(&keyset.finalize())
-            || mass["zero_mass_rows"].as_u64() != Some(zeros)
-            || mass["positive_mass_rows"].as_u64() != Some(n - zeros))
-    {
-        return Err("binary mass counts/keyset mismatch".into());
-    }
-    let mut table = PolicyTable::from_header(
-        h,
-        Rows::Binary(BinaryRows {
-            records,
-            probabilities,
-        }),
-    )?;
-    table.binary_source_policy_sha256 = Some(source.to_string());
-    table.binary_mass_metadata = known_mass.then(|| mass.clone());
-    Ok(table)
+        let mut table = PolicyTable::from_header(
+            h,
+            Rows::Binary(BinaryRows {
+                records,
+                probabilities,
+            }),
+        )
+        .map_err(Refusal::Pinned)?;
+        table.binary_source_policy_sha256 = Some(source.to_string());
+        table.binary_mass_metadata = known_mass.then(|| mass.clone());
+        Ok((table, pin_wait))
+    })
 }
 /// Compare every row against the pinned source, including IEEE754 bits and mass tags.
 pub fn verify(
