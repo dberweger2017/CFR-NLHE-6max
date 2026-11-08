@@ -8,6 +8,7 @@ The next track tests whether a neural network can generalize. Each step is its o
 1. **Training data:** export situations and blueprint strategies from play with the live wide-depth model, including whether a trained row existed.
 2. **Imitation:** a small network trained on rows that exist. It is judged on held-out spots and held-out table types.
 3. **Fallback:** the network plays only where the blueprint has no row, against the current uniform fallback, under PR461's rules.
+   **Result (November 8):** passes for both route groups on three network seeds, with no harm flags. The deep six-player tables gain +15 to +34 BB/100; the other tables gain 0 to +3. Adopting it on the short route is a separate PR. [Results](docs/reports/neural-policy-fallback/results.md).
 4. **Only if 1–3 hold:** a network for every decision, then self-play fine-tuning. One model would cover 2–6 players and every stack depth.
 
 Optional GPU support is in `requirements-gpu.txt`, and `python -m scripts.check_gpu` checks it. No model, route, default or release changes.
