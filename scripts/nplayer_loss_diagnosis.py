@@ -237,10 +237,21 @@ def network_violation(action, state, lookup):
 def fallback_violations(row, seat, mode):
     """Decisions that break the declared fallback at the focal's untrained rows: check-fold plays
     only check, else fold; no-all-in never raises to the whole stack; no-raise never raises;
-    network plays a legal label with positive network probability. Trained rows carry no fallback."""
+    network plays a legal label with positive network probability. Trained rows carry no fallback.
+    `network-all` plays the network at every focal decision and records the row at trained ones.
+    Live copies (opponents) record `copy_network`, only at their untrained rows."""
     bad = 0
     for actor, action, state, lookup in zip(row['actors'], row['actions'], row['states'], row['lookups']):
         replaced = 'fallback_replaced' in lookup
+        if 'copy_network' in lookup:
+            bad += actor == seat or lookup['status'] not in UNTRAINED or network_violation(action, state, {'network': lookup['copy_network']})
+        if mode.startswith('network-all:'):
+            if actor == seat:
+                bad += replaced + network_violation(action, state, lookup)
+                bad += (lookup['status'] == 'positive_mass') != (len(lookup.get('row', ())) == 6)
+            else:
+                bad += replaced + ('network' in lookup) + ('row' in lookup)
+            continue
         if mode.startswith('network:'):
             if actor == seat and lookup['status'] in UNTRAINED:
                 bad += replaced + network_violation(action, state, lookup)
