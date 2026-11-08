@@ -394,3 +394,426 @@ fn seeded_legal_trajectories_and_missing_fallback_are_identical() {
     assert_eq!(std::mem::size_of::<Record>(), 32);
     std::fs::remove_dir_all(root).unwrap();
 }
+
+// The loader before single-pass loading, kept verbatim as the parity reference:
+// a full pin pass, then a second read that rebuilds and checks every row.
+fn two_pass_load(path: &Path, expected: &str) -> Result<PolicyTable, String> {
+    if !valid_sha(expected) {
+        return Err("expected complete SHA256".into());
+    }
+    File::open(path).map_err(err)?;
+    if sha_file(path)? != expected {
+        return Err("SHA256 mismatch".into());
+    }
+    if !is_binary(path)? {
+        // Text policies keep their unchanged verify-then-stream path.
+        return PolicyTable::load(path, expected);
+    }
+    two_pass_read(path)
+}
+fn two_pass_read(path: &Path) -> Result<PolicyTable, String> {
+    let mut input = BufReader::with_capacity(1 << 20, File::open(path).map_err(err)?);
+    let bytes = input.get_ref().metadata().map_err(err)?.len();
+    let mut prefix = [0; PREFIX];
+    input.read_exact(&mut prefix).map_err(err)?;
+    if &prefix[..8] != MAGIC || prefix[120..].iter().any(|b| *b != 0) {
+        return Err("unsupported binary prefix".into());
+    }
+    let header_len = count(u64_at(&prefix, 8))?;
+    let n = u64_at(&prefix, 16);
+    let floats = u64_at(&prefix, 24);
+    let row_start = u64_at(&prefix, 32);
+    let float_start = u64_at(&prefix, 40);
+    let total = u64_at(&prefix, 48);
+    if header_len > MAX_HEADER
+        || row_start != plus(PREFIX as u64, header_len as u64)?
+        || float_start != plus(row_start, checked_size(n, RECORD as u64)?)?
+        || total != plus(float_start, checked_size(floats, 8)?)?
+        || total != bytes
+        || floats < n
+        || floats > checked_size(n, 6)?
+    {
+        return Err("binary counts/offsets/length mismatch".into());
+    }
+    let mut header = vec![0; header_len];
+    input.read_exact(&mut header).map_err(err)?;
+    if Sha256::digest(&header)[..] != prefix[56..88] {
+        return Err("binary header checksum mismatch".into());
+    }
+    let metadata: Value = serde_json::from_slice(&header).map_err(err)?;
+    let h = &metadata["policy"];
+    validate_header(h)?;
+    let source = metadata["source_policy_sha256"]
+        .as_str()
+        .ok_or("missing source policy")?;
+    if metadata["format"] != "nplayer-policy-binary-v1"
+        || metadata["dtype"] != "float64"
+        || metadata["byte_order"] != "little"
+        || metadata["record_bytes"] != RECORD
+        || !valid_sha(source)
+        || h["entries"].as_u64() != Some(n)
+    {
+        return Err("binary schema/source mismatch".into());
+    }
+    let known_mass = !metadata["mass"].is_null();
+    let mass = &metadata["mass"];
+    if known_mass
+        && (h["strategy"] != "average"
+            || h["last_average_street"] != 3
+            || ["receipt_sha256", "zero_keys_sha256", "keyset_sha256"]
+                .iter()
+                .any(|k| !mass[k].as_str().is_some_and(valid_sha)))
+    {
+        return Err("invalid binary mass identity".into());
+    }
+    let mut records = Vec::new();
+    records.try_reserve_exact(count(n)?).map_err(err)?;
+    let players = h["players"].as_u64().unwrap();
+    let mut payload = Sha256::new();
+    let mut keyset = Sha256::new();
+    let mut expected_start = 0;
+    let mut zeros = 0u64;
+    let mut buffer = vec![0; RECORD * 32768];
+    let mut left = n;
+    while left > 0 {
+        let size = count(left.min(32768))? * RECORD;
+        input.read_exact(&mut buffer[..size]).map_err(err)?;
+        payload.update(&buffer[..size]);
+        for b in buffer[..size].chunks_exact(RECORD) {
+            let key: Key = b[..16].try_into().unwrap();
+            let start = u64_at(b, 16);
+            let code = b[26] as u16;
+            let tag = b[27];
+            if records.last().is_some_and(|r: &Record| r.key >= key)
+                || start != expected_start
+                || b[24] as u64 >= players
+                || b[25] > 3
+                || code == 0
+                || code & !63 != 0
+                || b[28..].iter().any(|v| *v != 0)
+                || tag > 2
+                || (known_mass && tag == 0)
+                || (!known_mass && tag != 0)
+            {
+                return Err("invalid binary record".into());
+            }
+            expected_start = plus(start, code.count_ones() as u64)?;
+            zeros += u64::from(tag == 1);
+            if expected_start > floats {
+                return Err("binary probability offset out of bounds".into());
+            }
+            records.push(Record {
+                key,
+                start,
+                code,
+                owner: b[24],
+                street: b[25],
+                mass: tag,
+            });
+            if known_mass {
+                keyset.update(key);
+            }
+        }
+        left -= size as u64 / RECORD as u64;
+    }
+    if expected_start != floats {
+        return Err("binary probability count mismatch".into());
+    }
+    let mut probabilities = Vec::new();
+    probabilities
+        .try_reserve_exact(count(floats)?)
+        .map_err(err)?;
+    let mut left = floats;
+    while left > 0 {
+        let size = count(left.min((buffer.len() / 8) as u64))? * 8;
+        input.read_exact(&mut buffer[..size]).map_err(err)?;
+        payload.update(&buffer[..size]);
+        probabilities.extend(
+            buffer[..size]
+                .chunks_exact(8)
+                .map(|b| f64::from_bits(u64::from_le_bytes(b.try_into().unwrap()))),
+        );
+        left -= size as u64 / 8;
+    }
+    if payload.finalize()[..] != prefix[88..120] {
+        return Err("binary payload checksum mismatch".into());
+    }
+    for r in &records {
+        let a = &probabilities[r.start as usize..r.start as usize + r.code.count_ones() as usize];
+        if a.iter().any(|p| !p.is_finite() || *p < 0. || *p > 1.)
+            || (a.iter().sum::<f64>() - 1.).abs() > 1e-12
+            || (r.mass == 1 && a.iter().any(|p| (*p - 1. / a.len() as f64).abs() > 1e-14))
+        {
+            return Err("invalid binary probability distribution".into());
+        }
+    }
+    if known_mass
+        && (mass["keyset_sha256"] != hex(&keyset.finalize())
+            || mass["zero_mass_rows"].as_u64() != Some(zeros)
+            || mass["positive_mass_rows"].as_u64() != Some(n - zeros))
+    {
+        return Err("binary mass counts/keyset mismatch".into());
+    }
+    let mut table = PolicyTable::from_header(
+        h,
+        Rows::Binary(BinaryRows {
+            records,
+            probabilities,
+        }),
+    )?;
+    table.binary_source_policy_sha256 = Some(source.to_string());
+    table.binary_mass_metadata = known_mass.then(|| mass.clone());
+    Ok(table)
+}
+
+fn assert_same_table(a: &PolicyTable, b: &PolicyTable) {
+    assert_eq!(a.identity, b.identity);
+    assert_eq!(
+        (a.players, a.scope, a.mode.name()),
+        (b.players, b.scope, b.mode.name())
+    );
+    assert_eq!(a.source_checkpoint_sha256, b.source_checkpoint_sha256);
+    assert_eq!(a.binary_source_policy_sha256, b.binary_source_policy_sha256);
+    assert_eq!(a.binary_mass_metadata, b.binary_mass_metadata);
+    let (Rows::Binary(a), Rows::Binary(b)) = (&a.rows, &b.rows) else {
+        panic!("binary rows expected");
+    };
+    assert_eq!(a.records.len(), b.records.len());
+    for (x, y) in a.records.iter().zip(&b.records) {
+        assert_eq!(
+            (x.key, x.start, x.code, x.owner, x.street, x.mass),
+            (y.key, y.start, y.code, y.owner, y.street, y.mass)
+        );
+    }
+    assert_eq!(a.probabilities.len(), b.probabilities.len());
+    assert!(a
+        .probabilities
+        .iter()
+        .zip(&b.probabilities)
+        .all(|(x, y)| x.to_bits() == y.to_bits()));
+}
+/// The single-pass loader must give exactly the reference's table or its exact error.
+fn same_outcome(path: &Path, pin: &str) -> Result<(), String> {
+    let fast = PolicyTable::load(path, pin);
+    let reference = two_pass_load(path, pin);
+    match (&fast, &reference) {
+        (Ok(a), Ok(b)) => assert_same_table(a, b),
+        (Err(a), Err(b)) => assert_eq!(a, b, "{}", path.display()),
+        _ => panic!(
+            "{}: single-pass {:?} vs reference {:?}",
+            path.display(),
+            fast.as_ref().err(),
+            reference.as_ref().err()
+        ),
+    }
+    fast.map(|_| ())
+}
+fn mutated(valid: &[u8], mass: bool) -> Vec<(String, Vec<u8>)> {
+    let row = u64_at(valid, 32) as usize;
+    let floats = u64_at(valid, 40) as usize;
+    let rows = (floats - row) / RECORD;
+    let last = row + (rows - 1) * RECORD;
+    let mut out = vec![];
+    let mut add = |name: &str, f: &dyn Fn(&mut Vec<u8>), repinned: bool| {
+        let mut b = valid.to_vec();
+        f(&mut b);
+        if repinned {
+            repin(&mut b);
+        }
+        out.push((
+            format!("{name}{}", if repinned { "-repinned" } else { "" }),
+            b,
+        ));
+    };
+    for repinned in [false, true] {
+        if !repinned {
+            add("short-prefix", &|b| b.truncate(PREFIX - 1), false);
+            add("mid-header", &|b| b.truncate(PREFIX + 3), false);
+            add(
+                "mid-records",
+                &|b| b.truncate(row + RECORD * rows / 2 + 5),
+                false,
+            );
+            add("mid-floats", &|b| b.truncate(floats + 12), false);
+            add("drop-last", &|b| b.truncate(b.len() - 1), false);
+            add("append", &|b| b.push(0), false);
+            add("magic", &|b| b[0] ^= 1, false);
+            add(
+                "header-len",
+                &|b| b[8..16].copy_from_slice(&u64::MAX.to_le_bytes()),
+                false,
+            );
+            add(
+                "rows",
+                &|b| b[16..24].copy_from_slice(&u64::MAX.to_le_bytes()),
+                false,
+            );
+            add(
+                "float-offset",
+                &|b| b[40..48].copy_from_slice(&0u64.to_le_bytes()),
+                false,
+            );
+            add("header-byte", &|b| b[PREFIX + 4] ^= 1, false);
+            add("header-sum", &|b| b[60] ^= 1, false);
+            add("payload-sum", &|b| b[100] ^= 1, false);
+            add("reserved", &|b| b[120] = 1, false);
+        }
+        add("first-float", &|b| b[floats + 7] ^= 0x80, repinned);
+        add("last-float", &|b| *b.last_mut().unwrap() ^= 0x80, repinned);
+        add("owner", &|b| b[last + 24] = 9, repinned);
+        add("street", &|b| b[last + 25] = 4, repinned);
+        add("code-zero", &|b| b[row + 26] = 0, repinned);
+        add("code-wide", &|b| b[last + 26] = 64, repinned);
+        add("code-narrow", &|b| b[last + 26] = 1, repinned);
+        add("tag", &|b| b[row + 27] = if mass { 0 } else { 2 }, repinned);
+        add(
+            "tag-flip",
+            &|b| b[last + 27] = if mass { 1 } else { 3 },
+            repinned,
+        );
+        add("padding", &|b| b[last + 31] = 1, repinned);
+        add(
+            "start",
+            &|b| b[last + 16..last + 24].copy_from_slice(&5u64.to_le_bytes()),
+            repinned,
+        );
+        add(
+            "start-far",
+            &|b| b[last + 16..last + 24].copy_from_slice(&u64::MAX.to_le_bytes()),
+            repinned,
+        );
+        if rows > 1 {
+            add(
+                "duplicate-key",
+                &|b| {
+                    let k = b[last - RECORD..last - RECORD + 16].to_vec();
+                    b[last..last + 16].copy_from_slice(&k);
+                },
+                repinned,
+            );
+            add("key-order", &|b| b[last..last + 16].fill(0), repinned);
+        }
+        add(
+            "nan",
+            &|b| b[floats..floats + 8].copy_from_slice(&f64::NAN.to_bits().to_le_bytes()),
+            repinned,
+        );
+        add(
+            "negative",
+            &|b| {
+                let i = b.len() - 8;
+                b[i..].copy_from_slice(&(-0.25f64).to_bits().to_le_bytes())
+            },
+            repinned,
+        );
+    }
+    out
+}
+/// Every failure the two-pass loader refused, the single-pass one refuses with the same
+/// error, under the correct pin, a wrong pin and a malformed pin.
+fn assert_parity(root: &Path, valid: &[u8], mass: bool) {
+    let path = root.join("valid-parity.bin");
+    std::fs::write(&path, valid).unwrap();
+    let pin = sha_file(&path).unwrap();
+    same_outcome(&path, &pin).unwrap();
+    assert_eq!(
+        same_outcome(&path, &"0".repeat(64)).unwrap_err(),
+        "SHA256 mismatch"
+    );
+    assert!(same_outcome(&path, &pin[..63]).is_err());
+    for (name, bytes) in mutated(valid, mass) {
+        let p = root.join(format!("{name}.bin"));
+        std::fs::write(&p, &bytes).unwrap();
+        assert!(same_outcome(&p, &sha_file(&p).unwrap()).is_err(), "{name}");
+        assert_eq!(
+            same_outcome(&p, &pin).unwrap_err(),
+            "SHA256 mismatch",
+            "{name}"
+        );
+    }
+}
+#[test]
+fn single_pass_load_matches_two_pass_tables_and_errors() {
+    let root = dir();
+    for (players, mode, scope, rows) in [
+        (2, Mode::Average, 3, 1),
+        (3, Mode::Average, 3, 9),
+        (6, Mode::Current, 0, 50),
+        (4, Mode::ScopedAverage, 1, 31),
+    ] {
+        let source = root.join(format!("source-{players}.gz"));
+        let sha = fixture(&source, players, mode, scope, rows);
+        let out = root.join(format!("policy-{players}.bin"));
+        convert(&source, &sha, &out, None).unwrap();
+        assert_parity(&root, &std::fs::read(&out).unwrap(), false);
+    }
+    // Known original mass exercises the key-set hash and the mass-count checks.
+    let source = root.join("mass-source.gz");
+    let sha = fixture(&source, 3, Mode::Average, 3, 9);
+    let (receipt, pin) = mass(&root, &sha);
+    let out = root.join("mass.bin");
+    convert(&source, &sha, &out, Some((&receipt, &pin))).unwrap();
+    assert_parity(&root, &std::fs::read(&out).unwrap(), true);
+    // An empty table has no records or probabilities to stream.
+    let source = root.join("empty.gz");
+    let sha = fixture(&source, 2, Mode::Average, 3, 0);
+    let out = root.join("empty.bin");
+    convert(&source, &sha, &out, None).unwrap();
+    same_outcome(&out, &sha_file(&out).unwrap()).unwrap();
+    std::fs::remove_dir_all(root).unwrap();
+}
+#[test]
+fn single_pass_load_is_exact_across_chunk_boundaries() {
+    // Enough rows for several record and probability chunks, so the predecessor checks,
+    // ordering and offsets cross chunk edges.
+    let root = dir();
+    let rows = 2 * CHUNK / RECORD + 4099;
+    let source = root.join("large.gz");
+    let sha = fixture(&source, 6, Mode::Average, 3, rows);
+    let out = root.join("large.bin");
+    convert(&source, &sha, &out, None).unwrap();
+    let valid = std::fs::read(&out).unwrap();
+    same_outcome(&out, &sha_file(&out).unwrap()).unwrap();
+    let row = u64_at(&valid, 32) as usize;
+    // Corrupt the first record of the second chunk and the first float of the second
+    // probability chunk: errors must be the reference's, found at the edge.
+    let edge = row + CHUNK;
+    for (name, at, value) in [
+        ("edge-key", edge + 13, 2u8),
+        ("edge-start", edge + 16, 1),
+        ("edge-float", u64_at(&valid, 40) as usize + CHUNK + 7, 0x80),
+    ] {
+        let mut b = valid.clone();
+        b[at] ^= value;
+        repin(&mut b);
+        let p = root.join(format!("{name}.bin"));
+        std::fs::write(&p, &b).unwrap();
+        assert!(same_outcome(&p, &sha_file(&p).unwrap()).is_err(), "{name}");
+    }
+    std::fs::remove_dir_all(root).unwrap();
+}
+#[test]
+fn sha256_backend_matches_published_vectors() {
+    // FIPS 180-2 vectors: the pin hash must not depend on which backend sha2 selects.
+    let root = dir();
+    for (data, digest) in [
+        (
+            b"abc".to_vec(),
+            "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+        ),
+        (
+            b"abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq".to_vec(),
+            "248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1",
+        ),
+        (
+            vec![b'a'; 1_000_000],
+            "cdc76e5c9914fb9281a1c7e284d73e67f1809a48a497200e046d39ccc7112cd0",
+        ),
+    ] {
+        let p = root.join("vector.bin");
+        std::fs::write(&p, &data).unwrap();
+        assert_eq!(sha_file(&p).unwrap(), digest);
+        assert_eq!(hex(&Sha256::digest(&data)), digest);
+    }
+    std::fs::remove_dir_all(root).unwrap();
+}
