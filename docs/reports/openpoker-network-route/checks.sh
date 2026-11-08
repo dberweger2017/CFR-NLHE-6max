@@ -32,11 +32,13 @@ $PY -m pytest -q tests/test_openpoker_client.py tests/test_neural_policy_fallbac
 # The refactored arena must reproduce #469's smoke traces byte for byte.
 mkdir -p $W/arena
 $PY - $F/smoke/out/arena-manifest-b0.json $F/smoke/out/arena $W/arena > $W/arena-manifest.json <<'PYEOF'
-import json, sys
+import json, os, sys
 m = json.load(open(sys.argv[1]))
 for c in m['cases']:
     c['traces'] = [t.replace(sys.argv[2], sys.argv[3]) for t in c['traces']]
     c['summary'] = c['summary'].replace(sys.argv[2], sys.argv[3])
+    for t in c['traces']:
+        os.makedirs(os.path.dirname(t), exist_ok=True)
 print(json.dumps(m))
 PYEOF
 native/hu20-trainer/target/release/examples/nplayer_paired_arena batch $W/arena-manifest.json > $W/arena.out 2>&1; step arena $?
