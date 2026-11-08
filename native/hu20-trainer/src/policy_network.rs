@@ -2,9 +2,11 @@
 //! (docs/neural-policy-fallback.md).
 //!
 //! The file is the magic `NPNET001`, a little-endian u64 header length, a JSON header and then each
-//! layer's float32 weights (output-major, `out × in`) followed by its biases. Hidden layers use ReLU;
-//! the output is a softmax over the six menu labels, restricted to the legal ones. Arithmetic is in
-//! f64 over f32 weights, so results don't depend on summation order beyond f64 rounding.
+//! layer's float32 weights (output-major, `out × in`) followed by its biases. Hidden layers use ReLU.
+//! A policy network's output (`masked-softmax-6`) is a softmax over the six menu labels, restricted
+//! to the legal ones. An advantage network's (`advantage-6`) is one estimated regret per label, played
+//! by regret matching (Deep CFR, docs/neural-deep-cfr.md). The reference arithmetic is in f64 over
+//! f32 weights; `Fast` is an f32 path for traversals, checked against it.
 use crate::cards::EquityTables;
 use crate::multi_holdem::menu;
 use crate::multi_policy::Policy;
@@ -24,9 +26,19 @@ struct Layer {
     biases: Vec<f32>,
 }
 
+/// What the six outputs mean.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Output {
+    /// Logits of a masked softmax: the strategy itself.
+    Policy,
+    /// Estimated regrets: the strategy is their regret matching.
+    Advantage,
+}
+
 pub struct PolicyNetwork {
     pub header: Value,
     pub sha256: String,
+    pub output: Output,
     layers: Vec<Layer>,
 }
 
@@ -54,7 +66,12 @@ impl PolicyNetwork {
         let size = u64::from_le_bytes(bytes[8..16].try_into().unwrap()) as usize;
         let body = 16usize.checked_add(size).filter(|&e| e <= bytes.len()).ok_or("network header length")?;
         let header: Value = serde_json::from_slice(&bytes[16..body]).map_err(|e| e.to_string())?;
-        if header["format"] != FORMAT || header["activation"] != "relu" || header["output"] != "masked-softmax-6" {
+        let output = match header["output"].as_str() {
+            Some("masked-softmax-6") => Output::Policy,
+            Some("advantage-6") => Output::Advantage,
+            _ => return Err("network output kind".into()),
+        };
+        if header["format"] != FORMAT || header["activation"] != "relu" {
             return Err("network format".into());
         }
         if header["layout_sha256"] != features::layout_sha256() || header["features"] != features::len() {
@@ -89,7 +106,7 @@ impl PolicyNetwork {
         if offset != bytes.len() {
             return Err("network file has trailing bytes".into());
         }
-        Ok(Self { header, sha256: String::new(), layers })
+        Ok(Self { header, sha256: String::new(), output, layers })
     }
 
     /// Logits over the six labels for one feature vector.
@@ -118,6 +135,9 @@ impl PolicyNetwork {
         if legal & ((1 << ACTIONS) - 1) == 0 {
             return Err("no legal label".into());
         }
+        if self.output == Output::Advantage {
+            return Ok(regret_match(&self.logits(input)?, legal));
+        }
         let logits = self.logits(input)?;
         let top = (0..ACTIONS).filter(|a| legal >> a & 1 == 1).map(|a| logits[a]).fold(f64::NEG_INFINITY, f64::max);
         let mut p = [0.; ACTIONS];
@@ -142,6 +162,24 @@ impl PolicyNetwork {
         Ok((menu(observation).iter().map(|(label, _)| p[*label as usize]).collect(), p))
     }
 
+    /// The f32 evaluator for traversals; see `Fast`.
+    pub fn fast(&self) -> Fast {
+        Fast {
+            output: self.output,
+            layers: self.layers.iter().map(|l| {
+                // Input-major copy, so each input adds a contiguous run of outputs (and zero inputs,
+                // most of a quantized feature vector and many ReLU outputs, are skipped).
+                let mut t = vec![0f32; l.inputs * l.outputs];
+                for o in 0..l.outputs {
+                    for i in 0..l.inputs {
+                        t[i * l.outputs + o] = l.weights[o * l.inputs + i];
+                    }
+                }
+                (l.inputs, l.outputs, t, l.biases.clone())
+            }).collect(),
+        }
+    }
+
     /// Plays the network's strategy for `policy` at a decision whose row has no positive mass. The
     /// network reads the real table's observation, as it trained, and the policy draws its usual
     /// single random number. Returns the action, the label probabilities and the chosen label.
@@ -151,6 +189,79 @@ impl PolicyNetwork {
         let action = policy.choose_distribution(observation, &p)?;
         let chosen = menu(observation).iter().find(|(_, a)| *a == action).map(|(l, _)| *l).ok_or("network action off the menu")?;
         Ok((action, by_label, chosen))
+    }
+}
+
+/// Regret matching over the legal labels: positive regrets in proportion; with none positive, the
+/// legal label of highest regret (the first on ties), as in Deep CFR.
+pub fn regret_match(regrets: &[f64; ACTIONS], legal: u8) -> [f64; ACTIONS] {
+    let legal_labels = (0..ACTIONS).filter(|a| legal >> a & 1 == 1);
+    let total: f64 = legal_labels.clone().map(|a| regrets[a].max(0.)).sum();
+    let mut p = [0.; ACTIONS];
+    if total > 0. {
+        for a in legal_labels {
+            p[a] = regrets[a].max(0.) / total;
+        }
+    } else {
+        let best = legal_labels.fold(None, |b: Option<usize>, a| match b {
+            Some(b) if regrets[b] >= regrets[a] => Some(b),
+            _ => Some(a),
+        });
+        p[best.expect("no legal label")] = 1.;
+    }
+    p
+}
+
+/// An f32 forward pass for traversals: input-major weights, zero inputs skipped. It agrees with the
+/// f64 reference to float32 rounding (checked by tests and `nplayer_deep_cfr bench`).
+pub struct Fast {
+    pub output: Output,
+    layers: Vec<(usize, usize, Vec<f32>, Vec<f32>)>,
+}
+impl Fast {
+    /// Logits (or regrets) for one quantized feature vector, `bytes[i] / 255`.
+    pub fn logits(&self, bytes: &[u8], scratch: &mut [Vec<f32>; 2]) -> [f32; ACTIONS] {
+        let [x, y] = scratch;
+        x.clear();
+        x.extend(bytes.iter().map(|&b| b as f32 / 255.));
+        let last = self.layers.len() - 1;
+        for (k, (inputs, outputs, t, b)) in self.layers.iter().enumerate() {
+            debug_assert_eq!(x.len(), *inputs);
+            y.clear();
+            y.extend_from_slice(b);
+            for (i, &v) in x.iter().enumerate() {
+                if v != 0. {
+                    for (acc, w) in y.iter_mut().zip(&t[i * outputs..(i + 1) * outputs]) {
+                        *acc += v * w;
+                    }
+                }
+            }
+            if k < last {
+                for v in y.iter_mut() {
+                    *v = v.max(0.);
+                }
+            }
+            std::mem::swap(x, y);
+        }
+        let mut out = [0f32; ACTIONS];
+        out.copy_from_slice(&x[..ACTIONS]);
+        out
+    }
+    /// The strategy over the six labels at a decision with legal labels `legal`.
+    pub fn strategy(&self, bytes: &[u8], legal: u8, scratch: &mut [Vec<f32>; 2]) -> [f64; ACTIONS] {
+        let z = self.logits(bytes, scratch).map(|v| v as f64);
+        match self.output {
+            Output::Advantage => regret_match(&z, legal),
+            Output::Policy => {
+                let top = (0..ACTIONS).filter(|a| legal >> a & 1 == 1).map(|a| z[a]).fold(f64::NEG_INFINITY, f64::max);
+                let mut p = [0.; ACTIONS];
+                for a in (0..ACTIONS).filter(|a| legal >> a & 1 == 1) {
+                    p[a] = (z[a] - top).exp();
+                }
+                let s: f64 = p.iter().sum();
+                p.map(|v| v / s)
+            }
+        }
     }
 }
 
@@ -204,6 +315,60 @@ mod tests {
         });
         let net = PolicyNetwork::parse(&f).unwrap();
         assert_eq!(net.logits(&vec![1.; n]).unwrap(), [0., 1., 2., 3., 4., 5.]);
+    }
+
+    #[test]
+    fn the_fast_path_agrees_with_the_reference() {
+        use rand::{Rng, SeedableRng};
+        let mut rng = rand::rngs::StdRng::seed_from_u64(7);
+        let weights: Vec<f32> = (0..features::len() * 32 + 32 + 32 * 16 + 16 + 16 * ACTIONS + ACTIONS).map(|_| rng.gen_range(-0.2..0.2)).collect();
+        let f = file(&[32, 16, ACTIONS], |k, i| {
+            let n = features::len();
+            let offset = [0, n * 32 + 32, n * 32 + 32 + 32 * 16 + 16][k];
+            weights[offset + i]
+        });
+        let net = PolicyNetwork::parse(&f).unwrap();
+        let fast = net.fast();
+        let mut scratch = [Vec::new(), Vec::new()];
+        for _ in 0..200 {
+            let bytes: Vec<u8> = (0..features::len()).map(|_| if rng.gen_bool(0.7) { 0 } else { rng.gen() }).collect();
+            let x: Vec<f32> = bytes.iter().map(|&b| b as f32 / 255.).collect();
+            let reference = net.logits(&x).unwrap();
+            let got = fast.logits(&bytes, &mut scratch);
+            for a in 0..ACTIONS {
+                assert!((reference[a] - got[a] as f64).abs() < 1e-4, "{a}: {} vs {}", reference[a], got[a]);
+            }
+            let legal = rng.gen_range(1..64u8);
+            let p = net.label_probabilities(&x, legal).unwrap();
+            let q = fast.strategy(&bytes, legal, &mut scratch);
+            for a in 0..ACTIONS {
+                assert!((p[a] - q[a]).abs() < 1e-4);
+            }
+        }
+    }
+
+    #[test]
+    fn advantage_networks_play_regret_matching() {
+        assert_eq!(regret_match(&[1., -2., 3., 0., 0., 0.], 0b000111), [0.25, 0., 0.75, 0., 0., 0.]);
+        assert_eq!(regret_match(&[1., -2., 3., 0., 0., 0.], 0b000010), [0., 1., 0., 0., 0., 0.]);
+        assert_eq!(regret_match(&[-1., -2., -0.5, 9., 0., 0.], 0b000111), [0., 0., 1., 0., 0., 0.], "highest when none positive");
+        assert_eq!(regret_match(&[-1., -1., -3., 0., 0., 0.], 0b000011), [1., 0., 0., 0., 0., 0.], "first on ties");
+        let mut f = file(&[ACTIONS], |_, i| if i >= features::len() * ACTIONS { (i - features::len() * ACTIONS) as f32 - 2. } else { 0. });
+        // Rebuild the header with the advantage kind.
+        let header_len = u64::from_le_bytes(f[8..16].try_into().unwrap()) as usize;
+        let mut h: Value = serde_json::from_slice(&f[16..16 + header_len]).unwrap();
+        h["output"] = json!("advantage-6");
+        let hb = serde_json::to_vec(&h).unwrap();
+        let body = f.split_off(16 + header_len);
+        let mut g = MAGIC.to_vec();
+        g.extend_from_slice(&(hb.len() as u64).to_le_bytes());
+        g.extend_from_slice(&hb);
+        g.extend_from_slice(&body);
+        let net = PolicyNetwork::parse(&g).unwrap();
+        assert_eq!(net.output, Output::Advantage);
+        // Regrets are bias - 2: [-2, -1, 0, 1, 2, 3].
+        let p = net.label_probabilities(&vec![0.; features::len()], 0b111111).unwrap();
+        assert!((p[4] - 2. / 6.).abs() < 1e-12 && (p[5] - 0.5).abs() < 1e-12 && p[0] == 0.);
     }
 
     #[test]

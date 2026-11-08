@@ -19,6 +19,7 @@ pub mod multi_arena;
 pub mod multi_view;
 pub mod policy_features;
 pub mod policy_network;
+pub mod deep_cfr;
 pub mod policy_expectation;
 pub mod arena_expectation;
 #[cfg(test)]
