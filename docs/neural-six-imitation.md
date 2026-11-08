@@ -105,7 +105,8 @@ is recorded when exposed by the container; absence is recorded, not reported
 as a successful thermal measurement. Work does not continue after a failure.
 
 T3 scheduled check-ins inspect durable status, retrieve and hash-verify the
-evidence, then terminate this exact pod through Chrome and verify billing has
+evidence, then terminate this exact pod through the signed-in internal browser
+(the owner's updated preference) and verify billing has
 stopped. A separate scheduled hard cutoff enforces the billing deadline.
 If the provider offers an independent termination timer, use it too. A job
 timeout alone does not stop provider billing. No main run starts without
