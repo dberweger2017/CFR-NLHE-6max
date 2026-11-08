@@ -19,6 +19,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--routes', type=Path, required=True, help='JSON: players -> {"agent": ..., "view": ...}')
     parser.add_argument('--policy', nargs=3, action='append', default=[], metavar=('NAME', 'PATH', 'SHA256'))
+    parser.add_argument('--mass', nargs=3, action='append', default=[], metavar=('POLICY', 'DIR', 'SHA256'),
+                        help="a policy's original-average mass receipt, for a network fallback")
+    parser.add_argument('--network', nargs=3, action='append', default=[], metavar=('NAME', 'PATH', 'SHA256'))
     parser.add_argument('--card-buckets', type=Path)
     parser.add_argument('--journal', type=Path, required=True, help='new JSONL file; never overwritten')
     parser.add_argument('--max-hands', type=int, required=True)
@@ -32,9 +35,11 @@ def main():
     if not 1 <= args.max_hands <= 100_000:
         parser.error('--max-hands must be 1..100000')
     routes = parse_routes(json.loads(args.routes.read_text()))
-    native = NativeDecisions(card_buckets=args.card_buckets, policies={n: (Path(p), s) for n, p, s in args.policy})
+    native = NativeDecisions(card_buckets=args.card_buckets, policies={n: (Path(p), s) for n, p, s in args.policy},
+                             masses={n: (Path(p), s) for n, p, s in args.mass},
+                             networks={n: (Path(p), s) for n, p, s in args.network})
     journal = Journal(args.journal)
-    journal.write('session', {'routes': json.loads(args.routes.read_text()), 'policies': native.policies,
+    journal.write('session', {'routes': json.loads(args.routes.read_text()), 'policies': native.policies, 'networks': native.networks,
                               'buy_in': args.buy_in, 'max_hands': args.max_hands, 'sandbox': args.sandbox,
                               'url': 'sandbox' if args.sandbox else args.url})
     session = Session(Agent(native, routes, args.seed), journal, buy_in=args.buy_in, max_hands=args.max_hands,

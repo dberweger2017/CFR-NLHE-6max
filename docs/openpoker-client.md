@@ -17,6 +17,7 @@
 4. **Routing.** `src/openpoker/agent.py` picks a route by the number of dealt players, then by depth.
    - **Route lists:** each player count has an ordered list of routes. A route may carry a depth band, `band_bb`, and a short threshold, `short_bb`. The first route that matches plays the hand: its band must hold every dealt seat's starting stack, in BB, and with a threshold some dealt seat must start below it. Stacks are capped first: no seat counts more than the largest other seat's stack, since chips beyond that can never be won or lost. A route with neither always matches.
    - **Views:** live-order policies should use `"view": "projected"` at every size. It keeps the table's real, unequal chips, and adds phantom early-position folds below the model's player count. The native view needs the model's exact equal-stack configuration, which Open Poker never has.
+   - **Network fallback:** a policy route may carry `"fallback": "network:NAME"`. The service then plays that pinned network (`--network`) wherever the policy has no positive-mass row, which needs the policy's mass receipt (`--mass`). Every other decision plays the row. This is the paired arena's `network` mode, decision for decision ([network fallback results](reports/neural-policy-fallback/results.md)), and the journal records the row status and the network's distribution.
    - **Mixed-stack policies** (`--stack-law`, see [the mixed-stack protocol](openpoker-mixed-stacks.md)) project with 100 BB phantom seats; real seats keep their chips.
 5. **Translation.** The native action becomes `fold`, `check`, `call`, `raise` with an exact raise-to amount in range, or `all_in` when only an all-in raise is offered.
 6. **Fallback.** Any failure along the way plays check if legal, else fold, and journals the reason: an unrepresentable hand, no route, engine disagreement, untranslatable action or decision timeout. Failures include blinds other than 10/20, a dealer outside the dealt seats, a possibly all-in blind, an unknown action kind and unknown chips.
@@ -42,14 +43,14 @@ cargo build --release --locked --manifest-path native/hu20-trainer/Cargo.toml --
 python -m pip install -r requirements-openpoker.txt
 ```
 
-`routes.json` from the [routing results](reports/openpoker-routing/results.md): the 100 BB models inside [89.4, 136.9] BB, the mixed-stack models elsewhere. The heads-up models come from the [heads-up results](reports/openpoker-heads-up/results.md), and the 3-player mixed-stack model `p3mix` from the [3–5-player results](reports/openpoker-short-mixed/results.md). At 4 and 5 players the six-player `mix` still plays off the band, because their dedicated mixed-stack models showed no difference. Any hand where some dealt seat starts under 10 BB goes first to a wide-depth model, `huwide` heads-up and `widemix` at 3–6 players, from the [wide-stack results](reports/openpoker-wide-stacks/results.md).
+`routes.json` ([network route check](reports/openpoker-network-route/results.md)) from the [routing results](reports/openpoker-routing/results.md): the 100 BB models inside [89.4, 136.9] BB, the mixed-stack models elsewhere. The heads-up models come from the [heads-up results](reports/openpoker-heads-up/results.md), and the 3-player mixed-stack model `p3mix` from the [3–5-player results](reports/openpoker-short-mixed/results.md). At 4 and 5 players the six-player `mix` still plays off the band, because their dedicated mixed-stack models showed no difference. Any hand where some dealt seat starts under 10 BB goes first to a wide-depth model, `huwide` heads-up and `widemix` at 3–6 players, from the [wide-stack results](reports/openpoker-wide-stacks/results.md). At 3–6 players `widemix` plays the step-3 network `net1` (`5e276263…`) at its untrained rows, from the [network fallback results](reports/neural-policy-fallback/results.md).
 
 ```json
 {"2": [{"agent": "policy:huwide", "view": "projected", "short_bb": 10}, {"agent": "policy:hu100", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:humix", "view": "projected"}],
- "3": [{"agent": "policy:widemix", "view": "projected", "short_bb": 10}, {"agent": "policy:p3", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:p3mix", "view": "projected"}],
- "4": [{"agent": "policy:widemix", "view": "projected", "short_bb": 10}, {"agent": "policy:p4", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}],
- "5": [{"agent": "policy:widemix", "view": "projected", "short_bb": 10}, {"agent": "policy:p5", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}],
- "6": [{"agent": "policy:widemix", "view": "projected", "short_bb": 10}, {"agent": "policy:six", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}]}
+ "3": [{"agent": "policy:widemix", "view": "projected", "short_bb": 10, "fallback": "network:net1"}, {"agent": "policy:p3", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:p3mix", "view": "projected"}],
+ "4": [{"agent": "policy:widemix", "view": "projected", "short_bb": 10, "fallback": "network:net1"}, {"agent": "policy:p4", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}],
+ "5": [{"agent": "policy:widemix", "view": "projected", "short_bb": 10, "fallback": "network:net1"}, {"agent": "policy:p5", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}],
+ "6": [{"agent": "policy:widemix", "view": "projected", "short_bb": 10, "fallback": "network:net1"}, {"agent": "policy:six", "view": "projected", "band_bb": [89.4, 136.9]}, {"agent": "policy:mix", "view": "projected"}]}
 ```
 
 The routing studies set the actual routes and bands: [routing](openpoker-routing.md), [heads-up](openpoker-heads-up.md), [3–5 players](openpoker-short-mixed.md) and [short stacks](openpoker-wide-stacks.md).
@@ -58,6 +59,7 @@ Dry run against the local sandbox (no key):
 
 ```sh
 python -m scripts.openpoker_bot --routes routes.json --policy six MODEL.bin SHA256 --card-buckets K50_DIR \
+  [--mass widemix MASS_DIR SHA256 --network net1 NET.npnet SHA256] \
   --journal NEW.jsonl --max-hands 200 --sandbox [--sandbox-seats seats.json]
 python -m scripts.openpoker_audit NEW.jsonl
 ```
@@ -66,6 +68,7 @@ python -m scripts.openpoker_audit NEW.jsonl
 
 ```sh
 python -m scripts.openpoker_deploy_check --routes routes.json --policy six MODEL.bin SHA256 ... \
+  [--mass widemix MASS_DIR SHA256 --network net1 NET.npnet SHA256] \
   --card-buckets K50_DIR --tables 200 --hands-per-table 20 [--min-bb 1] --out NEW.json
 ```
 
@@ -74,9 +77,10 @@ It plays sandbox hands at random tables (2–6 dealt players, random seats, stac
 - the service's peak memory;
 - decision latency;
 - fallback reasons;
-- routes used.
+- routes used;
+- with a network fallback, the row status at each fallback route's decisions.
 
-It fails if any decision takes over 5 seconds, or if any fallback has a reason other than a possible all-in blind. The mixed-stack model is a 14 GB binary, so the bot plays from bb128 (128 GB), not the 16 GB M4.
+It fails if any decision takes over 5 seconds, if any fallback has a reason other than a possible all-in blind, or if the network plays at a positive-mass row or the row at an untrained one. The mixed-stack model is a 14 GB binary, so the bot plays from bb128 (128 GB), not the 16 GB M4.
 
 For a live session, drop `--sandbox` and set `OPENPOKER_API_KEY`. The audit reports:
 - decisions by status;
@@ -101,11 +105,12 @@ It encodes this repository's reading of the documentation: blinds are not broadc
 - **Exact reconstruction:** every decision reconstructs with no engine disagreement. The only permitted fallback is a possibly all-in blind.
 - **Disagreement:** an altered legal set always falls back.
 - **Translation:** the action mapping is exact.
+- **Network fallback:** routes accept it only for policies, and the service refuses it without a loaded network and mass receipt. `scripts.openpoker_fallback_parity` replays arena traces through the service and requires the arena's row statuses and network distributions.
 - **Bounded session:** a WebSocket session joins, plays, leaves at its limit and never journals the key.
 
 ## Known limits
 
 - **No stack management.** The bot never leaves and rejoins to reset its depth; the routes cover 1–250 BB stacks instead.
 - **Stacks beyond the grid.** A stack can grow past 250 BB or fall below 1 BB. The models still play such hands through the projected view, but they were never trained there.
-- **Short multiway postflop.** `widemix` covers preflop at short tables but still has no trained row for many postflop decisions there ([wide-stack results](reports/openpoker-wide-stacks/results.md)).
+- **Short multiway postflop.** `widemix` covers preflop at short tables but still has no trained row for many postflop decisions there ([wide-stack results](reports/openpoker-wide-stacks/results.md)). The network fallback plays those decisions; it has been tested against scripts and copies, not live opponents.
 - **Server behavior.** Dead buttons, missed blinds and other undocumented server behavior fall back rather than guess.

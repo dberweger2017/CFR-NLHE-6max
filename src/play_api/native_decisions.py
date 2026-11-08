@@ -55,7 +55,9 @@ class NativeDecisions:
     """One long-lived service process; policies load once and are shared by seats."""
 
     def __init__(self, *, card_buckets: Path | None = None, policies: dict | None = None,
-                 binary: Path = BINARY):
+                 masses: dict | None = None, networks: dict | None = None, binary: Path = BINARY):
+        """`policies` and `networks`: name -> (path, sha256); `masses`: policy name -> (receipt
+        directory, receipt sha256), needed for a network fallback on that policy."""
         if not binary.is_file():
             raise FileNotFoundError(
                 f"{binary} is missing; build it with "
@@ -65,6 +67,10 @@ class NativeDecisions:
             command += ["--card-buckets", str(card_buckets)]
         for name, (path, sha256) in (policies or {}).items():
             command += ["--policy", name, str(path), sha256]
+        for name, (path, sha256) in (masses or {}).items():
+            command += ["--mass", name, str(path), sha256]
+        for name, (path, sha256) in (networks or {}).items():
+            command += ["--network", name, str(path), sha256]
         self.lock = threading.Lock()
         self.process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                                         stderr=subprocess.PIPE, text=True, bufsize=1)
@@ -82,6 +88,10 @@ class NativeDecisions:
     def policies(self) -> dict:
         return self.ready["policies"]
 
+    @property
+    def networks(self) -> dict:
+        return self.ready.get("networks", {})
+
     def _call(self, request: dict) -> dict:
         with self.lock:
             if self.process.poll() is not None:
@@ -97,9 +107,12 @@ class NativeDecisions:
         return response
 
     def decide(self, hand: dict, seat: int, agent: str, *, seed: int = 0, expect: dict | None = None,
-               view: str = "native") -> dict:
-        return self._call({"op": "decide", "hand": hand, "seat": seat, "agent": agent,
-                           "seed": seed, "expect": expect, "view": view})
+               view: str = "native", fallback: str | None = None) -> dict:
+        request = {"op": "decide", "hand": hand, "seat": seat, "agent": agent,
+                   "seed": seed, "expect": expect, "view": view}
+        if fallback is not None:
+            request["fallback"] = fallback
+        return self._call(request)
 
     def settle(self, hand: dict) -> dict:
         return self._call({"op": "settle", "hand": hand})

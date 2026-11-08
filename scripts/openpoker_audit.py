@@ -45,7 +45,7 @@ def raise_meanings(actions, hero, dealer):
 
 def audit(path: Path) -> dict:
     lines = [json.loads(line) for line in path.read_text().splitlines()]
-    decisions, reasons, routes = Counter(), Counter(), Counter()
+    decisions, reasons, routes, network = Counter(), Counter(), Counter(), Counter()
     fields, kinds, player_fields, raise_amounts, modes = Counter(), Counter(), Counter(), Counter(), Counter()
     rejected, hero, dealer, start, results, actions = Counter(), None, None, {}, [], []
     for line in lines:
@@ -56,6 +56,8 @@ def audit(path: Path) -> dict:
                 reasons[p['reason'].split(':')[0]] += 1
             else:
                 routes[f"{p['players']} players: {p['route']} ({p['view']})"] += 1
+                if 'fallback' in p:
+                    network[f"{p['fallback']}: {'network' if 'network' in p else 'row'} at {p['row_status']}"] += 1
         if kind != 'in':
             continue
         t = p.get('type')
@@ -80,7 +82,7 @@ def audit(path: Path) -> dict:
         elif t == 'action_rejected':
             rejected[p.get('code')] += 1
     return {'journal': str(path), 'hands': len(results), 'decisions': dict(decisions), 'fallback_reasons': dict(reasons),
-            'routes': dict(routes), 'rejected': dict(rejected), 'inbound_types': dict(kinds),
+            'routes': dict(routes), 'network_fallback': dict(network), 'rejected': dict(rejected), 'inbound_types': dict(kinds),
             'player_action_fields': dict(fields), 'raise_amount_meaning': dict(raise_amounts), 'amount_modes': dict(modes),
             'blind_events': sum(1 for l in lines if l['kind'] == 'in' and l['payload'].get('type') == 'player_action'
                                 and l['payload'].get('action') in ('small_blind', 'big_blind', 'post_blind', 'post', 'blind')),
