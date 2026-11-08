@@ -170,7 +170,10 @@ class Hand:
             contributed[seat] += blind
         start = {seat: self.stacks[seat] + contributed[seat] + sum(p.chips for p in self.paid if p.seat == seat) for seat in order}
         top = sorted(start.values())[-2] if cap else max(start.values())
-        start = {seat: min(chips, top) for seat, chips in start.items()} if cap else start
+        # Never below a posted blind: the cap would cut into chips already in, and any cap at or
+        # above `top` plays the same hand.
+        floor = {sb_seat: BLINDS[0], bb_seat: BLINDS[1]}
+        start = {seat: min(chips, max(top, floor.get(seat, 0))) for seat, chips in start.items()} if cap else start
         actions, street, bets, wager = [], 'preflop', dict.fromkeys(order, 0), BLINDS[1]
         bets[sb_seat], bets[bb_seat] = BLINDS
         for p in self.paid:

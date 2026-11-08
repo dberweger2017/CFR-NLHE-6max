@@ -205,6 +205,15 @@ def test_depth_bands_route_each_hand_by_every_dealt_stack(native):
 
 
 @native_only
+def test_a_deep_blind_is_never_capped_below_its_blind(native):
+    # The deep big blind would be capped at 12 chips, below the 20 it posted (deploy check, Nov 8).
+    for seed in range(5):
+        table = Table(native, {0: ['bot', 9], 1: ['script:pot-pressure', 12], 4: ['script:pot-pressure', 339]}, 0, seed=seed)
+        records = asyncio.run(play(table, Agent(native, scripted_routes(), seed=1), 1))
+        assert records and all(r['status'] == 'policy' or r['reason'] in ALLOWED_FALLBACKS for r in records), records
+
+
+@native_only
 def test_a_deep_stack_plays_as_the_capped_table(native):
     """Against a 2,000 BB stack the hand is a 100 BB hand: it routes into the band and the engine
     reproduces every capped decision, including the deep seat's bets past the cap and the hero's
