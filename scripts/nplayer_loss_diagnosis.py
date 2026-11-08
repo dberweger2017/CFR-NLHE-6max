@@ -217,12 +217,36 @@ def classify(row, n):
     return seat, record, decisions, request, showdown
 
 
+def network_violation(action, state, lookup):
+    """A network fallback records its label probabilities and chosen label. The label must have
+    positive probability and match the action played: fold (0) only when checking isn't legal,
+    check (1) only when it is, call (2), or one of the raises (3-5)."""
+    net = lookup.get('network')
+    if not net or len(net.get('p', ())) != 6:
+        return 1
+    label, p = net['label'], net['p']
+    if not 0 <= label < 6 or p[label] <= 0 or abs(sum(p) - 1) > 1e-9:
+        return 1
+    check = state['legal']['check']
+    kind = action[0]
+    ok = ((kind == 'fold' and label == 0 and not check) or (kind == 'check' and label == 1 and check)
+          or (kind == 'call' and label == 2) or (kind == 'raise' and label in (3, 4, 5)))
+    return int(not ok)
+
+
 def fallback_violations(row, seat, mode):
     """Decisions that break the declared fallback at the focal's untrained rows: check-fold plays
-    only check, else fold; no-all-in never raises to the whole stack; no-raise never raises."""
+    only check, else fold; no-all-in never raises to the whole stack; no-raise never raises;
+    network plays a legal label with positive network probability. Trained rows carry no fallback."""
     bad = 0
     for actor, action, state, lookup in zip(row['actors'], row['actions'], row['states'], row['lookups']):
         replaced = 'fallback_replaced' in lookup
+        if mode.startswith('network:'):
+            if actor == seat and lookup['status'] in UNTRAINED:
+                bad += replaced + network_violation(action, state, lookup)
+            else:
+                bad += replaced + ('network' in lookup)
+            continue
         if actor != seat or mode == 'uniform' or lookup['status'] not in UNTRAINED:
             bad += replaced
         elif mode == 'check-fold':

@@ -84,8 +84,10 @@ def manifest(args):
                 cases.append(row)
                 index += 1
         index = 0
-        diagnosis.create(args.out / f'arena-manifest-b{bank}.json', json.dumps(
-            {'format': 'nplayer-paired-manifest-v1', 'tables': TABLES, 'threads': 16, 'models': models, 'cases': cases}, indent=1) + '\n')
+        manifest = {'format': 'nplayer-paired-manifest-v1', 'tables': TABLES, 'threads': 16, 'models': models, 'cases': cases}
+        if getattr(args, 'networks', None):
+            manifest['networks'] = json.loads(Path(args.networks).read_text())
+        diagnosis.create(args.out / f'arena-manifest-b{bank}.json', json.dumps(manifest, indent=1) + '\n')
     print(json.dumps({'manifests': BANKS, 'cases_per_bank': len(cases)}))
 
 
@@ -224,6 +226,7 @@ def main():
         p.add_argument('--out', type=Path, required=True)
         if name == 'manifest':
             p.add_argument('--models', type=Path, required=True, help='alias -> {path, sha256, mass, mass_sha256}')
+            p.add_argument('--networks', type=Path, help='alias -> {path, sha256} for network fallbacks')
         if name in ('scan', 'replay'):
             p.add_argument('--workers', type=int, default=12)
         if name == 'equity':

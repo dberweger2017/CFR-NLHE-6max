@@ -8,6 +8,7 @@ use hu20_trainer::{
     multi_view,
     game::Kind,
     nplayer::{Action, Config, Event, Hand},
+    policy_network::PolicyNetwork,
 };
 use rand::{seq::SliceRandom, SeedableRng};
 use rayon::prelude::*;
@@ -137,6 +138,8 @@ struct Case {
     /// Per arm: replace the focal uniform fallback by check, else fold.
     check_fold: [bool; 2],
     restricted: [Option<Restriction>; 2],
+    /// A pinned network (manifest `networks` alias) the focal plays at rows without positive mass.
+    network: [Option<String>; 2],
     /// Per arm: the focal model sees the table through `multi_view::project`.
     projected: [bool; 2],
 }
@@ -186,20 +189,23 @@ impl Case {
         if shared_models.is_some() && focals.iter().any(|s| s.starts_with("bot=")) {
             return Err("shared observations require model focals".into());
         }
-        let (check_fold, restricted) = match v.get("focal_untrained_fallback") {
-            None | Some(Value::Null) => ([false; 2], [None; 2]),
+        let (check_fold, restricted, network) = match v.get("focal_untrained_fallback") {
+            None | Some(Value::Null) => ([false; 2], [None; 2], [None, None]),
             Some(Value::Array(modes)) if modes.len() == 2 => {
-                let (mut flags, mut rules) = ([false; 2], [None; 2]);
+                let (mut flags, mut rules, mut nets) = ([false; 2], [None; 2], [None, None]);
                 for (arm, mode) in modes.iter().enumerate() {
                     let model = !focals[arm].starts_with("bot=");
                     match mode.as_str() {
                         Some("uniform") => {}
                         Some("check-fold") if model => flags[arm] = true,
                         Some(name) if model && Restriction::parse(name).is_some() => rules[arm] = Restriction::parse(name),
-                        _ => return Err("focal_untrained_fallback: uniform, check-fold, no-all-in or no-raise per model arm".into()),
+                        Some(name) if model && name.strip_prefix("network:").is_some_and(|a| !a.is_empty()) => {
+                            nets[arm] = name.strip_prefix("network:").map(String::from)
+                        }
+                        _ => return Err("focal_untrained_fallback: uniform, check-fold, no-all-in, no-raise or network:ALIAS per model arm".into()),
                     }
                 }
-                (flags, rules)
+                (flags, rules, nets)
             }
             _ => return Err("focal_untrained_fallback must list two arm modes".into()),
         };
@@ -240,6 +246,7 @@ impl Case {
             composition_diagnostics,
             check_fold,
             restricted,
+            network,
             projected,
         })
     }
@@ -261,6 +268,7 @@ fn play(
     case: &Case,
     tables: Option<&EquityTables>,
     models: &HashMap<String, Model>,
+    networks: &HashMap<String, Arc<PolicyNetwork>>,
 ) -> Result<[Vec<u8>; 2], String> {
     let mut bytes = [Vec::new(), Vec::new()];
     let mut deck: Vec<u8> = (0..52).collect();
@@ -334,14 +342,26 @@ fn play(
                             return Err("lookup identity mismatch".into());
                         }
                         let label = mass::LABELS[mass::MassMetadata::classify_row(row)?];
-                        let action = match case.restricted[arm] {
-                            Some(rule) if id == 0 && label != "positive_mass" => {
+                        let mut used = None;
+                        let action = match (&case.network[arm], case.restricted[arm]) {
+                            (Some(alias), _) if id == 0 && label != "positive_mass" => {
+                                // The network reads the real table's observation, as it trained.
+                                let (p, by_label) = networks[alias].distribution(&view, t)?;
+                                let action = policy.choose_distribution(&view, &p)?;
+                                let chosen = multi_holdem::menu(&view).iter().find(|(_, a)| *a == action).map(|(l, _)| *l).ok_or("network action off the menu")?;
+                                used = Some(json!({"p":by_label,"label":chosen}));
+                                action
+                            }
+                            (_, Some(rule)) if id == 0 && label != "positive_mass" => {
                                 let legal = seen.legal.ok_or("focal decision without legal set")?;
                                 policy.choose_restricted(seen, t, Some(&|a: &Action| rule.allows(a, legal.raise_to)))?
                             }
                             _ => policy.choose(seen, t)?,
                         };
                         let mut lookup = json!({"status":label,"key":key_hex(&d.key),"street":d.street,"identity":id,"seat":actor,"position":(actor+case.n-button)%case.n});
+                        if let Some(n) = used {
+                            lookup["network"] = n;
+                        }
                         if frame.is_some() {
                             lookup["view"] = json!("projected");
                         }
@@ -409,8 +429,18 @@ fn execute(
     tables: &mut Option<&'static EquityTables>,
     table_path: &Path,
     threads: usize,
+    network_catalog: &Value,
+    networks: &mut HashMap<String, Arc<PolicyNetwork>>,
 ) -> Result<Value, String> {
     let tick = Instant::now();
+    for alias in case.network.iter().flatten() {
+        if !networks.contains_key(alias) {
+            let spec = &network_catalog[alias];
+            let net = PolicyNetwork::load(Path::new(text(spec, "path")?), text(spec, "sha256")?)
+                .map_err(|e| format!("network {alias}: {e}"))?;
+            networks.insert(alias.clone(), Arc::new(net));
+        }
+    }
     let mut used: HashSet<_> = case
         .arms
         .iter()
@@ -557,6 +587,10 @@ fn execute(
         if let Some(rule) = case.restricted[arm] {
             header["focal_untrained_fallback"] = json!(rule.name());
         }
+        if let Some(alias) = &case.network[arm] {
+            header["focal_untrained_fallback"] = json!(format!("network:{alias}"));
+            header["focal_network"] = json!({"alias":alias,"sha256":networks[alias].sha256,"header":networks[alias].header});
+        }
         if let Some(aliases) = &case.shared_models {
             header["shared_models"] = json!(aliases
                 .iter()
@@ -574,7 +608,7 @@ fn execute(
         }
         let chunks: Vec<_> = (start..(start + 2 * threads as u64).min(case.blocks))
             .into_par_iter()
-            .map(|b| play(b, case, *tables, models))
+            .map(|b| play(b, case, *tables, models, networks))
             .collect();
         for chunk in chunks {
             let chunk = chunk?;
@@ -630,6 +664,7 @@ pub fn run() -> Result<(), String> {
         .build_global()
         .map_err(|e| e.to_string())?;
     let mut models = HashMap::new();
+    let mut networks = HashMap::new();
     let mut tables = None;
     for case in cases {
         if sha256_file(Path::new(&a[2])) != manifest_sha {
@@ -642,6 +677,8 @@ pub fn run() -> Result<(), String> {
             &mut tables,
             Path::new(text(&manifest, "tables")?),
             threads,
+            &manifest["networks"],
+            &mut networks,
         )?;
         if sha256_file(Path::new(&a[2])) != manifest_sha {
             return Err("manifest mutated".into());
@@ -702,7 +739,7 @@ mod tests {
         assert_eq!(c.arms[0][1..], c.arms[1][1..]);
         assert_ne!(c.arms[0][0], c.arms[1][0]);
         let rows=play(0,&Case::parse(&json!({"name":"self","players":4,"stack_bb":100,"blocks":2,"root":9,
-            "focals":["bot=random","bot=random"],"opponents":["bot=check-call","bot=pot-pressure","bot=tight-aggressive"],"traces":["left","right"],"summary":"summary"})).unwrap(),None,&HashMap::new()).unwrap();
+            "focals":["bot=random","bot=random"],"opponents":["bot=check-call","bot=pot-pressure","bot=tight-aggressive"],"traces":["left","right"],"summary":"summary"})).unwrap(),None,&HashMap::new(),&HashMap::new()).unwrap();
         assert_eq!(rows[0], rows[1]);
     }
 
@@ -736,6 +773,22 @@ mod tests {
         assert!(schedule(1, &Value::Null).is_err() && schedule(7, &Value::Null).is_err() && schedule(2, &Value::Null).unwrap().len() == 2);
     }
 
+    #[test]
+    fn network_fallback_names_a_pinned_alias_per_model_arm() {
+        let base = json!({"name":"n","players":3,"stack_bb":100,"blocks":2,"root":1,"focals":["m","m"],
+            "opponents":["bot=random","bot=random"],"traces":["a","b"],"summary":"s"});
+        let mut v = base.clone();
+        v["focal_untrained_fallback"] = json!(["uniform", "network:net1"]);
+        assert_eq!(Case::parse(&v).unwrap().network, [None, Some("net1".to_string())]);
+        for bad in ["network:", "network"] {
+            v["focal_untrained_fallback"] = json!(["uniform", bad]);
+            assert!(Case::parse(&v).is_err(), "{bad}");
+        }
+        let mut scripted = base.clone();
+        scripted["focals"] = json!(["m", "bot=random"]);
+        scripted["focal_untrained_fallback"] = json!(["uniform", "network:net1"]);
+        assert!(Case::parse(&scripted).is_err(), "scripted focals have no rows to fall back from");
+    }
     #[test]
     fn check_fold_fallback_is_opt_in_per_model_arm() {
         let base = json!({"name":"fallback","players":4,"stack_bb":100,"blocks":2,"root":9,
