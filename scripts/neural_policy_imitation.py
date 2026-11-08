@@ -59,6 +59,42 @@ def training_arrays(paths):
     return np.concatenate(xs), np.concatenate(ps), np.concatenate(ms), layout
 
 
+def cached_training_arrays(paths, cache, chunk=65536):
+    """The same ordered positive rows, in writable memmaps instead of RAM copies.
+
+    Refuse an existing directory: a partial or stale cache must never be reused
+    as if it belonged to these inputs. The controller builds it once per seed.
+    """
+    cache = Path(cache)
+    cache.mkdir(parents=True, exist_ok=False)
+    layout, count, width = None, 0, None
+    for path in paths:
+        s = nps.load(path, layout_sha256=layout)
+        layout, width = s.header['layout_sha256'], s.header['feature_count']
+        for start in range(0, len(s), chunk):
+            count += int((s.records['t0_status'][start:start + chunk] == nps.POSITIVE).sum())
+    if not count:
+        raise ValueError('no positive-mass training rows')
+    arrays = [np.lib.format.open_memmap(cache / name, mode='w+', dtype=d, shape=shape)
+              for name, d, shape in [('x.npy', 'u1', (count, width)),
+                                    ('p.npy', 'f4', (count, nps.ACTIONS)),
+                                    ('m.npy', '?', (count, nps.ACTIONS))]]
+    offset = 0
+    for path in paths:
+        s = nps.load(path, layout_sha256=layout)
+        for start in range(0, len(s), chunk):
+            stop = min(start + chunk, len(s))
+            keep = np.flatnonzero(s.records['t0_status'][start:stop] == nps.POSITIVE) + start
+            end = offset + len(keep)
+            arrays[0][offset:end] = s.records['features'][keep]
+            arrays[1][offset:end] = s.teacher(0, keep)[0]
+            arrays[2][offset:end] = s.legal(keep)
+            offset = end
+    for a in arrays:
+        a.flush()
+    return *arrays, layout
+
+
 def sha_file(path):
     h = hashlib.sha256()
     with open(path, 'rb') as f:
@@ -72,10 +108,11 @@ def train(args, hidden=HIDDEN, epochs=EPOCHS, batch=BATCH):
     torch.manual_seed(args.seed)
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     start = time.time()
-    x, p, m, layout = training_arrays(args.data)
+    cache = getattr(args, 'array_cache', None)
+    x, p, m, layout = cached_training_arrays(args.data, cache) if cache else training_arrays(args.data)
     load_seconds = time.time() - start
     x, p, m = torch.from_numpy(x), torch.from_numpy(p), torch.from_numpy(m)
-    if device.type == 'cuda':
+    if device.type == 'cuda' and not cache:
         x, p, m = x.pin_memory(), p.pin_memory(), m.pin_memory()
     model = network(torch, x.shape[1], hidden).to(device)
     steps = epochs * math.ceil(len(x) / batch)
@@ -97,6 +134,8 @@ def train(args, hidden=HIDDEN, epochs=EPOCHS, batch=BATCH):
                 logits = model(xb)
             logp = masked_log_softmax(torch, logits, mb)
             loss = -(pb * torch.where(mb, logp, torch.zeros_like(logp))).sum(1).mean()
+            if not torch.isfinite(loss):
+                raise ValueError('nonfinite imitation loss')
             optimizer.zero_grad(set_to_none=True)
             scaler.scale(loss).backward()
             scaler.step(optimizer)
@@ -295,6 +334,7 @@ def main(argv=None):
     t.add_argument('--data', nargs='+', required=True)
     t.add_argument('--seed', type=int, required=True)
     t.add_argument('--out', required=True)
+    t.add_argument('--array-cache', help='fresh directory for disk-backed positive rows; same training order')
     e = sub.add_parser('evaluate')
     e.add_argument('--model', required=True)
     e.add_argument('--data', nargs='+', required=True)
