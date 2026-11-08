@@ -140,9 +140,32 @@ def test_hand_messages_outside_the_contract_are_unsupported():
     assert not short[0].covers([10, 40, 100]) and not short[0].covers([100, 100, 100])
     assert banded[0].covers([100, 90, 111]) and not banded[0].covers([100, 80]) and banded[1].covers([10, 250])
     for bad in ({'7': {'agent': 'policy:six'}}, {'6': []}, {'6': {'agent': 'policy:six', 'band_bb': [110, 90]}},
-                {'6': {'agent': 'policy:six', 'band': [90, 110]}}, {'6': {'agent': 'policy:six', 'short_bb': 0}}):
+                {'6': {'agent': 'policy:six', 'band': [90, 110]}}, {'6': {'agent': 'policy:six', 'short_bb': 0}},
+                {'6': {'agent': 'script:random', 'fallback': 'network:net1'}}, {'6': {'agent': 'policy:six', 'fallback': 'network:'}},
+                {'6': {'agent': 'policy:six', 'fallback': 'uniform'}}):
         with pytest.raises(ValueError):
             parse_routes(bad)
+
+
+def test_a_route_can_name_a_network_fallback():
+    route = parse_routes({'6': [{'agent': 'policy:widemix', 'view': 'projected', 'short_bb': 10, 'fallback': 'network:net1'},
+                                {'agent': 'policy:mix', 'view': 'projected'}]})[6]
+    assert route == (Route('policy:widemix', 'projected', None, 10.0, 'network:net1'), Route('policy:mix', 'projected'))
+
+
+@native_only
+def test_the_service_refuses_network_fallbacks_it_cant_play(native, tmp_path):
+    hand = {'stacks': [2000, 2000, 2000], 'sb': 50, 'bb': 100, 'button': 0, 'deck': list(range(52)), 'actions': []}
+    seat = native.state(hand)['actor']
+    with pytest.raises(RuntimeError, match='fallbacks apply to policies only'):
+        native.decide(hand, seat, 'script:random', fallback='network:net1')
+    with pytest.raises(RuntimeError, match='unknown policy'):
+        native.decide(hand, seat, 'policy:widemix', fallback='network:net1')
+    assert native.networks == {}
+    with pytest.raises(RuntimeError, match='--mass names no loaded policy'):
+        NativeDecisions(masses={'widemix': (tmp_path, '0' * 64)})
+    with pytest.raises(RuntimeError, match='networks need --card-buckets'):
+        NativeDecisions(networks={'net1': (tmp_path / 'n.npnet', '0' * 64)})
 
 
 @native_only
@@ -179,6 +202,15 @@ def test_depth_bands_route_each_hand_by_every_dealt_stack(native):
             assert r['route'] == ('script:check-call' if inside else 'script:random')
             seen[inside] += 1
     assert seen[True] and seen[False]
+
+
+@native_only
+def test_a_deep_blind_is_never_capped_below_its_blind(native):
+    # The deep big blind would be capped at 12 chips, below the 20 it posted (deploy check, Nov 8).
+    for seed in range(5):
+        table = Table(native, {0: ['bot', 9], 1: ['script:pot-pressure', 12], 4: ['script:pot-pressure', 339]}, 0, seed=seed)
+        records = asyncio.run(play(table, Agent(native, scripted_routes(), seed=1), 1))
+        assert records and all(r['status'] == 'policy' or r['reason'] in ALLOWED_FALLBACKS for r in records), records
 
 
 @native_only

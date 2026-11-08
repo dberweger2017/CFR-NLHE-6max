@@ -1,0 +1,195 @@
+{
+ "policies": {
+  "six": "f894a59f8a92424d735438726d16834901a7dcaf6d560c98b950fb72a143c9ea",
+  "mix": "64c693c4a3a56f69fcdd050b5da9dde0cfee76e108676b4816dbab98dccfbb20",
+  "p3": "1a607613a29d2c4d62e16ce31df5214f160796391730b2fbc55495fd286fc894",
+  "p4": "66ec2f87d3fbfb3100c92325939c0fa43e34c4168e66ffad6cfa73a44c8688ba",
+  "p5": "bdc5ab50bb4765f86ebd7e044beb95db09a86bb1cff170eaf800f8781851ec26",
+  "hu100": "1722f0d8744487fcc1c049373f3e3b0a08926701bbdcec5e617d08b7b62cae47",
+  "humix": "9d39dda9d9a5c07a1372dd7a876353fbeffc664eb321c891570c0038558493fc",
+  "p3mix": "afddb59521bd518aa25ef5c7a499ea09059b102dc289d34d3978d1438a85a16a",
+  "widemix": "702e10cf228f93ca73ca4c7450607c0371b69a0a6a63db2117efc79fd9922ee9",
+  "huwide": "e485d5d7690b2a9e9263f0d93e243db1e45387fb2210a4ab4db25877ee5627d0"
+ },
+ "routes": {
+  "2": [
+   {
+    "agent": "policy:huwide",
+    "view": "projected",
+    "short_bb": 10
+   },
+   {
+    "agent": "policy:hu100",
+    "view": "projected",
+    "band_bb": [
+     89.4,
+     136.9
+    ]
+   },
+   {
+    "agent": "policy:humix",
+    "view": "projected"
+   }
+  ],
+  "3": [
+   {
+    "agent": "policy:widemix",
+    "view": "projected",
+    "short_bb": 10,
+    "fallback": "network:net1"
+   },
+   {
+    "agent": "policy:p3",
+    "view": "projected",
+    "band_bb": [
+     89.4,
+     136.9
+    ]
+   },
+   {
+    "agent": "policy:p3mix",
+    "view": "projected"
+   }
+  ],
+  "4": [
+   {
+    "agent": "policy:widemix",
+    "view": "projected",
+    "short_bb": 10,
+    "fallback": "network:net1"
+   },
+   {
+    "agent": "policy:p4",
+    "view": "projected",
+    "band_bb": [
+     89.4,
+     136.9
+    ]
+   },
+   {
+    "agent": "policy:mix",
+    "view": "projected"
+   }
+  ],
+  "5": [
+   {
+    "agent": "policy:widemix",
+    "view": "projected",
+    "short_bb": 10,
+    "fallback": "network:net1"
+   },
+   {
+    "agent": "policy:p5",
+    "view": "projected",
+    "band_bb": [
+     89.4,
+     136.9
+    ]
+   },
+   {
+    "agent": "policy:mix",
+    "view": "projected"
+   }
+  ],
+  "6": [
+   {
+    "agent": "policy:widemix",
+    "view": "projected",
+    "short_bb": 10,
+    "fallback": "network:net1"
+   },
+   {
+    "agent": "policy:six",
+    "view": "projected",
+    "band_bb": [
+     89.4,
+     136.9
+    ]
+   },
+   {
+    "agent": "policy:mix",
+    "view": "projected"
+   }
+  ]
+ },
+ "min_bb": 1.0,
+ "load_seconds": 203.4517840500048,
+ "peak_memory_gb": 45.282691955566406,
+ "tables_by_players": {
+  "2": 52,
+  "3": 34,
+  "4": 33,
+  "5": 45,
+  "6": 36
+ },
+ "decisions": {
+  "policy": 3907,
+  "fallback": 107
+ },
+ "fallback_reasons": {
+  "possible all-in blind": 106,
+  "stacks [45, 10, -40] != native [45, 10, 0]": 1
+ },
+ "routes_used": {
+  "2 players: policy:hu100": 172,
+  "2 players: policy:humix": 1426,
+  "2 players: policy:huwide": 293,
+  "3 players: policy:p3mix": 481,
+  "3 players: policy:widemix": 443,
+  "4 players: policy:mix": 293,
+  "4 players: policy:p4": 5,
+  "4 players: policy:widemix": 317,
+  "5 players: policy:mix": 96,
+  "5 players: policy:widemix": 255,
+  "6 players: policy:mix": 9,
+  "6 players: policy:widemix": 117
+ },
+ "networks": {
+  "net1": {
+   "header": {
+    "activation": "relu",
+    "features": 612,
+    "format": "nplayer-policy-network-v1",
+    "layers": [
+     {
+      "in": 612,
+      "out": 1024
+     },
+     {
+      "in": 1024,
+      "out": 1024
+     },
+     {
+      "in": 1024,
+      "out": 512
+     },
+     {
+      "in": 512,
+      "out": 6
+     }
+    ],
+    "layout_sha256": "33d180c77adfd1d322afa313949cb5b7bade2469a92b86022458635d650adb8b",
+    "output": "masked-softmax-6",
+    "seed": 1,
+    "source_weights_sha256": "d222a1655db10c4842a47c16b92946fa3b1d4424c76ec2b163d11dbd4dfdd5c3"
+   },
+   "sha256": "5e276263f7bbd3700a2ce652cbf6d1558072fb839628c7ea9b67ba2af442a1b5"
+  }
+ },
+ "network_fallback_rows": {
+  "3 players: missing": 7,
+  "3 players: positive_mass": 436,
+  "4 players: missing": 9,
+  "4 players: positive_mass": 308,
+  "5 players: missing": 15,
+  "5 players: positive_mass": 240,
+  "6 players: missing": 10,
+  "6 players: positive_mass": 107
+ },
+ "latency_seconds": {
+  "p50": 8.449800225207582e-05,
+  "p99": 0.001945422998687718,
+  "max": 0.002173255998059176
+ },
+ "passed": false
+}

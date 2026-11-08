@@ -345,10 +345,7 @@ fn play(
                         let mut used = None;
                         let action = match (&case.network[arm], case.restricted[arm]) {
                             (Some(alias), _) if id == 0 && label != "positive_mass" => {
-                                // The network reads the real table's observation, as it trained.
-                                let (p, by_label) = networks[alias].distribution(&view, t)?;
-                                let action = policy.choose_distribution(&view, &p)?;
-                                let chosen = multi_holdem::menu(&view).iter().find(|(_, a)| *a == action).map(|(l, _)| *l).ok_or("network action off the menu")?;
+                                let (action, by_label, chosen) = networks[alias].play(policy, &view, t)?;
                                 used = Some(json!({"p":by_label,"label":chosen}));
                                 action
                             }
