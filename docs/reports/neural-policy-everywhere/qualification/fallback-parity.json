@@ -1,0 +1,423 @@
+{
+ "format": "openpoker-fallback-parity-v1",
+ "policy": {
+  "average_scope": 3,
+  "identity": {
+   "big_blind": 100,
+   "card_tables": [
+    "084e243ded9fe93ad03cd59601f22f16c3210592f51e1e3646a60983b572c111",
+    "c0bc6a8aa0535553118109d18a32d3b4dc6880e937c263cdc87472b1ae9f168f",
+    "70c1cb5ecf4cd292e4c89dc2200f7c8381100be3b0288ceeb0a12a3e83977629"
+   ],
+   "game": "nlhe-cash",
+   "menu": "min-pot-conditional-jam-v1",
+   "players": 6,
+   "schema": "nplayer-live-order-summary-equity-k50-v1",
+   "small_blind": 50,
+   "stack_distribution": {
+    "button": "independent-uniform",
+    "depths_bb": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     8,
+     10,
+     15,
+     20,
+     30,
+     40,
+     50,
+     65,
+     80,
+     100,
+     125,
+     150,
+     200,
+     250
+    ],
+    "rule": "iid-uniform-depth-grid-v1",
+    "seat_probability": "1/20"
+   },
+   "utility_unit": "big-blind"
+  },
+  "mass_keyset_sha256": "1e7b13149607bc3511e13e39afe137dde2fd801657f2e5b6f2f162eaf8074913",
+  "mass_sha256": "afd951ffa956a359ff0fd0421fde1bd9ac85c6354684c472f034831c3c74b34c",
+  "players": 6,
+  "rows": 250000503,
+  "sha256": "702e10cf228f93ca73ca4c7450607c0371b69a0a6a63db2117efc79fd9922ee9",
+  "source_checkpoint_sha256": "859e0dc1ebbd724d740a80323db8640585d7123d72b478ebf273f17c3758532a",
+  "strategy": "average"
+ },
+ "network": {
+  "header": {
+   "activation": "relu",
+   "features": 612,
+   "format": "nplayer-policy-network-v1",
+   "layers": [
+    {
+     "in": 612,
+     "out": 1024
+    },
+    {
+     "in": 1024,
+     "out": 1024
+    },
+    {
+     "in": 1024,
+     "out": 512
+    },
+    {
+     "in": 512,
+     "out": 6
+    }
+   ],
+   "layout_sha256": "33d180c77adfd1d322afa313949cb5b7bade2469a92b86022458635d650adb8b",
+   "output": "masked-softmax-6",
+   "seed": 1,
+   "source_weights_sha256": "d222a1655db10c4842a47c16b92946fa3b1d4424c76ec2b163d11dbd4dfdd5c3"
+  },
+  "sha256": "5e276263f7bbd3700a2ce652cbf6d1558072fb839628c7ea9b67ba2af442a1b5"
+ },
+ "traces": [
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/3p-5bb/check-call-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 284,
+    "missing": 98,
+    "network": 99,
+    "zero_mass": 1
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/3p-5bb/mixed-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 344,
+    "missing": 11,
+    "network": 11
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/3p-5bb/pot-pressure-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 175
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/3p-5bb/random-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 232,
+    "missing": 3,
+    "network": 3
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/3p-5bb/tight-aggressive-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 153
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/3p-short-deep/check-call-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 413,
+    "missing": 25,
+    "network": 26,
+    "zero_mass": 1
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/3p-short-deep/mixed-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 454,
+    "missing": 2,
+    "network": 2
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/3p-short-deep/pot-pressure-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 194
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/3p-short-deep/random-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 305,
+    "missing": 2,
+    "network": 2
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/3p-short-deep/tight-aggressive-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 171
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/3p-unequal/check-call-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 413,
+    "missing": 58,
+    "network": 58
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/3p-unequal/mixed-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 462,
+    "missing": 5,
+    "network": 5
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/3p-unequal/pot-pressure-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 240
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/3p-unequal/random-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 286,
+    "missing": 1,
+    "network": 2,
+    "zero_mass": 1
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/3p-unequal/tight-aggressive-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 205
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/4p-short-deep/check-call-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 341,
+    "missing": 175,
+    "network": 176,
+    "zero_mass": 1
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/4p-short-deep/mixed-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 565,
+    "missing": 7,
+    "network": 7
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/4p-short-deep/pot-pressure-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 301
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/4p-short-deep/random-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 379,
+    "missing": 9,
+    "network": 10,
+    "zero_mass": 1
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/4p-short-deep/tight-aggressive-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 296
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/6p-5bb/check-call-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 384,
+    "missing": 248,
+    "network": 248
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/6p-5bb/live-copies-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 406
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/6p-5bb/mixed-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 447,
+    "missing": 36,
+    "network": 37,
+    "zero_mass": 1
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/6p-5bb/pot-pressure-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 412,
+    "missing": 3,
+    "network": 3
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/6p-5bb/random-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 412,
+    "missing": 6,
+    "network": 6
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/6p-5bb/tight-aggressive-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 369,
+    "missing": 1,
+    "network": 1
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/6p-short-deep/check-call-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 385,
+    "missing": 438,
+    "network": 438
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/6p-short-deep/live-copies-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 614,
+    "missing": 1,
+    "network": 1
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/6p-short-deep/mixed-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 569,
+    "missing": 93,
+    "network": 95,
+    "zero_mass": 2
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/6p-short-deep/pot-pressure-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 449,
+    "missing": 3,
+    "network": 3
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/6p-short-deep/random-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 542,
+    "missing": 14,
+    "network": 14
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/6p-short-deep/tight-aggressive-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 455
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/6p-unequal/check-call-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 382,
+    "missing": 459,
+    "network": 459
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/6p-unequal/live-copies-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 644,
+    "missing": 1,
+    "network": 1
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/6p-unequal/mixed-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 606,
+    "missing": 96,
+    "network": 97,
+    "zero_mass": 1
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/6p-unequal/pot-pressure-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 489,
+    "missing": 2,
+    "network": 2
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/6p-unequal/random-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 502,
+    "missing": 2,
+    "network": 2
+   },
+   "mismatches": 0
+  },
+  {
+   "trace": "/home/dberweger/neural-policy-fallback-20261108/smoke/out/arena/b0/6p-unequal/tight-aggressive-a1.jsonl.gz",
+   "decisions": {
+    "positive_mass": 448
+   },
+   "mismatches": 0
+  }
+ ],
+ "decisions": {
+  "positive_mass": 14728,
+  "missing": 1799,
+  "network": 1808,
+  "zero_mass": 9
+ },
+ "mismatches": 0,
+ "first_mismatches": [],
+ "passed": true
+}

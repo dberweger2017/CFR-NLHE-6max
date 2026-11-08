@@ -1,0 +1,1213 @@
+{
+ "format": "neural-policy-everywhere-agreement-v1",
+ "run": 1,
+ "source": "arm 1 traces, all banks",
+ "differ_share": "share of focal decisions where arm 0 plays a positive-mass row (arm 1 plays the network)",
+ "tv": "total variation between the network and the row at those decisions",
+ "tables": {
+  "3p-5bb": {
+   "check-call": {
+    "preflop": {
+     "focal_decisions": 49152,
+     "differ_share": 1.0,
+     "mean_tv_where_differ": 0.040906440249285664
+    },
+    "flop": {
+     "focal_decisions": 21428,
+     "differ_share": 0.8012413664364383,
+     "mean_tv_where_differ": 0.3453752993901813
+    },
+    "turn": {
+     "focal_decisions": 13579,
+     "differ_share": 0.2724059209072833,
+     "mean_tv_where_differ": 0.18750721232771367
+    },
+    "river": {
+     "focal_decisions": 8197,
+     "differ_share": 0.06477979748688545,
+     "mean_tv_where_differ": 0.08292504461551216
+    },
+    "all": {
+     "focal_decisions": 92356,
+     "differ_share": 0.7639027242409806,
+     "mean_tv_where_differ": 0.12300327767790621
+    }
+   },
+   "mixed": {
+    "preflop": {
+     "focal_decisions": 50080,
+     "differ_share": 1.0,
+     "mean_tv_where_differ": 0.03946981409692303
+    },
+    "flop": {
+     "focal_decisions": 21374,
+     "differ_share": 0.948956676335735,
+     "mean_tv_where_differ": 0.33925771745946054
+    },
+    "turn": {
+     "focal_decisions": 13202,
+     "differ_share": 0.9427359490986215,
+     "mean_tv_where_differ": 0.30060639513531673
+    },
+    "river": {
+     "focal_decisions": 7240,
+     "differ_share": 0.919060773480663,
+     "mean_tv_where_differ": 0.33777087237095893
+    },
+    "all": {
+     "focal_decisions": 91896,
+     "differ_share": 0.9735244189083312,
+     "mean_tv_where_differ": 0.1659533790708411
+    }
+   },
+   "pot-pressure": {
+    "preflop": {
+     "focal_decisions": 39495,
+     "differ_share": 1.0,
+     "mean_tv_where_differ": 0.01883999001000844
+    },
+    "flop": {
+     "focal_decisions": 4205,
+     "differ_share": 0.9812128418549346,
+     "mean_tv_where_differ": 0.2973169047487952
+    },
+    "turn": {
+     "focal_decisions": 1516,
+     "differ_share": 0.9683377308707124,
+     "mean_tv_where_differ": 0.29959675981498934
+    },
+    "river": {
+     "focal_decisions": 533,
+     "differ_share": 0.9230769230769231,
+     "mean_tv_where_differ": 0.3014438103045036
+    },
+    "all": {
+     "focal_decisions": 45749,
+     "differ_share": 0.9963277885855428,
+     "mean_tv_where_differ": 0.056140351298063496
+    }
+   },
+   "random": {
+    "preflop": {
+     "focal_decisions": 53265,
+     "differ_share": 0.9998685816202009,
+     "mean_tv_where_differ": 0.06151914665449572
+    },
+    "flop": {
+     "focal_decisions": 6719,
+     "differ_share": 0.9098080071439202,
+     "mean_tv_where_differ": 0.28627233135863445
+    },
+    "turn": {
+     "focal_decisions": 1411,
+     "differ_share": 0.9213323883770376,
+     "mean_tv_where_differ": 0.2521929977929839
+    },
+    "river": {
+     "focal_decisions": 268,
+     "differ_share": 0.9104477611940298,
+     "mean_tv_where_differ": 0.26909701942802944
+    },
+    "all": {
+     "focal_decisions": 61663,
+     "differ_share": 0.9878695490002108,
+     "mean_tv_where_differ": 0.08897447334797315
+    }
+   },
+   "tight-aggressive": {
+    "preflop": {
+     "focal_decisions": 36089,
+     "differ_share": 1.0,
+     "mean_tv_where_differ": 0.013159018696662488
+    },
+    "flop": {
+     "focal_decisions": 2740,
+     "differ_share": 0.9894160583941606,
+     "mean_tv_where_differ": 0.3091404591109511
+    },
+    "turn": {
+     "focal_decisions": 1064,
+     "differ_share": 0.9671052631578947,
+     "mean_tv_where_differ": 0.3239135450197367
+    },
+    "river": {
+     "focal_decisions": 392,
+     "differ_share": 0.8061224489795918,
+     "mean_tv_where_differ": 0.32446161941961704
+    },
+    "all": {
+     "focal_decisions": 40285,
+     "differ_share": 0.996524761077324,
+     "mean_tv_where_differ": 0.043562399301421084
+    }
+   }
+  },
+  "3p-short-deep": {
+   "check-call": {
+    "preflop": {
+     "focal_decisions": 49152,
+     "differ_share": 1.0,
+     "mean_tv_where_differ": 0.007346686743184815
+    },
+    "flop": {
+     "focal_decisions": 23568,
+     "differ_share": 0.9841310251188051,
+     "mean_tv_where_differ": 0.3000855845811097
+    },
+    "turn": {
+     "focal_decisions": 21953,
+     "differ_share": 0.9077574818931353,
+     "mean_tv_where_differ": 0.3007092299930099
+    },
+    "river": {
+     "focal_decisions": 20286,
+     "differ_share": 0.6694764862466726,
+     "mean_tv_where_differ": 0.2994395608729472
+    },
+    "all": {
+     "focal_decisions": 114959,
+     "differ_share": 0.9208065484216111,
+     "mean_tv_where_differ": 0.16419169247642035
+    }
+   },
+   "mixed": {
+    "preflop": {
+     "focal_decisions": 50700,
+     "differ_share": 0.9999605522682445,
+     "mean_tv_where_differ": 0.030698154380309654
+    },
+    "flop": {
+     "focal_decisions": 25824,
+     "differ_share": 0.9961663568773235,
+     "mean_tv_where_differ": 0.21481548913710263
+    },
+    "turn": {
+     "focal_decisions": 18610,
+     "differ_share": 0.9860290166577109,
+     "mean_tv_where_differ": 0.2216342559965657
+    },
+    "river": {
+     "focal_decisions": 15369,
+     "differ_share": 0.9719565358839222,
+     "mean_tv_where_differ": 0.2158663546224989
+    },
+    "all": {
+     "focal_decisions": 110503,
+     "differ_share": 0.9928327737708479,
+     "mean_tv_where_differ": 0.13101752505867936
+    }
+   },
+   "pot-pressure": {
+    "preflop": {
+     "focal_decisions": 40553,
+     "differ_share": 0.9999753409118931,
+     "mean_tv_where_differ": 0.013281221590069085
+    },
+    "flop": {
+     "focal_decisions": 7186,
+     "differ_share": 0.9988867241859171,
+     "mean_tv_where_differ": 0.1918595381822344
+    },
+    "turn": {
+     "focal_decisions": 3385,
+     "differ_share": 0.9955686853766618,
+     "mean_tv_where_differ": 0.18494027635052024
+    },
+    "river": {
+     "focal_decisions": 1675,
+     "differ_share": 0.9880597014925373,
+     "mean_tv_where_differ": 0.18888869371160216
+    },
+    "all": {
+     "focal_decisions": 52799,
+     "differ_share": 0.9991666508835395,
+     "mean_tv_where_differ": 0.05405378414153189
+    }
+   },
+   "random": {
+    "preflop": {
+     "focal_decisions": 56934,
+     "differ_share": 0.9999473074085784,
+     "mean_tv_where_differ": 0.06160229084122695
+    },
+    "flop": {
+     "focal_decisions": 13651,
+     "differ_share": 0.9844700021976412,
+     "mean_tv_where_differ": 0.2605711994927056
+    },
+    "turn": {
+     "focal_decisions": 4859,
+     "differ_share": 0.9790080263428689,
+     "mean_tv_where_differ": 0.27980419712305277
+    },
+    "river": {
+     "focal_decisions": 1953,
+     "differ_share": 0.9544290834613415,
+     "mean_tv_where_differ": 0.2630776117507148
+    },
+    "all": {
+     "focal_decisions": 77397,
+     "differ_share": 0.9947543186428415,
+     "mean_tv_where_differ": 0.1146926472429512
+    }
+   },
+   "tight-aggressive": {
+    "preflop": {
+     "focal_decisions": 36398,
+     "differ_share": 1.0,
+     "mean_tv_where_differ": 0.007936703168528526
+    },
+    "flop": {
+     "focal_decisions": 5324,
+     "differ_share": 0.9996243425995492,
+     "mean_tv_where_differ": 0.16820434531457948
+    },
+    "turn": {
+     "focal_decisions": 2806,
+     "differ_share": 0.9989308624376336,
+     "mean_tv_where_differ": 0.158608136405544
+    },
+    "river": {
+     "focal_decisions": 1594,
+     "differ_share": 0.9880803011292346,
+     "mean_tv_where_differ": 0.1537037352332918
+    },
+    "all": {
+     "focal_decisions": 46122,
+     "differ_share": 0.999479640952257,
+     "mean_tv_where_differ": 0.04058149240811896
+    }
+   }
+  },
+  "3p-unequal": {
+   "check-call": {
+    "preflop": {
+     "focal_decisions": 49152,
+     "differ_share": 1.0,
+     "mean_tv_where_differ": 0.006129365628516223
+    },
+    "flop": {
+     "focal_decisions": 25551,
+     "differ_share": 0.9995303510625807,
+     "mean_tv_where_differ": 0.31967121678353155
+    },
+    "turn": {
+     "focal_decisions": 24063,
+     "differ_share": 0.8791505631051822,
+     "mean_tv_where_differ": 0.2916861416214702
+    },
+    "river": {
+     "focal_decisions": 21657,
+     "differ_share": 0.4555570947037909,
+     "mean_tv_where_differ": 0.2652886366937466
+    },
+    "all": {
+     "focal_decisions": 120423,
+     "differ_share": 0.8778389510309492,
+     "mean_tv_where_differ": 0.16321053239395855
+    }
+   },
+   "mixed": {
+    "preflop": {
+     "focal_decisions": 51005,
+     "differ_share": 1.0,
+     "mean_tv_where_differ": 0.017645909226719877
+    },
+    "flop": {
+     "focal_decisions": 27458,
+     "differ_share": 0.9922426979386699,
+     "mean_tv_where_differ": 0.22598278579382067
+    },
+    "turn": {
+     "focal_decisions": 23725,
+     "differ_share": 0.9802739726027397,
+     "mean_tv_where_differ": 0.23021343358780652
+    },
+    "river": {
+     "focal_decisions": 20379,
+     "differ_share": 0.9680553510967173,
+     "mean_tv_where_differ": 0.23694122262401732
+    },
+    "all": {
+     "focal_decisions": 122567,
+     "differ_share": 0.9891324744833438,
+     "mean_tv_where_differ": 0.14092779200676142
+    }
+   },
+   "pot-pressure": {
+    "preflop": {
+     "focal_decisions": 41208,
+     "differ_share": 1.0,
+     "mean_tv_where_differ": 0.012142099600363963
+    },
+    "flop": {
+     "focal_decisions": 9115,
+     "differ_share": 0.9982446516730664,
+     "mean_tv_where_differ": 0.18856419207288502
+    },
+    "turn": {
+     "focal_decisions": 4434,
+     "differ_share": 0.9945872801082544,
+     "mean_tv_where_differ": 0.19289871793339738
+    },
+    "river": {
+     "focal_decisions": 2174,
+     "differ_share": 0.9862005519779209,
+     "mean_tv_where_differ": 0.19214804905756833
+    },
+    "all": {
+     "focal_decisions": 56931,
+     "differ_share": 0.9987704414115333,
+     "mean_tv_where_differ": 0.06117982426036629
+    }
+   },
+   "random": {
+    "preflop": {
+     "focal_decisions": 58949,
+     "differ_share": 0.9999830361838199,
+     "mean_tv_where_differ": 0.06743275967040867
+    },
+    "flop": {
+     "focal_decisions": 14816,
+     "differ_share": 0.9738120950323974,
+     "mean_tv_where_differ": 0.25564218366829417
+    },
+    "turn": {
+     "focal_decisions": 5004,
+     "differ_share": 0.9666266986410871,
+     "mean_tv_where_differ": 0.26630883431960456
+    },
+    "river": {
+     "focal_decisions": 1764,
+     "differ_share": 0.9614512471655329,
+     "mean_tv_where_differ": 0.262658735874845
+    },
+    "all": {
+     "focal_decisions": 80533,
+     "differ_share": 0.9922516235580445,
+     "mean_tv_where_differ": 0.11759672615931951
+    }
+   },
+   "tight-aggressive": {
+    "preflop": {
+     "focal_decisions": 36640,
+     "differ_share": 1.0,
+     "mean_tv_where_differ": 0.00720112623892734
+    },
+    "flop": {
+     "focal_decisions": 6836,
+     "differ_share": 0.9997074312463429,
+     "mean_tv_where_differ": 0.16625631104113098
+    },
+    "turn": {
+     "focal_decisions": 3879,
+     "differ_share": 0.9969064191802011,
+     "mean_tv_where_differ": 0.16079460838341406
+    },
+    "river": {
+     "focal_decisions": 2173,
+     "differ_share": 0.9871145881270134,
+     "mean_tv_where_differ": 0.1607696009074235
+    },
+    "all": {
+     "focal_decisions": 49528,
+     "differ_share": 0.9991519948312065,
+     "mean_tv_where_differ": 0.047825414048710185
+    }
+   }
+  },
+  "4p-short-deep": {
+   "check-call": {
+    "preflop": {
+     "focal_decisions": 65536,
+     "differ_share": 1.0,
+     "mean_tv_where_differ": 0.009506023837618005
+    },
+    "flop": {
+     "focal_decisions": 25091,
+     "differ_share": 0.7209357937108923,
+     "mean_tv_where_differ": 0.28022743057128574
+    },
+    "turn": {
+     "focal_decisions": 23255,
+     "differ_share": 0.1730380563319716,
+     "mean_tv_where_differ": 0.11964091743511286
+    },
+    "river": {
+     "focal_decisions": 21400,
+     "differ_share": 0.023878504672897195,
+     "mean_tv_where_differ": 0.060185035410933105
+    },
+    "all": {
+     "focal_decisions": 135282,
+     "differ_share": 0.6516757587853521,
+     "mean_tv_where_differ": 0.07037443709936482
+    }
+   },
+   "mixed": {
+    "preflop": {
+     "focal_decisions": 68616,
+     "differ_share": 0.9999708522793518,
+     "mean_tv_where_differ": 0.02044699682450767
+    },
+    "flop": {
+     "focal_decisions": 31320,
+     "differ_share": 0.98955938697318,
+     "mean_tv_where_differ": 0.195287690912323
+    },
+    "turn": {
+     "focal_decisions": 26459,
+     "differ_share": 0.9780414981669753,
+     "mean_tv_where_differ": 0.20212501843853153
+    },
+    "river": {
+     "focal_decisions": 23023,
+     "differ_share": 0.96386222473179,
+     "mean_tv_where_differ": 0.19653266139879094
+    },
+    "all": {
+     "focal_decisions": 149418,
+     "differ_share": 0.9883414314205785,
+     "mean_tv_where_differ": 0.11543750616765949
+    }
+   },
+   "pot-pressure": {
+    "preflop": {
+     "focal_decisions": 60804,
+     "differ_share": 0.9999835537135715,
+     "mean_tv_where_differ": 0.016087613256417787
+    },
+    "flop": {
+     "focal_decisions": 9994,
+     "differ_share": 0.9944966980188112,
+     "mean_tv_where_differ": 0.19640023748429447
+    },
+    "turn": {
+     "focal_decisions": 4765,
+     "differ_share": 0.9941238195173138,
+     "mean_tv_where_differ": 0.19176585955213993
+    },
+    "river": {
+     "focal_decisions": 2443,
+     "differ_share": 0.9787146950470733,
+     "mean_tv_where_differ": 0.18503272796418063
+    },
+    "all": {
+     "focal_decisions": 78006,
+     "differ_share": 0.998256544368382,
+     "mean_tv_where_differ": 0.05497630972707354
+    }
+   },
+   "random": {
+    "preflop": {
+     "focal_decisions": 78598,
+     "differ_share": 0.9999236621796992,
+     "mean_tv_where_differ": 0.09317035406945472
+    },
+    "flop": {
+     "focal_decisions": 11677,
+     "differ_share": 0.9174445491136421,
+     "mean_tv_where_differ": 0.2786352613252168
+    },
+    "turn": {
+     "focal_decisions": 3956,
+     "differ_share": 0.9405965621840243,
+     "mean_tv_where_differ": 0.2791682970879362
+    },
+    "river": {
+     "focal_decisions": 1442,
+     "differ_share": 0.9500693481276006,
+     "mean_tv_where_differ": 0.2703257182817315
+    },
+    "all": {
+     "focal_decisions": 95673,
+     "differ_share": 0.9866524515798606,
+     "mean_tv_where_differ": 0.12412173703455458
+    }
+   },
+   "tight-aggressive": {
+    "preflop": {
+     "focal_decisions": 54478,
+     "differ_share": 1.0,
+     "mean_tv_where_differ": 0.0082078810870221
+    },
+    "flop": {
+     "focal_decisions": 7842,
+     "differ_share": 0.9988523335883703,
+     "mean_tv_where_differ": 0.15497729990845333
+    },
+    "turn": {
+     "focal_decisions": 4242,
+     "differ_share": 0.9962281942479962,
+     "mean_tv_where_differ": 0.15101289733710815
+    },
+    "river": {
+     "focal_decisions": 2348,
+     "differ_share": 0.985519591141397,
+     "mean_tv_where_differ": 0.13709518444298668
+    },
+    "all": {
+     "focal_decisions": 68910,
+     "differ_share": 0.999143810767668,
+     "mean_tv_where_differ": 0.03800242403145045
+    }
+   }
+  },
+  "6p-100bb": {
+   "check-call": {
+    "preflop": {
+     "focal_decisions": 98304,
+     "differ_share": 1.0,
+     "mean_tv_where_differ": 0.31701788013132914
+    },
+    "flop": {
+     "focal_decisions": 44931,
+     "differ_share": 0.39591818566246023,
+     "mean_tv_where_differ": 0.20802288002859506
+    },
+    "turn": {
+     "focal_decisions": 44931,
+     "differ_share": 0.014600164696979813,
+     "mean_tv_where_differ": 0.018578138395384365
+    },
+    "river": {
+     "focal_decisions": 41799,
+     "differ_share": 0.0,
+     "mean_tv_where_differ": null
+    },
+    "all": {
+     "focal_decisions": 229965,
+     "differ_share": 0.5076816037223055,
+     "mean_tv_where_differ": 0.29873345347751357
+    }
+   },
+   "mixed": {
+    "preflop": {
+     "focal_decisions": 106184,
+     "differ_share": 0.999811647705869,
+     "mean_tv_where_differ": 0.2202255120804536
+    },
+    "flop": {
+     "focal_decisions": 27424,
+     "differ_share": 0.9780484247374562,
+     "mean_tv_where_differ": 0.3089172731943242
+    },
+    "turn": {
+     "focal_decisions": 23812,
+     "differ_share": 0.9404921888123635,
+     "mean_tv_where_differ": 0.32627533773603384
+    },
+    "river": {
+     "focal_decisions": 20627,
+     "differ_share": 0.8868473360159015,
+     "mean_tv_where_differ": 0.33644610480226794
+    },
+    "all": {
+     "focal_decisions": 178047,
+     "differ_share": 0.9754390694591878,
+     "mean_tv_where_differ": 0.25983938384486915
+    }
+   },
+   "pot-pressure": {
+    "preflop": {
+     "focal_decisions": 100899,
+     "differ_share": 1.0,
+     "mean_tv_where_differ": 0.2024489010766788
+    },
+    "flop": {
+     "focal_decisions": 15378,
+     "differ_share": 0.9995448042658344,
+     "mean_tv_where_differ": 0.2699837186737069
+    },
+    "turn": {
+     "focal_decisions": 8249,
+     "differ_share": 0.9990301854770275,
+     "mean_tv_where_differ": 0.26494699408852834
+    },
+    "river": {
+     "focal_decisions": 4506,
+     "differ_share": 0.996005326231691,
+     "mean_tv_where_differ": 0.2629787432097806
+    },
+    "all": {
+     "focal_decisions": 129032,
+     "differ_share": 0.9997442494884989,
+     "mean_tv_where_differ": 0.21659461071231884
+    }
+   },
+   "random": {
+    "preflop": {
+     "focal_decisions": 127878,
+     "differ_share": 0.9993978635887331,
+     "mean_tv_where_differ": 0.23501524543023206
+    },
+    "flop": {
+     "focal_decisions": 7790,
+     "differ_share": 0.9695763799743261,
+     "mean_tv_where_differ": 0.3298270172792905
+    },
+    "turn": {
+     "focal_decisions": 1774,
+     "differ_share": 0.9746335963923337,
+     "mean_tv_where_differ": 0.32592810002203393
+    },
+    "river": {
+     "focal_decisions": 514,
+     "differ_share": 0.9941634241245136,
+     "mean_tv_where_differ": 0.3357276729988814
+    },
+    "all": {
+     "focal_decisions": 137956,
+     "differ_share": 0.9973759749485344,
+     "mean_tv_where_differ": 0.24173621937424664
+    }
+   },
+   "tight-aggressive": {
+    "preflop": {
+     "focal_decisions": 91122,
+     "differ_share": 1.0,
+     "mean_tv_where_differ": 0.21455930117875288
+    },
+    "flop": {
+     "focal_decisions": 12886,
+     "differ_share": 0.9998447927983859,
+     "mean_tv_where_differ": 0.27770456554419104
+    },
+    "turn": {
+     "focal_decisions": 7255,
+     "differ_share": 0.999724328049621,
+     "mean_tv_where_differ": 0.26495876092984333
+    },
+    "river": {
+     "focal_decisions": 4120,
+     "differ_share": 0.996116504854369,
+     "mean_tv_where_differ": 0.2404112115711225
+    },
+    "all": {
+     "focal_decisions": 115383,
+     "differ_share": 0.999826664239966,
+     "mean_tv_where_differ": 0.22569984977673707
+    }
+   },
+   "trained": {
+    "preflop": {
+     "focal_decisions": 105781,
+     "differ_share": 1.0,
+     "mean_tv_where_differ": 0.19370343127667194
+    },
+    "flop": {
+     "focal_decisions": 26335,
+     "differ_share": 0.9996202771976457,
+     "mean_tv_where_differ": 0.284550808602177
+    },
+    "turn": {
+     "focal_decisions": 15329,
+     "differ_share": 0.9994128775523518,
+     "mean_tv_where_differ": 0.29089583933560476
+    },
+    "river": {
+     "focal_decisions": 9949,
+     "differ_share": 0.9987938486280028,
+     "mean_tv_where_differ": 0.2759061992050294
+    },
+    "all": {
+     "focal_decisions": 157394,
+     "differ_share": 0.9998030420473462,
+     "mean_tv_where_differ": 0.2235541192049706
+    }
+   }
+  },
+  "6p-5bb": {
+   "check-call": {
+    "preflop": {
+     "focal_decisions": 98304,
+     "differ_share": 1.0,
+     "mean_tv_where_differ": 0.02414452966658053
+    },
+    "flop": {
+     "focal_decisions": 28420,
+     "differ_share": 0.0,
+     "mean_tv_where_differ": null
+    },
+    "turn": {
+     "focal_decisions": 19373,
+     "differ_share": 0.0,
+     "mean_tv_where_differ": null
+    },
+    "river": {
+     "focal_decisions": 13434,
+     "differ_share": 0.0,
+     "mean_tv_where_differ": null
+    },
+    "all": {
+     "focal_decisions": 159531,
+     "differ_share": 0.6162062545837486,
+     "mean_tv_where_differ": 0.02414452966658053
+    }
+   },
+   "live-copies": {
+    "preflop": {
+     "focal_decisions": 102522,
+     "differ_share": 0.9994342677669183,
+     "mean_tv_where_differ": 0.0681535386245286
+    },
+    "flop": {
+     "focal_decisions": 3930,
+     "differ_share": 0.9557251908396946,
+     "mean_tv_where_differ": 0.277312199653304
+    },
+    "turn": {
+     "focal_decisions": 803,
+     "differ_share": 0.9788293897882939,
+     "mean_tv_where_differ": 0.2401029082168712
+    },
+    "river": {
+     "focal_decisions": 168,
+     "differ_share": 0.9464285714285714,
+     "mean_tv_where_differ": 0.25646558991341795
+    },
+    "all": {
+     "focal_decisions": 107423,
+     "differ_share": 0.9975982796980163,
+     "mean_tv_where_differ": 0.07702484690128494
+    }
+   },
+   "mixed": {
+    "preflop": {
+     "focal_decisions": 101862,
+     "differ_share": 0.9988219355598751,
+     "mean_tv_where_differ": 0.05868994431704221
+    },
+    "flop": {
+     "focal_decisions": 19190,
+     "differ_share": 0.7122980719124544,
+     "mean_tv_where_differ": 0.33944009746810627
+    },
+    "turn": {
+     "focal_decisions": 11000,
+     "differ_share": 0.49072727272727273,
+     "mean_tv_where_differ": 0.24595006868344213
+    },
+    "river": {
+     "focal_decisions": 6366,
+     "differ_share": 0.12315425699026077,
+     "mean_tv_where_differ": 0.12614079019544805
+    },
+    "all": {
+     "focal_decisions": 138418,
+     "differ_share": 0.8784478897253247,
+     "mean_tv_where_differ": 0.09899888856482286
+    }
+   },
+   "pot-pressure": {
+    "preflop": {
+     "focal_decisions": 95360,
+     "differ_share": 0.9998636744966443,
+     "mean_tv_where_differ": 0.025994081925430734
+    },
+    "flop": {
+     "focal_decisions": 6967,
+     "differ_share": 0.9595234677766614,
+     "mean_tv_where_differ": 0.3208357230918906
+    },
+    "turn": {
+     "focal_decisions": 2317,
+     "differ_share": 0.9296504100129478,
+     "mean_tv_where_differ": 0.29478841336602996
+    },
+    "river": {
+     "focal_decisions": 785,
+     "differ_share": 0.8789808917197452,
+     "mean_tv_where_differ": 0.31415053133884785
+    },
+    "all": {
+     "focal_decisions": 105429,
+     "differ_share": 0.9947547638695236,
+     "mean_tv_where_differ": 0.05220434272119043
+    }
+   },
+   "random": {
+    "preflop": {
+     "focal_decisions": 104028,
+     "differ_share": 0.9956934671434614,
+     "mean_tv_where_differ": 0.13571784890170271
+    },
+    "flop": {
+     "focal_decisions": 2323,
+     "differ_share": 0.4584588893671976,
+     "mean_tv_where_differ": 0.25884261042447726
+    },
+    "turn": {
+     "focal_decisions": 245,
+     "differ_share": 0.5836734693877551,
+     "mean_tv_where_differ": 0.24231265459614287
+    },
+    "river": {
+     "focal_decisions": 37,
+     "differ_share": 0.5945945945945946,
+     "mean_tv_where_differ": 0.26215437869876773
+    },
+    "all": {
+     "focal_decisions": 106633,
+     "differ_share": 0.9829039790683934,
+     "mean_tv_where_differ": 0.13714092429423774
+    }
+   },
+   "tight-aggressive": {
+    "preflop": {
+     "focal_decisions": 89056,
+     "differ_share": 1.0,
+     "mean_tv_where_differ": 0.014613449606856128
+    },
+    "flop": {
+     "focal_decisions": 5117,
+     "differ_share": 0.9794801641586868,
+     "mean_tv_where_differ": 0.32807000369436434
+    },
+    "turn": {
+     "focal_decisions": 1810,
+     "differ_share": 0.9441988950276243,
+     "mean_tv_where_differ": 0.3250680471869122
+    },
+    "river": {
+     "focal_decisions": 619,
+     "differ_share": 0.8610662358642972,
+     "mean_tv_where_differ": 0.34059583949631667
+    },
+    "all": {
+     "focal_decisions": 96602,
+     "differ_share": 0.9969772882549015,
+     "mean_tv_where_differ": 0.038238823609161074
+    }
+   }
+  },
+  "6p-short-deep": {
+   "check-call": {
+    "preflop": {
+     "focal_decisions": 98304,
+     "differ_share": 1.0,
+     "mean_tv_where_differ": 0.02033019713458118
+    },
+    "flop": {
+     "focal_decisions": 42522,
+     "differ_share": 0.003339447815248577,
+     "mean_tv_where_differ": 0.013673179969629858
+    },
+    "turn": {
+     "focal_decisions": 40648,
+     "differ_share": 0.0,
+     "mean_tv_where_differ": null
+    },
+    "river": {
+     "focal_decisions": 37098,
+     "differ_share": 0.0,
+     "mean_tv_where_differ": null
+    },
+    "all": {
+     "focal_decisions": 218572,
+     "differ_share": 0.4504053584173636,
+     "mean_tv_where_differ": 0.02032059495229421
+    }
+   },
+   "live-copies": {
+    "preflop": {
+     "focal_decisions": 104992,
+     "differ_share": 0.9999333282535813,
+     "mean_tv_where_differ": 0.03372347509708723
+    },
+    "flop": {
+     "focal_decisions": 24617,
+     "differ_share": 0.9856196937076004,
+     "mean_tv_where_differ": 0.2080356765724206
+    },
+    "turn": {
+     "focal_decisions": 12168,
+     "differ_share": 0.9846318211702827,
+     "mean_tv_where_differ": 0.23488301364200048
+    },
+    "river": {
+     "focal_decisions": 6692,
+     "differ_share": 0.9792289300657502,
+     "mean_tv_where_differ": 0.2232974802139454
+    },
+    "all": {
+     "focal_decisions": 148469,
+     "differ_share": 0.9953727714202965,
+     "mean_tv_where_differ": 0.08705681631072212
+    }
+   },
+   "mixed": {
+    "preflop": {
+     "focal_decisions": 104850,
+     "differ_share": 0.9991320934668574,
+     "mean_tv_where_differ": 0.05912047903102652
+    },
+    "flop": {
+     "focal_decisions": 25923,
+     "differ_share": 0.7836284380665818,
+     "mean_tv_where_differ": 0.26330676186459717
+    },
+    "turn": {
+     "focal_decisions": 22254,
+     "differ_share": 0.6815853329738474,
+     "mean_tv_where_differ": 0.2801647446698829
+    },
+    "river": {
+     "focal_decisions": 19262,
+     "differ_share": 0.4839580521233517,
+     "mean_tv_where_differ": 0.28285725822803787
+    },
+    "all": {
+     "focal_decisions": 172289,
+     "differ_share": 0.8680937262390518,
+     "mean_tv_where_differ": 0.12321596940207998
+    }
+   },
+   "pot-pressure": {
+    "preflop": {
+     "focal_decisions": 99898,
+     "differ_share": 0.9999499489479269,
+     "mean_tv_where_differ": 0.025267154451959956
+    },
+    "flop": {
+     "focal_decisions": 13420,
+     "differ_share": 0.9844262295081967,
+     "mean_tv_where_differ": 0.20088709991768575
+    },
+    "turn": {
+     "focal_decisions": 6694,
+     "differ_share": 0.9814759486106961,
+     "mean_tv_where_differ": 0.2100951159746053
+    },
+    "river": {
+     "focal_decisions": 3511,
+     "differ_share": 0.9678154371973796,
+     "mean_tv_where_differ": 0.20251120280024412
+    },
+    "all": {
+     "focal_decisions": 123523,
+     "differ_share": 0.996348858107397,
+     "mean_tv_where_differ": 0.058879268361207826
+    }
+   },
+   "random": {
+    "preflop": {
+     "focal_decisions": 123835,
+     "differ_share": 0.9960269713731982,
+     "mean_tv_where_differ": 0.16300750175455417
+    },
+    "flop": {
+     "focal_decisions": 9369,
+     "differ_share": 0.7218486498025403,
+     "mean_tv_where_differ": 0.28447284643439114
+    },
+    "turn": {
+     "focal_decisions": 2437,
+     "differ_share": 0.8719737382027083,
+     "mean_tv_where_differ": 0.29264542095270774
+    },
+    "river": {
+     "focal_decisions": 795,
+     "differ_share": 0.9320754716981132,
+     "mean_tv_where_differ": 0.28755735764589735
+    },
+    "all": {
+     "focal_decisions": 136436,
+     "differ_share": 0.9746108065320004,
+     "mean_tv_where_differ": 0.17195105489041204
+    }
+   },
+   "tight-aggressive": {
+    "preflop": {
+     "focal_decisions": 90367,
+     "differ_share": 0.9999889340135226,
+     "mean_tv_where_differ": 0.010613427547508015
+    },
+    "flop": {
+     "focal_decisions": 11729,
+     "differ_share": 0.9975274959502088,
+     "mean_tv_where_differ": 0.15400626395924236
+    },
+    "turn": {
+     "focal_decisions": 5900,
+     "differ_share": 0.9938983050847457,
+     "mean_tv_where_differ": 0.1537952176229142
+    },
+    "river": {
+     "focal_decisions": 3313,
+     "differ_share": 0.9806821611832176,
+     "mean_tv_where_differ": 0.14815172872537008
+    },
+    "all": {
+     "focal_decisions": 111309,
+     "differ_share": 0.9988320800654035,
+     "mean_tv_where_differ": 0.037274722788033184
+    }
+   }
+  },
+  "6p-unequal": {
+   "check-call": {
+    "preflop": {
+     "focal_decisions": 98304,
+     "differ_share": 0.997955322265625,
+     "mean_tv_where_differ": 0.03318121788487493
+    },
+    "flop": {
+     "focal_decisions": 43537,
+     "differ_share": 0.0033075315249098468,
+     "mean_tv_where_differ": 0.010629952614864204
+    },
+    "turn": {
+     "focal_decisions": 41217,
+     "differ_share": 0.0,
+     "mean_tv_where_differ": null
+    },
+    "river": {
+     "focal_decisions": 36412,
+     "differ_share": 0.0,
+     "mean_tv_where_differ": null
+    },
+    "all": {
+     "focal_decisions": 219470,
+     "differ_share": 0.447655716043195,
+     "mean_tv_where_differ": 0.0331481646394946
+    }
+   },
+   "live-copies": {
+    "preflop": {
+     "focal_decisions": 105891,
+     "differ_share": 0.9999433379607332,
+     "mean_tv_where_differ": 0.03310091248967278
+    },
+    "flop": {
+     "focal_decisions": 26526,
+     "differ_share": 0.9864661087235166,
+     "mean_tv_where_differ": 0.2067351874391569
+    },
+    "turn": {
+     "focal_decisions": 14007,
+     "differ_share": 0.9880059970014993,
+     "mean_tv_where_differ": 0.2286355422546178
+    },
+    "river": {
+     "focal_decisions": 7837,
+     "differ_share": 0.982646420824295,
+     "mean_tv_where_differ": 0.22103669626255001
+    },
+    "all": {
+     "focal_decisions": 154261,
+     "differ_share": 0.9956631941968482,
+     "mean_tv_where_differ": 0.08972355745005584
+    }
+   },
+   "mixed": {
+    "preflop": {
+     "focal_decisions": 104940,
+     "differ_share": 0.9990089574995236,
+     "mean_tv_where_differ": 0.0600726204762567
+    },
+    "flop": {
+     "focal_decisions": 26951,
+     "differ_share": 0.7912136840933546,
+     "mean_tv_where_differ": 0.274492407736538
+    },
+    "turn": {
+     "focal_decisions": 22352,
+     "differ_share": 0.7073639942734431,
+     "mean_tv_where_differ": 0.2836421413620643
+    },
+    "river": {
+     "focal_decisions": 18992,
+     "differ_share": 0.5028433024431339,
+     "mean_tv_where_differ": 0.2826059038138619
+    },
+    "all": {
+     "focal_decisions": 173235,
+     "differ_share": 0.8746558143562213,
+     "mean_tv_where_differ": 0.127603445207732
+    }
+   },
+   "pot-pressure": {
+    "preflop": {
+     "focal_decisions": 99912,
+     "differ_share": 0.9999299383457443,
+     "mean_tv_where_differ": 0.022983978027256678
+    },
+    "flop": {
+     "focal_decisions": 14649,
+     "differ_share": 0.9857328145265889,
+     "mean_tv_where_differ": 0.19864159617789584
+    },
+    "turn": {
+     "focal_decisions": 7260,
+     "differ_share": 0.9863636363636363,
+     "mean_tv_where_differ": 0.20177917240169507
+    },
+    "river": {
+     "focal_decisions": 3742,
+     "differ_share": 0.9762159273115981,
+     "mean_tv_where_differ": 0.19734392344334545
+    },
+    "all": {
+     "focal_decisions": 125563,
+     "differ_share": 0.9967824916575743,
+     "mean_tv_where_differ": 0.058568996073226645
+    }
+   },
+   "random": {
+    "preflop": {
+     "focal_decisions": 124255,
+     "differ_share": 0.9966037584000644,
+     "mean_tv_where_differ": 0.1662614104471037
+    },
+    "flop": {
+     "focal_decisions": 8248,
+     "differ_share": 0.7516973811833172,
+     "mean_tv_where_differ": 0.2834485259370472
+    },
+    "turn": {
+     "focal_decisions": 1866,
+     "differ_share": 0.8954983922829582,
+     "mean_tv_where_differ": 0.28831243967904563
+    },
+    "river": {
+     "focal_decisions": 531,
+     "differ_share": 0.9303201506591338,
+     "mean_tv_where_differ": 0.2952246267155193
+    },
+    "all": {
+     "focal_decisions": 134900,
+     "differ_share": 0.9799703484062269,
+     "mean_tv_where_differ": 0.17378206291325918
+    }
+   },
+   "tight-aggressive": {
+    "preflop": {
+     "focal_decisions": 90724,
+     "differ_share": 1.0,
+     "mean_tv_where_differ": 0.009986469593272696
+    },
+    "flop": {
+     "focal_decisions": 12769,
+     "differ_share": 0.9973373012765291,
+     "mean_tv_where_differ": 0.1526380517531184
+    },
+    "turn": {
+     "focal_decisions": 6778,
+     "differ_share": 0.9936559457066981,
+     "mean_tv_where_differ": 0.14927335447994597
+    },
+    "river": {
+     "focal_decisions": 3865,
+     "differ_share": 0.983699870633894,
+     "mean_tv_where_differ": 0.14735953020331
+    },
+    "all": {
+     "focal_decisions": 114136,
+     "differ_share": 0.99877339314502,
+     "mean_tv_where_differ": 0.03873359620259882
+    }
+   }
+  }
+ }
+}

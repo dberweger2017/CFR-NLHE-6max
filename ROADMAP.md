@@ -10,6 +10,7 @@ The next track tests whether a neural network can generalize. Each step is its o
 3. **Fallback:** the network plays only where the blueprint has no row, against the current uniform fallback, under PR461's rules.
    **Result (November 8):** passes for both route groups on three network seeds, with no harm flags. The deep six-player tables gain +15 to +34 BB/100; the other tables gain 0 to +3. Adopting it on the short route is a separate PR. [Results](docs/reports/neural-policy-fallback/results.md).
 4. **Only if 1–3 hold:** a network for every decision, then self-play fine-tuning. One model would cover 2–6 players and every stack depth.
+   **Result, network everywhere (November 8):** fails both gates on three network seeds. At six players and 100 BB it loses 27–29 BB/100 to the live-order 10B. At the short tables it wins one table by about +2.5, loses `6p-5bb` by 1.6 in the deciding run, and shows no difference elsewhere. The tables stay. [Results](docs/reports/neural-policy-everywhere/results.md).
 
 Optional GPU support is in `requirements-gpu.txt`, and `python -m scripts.check_gpu` checks it. No model, route, default or release changes.
 
