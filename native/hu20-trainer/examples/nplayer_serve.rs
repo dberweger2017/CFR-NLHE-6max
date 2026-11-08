@@ -5,12 +5,20 @@
 //! the caller's legal set and chip state against its own, and then hands the
 //! agent only `Hand::observe(actor)`. Policies are loaded once and shared.
 //!
-//! serve [--card-buckets DIR] [--policy NAME PATH SHA256]...
+//! serve [--card-buckets DIR] [--policy NAME PATH SHA256]... [--mass NAME DIR SHA256]...
+//!       [--network NAME PATH SHA256]...
+//!
+//! `--mass` attaches a policy's audited original-average mass receipt, so the service knows which
+//! rows have positive mass. `--network` loads a pinned `policy_network` file. A decide request
+//! with `"fallback":"network:NAME"` then plays that network wherever the policy's row has no
+//! positive mass (zero mass or missing), exactly as the paired arena's `network` fallback mode
+//! (docs/neural-policy-fallback.md); every other decision plays the row as before.
 //!
 //! One JSON request per stdin line, one JSON response per stdout line:
 //!   {"op":"decide","seat":S,"agent":"menu"|"policy:NAME"|"script:NAME","seed":U64,"view":"native"|"projected",
 //!    "hand":{"stacks":[..],"sb":50,"bb":100,"button":B,"deck":[52 cards],"actions":[["raise",300],..]},
-//!    "expect":{"legal":{"check":..,"call":..,"raise_to":[lo,hi]|null},"players":[[stack,street_bet,contributed,folded],..]}}
+//!    "expect":{"legal":{"check":..,"call":..,"raise_to":[lo,hi]|null},"players":[[stack,street_bet,contributed,folded],..]},
+//!    "fallback":"network:NAME" (optional, policies only)}
 //!   {"op":"settle","hand":{..}}
 //!   {"op":"state","hand":{..}}  (dealer view: actor, street, board, players, legal; for sandboxes)
 //! `view: projected` shows a live-order policy the table through `multi_view::project`
@@ -25,6 +33,7 @@ use hu20_trainer::{
     multi_policy::{Policy, PolicyTable},
     multi_view,
     nplayer::{Action, Config, Hand},
+    policy_network::PolicyNetwork,
 };
 use serde_json::{json, Value};
 use std::{
@@ -34,12 +43,18 @@ use std::{
     sync::Arc,
 };
 
+#[path = "support/nplayer_mass_metadata.rs"]
+mod mass;
+
 const FORMAT: &str = "nplayer-decision-service-v1";
 const SCRIPTS: [&str; 4] = ["random", "check-call", "tight-aggressive", "pot-pressure"];
 
 struct Service {
     tables: Option<&'static EquityTables>,
     policies: BTreeMap<String, Arc<PolicyTable>>,
+    /// Policy names whose rows carry original-average mass tags.
+    massed: std::collections::BTreeSet<String>,
+    networks: BTreeMap<String, PolicyNetwork>,
 }
 
 fn kind(name: &str) -> Result<Kind, String> {
@@ -187,10 +202,33 @@ impl Service {
             let projected_view = frame.as_ref().map(|f| f.observation());
             let seen = projected_view.as_ref().unwrap_or(&observation);
             let (probabilities, trained) = table.distribution(seen, tables)?;
-            let action = Policy::new(table.clone(), seed).choose(seen, tables)?;
+            let mut policy = Policy::new(table.clone(), seed);
+            let action = match self.network_fallback(request, name)? {
+                None => policy.choose(seen, tables)?,
+                Some((alias, network)) => {
+                    let d = table.decision(seen, tables);
+                    let row = table.rows.get(&d.key);
+                    if row.is_some_and(|r| (r.owner as usize, r.street as usize, r.code) != (d.owner, d.street, d.code)) {
+                        return Err("policy key/action identity mismatch".into());
+                    }
+                    let status = mass::LABELS[mass::MassMetadata::classify_row(row)?];
+                    response["status"] = json!(status);
+                    if status == "positive_mass" {
+                        policy.choose(seen, tables)?
+                    } else {
+                        // The network reads the real table, as in the arena; the row's view only
+                        // decides whether it plays.
+                        let (action, p, label) = network.play(&mut policy, &observation, tables)?;
+                        response["network"] = json!({"name":alias,"p":p,"label":label});
+                        action
+                    }
+                }
+            };
             response["probabilities"] = json!(probabilities);
             response["trained"] = json!(trained);
             response["action"] = action_json(action);
+        } else if request.get("fallback").is_some_and(|f| !f.is_null()) {
+            return Err("fallbacks apply to policies only".into());
         } else if projected {
             return Err("projected views apply to policies only".into());
         } else if let Some(name) = agent.strip_prefix("script:") {
@@ -199,6 +237,20 @@ impl Service {
             return Err(format!("unknown agent {agent:?}"));
         }
         Ok(response)
+    }
+
+    /// The request's network fallback for policy `name`, if any.
+    fn network_fallback<'a>(&'a self, request: &'a Value, name: &str) -> Result<Option<(&'a str, &'a PolicyNetwork)>, String> {
+        let alias = match request.get("fallback") {
+            None | Some(Value::Null) => return Ok(None),
+            Some(Value::String(f)) => f.strip_prefix("network:").filter(|a| !a.is_empty()).ok_or("fallback must be network:NAME")?,
+            Some(_) => return Err("fallback must be network:NAME".into()),
+        };
+        if !self.massed.contains(name) {
+            return Err(format!("network fallback needs --mass for policy {name:?}"));
+        }
+        let network = self.networks.get(alias).ok_or_else(|| format!("unknown network {alias:?}"))?;
+        Ok(Some((alias, network)))
     }
 
     fn state(&self, request: &Value) -> Result<Value, String> {
@@ -236,13 +288,15 @@ impl Service {
 }
 
 fn run() -> Result<(), String> {
-    let usage = "serve [--card-buckets DIR] [--policy NAME PATH SHA256]...";
+    let usage = "serve [--card-buckets DIR] [--policy NAME PATH SHA256]... [--mass NAME DIR SHA256]... [--network NAME PATH SHA256]...";
     let args: Vec<String> = std::env::args().skip(1).collect();
     if args.first().map(String::as_str) != Some("serve") {
         return Err(usage.into());
     }
     let mut tables = None;
     let mut sources = Vec::new();
+    let mut masses: BTreeMap<String, (String, String)> = BTreeMap::new();
+    let mut network_sources = Vec::new();
     let mut i = 1;
     while i < args.len() {
         match args[i].as_str() {
@@ -258,6 +312,16 @@ fn run() -> Result<(), String> {
                 ));
                 i += 4;
             }
+            "--mass" if i + 3 < args.len() => {
+                if masses.insert(args[i + 1].clone(), (args[i + 2].clone(), args[i + 3].clone())).is_some() {
+                    return Err(format!("--mass given twice for {:?}", args[i + 1]));
+                }
+                i += 4;
+            }
+            "--network" if i + 3 < args.len() => {
+                network_sources.push((args[i + 1].clone(), args[i + 2].clone(), args[i + 3].clone()));
+                i += 4;
+            }
             _ => return Err(usage.into()),
         }
     }
@@ -267,6 +331,12 @@ fn run() -> Result<(), String> {
     let mut policies = BTreeMap::new();
     let mut loaded: BTreeMap<String, Arc<PolicyTable>> = BTreeMap::new();
     let mut pins = serde_json::Map::new();
+    let mut massed = std::collections::BTreeSet::new();
+    let mut massed_files: BTreeMap<String, String> = BTreeMap::new();
+    let mut keysets: BTreeMap<String, String> = BTreeMap::new();
+    if let Some(name) = masses.keys().find(|n| !sources.iter().any(|(s, _, _)| s == *n)) {
+        return Err(format!("--mass names no loaded policy: {name:?}"));
+    }
     for (name, path, sha) in sources {
         if name.is_empty() || policies.contains_key(&name) {
             return Err(format!(
@@ -274,27 +344,58 @@ fn run() -> Result<(), String> {
             ));
         }
         // Several names may pin one file; its weights load once.
+        let mass = masses.get(&name);
         let table = match loaded.get(&sha) {
-            Some(t) => t.clone(),
+            Some(t) => {
+                // Tags live in the shared rows, so the first name pinning a file decides them.
+                if massed_files.get(&sha).map(String::as_str) != mass.map(|(_, m)| m.as_str()) {
+                    return Err(format!("policy {name:?} shares a file whose --mass differs"));
+                }
+                t.clone()
+            }
             None => {
-                let t = Arc::new(PolicyTable::load(Path::new(&path), &sha)?);
+                let mut t = PolicyTable::load(Path::new(&path), &sha)?;
+                if let Some((dir, mass_sha)) = mass {
+                    let m = mass::MassMetadata::load(Path::new(dir), mass_sha, &sha, &mut t)
+                        .map_err(|e| format!("mass for {name:?}: {e}"))?;
+                    massed_files.insert(sha.clone(), m.receipt_sha256);
+                    keysets.insert(sha.clone(), m.keyset_sha256);
+                }
+                let t = Arc::new(t);
                 loaded.insert(sha.clone(), t.clone());
                 t
             }
         };
+        if mass.is_some() {
+            massed.insert(name.clone());
+        }
         pins.insert(
             name.clone(),
             json!({"sha256":sha,"identity":table.identity,"players":table.players,
             "strategy":table.mode.name(),"average_scope":table.scope,
-            "source_checkpoint_sha256":table.source_checkpoint_sha256,"rows":table.rows.len()}),
+            "source_checkpoint_sha256":table.source_checkpoint_sha256,"rows":table.rows.len(),
+            "mass_sha256":mass.map(|(_, m)| m),"mass_keyset_sha256":keysets.get(&sha)}),
         );
         policies.insert(name, table);
     }
-    let service = Service { tables, policies };
+    let mut networks = BTreeMap::new();
+    let mut network_pins = serde_json::Map::new();
+    for (name, path, sha) in network_sources {
+        if name.is_empty() || networks.contains_key(&name) {
+            return Err(format!("network names must be nonempty and distinct: {name:?}"));
+        }
+        if tables.is_none() {
+            return Err("networks need --card-buckets".into());
+        }
+        let network = PolicyNetwork::load(Path::new(&path), &sha).map_err(|e| format!("network {name:?}: {e}"))?;
+        network_pins.insert(name.clone(), json!({"sha256":network.sha256,"header":network.header}));
+        networks.insert(name, network);
+    }
+    let service = Service { tables, policies, massed, networks };
     let stdout = std::io::stdout();
     let mut out = stdout.lock();
     let ready = json!({"ok":true,"format":FORMAT,"schema":SCHEMA,"menu":MENU,"scripts":SCRIPTS,
-        "card_tables":tables.map(|t|t.sha256.clone()),"policies":pins,"loaded_weight_tables":loaded.len()});
+        "card_tables":tables.map(|t|t.sha256.clone()),"policies":pins,"networks":network_pins,"loaded_weight_tables":loaded.len()});
     writeln!(out, "{ready}").map_err(|e| e.to_string())?;
     out.flush().map_err(|e| e.to_string())?;
     for line in std::io::stdin().lock().lines() {

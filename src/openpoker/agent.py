@@ -3,7 +3,8 @@
 Routing is by the number of players dealt into the hand. Each count has an ordered list of
 routes; a route names a loaded policy, its view (`native`, or `projected` for phantom folds and
 other depths, see docs/openpoker-phantom-depth.md), optionally a depth band and optionally a short
-threshold. Stacks are capped first: chips beyond the largest other seat's can never be won or lost,
+threshold, and optionally a `fallback`: `network:NAME` plays that pinned network wherever the
+policy has no positive-mass row (docs/neural-policy-fallback.md). Stacks are capped first: chips beyond the largest other seat's can never be won or lost,
 so the hand is played as if that seat held only those (`Hand.record`). The first route whose band
 holds every dealt seat's capped starting stack, and, with a threshold, where some dealt seat starts
 below it, plays the hand (docs/openpoker-client.md). A count without a route, an unrepresentable hand or any
@@ -23,6 +24,7 @@ class Route:
     view: str = 'native'
     band_bb: tuple[float, float] | None = None
     short_bb: float | None = None
+    fallback: str | None = None
 
     def covers(self, stacks_bb) -> bool:
         return ((self.band_bb is None or all(self.band_bb[0] <= s <= self.band_bb[1] for s in stacks_bb))
@@ -59,7 +61,7 @@ class Agent:
                 legal['raise_to'] = [min(legal['raise_to'][0], top), min(legal['raise_to'][1], top)] if after_call > 0 else None
             expect = {'legal': legal}
             response = self.native.decide(native['hand'], native['seat'], route.agent, seed=self.seed * 1_000_003 + self.count,
-                                          expect=expect, view=route.view)
+                                          expect=expect, view=route.view, fallback=route.fallback)
             stacks = [p[0] for p in response['players']]
             if stacks != native['stacks_now']:
                 raise Unsupported(f'stacks {native["stacks_now"]} != native {stacks}')
@@ -71,6 +73,10 @@ class Agent:
             action = server_action(native_action, valid)
             record.update(route=route.agent, view=route.view, native_action=response['action'],
                           trained=response['trained'], status='policy')
+            if route.fallback:
+                record.update(fallback=route.fallback, row_status=response['status'])
+                if 'network' in response:
+                    record['network'] = response['network']
             return action, record
         except Unsupported as error:
             record.update(status='fallback', reason=str(error))
@@ -82,21 +88,24 @@ class Agent:
 def parse_routes(spec: dict) -> dict[int, tuple[Route, ...]]:
     """{"4": {"agent": "policy:six", "view": "projected"}, "6": [{"agent": "policy:six",
     "view": "projected", "band_bb": [89.4, 111.8]}, {"agent": "policy:mix", "view": "projected"}]};
-    a route may also carry "short_bb": 10, matching only hands where some dealt seat starts below it."""
+    a route may also carry "short_bb": 10, matching only hands where some dealt seat starts below it,
+    and "fallback": "network:NAME" for a policy route."""
     routes = {}
     for count, entries in spec.items():
         n = int(count)
         entries = entries if isinstance(entries, list) else [entries]
         parsed = []
         for route in entries:
-            band, short = route.get('band_bb'), route.get('short_bb')
+            band, short, fallback = route.get('band_bb'), route.get('short_bb'), route.get('fallback')
             if (not 2 <= n <= 6 or route.get('view', 'native') not in ('native', 'projected')
-                    or set(route) - {'agent', 'view', 'band_bb', 'short_bb'}
+                    or set(route) - {'agent', 'view', 'band_bb', 'short_bb', 'fallback'}
+                    or fallback is not None and not (isinstance(fallback, str) and fallback.startswith('network:')
+                                                     and len(fallback) > 8 and route['agent'].startswith('policy:'))
                     or band is not None and not (len(band) == 2 and 0 < band[0] <= band[1])
                     or short is not None and not (isinstance(short, (int, float)) and short > 0)):
                 raise ValueError(f'route {count}: {route}')
             parsed.append(Route(route['agent'], route.get('view', 'native'), tuple(band) if band else None,
-                                float(short) if short is not None else None))
+                                float(short) if short is not None else None, fallback))
         if not parsed:
             raise ValueError(f'route {count}: empty')
         routes[n] = tuple(parsed)

@@ -7,6 +7,8 @@
 //! f64 over f32 weights, so results don't depend on summation order beyond f64 rounding.
 use crate::cards::EquityTables;
 use crate::multi_holdem::menu;
+use crate::multi_policy::Policy;
+use crate::nplayer::Action;
 use crate::nplayer::Observation;
 use crate::policy_features::{self as features, ACTIONS};
 use serde_json::Value;
@@ -138,6 +140,17 @@ impl PolicyNetwork {
         let input: Vec<f32> = bytes.iter().map(|&b| b as f32 / 255.).collect();
         let p = self.label_probabilities(&input, features::legal_mask(observation))?;
         Ok((menu(observation).iter().map(|(label, _)| p[*label as usize]).collect(), p))
+    }
+
+    /// Plays the network's strategy for `policy` at a decision whose row has no positive mass. The
+    /// network reads the real table's observation, as it trained, and the policy draws its usual
+    /// single random number. Returns the action, the label probabilities and the chosen label.
+    /// The paired arena (#469) and the decision service both call this.
+    pub fn play(&self, policy: &mut Policy, observation: &Observation<'_>, tables: &EquityTables) -> Result<(Action, [f64; ACTIONS], u8), String> {
+        let (p, by_label) = self.distribution(observation, tables)?;
+        let action = policy.choose_distribution(observation, &p)?;
+        let chosen = menu(observation).iter().find(|(_, a)| *a == action).map(|(l, _)| *l).ok_or("network action off the menu")?;
+        Ok((action, by_label, chosen))
     }
 }
 

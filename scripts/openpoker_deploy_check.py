@@ -71,6 +71,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--routes', type=Path, required=True)
     parser.add_argument('--policy', nargs=3, action='append', default=[], metavar=('NAME', 'PATH', 'SHA256'))
+    parser.add_argument('--mass', nargs=3, action='append', default=[], metavar=('POLICY', 'DIR', 'SHA256'),
+                        help="a policy's original-average mass receipt, for a network fallback")
+    parser.add_argument('--network', nargs=3, action='append', default=[], metavar=('NAME', 'PATH', 'SHA256'))
     parser.add_argument('--card-buckets', type=Path)
     parser.add_argument('--tables', type=int, default=200)
     parser.add_argument('--hands-per-table', type=int, default=20)
@@ -80,11 +83,14 @@ def main():
     args = parser.parse_args()
     routes = parse_routes(json.loads(args.routes.read_text()))
     started = time.perf_counter()
-    native = NativeDecisions(card_buckets=args.card_buckets, policies={n: (Path(p), s) for n, p, s in args.policy})
+    native = NativeDecisions(card_buckets=args.card_buckets, policies={n: (Path(p), s) for n, p, s in args.policy},
+                             masses={n: (Path(p), s) for n, p, s in args.mass},
+                             networks={n: (Path(p), s) for n, p, s in args.network})
     load_seconds = time.perf_counter() - started
     rng = random.Random(args.seed)
     agent = Agent(native, routes, args.seed)
     latencies, statuses, reasons, used, tables = [], Counter(), Counter(), Counter(), Counter()
+    network_rows = Counter()
     try:
         for index in range(args.tables):
             seats, bot = random_seats(rng, args.min_bb)
@@ -96,6 +102,10 @@ def main():
                     reasons[r['reason'].split(' at ')[0].split(':')[0]] += 1
                 else:
                     used[f"{r['players']} players: {r['route']}"] += 1
+                    if 'fallback' in r:
+                        network_rows[f"{r['players']} players: {r['row_status']}"] += 1
+                        if (r['row_status'] == 'positive_mass') == ('network' in r):
+                            raise SystemExit(f'network fallback played at the wrong row: {r}')
         memory = peak_memory_gb(native.process.pid)
     finally:
         native.close()
@@ -104,6 +114,8 @@ def main():
     report = {'policies': {n: s for n, _, s in args.policy}, 'routes': json.loads(args.routes.read_text()), 'min_bb': args.min_bb,
               'load_seconds': load_seconds, 'peak_memory_gb': memory, 'tables_by_players': dict(sorted(tables.items())),
               'decisions': dict(statuses), 'fallback_reasons': dict(reasons), 'routes_used': dict(sorted(used.items())),
+              'networks': native.networks,
+              'network_fallback_rows': dict(sorted(network_rows.items())),
               'latency_seconds': {'p50': q(0.5), 'p99': q(0.99), 'max': latencies[-1] if latencies else None}}
     report['passed'] = bool(latencies) and latencies[-1] <= MAX_DECISION_SECONDS and set(reasons) <= set(ALLOWED_FALLBACKS)
     with args.out.open('x') as f:
