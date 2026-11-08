@@ -45,12 +45,14 @@ In run 1, both arms play `net1` at `widemix`'s untrained rows. **So run 1's cont
 
 | | |
 |---|---|
-| **Arm 0** | `six` (#431's 100 BB live-order 10B, `f894a59f…`), native view, as the live band route plays it |
+| **Arm 0** | `six` (#431's 100 BB live-order 10B, `f894a59f…`), the live band route's model, in the native view at its own trained configuration |
 | **Arm 1** | network *k* at every focal decision |
 | **Table** | six players, 100 BB each |
-| **Fields** | `trained` (primary: five copies of #417's 3B, `6cd50bf1…`, foreign to both arms, as in #434), `pot-pressure`, `tight-aggressive`, `check-call`, `random`, `mixed` |
+| **Fields** | `trained` (primary: five copies of #434's seed-2026102661001 live-order 10B, `ab7f8e16…`, foreign to both arms), `pot-pressure`, `tight-aggressive`, `check-call`, `random`, `mixed` |
 
 Live-order keys at 100 BB have a learned row at almost every decision: #434 measured 99.6–99.8% even on the river against the trained field. So this is close to a pure network-against-table test. The exception is `check-call`, whose rivers #434 found entirely unlearned.
+
+**Amendment, November 8, before any run or implementation hand:** the trained field was #417's 3B (`6cd50bf1…`), as in #434. That model has been archived off bb128. #434's seed-2026102661001 live-order 10B replaces it: the same recipe as `six`, from a different seed, so it's still foreign to both arms, and it's a stronger peer than a 3B. Its binary (`ab7f8e16…`) and mass receipt (`36650754…`) are pinned.
 
 ## Runs
 
@@ -108,7 +110,7 @@ A failure is reported as is, with no retraining or tuning in this study.
 1. **Tests:** native library and paired-arena host tests pass on bb128, including new tests for the `network-only` focal mode and for network-fallback opponent copies.
 2. **Existing play unchanged:** with the new code, #469's 38-case smoke manifest reproduces its 76 traces byte for byte.
 3. **Service and arena agree:** `scripts.openpoker_fallback_parity` passes on #469's smoke traces, as in #470.
-4. **Pins:** the `widemix`, mass receipt, `six`, #417 3B and network pins all match.
+4. **Pins:** the `widemix`, `six` and trained-field binaries, their mass receipts, and the network pins all match.
 5. **Smoke:** run 1's network on every table at 64 blocks per field, on separate roots, through arena, scan, independent replay, all-in equity and report.
 
 ## Rules

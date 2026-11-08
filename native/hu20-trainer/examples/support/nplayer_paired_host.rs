@@ -88,6 +88,17 @@ struct Model {
     pin: Value,
     donor: Option<Arc<PolicyTable>>,
 }
+/// An opponent spec `live:ALIAS:NET` is a copy of the live client: model ALIAS through the
+/// projected view, playing network NET at rows without positive mass (docs/neural-policy-everywhere.md).
+fn live_copy(spec: &str) -> Option<(&str, &str)> {
+    let rest = spec.strip_prefix("live:")?;
+    let (alias, net) = rest.split_once(':')?;
+    (!alias.is_empty() && !net.is_empty() && !net.contains(':')).then_some((alias, net))
+}
+/// The catalog alias a spec plays.
+fn base_alias(spec: &str) -> &str {
+    live_copy(spec).map_or(spec, |(alias, _)| alias)
+}
 enum Player {
     Model(Policy, String),
     Composed(composition::Policy),
@@ -140,6 +151,8 @@ struct Case {
     restricted: [Option<Restriction>; 2],
     /// A pinned network (manifest `networks` alias) the focal plays at rows without positive mass.
     network: [Option<String>; 2],
+    /// Per arm: the focal plays its network at every decision (`network-all:ALIAS`).
+    network_all: [bool; 2],
     /// Per arm: the focal model sees the table through `multi_view::project`.
     projected: [bool; 2],
 }
@@ -189,6 +202,7 @@ impl Case {
         if shared_models.is_some() && focals.iter().any(|s| s.starts_with("bot=")) {
             return Err("shared observations require model focals".into());
         }
+        let mut network_all = [false; 2];
         let (check_fold, restricted, network) = match v.get("focal_untrained_fallback") {
             None | Some(Value::Null) => ([false; 2], [None; 2], [None, None]),
             Some(Value::Array(modes)) if modes.len() == 2 => {
@@ -202,7 +216,11 @@ impl Case {
                         Some(name) if model && name.strip_prefix("network:").is_some_and(|a| !a.is_empty()) => {
                             nets[arm] = name.strip_prefix("network:").map(String::from)
                         }
-                        _ => return Err("focal_untrained_fallback: uniform, check-fold, no-all-in, no-raise or network:ALIAS per model arm".into()),
+                        Some(name) if model && name.strip_prefix("network-all:").is_some_and(|a| !a.is_empty()) => {
+                            nets[arm] = name.strip_prefix("network-all:").map(String::from);
+                            network_all[arm] = true;
+                        }
+                        _ => return Err("focal_untrained_fallback: uniform, check-fold, no-all-in, no-raise, network:ALIAS or network-all:ALIAS per model arm".into()),
                     }
                 }
                 (flags, rules, nets)
@@ -224,6 +242,12 @@ impl Case {
             }
             _ => return Err("focal_views must list two arm views".into()),
         };
+        if opponents.iter().any(|o| o.starts_with("live:") && live_copy(o).is_none()) {
+            return Err("live copies are live:ALIAS:NETWORK".into());
+        }
+        if opponents.iter().any(|o| live_copy(o).is_some()) && shared_models.is_some() {
+            return Err("live copies do not support shared observations".into());
+        }
         if projected.iter().any(|&p| p) && shared_models.is_some() {
             return Err("projected focals do not support shared observations".into());
         }
@@ -247,6 +271,7 @@ impl Case {
             check_fold,
             restricted,
             network,
+            network_all,
             projected,
         })
     }
@@ -279,8 +304,10 @@ fn play(
     for (rotation, ids) in case.seating.iter().enumerate() {
         for (arm, specs) in case.arms.iter().enumerate() {
             let mut players = Vec::new();
+            let copies: Vec<Option<&str>> = specs.iter().map(|s| live_copy(s).map(|(_, net)| net)).collect();
             for (id, spec) in specs.iter().enumerate() {
                 let seed = stream_seed(case.root, b"action", block, id as u64);
+                let spec = &base_alias(spec).to_string();
                 players.push(if let Some(bot) = spec.strip_prefix("bot=") {
                     Player::Script(Bot::new(bot, seed)?)
                 } else {
@@ -326,7 +353,8 @@ fn play(
                     Player::Model(policy, alias) => {
                         let t = tables.ok_or("K50 required")?;
                         let table = &models[alias].table;
-                        let frame = if id == 0 && case.projected[arm] {
+                        let copy = copies[id];
+                        let frame = if (id == 0 && case.projected[arm]) || copy.is_some() {
                             Some(multi_view::project(&view, table.projection_config()?)?)
                         } else {
                             None
@@ -343,8 +371,20 @@ fn play(
                         }
                         let label = mass::LABELS[mass::MassMetadata::classify_row(row)?];
                         let mut used = None;
-                        let action = match (&case.network[arm], case.restricted[arm]) {
-                            (Some(alias), _) if id == 0 && label != "positive_mass" => {
+                        let net = if id == 0 { case.network[arm].as_deref() } else { copy };
+                        let everywhere = id == 0 && case.network_all[arm];
+                        let mut row = None;
+                        if everywhere && label == "positive_mass" {
+                            // The row the arms' other arm would play, by label, for agreement reports.
+                            let (p, _) = table.distribution(seen, t)?;
+                            let mut by = [0.; 6];
+                            for ((l, _), q) in multi_holdem::menu(seen).iter().zip(p) {
+                                by[*l as usize] = q;
+                            }
+                            row = Some(by);
+                        }
+                        let action = match (net, case.restricted[arm]) {
+                            (Some(alias), _) if everywhere || label != "positive_mass" => {
                                 let (action, by_label, chosen) = networks[alias].play(policy, &view, t)?;
                                 used = Some(json!({"p":by_label,"label":chosen}));
                                 action
@@ -357,7 +397,10 @@ fn play(
                         };
                         let mut lookup = json!({"status":label,"key":key_hex(&d.key),"street":d.street,"identity":id,"seat":actor,"position":(actor+case.n-button)%case.n});
                         if let Some(n) = used {
-                            lookup["network"] = n;
+                            lookup[if id == 0 { "network" } else { "copy_network" }] = n;
+                        }
+                        if let Some(r) = row {
+                            lookup["row"] = json!(r);
                         }
                         if frame.is_some() {
                             lookup["view"] = json!("projected");
@@ -430,7 +473,8 @@ fn execute(
     networks: &mut HashMap<String, Arc<PolicyNetwork>>,
 ) -> Result<Value, String> {
     let tick = Instant::now();
-    for alias in case.network.iter().flatten() {
+    let copy_nets: Vec<String> = case.arms.iter().flatten().filter_map(|s| live_copy(s).map(|(_, n)| n.to_string())).collect();
+    for alias in case.network.iter().flatten().chain(&copy_nets) {
         if !networks.contains_key(alias) {
             let spec = &network_catalog[alias];
             let net = PolicyNetwork::load(Path::new(text(spec, "path")?), text(spec, "sha256")?)
@@ -444,7 +488,7 @@ fn execute(
         .flatten()
         .chain(case.shared_models.iter().flatten())
         .filter(|s| !s.starts_with("bot="))
-        .cloned()
+        .map(|s| base_alias(s).to_string())
         .collect();
     for alias in used.clone() {
         let spec = &catalog[&alias];
@@ -536,11 +580,17 @@ fn execute(
         .arms
         .iter()
         .enumerate()
-        .flat_map(|(arm, a)| a.iter().enumerate().map(move |(i, s)| (i == 0 && case.projected[arm], s)))
-        .chain(case.shared_models.iter().flatten().map(|s| (false, s)))
+        .flat_map(|(arm, a)| a.iter().enumerate().map(move |(i, s)| (i == 0 && case.projected[arm], s.as_str())))
+        .chain(case.shared_models.iter().flatten().map(|s| (false, s.as_str())))
     {
         if let Some(bot) = spec.strip_prefix("bot=") {
             Bot::new(bot, 0)?;
+        } else if let Some((alias, _)) = live_copy(spec) {
+            let model = &models[alias];
+            if model.donor.is_some() || !multi_view::supports(model.table.schema) {
+                return Err("live copies require a physical live-order model".into());
+            }
+            multi_view::compatible(model.table.projection_config()?, case.config)?;
         } else if !arm && !models[spec].table.supports_config(case.config) {
             return Err("policy/game identity differs".into());
         }
@@ -564,6 +614,11 @@ fn execute(
             .map(|s| {
                 if let Some(bot) = s.strip_prefix("bot=") {
                     json!({"script":bot,"version":"nplayer-scripts-v1"})
+                } else if let Some((alias, net)) = live_copy(s) {
+                    let mut pin = models[alias].pin.clone();
+                    pin["live_copy"] = json!({"view":"projected","untrained_fallback":format!("network:{net}"),
+                        "network_sha256":networks[net].sha256});
+                    pin
                 } else {
                     models[s].pin.clone()
                 }
@@ -585,7 +640,8 @@ fn execute(
             header["focal_untrained_fallback"] = json!(rule.name());
         }
         if let Some(alias) = &case.network[arm] {
-            header["focal_untrained_fallback"] = json!(format!("network:{alias}"));
+            let mode = if case.network_all[arm] { "network-all" } else { "network" };
+            header["focal_untrained_fallback"] = json!(format!("{mode}:{alias}"));
             header["focal_network"] = json!({"alias":alias,"sha256":networks[alias].sha256,"header":networks[alias].header});
         }
         if let Some(aliases) = &case.shared_models {
@@ -785,6 +841,27 @@ mod tests {
         scripted["focals"] = json!(["m", "bot=random"]);
         scripted["focal_untrained_fallback"] = json!(["uniform", "network:net1"]);
         assert!(Case::parse(&scripted).is_err(), "scripted focals have no rows to fall back from");
+    }
+    #[test]
+    fn network_everywhere_and_live_copies_parse() {
+        let base = json!({"name":"n","players":3,"stack_bb":100,"blocks":2,"root":1,"focals":["m","m"],
+            "opponents":["live:m:net1","bot=random"],"traces":["a","b"],"summary":"s"});
+        let mut v = base.clone();
+        v["focal_untrained_fallback"] = json!(["network:net1", "network-all:net2"]);
+        let c = Case::parse(&v).unwrap();
+        assert_eq!(c.network, [Some("net1".to_string()), Some("net2".to_string())]);
+        assert_eq!(c.network_all, [false, true]);
+        v["focal_untrained_fallback"] = json!(["uniform", "network-all:"]);
+        assert!(Case::parse(&v).is_err());
+        assert_eq!(live_copy("live:widemix:net1"), Some(("widemix", "net1")));
+        assert_eq!(base_alias("live:widemix:net1"), "widemix");
+        assert_eq!(base_alias("widemix"), "widemix");
+        for bad in ["live:", "live:m", "live:m:", "live::n", "live:m:n:x"] {
+            assert_eq!(live_copy(bad), None, "{bad}");
+            let mut b = base.clone();
+            b["opponents"] = json!([bad, "bot=random"]);
+            assert!(Case::parse(&b).is_err(), "{bad}");
+        }
     }
     #[test]
     fn check_fold_fallback_is_opt_in_per_model_arm() {
