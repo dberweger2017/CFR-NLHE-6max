@@ -35,13 +35,21 @@ def resources(root):
     mem = {line.split(':')[0]: int(line.split()[1]) * 1024
            for line in Path('/proc/meminfo').read_text().splitlines()}
     available = mem['MemAvailable']
+    def remaining(folder, limit_name, usage_name, cache_key):
+        used = int((folder / usage_name).read_text())
+        stat = folder / 'memory.stat'
+        counts = dict(line.split() for line in stat.read_text().splitlines()) if stat.exists() else {}
+        # Disk-backed arrays are reclaimable page cache, not permanently allocated RAM.
+        # Use the container working-set convention (subtract inactive file pages).
+        inactive = min(used, int(counts.get(cache_key, '0')))
+        return int((folder / limit_name).read_text()) - used + inactive
     limit = Path('/sys/fs/cgroup/memory.max')
     if limit.exists() and limit.read_text().strip() != 'max':
-        available = min(available, int(limit.read_text()) - int(limit.with_name('memory.current').read_text()))
+        available = min(available, remaining(limit.parent, 'memory.max', 'memory.current', 'inactive_file'))
     legacy = Path('/sys/fs/cgroup/memory/memory.limit_in_bytes')
     if legacy.exists():
-        available = min(available, int(legacy.read_text()) -
-                        int(legacy.with_name('memory.usage_in_bytes').read_text()))
+        available = min(available, remaining(legacy.parent, legacy.name,
+                        'memory.usage_in_bytes', 'total_inactive_file'))
     gpu = subprocess.check_output(['nvidia-smi', '--query-gpu=temperature.gpu,memory.used',
                                    '--format=csv,noheader,nounits'], text=True, timeout=10)
     temperatures, gpu_mb = [], []
@@ -235,6 +243,7 @@ def main():
     a = p.parse_args()
     if min(a.threads, a.workers) < 1 or a.deadline <= time.time():
         p.error('positive workers/threads and a future deadline required')
+    os.environ['HU20_K50_TABLES'] = str(a.tables.resolve())
     runner = Runner(a)
     def interrupted(signum, _frame):
         raise RuntimeError(f'controller signal {signum}')

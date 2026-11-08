@@ -121,3 +121,7 @@ def test_guard_uses_the_pods_cgroup_v1_memory_limit(tmp_path, monkeypatch):
     s = controller.resources(tmp_path)
     assert s['available_bytes'] == 3000000000
     assert controller.stop_reason(s, 100, 99) == 'memory reserve'
+    files['/sys/fs/cgroup/memory/memory.stat'] = 'total_inactive_file 6000000000\n'
+    s = controller.resources(tmp_path)
+    assert s['available_bytes'] == 9000000000, 'inactive file cache can be reclaimed'
+    assert controller.stop_reason(s, 100, 99) is None
