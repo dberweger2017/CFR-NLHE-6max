@@ -1,0 +1,106 @@
+{
+ "format": "neural-policy-everywhere-decision-v1",
+ "gate_s": {
+  "passed": false,
+  "tables": {
+   "3p-5bb": {
+    "run1": 2.4103785665442654,
+    "interval": [
+     0.6308490982574262,
+     4.189908034831104
+    ],
+    "verdict": "network better",
+    "run2": 1.2718299158108004,
+    "run3": 3.784128285874052,
+    "harm": [],
+    "replicates": true
+   },
+   "3p-short-deep": {
+    "run1": 4.401242693524845,
+    "interval": [
+     -5.993128219429621,
+     14.79561360647931
+    ],
+    "verdict": "no difference shown",
+    "run2": 0.636948738079611,
+    "run3": -1.4586196189576788,
+    "harm": [],
+    "replicates": false
+   },
+   "3p-unequal": {
+    "run1": -5.4146075480616584,
+    "interval": [
+     -11.79232103610191,
+     0.9631059399785924
+    ],
+    "verdict": "no difference shown",
+    "run2": -3.406341481654916,
+    "run3": -5.381309115182627,
+    "harm": [],
+    "replicates": false
+   },
+   "4p-short-deep": {
+    "run1": -2.5523235148450465,
+    "interval": [
+     -13.539140959652364,
+     8.434493929962272
+    ],
+    "verdict": "no difference shown",
+    "run2": -0.8714243727690483,
+    "run3": -7.945472196770388,
+    "harm": [],
+    "replicates": false
+   },
+   "6p-5bb": {
+    "run1": -1.551201522803712,
+    "interval": [
+     -2.635601246554919,
+     -0.4668017990525051
+    ],
+    "verdict": "table better",
+    "run2": 0.7299812960847796,
+    "run3": 0.2981720401716155,
+    "harm": [],
+    "replicates": false
+   },
+   "6p-short-deep": {
+    "run1": -7.500988221727287,
+    "interval": [
+     -26.250580682933162,
+     11.248604239478588
+    ],
+    "verdict": "no difference shown",
+    "run2": -13.17153151767233,
+    "run3": 26.518567351306125,
+    "harm": [],
+    "replicates": false
+   },
+   "6p-unequal": {
+    "run1": 2.2582939794376005,
+    "interval": [
+     -14.248686377850262,
+     18.76527433672546
+    ],
+    "verdict": "no difference shown",
+    "run2": -14.2205520969808,
+    "run3": 4.5780076467757995,
+    "harm": [],
+    "replicates": false
+   }
+  }
+ },
+ "gate_d": {
+  "passed": false,
+  "table": "6p-100bb",
+  "run1": -29.43407571233298,
+  "interval": [
+   -37.22154982580568,
+   -21.64660159886028
+  ],
+  "verdict": "inferior",
+  "run2": -27.435299854626635,
+  "run3": -27.92065017108464,
+  "harm": [],
+  "check_call_harm_flag": false
+ }
+}
