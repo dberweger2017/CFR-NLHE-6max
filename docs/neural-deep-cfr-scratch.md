@@ -32,7 +32,7 @@ External sampling explores all six labels at each traverser decision, so a trave
 - Decisions past depth D write no advantage sample, and the network predicts them by generalization. Each iteration reports how many traverser decisions were sampled instead of explored.
 - The bound only applies past D. With an unbounded D, traversals are byte-identical to the pilot's (tested).
 
-**Choosing D, before the run:** at iteration 1 (uniform play, the most raise-heavy strategy the run is likely to see), on 2,000 traversals, take the largest D in {4, 5, 6, 7, 8} whose mean is at most **600 nodes per traversal**. That's twice the pilot's late-run size, and about 100 s of traversing per iteration on bb128. The measurements and the chosen D go in the PR before iteration 1.
+**Choosing D, before the run:** at iteration 1 (uniform play, the most raise-heavy strategy the run is likely to see), on 2,000 traversals, take the largest D in {3, 4, 5, 6, 7, 8} whose mean is at most **600 nodes per traversal**. If even D = 3 exceeds it, the run stops and reports. That's twice the pilot's late-run size, and about 100 s of traversing per iteration on bb128. The measurements and the chosen D go in the PR before iteration 1.
 
 ## Schedule on bb128
 
@@ -59,6 +59,10 @@ These parts of issue 475 are deliberately left out:
 - **Two-player roots, heads-up anchors and the off-grid stack panel:** they need new arena cases and baselines. Keeping the pilot's root law and evaluation makes the scratch-versus-warm comparison direct, which is the decision this run informs. Transfer to new stacks and player counts is a follow-up once a recipe works.
 - **Fresh advantage initialization every iteration with 1,000 steps:** that's under a third of an epoch on a full 30M reservoir, so the fits would be mostly noise. The pilot's continued fit learned in practice, and changing it would confound the comparison.
 - **An exact-exploitability small game:** the traversal is hold'em-specific, so a separate small game wouldn't test the code that runs. Instead, the depth bound gets direct tests: an unbounded depth equals the pilot's traversal byte for byte, and the root value is unbiased.
+
+## Live view
+
+TensorBoard on bb128 (`http://100.99.57.8:6006`, on Tailscale) mirrors the run's own files with [a read-only follower](reports/neural-deep-cfr-scratch/tensorboard_follow.py). It shows minutes per iteration, nodes per traversal, the share of sampled traverser decisions, the advantage loss, each monitoring contrast and the machine's temperatures and memory. It's a convenience, not evidence: the report reads the files.
 
 ## Stops
 
