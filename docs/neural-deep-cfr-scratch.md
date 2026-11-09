@@ -71,4 +71,4 @@ These parts of issue 475 are deliberately left out:
 
 - **In this PR:** the report, per-iteration history (`iterations.csv`), stage log, resources, qualification receipts, evaluation summaries and every network's SHA-256, under [`docs/reports/neural-deep-cfr-scratch/`](reports/neural-deep-cfr-scratch).
 - **On bb128:** the full evidence tree in `/home/dberweger/neural-deep-cfr-scratch-20261109`: every advantage and strategy network, evaluation traces and receipts. The latest reservoir snapshot goes to `/mnt/data2tb/neural-deep-cfr-scratch-20261109`. A SHA-256 manifest of the whole tree is committed here before merging.
-- **Long-term:** bb128's storage process packages that tree into `gdrive:PR-<n>-neural-deep-cfr-scratch/` and records it in `RESULTS_INDEX.md`, with retrieval commands for the final network.
+- **Long-term:** bb128's storage process packages that tree into `gdrive:PR-477-neural-deep-cfr-scratch/` and records it in `RESULTS_INDEX.md`, with retrieval commands for the final network.
