@@ -128,10 +128,41 @@ total **$0.00/hour**. Approximate rental cost is **$0.63**, derived from the
 observed interval and $0.308/hour quote, not a final invoice. The obsolete hard
 billing-cutoff task is disabled. The stopped pod must not be restarted.
 
-**Long-term archival is pending:** the verified source archive is being copied
-to `/research/PR-474-neural-six-imitation/` on bb128. A separate low-priority
-archival job will preserve the uncompressed tree, build the policy-required ZIP
-with embedded SHA256 manifest/readback, and use the existing deployed cache
-uploader. No Drive acceptance, Drive ID or remote SHA256 audit is claimed yet.
-Originals and local backups remain protected; no synced Mac Drive folder,
-shared cache tool, eviction job or bb128 pilot is modified.
+Long-term archival completed through bb128's existing deployed cache uploader.
+[Archive receipt](archival.json): [Drive evidence.zip](https://drive.google.com/file/d/1qk3WYkE4VmJ6ajrP36Pg4rs80eSqyLrS/view),
+`gdrive:PR-474-neural-six-imitation/evidence.zip`, Drive ID
+`1qk3WYkE4VmJ6ajrP36Pg4rs80eSqyLrS`, MD5
+`1a400492de5d37da624a6d4a5cec187e`.
+
+The ZIP is 6,538,600,123 bytes, SHA256
+`0c054eaec84f3cd6181f6787745d1a99fc692b7c85f9216c4b7dfdf8ad6b3077`.
+Its embedded `ARCHIVE-MANIFEST.json` SHA256 is
+`34156df0b0d89fda7bd729d5d4d9b3be1ef12020dca5d4f76135353a9a9e20fd`.
+All 839 ZIP members pass local CRC readback, with SHA256 readback against the
+manifest for its 838 payload entries and byte equality for the embedded manifest.
+The deployed uploader accepted Drive size/MD5 and recorded all 840 local files
+(including the ZIP itself). Receipt paths, sizes and mtimes match the complete
+cache inventory; the KEEP marker remains. This is local SHA256/member verification
+plus remote MD5/size acceptance, **not a remote SHA256/member audit**.
+
+Fast restoration: copy from `/research/PR-474-neural-six-imitation/experiment/`
+on bb128 into a fresh working directory. The cache's real root is
+`/mnt/data2tb/research-cloud/PR-474-neural-six-imitation/`.
+Drive fallback:
+
+```sh
+rclone copy 'gdrive:PR-474-neural-six-imitation/' '/research/PR-474-neural-six-imitation/'
+```
+
+Verify the indexed ZIP SHA256 and embedded manifest, extract into a fresh
+restoration directory, then verify required model/input pins before use. The ZIP
+retains `experiment/`, `source-archive.tar.zst` and `archive-controller.py`.
+Network members are `experiment/networks/net1.npnet` through `net3.npnet`;
+weight members are `experiment/models/seed1/weights.pt` through `seed3/weights.pt`.
+Their SHA256s remain in [network pins](networks.json) and
+[qualification summary](qualification-summary.json); external teacher dependencies
+and their restoration paths remain in [input pins](input-members.json) and
+[preparation](preparation.md). All original local tar, inputs and progress backups
+remain retained. No synced Mac Drive folder, deployed cache tooling, eviction
+configuration or bb128 pilot was modified. Required CI passed on report commit
+`813dda9`; this archival-only follow-up also passes staged storage/diff checks.

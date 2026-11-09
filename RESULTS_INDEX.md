@@ -25,12 +25,22 @@ are retained. Teacher inputs remain in their existing bb128 roots and pinned
 local copies. The pod was stopped after retrieval; compute/storage show
 Not running and total $0/hr. Estimated rental cost $0.63, not a final invoice.
 
-Long-term archive is **pending**, using the existing bb128 cache at
-`/research/PR-474-neural-six-imitation/` and eventual
-`gdrive:PR-474-neural-six-imitation/`. No Drive ID, MD5 acceptance, coverage
-receipt or cloud restoration availability is claimed yet. Keep originals and
-local backups. The report will add exact ZIP/manifest hashes and both
-restoration paths after the deployed uploader's receipt is verified.
+Long-term archive is complete: [compact receipt](docs/reports/neural-six-imitation/archival.json),
+[Drive ZIP](https://drive.google.com/file/d/1qk3WYkE4VmJ6ajrP36Pg4rs80eSqyLrS/view).
+Drive path `gdrive:PR-474-neural-six-imitation/evidence.zip`, ID
+`1qk3WYkE4VmJ6ajrP36Pg4rs80eSqyLrS`, MD5 `1a400492de5d37da624a6d4a5cec187e`.
+ZIP: 6,538,600,123 bytes, SHA256
+`0c054eaec84f3cd6181f6787745d1a99fc692b7c85f9216c4b7dfdf8ad6b3077`.
+Embedded `ARCHIVE-MANIFEST.json` SHA256
+`34156df0b0d89fda7bd729d5d4d9b3be1ef12020dca5d4f76135353a9a9e20fd`.
+All 839 members pass local CRC/SHA256 manifest readback; deployed uploader
+accepts remote size/MD5 and covers all 840 cache files. Exact receipt path/size/mtime
+coverage was checked. No remote SHA256/member audit is claimed.
+Restore fast from `/research/PR-474-neural-six-imitation/experiment/` on bb128,
+or `rclone copy 'gdrive:PR-474-neural-six-imitation/' '/research/PR-474-neural-six-imitation/'`,
+verify indexed ZIP/manifest hashes, extract into a fresh directory and check
+linked model/input SHA256 pins. KEEP protects this cache; all Mac originals,
+inputs and backups remain retained. No science retry, eviction or other job changes.
 
 ## PR457 — target-policy exploration preparation and cost qualification
 
