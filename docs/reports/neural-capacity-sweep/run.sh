@@ -43,7 +43,7 @@ case "${1:-}" in
     cd "$(dirname "$0")/../../.."
     $PY -c "import torch; assert torch.backends.mps.is_available(), 'no MPS'"
     mkdir -p $W/runs-rows
-    # name arch rows loss
+    # name arch rows loss (rows 0: every training row)
     RUNS="mlp-2m-r0.5m mlp-2m 500000 mse
 mlp-2m-r1.5m mlp-2m 1500000 mse
 mlp-2m-huber20 mlp-2m 0 huber
@@ -51,9 +51,8 @@ cards-15m-r1.5m cards-15m 1500000 mse"
     while read -r N A R L; do
       [ -e $W/runs-rows/$N/result.json ] && continue
       rm -rf $W/runs-rows/$N
-      ROWARG=(); [ "$R" = 0 ] || ROWARG=(--rows $R)
       caffeinate -is $PY -m scripts.neural_capacity_sweep run --data $W/data --arch $A --steps $STEPS --seed $SEED \
-        --device mps "${ROWARG[@]}" --loss $L --huber-delta 20 --out $W/runs-rows/$N > $W/runs-rows/$N.log 2>&1
+        --device mps --rows $R --loss $L --huber-delta 20 --out $W/runs-rows/$N > $W/runs-rows/$N.log 2>&1
     done <<< "$RUNS"
     $PY -m scripts.neural_capacity_sweep report --out $W/report-rows.json --runs $W/runs/mlp-2m $W/runs/cards-15m \
       $(echo "$RUNS" | while read -r N _; do echo $W/runs-rows/$N; done) ;;
