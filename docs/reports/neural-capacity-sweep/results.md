@@ -20,6 +20,8 @@ All errors below are on held-out rows, so lower is better. The unit is squared b
 | `res-15m` | 15.1M | 857 | 537 | 112 | 1431 | 1346 | 0.399 | 71 |
 | `cards-15m` | 15.5M | **823** | **517** | 110 | **1373** | **1275** | 0.388 | 72 |
 
+**Follow-up:** a [rows-or-noise test](rows/results.md) shows the fit is limited by the number of rows, not mainly by noise. Each tripling of rows cuts held-out error 20–25%. So "bigger networks fit noise" holds at 4.5M rows, not necessarily beyond.
+
 ## Overfitting: training rows against held-out rows
 
 The training error is measured on a seeded uniform sample of 499,900 training rows, as many rows as the held-out set.

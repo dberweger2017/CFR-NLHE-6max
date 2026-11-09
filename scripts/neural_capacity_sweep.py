@@ -8,7 +8,8 @@ falling as the network grows, size limits the fit; if it flattens, the noise in 
     subsample --buffer DIR --rows N --holdout FRACTION --seed S --out DIR
         a uniform, seeded subsample of a reservoir, split into train/ and holdout/ reservoirs
     run --data DIR --arch NAME --steps N --seed S --out DIR [--batch B] [--lr LR] [--device mps]
-        fits one architecture on DIR/train and scores it on DIR/holdout
+        [--rows N] [--loss mse|huber --huber-delta BB]
+        fits one architecture on DIR/train (or a seeded, nested N-row part of it) and scores it on DIR/holdout
     rescore --data DIR --runs DIR.. [--device mps]
         re-scores saved runs on the holdout (must match) and on a uniform sample of training rows
     report --runs DIR.. --out FILE
@@ -202,11 +203,31 @@ def rescore(args):
         h = score(predict(torch, model, hold, device), hold)['all']
         if not math.isclose(h['mse'], result['holdout']['all']['mse'], rel_tol=1e-3):
             raise RuntimeError(f"{folder}: holdout {h['mse']} != recorded {result['holdout']['all']['mse']}")
-        sub = train_sample(train, len(hold['features']), result['seed'])
+        part = train_part(train, result.get('train_rows_used'), result['seed'])
+        sub = train_sample(part, len(hold['features']), result['seed'])
         result['train_rows_first_rows'] = result.pop('train_rows')
         result['train_rows'] = train_score(score(predict(torch, model, sub, device), sub))
         (folder / 'result.json').write_text(json.dumps(result, indent=1) + '\n')
         print(json.dumps({'arch': result['arch'], 'holdout_mse': h['mse'], 'train': {k: result['train_rows'][k]['mse'] for k in ('all', 'warm', 'deep_cfr')}}), flush=True)
+
+
+def train_part(train, rows, seed):
+    """The first `rows` of one seeded permutation of the training rows, so smaller parts nest in larger ones."""
+    n = len(train['features'])
+    if not rows or rows >= n:
+        return train
+    idx = np.sort(np.random.default_rng(seed + 2).permutation(n)[:rows])
+    return {key: v[idx] for key, v in train.items()}
+
+
+def fit_loss(torch, name, delta, out, targets, mask, w):
+    """The pilot's loss, or a Huber variant: squared error up to `delta` BB per label, linear beyond.
+    Huber is robust to heavy-tailed sampled regrets but estimates a biased mean when their noise is skewed."""
+    if name == 'mse':
+        return dcfr.loss(torch, 'advantage', out, targets, mask, w)
+    err = torch.nn.functional.huber_loss(out.float(), targets, reduction='none', delta=delta) * 2
+    err = torch.where(mask, err, torch.zeros_like(targets)).sum(1)
+    return (err * w).sum() / w.sum()
 
 
 def run(args):
@@ -215,6 +236,8 @@ def run(args):
     torch.manual_seed(args.seed)
     rng = np.random.default_rng(args.seed)
     train, features = arrays(Path(args.data) / 'train')
+    train = train_part(train, getattr(args, 'rows', None), args.seed)
+    loss_name, delta = getattr(args, 'loss', 'mse'), getattr(args, 'huber_delta', 20.0)
     hold, _ = arrays(Path(args.data) / 'holdout')
     spec = ARCHS[args.arch]
     model = build(torch, features, spec).to(device).train()
@@ -232,7 +255,7 @@ def run(args):
         w = torch.from_numpy(train['weights'][idx]).to(device)
         with torch.autocast(device.type, dtype=torch.float16, enabled=device.type == 'cuda'):
             out = model(x)
-        value = dcfr.loss(torch, 'advantage', out, t, m, w)
+        value = fit_loss(torch, loss_name, delta, out, t, m, w)
         if not math.isfinite(float(value)):
             raise RuntimeError(f'{args.arch}: non-finite loss at step {step}')
         opt.zero_grad(set_to_none=True)
@@ -247,7 +270,8 @@ def run(args):
     seconds = time.time() - start
     sub = train_sample(train, len(hold['features']), args.seed)
     result = {'format': 'neural-capacity-sweep-run-v1', 'arch': args.arch, 'spec': spec, 'parameters': int(params),
-              'steps': args.steps, 'batch': args.batch, 'lr': args.lr, 'seed': args.seed, 'device': str(device),
+              'steps': args.steps, 'train_rows_used': int(n), 'warm_rows_used': int(train['warm'].sum()),
+              'loss': loss_name, 'huber_delta': delta if loss_name == 'huber' else None, 'batch': args.batch, 'lr': args.lr, 'seed': args.seed, 'device': str(device),
               'data': json.loads((Path(args.data) / 'subsample.json').read_text()), 'seconds': seconds,
               'holdout': score(predict(torch, model, hold, device), hold),
               'train_rows': train_score(score(predict(torch, model, sub, device), sub)), 'history': history}
@@ -261,11 +285,12 @@ def run(args):
 
 def report(args):
     runs = [json.loads((Path(r) / 'result.json').read_text()) for r in args.runs]
-    runs.sort(key=lambda r: r['parameters'])
+    runs.sort(key=lambda r: (r['parameters'], r.get('loss', 'mse'), r.get('train_rows_used', r['data']['train']['rows'])))
     rows = []
     for r in runs:
         h = r['holdout']
-        rows.append({'arch': r['arch'], 'parameters': r['parameters'], 'steps': r['steps'], 'minutes': r['seconds'] / 60,
+        rows.append({'arch': r['arch'], 'parameters': r['parameters'], 'rows': r.get('train_rows_used', r['data']['train']['rows']),
+                     'loss': r.get('loss', 'mse'), 'steps': r['steps'], 'minutes': r['seconds'] / 60,
                      'train_mse': r['train_rows']['all']['mse'], 'train_warm_mse': r['train_rows']['warm']['mse'],
                      'train_deep_cfr_mse': r['train_rows']['deep_cfr']['mse'], 'holdout_mse': h['all']['mse'], 'holdout_weighted_mse': h['all']['weighted_mse'],
                      'warm_mse': (h['warm'] or {}).get('mse'), 'deep_cfr_mse': (h['deep_cfr'] or {}).get('mse'),
@@ -296,6 +321,9 @@ def main(argv=None):
     r.add_argument('--evals', type=int, default=10)
     r.add_argument('--seed', type=int, required=True)
     r.add_argument('--device', default='cpu')
+    r.add_argument('--rows', type=int, default=None)
+    r.add_argument('--loss', choices=['mse', 'huber'], default='mse')
+    r.add_argument('--huber-delta', type=float, default=20.0)
     r.add_argument('--out', required=True)
     q = sub.add_parser('rescore')
     q.add_argument('--data', required=True)
