@@ -23,7 +23,8 @@ case "${1:-}" in
     W=${W:-$HOME/neural-capacity-sweep-20261109}
     PY=${PY:-$W/venv/bin/python}
     cd "$(dirname "$0")/../../.."
-    [ -x $PY ] || { python3 -m venv $W/venv && $W/venv/bin/pip install -q torch numpy; }
+    PYBASE=${PYBASE:-python3}   # Python 3.11 or newer (hashlib.file_digest); on the M4, Homebrew python3.12
+    [ -x $PY ] || { $PYBASE -m venv $W/venv && $W/venv/bin/pip install -q torch numpy; }
     $PY -c "import torch; assert torch.backends.mps.is_available(), 'no MPS'"
     mkdir -p $W/runs
     for A in $ARCHS; do
