@@ -1,0 +1,14 @@
+/Users/dberweger/neural-capacity-sweep-20261109/source/scripts/neural_capacity_sweep.py:201: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:821.)
+  if not math.isfinite(float(value)):
+{"arch": "cards-15m", "step": 1000, "train_batch_loss": 671.7156982421875, "holdout_weighted_mse": 690.076416015625, "holdout_mse": 1133.9090576171875, "seconds": 421.4257299900055}
+{"arch": "cards-15m", "step": 2000, "train_batch_loss": 544.2901000976562, "holdout_weighted_mse": 622.9048461914062, "holdout_mse": 1014.5582275390625, "seconds": 841.8943660259247}
+{"arch": "cards-15m", "step": 3000, "train_batch_loss": 499.93463134765625, "holdout_weighted_mse": 583.7227172851562, "holdout_mse": 947.480712890625, "seconds": 1262.8977601528168}
+{"arch": "cards-15m", "step": 4000, "train_batch_loss": 468.3267822265625, "holdout_weighted_mse": 563.3753662109375, "holdout_mse": 908.8104858398438, "seconds": 1693.4933018684387}
+{"arch": "cards-15m", "step": 5000, "train_batch_loss": 443.75897216796875, "holdout_weighted_mse": 546.5700073242188, "holdout_mse": 878.3106079101562, "seconds": 2132.1876571178436}
+{"arch": "cards-15m", "step": 6000, "train_batch_loss": 496.5369873046875, "holdout_weighted_mse": 533.1093139648438, "holdout_mse": 852.9602661132812, "seconds": 2565.7997369766235}
+{"arch": "cards-15m", "step": 7000, "train_batch_loss": 418.5372009277344, "holdout_weighted_mse": 521.4772338867188, "holdout_mse": 832.9010620117188, "seconds": 3009.512802839279}
+{"arch": "cards-15m", "step": 8000, "train_batch_loss": 439.47052001953125, "holdout_weighted_mse": 517.2523803710938, "holdout_mse": 825.0624389648438, "seconds": 3443.499058008194}
+{"arch": "cards-15m", "step": 9000, "train_batch_loss": 347.4415283203125, "holdout_weighted_mse": 516.5581665039062, "holdout_mse": 822.5750732421875, "seconds": 3876.1236078739166}
+{"arch": "cards-15m", "step": 10000, "train_batch_loss": 339.09967041015625, "holdout_weighted_mse": 517.0256958007812, "holdout_mse": 823.3504028320312, "seconds": 4313.990588903427}
+{"arch": "cards-15m", "parameters": 15501958, "seconds": 4313.991820812225, "holdout": {"rows": 499900, "mse": 823.3504028320312, "weighted_mse": 517.0256958007812, "tv_to_target_policy": 0.38811033964157104}}
