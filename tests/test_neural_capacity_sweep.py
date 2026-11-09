@@ -88,3 +88,31 @@ def test_run_and_report_end_to_end(tmp_path, monkeypatch):
     sweep.report(args(runs=runs, out=str(tmp_path / 'report.json')))
     rep = json.loads((tmp_path / 'report.json').read_text())
     assert [r['arch'] for r in rep['runs']] == ['tiny-mlp', 'tiny-cards']
+
+
+def test_row_parts_nest_and_huber_runs(tmp_path):
+    torch = pytest.importorskip('torch')
+    reservoir(tmp_path / 'src')
+    sweep.subsample(args(buffer=str(tmp_path / 'src'), rows=3000, holdout=0.2, seed=5, out=str(tmp_path / 'data')))
+    train, _ = sweep.arrays(tmp_path / 'data' / 'train')
+    key = lambda d: {bytes(f) for f in d['features']}
+    small, big = sweep.train_part(train, 500, 1), sweep.train_part(train, 1500, 1)
+    assert len(small['features']) == 500 and key(small) <= key(big)
+    assert sweep.train_part(train, None, 1) is train
+    # Inside delta, Huber (times 2) is the pilot's squared error.
+    out, t = torch.tensor([[1., 2., 0, 0, 0, 0]]), torch.tensor([[0., 0., 0, 0, 0, 0]])
+    m, w = torch.ones(1, 6, dtype=torch.bool), torch.ones(1)
+    assert torch.isclose(sweep.fit_loss(torch, 'huber', 20., out, t, m, w), dcfr.loss(torch, 'advantage', out, t, m, w))
+    assert sweep.fit_loss(torch, 'huber', 1., out, t, m, w) < dcfr.loss(torch, 'advantage', out, t, m, w)
+    monkeypatch_arch = {'kind': 'mlp', 'hidden': [16]}
+    sweep.ARCHS['tiny-mlp-rows'] = monkeypatch_arch
+    try:
+        out_dir = tmp_path / 'run'
+        sweep.run(args(data=str(tmp_path / 'data'), arch='tiny-mlp-rows', steps=30, batch=128, lr=3e-3, evals=2, seed=1,
+                       device='cpu', out=str(out_dir), rows=500, loss='huber', huber_delta=0.5))
+        r = json.loads((out_dir / 'result.json').read_text())
+        assert (r['train_rows_used'], r['loss'], r['huber_delta']) == (500, 'huber', 0.5)
+        sweep.rescore(args(data=str(tmp_path / 'data'), runs=[str(out_dir)], device='cpu'))
+        assert json.loads((out_dir / 'result.json').read_text())['train_rows'] == r['train_rows']
+    finally:
+        del sweep.ARCHS['tiny-mlp-rows']
