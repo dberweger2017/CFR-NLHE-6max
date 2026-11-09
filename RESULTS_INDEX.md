@@ -1,3 +1,37 @@
+## PR474 — matched-teacher six-player 100 BB imitation
+
+[Protocol](docs/neural-six-imitation.md),
+[results](docs/reports/neural-six-imitation/results.md),
+[decision](docs/reports/neural-six-imitation/decision.json),
+[input pins](docs/reports/neural-six-imitation/input-members.json),
+[network pins](docs/reports/neural-six-imitation/networks.json),
+[retrieval/billing receipt](docs/reports/neural-six-imitation/retrieval.json).
+Scientific source `3316037990e6edbe282e67664ee9d22a8135f0a2`; unchanged three-seed
+imitation recipe, sole teacher `six`, 2.4M train /120k held-out hands. Gate D
+does not pass: deciding -6.36 [-11.99,-0.72] BB/100, replications +4.41/+3.83,
+no harm flags. 193 native/19 host/17 pod Python tests; all three network parity
+checks pass; 72 main receipts have no fallback violations and 884,736 bank-0
+hands independently replay. No live route/default change or scientific retry.
+
+Complete generated evidence is locally retrieved and SHA256/zstd/tar verified:
+M1 task worktree `results/neural-six-imitation/pr474-evidence.tar.zst`,
+2,662,575,176 bytes, SHA256
+`a00a2307b035f1e1b32bf68ce65c2448107e1e535f2f898852e21cf8e59bda5f`.
+Tar root `experiment/`: datasets `data/`, weights `models/seed*/weights.pt`,
+networks `networks/net*.npnet`, traces/receipts/results `main/run*/out/`,
+provenance `provenance/`, exact native executables `tool-binaries/`.
+The rebuildable array cache is excluded; all fourteen original sample datasets
+are retained. Teacher inputs remain in their existing bb128 roots and pinned
+local copies. The pod was stopped after retrieval; compute/storage show
+Not running and total $0/hr. Estimated rental cost $0.63, not a final invoice.
+
+Long-term archive is **pending**, using the existing bb128 cache at
+`/research/PR-474-neural-six-imitation/` and eventual
+`gdrive:PR-474-neural-six-imitation/`. No Drive ID, MD5 acceptance, coverage
+receipt or cloud restoration availability is claimed yet. Keep originals and
+local backups. The report will add exact ZIP/manifest hashes and both
+restoration paths after the deployed uploader's receipt is verified.
+
 ## PR457 — target-policy exploration preparation and cost qualification
 
 [Protocol](docs/nplayer-passive-learning-qualification.md),

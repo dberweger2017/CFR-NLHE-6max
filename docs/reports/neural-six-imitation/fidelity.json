@@ -1,0 +1,842 @@
+[
+ {
+  "seed": 1,
+  "positive_samples": 1262840,
+  "all_samples": 1564159,
+  "tv": 0.0650567259327399,
+  "cross_entropy": 0.5691912235621168,
+  "top_agreement": 0.885714738209116,
+  "by_field_and_street": {
+   "check-call/all": {
+    "records": 502557,
+    "positive": 220298,
+    "zero": 6397,
+    "missing": 275862,
+    "tv": 0.017706893032791448,
+    "cross_entropy": 0.6983890322710601,
+    "top_agreement": 0.8174608938801079
+   },
+   "check-call/preflop": {
+    "records": 141701,
+    "positive": 129767,
+    "zero": 3074,
+    "missing": 8860,
+    "tv": 0.016937550412432414,
+    "cross_entropy": 0.583900367762509,
+    "top_agreement": 0.913760817465149
+   },
+   "check-call/flop": {
+    "records": 121916,
+    "positive": 72600,
+    "zero": 1364,
+    "missing": 47952,
+    "tv": 0.021203196081576597,
+    "cross_entropy": 0.8244173849647038,
+    "top_agreement": 0.7473691460055096
+   },
+   "check-call/turn": {
+    "records": 122117,
+    "positive": 17717,
+    "zero": 1959,
+    "missing": 102441,
+    "tv": 0.009129120680900583,
+    "cross_entropy": 1.0156830069967229,
+    "top_agreement": 0.4054298131737879
+   },
+   "check-call/river": {
+    "records": 116823,
+    "positive": 214,
+    "zero": 0,
+    "missing": 116609,
+    "tv": 0.00824878733848857,
+    "cross_entropy": 1.0988227897715346,
+    "top_agreement": 0.3130841121495327
+   },
+   "mixed/all": {
+    "records": 329120,
+    "positive": 311933,
+    "zero": 3429,
+    "missing": 13758,
+    "tv": 0.0696882511519526,
+    "cross_entropy": 0.6205067720966672,
+    "top_agreement": 0.8814232543526975
+   },
+   "mixed/preflop": {
+    "records": 142120,
+    "positive": 141454,
+    "zero": 569,
+    "missing": 97,
+    "tv": 0.039981157032990086,
+    "cross_entropy": 0.4832812996983422,
+    "top_agreement": 0.9479618816010859
+   },
+   "mixed/flop": {
+    "records": 66004,
+    "positive": 64563,
+    "zero": 299,
+    "missing": 1142,
+    "tv": 0.08596913056005571,
+    "cross_entropy": 0.6873509009535139,
+    "top_agreement": 0.8698945216300358
+   },
+   "mixed/turn": {
+    "records": 61901,
+    "positive": 57458,
+    "zero": 931,
+    "missing": 3512,
+    "tv": 0.09471599636352077,
+    "cross_entropy": 0.7536043634972026,
+    "top_agreement": 0.8286226461067214
+   },
+   "mixed/river": {
+    "records": 59095,
+    "positive": 48458,
+    "zero": 1630,
+    "missing": 9007,
+    "tv": 0.10503847697726902,
+    "cross_entropy": 0.774205069864887,
+    "top_agreement": 0.7651574559412274
+   },
+   "pot-pressure/all": {
+    "records": 149085,
+    "positive": 149005,
+    "zero": 51,
+    "missing": 29,
+    "tv": 0.024300598265368612,
+    "cross_entropy": 0.4072935694796316,
+    "top_agreement": 0.9730747290359384
+   },
+   "pot-pressure/preflop": {
+    "records": 122159,
+    "positive": 122158,
+    "zero": 0,
+    "missing": 1,
+    "tv": 0.010762093700659442,
+    "cross_entropy": 0.3655143578782192,
+    "top_agreement": 0.9885312464185727
+   },
+   "pot-pressure/flop": {
+    "records": 14731,
+    "positive": 14713,
+    "zero": 8,
+    "missing": 10,
+    "tv": 0.07787195694549463,
+    "cross_entropy": 0.6159700823941837,
+    "top_agreement": 0.9075647386664855
+   },
+   "pot-pressure/turn": {
+    "records": 7935,
+    "positive": 7908,
+    "zero": 20,
+    "missing": 7,
+    "tv": 0.09107595510294658,
+    "cross_entropy": 0.6099446614583334,
+    "top_agreement": 0.8993424380374304
+   },
+   "pot-pressure/river": {
+    "records": 4260,
+    "positive": 4226,
+    "zero": 23,
+    "missing": 11,
+    "tv": 0.10418268791375654,
+    "cross_entropy": 0.5092434935021389,
+    "top_agreement": 0.8923331755797445
+   },
+   "random/all": {
+    "records": 249535,
+    "positive": 247788,
+    "zero": 1177,
+    "missing": 570,
+    "tv": 0.16289910865714846,
+    "cross_entropy": 0.6745490821538976,
+    "top_agreement": 0.801305955090642
+   },
+   "random/preflop": {
+    "records": 210909,
+    "positive": 209912,
+    "zero": 887,
+    "missing": 110,
+    "tv": 0.14871645571641331,
+    "cross_entropy": 0.6482802168289569,
+    "top_agreement": 0.8201579709592591
+   },
+   "random/flop": {
+    "records": 28923,
+    "positive": 28328,
+    "zero": 214,
+    "missing": 381,
+    "tv": 0.24128135803963835,
+    "cross_entropy": 0.8311695701084175,
+    "top_agreement": 0.693659983055634
+   },
+   "random/turn": {
+    "records": 7295,
+    "positive": 7177,
+    "zero": 57,
+    "missing": 61,
+    "tv": 0.24860432574189903,
+    "cross_entropy": 0.8198009510632924,
+    "top_agreement": 0.6866378709767312
+   },
+   "random/river": {
+    "records": 2408,
+    "positive": 2371,
+    "zero": 19,
+    "missing": 18,
+    "tv": 0.22261713447072043,
+    "cross_entropy": 0.6892808055837463,
+    "top_agreement": 0.7654997891185154
+   },
+   "self/all": {
+    "records": 201347,
+    "positive": 201330,
+    "zero": 2,
+    "missing": 15,
+    "tv": 0.054601938460555666,
+    "cross_entropy": 0.4541219942557772,
+    "top_agreement": 0.9392042914617792
+   },
+   "self/preflop": {
+    "records": 130140,
+    "positive": 130139,
+    "zero": 0,
+    "missing": 1,
+    "tv": 0.020969064240139088,
+    "cross_entropy": 0.3689855718122786,
+    "top_agreement": 0.9765404682685437
+   },
+   "self/flop": {
+    "records": 35413,
+    "positive": 35404,
+    "zero": 1,
+    "missing": 8,
+    "tv": 0.09863963120132634,
+    "cross_entropy": 0.6242581480519945,
+    "top_agreement": 0.8838831770421421
+   },
+   "self/turn": {
+    "records": 21410,
+    "positive": 21410,
+    "zero": 0,
+    "missing": 0,
+    "tv": 0.13186133686263446,
+    "cross_entropy": 0.6398696521685981,
+    "top_agreement": 0.8530126109294722
+   },
+   "self/river": {
+    "records": 14384,
+    "positive": 14377,
+    "zero": 1,
+    "missing": 6,
+    "tv": 0.13554471635417165,
+    "cross_entropy": 0.5291869919779504,
+    "top_agreement": 0.8658273631494748
+   },
+   "tight-aggressive/all": {
+    "records": 132515,
+    "positive": 132486,
+    "zero": 24,
+    "missing": 5,
+    "tv": 0.011616428590559768,
+    "cross_entropy": 0.3934368265245066,
+    "top_agreement": 0.9876439774768655
+   },
+   "tight-aggressive/preflop": {
+    "records": 112560,
+    "positive": 112560,
+    "zero": 0,
+    "missing": 0,
+    "tv": 0.0041698004730051095,
+    "cross_entropy": 0.3679882133608603,
+    "top_agreement": 0.9957444918265814
+   },
+   "tight-aggressive/flop": {
+    "records": 10052,
+    "positive": 10049,
+    "zero": 3,
+    "missing": 0,
+    "tv": 0.04713176217099566,
+    "cross_entropy": 0.5404971146752009,
+    "top_agreement": 0.9482535575679172
+   },
+   "tight-aggressive/turn": {
+    "records": 5965,
+    "positive": 5955,
+    "zero": 7,
+    "missing": 3,
+    "tv": 0.05726058248909054,
+    "cross_entropy": 0.574444162415217,
+    "top_agreement": 0.9363560033585222
+   },
+   "tight-aggressive/river": {
+    "records": 3938,
+    "positive": 3922,
+    "zero": 14,
+    "missing": 2,
+    "tv": 0.06502998501351145,
+    "cross_entropy": 0.47216964071955625,
+    "top_agreement": 0.9339622641509434
+   }
+  }
+ },
+ {
+  "seed": 2,
+  "positive_samples": 1262840,
+  "all_samples": 1564159,
+  "tv": 0.06440664930084751,
+  "cross_entropy": 0.5689161251058812,
+  "top_agreement": 0.885807386525609,
+  "by_field_and_street": {
+   "check-call/all": {
+    "records": 502557,
+    "positive": 220298,
+    "zero": 6397,
+    "missing": 275862,
+    "tv": 0.01709859113976615,
+    "cross_entropy": 0.6982188792283635,
+    "top_agreement": 0.8170795921887625
+   },
+   "check-call/preflop": {
+    "records": 141701,
+    "positive": 129767,
+    "zero": 3074,
+    "missing": 8860,
+    "tv": 0.016863368312593437,
+    "cross_entropy": 0.5839332768057365,
+    "top_agreement": 0.9137685235845785
+   },
+   "check-call/flop": {
+    "records": 121916,
+    "positive": 72600,
+    "zero": 1364,
+    "missing": 47952,
+    "tv": 0.01976581499924673,
+    "cross_entropy": 0.8238581549694387,
+    "top_agreement": 0.7432506887052341
+   },
+   "check-call/turn": {
+    "records": 122117,
+    "positive": 17717,
+    "zero": 1959,
+    "missing": 102441,
+    "tv": 0.008028442181279698,
+    "cross_entropy": 1.015618881670853,
+    "top_agreement": 0.41863746683975844
+   },
+   "check-call/river": {
+    "records": 116823,
+    "positive": 214,
+    "zero": 0,
+    "missing": 116609,
+    "tv": 0.005788142366387019,
+    "cross_entropy": 1.098721406170141,
+    "top_agreement": 0.21962616822429906
+   },
+   "mixed/all": {
+    "records": 329120,
+    "positive": 311933,
+    "zero": 3429,
+    "missing": 13758,
+    "tv": 0.06850543302525916,
+    "cross_entropy": 0.6199297110145398,
+    "top_agreement": 0.8825132320081556
+   },
+   "mixed/preflop": {
+    "records": 142120,
+    "positive": 141454,
+    "zero": 569,
+    "missing": 97,
+    "tv": 0.04008668293597574,
+    "cross_entropy": 0.4837382467864995,
+    "top_agreement": 0.9478841178050815
+   },
+   "mixed/flop": {
+    "records": 66004,
+    "positive": 64563,
+    "zero": 299,
+    "missing": 1142,
+    "tv": 0.08274590906861927,
+    "cross_entropy": 0.6845475667109729,
+    "top_agreement": 0.8760590431051841
+   },
+   "mixed/turn": {
+    "records": 61901,
+    "positive": 57458,
+    "zero": 931,
+    "missing": 3512,
+    "tv": 0.09231784116413107,
+    "cross_entropy": 0.7523582371125465,
+    "top_agreement": 0.8297539072017822
+   },
+   "mixed/river": {
+    "records": 59095,
+    "positive": 48458,
+    "zero": 1630,
+    "missing": 9007,
+    "tv": 0.10425440766896095,
+    "cross_entropy": 0.7743689511739306,
+    "top_agreement": 0.7628461760699987
+   },
+   "pot-pressure/all": {
+    "records": 149085,
+    "positive": 149005,
+    "zero": 51,
+    "missing": 29,
+    "tv": 0.02382834107358761,
+    "cross_entropy": 0.40691834284608736,
+    "top_agreement": 0.9730210395624308
+   },
+   "pot-pressure/preflop": {
+    "records": 122159,
+    "positive": 122158,
+    "zero": 0,
+    "missing": 1,
+    "tv": 0.010668690795328846,
+    "cross_entropy": 0.36544190992019554,
+    "top_agreement": 0.9879909625239444
+   },
+   "pot-pressure/flop": {
+    "records": 14731,
+    "positive": 14713,
+    "zero": 8,
+    "missing": 10,
+    "tv": 0.07501058812485929,
+    "cross_entropy": 0.6136898905968574,
+    "top_agreement": 0.9070210018351118
+   },
+   "pot-pressure/turn": {
+    "records": 7935,
+    "positive": 7908,
+    "zero": 20,
+    "missing": 7,
+    "tv": 0.08932865395591787,
+    "cross_entropy": 0.6075647997627007,
+    "top_agreement": 0.9083206879109762
+   },
+   "pot-pressure/river": {
+    "records": 4260,
+    "positive": 4226,
+    "zero": 23,
+    "missing": 11,
+    "tv": 0.10346288270313933,
+    "cross_entropy": 0.5105005815815599,
+    "top_agreement": 0.8911500236630383
+   },
+   "random/all": {
+    "records": 249535,
+    "positive": 247788,
+    "zero": 1177,
+    "missing": 570,
+    "tv": 0.16295076098948497,
+    "cross_entropy": 0.6751430879168886,
+    "top_agreement": 0.8003131709364457
+   },
+   "random/preflop": {
+    "records": 210909,
+    "positive": 209912,
+    "zero": 887,
+    "missing": 110,
+    "tv": 0.14901399716011948,
+    "cross_entropy": 0.6491849300242483,
+    "top_agreement": 0.8189574678913069
+   },
+   "random/flop": {
+    "records": 28923,
+    "positive": 28328,
+    "zero": 214,
+    "missing": 381,
+    "tv": 0.23994369097464302,
+    "cross_entropy": 0.8296963148486038,
+    "top_agreement": 0.6938717876306129
+   },
+   "random/turn": {
+    "records": 7295,
+    "positive": 7177,
+    "zero": 57,
+    "missing": 61,
+    "tv": 0.24670977816369782,
+    "cross_entropy": 0.8198839017270882,
+    "top_agreement": 0.689424550647903
+   },
+   "random/river": {
+    "records": 2408,
+    "positive": 2371,
+    "zero": 19,
+    "missing": 18,
+    "tv": 0.22338934117658688,
+    "cross_entropy": 0.688611709935813,
+    "top_agreement": 0.7570645297342893
+   },
+   "self/all": {
+    "records": 201347,
+    "positive": 201330,
+    "zero": 2,
+    "missing": 15,
+    "tv": 0.05356447798410104,
+    "cross_entropy": 0.45329802661907687,
+    "top_agreement": 0.9400784781204987
+   },
+   "self/preflop": {
+    "records": 130140,
+    "positive": 130139,
+    "zero": 0,
+    "missing": 1,
+    "tv": 0.02084512637070237,
+    "cross_entropy": 0.3690037070939534,
+    "top_agreement": 0.9765404682685437
+   },
+   "self/flop": {
+    "records": 35413,
+    "positive": 35404,
+    "zero": 1,
+    "missing": 8,
+    "tv": 0.09500464944836245,
+    "cross_entropy": 0.6206049032904121,
+    "top_agreement": 0.8853236922381652
+   },
+   "self/turn": {
+    "records": 21410,
+    "positive": 21410,
+    "zero": 0,
+    "missing": 0,
+    "tv": 0.12997803186936002,
+    "cross_entropy": 0.638879897693561,
+    "top_agreement": 0.855908453993461
+   },
+   "self/river": {
+    "records": 14384,
+    "positive": 14377,
+    "zero": 1,
+    "missing": 6,
+    "tv": 0.1338942963514655,
+    "cross_entropy": 0.5279545324638257,
+    "top_agreement": 0.8702093621756973
+   },
+   "tight-aggressive/all": {
+    "records": 132515,
+    "positive": 132486,
+    "zero": 24,
+    "missing": 5,
+    "tv": 0.011227456893818395,
+    "cross_entropy": 0.3930193936175332,
+    "top_agreement": 0.9871835514695892
+   },
+   "tight-aggressive/preflop": {
+    "records": 112560,
+    "positive": 112560,
+    "zero": 0,
+    "missing": 0,
+    "tv": 0.004097844152986029,
+    "cross_entropy": 0.3679265868858657,
+    "top_agreement": 0.9948649609097371
+   },
+   "tight-aggressive/flop": {
+    "records": 10052,
+    "positive": 10049,
+    "zero": 3,
+    "missing": 0,
+    "tv": 0.044861483851503126,
+    "cross_entropy": 0.537974220660803,
+    "top_agreement": 0.9492486814608418
+   },
+   "tight-aggressive/turn": {
+    "records": 5965,
+    "positive": 5955,
+    "zero": 7,
+    "missing": 3,
+    "tv": 0.05516682263685814,
+    "cross_entropy": 0.5718583312783293,
+    "top_agreement": 0.9405541561712847
+   },
+   "tight-aggressive/river": {
+    "records": 3938,
+    "positive": 3922,
+    "zero": 14,
+    "missing": 2,
+    "tv": 0.06295156114141531,
+    "cross_entropy": 0.47022741902306153,
+    "top_agreement": 0.9347271800101988
+   }
+  }
+ },
+ {
+  "seed": 3,
+  "positive_samples": 1262840,
+  "all_samples": 1564159,
+  "tv": 0.06312429977661792,
+  "cross_entropy": 0.5675463391990597,
+  "top_agreement": 0.8874307117291185,
+  "by_field_and_street": {
+   "check-call/all": {
+    "records": 502557,
+    "positive": 220298,
+    "zero": 6397,
+    "missing": 275862,
+    "tv": 0.016610793908767543,
+    "cross_entropy": 0.6977902783247011,
+    "top_agreement": 0.8161989668539887
+   },
+   "check-call/preflop": {
+    "records": 141701,
+    "positive": 129767,
+    "zero": 3074,
+    "missing": 8860,
+    "tv": 0.016487469930706936,
+    "cross_entropy": 0.5834737843837416,
+    "top_agreement": 0.910740018648809
+   },
+   "check-call/flop": {
+    "records": 121916,
+    "positive": 72600,
+    "zero": 1364,
+    "missing": 47952,
+    "tv": 0.019073167490893488,
+    "cross_entropy": 0.823387003917011,
+    "top_agreement": 0.744862258953168
+   },
+   "check-call/turn": {
+    "records": 122117,
+    "positive": 17717,
+    "zero": 1959,
+    "missing": 102441,
+    "tv": 0.00754716764113001,
+    "cross_entropy": 1.0155856029211,
+    "top_agreement": 0.4202178698425241
+   },
+   "check-call/river": {
+    "records": 116823,
+    "positive": 214,
+    "zero": 0,
+    "missing": 116609,
+    "tv": 0.00640171160486257,
+    "cross_entropy": 1.0987659525648457,
+    "top_agreement": 0.4719626168224299
+   },
+   "mixed/all": {
+    "records": 329120,
+    "positive": 311933,
+    "zero": 3429,
+    "missing": 13758,
+    "tv": 0.06669210733141712,
+    "cross_entropy": 0.6179650373262247,
+    "top_agreement": 0.8850746794984821
+   },
+   "mixed/preflop": {
+    "records": 142120,
+    "positive": 141454,
+    "zero": 569,
+    "missing": 97,
+    "tv": 0.039008396676764284,
+    "cross_entropy": 0.4826406238626078,
+    "top_agreement": 0.9485839919691207
+   },
+   "mixed/flop": {
+    "records": 66004,
+    "positive": 64563,
+    "zero": 299,
+    "missing": 1142,
+    "tv": 0.07962228002105524,
+    "cross_entropy": 0.6815409053168332,
+    "top_agreement": 0.8799157412140081
+   },
+   "mixed/turn": {
+    "records": 61901,
+    "positive": 57458,
+    "zero": 931,
+    "missing": 3512,
+    "tv": 0.0899811329447085,
+    "cross_entropy": 0.7497312436961427,
+    "top_agreement": 0.8356016568624038
+   },
+   "mixed/river": {
+    "records": 59095,
+    "positive": 48458,
+    "zero": 1630,
+    "missing": 9007,
+    "tv": 0.10266178844637215,
+    "cross_entropy": 0.7720470807118286,
+    "top_agreement": 0.7652193652234925
+   },
+   "pot-pressure/all": {
+    "records": 149085,
+    "positive": 149005,
+    "zero": 51,
+    "missing": 29,
+    "tv": 0.022939986570750037,
+    "cross_entropy": 0.4062120857416697,
+    "top_agreement": 0.9740545619274521
+   },
+   "pot-pressure/preflop": {
+    "records": 122159,
+    "positive": 122158,
+    "zero": 0,
+    "missing": 1,
+    "tv": 0.010178096581813807,
+    "cross_entropy": 0.36502606063970433,
+    "top_agreement": 0.9891779498682035
+   },
+   "pot-pressure/flop": {
+    "records": 14731,
+    "positive": 14713,
+    "zero": 8,
+    "missing": 10,
+    "tv": 0.07206590110972227,
+    "cross_entropy": 0.6118374883314288,
+    "top_agreement": 0.9071569360429552
+   },
+   "pot-pressure/turn": {
+    "records": 7935,
+    "positive": 7908,
+    "zero": 20,
+    "missing": 7,
+    "tv": 0.08695800098193433,
+    "cross_entropy": 0.6066021145023236,
+    "top_agreement": 0.9075619625695498
+   },
+   "pot-pressure/river": {
+    "records": 4260,
+    "positive": 4226,
+    "zero": 23,
+    "missing": 11,
+    "tv": 0.1010097750994587,
+    "cross_entropy": 0.5058687700234596,
+    "top_agreement": 0.8942262186464742
+   },
+   "random/all": {
+    "records": 249535,
+    "positive": 247788,
+    "zero": 1177,
+    "missing": 570,
+    "tv": 0.16095039771271208,
+    "cross_entropy": 0.6726333032168628,
+    "top_agreement": 0.8033238090625857
+   },
+   "random/preflop": {
+    "records": 210909,
+    "positive": 209912,
+    "zero": 887,
+    "missing": 110,
+    "tv": 0.14668998571425168,
+    "cross_entropy": 0.6461481012727953,
+    "top_agreement": 0.8220682952856435
+   },
+   "random/flop": {
+    "records": 28923,
+    "positive": 28328,
+    "zero": 214,
+    "missing": 381,
+    "tv": 0.24014704956640737,
+    "cross_entropy": 0.8315785797731043,
+    "top_agreement": 0.6956368257554363
+   },
+   "random/turn": {
+    "records": 7295,
+    "positive": 7177,
+    "zero": 57,
+    "missing": 61,
+    "tv": 0.24503611628019628,
+    "cross_entropy": 0.8155164650859517,
+    "top_agreement": 0.6931865682039849
+   },
+   "random/river": {
+    "records": 2408,
+    "positive": 2371,
+    "zero": 19,
+    "missing": 18,
+    "tv": 0.22272407148820547,
+    "cross_entropy": 0.6859134205882934,
+    "top_agreement": 0.7638127372416702
+   },
+   "self/all": {
+    "records": 201347,
+    "positive": 201330,
+    "zero": 2,
+    "missing": 15,
+    "tv": 0.05228921019337616,
+    "cross_entropy": 0.45197942471626185,
+    "top_agreement": 0.9420652659812249
+   },
+   "self/preflop": {
+    "records": 130140,
+    "positive": 130139,
+    "zero": 0,
+    "missing": 1,
+    "tv": 0.020161034097436203,
+    "cross_entropy": 0.36829298583659825,
+    "top_agreement": 0.9777315024704355
+   },
+   "self/flop": {
+    "records": 35413,
+    "positive": 35404,
+    "zero": 1,
+    "missing": 8,
+    "tv": 0.09181418961393618,
+    "cross_entropy": 0.6178945658395767,
+    "top_agreement": 0.8908032990622529
+   },
+   "self/turn": {
+    "records": 21410,
+    "positive": 21410,
+    "zero": 0,
+    "missing": 0,
+    "tv": 0.1277273162955828,
+    "cross_entropy": 0.6360075564431231,
+    "top_agreement": 0.8596917328351238
+   },
+   "self/river": {
+    "records": 14384,
+    "positive": 14377,
+    "zero": 1,
+    "missing": 6,
+    "tv": 0.13343662819958882,
+    "cross_entropy": 0.5268746884349922,
+    "top_agreement": 0.8681226959727343
+   },
+   "tight-aggressive/all": {
+    "records": 132515,
+    "positive": 132486,
+    "zero": 24,
+    "missing": 5,
+    "tv": 0.010763102528078697,
+    "cross_entropy": 0.3927933360500119,
+    "top_agreement": 0.9882780067327869
+   },
+   "tight-aggressive/preflop": {
+    "records": 112560,
+    "positive": 112560,
+    "zero": 0,
+    "missing": 0,
+    "tv": 0.0038966110901537732,
+    "cross_entropy": 0.36779221302241233,
+    "top_agreement": 0.9959310589907605
+   },
+   "tight-aggressive/flop": {
+    "records": 10052,
+    "positive": 10049,
+    "zero": 3,
+    "missing": 0,
+    "tv": 0.04190104370010897,
+    "cross_entropy": 0.5367402061441904,
+    "top_agreement": 0.9522340531396158
+   },
+   "tight-aggressive/turn": {
+    "records": 5965,
+    "positive": 5955,
+    "zero": 7,
+    "missing": 3,
+    "tv": 0.05342898989404379,
+    "cross_entropy": 0.5709889351871211,
+    "top_agreement": 0.9415617128463476
+   },
+   "tight-aggressive/river": {
+    "records": 3938,
+    "positive": 3922,
+    "zero": 14,
+    "missing": 2,
+    "tv": 0.0632648264370908,
+    "cross_entropy": 0.47092862739543534,
+    "top_agreement": 0.9319224885262621
+   }
+  }
+ }
+]
