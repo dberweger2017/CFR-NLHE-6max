@@ -1,5 +1,7 @@
 # Is the advantage network too small? A capacity sweep
 
+**Result (November 9):** 2M parameters is a clear gain over the pilot's 0.5M. Beyond that, a bigger network mostly memorizes noise. [Results](reports/neural-capacity-sweep/results.md).
+
 An exploration run on the neural-policy track: one seed and a quick read, not a gate.
 
 ## Question
@@ -52,7 +54,7 @@ The strategy network (1024-1024-512, about 2.2 million parameters) is not in que
 
 The subsample is about 3.2 GB in memory.
 
-**Measured on the M1's GPU,** per training step at batch 8,192: 0.02 s (0.5M), 0.09 s (2M), 0.54 s (13M) and about 0.6 s (15M). The M4's GPU should be faster, so the whole sweep is expected to take about 3–4 hours.
+**Measured on the M1's GPU,** per training step at batch 8,192: 0.02 s (0.5M), 0.09 s (2M), 0.54 s (13M) and about 0.6 s (15M). On the M4, with held-out scoring included, they took 0.02 s (0.5M), 0.04 s (2M), 0.28 s (13M) and 0.43 s (both 15M networks), so the whole sweep took 3.5 hours.
 
 [Runner](reports/neural-capacity-sweep/run.sh) · [script](../scripts/neural_capacity_sweep.py) · [tests](../tests/test_neural_capacity_sweep.py)
 

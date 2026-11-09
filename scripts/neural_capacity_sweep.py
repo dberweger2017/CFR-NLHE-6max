@@ -9,6 +9,8 @@ falling as the network grows, size limits the fit; if it flattens, the noise in 
         a uniform, seeded subsample of a reservoir, split into train/ and holdout/ reservoirs
     run --data DIR --arch NAME --steps N --seed S --out DIR [--batch B] [--lr LR] [--device mps]
         fits one architecture on DIR/train and scores it on DIR/holdout
+    rescore --data DIR --runs DIR.. [--device mps]
+        re-scores saved runs on the holdout (must match) and on a uniform sample of training rows
     report --runs DIR.. --out FILE
         one table over the runs (JSON); also printed as Markdown
 
@@ -174,6 +176,39 @@ def score(pred, data):
     return out
 
 
+def train_sample(train, k, seed):
+    """A seeded uniform sample of training rows, as many as the holdout, to compare with it.
+    (Not the first rows: the subsample keeps the reservoir's order, and its first rows are all warm.)"""
+    n = len(train['features'])
+    idx = np.sort(np.random.default_rng(seed + 1).choice(n, min(n, k), replace=False))
+    return {key: v[idx] for key, v in train.items()}
+
+
+def train_score(s):
+    return {'all': s['all'], 'warm': s['warm'], 'deep_cfr': s['deep_cfr'], 'sample': 'seeded uniform, as many rows as the holdout'}
+
+
+def rescore(args):
+    """Re-score saved runs: the holdout again (it must match) and the training sample."""
+    import torch
+    device = torch.device(args.device)
+    train, features = arrays(Path(args.data) / 'train')
+    hold, _ = arrays(Path(args.data) / 'holdout')
+    for folder in map(Path, args.runs):
+        result = json.loads((folder / 'result.json').read_text())
+        model = build(torch, features, result['spec'])
+        model.load_state_dict(torch.load(folder / 'weights.pt', map_location='cpu'))
+        model.to(device)
+        h = score(predict(torch, model, hold, device), hold)['all']
+        if not math.isclose(h['mse'], result['holdout']['all']['mse'], rel_tol=1e-3):
+            raise RuntimeError(f"{folder}: holdout {h['mse']} != recorded {result['holdout']['all']['mse']}")
+        sub = train_sample(train, len(hold['features']), result['seed'])
+        result['train_rows_first_rows'] = result.pop('train_rows')
+        result['train_rows'] = train_score(score(predict(torch, model, sub, device), sub))
+        (folder / 'result.json').write_text(json.dumps(result, indent=1) + '\n')
+        print(json.dumps({'arch': result['arch'], 'holdout_mse': h['mse'], 'train': {k: result['train_rows'][k]['mse'] for k in ('all', 'warm', 'deep_cfr')}}), flush=True)
+
+
 def run(args):
     import torch
     device = torch.device(args.device)
@@ -210,14 +245,12 @@ def run(args):
                             'holdout_mse': h['mse'], 'seconds': time.time() - start})
             print(json.dumps({'arch': args.arch, **history[-1]}), flush=True)
     seconds = time.time() - start
-    # The training subsample's own error on as many rows as the holdout shows any overfitting.
-    k = min(n, len(hold['features']))
-    sub = {key: v[:k] for key, v in train.items()}
+    sub = train_sample(train, len(hold['features']), args.seed)
     result = {'format': 'neural-capacity-sweep-run-v1', 'arch': args.arch, 'spec': spec, 'parameters': int(params),
               'steps': args.steps, 'batch': args.batch, 'lr': args.lr, 'seed': args.seed, 'device': str(device),
               'data': json.loads((Path(args.data) / 'subsample.json').read_text()), 'seconds': seconds,
               'holdout': score(predict(torch, model, hold, device), hold),
-              'train_rows': score(predict(torch, model, sub, device), sub)['all'], 'history': history}
+              'train_rows': train_score(score(predict(torch, model, sub, device), sub)), 'history': history}
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=False)
     torch.save(model.cpu().state_dict(), out / 'weights.pt')
@@ -233,7 +266,8 @@ def report(args):
     for r in runs:
         h = r['holdout']
         rows.append({'arch': r['arch'], 'parameters': r['parameters'], 'steps': r['steps'], 'minutes': r['seconds'] / 60,
-                     'train_mse': r['train_rows']['mse'], 'holdout_mse': h['all']['mse'], 'holdout_weighted_mse': h['all']['weighted_mse'],
+                     'train_mse': r['train_rows']['all']['mse'], 'train_warm_mse': r['train_rows']['warm']['mse'],
+                     'train_deep_cfr_mse': r['train_rows']['deep_cfr']['mse'], 'holdout_mse': h['all']['mse'], 'holdout_weighted_mse': h['all']['weighted_mse'],
                      'warm_mse': (h['warm'] or {}).get('mse'), 'deep_cfr_mse': (h['deep_cfr'] or {}).get('mse'),
                      'river_mse': (h['by_street']['river'] or {}).get('mse'), 'tv_to_target_policy': h['all']['tv_to_target_policy']})
     Path(args.out).write_text(json.dumps({'format': 'neural-capacity-sweep-report-v1', 'runs': rows}, indent=1) + '\n')
@@ -263,11 +297,15 @@ def main(argv=None):
     r.add_argument('--seed', type=int, required=True)
     r.add_argument('--device', default='cpu')
     r.add_argument('--out', required=True)
+    q = sub.add_parser('rescore')
+    q.add_argument('--data', required=True)
+    q.add_argument('--runs', nargs='+', required=True)
+    q.add_argument('--device', default='cpu')
     t = sub.add_parser('report')
     t.add_argument('--runs', nargs='+', required=True)
     t.add_argument('--out', required=True)
     a = p.parse_args(argv)
-    {'subsample': subsample, 'run': run, 'report': report}[a.command](a)
+    {'subsample': subsample, 'run': run, 'rescore': rescore, 'report': report}[a.command](a)
 
 
 if __name__ == '__main__':

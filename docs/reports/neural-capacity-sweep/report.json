@@ -1,0 +1,80 @@
+{
+ "format": "neural-capacity-sweep-report-v1",
+ "runs": [
+  {
+   "arch": "mlp-0.5m",
+   "parameters": 478854,
+   "steps": 10000,
+   "minutes": 3.4684457341829935,
+   "train_mse": 706.2478637695312,
+   "train_warm_mse": 89.28571319580078,
+   "train_deep_cfr_mse": 1180.0201416015625,
+   "holdout_mse": 915.99658203125,
+   "holdout_weighted_mse": 569.343994140625,
+   "warm_mse": 108.60968780517578,
+   "deep_cfr_mse": 1538.33935546875,
+   "river_mse": 1476.633544921875,
+   "tv_to_target_policy": 0.41229546070098877
+  },
+  {
+   "arch": "mlp-2m",
+   "parameters": 2205190,
+   "steps": 10000,
+   "minutes": 7.269991099834442,
+   "train_mse": 496.95220947265625,
+   "train_warm_mse": 81.58841705322266,
+   "train_deep_cfr_mse": 815.9149780273438,
+   "holdout_mse": 835.0206298828125,
+   "holdout_weighted_mse": 525.6716918945312,
+   "warm_mse": 115.12506103515625,
+   "deep_cfr_mse": 1389.9241943359375,
+   "river_mse": 1316.75341796875,
+   "tv_to_target_policy": 0.3925022482872009
+  },
+  {
+   "arch": "mlp-13m",
+   "parameters": 12754950,
+   "steps": 10000,
+   "minutes": 46.669959668318434,
+   "train_mse": 355.8017883300781,
+   "train_warm_mse": 74.34187316894531,
+   "train_deep_cfr_mse": 571.9381103515625,
+   "holdout_mse": 836.3902587890625,
+   "holdout_weighted_mse": 528.0814208984375,
+   "warm_mse": 118.4432144165039,
+   "deep_cfr_mse": 1389.7918701171875,
+   "river_mse": 1312.3922119140625,
+   "tv_to_target_policy": 0.37031862139701843
+  },
+  {
+   "arch": "res-15m",
+   "parameters": 15128070,
+   "steps": 10000,
+   "minutes": 70.92351881663005,
+   "train_mse": 564.2169189453125,
+   "train_warm_mse": 86.7175064086914,
+   "train_deep_cfr_mse": 930.8942260742188,
+   "holdout_mse": 856.7285766601562,
+   "holdout_weighted_mse": 536.6986083984375,
+   "warm_mse": 111.81083679199219,
+   "deep_cfr_mse": 1430.919677734375,
+   "river_mse": 1346.0101318359375,
+   "tv_to_target_policy": 0.398520290851593
+  },
+  {
+   "arch": "cards-15m",
+   "parameters": 15501958,
+   "steps": 10000,
+   "minutes": 71.89986368020375,
+   "train_mse": 585.0969848632812,
+   "train_warm_mse": 87.19306182861328,
+   "train_deep_cfr_mse": 967.443115234375,
+   "holdout_mse": 823.3504028320312,
+   "holdout_weighted_mse": 517.0256958007812,
+   "warm_mse": 110.01225280761719,
+   "deep_cfr_mse": 1373.199462890625,
+   "river_mse": 1275.4061279296875,
+   "tv_to_target_policy": 0.38811033964157104
+  }
+ ]
+}

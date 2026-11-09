@@ -80,6 +80,11 @@ def test_run_and_report_end_to_end(tmp_path, monkeypatch):
         assert set(r['holdout']['by_street']) == {'preflop', 'flop', 'turn', 'river'}
         assert r['holdout']['warm']['rows'] + r['holdout']['deep_cfr']['rows'] == r['holdout']['all']['rows']
         runs.append(str(out))
+        assert r['train_rows']['warm']['rows'] + r['train_rows']['deep_cfr']['rows'] == r['train_rows']['all']['rows']
+    before = json.loads((tmp_path / 'tiny-mlp' / 'result.json').read_text())
+    sweep.rescore(args(data=str(tmp_path / 'data'), runs=runs, device='cpu'))
+    after = json.loads((tmp_path / 'tiny-mlp' / 'result.json').read_text())
+    assert after['train_rows'] == before['train_rows'] and after['holdout'] == before['holdout']
     sweep.report(args(runs=runs, out=str(tmp_path / 'report.json')))
     rep = json.loads((tmp_path / 'report.json').read_text())
     assert [r['arch'] for r in rep['runs']] == ['tiny-mlp', 'tiny-cards']
