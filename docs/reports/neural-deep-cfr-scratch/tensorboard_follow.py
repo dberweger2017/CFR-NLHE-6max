@@ -4,8 +4,9 @@
 
 It clears LOG_DIR at start, then every 30 seconds appends what's new in the run's own records, so it
 never touches training and can restart at any time. The scalars:
-- train/: minutes per iteration, nodes per traversal, the share of traverser decisions sampled past
-  the exploration depth, and the advantage network's final loss, by iteration;
+- train/: minutes per iteration, mean and largest nodes per traversal, the share of traverser
+  decisions sampled past the exploration bound, the river's share of advantage samples, and the
+  advantage network's final loss, by iteration;
 - eval/: each table's primary contrast against step 2's net1 (all-in adjusted BB/100), by iteration;
 - machine/: CPU, VRM and GPU temperature and memory used, by minute of the run.
 """
@@ -53,6 +54,10 @@ def write(run, w):
             w.add_scalar('train/nodes_per_traversal', it['nodes'] / it['traversals'], t, walltime=t3)
             explored, sampled = it['advantage_samples'], it.get('sampled_traverser_decisions', 0)
             w.add_scalar('train/sampled_decision_share', sampled / max(1, explored + sampled), t, walltime=t3)
+            w.add_scalar('train/max_nodes_per_traversal', it.get('max_nodes', 0), t, walltime=t3)
+            by_street = it.get('advantage_by_street')
+            if by_street:
+                w.add_scalar('train/river_advantage_share', by_street[3] / max(1, sum(by_street)), t, walltime=t3)
         tr = load(run / 'models' / f'adv{t}.train.json')
         if tr:
             w.add_scalar('train/advantage_loss', tr['final_loss'], t, walltime=t3)

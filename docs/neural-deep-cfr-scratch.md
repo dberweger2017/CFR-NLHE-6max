@@ -16,7 +16,7 @@ The recipe stays the pilot's wherever possible, so the scratch-versus-warm compa
 |---|---|---|---|
 | Start | 100 table iterations, pretrained advantage network | iteration 1 plays **uniformly** over legal labels | The usual first CFR iterate. A zero network would fold or check everywhere at iteration 1 (first label of highest zero regret). |
 | Strategy networks | start from step 2's imitation weights | **fresh initialization** | No teacher weights anywhere. |
-| Traverser exploration | every action at every traverser decision | every action at the traverser's first **D** decisions on a path, then one action drawn from the current strategy | The pilot stopped at iteration 310 when one traversal passed 50M nodes. See below. |
+| Traverser exploration | every action at every traverser decision | every action at the traverser's first **3 decisions per street** (at most 8 per path), then one action drawn from the current strategy | The pilot stopped at iteration 310 when one traversal passed 50M nodes. See below. |
 | Length | iterations 101–400 | a **24-hour** window | Fixed wall time instead of a fixed count, so the run can't stall on a slow tail. |
 | Final strategy fit | 20,000 steps | 20,000 steps | Unchanged. |
 | Reservoirs | HDD, moved to `/dev/shm` mid-run | `/dev/shm` from the start, with linger enabled and compressed snapshots | The pilot's HDD adds took 16–19 minutes. Its RAM copies were deleted at the stop because linger was off. |
@@ -25,24 +25,34 @@ Unchanged: player counts 3–6 (uniform), the wide stack grid, 20,000 traversals
 
 ### Bounded exploration
 
-External sampling explores all six labels at each traverser decision, so a traversal grows about sixfold per traverser decision. Long minimum-raise sequences at deep stacks give the traverser dozens of decisions in one hand. In the pilot, nodes per traversal rose from 135 to about 300, and then one traversal passed the 50M limit.
+External sampling explores all six labels at each traverser decision, so a traversal grows about sixfold per traverser decision. In the pilot, nodes per traversal rose from 135 to about 300, then one traversal at iteration 310 passed the 50M-node limit. Long raising sequences at deep stacks are the likely cause; the failing hand wasn't identified.
 
-**The rule:** after the traverser has explored at D decisions on the current path, it draws one action from the current strategy at later decisions instead.
-- The value passed upward is still an unbiased estimate of the node's value under the current strategy profile, so regrets at the explored decisions stay unbiased. Their variance rises. A test checks the root value against full exploration.
-- Decisions past depth D write no advantage sample, and the network predicts them by generalization. Each iteration reports how many traverser decisions were sampled instead of explored.
-- The bound only applies past D. With an unbounded D, traversals are byte-identical to the pilot's (tested).
+**The rule:** the traverser explores every action at its first **3 decisions in each betting round** and at most **8 on the whole path**. Past either limit, it draws one action from the current strategy.
+- The value passed upward is still an unbiased estimate of the node's value under the current profile, so regrets at explored decisions stay unbiased, with more variance. Tests compare the root value against full exploration at 3 players (total 1), 6 players (total 2) and 6 players (1 per street, total 3).
+- Decisions past the bound write no advantage sample. The limit is **per street**, so it targets raising wars inside one round without starving later streets. A total-only limit sampled every river decision once the traverser had acted enough earlier. Each iteration reports advantage samples and sampled decisions by street, and the largest traversal.
+- With no bound, traversals are byte-identical to the pilot's (tested).
 
-**Choosing D, before the run:** at iteration 1 (uniform play, the most raise-heavy strategy the run is likely to see), on 2,000 traversals, take the largest D in {3, 4, 5, 6, 7, 8} whose mean is at most **600 nodes per traversal**. If even D = 3 exceeds it, the run stops and reports. That's twice the pilot's late-run size, and about 100 s of traversing per iteration on bb128. The measurements and the chosen D go in the PR before iteration 1.
+**Bound study** ([files](reports/neural-deep-cfr-scratch/bound-study)), run before the run on the bounded binary. The bound was fixed from it before any training iteration.
+
+| Strategy | Bound (per street / total) | Mean nodes | Largest | Traverser decisions sampled | River advantage samples | Seconds |
+|---|---|---|---|---|---|---|
+| Uniform, iteration 1, 2,000 traversals | 1 / none | 44 | 205 | 56% | 1,628 | 0.7 |
+| | 2 / none | 135 | 1,321 | 17% | 16,459 | 1.9 |
+| | 2 / 6 | 123 | 925 | 27% | 9,973 | 1.8 |
+| | 3 / 8 | 181 | 2,166 | 9% | 23,176 | 2.6 |
+| Pilot's `adv309`, iteration 310's 20,000 traversals (the stopped iteration) | 2 / none | 201 | 3,655 | 13% | 322,253 | 26.3 |
+| | 3 / 8 | 258 | 6,244 | 8% | 436,573 | 34.8 |
+
+The iteration that stopped the pilot after 28 minutes completes in 35 seconds under 3 / 8, with its largest traversal at 6,244 nodes. A total of 6 cuts the river's samples by 40% at uniform play. 3 / 8 keeps 92% of traverser decisions explored under the pilot's late strategy, for 8.5 more seconds per iteration than 2 / none. The total of 8 caps the worst case at 6^8 explored paths. The run's largest traversal per iteration is on TensorBoard, and the 50M node limit stays an error.
 
 ## Schedule on bb128
 
 1. **Qualification:** native tests with the K50 tables, including the new depth tests; Python tests; GPU check; f32 parity; thread independence (16 versus 7 threads, bounded traversals).
 2. **Smoke:** three toy iterations from the uniform network, a strategy network and a smoke evaluation.
-3. **Depth calibration,** as above.
-4. **Training window:** 24 hours from the start of iteration 1. No iteration starts after the window closes; the last fully completed iteration is final, chosen by time, not by score.
-5. **Monitoring** at iterations 25, 50, 100, 200, 300, 400, 800 and 1,200, if reached inside the window. Each one fits a strategy network (4,000 steps, fresh) and plays it against step 2's network (`net1`) on the eight tables' primary fields, 512 blocks each. These are learning diagnostics, not gates, and no checkpoint is selected from them. Iteration 300 also gives an equal-iteration look against the pilot's `strategy300-s4000`.
-6. **Final fit:** 20,000 steps, fresh, at the final iteration.
-7. **Final evaluation, one bank of 4,096 blocks per table and field on the eight tables of step 4:**
+3. **Training window:** 24 hours from the start of iteration 1. No iteration starts after the window closes; the last fully completed iteration is final, chosen by time, not by score.
+4. **Monitoring** at iterations 25, 50, 100, 200, 300, 400, 800 and 1,200, if reached inside the window. Each one fits a strategy network (4,000 steps, fresh) and plays it against step 2's network (`net1`) on the eight tables' primary fields, 512 blocks each. These are learning diagnostics, not gates, and no checkpoint is selected from them. Iteration 300 also gives an equal-iteration look against the pilot's `strategy300-s4000`.
+5. **Final fit:** 20,000 steps, fresh, at the final iteration.
+6. **Final evaluation, one bank of 4,096 blocks per table and field on the eight tables of step 4:**
    - **E1, scratch against `net1`:** the pilot's own roots (`20261109500000…`), so the scratch and warm readings play the same deals.
    - **E2, scratch against the warm pilot's `strategy300-s4000`:** fresh roots `20261110500000 + 1000·bank + case`.
 
@@ -58,7 +68,7 @@ These parts of issue 475 are deliberately left out:
 - **RunPod:** bb128 is free.
 - **Two-player roots, heads-up anchors and the off-grid stack panel:** they need new arena cases and baselines. Keeping the pilot's root law and evaluation makes the scratch-versus-warm comparison direct, which is the decision this run informs. Transfer to new stacks and player counts is a follow-up once a recipe works.
 - **Fresh advantage initialization every iteration with 1,000 steps:** that's under a third of an epoch on a full 30M reservoir, so the fits would be mostly noise. The pilot's continued fit learned in practice, and changing it would confound the comparison.
-- **An exact-exploitability small game:** the traversal is hold'em-specific, so a separate small game wouldn't test the code that runs. Instead, the depth bound gets direct tests: an unbounded depth equals the pilot's traversal byte for byte, and the root value is unbiased.
+- **An exact-exploitability small game:** the traversal is hold'em-specific, so a separate small game wouldn't test the code that runs. Instead, the bound gets direct tests: no bound equals the pilot's traversal byte for byte, and the root value is unbiased at 3 and 6 players.
 
 ## Live view
 
@@ -74,5 +84,5 @@ TensorBoard on bb128 (`http://100.99.57.8:6006`, on Tailscale) mirrors the run's
 ## Where the results go
 
 - **In this PR:** the report, per-iteration history (`iterations.csv`), stage log, resources, qualification receipts, evaluation summaries and every network's SHA-256, under [`docs/reports/neural-deep-cfr-scratch/`](reports/neural-deep-cfr-scratch).
-- **On bb128:** the full evidence tree in `/home/dberweger/neural-deep-cfr-scratch-20261109`: every advantage and strategy network, evaluation traces and receipts. The latest reservoir snapshot goes to `/mnt/data2tb/neural-deep-cfr-scratch-20261109`. A SHA-256 manifest of the whole tree is committed here before merging.
+- **On bb128:** the full evidence tree in `/home/dberweger/neural-deep-cfr-scratch-20261109`: every advantage and strategy network, evaluation traces and receipts. The latest reservoir snapshot (every 100 iterations, so a reboot loses at most about 2 hours; written beside the previous copy, checked, then renamed) goes to `/mnt/data2tb/neural-deep-cfr-scratch-20261109`. A SHA-256 manifest of the whole tree is committed here before merging.
 - **Long-term:** bb128's storage process packages that tree into `gdrive:PR-477-neural-deep-cfr-scratch/` and records it in `RESULTS_INDEX.md`, with retrieval commands for the final network.

@@ -36,9 +36,10 @@ MONITOR_STEPS=4000
 FINAL_STEPS=20000
 WINDOW=86400
 MONITOR="25 50 100 200 300 400 800 1200"
-SNAPSHOT_EVERY=200
-DEPTHS="3 4 5 6 7 8"
-DEPTH_NODES=600
+SNAPSHOT_EVERY=100   # a reboot loses at most 100 iterations (about 2 hours)
+# Exploration bound, fixed from the bound study (docs/neural-deep-cfr-scratch.md).
+PER_STREET=3
+DEPTH=8
 cd $S
 mkdir -p $W/qualification $W/models $W/iterations $W/monitor $H $R
 [ "$(loginctl show-user "$USER" -p Linger --value)" = yes ] || { echo "linger is off: /dev/shm would not survive logout" >&2; exit 2; }
@@ -55,8 +56,8 @@ if [ ! -e $P/receipt.json ]; then
   stage qualification
   (cd native/hu20-trainer && HU20_K50_TABLES=$K50 ~/.cargo/bin/cargo test --release --locked --lib \
      && ~/.cargo/bin/cargo test --release --locked --example nplayer_paired_arena -- --test-threads=1) > $P/native-tests.log 2>&1
-  grep -q "exploration_depth_bounds_the_tree_and_only_drops_deep_advantage_samples ... ok" $P/native-tests.log
-  grep -q "sampling_past_the_depth_keeps_the_root_value_unbiased ... ok" $P/native-tests.log
+  grep -q "exploration_bounds_limit_the_tree_and_only_drop_bounded_advantage_samples ... ok" $P/native-tests.log
+  grep -q "sampling_past_the_bound_keeps_the_root_value_unbiased ... ok" $P/native-tests.log
   $TORCH -m pytest -q tests/test_neural_deep_cfr.py tests/test_neural_policy_everywhere.py tests/test_neural_policy_fallback.py >> $P/native-tests.log 2>&1
   $TORCH -m scripts.check_gpu > $P/gpu.json
   [ "$(sha $NET1)" = $NET1_SHA ]
@@ -68,22 +69,22 @@ if [ ! -e $P/receipt.json ]; then
   $DCFR export --model $P/uniform --out $P/uniform.npnet > /dev/null
   for T in 16 7; do
     $B/nplayer_deep_cfr traverse --advantage $P/uniform.npnet $(sha $P/uniform.npnet) --tables $K50 --seed 1 --iteration 1 \
-      --traversals 3000 --players $PLAYERS --explore-depth 4 --threads $T --out $P/threads$T.npdcf > $P/threads$T.json
+      --traversals 3000 --players $PLAYERS --explore-per-street $PER_STREET --explore-depth $DEPTH --threads $T --out $P/threads$T.npdcf > $P/threads$T.json
   done
   [ "$(json $P/threads16.json "['records_sha256']")" = "$(json $P/threads7.json "['records_sha256']")" ]
   rm -f $P/threads*.npdcf
-  echo '{"native_tests":"passed","depth_tests":"passed","python_tests":"passed","gpu":"passed","pins":"verified","thread_determinism":"passed"}' > $P/receipt.json
+  echo '{"native_tests":"passed","bound_tests":"passed","python_tests":"passed","gpu":"passed","pins":"verified","thread_determinism":"passed"}' > $P/receipt.json
   stage qualification-passed
 fi
 
-iteration() {  # root T traversals capacity depth buffers
-  local D=$1 T=$2 N=$3 C=$4 DEPTH=$5 BUF=$6
+iteration() {  # root T traversals capacity buffers
+  local D=$1 T=$2 N=$3 C=$4 BUF=$5
   local M=$D/models/adv$T PNET=$D/models/adv$(($2 - 1)).npnet
   [ -e $M.npnet ] && return 0
   local OUT=$D/iterations/it$T.npdcf t0 t1 t2 t3
   t0=$(date +%s.%N)
   [ -e $D/iterations/it$T.json ] || { rm -f $OUT; $G $B/nplayer_deep_cfr traverse --advantage $PNET $(sha $PNET) --tables $K50 \
-      --seed $SEED --iteration $T --traversals $N --players $PLAYERS --explore-depth $DEPTH --out $OUT > $D/iterations/it$T.json; }
+      --seed $SEED --iteration $T --traversals $N --players $PLAYERS --explore-per-street $PER_STREET --explore-depth $DEPTH --out $OUT > $D/iterations/it$T.json; }
   t1=$(date +%s.%N)
   if [ -e $OUT ]; then
     $G $DCFR add --samples $OUT --advantage-buffer $BUF/advantage --strategy-buffer $BUF/strategy --capacity $C --seed $SEED \
@@ -126,13 +127,22 @@ evaluation() {  # dir mode candidate.npnet start.npnet start-sha [--smoke]
     $EVAL report --out $O --results $E/results $F > /dev/null; }
 }
 snapshot() {  # iteration: one compressed copy of both reservoirs on the HDD, replacing the last
-  local T=$1
+  local T=$1 NEED FREE
   [ "$(json $H/snapshot.json "['iteration']" 2>/dev/null || echo 0)" = $T ] && return 0
   stage "snapshot-$T"
-  # The HDD can't hold two copies, so the old one goes first; between the two, the reservoirs can
-  # still be rebuilt by replaying the deterministic traversals from the kept advantage networks.
-  rm -f $H/snapshot.tar.zst $H/snapshot.json
-  tar -C $R -cf - buffers | zstd -T16 -3 -q -o $H/snapshot.tar.zst
+  # Write the new copy beside the old one, check it, then rename it over. Only if the HDD can't
+  # hold both (the last copy's size plus the guard's 20 GB and 5 GB of slack) does the old copy go
+  # first; the reservoirs can still be rebuilt by replaying the deterministic traversals.
+  NEED=$(( $(stat -c %s $H/snapshot.tar.zst 2>/dev/null || echo 0) / 1073741824 + 25 ))
+  FREE=$(df --output=avail -B1G $H | tail -1 | tr -d ' ')
+  if [ -e $H/snapshot.tar.zst ] && [ $FREE -lt $NEED ]; then
+    rm -f $H/snapshot.tar.zst $H/snapshot.json
+    echo "{\"snapshot\":$T,\"replaced_in_place\":true,\"free_gb\":$FREE,\"need_gb\":$NEED}" >> $W/snapshots.jsonl
+  fi
+  rm -f $H/snapshot.tmp.tar.zst
+  tar -C $R -cf - buffers | zstd -T16 -3 -q -o $H/snapshot.tmp.tar.zst
+  zstd -t -q $H/snapshot.tmp.tar.zst
+  mv -f $H/snapshot.tmp.tar.zst $H/snapshot.tar.zst
   printf '{"iteration":%d,"sha256":"%s","bytes":%d,"at":"%s"}\n' $T $(sha $H/snapshot.tar.zst) $(stat -c %s $H/snapshot.tar.zst) \
     "$(date -u +%FT%TZ)" > $H/snapshot.json
   cat $H/snapshot.json >> $W/snapshots.jsonl
@@ -145,7 +155,7 @@ if [ ! -e $K/eval/results/results.json ]; then
   mkdir -p $K/models $K/iterations
   [ -e $K/models/adv0.npnet ] || { $DCFR init --hidden $ADV_HIDDEN --layout $LAYOUT --seed $SEED --uniform --out $K/models/adv0 > /dev/null; \
     $DCFR export --model $K/models/adv0 --out $K/models/adv0.npnet > /dev/null; }
-  for T in 1 2 3; do ADV_STEPS=50 iteration $K $T 500 200000 4 $K/buffers; done
+  for T in 1 2 3; do ADV_STEPS=50 iteration $K $T 500 200000 $K/buffers; done
   strategy $K $K/buffers 3 200 $SEED
   evaluation $K/eval monitor-3 $K/models/strategy3-s200.npnet $NET1 $NET1_SHA --smoke
   stage smoke-passed
@@ -155,25 +165,6 @@ fi
 [ -e $W/models/adv0.npnet ] || { $DCFR init --hidden $ADV_HIDDEN --layout $LAYOUT --seed $SEED --uniform --out $W/models/adv0 > /dev/null; \
   $DCFR export --model $W/models/adv0 --out $W/models/adv0.npnet > /dev/null; }
 
-# Exploration depth: the largest D whose iteration-1 traversals (uniform play) average at most
-# DEPTH_NODES nodes. Nodes grow with D, so measuring stops at the first D over the bar.
-if [ ! -e $W/depth.json ]; then
-  stage depth-calibration
-  mkdir -p $W/depth
-  CHOSEN=0
-  for D in $DEPTHS; do
-    $G $B/nplayer_deep_cfr traverse --advantage $W/models/adv0.npnet $(sha $W/models/adv0.npnet) --tables $K50 --seed $SEED \
-      --iteration 1 --traversals 2000 --players $PLAYERS --explore-depth $D --out $W/depth/d$D.npdcf > $W/depth/d$D.json
-    rm -f $W/depth/d$D.npdcf
-    MEAN=$(json $W/depth/d$D.json "['nodes']/2000")
-    $PY -c "import sys;sys.exit(0 if $MEAN <= $DEPTH_NODES else 1)" || break
-    CHOSEN=$D
-  done
-  [ $CHOSEN -gt 0 ] || { echo "no depth in $DEPTHS stays under $DEPTH_NODES nodes per traversal" >&2; exit 4; }
-  echo "{\"explore_depth\":$CHOSEN,\"rule\":\"largest D in [$DEPTHS] with mean nodes per traversal <= $DEPTH_NODES at iteration 1\"}" > $W/depth.json
-  stage "depth-$CHOSEN"
-fi
-DEPTH=$(json $W/depth.json "['explore_depth']")
 
 # The 24-hour training window.
 ln -sfn $R/buffers $W/buffers
@@ -183,7 +174,7 @@ stage deep-cfr
 T=1
 while [ -e $W/models/adv$T.npnet ]; do T=$((T + 1)); done
 while [ "$(date +%s)" -lt $END ]; do
-  iteration $W $T $TRAVERSALS $CAPACITY $DEPTH $R/buffers
+  iteration $W $T $TRAVERSALS $CAPACITY $R/buffers
   if [[ " $MONITOR " == *" $T "* ]] && [ ! -e $W/monitor/it$T/results/results.json ]; then
     stage "monitor-$T"
     strategy $W $R/buffers $T $MONITOR_STEPS $((SEED + 100000 + T))
