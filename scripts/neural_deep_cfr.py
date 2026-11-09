@@ -1,6 +1,7 @@
 """Deep CFR training for the neural-policy track, step 5 (docs/neural-deep-cfr.md).
 
-    init      --hidden H,H,.. --seed S --layout SHA --out DIR        a zero-output advantage network
+    init      --hidden H,H,.. --seed S --layout SHA --out DIR [--uniform]
+                                                     a constant-output advantage network
     warm      --features NPFEAT.. --regrets NPREG.. --iterations T --per-iteration N
               --advantage-buffer DIR --strategy-buffer DIR --capacity C --seed S
                                                      the table's regrets and strategy as buffer samples
@@ -138,17 +139,19 @@ def save_model(torch, model, folder, meta):
 
 
 def init(args):
-    """A zero-output advantage network: regret matching then plays the first legal label of
-    highest (zero) regret, so the first iteration is deterministic and table-free."""
+    """A constant-output advantage network. Zero outputs make regret matching play the first legal
+    label of highest (zero) regret; `--uniform` sets every output to 1, so regret matching plays
+    uniformly over the legal labels, the usual first CFR iterate."""
     import torch
     torch.manual_seed(args.seed)
     hidden = [int(h) for h in args.hidden.split(',')]
     model = network(torch, args.features, hidden)
     with torch.no_grad():
         model[-1].weight.zero_()
-        model[-1].bias.zero_()
+        model[-1].bias.fill_(1.0 if args.uniform else 0.0)
     meta = save_model(torch, model, args.out, {'kind': 'advantage', 'output': 'advantage-6', 'features': args.features,
-                                               'hidden': hidden, 'layout_sha256': args.layout, 'seed': args.seed, 'steps': 0})
+                                               'hidden': hidden, 'layout_sha256': args.layout, 'seed': args.seed, 'steps': 0,
+                                               'initial_output': 1.0 if args.uniform else 0.0})
     print(json.dumps({'out': args.out, 'weights_sha256': meta['weights_sha256']}))
 
 
@@ -311,6 +314,7 @@ def main(argv=None):
     i.add_argument('--layout', required=True)
     i.add_argument('--seed', type=int, required=True)
     i.add_argument('--out', required=True)
+    i.add_argument('--uniform', action='store_true')
     for name in ('warm', 'add'):
         a = sub.add_parser(name)
         a.add_argument('--advantage-buffer', required=True)

@@ -1,7 +1,7 @@
 //! Deep CFR traversals and the network bench (docs/neural-deep-cfr.md).
 //!
 //!     nplayer_deep_cfr traverse --advantage NET SHA256 --tables K50 --seed S --iteration T
-//!         --traversals K --players 3,4,5,6 [--threads N] --out SAMPLES
+//!         --traversals K --players 3,4,5,6 [--explore-depth D] [--threads N] --out SAMPLES
 //!     nplayer_deep_cfr bench --network NET SHA256 --tables K50 [--seconds S] [--threads N]
 //!
 //! `traverse` writes one sample file (`NPDCF001`, a JSON header, then fixed-size records in
@@ -71,12 +71,17 @@ fn traverse(m: &HashMap<String, Vec<String>>) -> Result<(), String> {
     }
     let players: Vec<usize> = one(m, "players")?.split(',').map(|p| p.parse().map_err(|_| "players: comma list".to_string())).collect::<Result<_, _>>()?;
     deep_cfr::root(seed, iteration, 0, &players)?;
+    let depth = if m.contains_key("explore-depth") { Some(number(m, "explore-depth")? as u32) } else { None };
     let out = Path::new(one(m, "out")?);
     let fast = net.fast();
     let header = json!({"format":deep_cfr::FORMAT,"features_schema":features::SCHEMA,"layout_sha256":features::layout_sha256(),
         "feature_count":features::len(),"record_bytes":deep_cfr::record_bytes(),"record_layout":deep_cfr::record_layout(),
         "advantage_network":{"sha256":net.sha256,"header":net.header},"card_tables":tables.sha256,
         "seed":seed,"iteration":iteration,"traversals":traversals,"players":players,"stacks":"wide-depth-grid-v1"});
+    let mut header = header;
+    if let Some(d) = depth {
+        header["explore_depth"] = json!(d);
+    }
     let hb = serde_json::to_vec(&header).map_err(|e| e.to_string())?;
     let file = std::fs::OpenOptions::new().write(true).create_new(true).open(out).map_err(|e| format!("{}: {e}", out.display()))?;
     let mut w = std::io::BufWriter::with_capacity(1 << 24, file);
@@ -90,7 +95,10 @@ fn traverse(m: &HashMap<String, Vec<String>>) -> Result<(), String> {
     while first < traversals {
         let last = (first + CHUNK).min(traversals);
         let results: Vec<Result<(Vec<u8>, Counts, f64), String>> = (first..last).into_par_iter().map(|i| {
-            let mut t = Traversal::new(&fast, tables, iteration as u32);
+            let mut t = match depth {
+                Some(d) => Traversal::bounded(&fast, tables, iteration as u32, d),
+                None => Traversal::new(&fast, tables, iteration as u32),
+            };
             let v = t.run(seed, i, &players)?;
             Ok((t.out, t.counts, v))
         }).collect();
@@ -107,7 +115,7 @@ fn traverse(m: &HashMap<String, Vec<String>>) -> Result<(), String> {
     let seconds = start.elapsed().as_secs_f64();
     println!("{}", json!({"out":out,"records_sha256":format!("{:x}", digest.finalize()),"traversals":counts.traversals,
         "nodes":counts.nodes,"terminals":counts.terminals,"advantage_samples":counts.advantage,"strategy_samples":counts.strategy,
-        "mean_traverser_value_bb":value / traversals as f64,"seconds":seconds,"nodes_per_second":counts.nodes as f64 / seconds}));
+        "explore_depth":depth,"sampled_traverser_decisions":counts.sampled,"mean_traverser_value_bb":value / traversals as f64,"seconds":seconds,"nodes_per_second":counts.nodes as f64 / seconds}));
     Ok(())
 }
 

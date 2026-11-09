@@ -127,3 +127,17 @@ def test_the_pilot_evaluation_plays_both_networks_everywhere_on_step_4s_tables()
     assert all(t['fallback'] == ['network-all:start', 'network-all:dcfr'] for t in tables)
     assert {t['study'] for t in tables} == {'pilot-short', 'pilot-deep'}
     assert ev.verdict('pilot-short', 0.1, 1) == 'deep cfr better' and ev.verdict('pilot-deep', -2, -0.1) == 'start better'
+
+
+@pytest.mark.parametrize('uniform', [False, True])
+def test_init_sets_constant_outputs_for_the_first_iterate(tmp_path, uniform):
+    torch = pytest.importorskip('torch')
+    args = type('A', (), dict(hidden='8,4', features=F, layout='ab' * 32, seed=1, out=str(tmp_path / 'm'), uniform=uniform))()
+    dcfr.init(args)
+    meta = json.loads((tmp_path / 'm' / 'model.json').read_text())
+    model = dcfr.network(torch, F, [8, 4])
+    model.load_state_dict(torch.load(tmp_path / 'm' / 'weights.pt', weights_only=True))
+    out = model(torch.rand(5, F))
+    # Equal positive regrets on every label: regret matching is uniform over the legal labels.
+    assert torch.equal(out, torch.full_like(out, 1.0 if uniform else 0.0))
+    assert meta['initial_output'] == (1.0 if uniform else 0.0)

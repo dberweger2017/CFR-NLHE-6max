@@ -14,7 +14,7 @@ use crate::cards::EquityTables;
 use crate::multi_arena::stream_seed;
 use crate::multi_holdem::menu;
 use crate::multi_stacks::{live_draw, DepthGrid};
-use crate::nplayer::Hand;
+use crate::nplayer::{Action, Hand};
 use crate::policy_features::{self as features, ACTIONS};
 use crate::policy_network::Fast;
 use rand::{seq::SliceRandom, Rng, SeedableRng};
@@ -42,6 +42,8 @@ pub struct Counts {
     pub terminals: u64,
     pub advantage: u64,
     pub strategy: u64,
+    /// Traverser decisions past the exploration depth, where one action was sampled instead.
+    pub sampled: u64,
 }
 impl Counts {
     pub fn add(&mut self, o: &Counts) {
@@ -50,6 +52,7 @@ impl Counts {
         self.terminals += o.terminals;
         self.advantage += o.advantage;
         self.strategy += o.strategy;
+        self.sampled += o.sampled;
     }
 }
 
@@ -74,17 +77,30 @@ pub struct Traversal<'a> {
     pub iteration: u32,
     pub out: Vec<u8>,
     pub counts: Counts,
+    /// The traverser explores every action at its first `explore_depth` decisions on a path and
+    /// samples one action from the current strategy after that (unbounded: `u32::MAX`).
+    pub explore_depth: u32,
     scratch: [Vec<f32>; 2],
 }
 impl<'a> Traversal<'a> {
     pub fn new(net: &'a Fast, tables: &'a EquityTables, iteration: u32) -> Self {
-        Self { net, tables, iteration, out: Vec::new(), counts: Counts::default(), scratch: [Vec::new(), Vec::new()] }
+        Self { net, tables, iteration, out: Vec::new(), counts: Counts::default(), explore_depth: u32::MAX, scratch: [Vec::new(), Vec::new()] }
+    }
+    /// A traversal whose traverser stops exploring after `depth` of its own decisions on a path.
+    ///
+    /// Past that depth the traverser's action is drawn from the current strategy, so the value
+    /// returned upward is still an unbiased estimate of the node's value under the current profile;
+    /// those deeper decisions write no advantage sample. This bounds a traversal at 6^depth paths:
+    /// unbounded exploration grows sixfold with each traverser decision, which long minimum-raise
+    /// sequences at deep stacks turn into tens of millions of nodes.
+    pub fn bounded(net: &'a Fast, tables: &'a EquityTables, iteration: u32, depth: u32) -> Self {
+        Self { explore_depth: depth, ..Self::new(net, tables, iteration) }
     }
     /// Runs traversal `index` of `iteration`; returns the traverser's value in big blinds.
     pub fn run(&mut self, seed: u64, index: u64, players: &[usize]) -> Result<f64, String> {
         let (mut hand, traverser, mut rng) = root(seed, self.iteration as u64, index, players)?;
         self.counts.traversals += 1;
-        self.visit(&mut hand, traverser, &mut rng)
+        self.visit(&mut hand, traverser, 0, &mut rng)
     }
     fn record(&mut self, kind: u8, players: usize, street: usize, legal: u8, targets: &[f64; ACTIONS], bytes: &[u8]) {
         self.out.extend_from_slice(&[kind, players as u8, street as u8, legal]);
@@ -94,7 +110,8 @@ impl<'a> Traversal<'a> {
         }
         self.out.extend_from_slice(bytes);
     }
-    fn visit(&mut self, hand: &mut Hand, traverser: usize, rng: &mut rand::rngs::StdRng) -> Result<f64, String> {
+    /// `explored`: the traverser's decisions on this path that explored every action.
+    fn visit(&mut self, hand: &mut Hand, traverser: usize, explored: u32, rng: &mut rand::rngs::StdRng) -> Result<f64, String> {
         self.counts.nodes += 1;
         if self.counts.nodes > NODE_LIMIT {
             return Err("traversal node limit".into());
@@ -114,31 +131,17 @@ impl<'a> Traversal<'a> {
         if actor != traverser {
             self.record(STRATEGY, players, street, legal, &sigma, &bytes);
             self.counts.strategy += 1;
-            let draw: f64 = rng.gen();
-            let mut sum = 0.;
-            let mut pick = None;
-            for (i, (label, _)) in choices.iter().enumerate() {
-                let p = sigma[*label as usize];
-                if p > 0. {
-                    pick = Some(i);
-                    sum += p;
-                    if draw < sum {
-                        break;
-                    }
-                }
-            }
-            let action = choices[pick.ok_or("empty strategy")?].1;
-            let saved = hand.save();
-            hand.apply_mut(action)?;
-            let value = self.visit(hand, traverser, rng)?;
-            hand.restore(saved);
-            return Ok(value);
+            return self.follow(hand, traverser, explored, &choices, &sigma, rng);
+        }
+        if explored >= self.explore_depth {
+            self.counts.sampled += 1;
+            return self.follow(hand, traverser, explored, &choices, &sigma, rng);
         }
         let mut values = [0.; ACTIONS];
         for (label, action) in &choices {
             let saved = hand.save();
             hand.apply_mut(*action)?;
-            values[*label as usize] = self.visit(hand, traverser, rng)?;
+            values[*label as usize] = self.visit(hand, traverser, explored + 1, rng)?;
             hand.restore(saved);
         }
         let value: f64 = choices.iter().map(|(l, _)| sigma[*l as usize] * values[*l as usize]).sum();
@@ -148,6 +151,29 @@ impl<'a> Traversal<'a> {
         }
         self.record(ADVANTAGE, players, street, legal, &regrets, &bytes);
         self.counts.advantage += 1;
+        Ok(value)
+    }
+    /// Plays one action drawn from `sigma` and continues the traversal below it.
+    fn follow(&mut self, hand: &mut Hand, traverser: usize, explored: u32, choices: &[(u8, Action)], sigma: &[f64; ACTIONS],
+              rng: &mut rand::rngs::StdRng) -> Result<f64, String> {
+        let draw: f64 = rng.gen();
+        let mut sum = 0.;
+        let mut pick = None;
+        for (i, (label, _)) in choices.iter().enumerate() {
+            let p = sigma[*label as usize];
+            if p > 0. {
+                pick = Some(i);
+                sum += p;
+                if draw < sum {
+                    break;
+                }
+            }
+        }
+        let action = choices[pick.ok_or("empty strategy")?].1;
+        let saved = hand.save();
+        hand.apply_mut(action)?;
+        let value = self.visit(hand, traverser, explored, rng)?;
+        hand.restore(saved);
         Ok(value)
     }
 }
@@ -230,4 +256,61 @@ mod tests {
             }
         }
     }
+
+    #[test]
+    fn exploration_depth_bounds_the_tree_and_only_drops_deep_advantage_samples() {
+        let Some(t) = tables() else { return };
+        // Positive regrets on every label: a uniform current strategy, which makes long raise sequences common.
+        let net = constant([1.; ACTIONS]);
+        let fast = net.fast();
+        let (mut free, mut wide, mut zero) = (Traversal::new(&fast, t, 1), Traversal::bounded(&fast, t, 1, u32::MAX), Traversal::bounded(&fast, t, 1, 0));
+        let mut two = Traversal::bounded(&fast, t, 1, 2);
+        for i in 0..30 {
+            assert_eq!(free.run(9, i, &[3, 6]).unwrap(), wide.run(9, i, &[3, 6]).unwrap());
+            zero.run(9, i, &[3, 6]).unwrap();
+            two.run(9, i, &[3, 6]).unwrap();
+        }
+        // An unbounded depth is the original traversal, byte for byte.
+        assert_eq!(free.out, wide.out);
+        assert_eq!((free.counts, free.counts.sampled), (wide.counts, 0));
+        // Depth 0: the traverser samples everywhere, so no advantage samples and a single path.
+        assert_eq!(zero.counts.advantage, 0);
+        assert!(zero.counts.sampled > 0 && zero.counts.strategy > 0);
+        assert!(zero.counts.nodes < two.counts.nodes && two.counts.nodes < free.counts.nodes);
+        assert!(two.counts.advantage > 0 && two.counts.sampled > 0);
+        // Bounded traversals stay deterministic.
+        let mut again = Traversal::bounded(&fast, t, 1, 2);
+        for i in 0..30 {
+            again.run(9, i, &[3, 6]).unwrap();
+        }
+        assert_eq!(again.out, two.out);
+    }
+
+    #[test]
+    fn sampling_past_the_depth_keeps_the_root_value_unbiased() {
+        // The traverser's root value under the current profile is the same whether the traverser
+        // explores or samples below: averaged over many sampled continuations of one fixed root, the
+        // two estimates agree within sampling error.
+        let Some(t) = tables() else { return };
+        let net = constant([0.1, 0.2, 1.0, -1.0, 0.5, -0.3]);
+        let fast = net.fast();
+        let n = 4000;
+        let (mut full, mut cut) = (Vec::with_capacity(n), Vec::with_capacity(n));
+        for k in 0..n as u64 {
+            // Same root (index 3), independent continuation streams per repetition.
+            let (mut hand, traverser, _) = root(17, 2, 3, &[3]).unwrap();
+            let mut ra = rand::rngs::StdRng::seed_from_u64(1_000_000 + k);
+            let mut rb = rand::rngs::StdRng::seed_from_u64(2_000_000 + k);
+            full.push(Traversal::new(&fast, t, 2).visit(&mut hand, traverser, 0, &mut ra).unwrap());
+            cut.push(Traversal::bounded(&fast, t, 2, 1).visit(&mut hand, traverser, 0, &mut rb).unwrap());
+        }
+        let stats = |v: &[f64]| {
+            let m = v.iter().sum::<f64>() / v.len() as f64;
+            (m, v.iter().map(|x| (x - m).powi(2)).sum::<f64>() / (v.len() - 1) as f64 / v.len() as f64)
+        };
+        let ((full, va), (cut, vb)) = (stats(&full), stats(&cut));
+        let se = (va + vb).sqrt();
+        assert!(se > 0. && (full - cut).abs() < 4. * se, "explored {full} sampled {cut} se {se}");
+    }
 }
+
