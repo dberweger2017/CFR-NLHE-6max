@@ -47,6 +47,9 @@ SNAPSHOT_EVERY=100   # a reboot loses at most 100 iterations (about 2 hours)
 # Exploration bound, fixed from the bound study (docs/neural-deep-cfr-scratch.md).
 PER_STREET=3
 DEPTH=8
+# Deviation (18:14 UTC Nov 10): the guard stopped iteration 65's traversal at CPU 91 C. Traversals
+# then use 12 of the 16 threads. Records don't depend on the thread count (qualification checks it).
+TRAVERSE_THREADS=12
 cd $S
 mkdir -p $W/qualification $W/models $W/iterations $W/monitor $H $R
 [ "$(loginctl show-user "$USER" -p Linger --value)" = yes ] || { echo "linger is off: /dev/shm would not survive logout" >&2; exit 2; }
@@ -91,8 +94,11 @@ iteration() {  # root T traversals capacity buffers
   [ -e $M.npnet ] && return 0
   local OUT=$D/iterations/it$T.npdcf t0 t1 t2 t3
   t0=$(date +%s.%N)
-  [ -e $D/iterations/it$T.json ] || { rm -f $OUT; $G $B/nplayer_deep_cfr traverse --advantage $PNET $(sha $PNET) --tables $K50 \
-      --seed $SEED --iteration $T --traversals $N --players $PLAYERS --explore-per-street $PER_STREET --explore-depth $DEPTH --out $OUT > $D/iterations/it$T.json; }
+  # The summary is written beside its final name and renamed when the traversal succeeds, so a stopped
+  # traversal leaves no empty it$T.json for a resume to mistake for a finished one.
+  [ -s $D/iterations/it$T.json ] || { rm -f $OUT; $G $B/nplayer_deep_cfr traverse --advantage $PNET $(sha $PNET) --tables $K50 \
+      --seed $SEED --iteration $T --traversals $N --players $PLAYERS --explore-per-street $PER_STREET --explore-depth $DEPTH \
+      --threads $TRAVERSE_THREADS --out $OUT > $D/iterations/it$T.json.tmp && mv $D/iterations/it$T.json.tmp $D/iterations/it$T.json; }
   t1=$(date +%s.%N)
   if [ -e $OUT ]; then
     $G $DCFR add --samples $OUT --advantage-buffer $BUF/advantage --strategy-buffer $BUF/strategy --capacity $C --seed $SEED \

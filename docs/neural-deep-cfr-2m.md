@@ -90,6 +90,11 @@ The evaluation takes about 6 hours on bb128, or can move to a Runpod CPU pod so 
 
 The checkpoint contrasts against `net1` are diagnostics, plotted beside run 1's. Each run is one seed, so a difference mixes the network change with run-to-run variance. That's an exploration read, not a strength claim, and no route, default or live play changes.
 
+## Deviations
+
+- **Thermal stop at 18:14 UTC, November 10 (plumbing).** The guard stopped iteration 65's traversal at CPU 91 °C. Run 2's denser network runs the i7-10700KF hotter than run 1, which peaked at 88 °C in 24 hours. The run resumed at iteration 65 with traversals on **12 of 16 threads**. Records don't depend on the thread count, as qualification checks, so only speed changes. The original window end stands, so the stop and the slower traversals count against run 2's equal-time comparison (E3); the report gives the lost time.
+- **Resume fix.** The stopped traversal had left an empty `it65.json`, which the resume would have read as a finished traversal and then added its partial samples. That partial output was deleted by hand. The controller now writes the summary under a temporary name and renames it on success.
+
 ## Storage, stops and live view
 
 - **Stops:** run 1's.
