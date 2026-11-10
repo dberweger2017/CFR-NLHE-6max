@@ -115,11 +115,11 @@ impl Critic {
 pub fn critic_features(
     hand: &Hand,
     focal: usize,
-    tables: &EquityTables,
+    tables: Option<&EquityTables>,
 ) -> Result<Vec<u8>, String> {
     let actor = hand.actor().ok_or("critic at terminal")?;
     let view = hand.observe(actor)?;
-    let mut x = features::quantize(&features::encode(&view, Some(tables))?);
+    let mut x = features::quantize(&features::encode(&view, tables)?);
     let focal_view = hand.observe(focal)?;
     for c in 0..52 {
         x.push(if focal_view.hole.contains(&c) { 255 } else { 0 });
@@ -195,7 +195,7 @@ impl<'a> Sampler<'a> {
             let p = self.strategy(h)?;
             let a = Self::pick(&p, rng);
             if h.actor() != Some(focal) {
-                records.push((critic_features(h, focal, self.tables)?, a));
+                records.push((critic_features(h, focal, Some(self.tables))?, a));
             }
             let action = menu(&h.observe(h.actor().unwrap())?)
                 .into_iter()
@@ -243,7 +243,7 @@ impl<'a> Sampler<'a> {
         let b = if actor != focal {
             if let Some(c) = self.critic {
                 self.calls += 1;
-                Some(c.predict(&critic_features(h, focal, self.tables)?))
+                Some(c.predict(&critic_features(h, focal, Some(self.tables))?))
             } else {
                 None
             }
@@ -374,6 +374,30 @@ mod tests {
         multi_cfr::State,
         small_games::{Kind, SmallGame},
     };
+    #[test]
+    fn critic_reads_no_future_cards_and_never_changes_actor_features() {
+        let config = Config::new(&[10000; 3], 50, 100).unwrap();
+        let mut deck: Vec<u8> = (0..52).collect();
+        let h = Hand::from_deck(config, 0, &deck).unwrap();
+        deck.swap(40, 41);
+        let future = Hand::from_deck(config, 0, &deck).unwrap();
+        assert_eq!(
+            critic_features(&h, 1, None).unwrap(),
+            critic_features(&future, 1, None).unwrap()
+        );
+        // Seat 1's hole cards occupy deck slots 0/3. Actor 0 cannot see them,
+        // while the training-only critic is explicitly allowed focal seat 1's cards.
+        deck.swap(0, 40);
+        let changed = Hand::from_deck(config, 0, &deck).unwrap();
+        assert_eq!(
+            features::encode(&h.observe(0).unwrap(), None).unwrap(),
+            features::encode(&changed.observe(0).unwrap(), None).unwrap()
+        );
+        assert_ne!(
+            critic_features(&h, 1, None).unwrap(),
+            critic_features(&changed, 1, None).unwrap()
+        );
+    }
     fn exact(h: crate::small_games::Hand, baseline: f64) -> (f64, f64) {
         if h.actor.is_none() {
             return (h.payoff(0), h.payoff(0));

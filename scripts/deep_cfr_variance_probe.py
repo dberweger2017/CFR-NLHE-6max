@@ -136,16 +136,24 @@ def ratios(rows, overhead, resamples=10000):
     def calc(items):
         v = [statistics.mean(r['variance'][a] for r in items) for a in (0, 1)]
         t = [sum(r['seconds'][a] for r in items) for a in (0, 1)]
-        if v[0] <= 0 or t[0] <= 0:
-            raise ValueError('zero control variance/time: no identifiable gain')
+        if t[0] <= 0:
+            raise ValueError('zero control time')
+        if v[0] <= 0:
+            return None
         ratio = v[1] / v[0]
         return ratio, ratio * (t[1] + overhead) / t[0]
-    plain, cost = calc(rows)
+    point = calc(rows)
     strata = {}
     for row in rows:
         strata.setdefault(row['stratum'], []).append(row)
     rng = random.Random(20261110850004)
     boot = [calc([rng.choice(group) for group in strata.values() for _ in group]) for _ in range(resamples)]
+    undefined = sum(b is None for b in boot)
+    if point is None or undefined:
+        return {'variance_ratio': point[0] if point else None, 'cost_ratio': point[1] if point else None,
+                'variance_interval': None, 'cost_interval': None, 'undefined_bootstrap_draws': undefined,
+                'status': 'inconclusive: zero sampled control variance', 'overhead_seconds': overhead}
+    plain, cost = point
     return {'variance_ratio': plain, 'variance_interval': [quantile([b[0] for b in boot], q) for q in (.025, .975)],
             'cost_ratio': cost, 'cost_interval': [quantile([b[1] for b in boot], q) for q in (.025, .975)],
             'control_seconds': sum(r['seconds'][0] for r in rows),
@@ -153,6 +161,8 @@ def ratios(rows, overhead, resamples=10000):
 
 
 def verdict(pooled, batches, streets):
+    if any(s.get('cost_interval') is None for s in [pooled, *batches, *streets]):
+        return 'inconclusive: unidentifiable variance ratio'
     if any(s['cost_interval'][0] > 1 for s in streets):
         return 'reject: established street harm'
     if pooled['cost_interval'][1] < .75 and all(b['cost_ratio'] < .75 for b in batches):

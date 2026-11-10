@@ -20,8 +20,13 @@ class VarianceProbeTests(unittest.TestCase):
         self.assertEqual(verdict(good, [good, good], [good]), 'advance')
         noisy = {'cost_interval': [.3, .9], 'cost_ratio': .5}
         self.assertEqual(verdict(noisy, [good, good], [good]), 'inconclusive')
-        self.assertEqual(verdict(good, [good, {'cost_ratio': .8}], [good]), 'inconclusive')
+        self.assertEqual(verdict(good, [good, {**good, 'cost_ratio': .8}], [good]), 'inconclusive')
         self.assertTrue(verdict(good, [good, good], [{'cost_interval': [1.1, 2.]}]).startswith('reject'))
+
+    def test_zero_sampled_variance_does_not_manufacture_an_improvement(self):
+        result = ratios([{'stratum': 'river', 'variance': [0., 0.], 'seconds': [1., 1.]}], 0., resamples=10)
+        self.assertIsNone(result['cost_interval'])
+        self.assertTrue(verdict(result, [result], [result]).startswith('inconclusive'))
 
     def test_reject_partial_duplicate_or_changed_tree_evidence(self):
         arms = [{'arm': a, 'advantages': [0.] * 6, 'legal': 3, 'nodes': 5, 'seconds': .01} for a in (0, 1)]

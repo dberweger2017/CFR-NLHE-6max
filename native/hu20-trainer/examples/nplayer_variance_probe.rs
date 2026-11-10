@@ -180,7 +180,7 @@ fn run() -> Result<(), String> {
         w.flush().map_err(|e| e.to_string())?;
         if let Some(c) = critic.as_ref() {
             let root = &roots[0];
-            let x = probe::critic_features(&root.hand, root.hand.actor().unwrap(), tables)?;
+            let x = probe::critic_features(&root.hand, root.hand.actor().unwrap(), Some(tables))?;
             std::fs::write(
                 out.join("critic-parity.json"),
                 json!({"features":x,"values":c.predict(&x)}).to_string(),

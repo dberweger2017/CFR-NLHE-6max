@@ -66,6 +66,8 @@ this addition. No chance-node baseline or correction at sampled focal nodes.
   All correctness gates must pass. If pooled lower bound >= .75, reject this
   configuration for this workload; otherwise inconclusive. Any established
   street harm blocks advance regardless of the pooled result. No extra samples.
+  A zero sampled control variance in the panel or bootstrap makes that ratio
+  unidentifiable; report it and do not advance or discard those roots/draws.
 
 ## Correctness and admission
 
