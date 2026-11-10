@@ -99,6 +99,8 @@ def test_row_parts_nest_and_huber_runs(tmp_path):
     small, big = sweep.train_part(train, 500, 1), sweep.train_part(train, 1500, 1)
     assert len(small['features']) == 500 and key(small) <= key(big)
     assert sweep.train_part(train, None, 1) is train
+    direct, _ = sweep.arrays(tmp_path / 'data' / 'train', sweep.part_index(len(train['features']), 500, 1))
+    assert all(np.array_equal(direct[k], small[k]) for k in small)
     # Inside delta, Huber (times 2) is the pilot's squared error.
     out, t = torch.tensor([[1., 2., 0, 0, 0, 0]]), torch.tensor([[0., 0., 0, 0, 0, 0]])
     m, w = torch.ones(1, 6, dtype=torch.bool), torch.ones(1)
