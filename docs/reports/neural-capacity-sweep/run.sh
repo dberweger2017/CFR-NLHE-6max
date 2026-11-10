@@ -7,6 +7,10 @@
 #                    on the Apple GPU, then the report
 #   run.sh rows      on the M4, after sweep: rows or noise? mlp-2m on 0.5M and 1.5M rows, cards-15m on
 #                    1.5M rows, mlp-2m with a Huber loss; reported with sweep's 4.5M-row fits
+#   run.sh prepare-more   on bb128: 13.5M rows of the HDD copy (13M train, 0.5M holdout), written
+#                    to the HDD at the lowest priority
+#   run.sh more      on the M4: do bigger networks pay off with more rows? mlp-2m and mlp-13m on 4.5M
+#                    and 13M rows, cards-15m on 13M rows, 20,000 steps each
 set -euo pipefail
 SEED=20261109700001
 ROWS=${ROWS:-5000000}
@@ -56,5 +60,33 @@ cards-15m-r1.5m cards-15m 1500000 mse"
     done <<< "$RUNS"
     $PY -m scripts.neural_capacity_sweep report --out $W/report-rows.json --runs $W/runs/mlp-2m $W/runs/cards-15m \
       $(echo "$RUNS" | while read -r N _; do echo $W/runs-rows/$N; done) ;;
-  *) echo "usage: run.sh prepare|sweep|rows" >&2; exit 2 ;;
+  prepare-more)
+    W=/mnt/data2tb/neural-capacity-sweep-20261110
+    SRC=/mnt/data2tb/neural-deep-cfr-20261109/buffers-hdd-after-it122/advantage
+    PY=/home/dberweger/nplayer-bb200-feasibility-20261022/venv/bin/python
+    mkdir -p $W && cd "$(dirname "$0")/../../.."
+    [ -e $W/data/subsample.json ] || nice -n 19 ionice -c3 $PY -m scripts.neural_capacity_sweep subsample \
+      --buffer $SRC --rows 13500000 --holdout 0.037037 --seed 20261110700001 --out $W/data
+    cat $W/data/subsample.json ;;
+  more)
+    W=${W:-$HOME/neural-capacity-sweep-20261109}
+    PY=${PY:-$W/venv/bin/python}
+    D=${D:-$W/data-13m}
+    cd "$(dirname "$0")/../../.."
+    $PY -c "import torch; assert torch.backends.mps.is_available(), 'no MPS'"
+    mkdir -p $W/runs-more
+    RUNS="mlp-2m-r4.5m mlp-2m 4500000
+mlp-2m-r13m mlp-2m 0
+mlp-13m-r4.5m mlp-13m 4500000
+mlp-13m-r13m mlp-13m 0
+cards-15m-r13m cards-15m 0"
+    while read -r N A R; do
+      [ -e $W/runs-more/$N/result.json ] && continue
+      rm -rf $W/runs-more/$N
+      caffeinate -is $PY -m scripts.neural_capacity_sweep run --data $D --arch $A --steps 20000 --seed 20261110700001 \
+        --device mps --rows $R --out $W/runs-more/$N > $W/runs-more/$N.log 2>&1
+    done <<< "$RUNS"
+    $PY -m scripts.neural_capacity_sweep report --out $W/report-more.json \
+      --runs $(echo "$RUNS" | while read -r N _; do echo $W/runs-more/$N; done) ;;
+  *) echo "usage: run.sh prepare|sweep|rows|prepare-more|more" >&2; exit 2 ;;
 esac

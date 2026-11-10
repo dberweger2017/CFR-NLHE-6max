@@ -126,14 +126,22 @@ def subsample(args):
     print(json.dumps(summary))
 
 
-def arrays(folder):
-    """A reservoir's filled rows as in-memory arrays (the subsample fits in RAM)."""
+def part_index(n, rows, seed):
+    """Indices of a seeded, nested part of n rows (None: every row)."""
+    if not rows or rows >= n:
+        return None
+    return np.sort(np.random.default_rng(seed + 2).permutation(n)[:rows])
+
+
+def arrays(folder, part=None):
+    """A reservoir's filled rows (or only the `part` indices) as in-memory arrays; only the
+    selected rows are read, so a part of a large subsample doesn't need the whole of it in RAM."""
     state = json.loads((Path(folder) / 'state.json').read_text())
     rows, weights = dcfr.Reservoir(folder, state['features']).view()
-    rows = np.array(rows)
+    rows, weights = (np.array(rows), np.array(weights)) if part is None else (rows[part], weights[part])
     return {'features': rows['features'], 'targets': np.ascontiguousarray(rows['targets']), 'legal': rows['legal'],
             'street': rows['street'], 'players': rows['players'], 'warm': rows['iteration'] == 0,
-            'weights': np.array(weights, np.float32)}, state['features']
+            'weights': np.asarray(weights, np.float32)}, state['features']
 
 
 def regret_match(adv, mask):
@@ -213,11 +221,8 @@ def rescore(args):
 
 def train_part(train, rows, seed):
     """The first `rows` of one seeded permutation of the training rows, so smaller parts nest in larger ones."""
-    n = len(train['features'])
-    if not rows or rows >= n:
-        return train
-    idx = np.sort(np.random.default_rng(seed + 2).permutation(n)[:rows])
-    return {key: v[idx] for key, v in train.items()}
+    idx = part_index(len(train['features']), rows, seed)
+    return train if idx is None else {key: v[idx] for key, v in train.items()}
 
 
 def fit_loss(torch, name, delta, out, targets, mask, w):
@@ -235,8 +240,8 @@ def run(args):
     device = torch.device(args.device)
     torch.manual_seed(args.seed)
     rng = np.random.default_rng(args.seed)
-    train, features = arrays(Path(args.data) / 'train')
-    train = train_part(train, getattr(args, 'rows', None), args.seed)
+    filled = json.loads((Path(args.data) / 'train' / 'state.json').read_text())['filled']
+    train, features = arrays(Path(args.data) / 'train', part_index(filled, getattr(args, 'rows', None), args.seed))
     loss_name, delta = getattr(args, 'loss', 'mse'), getattr(args, 'huber_delta', 20.0)
     hold, _ = arrays(Path(args.data) / 'holdout')
     spec = ARCHS[args.arch]
