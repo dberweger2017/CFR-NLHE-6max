@@ -1,0 +1,117 @@
+{
+ "m4": {
+  "u05-t10": {
+   "seconds": [
+    5.607798708,
+    4.437598708,
+    4.40151775
+   ],
+   "median": 4.437598708,
+   "decisions": 615329,
+   "nodes": 960773,
+   "records_sha256": "2f0d45d2aea77397950c49edebe24b3bfa7adada7ef6e3034bd00821171b3050",
+   "us_per_decision_wall": 7.211749662375738
+  },
+  "u05-t1": {
+   "seconds": [
+    2.075191209,
+    2.103336542
+   ],
+   "median": 2.0892638755000004,
+   "decisions": 57665,
+   "nodes": 89518,
+   "records_sha256": "afde658ced484af1ca68278173fc8f024da93f1a422fd3018ab6a4c400ada351",
+   "us_per_decision_wall": 36.2310565420966
+  },
+  "u2-t10": {
+   "seconds": [
+    10.514698209,
+    10.552030042,
+    11.170329541
+   ],
+   "median": 10.552030042,
+   "decisions": 615329,
+   "nodes": 960773,
+   "records_sha256": "2f0d45d2aea77397950c49edebe24b3bfa7adada7ef6e3034bd00821171b3050",
+   "us_per_decision_wall": 17.148598622850542
+  },
+  "u2-t1": {
+   "seconds": [
+    5.009696416,
+    5.221013375
+   ],
+   "median": 5.115354895499999,
+   "decisions": 57665,
+   "nodes": 89518,
+   "records_sha256": "afde658ced484af1ca68278173fc8f024da93f1a422fd3018ab6a4c400ada351",
+   "us_per_decision_wall": 88.70814004161969
+  },
+  "late-t10": {
+   "seconds": [
+    5.358493709,
+    5.217245042,
+    4.854469
+   ],
+   "median": 5.217245042,
+   "decisions": 750747,
+   "nodes": 1170662,
+   "records_sha256": "5299b9714d8df8cfab63fe3f7c8afb530a89e4c0ac1868f47bd8556c12a84fe0",
+   "us_per_decision_wall": 6.949405115171955
+  },
+  "late-t1": {
+   "seconds": [
+    2.468780083,
+    2.446772958
+   ],
+   "median": 2.4577765205,
+   "decisions": 81917,
+   "nodes": 127750,
+   "records_sha256": "77143394b5fd693cb600bb2262f41240c9ea9f46134dff9b5a1e396f85b45964",
+   "us_per_decision_wall": 30.003253543220573
+  }
+ },
+ "forward_us": {
+  "net1": 22.185110927152316,
+  "strategy800-s4000": 40.48468548795181,
+  "adv1375": 5.652664229661017,
+  "u-512-256-128": 11.973436007168457,
+  "u-1024-1024-512": 63.443362415094334
+ },
+ "late_other_us": 24.350589313559556,
+ "run1_bb128": {
+  "traverse_compute_h": 10.3348,
+  "traverse_stage_h": 13.2012,
+  "add_h": 3.7203,
+  "fit_h": 6.18,
+  "other_h": 0.9059,
+  "span_h": 24.0074,
+  "iterations": 1375,
+  "stage_overhead_h": 2.8664000000000005
+ },
+ "projection": [
+  {
+   "case": "optimistic (net1-like 2M, fit unchanged)",
+   "c2_us": 22.2,
+   "traversal_ratio": 1.55,
+   "fit_factor": 1.0,
+   "hours_for_1375": 29.7,
+   "iterations_in_24h": 1111
+  },
+  {
+   "case": "central (run 1's own 2M strategy net, fit x1.4)",
+   "c2_us": 40.5,
+   "traversal_ratio": 2.16,
+   "fit_factor": 1.4,
+   "hours_for_1375": 38.5,
+   "iterations_in_24h": 858
+  },
+  {
+   "case": "pessimistic (untrained 2M, fit x1.75)",
+   "c2_us": 63.4,
+   "traversal_ratio": 2.93,
+   "fit_factor": 1.75,
+   "hours_for_1375": 48.5,
+   "iterations_in_24h": 680
+  }
+ ]
+}
