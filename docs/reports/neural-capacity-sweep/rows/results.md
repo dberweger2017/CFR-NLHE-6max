@@ -22,6 +22,8 @@ The 4.5M-row fits are the sweep's runs.
 
 **Card embeddings help most when rows are scarce.** At 1.5M rows `cards-15m` is 5–7% better than `mlp-2m` (best 997 against 1043; final 1052 against 1134). At 4.5M rows it's only 1.4% better. The embeddings make the network more sample-efficient, but the advantage shrinks as rows grow.
 
+**Follow-up:** with [13M rows](../more/results.md), `mlp-13m` beats `mlp-2m` by 3.0%, and card embeddings no longer help.
+
 ## Huber loss
 
 `mlp-2m` on 4.5M rows, with the loss quadratic up to 20 BB per label and linear beyond.
