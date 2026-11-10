@@ -65,12 +65,13 @@ fn run() -> Result<(), String> {
                 if a != b || plain.nodes != corrected.nodes {
                     return Err("zero-baseline parity failed".into());
                 }
+                let comparison_nodes = plain.nodes + corrected.nodes;
                 let c = plain.advantages(&r.hand, seed)?;
                 if a != c {
                     return Err("deterministic reproduction failed".into());
                 }
                 rows += 1;
-                nodes += plain.nodes + corrected.nodes;
+                nodes += comparison_nodes + plain.nodes;
             }
         }
         if let Some(path) = m.get("--parity") {
