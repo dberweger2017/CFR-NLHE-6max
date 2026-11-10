@@ -93,8 +93,11 @@ pub fn names() -> Vec<String> {
     }
     n
 }
+/// The feature count. `encode` asks for it at every traversal node, and rebuilding the 612 names
+/// each time was most of a Deep CFR traversal's cost, so it is computed once.
 pub fn len() -> usize {
-    names().len()
+    static LEN: std::sync::OnceLock<usize> = std::sync::OnceLock::new();
+    *LEN.get_or_init(|| names().len())
 }
 /// SHA-256 over the schema name and every feature name, newline-separated.
 pub fn layout_sha256() -> String {

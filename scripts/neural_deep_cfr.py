@@ -8,7 +8,8 @@
     add       --samples FILE.. --advantage-buffer DIR --strategy-buffer DIR --capacity C --seed S
                                                      one iteration's traversal samples into the reservoirs
     train     --kind advantage|strategy --buffer DIR --init DIR|none --hidden H,.. --steps N
-              --seed S --out DIR [--device cuda]     one network from a reservoir
+              --seed S --out DIR [--device cuda] [--export FILE]
+                                                     one network from a reservoir
     export    --model DIR --out FILE                 a Rust `policy_network` file
 
 Traversal samples come from `nplayer_deep_cfr traverse` (NPDCF001). Each reservoir keeps a uniform
@@ -22,6 +23,9 @@ import argparse
 import hashlib
 import json
 import math
+import queue
+import threading
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import numpy as np
@@ -85,7 +89,9 @@ class Reservoir:
         self.weights = np.memmap(self.folder / 'weights.f4', dtype='<f4', mode=mode, shape=(cap,))
 
     def add(self, rows, weights, seed, source):
-        """Reservoir sampling over the rows in order; the draws come from (seed, batch number)."""
+        """Reservoir sampling over the rows in order; the draws come from (seed, batch number).
+        `source` is recorded with the batch; a callable is called only when the batch is committed,
+        so a slow provenance value (a file hash) can be computed while the rows are sampled."""
         n, cap = len(rows), self.state['capacity']
         if n == 0:
             return
@@ -109,7 +115,7 @@ class Reservoir:
         self.state['filled'] = filled + direct
         self.state['seen'] = seen + n
         self.state['batches'] += 1
-        self.state['sources'].append({'source': source, 'rows': int(n)})
+        self.state['sources'].append({'source': source() if callable(source) else source, 'rows': int(n)})
         self.rows.flush()
         self.weights.flush()
         (self.folder / 'state.json').write_text(json.dumps(self.state, indent=1) + '\n')
@@ -156,17 +162,24 @@ def init(args):
 
 
 def add(args):
-    """Each file's advantage and strategy records into their reservoirs, weight = iteration."""
+    """Each file's advantage and strategy records into their reservoirs, weight = iteration.
+
+    Each file is hashed once, on a thread, while its rows are sampled: an iteration's file is about
+    2 GB, and hashing it (twice, before) was most of this step on a CPU without SHA instructions.
+    `hashlib` releases the GIL, so the hash overlaps the sampling; both reservoirs record it."""
     adv = strat = None
-    for k, path in enumerate(args.samples):
-        header, rec = load(path)
-        if adv is None:
-            adv = Reservoir(args.advantage_buffer, header['feature_count'], args.capacity)
-            strat = Reservoir(args.strategy_buffer, header['feature_count'], args.capacity)
-        for kind, buf in ((ADVANTAGE, adv), (STRATEGY, strat)):
-            rows = np.asarray(rec[rec['kind'] == kind])
-            buf.add(rows, rows['iteration'].astype('<f4'), args.seed * 1000 + k, {'path': str(path), 'kind': kind,
-                    'iteration': header['iteration'], 'sha256': sha_file(path)})
+    with ThreadPoolExecutor(1) as pool:
+        for k, path in enumerate(args.samples):
+            digest = pool.submit(sha_file, path)
+            header, rec = load(path)
+            if adv is None:
+                adv = Reservoir(args.advantage_buffer, header['feature_count'], args.capacity)
+                strat = Reservoir(args.strategy_buffer, header['feature_count'], args.capacity)
+            for kind, buf in ((ADVANTAGE, adv), (STRATEGY, strat)):
+                rows = np.asarray(rec[rec['kind'] == kind])
+                source = {'path': str(path), 'kind': kind, 'iteration': header['iteration']}
+                buf.add(rows, rows['iteration'].astype('<f4'), args.seed * 1000 + k,
+                        lambda source=source: dict(source, sha256=digest.result()))
     print(json.dumps({'advantage': adv.state['filled'], 'advantage_seen': adv.state['seen'],
                       'strategy': strat.state['filled'], 'strategy_seen': strat.state['seen']}))
 
@@ -234,6 +247,38 @@ def loss(torch, kind, out, targets, mask, w):
     return (err * w).sum() / w.sum()
 
 
+def batches(rows, weights, n, size, steps, rng):
+    """Each step's training rows as host arrays, drawn in step order from `rng`."""
+    for _ in range(steps):
+        idx = np.sort(rng.integers(0, n, min(size, n)))
+        b = np.asarray(rows[idx])
+        yield (b['features'].astype(np.float32) / 255., np.ascontiguousarray(b['targets']), legal_mask(b['legal']),
+               np.asarray(weights[idx], np.float32))
+
+
+def prefetched(items, depth):
+    """`items` produced `depth` ahead on a thread (numpy's gathers release the GIL), in order. The
+    items are the same as iterating directly; only when they are computed changes."""
+    if depth <= 0:
+        yield from items
+        return
+    q, done = queue.Queue(depth), object()
+
+    def produce():
+        try:
+            for item in items:
+                q.put(item)
+            q.put(done)
+        except BaseException as e:   # surfaced in the consumer, not lost on the thread
+            q.put(e)
+
+    threading.Thread(target=produce, daemon=True).start()
+    while (item := q.get()) is not done:
+        if isinstance(item, BaseException):
+            raise item
+        yield item
+
+
 def train(args):
     import torch
     device = torch.device(args.device)
@@ -260,13 +305,13 @@ def train(args):
         raise ValueError('empty reservoir')
     # Weights are normalized per batch, so their scale doesn't change the step size.
     history = []
-    for step in range(args.steps):
-        idx = np.sort(rng.integers(0, n, min(args.batch, n)))
-        b = np.asarray(rows[idx])
-        x = torch.from_numpy(b['features'].astype(np.float32) / 255.).to(device)
-        t = torch.from_numpy(np.ascontiguousarray(b['targets'])).to(device)
-        m = torch.from_numpy(legal_mask(b['legal'])).to(device)
-        w = torch.from_numpy(np.asarray(weights[idx], np.float32)).to(device)
+    # The next steps' rows are gathered on a thread while the device trains on this one.
+    data = prefetched(batches(rows, weights, n, args.batch, args.steps, rng), getattr(args, 'prefetch', 2))
+    for step, (xb, tb, mb, wb) in enumerate(data):
+        x = torch.from_numpy(xb).to(device)
+        t = torch.from_numpy(tb).to(device)
+        m = torch.from_numpy(mb).to(device)
+        w = torch.from_numpy(wb).to(device)
         with torch.autocast(device.type, dtype=torch.float16, enabled=device.type == 'cuda'):
             out = model(x)
         value = loss(torch, args.kind, out, t, m, w)
@@ -282,27 +327,36 @@ def train(args):
                                                'hidden': hidden, 'layout_sha256': layout, 'seed': args.seed, 'steps': args.steps,
                                                'batch': args.batch, 'lr': args.lr, 'buffer': {'path': str(args.buffer), **{k: state[k] for k in ('filled', 'seen', 'batches')}},
                                                'init': args.init, 'loss_history': history})
-    print(json.dumps({'out': args.out, 'weights_sha256': meta['weights_sha256'], 'final_loss': history[-1]['loss']}))
+    out = {'out': args.out, 'weights_sha256': meta['weights_sha256'], 'final_loss': history[-1]['loss']}
+    if getattr(args, 'export', None):
+        # The same export as the `export` command, without a second torch start-up.
+        out['export'] = export_model(args.out, args.export)
+    print(json.dumps(out))
 
 
 def export(args):
+    print(json.dumps(export_model(args.model, args.out)))
+
+
+def export_model(model, out):
+    """Writes the Rust `policy_network` file of a saved model; returns its path and SHA-256."""
     import torch
-    meta = json.loads((Path(args.model) / 'model.json').read_text())
-    state = torch.load(Path(args.model) / 'weights.pt', map_location='cpu', weights_only=True)
+    meta = json.loads((Path(model) / 'model.json').read_text())
+    state = torch.load(Path(model) / 'weights.pt', map_location='cpu', weights_only=True)
     linear = sorted({k.split('.')[0] for k in state}, key=int)
     dims = [meta['features']] + list(meta['hidden']) + [ACTIONS]
     header = {'format': 'nplayer-policy-network-v1', 'layout_sha256': meta['layout_sha256'], 'features': meta['features'],
               'layers': [{'in': a, 'out': b} for a, b in zip(dims, dims[1:])], 'activation': 'relu',
               'output': meta.get('output', 'masked-softmax-6'), 'source_weights_sha256': meta['weights_sha256'], 'seed': meta['seed']}
     h = json.dumps(header, separators=(',', ':')).encode()
-    with open(args.out, 'xb') as f:
+    with open(out, 'xb') as f:
         f.write(NET_MAGIC + len(h).to_bytes(8, 'little') + h)
         for k, (a, b) in zip(linear, zip(dims, dims[1:])):
             w, bias = state[f'{k}.weight'], state[f'{k}.bias']
             if tuple(w.shape) != (b, a) or tuple(bias.shape) != (b,):
                 raise ValueError(f'layer {k}: shape {tuple(w.shape)}')
             f.write(w.numpy().astype('<f4').tobytes() + bias.numpy().astype('<f4').tobytes())
-    print(json.dumps({'out': str(args.out), 'sha256': sha_file(args.out)}))
+    return {'out': str(out), 'sha256': sha_file(out)}
 
 
 def main(argv=None):
@@ -341,6 +395,8 @@ def main(argv=None):
     t.add_argument('--seed', type=int, required=True)
     t.add_argument('--device', default='cpu')
     t.add_argument('--out', required=True)
+    t.add_argument('--export', default=None, help='also write the Rust network file here (as `export` would)')
+    t.add_argument('--prefetch', type=int, default=2, help='batches gathered ahead on a thread (0: none)')
     e = sub.add_parser('export')
     e.add_argument('--model', required=True)
     e.add_argument('--out', required=True)

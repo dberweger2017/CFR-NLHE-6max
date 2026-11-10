@@ -214,26 +214,139 @@ pub fn regret_match(regrets: &[f64; ACTIONS], legal: u8) -> [f64; ACTIONS] {
 
 /// An f32 forward pass for traversals: input-major weights, zero inputs skipped. It agrees with the
 /// f64 reference to float32 rounding (checked by tests and `nplayer_deep_cfr bench`).
+///
+/// Every output is its bias plus the products of the nonzero inputs, added in input order. The
+/// order is part of the contract: traversal records are compared byte for byte across builds, so
+/// the kernel may change how it schedules the work but never which additions it makes or their
+/// order. That rules out fused multiply-adds and reordered sums, which round differently.
 pub struct Fast {
     pub output: Output,
     layers: Vec<(usize, usize, Vec<f32>, Vec<f32>)>,
 }
+
+/// Working memory for `Fast`, reused across calls.
+#[derive(Default)]
+pub struct Scratch {
+    x: Vec<f32>,
+    y: Vec<f32>,
+    /// Each row's nonzero inputs as (index, value), rows back to back; `starts` delimits them.
+    nonzero: Vec<(u32, f32)>,
+    starts: Vec<usize>,
+    /// The same nonzeros by input, as (row, value), for batches; `column_starts` delimits them.
+    columns: Vec<(u32, f32)>,
+    column_starts: Vec<usize>,
+}
+
+/// Outputs per register block: their partial sums stay in registers while the inputs stream past.
+/// Sixteen vector registers of four (NEON) or eight (AVX) lanes hold 64; SSE2's sixteen of four
+/// hold 32 with room for the products. The width changes the schedule, never the sums.
+#[cfg(any(target_arch = "aarch64", target_feature = "avx"))]
+const BLOCK: usize = 64;
+#[cfg(not(any(target_arch = "aarch64", target_feature = "avx")))]
+const BLOCK: usize = 32;
+/// Outputs per block in a batch: one block of an input's weights sits in registers while it is
+/// added to every row where that input is nonzero, and the batch's partial sums stay in L1.
+const BATCH_BLOCK: usize = 32;
+/// From this many rows, a batch walks its inputs once per block (`BATCH_BLOCK`) instead of once
+/// per row; below it, rows share too few nonzero inputs for that to pay.
+const BATCH_ROWS: usize = 4;
+
 impl Fast {
     /// Logits (or regrets) for one quantized feature vector, `bytes[i] / 255`.
-    pub fn logits(&self, bytes: &[u8], scratch: &mut [Vec<f32>; 2]) -> [f32; ACTIONS] {
-        let [x, y] = scratch;
+    pub fn logits(&self, bytes: &[u8], scratch: &mut Scratch) -> [f32; ACTIONS] {
+        let mut out = [[0f32; ACTIONS]];
+        self.forward(&[bytes], scratch, &mut out);
+        out[0]
+    }
+    /// `logits` for several inputs at once, bit for bit (the sums are the same). One block of a
+    /// layer's weights is read once for the whole batch, which is what limits a 2M network on
+    /// many threads, whose weights don't fit in a core's cache.
+    pub fn logits_batch(&self, inputs: &[&[u8]], scratch: &mut Scratch, out: &mut Vec<[f32; ACTIONS]>) {
+        out.clear();
+        out.resize(inputs.len(), [0.; ACTIONS]);
+        self.forward(inputs, scratch, out);
+    }
+    fn forward(&self, inputs: &[&[u8]], scratch: &mut Scratch, out: &mut [[f32; ACTIONS]]) {
+        let n = inputs.len();
+        let Scratch { x, y, nonzero, starts, columns, column_starts } = scratch;
         x.clear();
-        x.extend(bytes.iter().map(|&b| b as f32 / 255.));
+        for bytes in inputs {
+            x.extend(bytes.iter().map(|&b| b as f32 / 255.));
+        }
         let last = self.layers.len() - 1;
-        for (k, (inputs, outputs, t, b)) in self.layers.iter().enumerate() {
-            debug_assert_eq!(x.len(), *inputs);
+        for (k, (width, outputs, t, b)) in self.layers.iter().enumerate() {
+            let (width, outputs) = (*width, *outputs);
+            debug_assert_eq!(x.len(), n * width);
+            nonzero.clear();
+            starts.clear();
+            starts.push(0);
+            for row in x.chunks_exact(width) {
+                nonzero.extend(row.iter().enumerate().filter(|(_, &v)| v != 0.).map(|(i, &v)| (i as u32, v)));
+                starts.push(nonzero.len());
+            }
             y.clear();
-            y.extend_from_slice(b);
-            for (i, &v) in x.iter().enumerate() {
-                if v != 0. {
-                    for (acc, w) in y.iter_mut().zip(&t[i * outputs..(i + 1) * outputs]) {
-                        *acc += v * w;
+            y.resize(n * outputs, 0.);
+            let blocked = if n >= BATCH_ROWS {
+                // By input: each row still adds its own nonzero inputs in increasing order.
+                column_starts.clear();
+                column_starts.resize(width + 1, 0);
+                for &(i, _) in nonzero.iter() {
+                    column_starts[i as usize + 1] += 1;
+                }
+                for i in 0..width {
+                    column_starts[i + 1] += column_starts[i];
+                }
+                columns.clear();
+                columns.resize(nonzero.len(), (0, 0.));
+                let mut fill = column_starts[..width].to_vec();
+                for r in 0..n {
+                    for &(i, v) in &nonzero[starts[r]..starts[r + 1]] {
+                        columns[fill[i as usize]] = (r as u32, v);
+                        fill[i as usize] += 1;
                     }
+                }
+                let blocked = outputs / BATCH_BLOCK * BATCH_BLOCK;
+                for o in (0..blocked).step_by(BATCH_BLOCK) {
+                    for r in 0..n {
+                        y[r * outputs + o..][..BATCH_BLOCK].copy_from_slice(&b[o..o + BATCH_BLOCK]);
+                    }
+                    for i in 0..width {
+                        let column = &columns[column_starts[i]..column_starts[i + 1]];
+                        if column.is_empty() {
+                            continue;
+                        }
+                        let w: [f32; BATCH_BLOCK] = t[i * outputs + o..][..BATCH_BLOCK].try_into().unwrap();
+                        for &(r, v) in column {
+                            let acc: &mut [f32; BATCH_BLOCK] = (&mut y[r as usize * outputs + o..][..BATCH_BLOCK]).try_into().unwrap();
+                            for j in 0..BATCH_BLOCK {
+                                acc[j] += v * w[j];
+                            }
+                        }
+                    }
+                }
+                blocked
+            } else {
+                outputs / BLOCK * BLOCK
+            };
+            for o in (0..if n >= BATCH_ROWS { 0 } else { blocked }).step_by(BLOCK) {
+                for r in 0..n {
+                    let mut acc: [f32; BLOCK] = b[o..o + BLOCK].try_into().unwrap();
+                    for &(i, v) in &nonzero[starts[r]..starts[r + 1]] {
+                        let w: &[f32; BLOCK] = t[i as usize * outputs + o..][..BLOCK].try_into().unwrap();
+                        for j in 0..BLOCK {
+                            acc[j] += v * w[j];
+                        }
+                    }
+                    y[r * outputs + o..][..BLOCK].copy_from_slice(&acc);
+                }
+            }
+            for o in blocked..outputs {
+                for r in 0..n {
+                    let mut acc = b[o];
+                    for &(i, v) in &nonzero[starts[r]..starts[r + 1]] {
+                        acc += v * t[i as usize * outputs + o];
+                    }
+                    y[r * outputs + o] = acc;
                 }
             }
             if k < last {
@@ -243,13 +356,17 @@ impl Fast {
             }
             std::mem::swap(x, y);
         }
-        let mut out = [0f32; ACTIONS];
-        out.copy_from_slice(&x[..ACTIONS]);
-        out
+        for (o, row) in out.iter_mut().zip(x.chunks_exact(ACTIONS)) {
+            o.copy_from_slice(row);
+        }
     }
     /// The strategy over the six labels at a decision with legal labels `legal`.
-    pub fn strategy(&self, bytes: &[u8], legal: u8, scratch: &mut [Vec<f32>; 2]) -> [f64; ACTIONS] {
-        let z = self.logits(bytes, scratch).map(|v| v as f64);
+    pub fn strategy(&self, bytes: &[u8], legal: u8, scratch: &mut Scratch) -> [f64; ACTIONS] {
+        self.strategy_of(self.logits(bytes, scratch), legal)
+    }
+    /// The strategy for given network outputs (from `logits` or `logits_batch`).
+    pub fn strategy_of(&self, logits: [f32; ACTIONS], legal: u8) -> [f64; ACTIONS] {
+        let z = logits.map(|v| v as f64);
         match self.output {
             Output::Advantage => regret_match(&z, legal),
             Output::Policy => {
@@ -329,7 +446,7 @@ mod tests {
         });
         let net = PolicyNetwork::parse(&f).unwrap();
         let fast = net.fast();
-        let mut scratch = [Vec::new(), Vec::new()];
+        let mut scratch = Scratch::default();
         for _ in 0..200 {
             let bytes: Vec<u8> = (0..features::len()).map(|_| if rng.gen_bool(0.7) { 0 } else { rng.gen() }).collect();
             let x: Vec<f32> = bytes.iter().map(|&b| b as f32 / 255.).collect();
@@ -343,6 +460,64 @@ mod tests {
             let q = fast.strategy(&bytes, legal, &mut scratch);
             for a in 0..ACTIONS {
                 assert!((p[a] - q[a]).abs() < 1e-4);
+            }
+        }
+    }
+
+
+    /// PR477's kernel (one input at a time, each nonzero input adding its whole weight row): the
+    /// bit-exact oracle for `Fast`.
+    fn axpy_logits(net: &PolicyNetwork, bytes: &[u8]) -> [f32; ACTIONS] {
+        let fast = net.fast();
+        let mut x: Vec<f32> = bytes.iter().map(|&b| b as f32 / 255.).collect();
+        let last = fast.layers.len() - 1;
+        for (k, (_, outputs, t, b)) in fast.layers.iter().enumerate() {
+            let mut y = b.clone();
+            for (i, &v) in x.iter().enumerate() {
+                if v != 0. {
+                    for (acc, w) in y.iter_mut().zip(&t[i * outputs..(i + 1) * outputs]) {
+                        *acc += v * w;
+                    }
+                }
+            }
+            if k < last {
+                for v in y.iter_mut() {
+                    *v = v.max(0.);
+                }
+            }
+            x = y;
+        }
+        x[..ACTIONS].try_into().unwrap()
+    }
+
+    #[test]
+    fn batched_forward_passes_equal_single_ones_bit_for_bit() {
+        use rand::{Rng, SeedableRng};
+        // Wider than one output tile, weights leaning negative so hidden layers have many ReLU zeros.
+        let widths = [300, 520, ACTIONS];
+        let f = file(&widths, |k, i| ((i as u64 * 2_654_435_761 + k as u64 * 97) % 1000) as f32 / 1000. * 0.18 - 0.1);
+        let net = PolicyNetwork::parse(&f).unwrap();
+        let fast = net.fast();
+        let mut rng = rand::rngs::StdRng::seed_from_u64(12);
+        let inputs: Vec<Vec<u8>> = (0..90).map(|k| (0..features::len()).map(|_| match k % 3 {
+            0 => 0,
+            _ if rng.gen_bool(0.8) => 0,
+            _ => rng.gen(),
+        }).collect()).collect();
+        let mut scratch = Scratch::default();
+        let single: Vec<[f32; ACTIONS]> = inputs.iter().map(|b| fast.logits(b, &mut scratch)).collect();
+        for (b, s) in inputs.iter().zip(&single) {
+            assert_eq!(s.map(f32::to_bits), axpy_logits(&net, b).map(f32::to_bits), "the old kernel's sums");
+        }
+        let mut out = Vec::new();
+        for n in [1, 2, 5, 32, 90] {
+            for (c, chunk) in inputs.chunks(n).enumerate() {
+                let refs: Vec<&[u8]> = chunk.iter().map(Vec::as_slice).collect();
+                fast.logits_batch(&refs, &mut scratch, &mut out);
+                assert_eq!(out.len(), chunk.len());
+                for (j, o) in out.iter().enumerate() {
+                    assert_eq!(o.map(f32::to_bits), single[c * n + j].map(f32::to_bits), "batch {n}");
+                }
             }
         }
     }
