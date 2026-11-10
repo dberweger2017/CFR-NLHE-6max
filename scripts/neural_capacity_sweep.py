@@ -247,7 +247,9 @@ def run(args):
     spec = ARCHS[args.arch]
     model = build(torch, features, spec).to(device).train()
     params = sum(p.numel() for p in model.parameters())
-    opt = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=dcfr.WEIGHT_DECAY)
+    wd = getattr(args, 'weight_decay', None)
+    wd = dcfr.WEIGHT_DECAY if wd is None else wd
+    opt = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=wd)
     sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, args.steps)
     n = len(train['features'])
     history, start = [], time.time()
@@ -276,7 +278,7 @@ def run(args):
     sub = train_sample(train, len(hold['features']), args.seed)
     result = {'format': 'neural-capacity-sweep-run-v1', 'arch': args.arch, 'spec': spec, 'parameters': int(params),
               'steps': args.steps, 'train_rows_used': int(n), 'warm_rows_used': int(train['warm'].sum()),
-              'loss': loss_name, 'huber_delta': delta if loss_name == 'huber' else None, 'batch': args.batch, 'lr': args.lr, 'seed': args.seed, 'device': str(device),
+              'loss': loss_name, 'huber_delta': delta if loss_name == 'huber' else None, 'batch': args.batch, 'lr': args.lr, 'weight_decay': wd, 'seed': args.seed, 'device': str(device),
               'data': json.loads((Path(args.data) / 'subsample.json').read_text()), 'seconds': seconds,
               'holdout': score(predict(torch, model, hold, device), hold),
               'train_rows': train_score(score(predict(torch, model, sub, device), sub)), 'history': history}
@@ -295,7 +297,8 @@ def report(args):
     for r in runs:
         h = r['holdout']
         rows.append({'arch': r['arch'], 'parameters': r['parameters'], 'rows': r.get('train_rows_used', r['data']['train']['rows']),
-                     'loss': r.get('loss', 'mse'), 'steps': r['steps'], 'minutes': r['seconds'] / 60,
+                     'loss': r.get('loss', 'mse'), 'steps': r['steps'], 'batch': r.get('batch'), 'lr': r.get('lr'),
+                     'weight_decay': r.get('weight_decay', 1e-4), 'minutes': r['seconds'] / 60,
                      'train_mse': r['train_rows']['all']['mse'], 'train_warm_mse': r['train_rows']['warm']['mse'],
                      'train_deep_cfr_mse': r['train_rows']['deep_cfr']['mse'], 'holdout_mse': h['all']['mse'], 'holdout_weighted_mse': h['all']['weighted_mse'],
                      'warm_mse': (h['warm'] or {}).get('mse'), 'deep_cfr_mse': (h['deep_cfr'] or {}).get('mse'),
@@ -329,6 +332,7 @@ def main(argv=None):
     r.add_argument('--rows', type=int, default=None)
     r.add_argument('--loss', choices=['mse', 'huber'], default='mse')
     r.add_argument('--huber-delta', type=float, default=20.0)
+    r.add_argument('--weight-decay', type=float, default=None, help=f'AdamW weight decay (default {dcfr.WEIGHT_DECAY})')
     r.add_argument('--out', required=True)
     q = sub.add_parser('rescore')
     q.add_argument('--data', required=True)

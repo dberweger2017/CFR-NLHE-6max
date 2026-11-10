@@ -68,6 +68,29 @@ cards-15m-r1.5m cards-15m 1500000 mse"
     [ -e $W/data/subsample.json ] || nice -n 19 ionice -c3 $PY -m scripts.neural_capacity_sweep subsample \
       --buffer $SRC --rows 13500000 --holdout 0.037037 --seed 20261110700001 --out $W/data
     cat $W/data/subsample.json ;;
+  settings)
+    # mlp-2m on all 13M rows, one fit setting changed at a time; the baseline is more's mlp-2m-r13m.
+    W=${W:-$HOME/neural-capacity-sweep-20261109}
+    PY=${PY:-$W/venv/bin/python}
+    D=${D:-$W/data-13m}
+    cd "$(dirname "$0")/../../.."
+    $PY -c "import torch; assert torch.backends.mps.is_available(), 'no MPS'"
+    mkdir -p $W/runs-settings
+    RUNS="lr3e-4 20000 8192 3e-4 1e-4
+lr3e-3 20000 8192 3e-3 1e-4
+wd0 20000 8192 1e-3 0
+wd1e-2 20000 8192 1e-3 1e-2
+steps60k 60000 8192 1e-3 1e-4
+batch32k-5k 5000 32768 1e-3 1e-4
+batch32k-20k 20000 32768 1e-3 1e-4"
+    while read -r N S B L WD; do
+      [ -e $W/runs-settings/$N/result.json ] && continue
+      rm -rf $W/runs-settings/$N
+      caffeinate -is $PY -m scripts.neural_capacity_sweep run --data $D --arch mlp-2m --steps $S --batch $B --lr $L \
+        --weight-decay $WD --seed 20261110700001 --device mps --rows 0 --out $W/runs-settings/$N > $W/runs-settings/$N.log 2>&1
+    done <<< "$RUNS"
+    $PY -m scripts.neural_capacity_sweep report --out $W/report-settings.json --runs $W/runs-more/mlp-2m-r13m \
+      $(echo "$RUNS" | while read -r N _; do echo $W/runs-settings/$N; done) ;;
   more)
     W=${W:-$HOME/neural-capacity-sweep-20261109}
     PY=${PY:-$W/venv/bin/python}

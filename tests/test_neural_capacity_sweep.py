@@ -111,9 +111,9 @@ def test_row_parts_nest_and_huber_runs(tmp_path):
     try:
         out_dir = tmp_path / 'run'
         sweep.run(args(data=str(tmp_path / 'data'), arch='tiny-mlp-rows', steps=30, batch=128, lr=3e-3, evals=2, seed=1,
-                       device='cpu', out=str(out_dir), rows=500, loss='huber', huber_delta=0.5))
+                       device='cpu', out=str(out_dir), rows=500, loss='huber', huber_delta=0.5, weight_decay=0.0))
         r = json.loads((out_dir / 'result.json').read_text())
-        assert (r['train_rows_used'], r['loss'], r['huber_delta']) == (500, 'huber', 0.5)
+        assert (r['train_rows_used'], r['loss'], r['huber_delta'], r['weight_decay']) == (500, 'huber', 0.5, 0.0)
         sweep.rescore(args(data=str(tmp_path / 'data'), runs=[str(out_dir)], device='cpu'))
         assert json.loads((out_dir / 'result.json').read_text())['train_rows'] == r['train_rows']
     finally:
