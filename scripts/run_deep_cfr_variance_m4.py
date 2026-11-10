@@ -60,7 +60,10 @@ def execute(args):
     sources = [p for folder in ('native/hu20-trainer/src', 'native/hu20-buckets/src')
                for p in (SOURCE / folder).rglob('*.rs')]
     sources += [SOURCE / p for p in ('native/hu20-trainer/examples/nplayer_variance_probe.rs',
+                'native/hu20-trainer/Cargo.toml', 'native/hu20-trainer/Cargo.lock',
+                'native/hu20-buckets/Cargo.toml', 'native/hu20-buckets/Cargo.lock',
                 'scripts/deep_cfr_variance_probe.py', 'scripts/run_deep_cfr_variance_m4.py',
+                'scripts/nplayer_four_player_feasibility.py', 'scripts/support/research_process_guard.py',
                 'docs/deep-cfr-variance-qualification.md')]
     pins = {str(p): sha(p) for p in paths + sources}
     for name, pin in TABLES.items():
@@ -68,6 +71,10 @@ def execute(args):
             raise ValueError('K50 pin changed: ' + name)
     config = {'pins': pins, 'tables': TABLES, 'network_sha256': sha(args.network),
               'argv': vars(args), 'allocation_seconds': 2700, 'started_epoch': time.time()}
+    revision = SOURCE / 'REVISION'
+    if not revision.exists() or len(revision.read_text().strip()) != 40:
+        raise ValueError('exported source must include its committed REVISION')
+    config['source_commit'] = revision.read_text().strip()
     put(root / 'config.json', config)
     config_pin = sha(root / 'config.json')
     start = time.monotonic()
