@@ -142,6 +142,9 @@ def execute(args):
                                    '--out', str(root / 'evaluation')])
         put(root / 'COMPLETE.json', {'seconds': time.monotonic() - start,
                                     'evaluation_sha256': sha(root / 'evaluation' / 'estimates.jsonl')})
+        stage('report', [sys.executable, '-m', 'scripts.deep_cfr_variance_probe', 'report',
+                         '--evaluation', str(root / 'evaluation'), '--stages', str(root / 'stages.jsonl'),
+                         '--out', str(root / 'results.json')])
         put(root / 'status.json', {'status': 'complete'})
     except BaseException as exc:
         put(root / 'failure.json', {'error': repr(exc), 'seconds': time.monotonic() - start, 'terminal': True})

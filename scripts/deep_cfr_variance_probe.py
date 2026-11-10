@@ -177,7 +177,8 @@ def report(args):
     stages = [json.loads(line) for line in Path(args.stages).read_text().splitlines()]
     overhead = sum(s['seconds'] for s in stages if s['name'] in ('collect', 'fit'))
     names = [s['name'] for s in stages]
-    if names != ['calibrate', 'collect', 'fit', 'qualify', 'evaluate'] or any(s['returncode'] for s in stages):
+    if (names[:5] != ['calibrate', 'collect', 'fit', 'qualify', 'evaluate']
+            or names[5:] not in ([], ['report']) or any(s['returncode'] for s in stages)):
         raise ValueError('missing or failed research stages')
     root = Path(args.evaluation).parent
     complete = json.loads((root / 'COMPLETE.json').read_text())
