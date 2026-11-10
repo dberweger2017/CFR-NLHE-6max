@@ -1,3 +1,35 @@
+## PR485 — learned CFR action-baseline qualification on M4
+
+[Protocol](docs/deep-cfr-variance-qualification.md),
+[results](docs/reports/deep-cfr-variance-qualification/results.md),
+[all root/panel aggregates](docs/reports/deep-cfr-variance-qualification/results.json),
+[complete measured-file manifest](docs/reports/deep-cfr-variance-qualification/verification/files.sha256.json),
+[source/input/binary pins](docs/reports/deep-cfr-variance-qualification/verification/config.json).
+Source `89b6f308075bc7a27316dae76d5ecbd3435e0111`; one frozen run-1 advantage
+network, one 43,334-parameter training-only critic and two fixed estimator batches.
+The corrected estimates pass mathematical/implementation checks, but the recipe
+is rejected: pooled cost-adjusted ratio 2.358 [1.527, 3.574], with flop regression.
+No training or playing-strength claim, bb128 allocation, adoption or extension.
+
+Ordinary unarchived evidence remains on M4 at
+`/Users/dberweger/deep-cfr-variance-20261110/`, with measured files under `run/`.
+The auxiliary critic is `run/fit/critic.json`, SHA256
+`29b85ac50b075d7de40dcd8487732c6960f3958803d847e9269b93161e266335`;
+it cannot be loaded as a playing policy. Training rows `run/data/train.bin`:
+`7921543cdc6bc1fad6c992561f2897f998b1ca0448903551404a022895dfdd3b`.
+Repeated estimates `run/evaluation/estimates.jsonl`:
+`237be5fb818849e219a313e3b4b135d81c2b0283f36ac2b0b3e434aa683ee99d`.
+All 44 measured files have stable size/mtime during manifest hashing. Source,
+executable and operator/queue receipts are retained alongside the measured tree.
+No packaging, removal, Drive URL/ID or archive acceptance exists yet; cleaner
+archival is separate. Retrieve into a fresh ignored directory, for example
+`rsync -a m4:/Users/dberweger/deep-cfr-variance-20261110/run/ results/pr485/`,
+then verify each relative path's SHA256/size against the linked manifest before use.
+The M1 worktree also retains the ignored `results/pr485-reproduction/` readout
+copy; its repeated-estimate hash equals the M4 original. The compact
+[offline reproduction receipt](docs/reports/deep-cfr-variance-qualification/verification/reproduction.json)
+records agreement without new samples or timing.
+
 ## PR474 — matched-teacher six-player 100 BB imitation
 
 [Protocol](docs/neural-six-imitation.md),

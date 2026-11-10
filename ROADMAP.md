@@ -20,6 +20,14 @@ The next track tests whether a neural network can generalize. Each step is its o
 
 Optional GPU support is in `requirements-gpu.txt`, and `python -m scripts.check_gpu` checks it. No model, route, default or release changes.
 
+**Learned-baseline qualification (November 10, PR485, M4):** the isolated
+frozen-policy estimator passes correctness checks but fails the fixed efficiency
+rule: pooled variance × runtime ratio 2.358 [1.527, 3.574], with an established
+flop regression. Turn is inconclusive; sparse zero-variance river controls leave
+its interval undefined. The one-shot run closes in 48.4 seconds and releases the
+queue. Keep this configuration rejected; no bb128 training, default change or
+automatic follow-up. [Results](docs/reports/deep-cfr-variance-qualification/results.md).
+
 ## Target-policy exploration qualification prepared; main allocation pending
 
 [PR457](https://github.com/dberweger2017/CFR-NLHE-6max/pull/457),
