@@ -1,0 +1,14 @@
+/Users/dberweger/m4-queue-20261110/c-fit-settings/scripts/neural_capacity_sweep.py:266: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:821.)
+  if not math.isfinite(float(value)):
+{"arch": "mlp-2m", "step": 2000, "train_batch_loss": 578.6034545898438, "holdout_weighted_mse": 597.571533203125, "holdout_mse": 976.0927124023438, "seconds": 110.41326212882996}
+{"arch": "mlp-2m", "step": 4000, "train_batch_loss": 560.5565185546875, "holdout_weighted_mse": 533.0175170898438, "holdout_mse": 857.9404907226562, "seconds": 219.79405999183655}
+{"arch": "mlp-2m", "step": 6000, "train_batch_loss": 467.35552978515625, "holdout_weighted_mse": 500.54644775390625, "holdout_mse": 801.4285888671875, "seconds": 330.4081320762634}
+{"arch": "mlp-2m", "step": 8000, "train_batch_loss": 392.7080993652344, "holdout_weighted_mse": 476.8614501953125, "holdout_mse": 759.3267822265625, "seconds": 442.5092611312866}
+{"arch": "mlp-2m", "step": 10000, "train_batch_loss": 367.1366882324219, "holdout_weighted_mse": 464.5490417480469, "holdout_mse": 735.4572143554688, "seconds": 553.2947409152985}
+{"arch": "mlp-2m", "step": 12000, "train_batch_loss": 341.188720703125, "holdout_weighted_mse": 450.971435546875, "holdout_mse": 712.3533935546875, "seconds": 664.5359790325165}
+{"arch": "mlp-2m", "step": 14000, "train_batch_loss": 397.004638671875, "holdout_weighted_mse": 442.7712707519531, "holdout_mse": 696.7313232421875, "seconds": 779.2045030593872}
+{"arch": "mlp-2m", "step": 16000, "train_batch_loss": 313.17816162109375, "holdout_weighted_mse": 437.9146423339844, "holdout_mse": 686.9654541015625, "seconds": 893.2292981147766}
+{"arch": "mlp-2m", "step": 18000, "train_batch_loss": 338.2071228027344, "holdout_weighted_mse": 434.4499816894531, "holdout_mse": 681.2010498046875, "seconds": 1009.5511951446533}
+{"arch": "mlp-2m", "step": 20000, "train_batch_loss": 326.7015075683594, "holdout_weighted_mse": 433.6627197265625, "holdout_mse": 679.8289184570312, "seconds": 1127.2369179725647}
+{"arch": "mlp-2m", "parameters": 2205190, "seconds": 1127.2383720874786, "holdout": {"rows": 499533, "mse": 679.8289184570312, "weighted_mse": 433.6627197265625, "tv_to_target_policy": 0.37648752331733704}}
