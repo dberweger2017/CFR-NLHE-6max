@@ -166,8 +166,17 @@ def report(args):
     groups = root_rows(Path(args.evaluation) / 'estimates.jsonl', 64)
     stages = [json.loads(line) for line in Path(args.stages).read_text().splitlines()]
     overhead = sum(s['seconds'] for s in stages if s['name'] in ('collect', 'fit'))
-    if not {'collect', 'fit', 'evaluate'}.issubset({s['name'] for s in stages}) or any(s['returncode'] for s in stages):
+    names = [s['name'] for s in stages]
+    if names != ['calibrate', 'collect', 'fit', 'qualify', 'evaluate'] or any(s['returncode'] for s in stages):
         raise ValueError('missing or failed research stages')
+    root = Path(args.evaluation).parent
+    complete = json.loads((root / 'COMPLETE.json').read_text())
+    if complete['evaluation_sha256'] != sha(Path(args.evaluation) / 'estimates.jsonl'):
+        raise ValueError('completed evidence changed')
+    qualification = json.loads((root / 'qualification' / 'summary.json').read_text())
+    parity = json.loads((root / 'qualification' / 'parity-result.json').read_text())
+    if qualification['mode'] != 'qualify' or qualification['rows'] != 96 or parity['rows'] != 32:
+        raise ValueError('incomplete estimator qualification')
     pooled = ratios(summarize(groups), overhead)
     # Allocate fixed collection/fit cost over the fixed workload; do not charge it twice.
     batches = [ratios(summarize(groups, (b,)), overhead / 2) for b in (0, 1)]
