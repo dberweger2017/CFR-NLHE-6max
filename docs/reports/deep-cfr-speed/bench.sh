@@ -1,7 +1,8 @@
 #!/bin/bash
 # The bb128 benchmark for docs/reports/deep-cfr-speed/results.md: run 1's code (81bb6d1f) against
 # this branch, at run 1's settings, with parity checks. Run it only when bb128 is otherwise idle;
-# it uses all 16 threads and the GPU for about 40 minutes.
+# it uses all 16 threads and the GPU for about 20 minutes. The November 10 run used commit
+# 8cd6ebc2's version, which also timed batch widths 8 and 32 (since removed: slower everywhere).
 #
 #     bench.sh ROOT NEW_COMMIT [NET2M NET2M_SHA]
 #
@@ -20,6 +21,8 @@ mkdir "$R"
 cd "$R"
 log() { echo "$1" | tee -a results.jsonl; }
 sha() { sha256sum "$1" | cut -d' ' -f1; }
+# bb128 has no /usr/bin/time: seconds of a command into file $1, keeping its exit status.
+walltime() { local o=$1 s rc=0; shift; s=$(date +%s.%N); "$@" || rc=$?; echo "$(date +%s.%N) - $s" | bc > $o; return $rc; }
 
 git clone -q --filter=blob:none https://github.com/dberweger2017/CFR-NLHE-6max.git src
 for v in base new; do git -C src worktree add -q ../$v $([ $v = base ] && echo $BASE_COMMIT || echo $NEW_COMMIT); done
@@ -44,24 +47,23 @@ open('net2m.npnet', 'wb').write(b[:8] + len(hb).to_bytes(8, 'little') + hb + b[1
 EOF
 fi
 
-traverse() {  # label binary net batch -> one JSON line; keeps the file as $1.npdcf
+traverse() {  # label binary net -> one JSON line; keeps the file as $1.npdcf
   local out=$R/$1.npdcf
-  /usr/bin/time -f %e -o $1.wall ${BIN[$2]} traverse --advantage $3.npnet $(sha $3.npnet) --tables $K50 --seed $SEED --iteration 1375 \
-    --traversals 20000 --players 3,4,5,6 --explore-per-street 3 --explore-depth 8 --threads 16 --out $out \
-    $([ $2 = base ] || echo --batch $4) > $1.json
+  walltime $1.wall ${BIN[$2]} traverse --advantage $3.npnet $(sha $3.npnet) --tables $K50 --seed $SEED --iteration 1375 \
+    --traversals 20000 --players 3,4,5,6 --explore-per-street 3 --explore-depth 8 --threads 16 --out $out > $1.json
   log "$($TORCH -c "import json,sys; d=json.load(open(sys.argv[1])); print(json.dumps({'stage':'traverse','label':sys.argv[2],
     'process_seconds':float(open(sys.argv[3]).read()),'loop_seconds':d['seconds'],'records_sha256':d['records_sha256'],'nodes':d['nodes'],
     'decisions':d['nodes']-d['terminals']}))" $1.json $1 $1.wall)"
 }
 for N in net05 net2m; do
-  traverse $N-base base $N 1
+  traverse $N-base base $N
   REF=$($TORCH -c "import json;print(json.load(open('$N-base.json'))['records_sha256'])")
   [ $N = net05 ] && [ "${REF:0:16}" != $IT1375_SHA ] && { echo "base does not reproduce run 1's iteration 1375" >&2; exit 2; }
-  for v in new native; do for W in 1 8 32; do
-    traverse $N-$v-b$W $v $N $W
-    [ "$($TORCH -c "import json;print(json.load(open('$N-$v-b$W.json'))['records_sha256'])")" = "$REF" ] || { echo "$N-$v-b$W: records differ" >&2; exit 3; }
-    rm -f $N-$v-b$W.npdcf
-  done; done
+  for v in new native; do
+    traverse $N-$v $v $N
+    [ "$($TORCH -c "import json;print(json.load(open('$N-$v.json'))['records_sha256'])")" = "$REF" ] || { echo "$N-$v: records differ" >&2; exit 3; }
+    rm -f $N-$v.npdcf
+  done
 done
 
 # add: full 800k-row reservoirs with run 1's seen counts (its keep rate), then base and new on copies.
@@ -77,7 +79,7 @@ for kind, seen in (('advantage', 913639602), ('strategy', 2661917069)):
 EOF
 for v in base new base new; do
   rm -rf buf-$v; cp -r buf buf-$v
-  /usr/bin/time -f %e -o add.wall env PYTHONPATH=$R/$v $TORCH -m scripts.neural_deep_cfr add --samples net05-base.npdcf \
+  walltime add.wall env PYTHONPATH=$R/$v $TORCH -m scripts.neural_deep_cfr add --samples net05-base.npdcf \
     --advantage-buffer buf-$v/advantage --strategy-buffer buf-$v/strategy --capacity 800000 --seed $SEED > /dev/null
   log "{\"stage\":\"add\",\"label\":\"$v\",\"seconds\":$(cat add.wall)}"
 done

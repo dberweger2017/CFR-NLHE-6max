@@ -1,7 +1,7 @@
 //! Deep CFR traversals and the network bench (docs/neural-deep-cfr.md).
 //!
 //!     nplayer_deep_cfr traverse --advantage NET SHA256 --tables K50 --seed S --iteration T
-//!         --traversals K --players 3,4,5,6 [--explore-per-street K] [--explore-depth D] [--threads N] [--batch W] --out SAMPLES
+//!         --traversals K --players 3,4,5,6 [--explore-per-street K] [--explore-depth D] [--threads N] --out SAMPLES
 //!     nplayer_deep_cfr bench --network NET SHA256 --tables K50 [--seconds S] [--threads N]
 //!
 //! `traverse` writes one sample file (`NPDCF001`, a JSON header, then fixed-size records in
@@ -20,10 +20,6 @@ use sha2::{Digest, Sha256};
 use std::{collections::HashMap, io::Write, path::Path, time::Instant};
 
 const CHUNK: u64 = 2048;
-/// Walks each thread steps at once, sharing batched forward passes (`deep_cfr::run_batched`).
-/// The records don't depend on it. One is fastest on Apple silicon, where a 2M network's weights
-/// stay in cache; wider batches are for machines where weight traffic limits the threads.
-const BATCH: usize = 1;
 
 fn args() -> (String, HashMap<String, Vec<String>>) {
     let a: Vec<String> = std::env::args().skip(1).collect();
@@ -94,11 +90,6 @@ fn traverse(m: &HashMap<String, Vec<String>>) -> Result<(), String> {
     let mut w = std::io::BufWriter::with_capacity(1 << 24, file);
     w.write_all(deep_cfr::MAGIC).and_then(|_| w.write_all(&(hb.len() as u64).to_le_bytes())).and_then(|_| w.write_all(&hb))
         .map_err(|e| e.to_string())?;
-    let width = if m.contains_key("batch") { number(m, "batch")? as usize } else { BATCH };
-    if width == 0 {
-        return Err("--batch must be positive".into());
-    }
-    let ctx = deep_cfr::Context { net: &fast, tables, iteration: iteration as u32, bound };
     let start = Instant::now();
     let mut counts = Counts::default();
     let mut value = 0.;
@@ -120,15 +111,13 @@ fn traverse(m: &HashMap<String, Vec<String>>) -> Result<(), String> {
     let traversed = (|| -> Result<(), String> {
         while first < traversals {
             let last = (first + CHUNK).min(traversals);
-            // Each task steps `width` walks at once over a group of traversals, refilling slots as
-            // walks end; groups are in index order, so the records are too.
-            let group = (width * 4) as u64;
-            let starts: Vec<u64> = (first..last).step_by(group as usize).collect();
-            let results: Vec<Vec<(Vec<u8>, Counts, f64)>> = starts.into_par_iter()
-                .map(|g| deep_cfr::run_batched(&ctx, seed, &players, g..(g + group).min(last), width))
-                .collect::<Result<_, _>>()?;
+            let results: Vec<(Vec<u8>, Counts, f64)> = (first..last).into_par_iter().map(|i| {
+                let mut t = Traversal::bounded(&fast, tables, iteration as u32, bound);
+                let v = t.run(seed, i, &players)?;
+                Ok((t.out, t.counts, v))
+            }).collect::<Result<_, String>>()?;
             let mut chunk = Vec::with_capacity((last - first) as usize);
-            for (bytes, c, v) in results.into_iter().flatten() {
+            for (bytes, c, v) in results {
                 counts.add(&c);
                 value += v;
                 chunk.push(bytes);
@@ -143,7 +132,7 @@ fn traverse(m: &HashMap<String, Vec<String>>) -> Result<(), String> {
     traversed?;
     let records_sha256 = written?;
     let seconds = start.elapsed().as_secs_f64();
-    println!("{}", json!({"out":out,"records_sha256":records_sha256,"batch":width,"traversals":counts.traversals,
+    println!("{}", json!({"out":out,"records_sha256":records_sha256,"traversals":counts.traversals,
         "nodes":counts.nodes,"terminals":counts.terminals,"advantage_samples":counts.advantage,"strategy_samples":counts.strategy,
         "explore_per_street":per_street,"explore_depth":total,"sampled_traverser_decisions":counts.sampled,
         "advantage_by_street":counts.advantage_by_street,"sampled_by_street":counts.sampled_by_street,"max_nodes":counts.max_nodes,"mean_traverser_value_bb":value / traversals as f64,"seconds":seconds,"nodes_per_second":counts.nodes as f64 / seconds}));
@@ -194,28 +183,6 @@ fn bench(m: &HashMap<String, Vec<String>>) -> Result<(), String> {
     let f32_path = time(&mut |b| {
         std::hint::black_box(fast.logits(b, &mut scratch));
     });
-    // Batched forward passes must equal single ones bit for bit; time them at a few widths.
-    let single: Vec<[f32; features::ACTIONS]> = inputs.iter().map(|b| fast.logits(b, &mut scratch)).collect();
-    let mut out = Vec::new();
-    let mut batched = serde_json::Map::new();
-    for width in [8, 32] {
-        for (c, chunk) in inputs.chunks(width).enumerate() {
-            fast.logits_batch(chunk, &mut scratch, &mut out);
-            if out.iter().zip(&single[c * width..]).any(|(a, b)| a.map(f32::to_bits) != b.map(f32::to_bits)) {
-                return Err(format!("batched forward pass at width {width} differs from single ones"));
-            }
-        }
-        let start = Instant::now();
-        let mut n = 0u64;
-        while start.elapsed().as_secs_f64() < seconds / 6. {
-            for chunk in inputs.chunks(width) {
-                fast.logits_batch(chunk, &mut scratch, &mut out);
-                std::hint::black_box(&out);
-            }
-            n += inputs.len() as u64;
-        }
-        batched.insert(width.to_string(), json!(start.elapsed().as_secs_f64() / n as f64));
-    }
     let nonzero = inputs.iter().map(|b| b.iter().filter(|&&v| v != 0).count()).sum::<usize>() as f64 / inputs.len() as f64;
     // Traversal throughput on all threads. A policy network traverses with its own strategy, which
     // gives realistic hand lengths before any advantage network is trained.
@@ -240,7 +207,7 @@ fn bench(m: &HashMap<String, Vec<String>>) -> Result<(), String> {
     };
     println!("{}", json!({"network":net.sha256,"layers":net.header["layers"],"inputs":inputs.len(),"mean_nonzero_features":nonzero,
         "worst_relative_difference":worst,"reference_seconds_per_forward":reference,"f32_seconds_per_forward":f32_path,
-        "speedup":reference / f32_path,"batched_seconds_per_forward":batched,"traversal":traversal}));
+        "speedup":reference / f32_path,"traversal":traversal}));
     if worst > 1e-4 {
         return Err(format!("f32 path differs from the reference by {worst}"));
     }
