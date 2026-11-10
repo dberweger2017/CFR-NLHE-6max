@@ -161,10 +161,10 @@ def ratios(rows, overhead, resamples=10000):
 
 
 def verdict(pooled, batches, streets):
+    if any(s.get('cost_interval') is not None and s['cost_interval'][0] > 1 for s in streets):
+        return 'reject: established street harm'
     if any(s.get('cost_interval') is None for s in [pooled, *batches, *streets]):
         return 'inconclusive: unidentifiable variance ratio'
-    if any(s['cost_interval'][0] > 1 for s in streets):
-        return 'reject: established street harm'
     if pooled['cost_interval'][1] < .75 and all(b['cost_ratio'] < .75 for b in batches):
         return 'advance'
     if pooled['cost_interval'][0] >= .75:
