@@ -45,9 +45,12 @@ The uniform first iterate doesn't depend on the network's shape, so iteration 1'
 ## The cost: fewer iterations
 
 Run 1's last 75 iterations took 40 s of traversal, 10 s of reservoir adds and 16 s of fit.
-- The advantage network is called at every decision. A 2M call is about 2.2M multiply-adds against 0.48M, 4.6× more.
-- If calls dominate the traversal, iterations take about 3–3.5 minutes, so the run reaches roughly **400–500 iterations** against run 1's 1,375.
-- Qualification measures it. The run launches whatever the speed, because the question includes "per day".
+**Measured on the M4 ([PR483](https://github.com/dberweger2017/CFR-NLHE-6max/pull/483)), with run 1's code and settings:**
+- **The network isn't most of a decision's cost.** About 24 µs per decision goes to features, equity lookups and records. One call costs 5.7 µs for run 1's last network, and 22–41 µs for trained 2M networks. Trained networks are cheaper than untrained ones, because their zero hidden units are skipped.
+- **The traversal slows 1.55–2.16×** on run 1's late tree, not the 4.6× the multiply-adds would suggest. On identical uniform trees, untrained 0.5M and 2M networks give byte-identical records, and 2M takes 2.4× as long.
+- **13.7 of run 1's 24 hours were outside the traversal loop:** stage overhead, reservoir adds and fits. Most of that doesn't grow with the network. The 2M fit is assumed to take 1.0–1.75× run 1's 16.2 s.
+- **So run 2 projects to about 860 iterations** in 24 hours (range 680–1,110), against run 1's 1,375. It should pass iteration 800, where run 1 began to flatten, so the checkpoints and E4 can see whether the bigger network changes the flattening.
+- Qualification's three timed iterations check this on bb128. The run launches whatever the speed, because the question includes "per day".
 
 **That gives two comparisons:**
 - **Equal iterations (E4 and the checkpoints):** does the bigger network learn more per iteration?
@@ -70,7 +73,7 @@ Run 2 starts after run 1's E2, around 16:00 UTC on November 10.
    - **E3, equal time: run 2's final against run 1's final** (`strategy1375-s20000`), on fresh roots `20261111500000 + 1000·bank + case`.
    - **E4, equal iterations:** run 2's last checkpoint network against run 1's at the same iteration (both 4,000-step fits), on fresh roots `20261111600000 + 1000·bank + case`.
 
-The evaluation takes about 6 hours: run 1's E1 and E2 took about 3, and E3 and E4 cost about the same. Everything should be done around 22:30 UTC on November 11.
+The evaluation takes about 6 hours on bb128, or can move to a Runpod CPU pod so bb128 starts the next run: run 1's E1 and E2 took about 3, and E3 and E4 cost about the same. Everything should be done around 22:30 UTC on November 11.
 
 ## Reading, fixed now
 
