@@ -1,8 +1,8 @@
 #!/bin/bash
 # Target-noise study on the M4 (base M4 MacBook Pro, 16 GB): run 1's code plus the probe, run 1's
 # K50 tables and networks. Each run probes the traverser's first decision on one street, for 10,000
-# deals, 16 times each with independent samples below it. Run 1's bound (3 per street, 8 per path)
-# goes first; 2/6 and 4/10 show how the bound trades noise for nodes.
+# deals, 32 times each with independent samples below it. Run 1's bound (3 per street, 8 per path)
+# goes first; 2/6 and 2/8 (both in run 1's bound study) show how the bound trades noise for nodes.
 set -euo pipefail
 W=${W:-$HOME/m4-queue-20261110/a-target-noise}
 cd "$(dirname "$0")/../../.."
@@ -10,8 +10,8 @@ PY=${PY:-$HOME/neural-capacity-sweep-20261109/venv/bin/python}
 K50=${K50:-$HOME/Local/openpoker-client-20261027/models/openpoker-e2e}
 NETS=${NETS:-$HOME/deep-cfr-2m-timing-20261110/nets}
 SEED=20261111000001
-DEALS=${DEALS:-10000}
-REPEATS=${REPEATS:-16}
+DEALS=${DEALS:-40000}
+REPEATS=${REPEATS:-32}
 export CARGO_TARGET_DIR=$W/target
 mkdir -p $W/runs
 (cd native/hu20-trainer && HU20_K50_TABLES=$K50 ~/.cargo/bin/cargo test --release --locked --lib deep_cfr) > $W/tests.log 2>&1
@@ -20,7 +20,7 @@ $PY -m pytest -q tests/test_neural_target_noise.py >> $W/tests.log 2>&1
 (cd native/hu20-trainer && ~/.cargo/bin/cargo build --release --locked --example nplayer_deep_cfr) > $W/build.log 2>&1
 B=$W/target/release/examples/nplayer_deep_cfr
 sha() { shasum -a 256 "$1" | cut -d' ' -f1; }
-for BOUND in "3 8" "2 6" "4 10"; do
+for BOUND in "3 8" "2 6" "2 8"; do
   set -- $BOUND
   for NET in "late adv1375 1375" "uniform u-512-256-128 1"; do
     read -r NAME FILE IT <<< "$NET"
