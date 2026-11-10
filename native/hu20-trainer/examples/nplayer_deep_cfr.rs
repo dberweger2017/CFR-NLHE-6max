@@ -3,11 +3,16 @@
 //!     nplayer_deep_cfr traverse --advantage NET SHA256 --tables K50 --seed S --iteration T
 //!         --traversals K --players 3,4,5,6 [--explore-per-street K] [--explore-depth D] [--threads N] --out SAMPLES
 //!     nplayer_deep_cfr bench --network NET SHA256 --tables K50 [--seconds S] [--threads N]
+//!     nplayer_deep_cfr noise --advantage NET SHA256 --tables K50 --seed S --iteration T --deals D --repeats K
+//!         --street S --players 3,4,5,6 [--explore-per-street K] [--explore-depth D] [--threads N] --out JSONL
 //!
 //! `traverse` writes one sample file (`NPDCF001`, a JSON header, then fixed-size records in
 //! traversal order) and prints a summary. The records never depend on the thread count.
 //! `bench` checks the f32 path against the f64 reference on real traversal features, then times
 //! both, and times traversals per second.
+//! `noise` is the target-noise study (docs/reports/advantage-target-noise): for each of D deals it
+//! probes the traverser's first decision on one street K times with independent samples below it,
+//! and writes one JSON line per deal that reaches it.
 use hu20_trainer::{
     cards::EquityTables,
     deep_cfr::{self, Counts, Traversal},
@@ -195,12 +200,64 @@ fn bench(m: &HashMap<String, Vec<String>>) -> Result<(), String> {
     Ok(())
 }
 
+fn noise(m: &HashMap<String, Vec<String>>) -> Result<(), String> {
+    threads(m)?;
+    let net = network(m, "advantage")?;
+    if net.output != Output::Advantage {
+        return Err("--advantage must be an advantage-6 network".into());
+    }
+    let tables = EquityTables::load(Path::new(one(m, "tables")?), false)?;
+    let (seed, iteration, deals, repeats, street) = (number(m, "seed")?, number(m, "iteration")?, number(m, "deals")?,
+        number(m, "repeats")?, number(m, "street")? as usize);
+    if iteration == 0 || iteration > u32::MAX as u64 || deals == 0 || repeats < 2 || street > 3 {
+        return Err("iteration is 1..=u32::MAX, deals positive, repeats at least 2, street 0..=3".into());
+    }
+    let players: Vec<usize> = one(m, "players")?.split(',').map(|p| p.parse().map_err(|_| "players: comma list".to_string())).collect::<Result<_, _>>()?;
+    let limit = |k: &str| -> Result<u32, String> { if m.contains_key(k) { Ok(number(m, k)? as u32) } else { Ok(u32::MAX) } };
+    let bound = deep_cfr::Bound { per_street: limit("explore-per-street")?, total: limit("explore-depth")? };
+    let fast = net.fast();
+    let start = Instant::now();
+    let lines: Vec<Result<Option<String>, String>> = (0..deals).into_par_iter().map(|i| {
+        let mut t = Traversal::bounded(&fast, tables, iteration as u32, bound);
+        let mut probes = Vec::with_capacity(repeats as usize);
+        for k in 0..repeats {
+            let reseed = hu20_trainer::multi_arena::stream_seed(seed, b"deep-cfr-noise", i * 4 + street as u64, k);
+            match t.probe(seed, i, &players, street, reseed)? {
+                Some(p) => probes.push(p),
+                None => return Ok(None),
+            }
+        }
+        let p = probes[0];
+        if probes.iter().any(|q| (q.players, q.street, q.legal) != (p.players, p.street, p.legal)) {
+            return Err(format!("deal {i}: repeats reached different decisions"));
+        }
+        let regrets: Vec<Vec<f32>> = probes.iter().map(|q| q.regrets.to_vec()).collect();
+        let nodes: Vec<u64> = probes.iter().map(|q| q.nodes).collect();
+        Ok(Some(json!({"deal":i,"players":p.players,"street":p.street,"legal":p.legal,"regrets":regrets,"nodes":nodes}).to_string()))
+    }).collect();
+    let out = Path::new(one(m, "out")?);
+    let mut w = std::io::BufWriter::new(std::fs::File::create(out).map_err(|e| format!("{}: {e}", out.display()))?);
+    let mut reached = 0u64;
+    for l in lines {
+        if let Some(l) = l? {
+            reached += 1;
+            writeln!(w, "{l}").map_err(|e| e.to_string())?;
+        }
+    }
+    w.flush().map_err(|e| e.to_string())?;
+    println!("{}", json!({"out":out,"advantage_network":net.sha256,"seed":seed,"iteration":iteration,"street":street,"deals":deals,
+        "reached":reached,"repeats":repeats,"players":players,"explore_per_street":bound.per_street,"explore_depth":bound.total,
+        "seconds":start.elapsed().as_secs_f64()}));
+    Ok(())
+}
+
 fn main() {
     let (command, m) = args();
     let result = match command.as_str() {
         "traverse" => traverse(&m),
         "bench" => bench(&m),
-        _ => Err("usage: nplayer_deep_cfr traverse|bench ...".into()),
+        "noise" => noise(&m),
+        _ => Err("usage: nplayer_deep_cfr traverse|bench|noise ...".into()),
     };
     if let Err(e) = result {
         eprintln!("nplayer_deep_cfr: {e}");

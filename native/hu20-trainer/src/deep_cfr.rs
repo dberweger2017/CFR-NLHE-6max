@@ -102,6 +102,16 @@ pub fn root(seed: u64, iteration: u64, index: u64, players: &[usize]) -> Result<
     Ok((Hand::from_deck(config, button, &deck)?, traverser, rng))
 }
 
+/// One probed decision of the target-noise study: its sampled regrets and the nodes explored below it.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Probe {
+    pub players: u8,
+    pub street: u8,
+    pub legal: u8,
+    pub regrets: [f32; ACTIONS],
+    pub nodes: u64,
+}
+
 pub struct Traversal<'a> {
     pub net: &'a Fast,
     pub tables: &'a EquityTables,
@@ -133,6 +143,54 @@ impl<'a> Traversal<'a> {
         let value = self.visit(&mut hand, traverser, Explored { total: 0, street: 0, in_street: 0 }, &mut rng);
         self.counts.max_nodes = self.counts.max_nodes.max(self.counts.nodes - before);
         value
+    }
+    /// Target-noise study (docs/reports/advantage-target-noise): walks traversal `index`'s root along
+    /// sampled actions, the traverser's too, to the traverser's first decision on `street`. There it
+    /// reseeds the random stream with `reseed` and explores as `run` does, with a fresh exploration
+    /// budget. Returns that decision's sampled regrets, or `None` if the traverser never acts on
+    /// `street`. Repeats with other `reseed` values see the same decision with independent samples
+    /// below it. Writes no records and leaves `run` untouched.
+    pub fn probe(&mut self, seed: u64, index: u64, players: &[usize], street: usize, reseed: u64) -> Result<Option<Probe>, String> {
+        let (mut hand, traverser, mut rng) = root(seed, self.iteration as u64, index, players)?;
+        loop {
+            let Some(actor) = hand.actor() else { return Ok(None) };
+            let view = hand.observe(actor)?;
+            if view.street as usize > street {
+                return Ok(None);
+            }
+            let legal = features::legal_mask(&view);
+            if actor == traverser && view.street as usize == street {
+                let (out, nodes) = (self.out.len(), self.counts.nodes);
+                let mut below = rand::rngs::StdRng::seed_from_u64(reseed);
+                self.visit(&mut hand, traverser, Explored { total: 0, street: 0, in_street: 0 }, &mut below)?;
+                // Children record first, so the decision's own advantage record is the last one written.
+                let rec = &self.out[self.out.len() - record_bytes()..];
+                debug_assert_eq!(rec[0], ADVANTAGE);
+                let mut regrets = [0f32; ACTIONS];
+                for (k, r) in regrets.iter_mut().enumerate() {
+                    *r = f32::from_le_bytes(rec[8 + 4 * k..12 + 4 * k].try_into().unwrap());
+                }
+                let p = Probe { players: rec[1], street: rec[2], legal: rec[3], regrets, nodes: self.counts.nodes - nodes };
+                self.out.truncate(out);
+                return Ok(Some(p));
+            }
+            let choices = menu(&view);
+            let bytes = features::quantize(&features::encode(&view, Some(self.tables))?);
+            let sigma = self.net.strategy(&bytes, legal, &mut self.scratch);
+            let draw: f64 = rng.gen();
+            let (mut sum, mut pick) = (0., None);
+            for (i, (label, _)) in choices.iter().enumerate() {
+                let p = sigma[*label as usize];
+                if p > 0. {
+                    pick = Some(i);
+                    sum += p;
+                    if draw < sum {
+                        break;
+                    }
+                }
+            }
+            hand.apply_mut(choices[pick.ok_or("empty strategy")?].1)?;
+        }
     }
     fn record(&mut self, kind: u8, players: usize, street: usize, legal: u8, targets: &[f64; ACTIONS], bytes: &[u8]) {
         self.out.extend_from_slice(&[kind, players as u8, street as u8, legal]);
@@ -355,6 +413,34 @@ mod tests {
         let ((full, va), (cut, vb)) = (stats(&full), stats(&cut));
         let se = (va + vb).sqrt();
         assert!(se > 0. && (full - cut).abs() < 4. * se, "explored {full} sampled {cut} se {se}");
+    }
+
+
+    #[test]
+    fn probes_repeat_one_decision_with_independent_samples_below() {
+        let Some(t) = tables() else { return };
+        let net = constant([0.1, 0.2, 1.0, -1.0, 0.5, -0.3]);
+        let fast = net.fast();
+        let mut x = Traversal::bounded(&fast, t, 3, bound(3, 8));
+        for street in 0..4 {
+            let mut seen = 0;
+            for i in 0..40 {
+                let a = x.probe(21, i, &[3, 6], street, 1).unwrap();
+                assert_eq!(a, x.probe(21, i, &[3, 6], street, 1).unwrap(), "a probe is a function of its reseed");
+                let Some(a) = a else { continue };
+                seen += 1;
+                assert_eq!(a.street as usize, street);
+                let b = x.probe(21, i, &[3, 6], street, 2).unwrap().unwrap();
+                assert_eq!((a.players, a.street, a.legal), (b.players, b.street, b.legal), "the same decision");
+                for k in 0..ACTIONS {
+                    if a.legal >> k & 1 == 0 {
+                        assert_eq!(a.regrets[k], 0.);
+                    }
+                }
+            }
+            assert!(seen > 0, "street {street}");
+        }
+        assert!(x.out.is_empty(), "probes write no records");
     }
 
     #[test]
