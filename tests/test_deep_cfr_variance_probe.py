@@ -1,5 +1,9 @@
 """Decision/report integrity checks; estimator mathematics is exhaustively tested in Rust."""
 import json
+import importlib.util
+import struct
+import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -8,6 +12,28 @@ from scripts.deep_cfr_variance_probe import root_rows, ratios, verdict
 
 
 class VarianceProbeTests(unittest.TestCase):
+    @unittest.skipUnless(importlib.util.find_spec('torch'), 'torch is in the research/CI environment')
+    def test_fit_and_export_preserve_action_targets_and_bb_units(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            data = root / 'data'
+            data.mkdir()
+            target = [-100., -20., 0., 10., 100., 200.]
+            with (data / 'train.bin').open('wb') as f:
+                for i in range(600):
+                    f.write(bytes(670) + bytes([i % 6]) + struct.pack('<f', target[i % 6]))
+            (data / 'summary.json').write_text(json.dumps({'policy_layout': 'synthetic-layout'}))
+            subprocess.run([sys.executable, '-m', 'scripts.deep_cfr_variance_probe', 'fit', '--device', 'cpu',
+                            '--data', str(data), '--out', str(root / 'fit')], check=True, capture_output=True, text=True)
+            critic = json.loads((root / 'fit' / 'critic.json').read_text())
+            self.assertEqual(critic['format'], 'variance-probe-critic-v1')
+            self.assertEqual((len(critic['w']), len(critic['v'])), (670 * 64, 64 * 6))
+            # At zero input the first layer is its bias; evaluate the exported arrays
+            # independently, including the BB scaling used by the native reader.
+            for a in range(6):
+                value = 100 * (critic['c'][a] + sum(critic['v'][64*a+k] * max(0, critic['b'][k]) for k in range(64)))
+                self.assertAlmostEqual(value, target[a], delta=.1)
+
     def test_cost_can_reverse_a_variance_gain(self):
         rows = [{'stratum': 'flop', 'variance': [10., 2.], 'seconds': [1., 2.]},
                 {'stratum': 'river', 'variance': [20., 4.], 'seconds': [1., 2.]}]
