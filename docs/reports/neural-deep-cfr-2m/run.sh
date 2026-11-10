@@ -183,7 +183,8 @@ fi
 # The 24-hour training window.
 ln -sfn $R/buffers $W/buffers
 [ -e $W/window.json ] || echo "{\"start\":$(date +%s),\"seconds\":$WINDOW}" > $W/window.json
-END=$(( $(json $W/window.json "['start']") + WINDOW ))
+# Stops and pauses (deviations.jsonl) are added back, so the run gets 24 hours of training time.
+END=$(( $(json $W/window.json "['start']") + WINDOW + $(json $W/window.json ".get('paused_seconds', 0)") ))
 stage deep-cfr
 T=1
 while [ -e $W/models/adv$T.npnet ]; do T=$((T + 1)); done
