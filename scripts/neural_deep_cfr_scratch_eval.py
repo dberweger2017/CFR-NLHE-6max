@@ -8,8 +8,11 @@ contrast is arm 1 minus arm 0, all-in adjusted. `DCFR_SCRATCH_EVAL` picks the ev
                 field and one secondary field, 512 blocks, roots 20261110600000 + 100*N
     e1          final against net1 on the pilot's own roots (20261109500000), every field, 4,096 blocks
     e2          final against the pilot's strategy300-s4000, fresh roots 20261110500000, every field
+    e3          run 2's final against run 1's final (docs/neural-deep-cfr-2m.md), roots 20261111500000
+    e4          run 2's last checkpoint against run 1's at the same iteration, roots 20261111600000
 
-The networks file names the arms' networks, so e1 and e2 differ only in `start` and the roots.
+The networks file names the arms' networks, so the modes differ only in `start` and the roots. In e3
+and e4 `start` is run 1's network and `dcfr` run 2's, and the verdicts name the runs.
 """
 import os
 
@@ -19,6 +22,9 @@ from scripts import openpoker_phantom_depth as study
 PILOT_ROOT = 20261109500000
 WARM_ROOT = 20261110500000
 MONITOR_ROOT = 20261110600000
+EQUAL_TIME_ROOT = 20261111500000
+EQUAL_ITERATION_ROOT = 20261111600000
+ROOTS = {'e1': PILOT_ROOT, 'e2': WARM_ROOT, 'e3': EQUAL_TIME_ROOT, 'e4': EQUAL_ITERATION_ROOT}
 # Monitoring keeps one secondary field per table: the report's harm family needs one, and these two
 # are the ones the pilot's reading leaned on (passive play at the short tables, mixed at 100 BB).
 MONITOR_SECONDARY = {'short': 'tight-aggressive', 'deep': 'mixed'}
@@ -26,9 +32,9 @@ MONITOR_SECONDARY = {'short': 'tight-aggressive', 'deep': 'mixed'}
 
 def mode():
     m = os.environ.get('DCFR_SCRATCH_EVAL', '')
-    if m in ('e1', 'e2') or (m.startswith('monitor-') and m[8:].isdigit()):
+    if m in ROOTS or (m.startswith('monitor-') and m[8:].isdigit()):
         return m
-    raise SystemExit('set DCFR_SCRATCH_EVAL to monitor-N, e1 or e2')
+    raise SystemExit('set DCFR_SCRATCH_EVAL to monitor-N, e1, e2, e3 or e4')
 
 
 def tables():
@@ -46,19 +52,18 @@ def tables():
 
 
 def verdict(table_study, lower, upper):
+    better, worse = ('run 2 better', 'run 1 better') if mode() in ('e3', 'e4') else ('scratch better', 'start better')
     if lower > 0:
-        return 'scratch better'
-    return 'start better' if upper < 0 else 'no difference shown'
+        return better
+    return worse if upper < 0 else 'no difference shown'
 
 
 def configure():
     m = mode()
     study.tables, study.verdict = tables, verdict
     study.BANKS = 1
-    if m == 'e1':
-        study.ROOT, study.BLOCKS = PILOT_ROOT, 4096
-    elif m == 'e2':
-        study.ROOT, study.BLOCKS = WARM_ROOT, 4096
+    if m in ROOTS:
+        study.ROOT, study.BLOCKS = ROOTS[m], 4096
     else:
         study.ROOT, study.BLOCKS = MONITOR_ROOT + 100 * int(m[8:]), 512
     study.HARM_STUDIES = ('scratch-short', 'scratch-deep')

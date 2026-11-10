@@ -144,6 +144,7 @@ def test_init_sets_constant_outputs_for_the_first_iterate(tmp_path, uniform):
 
 
 @pytest.mark.parametrize('name,root,blocks', [('e1', 20261109500000, 4096), ('e2', 20261110500000, 4096),
+                                              ('e3', 20261111500000, 4096), ('e4', 20261111600000, 4096),
                                               ('monitor-25', 20261110602500, 512)])
 def test_scratch_evaluations_pick_their_roots_size_and_fields(monkeypatch, name, root, blocks):
     from scripts import neural_deep_cfr_scratch_eval as ev
@@ -164,7 +165,9 @@ def test_scratch_evaluations_pick_their_roots_size_and_fields(monkeypatch, name,
             assert list(t['fields'])[0] == list(f['fields'])[0] and len(t['fields']) == 2
         else:
             assert t['fields'] == f['fields']
-    assert ev.verdict('scratch-short', 0.1, 1) == 'scratch better' and ev.verdict('scratch-deep', -2, -0.1) == 'start better'
+    better, worse = ('run 2 better', 'run 1 better') if name in ('e3', 'e4') else ('scratch better', 'start better')
+    assert ev.verdict('scratch-short', 0.1, 1) == better and ev.verdict('scratch-deep', -2, -0.1) == worse
+    assert ev.verdict('scratch-deep', -1, 1) == 'no difference shown'
 
 
 def test_scratch_evaluation_refuses_an_unknown_mode(monkeypatch):
