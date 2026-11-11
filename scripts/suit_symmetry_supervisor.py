@@ -26,8 +26,11 @@ def main():
             mem = dict(line.split(':', 1) for line in Path('/proc/meminfo').read_text().splitlines())
             available = int(mem['MemAvailable'].split()[0]) * 1024
             free = shutil.disk_usage(out).free
-            gpu = subprocess.run(['nvidia-smi', '--query-gpu=temperature.gpu,memory.used,utilization.gpu',
-                                  '--format=csv,noheader,nounits'], capture_output=True, text=True, timeout=10)
+            try:
+                gpu = subprocess.run(['nvidia-smi', '--query-gpu=temperature.gpu,memory.used,utilization.gpu',
+                                      '--format=csv,noheader,nounits'], capture_output=True, text=True, timeout=10)
+            except (OSError, subprocess.TimeoutExpired) as error:
+                gpu = subprocess.CompletedProcess('nvidia-smi', 1, stdout=str(error))
             fields = gpu.stdout.strip().split(',')
             row = {'seconds': time.monotonic() - start, 'available_bytes': available,
                    'disk_free_bytes': free, 'gpu': gpu.stdout.strip(), 'gpu_query_exit': gpu.returncode}
