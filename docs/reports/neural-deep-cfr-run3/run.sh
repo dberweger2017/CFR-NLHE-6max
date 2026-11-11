@@ -44,7 +44,11 @@ ADV_STEPS=1000
 MONITOR_STEPS=4000
 FINAL_STEPS=20000
 WINDOW=86400
-MONITOR="25 50 100 200 300 400 800 1200"
+MONITOR="25 50 100 200 300 400 800 1200 1500"
+RUN1_MONITOR="25 50 100 200 300 400 800 1200"   # run 1's checkpoints, for E4
+# Deviation (Nov 11, owner): stop after iteration 1,500 instead of the 24-hour window. Run 1's final is
+# at 1,375 and its last checkpoint at 1,200; 1,500 adds a checkpoint past both to read a plateau.
+MAX_ITERATIONS=1500
 SNAPSHOT_EVERY=100   # a reboot loses at most 100 iterations (about 2 hours)
 # Exploration bound, fixed from the bound study (docs/neural-deep-cfr-scratch.md).
 PER_STREET=3
@@ -200,9 +204,10 @@ ln -sfn $R/buffers $W/buffers
 # Stops and pauses (deviations.jsonl) are added back, so the run gets 24 hours of training time.
 END=$(( $(json $W/window.json "['start']") + WINDOW + $(json $W/window.json ".get('paused_seconds', 0)") ))
 stage deep-cfr
+# Resume after the last completed iteration. Pruned advantage networks rule out scanning models/.
 T=1
-while [ -e $W/models/adv$T.npnet ]; do T=$((T + 1)); done
-while [ "$(date +%s)" -lt $END ]; do
+[ -s $W/progress.csv ] && T=$(( $(tail -1 $W/progress.csv | cut -d, -f1) + 1 ))
+while [ "$(date +%s)" -lt $END ] && [ $T -le $MAX_ITERATIONS ]; do
   iteration $W $T $TRAVERSALS $CAPACITY $R/buffers
   # The uniform first iterate doesn't depend on the network's shape: iteration 1 must be run 1's.
   if [ $T = 1 ] && [ "$(json $W/iterations/it1.json "['records_sha256']")" != $RUN1_IT1_RECORDS ]; then
@@ -221,7 +226,7 @@ while [ "$(date +%s)" -lt $END ]; do
   [ $((T % SNAPSHOT_EVERY)) -eq 0 ] && snapshot $T
   T=$((T + 1))
 done
-# The last iteration completed inside the window is final, whatever its scores.
+# The last iteration completed (the window or MAX_ITERATIONS) is final, whatever its scores.
 FINAL=$((T - 1))
 [ -e $W/final.json ] || echo "{\"iteration\":$FINAL,\"window_end\":$END}" > $W/final.json
 FINAL=$(json $W/final.json "['iteration']")
@@ -233,12 +238,12 @@ stage e1
 evaluation $W/e1 e1 $NET $NET1 $NET1_SHA
 stage e2
 evaluation $W/e2 e2 $NET $W/warm300.npnet $WARM_SHA
-# E3, equal time: run 2's final against run 1's final.
+# E3: run 3's final (1,500) against run 1's final (1,375).
 stage e3
 evaluation $W/e3 e3 $NET $RUN1_FINAL $RUN1_FINAL_SHA
-# E4, equal iterations: run 2's last checkpoint reached against run 1's at the same iteration.
+# E4, equal iterations: run 3's last checkpoint that run 1 also has, against run 1's.
 LAST=0
-for N in $MONITOR; do [ $N -le $FINAL ] && LAST=$N; done
+for N in $RUN1_MONITOR; do [ $N -le $FINAL ] && LAST=$N; done
 [ $LAST -gt 0 ]
 [ -e $W/e4.json ] || printf '{"iteration":%d,"run1":"%s","run1_sha256":"%s"}\n' $LAST $RUN1/models/strategy$LAST-s$MONITOR_STEPS.npnet \
     $(sha $RUN1/models/strategy$LAST-s$MONITOR_STEPS.npnet) > $W/e4.json
