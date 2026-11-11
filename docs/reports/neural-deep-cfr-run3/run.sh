@@ -120,11 +120,13 @@ iteration() {  # root T traversals capacity buffers
     --out $M --export $M.npnet > $M.train.json
   t3=$(date +%s.%N)
   echo "$T,$t0,$t1,$t2,$t3" >> $D/progress.csv   # iteration, then traverse/add/train boundaries (epoch seconds)
-  # Keep every 10th advantage network and the checkpoints'. A 2M model with its optimizer state is about
-  # 27 MB, so keeping all 2,000-3,000 would overrun the NVMe. Every network's SHA-256 stays in the
-  # next iteration's it$T.json, and the deleted ones are used by nothing after iteration T.
+  # The NVMe has about 26 GB free and a 2M model with its optimizer state is about 27 MB, so keeping
+  # all 2,000-3,000 would overrun it. Iteration T's fit continues from T-1's model, which nothing
+  # needs after that: its directory goes. Its 9 MB network file is kept for every 10th iteration and
+  # the checkpoints. Every network's SHA-256 stays in the next iteration's it$T.json.
   local P=$((T - 1))
-  if [ $P -gt 0 ] && [ $((P % 10)) -ne 0 ] && [[ " $MONITOR " != *" $P "* ]]; then rm -rf $D/models/adv$P $D/models/adv$P.npnet; fi
+  rm -rf $D/models/adv$P
+  if [ $((P % 10)) -ne 0 ] && [[ " $MONITOR " != *" $P "* ]]; then rm -f $D/models/adv$P.npnet; fi
 }
 strategy() {  # root buffers iteration steps seed: a fresh strategy network
   local M=$1/models/strategy$3-s$4

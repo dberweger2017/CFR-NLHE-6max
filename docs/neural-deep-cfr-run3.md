@@ -33,7 +33,7 @@ Everything in [run 2's protocol](neural-deep-cfr-2m.md) except the points below:
 | Guard | wakes every 5 s, so each stage rounds up to a multiple of 5 s | checks sensors every 5 s, notices a stage's end within 0.1 s | About 2.5 s per stage (PR484). The stops are unchanged: CPU 90 °C, VRM 100 °C, GPU 87 °C. |
 | Fits | export in a second process | `train --export` and batch prefetch | Same network bytes on CUDA (PR484) |
 | Failed traversal | could carry on to the add (run 2's second stop) | stops the run | Bug found in run 2 |
-| Traversal threads | 12 after the first stop | 16, like run 1, unless qualification shows the CPU within 3 °C of the stop | Records don't depend on the thread count, as qualification checks |
+| Traversal threads | 12 after the first stop | 16, like run 1 | Records don't depend on the thread count, as qualification checks. After the owner's new fan curve, eight back-to-back 16-thread traversals with a 2M network peaked at 80 °C, against run 2's 91–93 °C stops. |
 
 **Parity record.** Run 3's iterations 1–177 should reproduce run 2's records exactly, since it's the same experiment on byte-identical code. `parity-run2.jsonl` records each one, as a full-scale check of PR484. A mismatch is recorded and reported, not a stop. Run 3 is a valid run either way, but a mismatch would mean PR484 changes numbers after all.
 
@@ -47,6 +47,6 @@ Everything in [run 2's protocol](neural-deep-cfr-2m.md) except the points below:
 - `/mnt/data2tb/neural-deep-cfr-run3-20261111` (snapshots, every 100 iterations);
 - `/dev/shm/neural-deep-cfr-run3` (reservoirs).
 
-**Disk:** a 2M advantage model with its optimizer state takes about 27 MB, so keeping 2,000–3,000 of them would overrun the NVMe (29 GB free, guard at 10 GB). Run 3 keeps every 10th advantage network and every checkpoint's, plus the final. The others are deleted once the next iteration has been fitted. Each one's SHA-256 stays in the following iteration's `it<N>.json`, and nothing after that iteration uses it. Run 1 and run 2 kept all of theirs.
+**Disk:** the NVMe has about 26 GB free, and the guard stops at 10 GB. A 2M advantage model with its optimizer state takes about 27 MB, so keeping 2,000–3,000 would overrun it. Each iteration's fit continues from the previous model, which nothing needs afterwards, so its directory is deleted. Its 9 MB network file is kept for every 10th iteration and every checkpoint, about 2.5 GB in all. Every network's SHA-256 stays in the next iteration's `it<N>.json`. Run 1 and run 2 kept all of theirs.
 
 Run 2's tree stays as read-only evidence.
