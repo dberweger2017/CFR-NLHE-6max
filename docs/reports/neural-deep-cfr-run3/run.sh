@@ -44,11 +44,12 @@ ADV_STEPS=1000
 MONITOR_STEPS=4000
 FINAL_STEPS=20000
 WINDOW=86400
-MONITOR="25 50 100 200 300 400 800 1200 1500"
-RUN1_MONITOR="25 50 100 200 300 400 800 1200"   # run 1's checkpoints, for E4
-# Deviation (Nov 11, owner): stop after iteration 1,500 instead of the 24-hour window. Run 1's final is
-# at 1,375 and its last checkpoint at 1,200; 1,500 adds a checkpoint past both to read a plateau.
+MONITOR="25 50 100 200 300 400 800 1200 1375 1500"
+# Deviation (Nov 11, owner): stop after iteration 1,500 instead of the 24-hour window, with checkpoints
+# at 1,375 (run 1's final iteration) and 1,500, to read a plateau against 1,200. At 1,375 the run also
+# fits a 20,000-step strategy network with run 1's final seed rule: E4 plays it against run 1's final.
 MAX_ITERATIONS=1500
+E4_ITERATION=1375
 SNAPSHOT_EVERY=100   # a reboot loses at most 100 iterations (about 2 hours)
 # Exploration bound, fixed from the bound study (docs/neural-deep-cfr-scratch.md).
 PER_STREET=3
@@ -223,6 +224,7 @@ while [ "$(date +%s)" -lt $END ] && [ $T -le $MAX_ITERATIONS ]; do
     strategy $W $R/buffers $T $MONITOR_STEPS $((SEED + 100000 + T))
     evaluation $W/monitor/it$T monitor-$T $W/models/strategy$T-s$MONITOR_STEPS.npnet $NET1 $NET1_SHA
   fi
+  [ $T = $E4_ITERATION ] && strategy $W $R/buffers $T $FINAL_STEPS $((SEED + 200000 + T))
   [ $((T % SNAPSHOT_EVERY)) -eq 0 ] && snapshot $T
   T=$((T + 1))
 done
@@ -241,12 +243,7 @@ evaluation $W/e2 e2 $NET $W/warm300.npnet $WARM_SHA
 # E3: run 3's final (1,500) against run 1's final (1,375).
 stage e3
 evaluation $W/e3 e3 $NET $RUN1_FINAL $RUN1_FINAL_SHA
-# E4, equal iterations: run 3's last checkpoint that run 1 also has, against run 1's.
-LAST=0
-for N in $RUN1_MONITOR; do [ $N -le $FINAL ] && LAST=$N; done
-[ $LAST -gt 0 ]
-[ -e $W/e4.json ] || printf '{"iteration":%d,"run1":"%s","run1_sha256":"%s"}\n' $LAST $RUN1/models/strategy$LAST-s$MONITOR_STEPS.npnet \
-    $(sha $RUN1/models/strategy$LAST-s$MONITOR_STEPS.npnet) > $W/e4.json
-stage "e4-$LAST"
-evaluation $W/e4 e4 $W/models/strategy$LAST-s$MONITOR_STEPS.npnet $(json $W/e4.json "['run1']") $(json $W/e4.json "['run1_sha256']")
+# E4, equal iterations and equal fits: run 3 at 1,375 against run 1's final, both 20,000-step fits.
+stage "e4-$E4_ITERATION"
+evaluation $W/e4 e4 $W/models/strategy$E4_ITERATION-s$FINAL_STEPS.npnet $RUN1_FINAL $RUN1_FINAL_SHA
 stage done

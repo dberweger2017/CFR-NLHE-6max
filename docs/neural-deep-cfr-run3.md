@@ -53,11 +53,11 @@ Run 2's tree stays as read-only evidence.
 
 ## Deviations
 
-- **Stops at iteration 1,500, not after 24 hours** (owner's decision, November 11, about 10:00 UTC, at iteration 1,040).
-  - **Why 1,500:** run 1's final is at 1,375 and its last checkpoint at 1,200. A checkpoint at 1,500 (4,000-step fit, like the others) shows whether run 3 keeps improving past where run 1 flattened.
+- **Stops at iteration 1,500, not after 24 hours** (owner's decision, November 11, about 10:00 UTC, at iteration 1,054).
+  - **New checkpoints at 1,375 and 1,500** (4,000-step fits against `net1`, like the others). With 800 and 1,200 they show whether run 3 flattens. 1,375 is run 1's final iteration.
+  - **E4 becomes the cleanest equal-iteration test.** At 1,375 the run also fits a 20,000-step strategy network with run 1's final seed rule, and E4 plays it against run 1's final: same iteration, same fit.
+  - **E3** plays run 3's final (1,500, 20,000 steps) against run 1's final (1,375). It's no longer an equal-time comparison: run 3 reaches 1,500 in about 12.5 hours against run 1's 24 for 1,375.
   - **What it costs:** about 11 hours of training, which bb128 gets back for the next run.
-  - **E3 changes meaning.** It compares run 3's final at 1,500 with run 1's final at 1,375, nearly equal iterations, both 20,000-step fits. It's no longer an equal-time comparison. Run 3 reaches 1,500 in about 12.5 hours against run 1's 24 for 1,375, which the report states.
-  - **E4 is unchanged:** iteration 1,200 against run 1's 1,200.
 - **Resume fix.** The controller found its place by scanning for advantage networks, which pruning deletes, so a resume would have restarted at iteration 1. It now resumes after the last line of `progress.csv`. The fix was applied when the controller was restarted for the new stop.
 - **Short-burst power limit lowered to 150 W** (owner, about 08:13 UTC, until reboot) to reduce fan noise. Outputs are unaffected and traversal time didn't change measurably.
 
