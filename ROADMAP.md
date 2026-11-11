@@ -16,9 +16,26 @@ The next track tests whether a neural network can generalize. Each step is its o
   **Exploration, advantage-network size (November 9, one seed, offline):** on 5M of the pilot's reservoir rows, 0.5M → 2M parameters cuts held-out error 9%. Beyond that, plain networks memorize the regret noise (13M: no held-out gain), and card embeddings at 15M add 1.4%. The next Deep CFR run should use a 2M advantage network; less noisy targets matter more than size. [Results](docs/reports/neural-capacity-sweep/results.md).
   **Follow-up, rows or noise (November 9, one seed, offline):** the fit is limited by rows. Each tripling from 0.5M to 4.5M cuts held-out error 20–25%, and the curve isn't flat yet. Card embeddings help most when rows are scarce (5–7% at 1.5M rows). A Huber loss is mixed: worse squared error, better TV. [Results](docs/reports/neural-capacity-sweep/rows/results.md).
   **Follow-up, 13M rows (November 10, one seed, offline):** from 4.5M to 13M rows, held-out error falls 18% (`mlp-2m`) and 23% (`mlp-13m`). The bigger network goes from 3.8% worse to 3.0% better, and card embeddings stop helping. Rows matter most; `mlp-13m` is worth it only if Rust traversal throughput allows. [Results](docs/reports/neural-capacity-sweep/more/results.md).
+  **Follow-up, fit settings (November 10, one seed, offline):** for `mlp-2m` on 13M rows, run 1's recipe is about right: learning rate 1e-3 is best, weight decay doesn't matter, and big batches waste samples. Only more samples help: 60k steps cut held-out error 3.2%, all of it on Deep CFR rows, flat from 30–36k. Candidates for run 3: more continued steps per iteration, and a longer final fit. [Results](docs/reports/neural-capacity-sweep/settings/results.md).
   **Timing, 2M advantage network in traversals (November 10, M4):** on identical trees the 2M network costs 2.4× an untrained 0.5M one; trained networks are cheaper, so run 1's late tree slows 1.55–2.16×. Projected run 2 on bb128: about 860 iterations in 24 hours (680–1,110), not 400–500. 13.7 of run 1's 24 hours were outside the traversal loop. [Results](docs/reports/advantage-2m-timing/results.md).
 
 Optional GPU support is in `requirements-gpu.txt`, and `python -m scripts.check_gpu` checks it. No model, route, default or release changes.
+
+**Learned-baseline qualification (November 10, PR485, M4):** the isolated
+frozen-policy estimator passes correctness checks but fails the fixed efficiency
+rule: pooled variance × runtime ratio 2.358 [1.527, 3.574], with an established
+flop regression. Turn is inconclusive; sparse zero-variance river controls leave
+its interval undefined. The one-shot run closes in 48.4 seconds and releases the
+queue. Keep this configuration rejected; no bb128 training, default change or
+automatic follow-up. [Results](docs/reports/deep-cfr-variance-qualification/results.md).
+
+**Suit-canonical policy pilot (November 11, Runpod, offline):** rejects this
+recipe. Three paired fits improve TV-to-teacher error by only 0.00199 (one-sided
+95% bounds −0.00447/+0.00050), missing the required gain; CPU decision latency is
+1.54× raw at the median, above the 1.25× cap. Exact suit invariance passes, but
+does not establish useful imitation or playing-strength progress. The pod and
+temporary volume were removed after verified retrieval; estimated spend <US$0.03.
+[Results](docs/reports/suit-symmetry-pilot/results.md).
 
 ## Target-policy exploration qualification prepared; main allocation pending
 

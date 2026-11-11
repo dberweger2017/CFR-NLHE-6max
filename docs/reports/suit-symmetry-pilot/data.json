@@ -1,0 +1,367 @@
+{
+  "format": "suit-symmetry-data-v1",
+  "seed": 20261111860001,
+  "layout": "33d180c77adfd1d322afa313949cb5b7bade2469a92b86022458635d650adb8b",
+  "source_pins": {
+    "train/wide-3p-mixed.npfeat": "75c994ea8a3d2b5edbe9b3ba4dc38f7cc95711c7d931a5920ff5aea15f6ed76d",
+    "train/wide-4p-mixed.npfeat": "d9e536cb25428950977cf7355187f9e1be522d5489defacbcbda372697feeb4c",
+    "train/wide-5p-mixed.npfeat": "d95e41a96d6607aa00bf010667ab1dd793b0ed81071882ced6322df00042ad5d",
+    "train/wide-6p-mixed.npfeat": "79706a5ec1f5d42203aa555b0aa30b04b5ed7319cdee3ce792a743079c5932e0",
+    "test-wide/wide-3p-mixed.npfeat": "c9d64679865928d428b8a07a396ba6f0778399cfbb8c65fb67d845ce4613448d",
+    "test-wide/wide-4p-mixed.npfeat": "7feb7a0eb583857ad8da2a20a67405a34f3835ceebab105ae3589203727b2af7",
+    "test-wide/wide-5p-mixed.npfeat": "dc48d64518a53d1194278bb8df41ca3e49d622df30c3fe62e40175daad38ea36",
+    "test-wide/wide-6p-mixed.npfeat": "7ac3d4a74e284fc70fb01692ec08a974f48fb494e2103cfc34493553ea6993ba"
+  },
+  "source_jobs": {
+    "train/wide-3p-mixed.npfeat": {
+      "hands": 80000,
+      "name": "wide-3p-mixed",
+      "out": "/home/dberweger/neural-policy-imitation-20261108/data/train/wide-3p-mixed.npfeat",
+      "players": 3,
+      "root": 20261108401000,
+      "seats": [
+        "widemix1",
+        "bot=check-call",
+        "bot=pot-pressure"
+      ],
+      "stacks": "wide-depth-grid-v1"
+    },
+    "train/wide-4p-mixed.npfeat": {
+      "hands": 80000,
+      "name": "wide-4p-mixed",
+      "out": "/home/dberweger/neural-policy-imitation-20261108/data/train/wide-4p-mixed.npfeat",
+      "players": 4,
+      "root": 20261108407000,
+      "seats": [
+        "widemix1",
+        "bot=check-call",
+        "bot=pot-pressure",
+        "bot=tight-aggressive"
+      ],
+      "stacks": "wide-depth-grid-v1"
+    },
+    "train/wide-5p-mixed.npfeat": {
+      "hands": 80000,
+      "name": "wide-5p-mixed",
+      "out": "/home/dberweger/neural-policy-imitation-20261108/data/train/wide-5p-mixed.npfeat",
+      "players": 5,
+      "root": 20261108413000,
+      "seats": [
+        "widemix1",
+        "bot=check-call",
+        "bot=pot-pressure",
+        "bot=tight-aggressive",
+        "bot=random"
+      ],
+      "stacks": "wide-depth-grid-v1"
+    },
+    "train/wide-6p-mixed.npfeat": {
+      "hands": 160000,
+      "name": "wide-6p-mixed",
+      "out": "/home/dberweger/neural-policy-imitation-20261108/data/train/wide-6p-mixed.npfeat",
+      "players": 6,
+      "root": 20261108419000,
+      "seats": [
+        "widemix1",
+        "bot=check-call",
+        "bot=check-call",
+        "bot=pot-pressure",
+        "bot=pot-pressure",
+        "bot=tight-aggressive"
+      ],
+      "stacks": "wide-depth-grid-v1"
+    },
+    "test-wide/wide-3p-mixed.npfeat": {
+      "hands": 4000,
+      "name": "wide-3p-mixed",
+      "out": "/home/dberweger/neural-policy-imitation-20261108/data/test-wide/wide-3p-mixed.npfeat",
+      "players": 3,
+      "root": 20261108501000,
+      "seats": [
+        "widemix1",
+        "bot=check-call",
+        "bot=pot-pressure"
+      ],
+      "stacks": "wide-depth-grid-v1"
+    },
+    "test-wide/wide-4p-mixed.npfeat": {
+      "hands": 4000,
+      "name": "wide-4p-mixed",
+      "out": "/home/dberweger/neural-policy-imitation-20261108/data/test-wide/wide-4p-mixed.npfeat",
+      "players": 4,
+      "root": 20261108507000,
+      "seats": [
+        "widemix1",
+        "bot=check-call",
+        "bot=pot-pressure",
+        "bot=tight-aggressive"
+      ],
+      "stacks": "wide-depth-grid-v1"
+    },
+    "test-wide/wide-5p-mixed.npfeat": {
+      "hands": 4000,
+      "name": "wide-5p-mixed",
+      "out": "/home/dberweger/neural-policy-imitation-20261108/data/test-wide/wide-5p-mixed.npfeat",
+      "players": 5,
+      "root": 20261108513000,
+      "seats": [
+        "widemix1",
+        "bot=check-call",
+        "bot=pot-pressure",
+        "bot=tight-aggressive",
+        "bot=random"
+      ],
+      "stacks": "wide-depth-grid-v1"
+    },
+    "test-wide/wide-6p-mixed.npfeat": {
+      "hands": 8000,
+      "name": "wide-6p-mixed",
+      "out": "/home/dberweger/neural-policy-imitation-20261108/data/test-wide/wide-6p-mixed.npfeat",
+      "players": 6,
+      "root": 20261108519000,
+      "seats": [
+        "widemix1",
+        "bot=check-call",
+        "bot=check-call",
+        "bot=pot-pressure",
+        "bot=pot-pressure",
+        "bot=tight-aggressive"
+      ],
+      "stacks": "wide-depth-grid-v1"
+    }
+  },
+  "cells": [
+    {
+      "split": "train",
+      "players": 3,
+      "street": 1,
+      "eligible": 130987,
+      "purged": 0,
+      "selected": 8192,
+      "hands": 7859
+    },
+    {
+      "split": "train",
+      "players": 3,
+      "street": 2,
+      "eligible": 106634,
+      "purged": 0,
+      "selected": 8192,
+      "hands": 7782
+    },
+    {
+      "split": "train",
+      "players": 3,
+      "street": 3,
+      "eligible": 89353,
+      "purged": 0,
+      "selected": 8192,
+      "hands": 7720
+    },
+    {
+      "split": "train",
+      "players": 4,
+      "street": 1,
+      "eligible": 137380,
+      "purged": 0,
+      "selected": 8192,
+      "hands": 7861
+    },
+    {
+      "split": "train",
+      "players": 4,
+      "street": 2,
+      "eligible": 112909,
+      "purged": 0,
+      "selected": 8192,
+      "hands": 7837
+    },
+    {
+      "split": "train",
+      "players": 4,
+      "street": 3,
+      "eligible": 94612,
+      "purged": 0,
+      "selected": 8192,
+      "hands": 7783
+    },
+    {
+      "split": "train",
+      "players": 5,
+      "street": 1,
+      "eligible": 151456,
+      "purged": 0,
+      "selected": 8192,
+      "hands": 7800
+    },
+    {
+      "split": "train",
+      "players": 5,
+      "street": 2,
+      "eligible": 105362,
+      "purged": 0,
+      "selected": 8192,
+      "hands": 7770
+    },
+    {
+      "split": "train",
+      "players": 5,
+      "street": 3,
+      "eligible": 78946,
+      "purged": 0,
+      "selected": 8192,
+      "hands": 7713
+    },
+    {
+      "split": "train",
+      "players": 6,
+      "street": 1,
+      "eligible": 341122,
+      "purged": 0,
+      "selected": 8192,
+      "hands": 8017
+    },
+    {
+      "split": "train",
+      "players": 6,
+      "street": 2,
+      "eligible": 248615,
+      "purged": 0,
+      "selected": 8192,
+      "hands": 8020
+    },
+    {
+      "split": "train",
+      "players": 6,
+      "street": 3,
+      "eligible": 160010,
+      "purged": 0,
+      "selected": 8192,
+      "hands": 7969
+    },
+    {
+      "split": "test-wide",
+      "players": 3,
+      "street": 1,
+      "eligible": 6491,
+      "purged": 0,
+      "selected": 1024,
+      "hands": 916
+    },
+    {
+      "split": "test-wide",
+      "players": 3,
+      "street": 2,
+      "eligible": 5336,
+      "purged": 0,
+      "selected": 1024,
+      "hands": 889
+    },
+    {
+      "split": "test-wide",
+      "players": 3,
+      "street": 3,
+      "eligible": 4463,
+      "purged": 0,
+      "selected": 1024,
+      "hands": 888
+    },
+    {
+      "split": "test-wide",
+      "players": 4,
+      "street": 1,
+      "eligible": 6842,
+      "purged": 0,
+      "selected": 1024,
+      "hands": 923
+    },
+    {
+      "split": "test-wide",
+      "players": 4,
+      "street": 2,
+      "eligible": 5651,
+      "purged": 0,
+      "selected": 1024,
+      "hands": 924
+    },
+    {
+      "split": "test-wide",
+      "players": 4,
+      "street": 3,
+      "eligible": 4722,
+      "purged": 0,
+      "selected": 1024,
+      "hands": 876
+    },
+    {
+      "split": "test-wide",
+      "players": 5,
+      "street": 1,
+      "eligible": 7753,
+      "purged": 0,
+      "selected": 1024,
+      "hands": 934
+    },
+    {
+      "split": "test-wide",
+      "players": 5,
+      "street": 2,
+      "eligible": 5459,
+      "purged": 0,
+      "selected": 1024,
+      "hands": 893
+    },
+    {
+      "split": "test-wide",
+      "players": 5,
+      "street": 3,
+      "eligible": 4086,
+      "purged": 0,
+      "selected": 1024,
+      "hands": 876
+    },
+    {
+      "split": "test-wide",
+      "players": 6,
+      "street": 1,
+      "eligible": 17142,
+      "purged": 0,
+      "selected": 1024,
+      "hands": 975
+    },
+    {
+      "split": "test-wide",
+      "players": 6,
+      "street": 2,
+      "eligible": 12404,
+      "purged": 0,
+      "selected": 1024,
+      "hands": 957
+    },
+    {
+      "split": "test-wide",
+      "players": 6,
+      "street": 3,
+      "eligible": 8019,
+      "purged": 0,
+      "selected": 1024,
+      "hands": 978
+    }
+  ],
+  "files": {
+    "test/hand.npy": "e1edaaa8d0e06936167f54cd599da5f12634420b4a4c915291c45a1034da20be",
+    "test/legal.npy": "c73f89e1a16933c373aaca3b4c47abc1993fe59114aa3491aef7e2239944ab6c",
+    "test/players.npy": "d6438906f4dce4c08608ca74d23b5b58813e8fbd9d6fa18c860959ccd5595ec4",
+    "test/source_row.npy": "6fe9052f0e6d7a93bfcbad4dc96eea1caa20854bb07d6ed0533af8fd68b7f2e3",
+    "test/street.npy": "ec2f5c6dc20286f8ef3d65ec48e20dca35a45f54ae0d444df81004e3afd09e49",
+    "test/target.npy": "e451ba54d6df2b6386855566757c4372380030238701b435c5456af758cd8cdc",
+    "test/x.npy": "7c6863fab88039538adccc861d5e9a3a4534260843c3bc2b6767998b2806202f",
+    "train/hand.npy": "7011bf59fea787aba17331185e5d5a56073b842c5bbba73108933a85d798e5a7",
+    "train/legal.npy": "8e229c9987fe8ef198c864e9270836bfb3157100f4eea99062680fd71a18ef8d",
+    "train/players.npy": "a128922aaa0ac88ad5d30155da9408fd9e185fcac8d4f7b8f1019909c5fed0b4",
+    "train/source_row.npy": "744fb77baf83a9762e695a10f7e331017835173d74ef6bfa89085cfb4e713743",
+    "train/street.npy": "f8b8753c8c6ff2808a3351427f266db86b61b2fac2f2f61245c31108d617d50c",
+    "train/target.npy": "4783c42f7ff5ac463d814f428123078ef74aeeb199e59f88f92aa03e2952bc7b",
+    "train/x.npy": "8df7ee3be09510e9b5378aa770cb7a61c194408e0c13d1476f799d587a4c773d"
+  }
+}
