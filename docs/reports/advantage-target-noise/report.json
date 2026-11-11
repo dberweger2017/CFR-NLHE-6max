@@ -1,0 +1,1901 @@
+{
+ "format": "neural-target-noise-report-v1",
+ "runs": [
+  {
+   "run": "late-b2-6-s0.jsonl.gz",
+   "meta": {
+    "advantage_network": "d57c79d81cf5656ce5a7c45912e2047817cb1dd715b8c50666accd90df87d9db",
+    "deals": 40000,
+    "explore_depth": 6,
+    "explore_per_street": 2,
+    "iteration": 1375,
+    "out": "/Users/dberweger/m4-queue-20261110/a-target-noise/runs/late-b2-6-s0.jsonl",
+    "players": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "reached": 38993,
+    "repeats": 32,
+    "seconds": 805.314496917,
+    "seed": 20261111000001,
+    "street": 0
+   },
+   "all": {
+    "deals": 38993,
+    "repeats": 32,
+    "noise_mse": 100.11582574023544,
+    "noise_mse_se": 3.7810374326831386,
+    "signal_variance": 289.62275689084913,
+    "noise_share": 0.25687943201405394,
+    "tv_one_sample_to_mean": 0.10506608847357803,
+    "sign_agreement": 0.8334508757982202,
+    "nodes_per_probe": 180.2702728694894
+   },
+   "by_players": {
+    "3": {
+     "deals": 9699,
+     "repeats": 32,
+     "noise_mse": 85.79795743601662,
+     "noise_mse_se": 5.445646460483423,
+     "signal_variance": 270.83405470861135,
+     "noise_share": 0.24057839597759453,
+     "tv_one_sample_to_mean": 0.10860737523704436,
+     "sign_agreement": 0.8246662027013094,
+     "nodes_per_probe": 190.6909120785648
+    },
+    "4": {
+     "deals": 9808,
+     "repeats": 32,
+     "noise_mse": 87.29317753630683,
+     "noise_mse_se": 6.631314577731079,
+     "signal_variance": 284.88695805397083,
+     "noise_share": 0.2345455041491128,
+     "tv_one_sample_to_mean": 0.09109530264555622,
+     "sign_agreement": 0.8539011521207178,
+     "nodes_per_probe": 178.81208261113377
+    },
+    "5": {
+     "deals": 9650,
+     "repeats": 32,
+     "noise_mse": 109.20042062955406,
+     "noise_mse_se": 9.467814970260875,
+     "signal_variance": 303.40070946464925,
+     "noise_share": 0.26466340653168324,
+     "tv_one_sample_to_mean": 0.1040364836278031,
+     "sign_agreement": 0.836360103626943,
+     "nodes_per_probe": 176.0739799222798
+    },
+    "6": {
+     "deals": 9836,
+     "repeats": 32,
+     "noise_mse": 118.10761077325951,
+     "noise_mse_se": 8.110196794148719,
+     "signal_variance": 298.84884610348126,
+     "noise_share": 0.2832612586406692,
+     "tv_one_sample_to_mean": 0.11651527654231586,
+     "sign_agreement": 0.8188669174461163,
+     "nodes_per_probe": 175.56575653212687
+    }
+   }
+  },
+  {
+   "run": "late-b2-6-s1.jsonl.gz",
+   "meta": {
+    "advantage_network": "d57c79d81cf5656ce5a7c45912e2047817cb1dd715b8c50666accd90df87d9db",
+    "deals": 40000,
+    "explore_depth": 6,
+    "explore_per_street": 2,
+    "iteration": 1375,
+    "out": "/Users/dberweger/m4-queue-20261110/a-target-noise/runs/late-b2-6-s1.jsonl",
+    "players": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "reached": 13660,
+    "repeats": 32,
+    "seconds": 150.343939166,
+    "seed": 20261111000001,
+    "street": 1
+   },
+   "all": {
+    "deals": 13660,
+    "repeats": 32,
+    "noise_mse": 99.66347608974017,
+    "noise_mse_se": 7.830954699750945,
+    "signal_variance": 430.04603758598006,
+    "noise_share": 0.1881474157376614,
+    "tv_one_sample_to_mean": 0.09305773081806651,
+    "sign_agreement": 0.8668100292825769,
+    "nodes_per_probe": 72.06798133235725
+   },
+   "by_players": {
+    "3": {
+     "deals": 4819,
+     "repeats": 32,
+     "noise_mse": 75.54075129670403,
+     "noise_mse_se": 7.018026051237,
+     "signal_variance": 314.3838666142357,
+     "noise_share": 0.19373167998835564,
+     "tv_one_sample_to_mean": 0.09472214354370556,
+     "sign_agreement": 0.8646892508819257,
+     "nodes_per_probe": 69.93650134882756
+    },
+    "4": {
+     "deals": 3522,
+     "repeats": 32,
+     "noise_mse": 120.02662104044495,
+     "noise_mse_se": 24.594118916796596,
+     "signal_variance": 371.6436644793918,
+     "noise_share": 0.24412014428234632,
+     "tv_one_sample_to_mean": 0.08025080947057832,
+     "sign_agreement": 0.884822189097104,
+     "nodes_per_probe": 69.40076660988075
+    },
+    "5": {
+     "deals": 2867,
+     "repeats": 32,
+     "noise_mse": 98.30501783867786,
+     "noise_mse_se": 12.288158161233495,
+     "signal_variance": 553.1285651892437,
+     "noise_share": 0.15090566467535702,
+     "tv_one_sample_to_mean": 0.09260024732869523,
+     "sign_agreement": 0.8696263515870247,
+     "nodes_per_probe": 71.77621424834322
+    },
+    "6": {
+     "deals": 2452,
+     "repeats": 32,
+     "noise_mse": 119.41189128837576,
+     "noise_mse_se": 16.06704028219742,
+     "signal_variance": 594.9200323358551,
+     "noise_share": 0.16716583333211288,
+     "tv_one_sample_to_mean": 0.10871710162762045,
+     "sign_agreement": 0.841812805872757,
+     "nodes_per_probe": 80.42933064845025
+    }
+   }
+  },
+  {
+   "run": "late-b2-6-s2.jsonl.gz",
+   "meta": {
+    "advantage_network": "d57c79d81cf5656ce5a7c45912e2047817cb1dd715b8c50666accd90df87d9db",
+    "deals": 40000,
+    "explore_depth": 6,
+    "explore_per_street": 2,
+    "iteration": 1375,
+    "out": "/Users/dberweger/m4-queue-20261110/a-target-noise/runs/late-b2-6-s2.jsonl",
+    "players": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "reached": 5191,
+    "repeats": 32,
+    "seconds": 32.499733208,
+    "seed": 20261111000001,
+    "street": 2
+   },
+   "all": {
+    "deals": 5191,
+    "repeats": 32,
+    "noise_mse": 116.21339936006729,
+    "noise_mse_se": 15.387455284855129,
+    "signal_variance": 638.7393139532064,
+    "noise_share": 0.15393467340496012,
+    "tv_one_sample_to_mean": 0.09573217228448837,
+    "sign_agreement": 0.8708220959352726,
+    "nodes_per_probe": 30.413281400500868
+   },
+   "by_players": {
+    "3": {
+     "deals": 2010,
+     "repeats": 32,
+     "noise_mse": 84.46821291482519,
+     "noise_mse_se": 12.934197527616165,
+     "signal_variance": 501.4046858747634,
+     "noise_share": 0.1441749790600252,
+     "tv_one_sample_to_mean": 0.10265721352662407,
+     "sign_agreement": 0.8644589552238806,
+     "nodes_per_probe": 29.733535447761195
+    },
+    "4": {
+     "deals": 1238,
+     "repeats": 32,
+     "noise_mse": 178.72710110989945,
+     "noise_mse_se": 54.87529040342846,
+     "signal_variance": 633.7410653538867,
+     "noise_share": 0.21998043552622784,
+     "tv_one_sample_to_mean": 0.08601517252488333,
+     "sign_agreement": 0.8822697899838449,
+     "nodes_per_probe": 30.871390347334412
+    },
+    "5": {
+     "deals": 1004,
+     "repeats": 32,
+     "noise_mse": 113.45120986867065,
+     "noise_mse_se": 22.966792041509134,
+     "signal_variance": 731.2398953136237,
+     "noise_share": 0.1343108849763329,
+     "tv_one_sample_to_mean": 0.0859793557229089,
+     "sign_agreement": 0.8797622011952191,
+     "nodes_per_probe": 29.719714890438247
+    },
+    "6": {
+     "deals": 939,
+     "repeats": 32,
+     "noise_mse": 104.70019407572919,
+     "noise_mse_se": 25.07412507599423,
+     "signal_variance": 837.1070025695597,
+     "noise_share": 0.11116945639051241,
+     "tv_one_sample_to_mean": 0.10414765751720832,
+     "sign_agreement": 0.8597910010649628,
+     "nodes_per_probe": 32.00592385516507
+    }
+   }
+  },
+  {
+   "run": "late-b2-6-s3.jsonl.gz",
+   "meta": {
+    "advantage_network": "d57c79d81cf5656ce5a7c45912e2047817cb1dd715b8c50666accd90df87d9db",
+    "deals": 40000,
+    "explore_depth": 6,
+    "explore_per_street": 2,
+    "iteration": 1375,
+    "out": "/Users/dberweger/m4-queue-20261110/a-target-noise/runs/late-b2-6-s3.jsonl",
+    "players": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "reached": 2879,
+    "repeats": 32,
+    "seconds": 11.821451208,
+    "seed": 20261111000001,
+    "street": 3
+   },
+   "all": {
+    "deals": 2879,
+    "repeats": 32,
+    "noise_mse": 56.84157177568564,
+    "noise_mse_se": 13.581604274100338,
+    "signal_variance": 554.0116425453137,
+    "noise_share": 0.09305275055132273,
+    "tv_one_sample_to_mean": 0.056516319837419775,
+    "sign_agreement": 0.9345258770406392,
+    "nodes_per_probe": 9.919720389023967
+   },
+   "by_players": {
+    "3": {
+     "deals": 1165,
+     "repeats": 32,
+     "noise_mse": 37.70482305620508,
+     "noise_mse_se": 9.847126895314306,
+     "signal_variance": 492.79616248070573,
+     "noise_share": 0.07107399247909914,
+     "tv_one_sample_to_mean": 0.05832674954234345,
+     "sign_agreement": 0.9310085836909872,
+     "nodes_per_probe": 9.96030042918455
+    },
+    "4": {
+     "deals": 677,
+     "repeats": 32,
+     "noise_mse": 53.28792803941208,
+     "noise_mse_se": 14.21010749775754,
+     "signal_variance": 500.21308134438107,
+     "noise_share": 0.0962743104998796,
+     "tv_one_sample_to_mean": 0.06135141801206934,
+     "sign_agreement": 0.9358382570162481,
+     "nodes_per_probe": 9.598181314623337
+    },
+    "5": {
+     "deals": 518,
+     "repeats": 32,
+     "noise_mse": 109.70093097026728,
+     "noise_mse_se": 68.6871770007059,
+     "signal_variance": 692.5094864160142,
+     "noise_share": 0.1367483251186003,
+     "tv_one_sample_to_mean": 0.047830888734376166,
+     "sign_agreement": 0.9451616795366795,
+     "nodes_per_probe": 9.87831805019305
+    },
+    "6": {
+     "deals": 519,
+     "repeats": 32,
+     "noise_mse": 51.675831900654345,
+     "noise_mse_se": 12.060039009069708,
+     "signal_variance": 613.1703156058288,
+     "noise_share": 0.07772600036033214,
+     "tv_one_sample_to_mean": 0.054814087160931835,
+     "sign_agreement": 0.9300939306358381,
+     "nodes_per_probe": 10.289378612716764
+    }
+   }
+  },
+  {
+   "run": "late-b2-8-s0.jsonl.gz",
+   "meta": {
+    "advantage_network": "d57c79d81cf5656ce5a7c45912e2047817cb1dd715b8c50666accd90df87d9db",
+    "deals": 40000,
+    "explore_depth": 8,
+    "explore_per_street": 2,
+    "iteration": 1375,
+    "out": "/Users/dberweger/m4-queue-20261110/a-target-noise/runs/late-b2-8-s0.jsonl",
+    "players": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "reached": 38993,
+    "repeats": 32,
+    "seconds": 1122.750486167,
+    "seed": 20261111000001,
+    "street": 0
+   },
+   "all": {
+    "deals": 38993,
+    "repeats": 32,
+    "noise_mse": 100.35971349102692,
+    "noise_mse_se": 3.904674419943175,
+    "signal_variance": 290.50761434736427,
+    "noise_share": 0.25676158211034167,
+    "tv_one_sample_to_mean": 0.10489130322747642,
+    "sign_agreement": 0.8335847139230118,
+    "nodes_per_probe": 193.83992158849026
+   },
+   "by_players": {
+    "3": {
+     "deals": 9699,
+     "repeats": 32,
+     "noise_mse": 86.56917628278383,
+     "noise_mse_se": 5.312930999617822,
+     "signal_variance": 270.7051775692602,
+     "noise_share": 0.24230447931517143,
+     "tv_one_sample_to_mean": 0.10827885319447594,
+     "sign_agreement": 0.8251913857098669,
+     "nodes_per_probe": 205.40264138055468
+    },
+    "4": {
+     "deals": 9808,
+     "repeats": 32,
+     "noise_mse": 87.38475587841025,
+     "noise_mse_se": 6.549623824533762,
+     "signal_variance": 284.83847291164307,
+     "noise_share": 0.2347643809400682,
+     "tv_one_sample_to_mean": 0.09080886114758448,
+     "sign_agreement": 0.8547486745513866,
+     "nodes_per_probe": 192.58330571982054
+    },
+    "5": {
+     "deals": 9650,
+     "repeats": 32,
+     "noise_mse": 109.60450139542341,
+     "noise_mse_se": 10.225649790546173,
+     "signal_variance": 303.3148716583513,
+     "noise_share": 0.2654380214346338,
+     "tv_one_sample_to_mean": 0.10430385402474661,
+     "sign_agreement": 0.8358970207253886,
+     "nodes_per_probe": 188.75848121761658
+    },
+    "6": {
+     "deals": 9836,
+     "repeats": 32,
+     "noise_mse": 117.82622440703629,
+     "noise_mse_se": 8.294972770446014,
+     "signal_variance": 302.6190448862576,
+     "noise_share": 0.2802415272862617,
+     "tv_one_sample_to_mean": 0.1161696307585861,
+     "sign_agreement": 0.8184888420089467,
+     "nodes_per_probe": 188.67664065677104
+    }
+   }
+  },
+  {
+   "run": "late-b2-8-s1.jsonl.gz",
+   "meta": {
+    "advantage_network": "d57c79d81cf5656ce5a7c45912e2047817cb1dd715b8c50666accd90df87d9db",
+    "deals": 40000,
+    "explore_depth": 8,
+    "explore_per_street": 2,
+    "iteration": 1375,
+    "out": "/Users/dberweger/m4-queue-20261110/a-target-noise/runs/late-b2-8-s1.jsonl",
+    "players": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "reached": 13660,
+    "repeats": 32,
+    "seconds": 139.030258,
+    "seed": 20261111000001,
+    "street": 1
+   },
+   "all": {
+    "deals": 13660,
+    "repeats": 32,
+    "noise_mse": 99.66347608974017,
+    "noise_mse_se": 7.830954699750945,
+    "signal_variance": 430.04603758598006,
+    "noise_share": 0.1881474157376614,
+    "tv_one_sample_to_mean": 0.09305773081806651,
+    "sign_agreement": 0.8668100292825769,
+    "nodes_per_probe": 72.06798133235725
+   },
+   "by_players": {
+    "3": {
+     "deals": 4819,
+     "repeats": 32,
+     "noise_mse": 75.54075129670403,
+     "noise_mse_se": 7.018026051237,
+     "signal_variance": 314.3838666142357,
+     "noise_share": 0.19373167998835564,
+     "tv_one_sample_to_mean": 0.09472214354370556,
+     "sign_agreement": 0.8646892508819257,
+     "nodes_per_probe": 69.93650134882756
+    },
+    "4": {
+     "deals": 3522,
+     "repeats": 32,
+     "noise_mse": 120.02662104044495,
+     "noise_mse_se": 24.594118916796596,
+     "signal_variance": 371.6436644793918,
+     "noise_share": 0.24412014428234632,
+     "tv_one_sample_to_mean": 0.08025080947057832,
+     "sign_agreement": 0.884822189097104,
+     "nodes_per_probe": 69.40076660988075
+    },
+    "5": {
+     "deals": 2867,
+     "repeats": 32,
+     "noise_mse": 98.30501783867786,
+     "noise_mse_se": 12.288158161233495,
+     "signal_variance": 553.1285651892437,
+     "noise_share": 0.15090566467535702,
+     "tv_one_sample_to_mean": 0.09260024732869523,
+     "sign_agreement": 0.8696263515870247,
+     "nodes_per_probe": 71.77621424834322
+    },
+    "6": {
+     "deals": 2452,
+     "repeats": 32,
+     "noise_mse": 119.41189128837576,
+     "noise_mse_se": 16.06704028219742,
+     "signal_variance": 594.9200323358551,
+     "noise_share": 0.16716583333211288,
+     "tv_one_sample_to_mean": 0.10871710162762045,
+     "sign_agreement": 0.841812805872757,
+     "nodes_per_probe": 80.42933064845025
+    }
+   }
+  },
+  {
+   "run": "late-b2-8-s2.jsonl.gz",
+   "meta": {
+    "advantage_network": "d57c79d81cf5656ce5a7c45912e2047817cb1dd715b8c50666accd90df87d9db",
+    "deals": 40000,
+    "explore_depth": 8,
+    "explore_per_street": 2,
+    "iteration": 1375,
+    "out": "/Users/dberweger/m4-queue-20261110/a-target-noise/runs/late-b2-8-s2.jsonl",
+    "players": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "reached": 5191,
+    "repeats": 32,
+    "seconds": 32.652915583,
+    "seed": 20261111000001,
+    "street": 2
+   },
+   "all": {
+    "deals": 5191,
+    "repeats": 32,
+    "noise_mse": 116.21339936006729,
+    "noise_mse_se": 15.387455284855129,
+    "signal_variance": 638.7393139532064,
+    "noise_share": 0.15393467340496012,
+    "tv_one_sample_to_mean": 0.09573217228448837,
+    "sign_agreement": 0.8708220959352726,
+    "nodes_per_probe": 30.413281400500868
+   },
+   "by_players": {
+    "3": {
+     "deals": 2010,
+     "repeats": 32,
+     "noise_mse": 84.46821291482519,
+     "noise_mse_se": 12.934197527616165,
+     "signal_variance": 501.4046858747634,
+     "noise_share": 0.1441749790600252,
+     "tv_one_sample_to_mean": 0.10265721352662407,
+     "sign_agreement": 0.8644589552238806,
+     "nodes_per_probe": 29.733535447761195
+    },
+    "4": {
+     "deals": 1238,
+     "repeats": 32,
+     "noise_mse": 178.72710110989945,
+     "noise_mse_se": 54.87529040342846,
+     "signal_variance": 633.7410653538867,
+     "noise_share": 0.21998043552622784,
+     "tv_one_sample_to_mean": 0.08601517252488333,
+     "sign_agreement": 0.8822697899838449,
+     "nodes_per_probe": 30.871390347334412
+    },
+    "5": {
+     "deals": 1004,
+     "repeats": 32,
+     "noise_mse": 113.45120986867065,
+     "noise_mse_se": 22.966792041509134,
+     "signal_variance": 731.2398953136237,
+     "noise_share": 0.1343108849763329,
+     "tv_one_sample_to_mean": 0.0859793557229089,
+     "sign_agreement": 0.8797622011952191,
+     "nodes_per_probe": 29.719714890438247
+    },
+    "6": {
+     "deals": 939,
+     "repeats": 32,
+     "noise_mse": 104.70019407572919,
+     "noise_mse_se": 25.07412507599423,
+     "signal_variance": 837.1070025695597,
+     "noise_share": 0.11116945639051241,
+     "tv_one_sample_to_mean": 0.10414765751720832,
+     "sign_agreement": 0.8597910010649628,
+     "nodes_per_probe": 32.00592385516507
+    }
+   }
+  },
+  {
+   "run": "late-b2-8-s3.jsonl.gz",
+   "meta": {
+    "advantage_network": "d57c79d81cf5656ce5a7c45912e2047817cb1dd715b8c50666accd90df87d9db",
+    "deals": 40000,
+    "explore_depth": 8,
+    "explore_per_street": 2,
+    "iteration": 1375,
+    "out": "/Users/dberweger/m4-queue-20261110/a-target-noise/runs/late-b2-8-s3.jsonl",
+    "players": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "reached": 2879,
+    "repeats": 32,
+    "seconds": 17.352578833,
+    "seed": 20261111000001,
+    "street": 3
+   },
+   "all": {
+    "deals": 2879,
+    "repeats": 32,
+    "noise_mse": 56.84157177568564,
+    "noise_mse_se": 13.581604274100338,
+    "signal_variance": 554.0116425453137,
+    "noise_share": 0.09305275055132273,
+    "tv_one_sample_to_mean": 0.056516319837419775,
+    "sign_agreement": 0.9345258770406392,
+    "nodes_per_probe": 9.919720389023967
+   },
+   "by_players": {
+    "3": {
+     "deals": 1165,
+     "repeats": 32,
+     "noise_mse": 37.70482305620508,
+     "noise_mse_se": 9.847126895314306,
+     "signal_variance": 492.79616248070573,
+     "noise_share": 0.07107399247909914,
+     "tv_one_sample_to_mean": 0.05832674954234345,
+     "sign_agreement": 0.9310085836909872,
+     "nodes_per_probe": 9.96030042918455
+    },
+    "4": {
+     "deals": 677,
+     "repeats": 32,
+     "noise_mse": 53.28792803941208,
+     "noise_mse_se": 14.21010749775754,
+     "signal_variance": 500.21308134438107,
+     "noise_share": 0.0962743104998796,
+     "tv_one_sample_to_mean": 0.06135141801206934,
+     "sign_agreement": 0.9358382570162481,
+     "nodes_per_probe": 9.598181314623337
+    },
+    "5": {
+     "deals": 518,
+     "repeats": 32,
+     "noise_mse": 109.70093097026728,
+     "noise_mse_se": 68.6871770007059,
+     "signal_variance": 692.5094864160142,
+     "noise_share": 0.1367483251186003,
+     "tv_one_sample_to_mean": 0.047830888734376166,
+     "sign_agreement": 0.9451616795366795,
+     "nodes_per_probe": 9.87831805019305
+    },
+    "6": {
+     "deals": 519,
+     "repeats": 32,
+     "noise_mse": 51.675831900654345,
+     "noise_mse_se": 12.060039009069708,
+     "signal_variance": 613.1703156058288,
+     "noise_share": 0.07772600036033214,
+     "tv_one_sample_to_mean": 0.054814087160931835,
+     "sign_agreement": 0.9300939306358381,
+     "nodes_per_probe": 10.289378612716764
+    }
+   }
+  },
+  {
+   "run": "late-b3-8-s0.jsonl.gz",
+   "meta": {
+    "advantage_network": "d57c79d81cf5656ce5a7c45912e2047817cb1dd715b8c50666accd90df87d9db",
+    "deals": 40000,
+    "explore_depth": 8,
+    "explore_per_street": 3,
+    "iteration": 1375,
+    "out": "/Users/dberweger/m4-queue-20261110/a-target-noise/runs/late-b3-8-s0.jsonl",
+    "players": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "reached": 38993,
+    "repeats": 32,
+    "seconds": 1204.150237916,
+    "seed": 20261111000001,
+    "street": 0
+   },
+   "all": {
+    "deals": 38993,
+    "repeats": 32,
+    "noise_mse": 95.61029681454961,
+    "noise_mse_se": 3.707737632674757,
+    "signal_variance": 291.1055424931207,
+    "noise_share": 0.24723656777472272,
+    "tv_one_sample_to_mean": 0.1044957557097611,
+    "sign_agreement": 0.8342106275485344,
+    "nodes_per_probe": 241.67661503346756
+   },
+   "by_players": {
+    "3": {
+     "deals": 9699,
+     "repeats": 32,
+     "noise_mse": 81.66642784993122,
+     "noise_mse_se": 5.139859215325762,
+     "signal_variance": 271.5846242168582,
+     "noise_share": 0.23118523603006993,
+     "tv_one_sample_to_mean": 0.108066931060892,
+     "sign_agreement": 0.8251817197649243,
+     "nodes_per_probe": 259.12067287864727
+    },
+    "4": {
+     "deals": 9808,
+     "repeats": 32,
+     "noise_mse": 83.65457473007375,
+     "noise_mse_se": 6.8882989569093835,
+     "signal_variance": 283.8182425540018,
+     "noise_share": 0.22764833423149342,
+     "tv_one_sample_to_mean": 0.09043902406485635,
+     "sign_agreement": 0.8549748929445351,
+     "nodes_per_probe": 241.4951506423328
+    },
+    "5": {
+     "deals": 9650,
+     "repeats": 32,
+     "noise_mse": 104.65750566097289,
+     "noise_mse_se": 9.576593961092211,
+     "signal_variance": 305.31551240357976,
+     "noise_share": 0.25527900873831155,
+     "tv_one_sample_to_mean": 0.1032572578849099,
+     "sign_agreement": 0.8380796632124352,
+     "nodes_per_probe": 234.0519073834197
+    },
+    "6": {
+     "deals": 9836,
+     "repeats": 32,
+     "noise_mse": 112.40551254496731,
+     "noise_mse_se": 7.406358262198993,
+     "signal_variance": 303.15610635170157,
+     "noise_share": 0.2704906021961509,
+     "tv_one_sample_to_mean": 0.11620611543448874,
+     "sign_agreement": 0.8186127490849939,
+     "nodes_per_probe": 232.13699674664497
+    }
+   }
+  },
+  {
+   "run": "late-b3-8-s1.jsonl.gz",
+   "meta": {
+    "advantage_network": "d57c79d81cf5656ce5a7c45912e2047817cb1dd715b8c50666accd90df87d9db",
+    "deals": 40000,
+    "explore_depth": 8,
+    "explore_per_street": 3,
+    "iteration": 1375,
+    "out": "/Users/dberweger/m4-queue-20261110/a-target-noise/runs/late-b3-8-s1.jsonl",
+    "players": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "reached": 13660,
+    "repeats": 32,
+    "seconds": 177.836302333,
+    "seed": 20261111000001,
+    "street": 1
+   },
+   "all": {
+    "deals": 13660,
+    "repeats": 32,
+    "noise_mse": 93.66139821052418,
+    "noise_mse_se": 7.019498673273198,
+    "signal_variance": 432.267718045165,
+    "noise_share": 0.17808749376216154,
+    "tv_one_sample_to_mean": 0.0923552080263034,
+    "sign_agreement": 0.8676450402635432,
+    "nodes_per_probe": 87.42111090775988
+   },
+   "by_players": {
+    "3": {
+     "deals": 4819,
+     "repeats": 32,
+     "noise_mse": 72.4307519573368,
+     "noise_mse_se": 7.191921917922325,
+     "signal_variance": 317.9894509075501,
+     "noise_share": 0.18551998955444163,
+     "tv_one_sample_to_mean": 0.09369603094669154,
+     "sign_agreement": 0.8655452376011621,
+     "nodes_per_probe": 85.50096622743308
+    },
+    "4": {
+     "deals": 3522,
+     "repeats": 32,
+     "noise_mse": 109.22152379971864,
+     "noise_mse_se": 21.1288326432226,
+     "signal_variance": 375.60686299227734,
+     "noise_share": 0.22527873114528982,
+     "tv_one_sample_to_mean": 0.07968719481492813,
+     "sign_agreement": 0.8859845258375922,
+     "nodes_per_probe": 84.19857325383305
+    },
+    "5": {
+     "deals": 2867,
+     "repeats": 32,
+     "noise_mse": 90.61029907951834,
+     "noise_mse_se": 10.32203592116887,
+     "signal_variance": 551.795613450716,
+     "noise_share": 0.1410483579184895,
+     "tv_one_sample_to_mean": 0.0919469593665338,
+     "sign_agreement": 0.8705964422741541,
+     "nodes_per_probe": 86.57362879316358
+    },
+    "6": {
+     "deals": 2452,
+     "repeats": 32,
+     "noise_mse": 116.60398515080179,
+     "noise_mse_se": 16.197149208973723,
+     "signal_variance": 596.1107988014235,
+     "noise_share": 0.16360539696426166,
+     "tv_one_sample_to_mean": 0.10839344855838841,
+     "sign_agreement": 0.841978486949429,
+     "nodes_per_probe": 96.81453915171289
+    }
+   }
+  },
+  {
+   "run": "late-b3-8-s2.jsonl.gz",
+   "meta": {
+    "advantage_network": "d57c79d81cf5656ce5a7c45912e2047817cb1dd715b8c50666accd90df87d9db",
+    "deals": 40000,
+    "explore_depth": 8,
+    "explore_per_street": 3,
+    "iteration": 1375,
+    "out": "/Users/dberweger/m4-queue-20261110/a-target-noise/runs/late-b3-8-s2.jsonl",
+    "players": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "reached": 5191,
+    "repeats": 32,
+    "seconds": 34.123412166,
+    "seed": 20261111000001,
+    "street": 2
+   },
+   "all": {
+    "deals": 5191,
+    "repeats": 32,
+    "noise_mse": 106.49674223081513,
+    "noise_mse_se": 13.494060209907545,
+    "signal_variance": 651.842875993223,
+    "noise_share": 0.14043410059495606,
+    "tv_one_sample_to_mean": 0.09519582060618798,
+    "sign_agreement": 0.8709605567328068,
+    "nodes_per_probe": 33.326129358505106
+   },
+   "by_players": {
+    "3": {
+     "deals": 2010,
+     "repeats": 32,
+     "noise_mse": 81.37336645181728,
+     "noise_mse_se": 12.82697598968482,
+     "signal_variance": 500.1607633636218,
+     "noise_share": 0.1399287888359066,
+     "tv_one_sample_to_mean": 0.10377290205715058,
+     "sign_agreement": 0.8633550995024876,
+     "nodes_per_probe": 32.4141013681592
+    },
+    "4": {
+     "deals": 1238,
+     "repeats": 32,
+     "noise_mse": 148.75253809827475,
+     "noise_mse_se": 46.71027081825887,
+     "signal_variance": 681.5351930535518,
+     "noise_share": 0.17915781784697218,
+     "tv_one_sample_to_mean": 0.0852049373817032,
+     "sign_agreement": 0.8826989095315024,
+     "nodes_per_probe": 33.622980613893375
+    },
+    "5": {
+     "deals": 1004,
+     "repeats": 32,
+     "noise_mse": 110.79229593785058,
+     "noise_mse_se": 21.81013440854414,
+     "signal_variance": 736.7205674033589,
+     "noise_share": 0.13072638862502492,
+     "tv_one_sample_to_mean": 0.08499932262003364,
+     "sign_agreement": 0.8802913346613546,
+     "nodes_per_probe": 33.01381972111554
+    },
+    "6": {
+     "deals": 939,
+     "repeats": 32,
+     "noise_mse": 99.97126204977896,
+     "noise_mse_se": 21.771411550969912,
+     "signal_variance": 843.3372006944156,
+     "noise_share": 0.10597939698213972,
+     "tv_one_sample_to_mean": 0.10091047842682309,
+     "sign_agreement": 0.8617878061767839,
+     "nodes_per_probe": 35.220946485623
+    }
+   }
+  },
+  {
+   "run": "late-b3-8-s3.jsonl.gz",
+   "meta": {
+    "advantage_network": "d57c79d81cf5656ce5a7c45912e2047817cb1dd715b8c50666accd90df87d9db",
+    "deals": 40000,
+    "explore_depth": 8,
+    "explore_per_street": 3,
+    "iteration": 1375,
+    "out": "/Users/dberweger/m4-queue-20261110/a-target-noise/runs/late-b3-8-s3.jsonl",
+    "players": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "reached": 2879,
+    "repeats": 32,
+    "seconds": 12.297006583,
+    "seed": 20261111000001,
+    "street": 3
+   },
+   "all": {
+    "deals": 2879,
+    "repeats": 32,
+    "noise_mse": 56.89768128124855,
+    "noise_mse_se": 13.594034690634043,
+    "signal_variance": 553.4496884999672,
+    "noise_share": 0.09322180138442149,
+    "tv_one_sample_to_mean": 0.056476390614149455,
+    "sign_agreement": 0.9343087877735324,
+    "nodes_per_probe": 10.304695640847516
+   },
+   "by_players": {
+    "3": {
+     "deals": 1165,
+     "repeats": 32,
+     "noise_mse": 37.17362468948309,
+     "noise_mse_se": 9.763581984652971,
+     "signal_variance": 493.2835372573339,
+     "noise_share": 0.0700784669454799,
+     "tv_one_sample_to_mean": 0.058980793964707054,
+     "sign_agreement": 0.9296942060085837,
+     "nodes_per_probe": 10.40101931330472
+    },
+    "4": {
+     "deals": 677,
+     "repeats": 32,
+     "noise_mse": 55.12571428397102,
+     "noise_mse_se": 14.556845998707692,
+     "signal_variance": 499.675677815637,
+     "noise_share": 0.099361167922365,
+     "tv_one_sample_to_mean": 0.06071290741745435,
+     "sign_agreement": 0.9364383308714919,
+     "nodes_per_probe": 9.977243353028065
+    },
+    "5": {
+     "deals": 518,
+     "repeats": 32,
+     "noise_mse": 109.42481288773433,
+     "noise_mse_se": 68.68521114445987,
+     "signal_variance": 692.4306838770477,
+     "noise_share": 0.1364645043018683,
+     "tv_one_sample_to_mean": 0.047508883622274525,
+     "sign_agreement": 0.9449203667953668,
+     "nodes_per_probe": 10.150518822393822
+    },
+    "6": {
+     "deals": 519,
+     "repeats": 32,
+     "noise_mse": 51.057784199175344,
+     "noise_mse_se": 12.140309365598238,
+     "signal_variance": 609.8254884315581,
+     "noise_share": 0.07725688682652394,
+     "tv_one_sample_to_mean": 0.05427873520481269,
+     "sign_agreement": 0.9312981695568401,
+     "nodes_per_probe": 10.669496628131022
+    }
+   }
+  },
+  {
+   "run": "uniform-b2-6-s0.jsonl.gz",
+   "meta": {
+    "advantage_network": "4478aadc2709211cb6f25cc64a480f13864ba74dd569b9a943ede70e2b2f5d03",
+    "deals": 40000,
+    "explore_depth": 6,
+    "explore_per_street": 2,
+    "iteration": 1,
+    "out": "/Users/dberweger/m4-queue-20261110/a-target-noise/runs/uniform-b2-6-s0.jsonl",
+    "players": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "reached": 39209,
+    "repeats": 32,
+    "seconds": 969.883938708,
+    "seed": 20261111000001,
+    "street": 0
+   },
+   "all": {
+    "deals": 39209,
+    "repeats": 32,
+    "noise_mse": 528.7739535806016,
+    "noise_mse_se": 7.467673393724685,
+    "signal_variance": 264.4425784704668,
+    "noise_share": 0.6666199356855542,
+    "tv_one_sample_to_mean": 0.37382871259905165,
+    "sign_agreement": 0.33590741283888903,
+    "nodes_per_probe": 124.25768398199394
+   },
+   "by_players": {
+    "3": {
+     "deals": 9567,
+     "repeats": 32,
+     "noise_mse": 188.44775212934215,
+     "noise_mse_se": 4.397502925927827,
+     "signal_variance": 76.5313578968233,
+     "noise_share": 0.7111796552971055,
+     "tv_one_sample_to_mean": 0.4053655636137198,
+     "sign_agreement": 0.29486450820528903,
+     "nodes_per_probe": 142.32047663844466
+    },
+    "4": {
+     "deals": 9898,
+     "repeats": 32,
+     "noise_mse": 393.26289237136274,
+     "noise_mse_se": 10.783031335342173,
+     "signal_variance": 170.7784801356159,
+     "noise_share": 0.6972234866804865,
+     "tv_one_sample_to_mean": 0.3822149728536033,
+     "sign_agreement": 0.3199920438472419,
+     "nodes_per_probe": 129.6407923317842
+    },
+    "5": {
+     "deals": 9820,
+     "repeats": 32,
+     "noise_mse": 613.7049088978184,
+     "noise_mse_se": 14.55058353546131,
+     "signal_variance": 302.4716867559699,
+     "noise_share": 0.6698543837608899,
+     "tv_one_sample_to_mean": 0.3657303844302305,
+     "sign_agreement": 0.3450451883910387,
+     "nodes_per_probe": 118.65815300407331
+    },
+    "6": {
+     "deals": 9924,
+     "repeats": 32,
+     "noise_mse": 907.9725904123408,
+     "noise_mse_se": 22.390072332303056,
+     "signal_variance": 500.77769250991173,
+     "noise_share": 0.6445234484914392,
+     "tv_one_sample_to_mean": 0.34307552083776005,
+     "sign_agreement": 0.38230552196694884,
+     "nodes_per_probe": 107.0165161477227
+    }
+   }
+  },
+  {
+   "run": "uniform-b2-6-s1.jsonl.gz",
+   "meta": {
+    "advantage_network": "4478aadc2709211cb6f25cc64a480f13864ba74dd569b9a943ede70e2b2f5d03",
+    "deals": 40000,
+    "explore_depth": 6,
+    "explore_per_street": 2,
+    "iteration": 1,
+    "out": "/Users/dberweger/m4-queue-20261110/a-target-noise/runs/uniform-b2-6-s1.jsonl",
+    "players": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "reached": 8198,
+    "repeats": 32,
+    "seconds": 115.734798792,
+    "seed": 20261111000001,
+    "street": 1
+   },
+   "all": {
+    "deals": 8198,
+    "repeats": 32,
+    "noise_mse": 986.5991720178581,
+    "noise_mse_se": 38.238583619303,
+    "signal_variance": 692.6877300560099,
+    "noise_share": 0.5875107885373477,
+    "tv_one_sample_to_mean": 0.39558424091068894,
+    "sign_agreement": 0.39490195779458404,
+    "nodes_per_probe": 66.13202534154672
+   },
+   "by_players": {
+    "3": {
+     "deals": 2593,
+     "repeats": 32,
+     "noise_mse": 510.5567842592443,
+     "noise_mse_se": 40.068618340894275,
+     "signal_variance": 319.57002503063694,
+     "noise_share": 0.6150346893337801,
+     "tv_one_sample_to_mean": 0.41381859495278206,
+     "sign_agreement": 0.3773862321635172,
+     "nodes_per_probe": 72.36510557269573
+    },
+    "4": {
+     "deals": 2295,
+     "repeats": 32,
+     "noise_mse": 863.8010512958849,
+     "noise_mse_se": 58.79506661354206,
+     "signal_variance": 545.375713620584,
+     "noise_share": 0.6129827519169236,
+     "tv_one_sample_to_mean": 0.39597546436353487,
+     "sign_agreement": 0.39389978213507626,
+     "nodes_per_probe": 67.44930555555555
+    },
+    "5": {
+     "deals": 1763,
+     "repeats": 32,
+     "noise_mse": 1296.8937825608393,
+     "noise_mse_se": 109.19889300785987,
+     "signal_variance": 914.1844937532869,
+     "noise_share": 0.5865435866534608,
+     "tv_one_sample_to_mean": 0.3833412920487238,
+     "sign_agreement": 0.40988372093023256,
+     "nodes_per_probe": 63.02949517867272
+    },
+    "6": {
+     "deals": 1547,
+     "repeats": 32,
+     "noise_mse": 1613.0698896182057,
+     "noise_mse_se": 113.53037284558806,
+     "signal_variance": 1244.9764427517866,
+     "noise_share": 0.5643959901379876,
+     "tv_one_sample_to_mean": 0.3783927612650626,
+     "sign_agreement": 0.4086740465416936,
+     "nodes_per_probe": 57.26597850678733
+    }
+   }
+  },
+  {
+   "run": "uniform-b2-6-s2.jsonl.gz",
+   "meta": {
+    "advantage_network": "4478aadc2709211cb6f25cc64a480f13864ba74dd569b9a943ede70e2b2f5d03",
+    "deals": 40000,
+    "explore_depth": 6,
+    "explore_per_street": 2,
+    "iteration": 1,
+    "out": "/Users/dberweger/m4-queue-20261110/a-target-noise/runs/uniform-b2-6-s2.jsonl",
+    "players": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "reached": 2372,
+    "repeats": 32,
+    "seconds": 21.1736635,
+    "seed": 20261111000001,
+    "street": 2
+   },
+   "all": {
+    "deals": 2372,
+    "repeats": 32,
+    "noise_mse": 1413.948786863229,
+    "noise_mse_se": 96.87411071995587,
+    "signal_variance": 910.7268056297645,
+    "noise_share": 0.6082348829356029,
+    "tv_one_sample_to_mean": 0.38336672605566524,
+    "sign_agreement": 0.4168028035413153,
+    "nodes_per_probe": 29.803080206576727
+   },
+   "by_players": {
+    "3": {
+     "deals": 809,
+     "repeats": 32,
+     "noise_mse": 926.0941954027883,
+     "noise_mse_se": 100.11755297296095,
+     "signal_variance": 433.8191341058651,
+     "noise_share": 0.680995012922914,
+     "tv_one_sample_to_mean": 0.39981055643938107,
+     "sign_agreement": 0.3939663164400494,
+     "nodes_per_probe": 31.645279666254634
+    },
+    "4": {
+     "deals": 679,
+     "repeats": 32,
+     "noise_mse": 1282.7569303424575,
+     "noise_mse_se": 149.31513295478425,
+     "signal_variance": 866.4921381213485,
+     "noise_share": 0.5968395888426831,
+     "tv_one_sample_to_mean": 0.37915519103643736,
+     "sign_agreement": 0.43124079528718706,
+     "nodes_per_probe": 30.367222017673047
+    },
+    "5": {
+     "deals": 496,
+     "repeats": 32,
+     "noise_mse": 2183.48922885405,
+     "noise_mse_se": 350.2802514057899,
+     "signal_variance": 886.8134513186397,
+     "noise_share": 0.7111641607697256,
+     "tv_one_sample_to_mean": 0.3822616512341023,
+     "sign_agreement": 0.4124243951612903,
+     "nodes_per_probe": 28.978137600806452
+    },
+    "6": {
+     "deals": 388,
+     "repeats": 32,
+     "noise_mse": 1676.9940854241902,
+     "noise_mse_se": 188.12201069603137,
+     "signal_variance": 1872.9686926670483,
+     "noise_share": 0.47239765323001065,
+     "tv_one_sample_to_mean": 0.3578633513369149,
+     "sign_agreement": 0.44474871134020616,
+     "nodes_per_probe": 26.029317010309278
+    }
+   }
+  },
+  {
+   "run": "uniform-b2-6-s3.jsonl.gz",
+   "meta": {
+    "advantage_network": "4478aadc2709211cb6f25cc64a480f13864ba74dd569b9a943ede70e2b2f5d03",
+    "deals": 40000,
+    "explore_depth": 6,
+    "explore_per_street": 2,
+    "iteration": 1,
+    "out": "/Users/dberweger/m4-queue-20261110/a-target-noise/runs/uniform-b2-6-s3.jsonl",
+    "players": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "reached": 690,
+    "repeats": 32,
+    "seconds": 6.290980375,
+    "seed": 20261111000001,
+    "street": 3
+   },
+   "all": {
+    "deals": 690,
+    "repeats": 32,
+    "noise_mse": 1849.029525512739,
+    "noise_mse_se": 209.6479206079955,
+    "signal_variance": 1136.410603303614,
+    "noise_share": 0.6193490559952478,
+    "tv_one_sample_to_mean": 0.38030753224275204,
+    "sign_agreement": 0.4340579710144927,
+    "nodes_per_probe": 11.286141304347826
+   },
+   "by_players": {
+    "3": {
+     "deals": 244,
+     "repeats": 32,
+     "noise_mse": 1432.8079452576753,
+     "noise_mse_se": 250.1517177023724,
+     "signal_variance": 907.9210045138482,
+     "noise_share": 0.6121204018079626,
+     "tv_one_sample_to_mean": 0.39278733700703394,
+     "sign_agreement": 0.4291752049180328,
+     "nodes_per_probe": 11.216188524590164
+    },
+    "4": {
+     "deals": 200,
+     "repeats": 32,
+     "noise_mse": 2029.148320830547,
+     "noise_mse_se": 477.9515189120112,
+     "signal_variance": 1016.9283411451275,
+     "noise_share": 0.6661514288725906,
+     "tv_one_sample_to_mean": 0.3771398264998051,
+     "sign_agreement": 0.44765625,
+     "nodes_per_probe": 11.8240625
+    },
+    "5": {
+     "deals": 144,
+     "repeats": 32,
+     "noise_mse": 2491.56907903372,
+     "noise_mse_se": 575.3012834334021,
+     "signal_variance": 1289.8697500762557,
+     "noise_share": 0.6588944556906007,
+     "tv_one_sample_to_mean": 0.3729599976198663,
+     "sign_agreement": 0.4134114583333333,
+     "nodes_per_probe": 10.946614583333334
+    },
+    "6": {
+     "deals": 102,
+     "repeats": 32,
+     "noise_mse": 1584.408062881882,
+     "noise_mse_se": 335.92739330780336,
+     "signal_variance": 1592.3530970460033,
+     "noise_share": 0.49874950716088745,
+     "tv_one_sample_to_mean": 0.36703805941726303,
+     "sign_agreement": 0.4482230392156863,
+     "nodes_per_probe": 10.878063725490197
+    }
+   }
+  },
+  {
+   "run": "uniform-b2-8-s0.jsonl.gz",
+   "meta": {
+    "advantage_network": "4478aadc2709211cb6f25cc64a480f13864ba74dd569b9a943ede70e2b2f5d03",
+    "deals": 40000,
+    "explore_depth": 8,
+    "explore_per_street": 2,
+    "iteration": 1,
+    "out": "/Users/dberweger/m4-queue-20261110/a-target-noise/runs/uniform-b2-8-s0.jsonl",
+    "players": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "reached": 39209,
+    "repeats": 32,
+    "seconds": 825.230874083,
+    "seed": 20261111000001,
+    "street": 0
+   },
+   "all": {
+    "deals": 39209,
+    "repeats": 32,
+    "noise_mse": 528.8811742581998,
+    "noise_mse_se": 7.457626095835654,
+    "signal_variance": 264.7721346957241,
+    "noise_share": 0.6663881675933445,
+    "tv_one_sample_to_mean": 0.37383557658398603,
+    "sign_agreement": 0.33648126067994594,
+    "nodes_per_probe": 136.75254884082736
+   },
+   "by_players": {
+    "3": {
+     "deals": 9567,
+     "repeats": 32,
+     "noise_mse": 187.50833382412952,
+     "noise_mse_se": 4.3056790882726,
+     "signal_variance": 76.71595652679144,
+     "noise_share": 0.7096559274512437,
+     "tv_one_sample_to_mean": 0.4048795427641835,
+     "sign_agreement": 0.2956353872687363,
+     "nodes_per_probe": 159.99367291209364
+    },
+    "4": {
+     "deals": 9898,
+     "repeats": 32,
+     "noise_mse": 392.7883542433605,
+     "noise_mse_se": 10.80571215661906,
+     "signal_variance": 170.6670558426847,
+     "noise_share": 0.6971063676243304,
+     "tv_one_sample_to_mean": 0.38230046704806425,
+     "sign_agreement": 0.3211349515053546,
+     "nodes_per_probe": 142.92623825520306
+    },
+    "5": {
+     "deals": 9820,
+     "repeats": 32,
+     "noise_mse": 610.1034326175941,
+     "noise_mse_se": 14.16715565189897,
+     "signal_variance": 301.8473717426019,
+     "noise_share": 0.6690091501653193,
+     "tv_one_sample_to_mean": 0.36618976089411637,
+     "sign_agreement": 0.34541433299389,
+     "nodes_per_probe": 129.49031631873726
+    },
+    "6": {
+     "deals": 9924,
+     "repeats": 32,
+     "noise_mse": 913.3388646905236,
+     "noise_mse_se": 22.573946324025695,
+     "signal_variance": 502.6075383839929,
+     "noise_share": 0.6450377378037364,
+     "tv_one_sample_to_mean": 0.3430313444009072,
+     "sign_agreement": 0.38232441555824265,
+     "nodes_per_probe": 115.37609897722693
+    }
+   }
+  },
+  {
+   "run": "uniform-b2-8-s1.jsonl.gz",
+   "meta": {
+    "advantage_network": "4478aadc2709211cb6f25cc64a480f13864ba74dd569b9a943ede70e2b2f5d03",
+    "deals": 40000,
+    "explore_depth": 8,
+    "explore_per_street": 2,
+    "iteration": 1,
+    "out": "/Users/dberweger/m4-queue-20261110/a-target-noise/runs/uniform-b2-8-s1.jsonl",
+    "players": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "reached": 8198,
+    "repeats": 32,
+    "seconds": 82.906668666,
+    "seed": 20261111000001,
+    "street": 1
+   },
+   "all": {
+    "deals": 8198,
+    "repeats": 32,
+    "noise_mse": 986.5991720178581,
+    "noise_mse_se": 38.238583619303,
+    "signal_variance": 692.6877300560099,
+    "noise_share": 0.5875107885373477,
+    "tv_one_sample_to_mean": 0.39558424091068894,
+    "sign_agreement": 0.39490195779458404,
+    "nodes_per_probe": 66.13202534154672
+   },
+   "by_players": {
+    "3": {
+     "deals": 2593,
+     "repeats": 32,
+     "noise_mse": 510.5567842592443,
+     "noise_mse_se": 40.068618340894275,
+     "signal_variance": 319.57002503063694,
+     "noise_share": 0.6150346893337801,
+     "tv_one_sample_to_mean": 0.41381859495278206,
+     "sign_agreement": 0.3773862321635172,
+     "nodes_per_probe": 72.36510557269573
+    },
+    "4": {
+     "deals": 2295,
+     "repeats": 32,
+     "noise_mse": 863.8010512958849,
+     "noise_mse_se": 58.79506661354206,
+     "signal_variance": 545.375713620584,
+     "noise_share": 0.6129827519169236,
+     "tv_one_sample_to_mean": 0.39597546436353487,
+     "sign_agreement": 0.39389978213507626,
+     "nodes_per_probe": 67.44930555555555
+    },
+    "5": {
+     "deals": 1763,
+     "repeats": 32,
+     "noise_mse": 1296.8937825608393,
+     "noise_mse_se": 109.19889300785987,
+     "signal_variance": 914.1844937532869,
+     "noise_share": 0.5865435866534608,
+     "tv_one_sample_to_mean": 0.3833412920487238,
+     "sign_agreement": 0.40988372093023256,
+     "nodes_per_probe": 63.02949517867272
+    },
+    "6": {
+     "deals": 1547,
+     "repeats": 32,
+     "noise_mse": 1613.0698896182057,
+     "noise_mse_se": 113.53037284558806,
+     "signal_variance": 1244.9764427517866,
+     "noise_share": 0.5643959901379876,
+     "tv_one_sample_to_mean": 0.3783927612650626,
+     "sign_agreement": 0.4086740465416936,
+     "nodes_per_probe": 57.26597850678733
+    }
+   }
+  },
+  {
+   "run": "uniform-b2-8-s2.jsonl.gz",
+   "meta": {
+    "advantage_network": "4478aadc2709211cb6f25cc64a480f13864ba74dd569b9a943ede70e2b2f5d03",
+    "deals": 40000,
+    "explore_depth": 8,
+    "explore_per_street": 2,
+    "iteration": 1,
+    "out": "/Users/dberweger/m4-queue-20261110/a-target-noise/runs/uniform-b2-8-s2.jsonl",
+    "players": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "reached": 2372,
+    "repeats": 32,
+    "seconds": 15.433691458,
+    "seed": 20261111000001,
+    "street": 2
+   },
+   "all": {
+    "deals": 2372,
+    "repeats": 32,
+    "noise_mse": 1413.948786863229,
+    "noise_mse_se": 96.87411071995587,
+    "signal_variance": 910.7268056297645,
+    "noise_share": 0.6082348829356029,
+    "tv_one_sample_to_mean": 0.38336672605566524,
+    "sign_agreement": 0.4168028035413153,
+    "nodes_per_probe": 29.803080206576727
+   },
+   "by_players": {
+    "3": {
+     "deals": 809,
+     "repeats": 32,
+     "noise_mse": 926.0941954027883,
+     "noise_mse_se": 100.11755297296095,
+     "signal_variance": 433.8191341058651,
+     "noise_share": 0.680995012922914,
+     "tv_one_sample_to_mean": 0.39981055643938107,
+     "sign_agreement": 0.3939663164400494,
+     "nodes_per_probe": 31.645279666254634
+    },
+    "4": {
+     "deals": 679,
+     "repeats": 32,
+     "noise_mse": 1282.7569303424575,
+     "noise_mse_se": 149.31513295478425,
+     "signal_variance": 866.4921381213485,
+     "noise_share": 0.5968395888426831,
+     "tv_one_sample_to_mean": 0.37915519103643736,
+     "sign_agreement": 0.43124079528718706,
+     "nodes_per_probe": 30.367222017673047
+    },
+    "5": {
+     "deals": 496,
+     "repeats": 32,
+     "noise_mse": 2183.48922885405,
+     "noise_mse_se": 350.2802514057899,
+     "signal_variance": 886.8134513186397,
+     "noise_share": 0.7111641607697256,
+     "tv_one_sample_to_mean": 0.3822616512341023,
+     "sign_agreement": 0.4124243951612903,
+     "nodes_per_probe": 28.978137600806452
+    },
+    "6": {
+     "deals": 388,
+     "repeats": 32,
+     "noise_mse": 1676.9940854241902,
+     "noise_mse_se": 188.12201069603137,
+     "signal_variance": 1872.9686926670483,
+     "noise_share": 0.47239765323001065,
+     "tv_one_sample_to_mean": 0.3578633513369149,
+     "sign_agreement": 0.44474871134020616,
+     "nodes_per_probe": 26.029317010309278
+    }
+   }
+  },
+  {
+   "run": "uniform-b2-8-s3.jsonl.gz",
+   "meta": {
+    "advantage_network": "4478aadc2709211cb6f25cc64a480f13864ba74dd569b9a943ede70e2b2f5d03",
+    "deals": 40000,
+    "explore_depth": 8,
+    "explore_per_street": 2,
+    "iteration": 1,
+    "out": "/Users/dberweger/m4-queue-20261110/a-target-noise/runs/uniform-b2-8-s3.jsonl",
+    "players": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "reached": 690,
+    "repeats": 32,
+    "seconds": 4.432572666,
+    "seed": 20261111000001,
+    "street": 3
+   },
+   "all": {
+    "deals": 690,
+    "repeats": 32,
+    "noise_mse": 1849.029525512739,
+    "noise_mse_se": 209.6479206079955,
+    "signal_variance": 1136.410603303614,
+    "noise_share": 0.6193490559952478,
+    "tv_one_sample_to_mean": 0.38030753224275204,
+    "sign_agreement": 0.4340579710144927,
+    "nodes_per_probe": 11.286141304347826
+   },
+   "by_players": {
+    "3": {
+     "deals": 244,
+     "repeats": 32,
+     "noise_mse": 1432.8079452576753,
+     "noise_mse_se": 250.1517177023724,
+     "signal_variance": 907.9210045138482,
+     "noise_share": 0.6121204018079626,
+     "tv_one_sample_to_mean": 0.39278733700703394,
+     "sign_agreement": 0.4291752049180328,
+     "nodes_per_probe": 11.216188524590164
+    },
+    "4": {
+     "deals": 200,
+     "repeats": 32,
+     "noise_mse": 2029.148320830547,
+     "noise_mse_se": 477.9515189120112,
+     "signal_variance": 1016.9283411451275,
+     "noise_share": 0.6661514288725906,
+     "tv_one_sample_to_mean": 0.3771398264998051,
+     "sign_agreement": 0.44765625,
+     "nodes_per_probe": 11.8240625
+    },
+    "5": {
+     "deals": 144,
+     "repeats": 32,
+     "noise_mse": 2491.56907903372,
+     "noise_mse_se": 575.3012834334021,
+     "signal_variance": 1289.8697500762557,
+     "noise_share": 0.6588944556906007,
+     "tv_one_sample_to_mean": 0.3729599976198663,
+     "sign_agreement": 0.4134114583333333,
+     "nodes_per_probe": 10.946614583333334
+    },
+    "6": {
+     "deals": 102,
+     "repeats": 32,
+     "noise_mse": 1584.408062881882,
+     "noise_mse_se": 335.92739330780336,
+     "signal_variance": 1592.3530970460033,
+     "noise_share": 0.49874950716088745,
+     "tv_one_sample_to_mean": 0.36703805941726303,
+     "sign_agreement": 0.4482230392156863,
+     "nodes_per_probe": 10.878063725490197
+    }
+   }
+  },
+  {
+   "run": "uniform-b3-8-s0.jsonl.gz",
+   "meta": {
+    "advantage_network": "4478aadc2709211cb6f25cc64a480f13864ba74dd569b9a943ede70e2b2f5d03",
+    "deals": 40000,
+    "explore_depth": 8,
+    "explore_per_street": 3,
+    "iteration": 1,
+    "out": "/Users/dberweger/m4-queue-20261110/a-target-noise/runs/uniform-b3-8-s0.jsonl",
+    "players": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "reached": 39209,
+    "repeats": 32,
+    "seconds": 1324.037867416,
+    "seed": 20261111000001,
+    "street": 0
+   },
+   "all": {
+    "deals": 39209,
+    "repeats": 32,
+    "noise_mse": 411.8444165638352,
+    "noise_mse_se": 6.4475813997216775,
+    "signal_variance": 265.8361766603819,
+    "noise_share": 0.6077264432265843,
+    "tv_one_sample_to_mean": 0.3611842112882454,
+    "sign_agreement": 0.3487743566528093,
+    "nodes_per_probe": 187.87714236527327
+   },
+   "by_players": {
+    "3": {
+     "deals": 9567,
+     "repeats": 32,
+     "noise_mse": 131.70122967769393,
+     "noise_mse_se": 3.013617488788003,
+     "signal_variance": 76.38322084982927,
+     "noise_share": 0.6329220148060698,
+     "tv_one_sample_to_mean": 0.38966485017844216,
+     "sign_agreement": 0.3099260478728964,
+     "nodes_per_probe": 221.52073207379533
+    },
+    "4": {
+     "deals": 9898,
+     "repeats": 32,
+     "noise_mse": 293.6497072744772,
+     "noise_mse_se": 8.829753184598376,
+     "signal_variance": 171.02347238849472,
+     "noise_share": 0.6319489054381441,
+     "tv_one_sample_to_mean": 0.3693052835795712,
+     "sign_agreement": 0.3322546221458881,
+     "nodes_per_probe": 198.03702136795312
+    },
+    "5": {
+     "deals": 9820,
+     "repeats": 32,
+     "noise_mse": 475.2423707405765,
+     "noise_mse_se": 11.8001262321805,
+     "signal_variance": 305.1354606431101,
+     "noise_share": 0.6089900963715551,
+     "tv_one_sample_to_mean": 0.35433799325117254,
+     "sign_agreement": 0.35771066700611,
+     "nodes_per_probe": 177.63405995417514
+    },
+    "6": {
+     "deals": 9924,
+     "repeats": 32,
+     "noise_mse": 737.0613846684481,
+     "noise_mse_se": 20.16296519054747,
+     "signal_variance": 503.60255465397614,
+     "noise_share": 0.594086247941555,
+     "tv_one_sample_to_mean": 0.3324027940494304,
+     "sign_agreement": 0.3938589530431278,
+     "nodes_per_probe": 155.44630441354292
+    }
+   }
+  },
+  {
+   "run": "uniform-b3-8-s1.jsonl.gz",
+   "meta": {
+    "advantage_network": "4478aadc2709211cb6f25cc64a480f13864ba74dd569b9a943ede70e2b2f5d03",
+    "deals": 40000,
+    "explore_depth": 8,
+    "explore_per_street": 3,
+    "iteration": 1,
+    "out": "/Users/dberweger/m4-queue-20261110/a-target-noise/runs/uniform-b3-8-s1.jsonl",
+    "players": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "reached": 8198,
+    "repeats": 32,
+    "seconds": 134.404856958,
+    "seed": 20261111000001,
+    "street": 1
+   },
+   "all": {
+    "deals": 8198,
+    "repeats": 32,
+    "noise_mse": 940.1547741185487,
+    "noise_mse_se": 38.63182709661766,
+    "signal_variance": 693.4517817289308,
+    "noise_share": 0.5755086931753999,
+    "tv_one_sample_to_mean": 0.38886016200297285,
+    "sign_agreement": 0.40543806416199074,
+    "nodes_per_probe": 86.19996493047084
+   },
+   "by_players": {
+    "3": {
+     "deals": 2593,
+     "repeats": 32,
+     "noise_mse": 470.3835979556441,
+     "noise_mse_se": 40.300645994585466,
+     "signal_variance": 322.54357741895717,
+     "noise_share": 0.5932242109540785,
+     "tv_one_sample_to_mean": 0.40685021555285167,
+     "sign_agreement": 0.387304762822985,
+     "nodes_per_probe": 95.7494215194755
+    },
+    "4": {
+     "deals": 2295,
+     "repeats": 32,
+     "noise_mse": 811.8359704458034,
+     "noise_mse_se": 58.14022781930919,
+     "signal_variance": 540.7153049156683,
+     "noise_share": 0.6002256515035549,
+     "tv_one_sample_to_mean": 0.38834200427548893,
+     "sign_agreement": 0.40328159041394335,
+     "nodes_per_probe": 88.3107434640523
+    },
+    "5": {
+     "deals": 1763,
+     "repeats": 32,
+     "noise_mse": 1243.9636735109739,
+     "noise_mse_se": 110.92508351131565,
+     "signal_variance": 929.4324615870362,
+     "noise_share": 0.5723593842016642,
+     "tv_one_sample_to_mean": 0.37652171418671465,
+     "sign_agreement": 0.4221674702212138,
+     "nodes_per_probe": 81.36333664208735
+    },
+    "6": {
+     "deals": 1547,
+     "repeats": 32,
+     "noise_mse": 1571.695320072342,
+     "noise_mse_se": 115.60720607340988,
+     "signal_variance": 1233.7368916507091,
+     "noise_share": 0.560232863052154,
+     "tv_one_sample_to_mean": 0.37353608096212154,
+     "sign_agreement": 0.4199660633484163,
+     "nodes_per_probe": 72.57423642533936
+    }
+   }
+  },
+  {
+   "run": "uniform-b3-8-s2.jsonl.gz",
+   "meta": {
+    "advantage_network": "4478aadc2709211cb6f25cc64a480f13864ba74dd569b9a943ede70e2b2f5d03",
+    "deals": 40000,
+    "explore_depth": 8,
+    "explore_per_street": 3,
+    "iteration": 1,
+    "out": "/Users/dberweger/m4-queue-20261110/a-target-noise/runs/uniform-b3-8-s2.jsonl",
+    "players": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "reached": 2372,
+    "repeats": 32,
+    "seconds": 21.725611417,
+    "seed": 20261111000001,
+    "street": 2
+   },
+   "all": {
+    "deals": 2372,
+    "repeats": 32,
+    "noise_mse": 1363.681378265367,
+    "noise_mse_se": 94.41422334172331,
+    "signal_variance": 909.8977096806765,
+    "noise_share": 0.5997950040512203,
+    "tv_one_sample_to_mean": 0.3774757037333714,
+    "sign_agreement": 0.426960370994941,
+    "nodes_per_probe": 35.07908674114671
+   },
+   "by_players": {
+    "3": {
+     "deals": 809,
+     "repeats": 32,
+     "noise_mse": 887.6842111733065,
+     "noise_mse_se": 99.89052218773503,
+     "signal_variance": 439.11244211005743,
+     "noise_share": 0.6690431491341151,
+     "tv_one_sample_to_mean": 0.39396795083907005,
+     "sign_agreement": 0.40169190358467244,
+     "nodes_per_probe": 37.8622914091471
+    },
+    "4": {
+     "deals": 679,
+     "repeats": 32,
+     "noise_mse": 1230.1504296178248,
+     "noise_mse_se": 144.83509872106964,
+     "signal_variance": 857.2094123222005,
+     "noise_share": 0.5893331877432804,
+     "tv_one_sample_to_mean": 0.37100244516959946,
+     "sign_agreement": 0.4427927098674521,
+     "nodes_per_probe": 35.99806701030928
+    },
+    "5": {
+     "deals": 496,
+     "repeats": 32,
+     "noise_mse": 2108.9666553215247,
+     "noise_mse_se": 340.4281133299792,
+     "signal_variance": 905.9058637330796,
+     "noise_share": 0.699521005280465,
+     "tv_one_sample_to_mean": 0.37735786172734653,
+     "sign_agreement": 0.4254032258064516,
+     "nodes_per_probe": 33.52942288306452
+    },
+    "6": {
+     "deals": 388,
+     "repeats": 32,
+     "noise_mse": 1637.1033496295513,
+     "noise_mse_se": 182.47254632846958,
+     "signal_variance": 1847.8591853872094,
+     "noise_share": 0.4697621088261363,
+     "tv_one_sample_to_mean": 0.3545673642779055,
+     "sign_agreement": 0.453930412371134,
+     "nodes_per_probe": 29.648759664948454
+    }
+   }
+  },
+  {
+   "run": "uniform-b3-8-s3.jsonl.gz",
+   "meta": {
+    "advantage_network": "4478aadc2709211cb6f25cc64a480f13864ba74dd569b9a943ede70e2b2f5d03",
+    "deals": 40000,
+    "explore_depth": 8,
+    "explore_per_street": 3,
+    "iteration": 1,
+    "out": "/Users/dberweger/m4-queue-20261110/a-target-noise/runs/uniform-b3-8-s3.jsonl",
+    "players": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "reached": 690,
+    "repeats": 32,
+    "seconds": 5.93419475,
+    "seed": 20261111000001,
+    "street": 3
+   },
+   "all": {
+    "deals": 690,
+    "repeats": 32,
+    "noise_mse": 1825.4823569415144,
+    "noise_mse_se": 212.12493589077764,
+    "signal_variance": 1122.9487593772606,
+    "noise_share": 0.6191368510656259,
+    "tv_one_sample_to_mean": 0.37302681410610605,
+    "sign_agreement": 0.44605978260869567,
+    "nodes_per_probe": 12.294384057971014
+   },
+   "by_players": {
+    "3": {
+     "deals": 244,
+     "repeats": 32,
+     "noise_mse": 1420.7225332883013,
+     "noise_mse_se": 258.39971215263967,
+     "signal_variance": 901.6017665842621,
+     "noise_share": 0.6117675009326917,
+     "tv_one_sample_to_mean": 0.3902711652180017,
+     "sign_agreement": 0.43942110655737704,
+     "nodes_per_probe": 12.254482581967213
+    },
+    "4": {
+     "deals": 200,
+     "repeats": 32,
+     "noise_mse": 1984.522320438082,
+     "noise_mse_se": 477.2187036235886,
+     "signal_variance": 972.6981476626988,
+     "noise_share": 0.6710768919141846,
+     "tv_one_sample_to_mean": 0.36837215977356536,
+     "sign_agreement": 0.46453125,
+     "nodes_per_probe": 12.94265625
+    },
+    "5": {
+     "deals": 144,
+     "repeats": 32,
+     "noise_mse": 2472.747657569351,
+     "noise_mse_se": 584.944292390238,
+     "signal_variance": 1293.7691277605925,
+     "noise_share": 0.6565078024344289,
+     "tv_one_sample_to_mean": 0.3607699556175391,
+     "sign_agreement": 0.4309895833333333,
+     "nodes_per_probe": 11.86892361111111
+    },
+    "6": {
+     "deals": 102,
+     "repeats": 32,
+     "noise_mse": 1568.101974408788,
+     "noise_mse_se": 342.8885280477563,
+     "signal_variance": 1594.1262198923462,
+     "noise_share": 0.4958851411276299,
+     "tv_one_sample_to_mean": 0.3582061946704122,
+     "sign_agreement": 0.44699754901960786,
+     "nodes_per_probe": 11.719362745098039
+    }
+   }
+  }
+ ]
+}

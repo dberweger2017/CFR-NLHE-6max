@@ -1,6 +1,6 @@
 #!/bin/bash
 # Target-noise study on the M4 (base M4 MacBook Pro, 16 GB): run 1's code plus the probe, run 1's
-# K50 tables and networks. Each run probes the traverser's first decision on one street, for 10,000
+# K50 tables and networks. Each run probes the traverser's first decision on one street, for 40,000
 # deals, 32 times each with independent samples below it. Run 1's bound (3 per street, 8 per path)
 # goes first; 2/6 and 2/8 (both in run 1's bound study) show how the bound trades noise for nodes.
 set -euo pipefail
