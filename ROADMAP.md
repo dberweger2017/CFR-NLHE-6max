@@ -29,6 +29,14 @@ its interval undefined. The one-shot run closes in 48.4 seconds and releases the
 queue. Keep this configuration rejected; no bb128 training, default change or
 automatic follow-up. [Results](docs/reports/deep-cfr-variance-qualification/results.md).
 
+**Suit-canonical policy pilot (November 11, Runpod, offline):** rejects this
+recipe. Three paired fits improve TV-to-teacher error by only 0.00199 (one-sided
+95% bounds −0.00447/+0.00050), missing the required gain; CPU decision latency is
+1.54× raw at the median, above the 1.25× cap. Exact suit invariance passes, but
+does not establish useful imitation or playing-strength progress. The pod and
+temporary volume were removed after verified retrieval; estimated spend <US$0.03.
+[Results](docs/reports/suit-symmetry-pilot/results.md).
+
 ## Target-policy exploration qualification prepared; main allocation pending
 
 [PR457](https://github.com/dberweger2017/CFR-NLHE-6max/pull/457),
