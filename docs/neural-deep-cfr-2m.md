@@ -1,8 +1,8 @@
-# Deep CFR from scratch with a 2M advantage network: proposal
+# Deep CFR from scratch with a 2M advantage network: protocol
 
 Follows [run 1](neural-deep-cfr-scratch.md) ([PR477](https://github.com/dberweger2017/CFR-NLHE-6max/pull/477)) and the M4 advantage-fit studies ([PR478](https://github.com/dberweger2017/CFR-NLHE-6max/pull/478), [PR479](https://github.com/dberweger2017/CFR-NLHE-6max/pull/479), [PR480](https://github.com/dberweger2017/CFR-NLHE-6max/pull/480)). The question: **does a 2M-parameter advantage network learn a better policy than run 1's 0.5M network, per iteration and per day of bb128?**
 
-This is a proposal. Once agreed, it becomes the protocol and is committed before launch. Any change after launch is reported as a deviation.
+Proposed in [issue 482](https://github.com/dberweger2017/CFR-NLHE-6max/issues/482). This protocol is committed before launch. Any change after launch is reported as a deviation. Controller: [`run.sh`](reports/neural-deep-cfr-2m/run.sh).
 
 ## What we know
 
@@ -16,7 +16,10 @@ This is a proposal. Once agreed, it becomes the protocol and is committed before
 - **Its gains flattened** between iterations 800 and 1,200.
 - **Its advantage loss kept rising**, from 1,500 at iteration 25 to 2,160 at iteration 1,200.
 
-The flattening and the rising loss fit a network too small for its reservoir, but they don't prove it: regret magnitudes also grow under linear weighting. Run 1's final evaluation (E1, E2) is pending and will be linked here.
+The flattening and the rising loss fit a network too small for its reservoir, but they don't prove it: regret magnitudes also grow under linear weighting. **Run 1's final evaluation** (4,096 blocks per table, in PR477):
+- **E1 against `net1`:** better on 6p-short-deep (+117) and 6p-unequal (+151), no table worse. That meets the pilot's "promising" rule.
+- **E2 against the warm pilot:** better on 4p-short-deep (+57), 6p-short-deep (+87) and 6p-unequal (+114), worse on 3p-5bb (−7) and 6p-5bb (−6). No difference at 6p-100bb against the trained field (−12, −28 to +4).
+- **Harm flag in both:** large losses against the random field at 6 players (−114 to −229).
 
 ## The change: one
 
@@ -45,9 +48,12 @@ The uniform first iterate doesn't depend on the network's shape, so iteration 1'
 ## The cost: fewer iterations
 
 Run 1's last 75 iterations took 40 s of traversal, 10 s of reservoir adds and 16 s of fit.
-- The advantage network is called at every decision. A 2M call is about 2.2M multiply-adds against 0.48M, 4.6× more.
-- If calls dominate the traversal, iterations take about 3–3.5 minutes, so the run reaches roughly **400–500 iterations** against run 1's 1,375.
-- Qualification measures it. The run launches whatever the speed, because the question includes "per day".
+**Measured on the M4 ([PR483](https://github.com/dberweger2017/CFR-NLHE-6max/pull/483)), with run 1's code and settings:**
+- **The network isn't most of a decision's cost.** About 24 µs per decision goes to features, equity lookups and records. One call costs 5.7 µs for run 1's last network, and 22–41 µs for trained 2M networks. Trained networks are cheaper than untrained ones, because their zero hidden units are skipped.
+- **The traversal slows 1.55–2.16×** on run 1's late tree, not the 4.6× the multiply-adds would suggest. On identical uniform trees, untrained 0.5M and 2M networks give byte-identical records, and 2M takes 2.4× as long.
+- **13.7 of run 1's 24 hours were outside the traversal loop:** stage overhead, reservoir adds and fits. Most of that doesn't grow with the network. The 2M fit is assumed to take 1.0–1.75× run 1's 16.2 s.
+- **So run 2 projects to about 860 iterations** in 24 hours (range 680–1,110), against run 1's 1,375. It should pass iteration 800, where run 1 began to flatten, so the checkpoints and E4 can see whether the bigger network changes the flattening.
+- Qualification's three timed iterations check this on bb128. The run launches whatever the speed, because the question includes "per day".
 
 **That gives two comparisons:**
 - **Equal iterations (E4 and the checkpoints):** does the bigger network learn more per iteration?
@@ -55,12 +61,12 @@ Run 1's last 75 iterations took 40 s of traversal, 10 s of reservoir adds and 16
 
 ## Schedule on bb128
 
-Run 2 starts after run 1's E2, around 16:00 UTC on November 10.
+Run 1's E2 finished at 15:29 UTC on November 10, and run 2 starts once qualification passes.
 
-1. **Qualification:** run 1's native and Python tests, plus:
-   - the iteration-1 identity with run 1;
-   - a fit and export of the 2M advantage network, with f32 parity in Rust;
-   - three timed iterations from uniform, reported.
+1. **Qualification:** run 1's native and Python tests, thread determinism with the 2M network, and the pinned run-1 final. Then:
+   - **the smoke:** three toy iterations that fit and export the 2M advantage network and traverse with it in Rust. The Rust loader and its f32 parity are the ones that already play the strategy network of the same shape. No separate parity step was added.
+   - **the iteration-1 identity:** the run stops if iteration 1's records differ from run 1's (`records_sha256`).
+   - **timing:** the first iterations are timed in `progress.csv`, like every iteration.
 2. **Training window:** 24 hours, under run 1's rules. No iteration starts after the window closes, and the last completed iteration is final.
 3. **Monitoring** at iterations 25, 50, 100, 200, 300, 400, 800 and 1,200, if reached. It uses run 1's fits (4,000 steps, fresh) against `net1`, with **run 1's roots**, so each checkpoint plays run 1's deals at the same iteration. These are diagnostics.
 4. **Final fit:** 20,000 steps, fresh.
@@ -70,7 +76,7 @@ Run 2 starts after run 1's E2, around 16:00 UTC on November 10.
    - **E3, equal time: run 2's final against run 1's final** (`strategy1375-s20000`), on fresh roots `20261111500000 + 1000·bank + case`.
    - **E4, equal iterations:** run 2's last checkpoint network against run 1's at the same iteration (both 4,000-step fits), on fresh roots `20261111600000 + 1000·bank + case`.
 
-The evaluation takes about 6 hours: run 1's E1 and E2 took about 3, and E3 and E4 cost about the same. Everything should be done around 22:30 UTC on November 11.
+The evaluation takes about 6 hours on bb128, or can move to a Runpod CPU pod so bb128 starts the next run: run 1's E1 and E2 took about 3, and E3 and E4 cost about the same. Everything should be done around 22:30 UTC on November 11.
 
 ## Reading, fixed now
 
@@ -84,6 +90,13 @@ The evaluation takes about 6 hours: run 1's E1 and E2 took about 3, and E3 and E
 
 The checkpoint contrasts against `net1` are diagnostics, plotted beside run 1's. Each run is one seed, so a difference mixes the network change with run-to-run variance. That's an exploration read, not a strength claim, and no route, default or live play changes.
 
+## Deviations
+
+- **Thermal stop at 18:14 UTC, November 10 (plumbing).** The guard stopped iteration 65's traversal at CPU 91 °C. Run 2's denser network runs the i7-10700KF hotter than run 1, which peaked at 88 °C in 24 hours. The run resumed at iteration 65 with traversals on **12 of 16 threads**. Records don't depend on the thread count, as qualification checks, so only speed changes. The slower traversals count against run 2's equal-time comparison (E3); the stop itself is added back (below).
+- **Paused for PR484's bb128 benchmark (owner's request).** Run 2 paused after iteration 66 (18:47 UTC, November 10), between iterations, never during a reservoir add. It resumed once the benchmark finished (the first attempt failed at once: bb128 has no `/usr/bin/time`). The CPU stop stays at 90 °C. The benchmark peaked at 89 °C on 16 threads after the fans were moved, too close to the stop, so traversals stay on 12 threads.
+- **24 hours of training time.** The thermal stop and the benchmark pause are added to the window (`paused_seconds` in `window.json`), so run 2 still trains for 24 hours, like run 1. The original window end stated above no longer applies.
+- **Resume fix.** The stopped traversal had left an empty `it65.json`, which the resume would have read as a finished traversal and then added its partial samples. That partial output was deleted by hand. The controller now writes the summary under a temporary name and renames it on success.
+
 ## Storage, stops and live view
 
 - **Stops:** run 1's.
@@ -91,7 +104,7 @@ The checkpoint contrasts against `net1` are diagnostics, plotted beside run 1's.
   - `/home/dberweger/neural-deep-cfr-2m-20261110` for the evidence;
   - `/mnt/data2tb/neural-deep-cfr-2m-20261110` for snapshots, every 100 iterations;
   - `/dev/shm/neural-deep-cfr-2m` for the reservoirs.
-- **Run 1's RAM reservoirs (37 GB)** are freed after its E2, once its iteration-1,375 snapshot on the HDD is checked.
+- **Run 1's RAM reservoirs (37 GB)** are freed before launch, once its iteration-1,375 snapshot on the HDD is checked.
 - **Advantage networks** grow from 1.9 MB to about 9 MB each, about 4.5 GB over the run, against 34 GB free on the NVMe.
 - **TensorBoard** (`http://100.99.57.8:6006`) shows run 1 and run 2 side by side.
 - **Results** go to this PR and bb128's tree, as for run 1. Packaging and upload are the storage process's job.
