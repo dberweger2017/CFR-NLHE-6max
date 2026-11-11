@@ -60,6 +60,48 @@ def test_add_splits_kinds_and_weights_by_iteration(tmp_path):
     assert len(adv) == 30 and len(st) == 20 and (adv['kind'] == 0).all() and (st['kind'] == 1).all() and (w == 4).all()
 
 
+def test_add_hashes_each_file_once_and_records_it_in_both_reservoirs(tmp_path, monkeypatch):
+    s = samples_file(tmp_path / 's.npdcf', np.concatenate([rows(30, dcfr.ADVANTAGE, 4), rows(20, dcfr.STRATEGY, 4)]), 4)
+    calls = []
+    real = dcfr.sha_file
+    monkeypatch.setattr(dcfr, 'sha_file', lambda path: calls.append(path) or real(path))
+    args = type('A', (), {'samples': [s], 'advantage_buffer': tmp_path / 'adv', 'strategy_buffer': tmp_path / 'str',
+                          'capacity': 1000, 'seed': 1})
+    dcfr.add(args)
+    assert calls == [s]
+    for folder, kind in (('adv', dcfr.ADVANTAGE), ('str', dcfr.STRATEGY)):
+        source = json.loads((tmp_path / folder / 'state.json').read_text())['sources'][0]
+        assert source == {'source': {'path': str(s), 'kind': kind, 'iteration': 4, 'sha256': real(s)}, 'rows': 30 if kind == 0 else 20}
+
+
+def test_prefetching_and_in_process_export_change_nothing(tmp_path):
+    torch = pytest.importorskip('torch')
+    buf = dcfr.Reservoir(tmp_path / 'adv', F, capacity=2048)
+    r = rows(2048, dcfr.ADVANTAGE)
+    buf.add(r, np.arange(1, 2049, dtype='<f4'), seed=1, source='synthetic')
+    common = dict(buffer=str(tmp_path / 'adv'), hidden='32,16', layout='ab' * 32, batch=256, lr=3e-3, device='cpu',
+                  kind='advantage', init='none', steps=40, seed=5)
+    outs = {}
+    for prefetch in (0, 1, 3):
+        name = f'p{prefetch}'
+        dcfr.train(type('A', (), dict(common, prefetch=prefetch, out=str(tmp_path / name), export=str(tmp_path / f'{name}.npnet')))())
+        outs[prefetch] = torch.load(tmp_path / name / 'weights.pt', weights_only=True)
+    for prefetch in (1, 3):
+        assert all(torch.equal(outs[0][k], outs[prefetch][k]) for k in outs[0])
+        assert (tmp_path / 'p0.npnet').read_bytes() == (tmp_path / f'p{prefetch}.npnet').read_bytes()
+    dcfr.export(type('A', (), {'model': str(tmp_path / 'p0'), 'out': str(tmp_path / 'separate.npnet')})())
+    assert (tmp_path / 'separate.npnet').read_bytes() == (tmp_path / 'p0.npnet').read_bytes()
+
+
+def test_a_failing_batch_source_fails_training():
+    def broken():
+        yield 1
+        raise ValueError('reservoir read failed')
+    with pytest.raises(ValueError, match='reservoir read failed'):
+        list(dcfr.prefetched(broken(), 2))
+    assert list(dcfr.prefetched(iter(range(5)), 2)) == list(range(5))
+
+
 def test_training_fits_advantages_and_strategies_then_exports(tmp_path):
     torch = pytest.importorskip('torch')
     buf = dcfr.Reservoir(tmp_path / 'adv', F, capacity=4096)

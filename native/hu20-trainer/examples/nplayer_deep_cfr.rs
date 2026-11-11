@@ -19,7 +19,7 @@ use serde_json::json;
 use sha2::{Digest, Sha256};
 use std::{collections::HashMap, io::Write, path::Path, time::Instant};
 
-const CHUNK: u64 = 256;
+const CHUNK: u64 = 2048;
 
 fn args() -> (String, HashMap<String, Vec<String>>) {
     let a: Vec<String> = std::env::args().skip(1).collect();
@@ -92,28 +92,47 @@ fn traverse(m: &HashMap<String, Vec<String>>) -> Result<(), String> {
         .map_err(|e| e.to_string())?;
     let start = Instant::now();
     let mut counts = Counts::default();
-    let mut digest = Sha256::new();
     let mut value = 0.;
-    let mut first = 0;
-    while first < traversals {
-        let last = (first + CHUNK).min(traversals);
-        let results: Vec<Result<(Vec<u8>, Counts, f64), String>> = (first..last).into_par_iter().map(|i| {
-            let mut t = Traversal::bounded(&fast, tables, iteration as u32, bound);
-            let v = t.run(seed, i, &players)?;
-            Ok((t.out, t.counts, v))
-        }).collect();
-        for r in results {
-            let (bytes, c, v) = r?;
-            digest.update(&bytes);
-            w.write_all(&bytes).map_err(|e| e.to_string())?;
-            counts.add(&c);
-            value += v;
+    // A writer thread hashes and writes each chunk while the next one is traversed; the bytes and
+    // their order are the same as writing them in place.
+    let (send, receive) = std::sync::mpsc::sync_channel::<Vec<Vec<u8>>>(1);
+    let writer = std::thread::spawn(move || -> Result<String, String> {
+        let mut digest = Sha256::new();
+        for chunk in receive {
+            for bytes in chunk {
+                digest.update(&bytes);
+                w.write_all(&bytes).map_err(|e| e.to_string())?;
+            }
         }
-        first = last;
-    }
-    w.flush().map_err(|e| e.to_string())?;
+        w.flush().map_err(|e| e.to_string())?;
+        Ok(format!("{:x}", digest.finalize()))
+    });
+    let mut first = 0;
+    let traversed = (|| -> Result<(), String> {
+        while first < traversals {
+            let last = (first + CHUNK).min(traversals);
+            let results: Vec<(Vec<u8>, Counts, f64)> = (first..last).into_par_iter().map(|i| {
+                let mut t = Traversal::bounded(&fast, tables, iteration as u32, bound);
+                let v = t.run(seed, i, &players)?;
+                Ok((t.out, t.counts, v))
+            }).collect::<Result<_, String>>()?;
+            let mut chunk = Vec::with_capacity((last - first) as usize);
+            for (bytes, c, v) in results {
+                counts.add(&c);
+                value += v;
+                chunk.push(bytes);
+            }
+            send.send(chunk).map_err(|_| "the sample writer stopped".to_string())?;
+            first = last;
+        }
+        Ok(())
+    })();
+    drop(send);
+    let written = writer.join().map_err(|_| "the sample writer panicked".to_string())?;
+    traversed?;
+    let records_sha256 = written?;
     let seconds = start.elapsed().as_secs_f64();
-    println!("{}", json!({"out":out,"records_sha256":format!("{:x}", digest.finalize()),"traversals":counts.traversals,
+    println!("{}", json!({"out":out,"records_sha256":records_sha256,"traversals":counts.traversals,
         "nodes":counts.nodes,"terminals":counts.terminals,"advantage_samples":counts.advantage,"strategy_samples":counts.strategy,
         "explore_per_street":per_street,"explore_depth":total,"sampled_traverser_decisions":counts.sampled,
         "advantage_by_street":counts.advantage_by_street,"sampled_by_street":counts.sampled_by_street,"max_nodes":counts.max_nodes,"mean_traverser_value_bb":value / traversals as f64,"seconds":seconds,"nodes_per_second":counts.nodes as f64 / seconds}));
@@ -136,7 +155,7 @@ fn bench(m: &HashMap<String, Vec<String>>) -> Result<(), String> {
     }
     let r = deep_cfr::record_bytes();
     let inputs: Vec<&[u8]> = t.out.chunks_exact(r).map(|rec| &rec[8 + 4 * features::ACTIONS..]).take(2000).collect();
-    let mut scratch = [Vec::new(), Vec::new()];
+    let mut scratch = hu20_trainer::policy_network::Scratch::default();
     let mut worst = 0f64;
     for b in &inputs {
         let x: Vec<f32> = b.iter().map(|&v| v as f32 / 255.).collect();

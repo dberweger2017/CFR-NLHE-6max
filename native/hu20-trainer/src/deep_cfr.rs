@@ -109,11 +109,11 @@ pub struct Traversal<'a> {
     pub out: Vec<u8>,
     pub counts: Counts,
     pub bound: Bound,
-    scratch: [Vec<f32>; 2],
+    scratch: crate::policy_network::Scratch,
 }
 impl<'a> Traversal<'a> {
     pub fn new(net: &'a Fast, tables: &'a EquityTables, iteration: u32) -> Self {
-        Self { net, tables, iteration, out: Vec::new(), counts: Counts::default(), bound: Bound::NONE, scratch: [Vec::new(), Vec::new()] }
+        Self { net, tables, iteration, out: Vec::new(), counts: Counts::default(), bound: Bound::NONE, scratch: Default::default() }
     }
     /// A traversal whose traverser stops exploring at `bound`.
     ///

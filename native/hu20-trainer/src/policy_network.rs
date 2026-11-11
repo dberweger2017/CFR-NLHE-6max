@@ -214,27 +214,65 @@ pub fn regret_match(regrets: &[f64; ACTIONS], legal: u8) -> [f64; ACTIONS] {
 
 /// An f32 forward pass for traversals: input-major weights, zero inputs skipped. It agrees with the
 /// f64 reference to float32 rounding (checked by tests and `nplayer_deep_cfr bench`).
+///
+/// Every output is its bias plus the products of the nonzero inputs, added in input order. The
+/// order is part of the contract: traversal records are compared byte for byte across builds, so
+/// the kernel may change how it schedules the work but never which additions it makes or their
+/// order. That rules out fused multiply-adds and reordered sums, which round differently.
 pub struct Fast {
     pub output: Output,
     layers: Vec<(usize, usize, Vec<f32>, Vec<f32>)>,
 }
+
+/// Working memory for `Fast`, reused across calls.
+#[derive(Default)]
+pub struct Scratch {
+    x: Vec<f32>,
+    y: Vec<f32>,
+    /// The layer input's nonzero entries as (index, value), in index order.
+    nonzero: Vec<(u32, f32)>,
+}
+
+/// Outputs per register block: their partial sums stay in registers while the nonzero inputs
+/// stream past. Sixteen vector registers of four (NEON) or eight (AVX) lanes hold 64; SSE2's
+/// sixteen of four hold 32 with room for the products. The width changes the schedule, never the
+/// sums.
+#[cfg(any(target_arch = "aarch64", target_feature = "avx"))]
+const BLOCK: usize = 64;
+#[cfg(not(any(target_arch = "aarch64", target_feature = "avx")))]
+const BLOCK: usize = 32;
+
 impl Fast {
     /// Logits (or regrets) for one quantized feature vector, `bytes[i] / 255`.
-    pub fn logits(&self, bytes: &[u8], scratch: &mut [Vec<f32>; 2]) -> [f32; ACTIONS] {
-        let [x, y] = scratch;
+    pub fn logits(&self, bytes: &[u8], scratch: &mut Scratch) -> [f32; ACTIONS] {
+        let Scratch { x, y, nonzero } = scratch;
         x.clear();
         x.extend(bytes.iter().map(|&b| b as f32 / 255.));
         let last = self.layers.len() - 1;
-        for (k, (inputs, outputs, t, b)) in self.layers.iter().enumerate() {
-            debug_assert_eq!(x.len(), *inputs);
+        for (k, (width, outputs, t, b)) in self.layers.iter().enumerate() {
+            let outputs = *outputs;
+            debug_assert_eq!(x.len(), *width);
+            nonzero.clear();
+            nonzero.extend(x.iter().enumerate().filter(|(_, &v)| v != 0.).map(|(i, &v)| (i as u32, v)));
             y.clear();
-            y.extend_from_slice(b);
-            for (i, &v) in x.iter().enumerate() {
-                if v != 0. {
-                    for (acc, w) in y.iter_mut().zip(&t[i * outputs..(i + 1) * outputs]) {
-                        *acc += v * w;
+            y.resize(outputs, 0.);
+            let blocked = outputs / BLOCK * BLOCK;
+            for o in (0..blocked).step_by(BLOCK) {
+                let mut acc: [f32; BLOCK] = b[o..o + BLOCK].try_into().unwrap();
+                for &(i, v) in nonzero.iter() {
+                    let w: &[f32; BLOCK] = t[i as usize * outputs + o..][..BLOCK].try_into().unwrap();
+                    for j in 0..BLOCK {
+                        acc[j] += v * w[j];
                     }
                 }
+                y[o..o + BLOCK].copy_from_slice(&acc);
+            }
+            for o in blocked..outputs {
+                let mut acc = b[o];
+                for &(i, v) in nonzero.iter() {
+                    acc += v * t[i as usize * outputs + o];
+                }
+                y[o] = acc;
             }
             if k < last {
                 for v in y.iter_mut() {
@@ -243,12 +281,10 @@ impl Fast {
             }
             std::mem::swap(x, y);
         }
-        let mut out = [0f32; ACTIONS];
-        out.copy_from_slice(&x[..ACTIONS]);
-        out
+        x[..ACTIONS].try_into().unwrap()
     }
     /// The strategy over the six labels at a decision with legal labels `legal`.
-    pub fn strategy(&self, bytes: &[u8], legal: u8, scratch: &mut [Vec<f32>; 2]) -> [f64; ACTIONS] {
+    pub fn strategy(&self, bytes: &[u8], legal: u8, scratch: &mut Scratch) -> [f64; ACTIONS] {
         let z = self.logits(bytes, scratch).map(|v| v as f64);
         match self.output {
             Output::Advantage => regret_match(&z, legal),
@@ -329,7 +365,7 @@ mod tests {
         });
         let net = PolicyNetwork::parse(&f).unwrap();
         let fast = net.fast();
-        let mut scratch = [Vec::new(), Vec::new()];
+        let mut scratch = Scratch::default();
         for _ in 0..200 {
             let bytes: Vec<u8> = (0..features::len()).map(|_| if rng.gen_bool(0.7) { 0 } else { rng.gen() }).collect();
             let x: Vec<f32> = bytes.iter().map(|&b| b as f32 / 255.).collect();
@@ -344,6 +380,53 @@ mod tests {
             for a in 0..ACTIONS {
                 assert!((p[a] - q[a]).abs() < 1e-4);
             }
+        }
+    }
+
+
+    /// PR477's kernel (one input at a time, each nonzero input adding its whole weight row): the
+    /// bit-exact oracle for `Fast`.
+    fn axpy_logits(net: &PolicyNetwork, bytes: &[u8]) -> [f32; ACTIONS] {
+        let fast = net.fast();
+        let mut x: Vec<f32> = bytes.iter().map(|&b| b as f32 / 255.).collect();
+        let last = fast.layers.len() - 1;
+        for (k, (_, outputs, t, b)) in fast.layers.iter().enumerate() {
+            let mut y = b.clone();
+            for (i, &v) in x.iter().enumerate() {
+                if v != 0. {
+                    for (acc, w) in y.iter_mut().zip(&t[i * outputs..(i + 1) * outputs]) {
+                        *acc += v * w;
+                    }
+                }
+            }
+            if k < last {
+                for v in y.iter_mut() {
+                    *v = v.max(0.);
+                }
+            }
+            x = y;
+        }
+        x[..ACTIONS].try_into().unwrap()
+    }
+
+    #[test]
+    fn the_blocked_kernel_makes_the_old_kernels_sums_bit_for_bit() {
+        use rand::{Rng, SeedableRng};
+        // Wider than one block with a remainder, weights leaning negative so hidden layers have
+        // many ReLU zeros.
+        let widths = [300, 520, ACTIONS];
+        let f = file(&widths, |k, i| ((i as u64 * 2_654_435_761 + k as u64 * 97) % 1000) as f32 / 1000. * 0.18 - 0.1);
+        let net = PolicyNetwork::parse(&f).unwrap();
+        let fast = net.fast();
+        let mut rng = rand::rngs::StdRng::seed_from_u64(12);
+        let mut scratch = Scratch::default();
+        for k in 0..90 {
+            let bytes: Vec<u8> = (0..features::len()).map(|_| match k % 3 {
+                0 => 0,
+                _ if rng.gen_bool(0.8) => 0,
+                _ => rng.gen(),
+            }).collect();
+            assert_eq!(fast.logits(&bytes, &mut scratch).map(f32::to_bits), axpy_logits(&net, &bytes).map(f32::to_bits));
         }
     }
 
